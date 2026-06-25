@@ -2,13 +2,13 @@ name: Daily HN Digest
 
 on:
   schedule:
-    # 00:00 UTC = 08:00 北京时间。GitHub cron 用 UTC，改时间就改这里。
-    - cron: "0 0 * * *"
+    # 00:17 UTC = 08:17 北京时间。GitHub cron 用 UTC，改时间就改这里（北京 − 8 = UTC）。
+    - cron: "17 0 * * *"
   workflow_dispatch:        # 允许在 Actions 页面手动点一次（首次部署 / 调试用）
     inputs:
       num:
         description: "摘要的故事数"
-        default: "30"
+        default: "10"
 
 permissions:
   contents: write           # 把当天 digest + 缓存提交回仓库（存档 + 省钱）
