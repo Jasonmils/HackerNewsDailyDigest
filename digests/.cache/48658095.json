@@ -1,0 +1,1 @@
+{"summary": "开源框架 Haystack 提供生产级 Agent、RAG 与上下文工程的模块化、可观测方案", "key_points": ["**Haystack** 模块化编排，从检索到推理全链路透明", "集成 **OpenAI、Anthropic、Pinecone** 等，无供应商锁定", "统一 **可组合构建块**，从原型快速推向生产", "支持 **Kubernetes** 部署，内置企业级可观测性"], "discussion": "", "tags": ["AI 框架", "RAG", "开源"]}

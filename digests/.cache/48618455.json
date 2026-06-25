@@ -1,0 +1,1 @@
+{"summary": "Anthropic 要求用户通过 Persona 验证身份，引发隐私担忧与弃用潮。", "key_points": ["**Anthropic** 启用 Persona 身份验证，仅限部分用例", "**Persona** 将用验证数据训练防欺诈模型，触发隐私争议", "用户因验证拒用 **Claude**，转向 Mistral 等替代", "**OpenAI** 验证失败即永久封禁，透明度不足"], "discussion": "评论区普遍反对强制身份验证，认为此举损害 AI 中立性，并加速非美模型生态崛起。", "tags": ["身份验证", "LLM 服务限制", "隐私保护"]}

@@ -1,0 +1,1 @@
+{"summary": "promptctl 为 LLM 提示词提供类 Git 的版本控制，支持提交、差异对比、回滚。", "key_points": ["**promptctl** 用本地 JSON 文件跟踪提示版本，无需数据库", "支持 **diff、rollback、log、搜索** 等 Git 风格命令", "通过 **watch 命令** 自动提交文件变更，适合编辑流程", "纯 **Go 实现**，零外部依赖，单二进制部署"], "discussion": "有评论质疑直接用 Git 有何优势，作者未回应。", "tags": ["LLM 提示管理", "命令行工具", "开发者工具"]}

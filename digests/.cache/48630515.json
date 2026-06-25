@@ -1,0 +1,1 @@
+{"summary": "AI驱动浏览器扩展Selector Forge，开源生成抗变化的CSS/XPath选择器，免费200次/月。", "key_points": ["**Selector Forge** 开源浏览器扩展，AI生成语义选择器，比DevTools工具更抗页面变动。", "提供单元素与**列表模式**，AI提议经浏览器实DOM验证才返回。", "免费版**每月200次**，Chrome/Firefox可用，付费版无限。", "未来计划**CLI/MCP接口**，让编码代理直接调用选择器生成。"], "discussion": "评论区仅一人询问LLM为何默认不擅长生成选择器，未有深入讨论。", "tags": ["浏览器扩展", "选择器生成", "AI代理工具"]}

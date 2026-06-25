@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Secrets — never commit these
+.env
+
+# macOS
+.DS_Store
+
+# Built site (regenerated every run by build_index.py)
+/public/
+
+# Private / transient (NOT published)
+digests/run.log
+digests/ledger.json
+
+# NOTE: digests/.cache IS intentionally committed — it persists the
+# per-story summary cache across CI runs so we don't re-pay DeepSeek.

@@ -1,0 +1,1 @@
+{"summary": "Qwen-AgentWorld-397B 在 AgentWorldBench 以 58.71 总分超越 GPT-5.4 等全部模型", "key_points": ["**397B-A17B 版本**全面超越 GPT-5.4、Claude Opus 4.8 等前沿模型", "**35B-A3B 版本**较同尺寸 Qwen3.5 提升 +8.66 分", "**原生语言世界模型**，通过 CPT→SFT→RL 三阶段统一七域仿真", "**可控模拟**和虚构世界训练可泛化至真实搜索、工具调用任务"], "discussion": "", "tags": ["世界模型", "Agent 仿真", "开源基准"]}

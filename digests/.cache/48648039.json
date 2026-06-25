@@ -1,0 +1,1 @@
+{"summary": "Anthropic推出Claude Tag，Slack内@Claude即可协作，65%产品代码由其生成。", "key_points": ["**Claude Tag**在Slack上线测试版，支持@多人协作", "**65%**产品代码由内部Claude Tag生成，引发质量争议", "模型可**异步**拆解任务、自动调度，跨渠道积累上下文", "企业版按API用量计费，管理员可控制权限与预算"], "discussion": "多人协作特性受认可，但大量消耗Token、安全合规、记忆错乱成主要担忧。", "tags": ["Slack集成", "Agent协作", "企业AI"]}

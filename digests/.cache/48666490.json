@@ -1,0 +1,1 @@
+{"summary": "Omnigent 统一多 AI 编码代理的开源编排层，跨设备协作、云沙箱安全运行。", "key_points": ["支持 **Claude Code、Codex、Cursor** 等多代理同会话协作", "**跨设备实时同步** 从终端到手机无缝跟随", "支持 **Modal/Kubernetes/Daytona** 等云沙箱运行", "策略治理可 **暂停审批、限额花费** 和限制工具"], "discussion": "", "tags": ["AI 代理编排", "开源代理框架", "沙箱运行"]}

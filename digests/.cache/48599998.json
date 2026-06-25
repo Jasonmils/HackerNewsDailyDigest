@@ -1,0 +1,1 @@
+{"summary": "1991年慕尼黑工大发表Transformer雏形、预训练等四大基石，奠定现代LLM基础。", "key_points": ["**1991年3月**发布首个线性Transformer变体，计算效率线性提升。", "**无监督预训练**与神经蒸馏同月问世，深刻影响DeepSeek等模型。", "**深度残差学习**成为LSTM与ResNet核心，引用冠绝AI领域。", "**生成对抗网络**思想始于1990-91年世界模型，催生生成式AI。"], "discussion": "评论认为Schmidhuber过度宣称Transformer优先权，AlexNet与GPU才是本轮AI繁荣的真正驱动。", "tags": ["深度学习历史", "Transformer起源", "AI优先权争议"]}

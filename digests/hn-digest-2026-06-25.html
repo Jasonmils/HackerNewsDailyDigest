@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-06-25</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:"Inter","Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Sans","Noto Sans CJK SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.66;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--mono);font-size:clamp(22px,5vw,30px);font-weight:700;
+  letter-spacing:-.01em;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--mono);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  text-transform:uppercase;letter-spacing:.06em}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.32;margin:0;letter-spacing:-.01em}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--mono);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--mono);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  text-transform:uppercase;letter-spacing:.03em}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--mono);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--mono);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--mono)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em}
+@media(max-width:560px){
+  .title-tr,.meta,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-06-25 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://www.reuters.com/world/china/anthropic-says-alibaba-illicitly-extracted-claude-ai-model-capabilities-2026-06-24/" target="_blank" rel="noopener">Anthropic says Alibaba illicitly extracted Claude AI model capabilities</a></h2></div><div class="meta">▲ 590 分 · htrp · <a href="https://news.ycombinator.com/item?id=48664814" target="_blank" rel="noopener">956 评论</a></div><div class="body"><p class="summary">Anthropic 指控阿里通过蒸馏提取 Claude 能力，评论指出其自身训练数据同样未获授权。</p><ul class="kp"><li><strong>Anthropic 指控阿里</strong> 非法蒸馏 Claude 模型</li><li><strong>中国转售商</strong> 以 93% 折扣价倒卖 Claude 令牌</li><li><strong>蒸馏</strong> 被视为常见微调手段，非窃取</li><li>评论指责 <strong>Anthropic 训练数据</strong> 亦涉侵权，双重标准</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论一致批评 Anthropic 虚伪，因其模型训练同样依赖未授权版权内容。</p><div class="tags"><span class="tag">AI 伦理</span><span class="tag">模型蒸馏</span><span class="tag">版权争议</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · tristanj · 41 回复</div><p>Here&#x27;s what is happening:</p><p>Chinese resellers are offering Claude tokens at 70-90% below official Anthropic API prices. They achieve this by reselling capacity from pooled Claude Max accounts, payments fraud, and also reselling the model output &amp; reasoning chains to various Chinese labs. They are subsidizing model access in exchange for user logs and reasoning traces, which they then sell as training data, allowing them to operate below cost.</p><p>Claude and ChatGPT are both blocked in China. You need to use a VPN to access either, and you can&#x27;t pay with a Chinese bank card. So most people who want access to Claude buy access via a reseller. It&#x27;s the easiest and cheapest way to access Anthropic models in China.</p><p>These resellers operate tens of thousands of bot accounts, which is also why Anthropic introduced identity verification, to slow down the onslaught of bots.</p><p>Here&#x27;s one token reseller, they&#x27;re offering Opus 4.8 at a 93% discount below official API rates: https://yunwu.ai/pricing?provider=Anthropic</p><p>This is one reason why DeepSeek &amp; GLM are priced so cheaply, they are competing with impossibly low token prices in China. They have to keep prices low, in order for people to use them.</p><p>I shared this story a few months back, but it never got any traction. It explains the token resale economy in China, it&#x27;s an excellent read https://www.chinatalk.media/p/how-to-buy-cheap-claude-tokens...</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://techcrunch.com/2026/06/24/openai-unveils-its-first-custom-chip-built-by-broadcom/" target="_blank" rel="noopener">OpenAI unveils its first custom chip, built by Broadcom</a></h2></div><div class="meta">▲ 756 分 · jamdesk · <a href="https://news.ycombinator.com/item?id=48663324" target="_blank" rel="noopener">437 评论</a></div><div class="body"><p class="summary">OpenAI 发布首款定制推理芯片 Jalapeño，与 Broadcom 合作，宣称推理成本降低 50%。</p><ul class="kp"><li><strong>OpenAI 与 Broadcom 合作</strong>推出 Jalapeño 推理芯片</li><li><strong>博通 CEO 称</strong>该芯片比传统 GPU 节省约 50% 成本</li><li><strong>从设计到生产仅 9 个月</strong>，借助 OpenAI 模型加速</li><li><strong>专用于推理</strong>，优先降低实时编码模型的运行开销</li></ul><p class="disc"><strong>💬 讨论</strong> 质疑“AI 加速芯片设计”是营销话术，并担忧专用硬件在模型快速迭代中可能过早过时。</p><div class="tags"><span class="tag">定制 AI 芯片</span><span class="tag">推理加速</span><span class="tag">OpenAI</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · sharkjacobs · 18 回复</div><p>&gt; Developed from design to production in nine months, accelerated by OpenAI’s models</p><p>&gt; the use of OpenAI models to accelerate parts of the design and optimization process.</p><p>I wish there was more about this. As is I kind of have to assume that this is just meaningless marketing, like saying development was accelerated by Microsoft Office or their 5k LG Ultrafine 40-inch monitors.</p><p>Like, if this was as big a deal as it kind of vaguely implies, they would be making a bigger deal of it, right?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://www.thatprivacyguy.com/blog/un-tracking-without-consent/" target="_blank" rel="noopener">UN hypocrisy in AI Environmental demands</a></h2></div><p class="title-tr">联合国在 AI 环境要求中的虚伪</p><div class="meta">▲ 4 分 · AlexanderHanff · <a href="https://news.ycombinator.com/item?id=48673321" target="_blank" rel="noopener">2 评论</a></div><div class="body"><p class="summary">仅据标题与评论，联合国被批在 AI 环境要求上言行不一。</p><ul class="kp"><li><strong>联合国</strong>被指在 AI 环境要求上虚伪，未率先垂范</li><li>评论呼吁 <strong>UN 以身作则</strong>，停止双重标准</li><li>去年气候峰会主办方<strong>谈判石油交易</strong>，暴露双标</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区一致批评联合国虚伪，并以气候峰会石油交易丑闻为证。</p><div class="tags"><span class="tag">联合国</span><span class="tag">AI 环境政策</span><span class="tag">气候峰会虚伪</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://utaw.tech/news/wikipedia-recognition" target="_blank" rel="noopener">Wikipedia Workers in Britain set global first by seeking union recognition</a></h2></div><div class="meta">▲ 152 分 · chobeat · <a href="https://news.ycombinator.com/item?id=48669932" target="_blank" rel="noopener">154 评论</a></div><div class="body"><p class="summary">英国维基媒体基金会员工寻求工会认可，系全球首例。</p><ul class="kp"><li><strong>英国 WMF 员工</strong>首次正式寻求工会代表权</li><li><strong>超 1000 名志愿者</strong>签署请愿支持工会化</li><li>员工担忧<strong>透明度与信任</strong>危机及未来方向</li><li>英国是 WMF <strong>最大的非美就业地</strong></li></ul><p class="disc"><strong>💬 讨论</strong> 评论区分化：多数支持工会权利，但有指出新闻稿混淆“维基百科志愿者”与“WMF 员工”。</p><div class="tags"><span class="tag">工会组织</span><span class="tag">维基媒体基金会</span><span class="tag">工人权利</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Frieren · 14 回复</div><p>There is no reason for any employee to not search for unionization. It is your right and it is in your best interest. Good for them.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://www.syracuse.com/news/2026/06/federal-agents-track-down-syracuse-woman-demand-she-remove-instagram-post-about-ice.html" target="_blank" rel="noopener">Federal agents track down woman, demand she remove Instagram post about ICE</a></h2></div><p class="title-tr">联邦探员追踪一名女性，要求她删除关于 ICE 的 Instagram 帖子</p><div class="meta">▲ 19 分 · coloneltcb · <a href="https://news.ycombinator.com/item?id=48673787" target="_blank" rel="noopener">2 评论</a></div><div class="body"><p class="summary">ICE 探员到投票站警告一名女子删除呼吁起诉 ICE 探员的帖子，女子拒绝并指其恐吓。</p><ul class="kp"><li><strong>ICE 探员</strong>在投票站当面要求删除 Instagram 帖子</li><li>帖子提及<strong>Jonathan Ross</strong>，ICE 探员枪杀抗议者</li><li>选举官员指出<strong>武装执法人员进入投票站</strong>可能违法</li><li>女子联系<strong>纽约公民自由联盟</strong>，称此举如《1984》</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区关注 ICE 进入投票站的合法性，认为这构成对言论自由的恐吓。</p><div class="tags"><span class="tag">ICE</span><span class="tag">言论自由</span><span class="tag">选举法</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://trakkr.ai/bias" target="_blank" rel="noopener">Where every major LLM stands politically</a></h2></div><p class="title-tr">各大 LLM 政治立场全解析</p><div class="meta">▲ 13 分 · mektrik · <a href="https://news.ycombinator.com/item?id=48672779" target="_blank" rel="noopener">15 评论</a></div><div class="body"><p class="summary">多数主流 LLM 在经济与社会轴上均偏向左翼自由主义，仅 Grok 接近中心。</p><ul class="kp"><li><strong>Grok</strong> 在所有模型中政治立场最接近中心点</li><li>多数模型自我宣称中性，但实测<strong>左倾 70% 以上</strong></li><li>经济轴与社交轴双维度测量，<strong>Claude 和 Gemini</strong> 偏左明显</li><li>模型参考点：<strong>Grok 最像 Nick Clegg</strong>，GPT-4o 最像奥巴马</li></ul><p class="disc"><strong>💬 讨论</strong> 评论质疑政治罗盘工具过于简化，且对参考人物定位（如马克龙靠右）感到困惑，但对 Grok 相对中立表示认可。</p><div class="tags"><span class="tag">LLM 政治偏向</span><span class="tag">AI 对齐评测</span><span class="tag">Grok 中立性</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · mrhottakes · 4 回复</div><p>The constant issue with these sorts of categorization efforts is that the outcome is entirely dependent on how the responses to &quot;politically charged questions&quot; are graded as left vs. right. You&#x27;re mostly just examining a delta in biases between the model and the investigator.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://www.interconnects.ai/p/glm-52-is-the-step-change-for-open" target="_blank" rel="noopener">GLM-5.2 is a step change for open agents</a></h2></div><div class="meta">▲ 295 分 · vantareed · <a href="https://news.ycombinator.com/item?id=48639840" target="_blank" rel="noopener">180 评论</a></div><div class="body"><p class="summary">GLM-5.2 成为首个真正可用的开源编码代理，多项基准逼近闭源。</p><ul class="kp"><li><strong>GLM-5.2</strong> 在 SWE-bench Pro 等 8 项基准中全面超越 Gemini 3.1 Pro</li><li>性能落后 Claude Opus 4.8 约 <strong>204 天</strong>，仅 6.8 个月差距</li><li><strong>Z.ai</strong> 以 MIT 许可证开放权重，引发开源代理经济热议</li><li>用户反馈模型质量高，但 <strong>Z.ai Max 计划</strong>配额快速耗尽且遭遇 429</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区高度认可模型能力，但大量用户抱怨配额与退款问题，同时对比 DeepSeek V4 Flash 等其他国产模型。</p><div class="tags"><span class="tag">开源模型</span><span class="tag">编码代理</span><span class="tag">AI 基准测试</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · jerojero · 12 回复</div><p>Open weight models from Chinese labs tend to be significantly cheaper.</p><p>I think theyre absolutely needed. I can&#x27;t afford 200 USD a month for personal use of coding AI, and I don&#x27;t think such prices are reasonable for most of the world economy anyway. Not to mention US firms might be giving their employees a lot more than that.</p><p>It&#x27;s increasingly feeling, to me, that  theres a gap building up between haves and have nots. But then, we get news of these open weight models that are reasonably priced in inference with reasonable capabilities. Yes, they take maybe 6-9 months to get there, tbh, that&#x27;s not a bad trade off at all.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://www.startupsbr.com/sao-paulo" target="_blank" rel="noopener">Show HN: StartupsBR – A map of Brazilian startups</a></h2></div><p class="title-tr">Show HN: StartupsBR – 巴西初创公司地图</p><div class="meta">▲ 41 分 · leonagano · <a href="https://news.ycombinator.com/item?id=48600369" target="_blank" rel="noopener">19 评论</a></div><div class="body"><p class="summary">圣保罗地图涵盖152家初创公司、662个职位，创业活动高度聚集。</p><ul class="kp"><li>收录 <strong>152 家初创公司</strong> 和 662 个岗位</li><li>创业活动聚集在 <strong>少数几个区域</strong></li><li>与 <strong>GermanTechJobs</strong> 类似，但更侧重地理可视化</li><li>作者未说明数据是 <strong>抓取</strong> 还是自建</li></ul><p class="disc"><strong>💬 讨论</strong> 评论关心数据来源是抓取还是自建，并询问用例是否为开发者求职。</p><div class="tags"><span class="tag">巴西初创公司</span><span class="tag">创业地图</span><span class="tag">数据可视化</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · denysjw · 2 回复</div><p>Looks familiar to StartupMap? :)</p><p>OG: startupmap.one</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://news.ycombinator.com/item?id=48673194" target="_blank" rel="noopener">Tell HN: OpenAI has started putting ads on paid programs</a></h2></div><p class="title-tr">Tell HN: OpenAI 已开始在付费方案中投放广告</p><div class="meta">▲ 13 分 · shantnutiwari · <a href="https://news.ycombinator.com/item?id=48673194" target="_blank" rel="noopener">4 评论</a></div><div class="body"><p class="summary">OpenAI 在付费 ChatGPT 中展示金融时报、Shein 等广告，用户已取消订阅。</p><ul class="kp"><li><strong>付费计划用户</strong>在移动游戏问答中看到三家广告</li><li><strong>OpenAI 拥有 9 亿用户</strong>，其中 5000 万付费</li><li>参加<strong>戛纳广告节</strong>，或为 IPO 冲收入</li><li>广告与对话上下文<strong>无关</strong>，直接出现在聊天界面</li></ul><p class="disc"><strong>💬 讨论</strong> 用户反感付费广告，但多数认为广告不可避免；讨论聚焦广告呈现形式及相关性。</p><div class="tags"><span class="tag">OpenAI</span><span class="tag">广告变现</span><span class="tag">付费服务</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://rubyllm.com/" target="_blank" rel="noopener">RubyLLM: A Ruby framework for all major AI providers</a></h2></div><div class="meta">▲ 416 分 · doener · <a href="https://news.ycombinator.com/item?id=48660711" target="_blank" rel="noopener">70 评论</a></div><div class="body"><p class="summary">RubyLLM 以仅三依赖统一主流 AI 接口，设计获赞但可观测性与维护争议并存。</p><ul class="kp"><li><strong>仅三依赖</strong>（Faraday、Zeitwerk、Marcel）覆盖 800+ 模型</li><li>评论赞赏 API 设计，但指出 <strong>PR 合并质量</strong> 堪忧</li><li><strong>可观测性不足</strong>，重试会清除历史模型序列</li><li>响应 API 原生支持已添加，解决<strong>长期缺失</strong>的痛点</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论普遍赞许 API 易用性，但批评维护者响应慢、PR 质量低与可观测性短板。</p><div class="tags"><span class="tag">Ruby AI 框架</span><span class="tag">多 LLM 统一 API</span><span class="tag">开发工具争议</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · qrush · 3 回复</div><p>We&#x27;ve used RubyLLM for ~6+ months and it&#x27;s been mostly OK. The API/Dev UX is good but we have seen little success with engaging the maintainer on PRs, and have noticed a lot of vibe coded PRs being merged (including some rewrites of PRs we submitted) - I suspect an minimal API compatible gem with similar heuristics would do well.</p></div></div></article>
+</div></main>
+<footer>generated 2026-06-25 22:29 CST · hn-digest agent</footer>
+</body>
+</html>

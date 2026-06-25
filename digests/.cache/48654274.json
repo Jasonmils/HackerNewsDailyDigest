@@ -1,0 +1,1 @@
+{"summary": "DiffusionBench发现ImageNet与T2I的DiT方法排名无强相关性", "key_points": ["**NanoGen**统一框架仅需**12行配置**切换ImageNet和T2I任务", "支持**30+**RAE编码器、**10+**VAE等多家族架构", "ImageNet与T2I上方法排名**无强相关**，需整体基准", "提供**统一代码**训练与评估，兼容DDP并计划FSDP"], "discussion": "", "tags": ["扩散模型基准", "DiT", "图像生成评估"]}

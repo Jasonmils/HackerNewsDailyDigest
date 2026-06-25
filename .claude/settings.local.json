@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c \"import openai; print\\('openai', openai.__version__\\)\")",
+      "Bash(python3 hn_digest.py --help)",
+      "Bash(env -u DEEPSEEK_API_KEY python3 hn_digest.py --num 1)",
+      "WebSearch",
+      "WebFetch(domain:api-docs.deepseek.com)",
+      "Bash(python3 -m py_compile hn_digest.py)",
+      "Bash(ls -la *.html)",
+      "Bash(ls -la digests/)",
+      "Bash(open \"digests/hn-digest-2026-06-23.html\")",
+      "Bash(python3 \"/private/tmp/claude-501/-Users-jasonmils-Documents-Documents---Yizhou-MacBook-Pro------Yizhou-MacBook-Pro------Yizhou-MacBook-Pro-Project-HackerNewsAPI/ab7fb6c4-e486-4d8d-b0de-9d566ae4ec20/scratchpad/test_judge.py\")",
+      "Bash(python3 -c \"import httpx\")",
+      "Bash(python3 -c \"import openai, trafilatura\")",
+      "Bash(python3 \"/private/tmp/claude-501/-Users-jasonmils-Documents-Documents---Yizhou-MacBook-Pro------Yizhou-MacBook-Pro------Yizhou-MacBook-Pro-Project-HackerNewsAPI/ab7fb6c4-e486-4d8d-b0de-9d566ae4ec20/scratchpad/test_runjudge.py\")",
+      "Bash(python3 -c ' *)",
+      "Bash(python3 build_index.py)"
+    ]
+  }
+}

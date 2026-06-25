@@ -1,0 +1,1 @@
+{"summary": "Recall为Claude Code提供零成本本地会话摘要，但社区需求分化显著。", "key_points": ["**TF-IDF+TextRank**本地摘要，零Token花费", "**完全离线**，无API密钥，数据绝不外传", "**零摩擦安装**，插件即用，无pip依赖", "**补全CLAUDE.md与--continue**间自动记录缺口"], "discussion": "用户分歧：短会话派认为无需记忆，状态文档派偏好手动记录，Recall的必要性受工作流影响。", "tags": ["Claude Code", "本地摘要", "隐私保护"]}

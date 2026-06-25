@@ -1,0 +1,1 @@
+{"summary": "y 是可自修改 UI 的本地编程代理桌面应用，支持并行运行 Claude Code 和 Codex。", "key_points": ["**Modify 功能**允许实时编辑自身界面并 diff 审核回滚", "**并行运行 Claude Code 和 Codex**，工作区相互隔离", "**受保护内核+可变 UI**架构，核心安全边界锁定", "**完全本地运行**，使用用户自己的 CLI 认证，不中转"], "discussion": "用户对登录要求、应用更新后修改是否持久以及 Electron 臃肿提出质疑。", "tags": ["桌面应用", "编程代理", "Electron"]}

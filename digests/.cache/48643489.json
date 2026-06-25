@@ -1,0 +1,1 @@
+{"summary": "FromSoftware 用基于堆栈的目标系统实现 AI，本质是行为树，靠 Lua 脚本驱动复杂战斗", "key_points": ["AI 核心是 **Goal 堆栈（Pushdown Automaton）**，而非有限状态机", "脚本使用 **Havok Script（Lua）**，易被逆向解析", "通过 **加权随机选择** 和动态权重变换实现攻击决策", "中断系统让 **Bell Bearing Hunter** 有 85% 概率在玩家施法时立即反击"], "discussion": "HN 评论认为这本质上就是行为树，但作者坚持其独特性；另一讨论点在于这种设计可能导致 NPC 任务逻辑难以理解。", "tags": ["游戏 AI 架构", "行为树", "Lua 游戏脚本", "Elden Ring"]}

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-06-22</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:"Inter","Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Sans","Noto Sans CJK SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.66;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--mono);font-size:clamp(22px,5vw,30px);font-weight:700;
+  letter-spacing:-.01em;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--mono);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  text-transform:uppercase;letter-spacing:.06em}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.32;margin:0;letter-spacing:-.01em}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.meta{font-family:var(--mono);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--mono);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--mono)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em}
+@media(max-width:560px){
+  .meta,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-06-22 &nbsp;·&nbsp; 1 条 &nbsp;·&nbsp; claude-haiku-4-5-20251001</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://example.com/post" target="_blank" rel="noopener">Show HN: A tiny async runtime in Rust</a></h2></div><div class="meta">▲ 542 分 · alice · <a href="https://news.ycombinator.com/item?id=111" target="_blank" rel="noopener">213 评论</a></div><div class="body"><p class="summary">作者用约 600 行 Rust 实现了一个最小化异步运行时，主要用于教学。</p><ul class="kp"><li>不依赖 tokio，自带 reactor</li><li>支持 epoll/kqueue</li><li>附带基准测试与示例</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区讨论它与 tokio 的取舍，多数认为适合学习而非生产环境。</p><div class="tags"><span class="tag">Rust</span><span class="tag">异步</span><span class="tag">开源</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://example.com/llm" target="_blank" rel="noopener">The economics of running an LLM API</a></h2></div><div class="meta">▲ 301 分 · bob · <a href="https://news.ycombinator.com/item?id=222" target="_blank" rel="noopener">88 评论</a></div><p class="err">LLM error: timeout</p></article>
+</div></main>
+<footer>generated 2026-06-22 09:30 UTC · hn-digest agent</footer>
+</body>
+</html>
