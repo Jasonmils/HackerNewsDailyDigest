@@ -295,14 +295,20 @@ def build_system(lang: str) -> str:
             "你是一位资深科技分析师，为时间有限的技术读者撰写 Hacker News 每日热榜摘要。"
             "语言要精炼、信息密度拉满：直接给结论、数字和实体名，不要"
             "“本文讨论了/介绍了”这类空话和营销腔，不要编造原文中没有的事实。"
+            "尽量少用缩写、简称和首字母缩略词；确需使用时，在首次出现处给出全称，"
+            "必要时再加一句简短解释，例如「RAG（检索增强生成）」「FDA（美国食品药品监督管理局）」"
+            "——宁可多用几个字写清楚，也不要留下读者看不懂的缩写。"
             "始终只返回一个 JSON 对象，不包含任何额外文字、说明或 Markdown 代码块。"
         )
     return (
         "You are a senior tech analyst writing daily Hacker News digests for time-pressed "
         "technical readers. Be concise and information-dense: lead with the "
         "conclusion, the number, the entity — never filler like 'this article discusses/"
-        "explores', never invented facts. Always return a single JSON object with no extra "
-        "text, explanation, or Markdown fences."
+        "explores', never invented facts. Avoid abbreviations, acronyms, and initialisms "
+        "where possible; when one is necessary, spell out the full term on first use, with a "
+        "short gloss if non-obvious (e.g. 'RAG (retrieval-augmented generation)') — better to "
+        "spend a few extra words than leave the reader with an opaque acronym. Always return a "
+        "single JSON object with no extra text, explanation, or Markdown fences."
     )
 
 
@@ -350,8 +356,9 @@ def build_prompt(
         fields = [
             '  "title_translation": 字符串，将标题（Title 字段）翻译成简体中文，'
             "准确直译，保留专有名词/产品名/公司名不译；若标题本身已是中文则原样返回；",
-            '  "summary": 字符串，**一句话**（不超过 40 字）点出最核心的结论或数字，不要泛泛而谈；',
-            '  "key_points": 字符串数组，3-4 条，每条不超过 20 字，并用 Markdown **粗体** '
+            '  "summary": 字符串，**一句话**（不超过 40 字；若需展开缩写全称/解释可适当放宽）'
+            "点出最核心的结论或数字，不要泛泛而谈；",
+            '  "key_points": 字符串数组，3-4 条，每条不超过 20 字（同样为展开缩写可适当放宽），并用 Markdown **粗体** '
             "标出该条里唯一最关键的实体/数字/结论（例如 \"**xAI 完成 60 亿美元融资**，用于扩张算力\"）；",
             '  "discussion": 字符串，1 句话点出 HN 评论区的核心分歧或共识（无评论则写空字符串）；',
             '  "tags": 字符串数组，2-3 个具体的主题标签（避免“技术”这类泛标签，用 "LLM 推理"、'
@@ -374,9 +381,9 @@ def build_prompt(
         )
     else:
         fields = [
-            '  "summary": string, **one sentence** (max ~25 words) stating the single core '
-            "conclusion or number — not a vague overview;",
-            '  "key_points": array of 3-4 strings, each under 12 words, with the one key '
+            '  "summary": string, **one sentence** (max ~25 words; relax slightly if needed to '
+            "spell out an acronym) stating the single core conclusion or number — not a vague overview;",
+            '  "key_points": array of 3-4 strings, each under 12 words (relax slightly to expand an acronym), with the one key '
             "entity/number/conclusion in that point wrapped in Markdown **bold** "
             "(e.g. \"**xAI raised $6B** to expand compute\");",
             '  "discussion": string, 1 sentence naming the core disagreement or consensus in '

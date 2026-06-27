@@ -15,7 +15,22 @@
       "Bash(python3 -c \"import openai, trafilatura\")",
       "Bash(python3 \"/private/tmp/claude-501/-Users-jasonmils-Documents-Documents---Yizhou-MacBook-Pro------Yizhou-MacBook-Pro------Yizhou-MacBook-Pro-Project-HackerNewsAPI/ab7fb6c4-e486-4d8d-b0de-9d566ae4ec20/scratchpad/test_runjudge.py\")",
       "Bash(python3 -c ' *)",
-      "Bash(python3 build_index.py)"
+      "Bash(python3 build_index.py)",
+      "Bash(cat .claude/settings.local.json)",
+      "Bash(git remote *)",
+      "Bash(python3 -c \"import yaml,sys; yaml.safe_load\\(open\\('.github/workflows/daily-digest.yml'\\)\\); print\\('  ✅ YAML 语法有效'\\)\")",
+      "Bash(git ls-tree *)",
+      "Bash(python3 -m pip install pyyaml -q)",
+      "Bash(git add *)",
+      "Bash(git commit -m 'chore: 调度时间改为北京 08:17 \\(UTC 00:17\\) *)",
+      "Bash(git push *)",
+      "Bash(git fetch *)",
+      "Bash(git rebase *)",
+      "Bash(git stash *)",
+      "Bash(git commit -m 'feat\\(site\\): 首页每天展示前10条标题+概要，日报页加返回首页按钮 *)",
+      "Bash(git pull *)",
+      "Bash(git commit -m 'chore: 每日定时也改为 10 篇（与手动预填对齐） *)",
+      "Bash(python3 -c \"import hn_digest; print\\('zh:', '缩写' in hn_digest.build_system\\('zh'\\)\\); print\\('en:', 'acronym' in hn_digest.build_system\\('en'\\)\\)\")"
     ]
   }
 }
