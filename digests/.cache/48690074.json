@@ -1,0 +1,1 @@
+{"title_translation": "Murmur：编程代理的共享通信总线", "summary": "一个本地 MCP 守护进程，让 Claude、Codex、Gemini 等代理共处一室，通过 @提及直接协作，免去人工复制粘贴。", "key_points": ["**Claude、Codex、Gemini** 等代理通过 MCP 协议共享同一聊天室", "代理间用 **@提及** 路由任务，自动分配工作与评审", "内置**长轮询与心跳**，防止代理沉默被误判为停滞", "提供 **murmur watch** 终端实时彩色对话视图"], "discussion": "有用户分享用 tmux 实现的简陋版本，但认可 Murmur 的正式解决方案。", "tags": ["AI 编程代理", "代理协作", "MCP 协议"]}

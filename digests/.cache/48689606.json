@@ -1,0 +1,1 @@
+{"title_translation": "ActPlane: 面向 Agent Harness 的可编程 OS 级策略执行", "summary": "ActPlane 通过 eBPF 在内核实施策略，将代理合规性提升至覆盖间接路径，开销仅 1.9%–8.4%。", "key_points": ["**ActPlane** 在内核层使用 eBPF 强制执行代理安全策略", "解决工具调用护栏的**间接执行路径盲区**", "使用简单的**信息流控制 DSL** 表达跨事件策略", "性能开销低至 **1.9%–8.4%**，不影响代理生产力"], "discussion": "", "tags": ["AI Agent 安全", "eBPF", "信息流控制"]}

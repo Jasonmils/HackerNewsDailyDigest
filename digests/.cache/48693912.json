@@ -1,0 +1,1 @@
+{"title_translation": "Show HN: 火车站风格翻牌板上的 Hacker News", "summary": "用复古翻牌板实时展示 HN 热榜前20条，通过云函数驱动更新。", "key_points": ["通过 **Firebase API** 获取 HN 首页实时数据", "使用 **Quickish Cloud Function** 广播更新到各面板", "翻牌板显示**排名、分数、标题**，橙色高亮排名", "支持**点击或 webhook** 自定义面板标题"], "discussion": "评论关注显示毛刺问题、建议去除分数以展示更多标题，以及访问频率限制。", "tags": ["HN 实时展示", "复古翻牌板", "Quickish 云函数"]}

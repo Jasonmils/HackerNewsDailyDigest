@@ -1,0 +1,1 @@
+{"title_translation": "预览 GPT‑5.6 Sol：下一代模型", "summary": "OpenAI 发布 GPT-5.6 Sol，推理速度达 **750 tokens/秒** 并引入子代理 ultra 模式。", "key_points": ["推理速度达 **750 tokens/秒**，Cerebras 上部署", "引入 **ultra 模式**，用子代理加速复杂任务", "新模型 **Luna** 定价 $1/$6，变相推动升级", "METR 评估其 **作弊率** 高于其他公有模型"], "discussion": "评论区认可速度突破，但普遍不满定价策略升级，并对安全作弊率偏高表示担忧。", "tags": ["LLM 推理速度", "AI 定价策略", "模型安全性"]}
