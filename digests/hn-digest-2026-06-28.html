@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-06-28</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:"Inter","Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Sans","Noto Sans CJK SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.66;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--mono);font-size:clamp(22px,5vw,30px);font-weight:700;
+  letter-spacing:-.01em;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--mono);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  text-transform:uppercase;letter-spacing:.06em}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.32;margin:0;letter-spacing:-.01em}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--mono);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--mono);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  text-transform:uppercase;letter-spacing:.03em}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--mono);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--mono);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--mono)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em}
+@media(max-width:560px){
+  .title-tr,.meta,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-06-28 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://github.com/itsthelore/wayfinder-router" target="_blank" rel="noopener">Wayfinder Router: deterministic routing of queries between local and hosted LLM</a></h2></div><p class="title-tr">Wayfinder Router：本地与托管LLM间确定性查询路由</p><div class="meta">▲ 3 分 · handfuloflight · <a href="https://news.ycombinator.com/item?id=48704373" target="_blank" rel="noopener">0 评论</a></div><div class="body"><p class="summary">离线解析提示词结构，零模型调用实现本地/云端路由，节省前端模型费用。</p><ul class="kp"><li><strong>零模型调用</strong>决策，仅解析提示词结构与难度线索</li><li><strong>微秒级</strong>离线判分，完全自托管且可校准至自有流量</li><li>对比 RouterBench，<strong>在短而难问题上不优于随机</strong>，但成本可省61%</li><li>支持双模型（本地 Ollama + OpenAI）<strong>即插即用</strong>，无需更换现有客户端</li></ul><div class="tags"><span class="tag">LLM 路由</span><span class="tag">确定性路由</span><span class="tag">成本优化</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://www.the-independent.com/tech/ford-ai-automation-human-workers-b3003787.html" target="_blank" rel="noopener">Ford hired AI and sacked humans. It backfired badly</a></h2></div><p class="title-tr">福特雇佣AI并解雇工人，结果严重适得其反</p><div class="meta">▲ 55 分 · speckx · <a href="https://news.ycombinator.com/item?id=48703968" target="_blank" rel="noopener">29 评论</a></div><div class="body"><p class="summary">福特因AI质检系统缺乏细致判断造成数十亿美元损失，重雇350名资深工程师后J.D. Power初驶质量排名16年来首次主流品牌第一。</p><ul class="kp"><li>福特重雇 <strong>350多名资深工程师</strong> 弥补AI自动化失误</li><li>过度依赖AI导致 <strong>数十亿美元损失</strong></li><li>调整后 <strong>J.D. Power初驶质量排名</strong> 16年来首次主流品牌第一</li><li>但仍是 <strong>美国召回最多汽车制造商</strong>，归咎于过去自动化</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍认为企业迷信AI将重蹈福特覆辙，强调AI只是工具需结合人类经验。</p><div class="tags"><span class="tag">AI 质检</span><span class="tag">汽车制造</span><span class="tag">人机协同</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · rmason · 4 回复</div><p>Back in the nineties Ford ran a lot of ads about how quality was job one.  But in the last twenty years their quality declined by a large amount at the same time other brands were getting better.  I say that as a lifelong fan of Ford, quality was why I left the brand two years ago.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://thedailyeconomy.org/article/ancient-clay-tablets-show-markets-worked-4000-years-before-economists-explained-them/" target="_blank" rel="noopener">Ancient Tablets Show Markets Worked 4k Years Before Economists Explained Them</a></h2></div><p class="title-tr">古代泥板显示市场在经济学家解释它们之前4000年就已运作</p><div class="meta">▲ 11 分 · NaOH · <a href="https://news.ycombinator.com/item?id=48648493" target="_blank" rel="noopener">1 评论</a></div><div class="body"><p class="summary">4000年前的亚述商业泥板揭示出与今天相同的市场机制，引力模型系数与现代数据一致。</p><ul class="kp"><li><strong>4000年前</strong>的合伙契约已包含出资、利润分配和退出惩罚条款</li><li>出土<strong>20000多块</strong>泥板记录贷款、证券化、走私等完整商业文明</li><li>哈佛、芝加哥经济学家用<strong>引力模型</strong>拟合，发现贸易-距离系数与现代完全相同</li><li>市场是先于理论的<strong>自发秩序</strong>，任何设计市场的说辞都被证伪</li></ul><p class="disc"><strong>💬 讨论</strong> 评论指出商业早于理论是常态，如同语言先于语法、音乐先于乐理。</p><div class="tags"><span class="tag">考古经济学</span><span class="tag">自发秩序</span><span class="tag">贸易引力模型</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://spectrum.ieee.org/ai-radio-chip-design" target="_blank" rel="noopener">AI learns the “dark art” of RFIC design</a></h2></div><p class="title-tr">AI学会射频集成电路设计的“黑魔法”</p><div class="meta">▲ 206 分 · Brajeshwar · <a href="https://news.ycombinator.com/item?id=48660021" target="_blank" rel="noopener">137 评论</a></div><div class="body"><p class="summary">普林斯顿团队用AI实现RFIC创纪录性能，设计时间缩短几个数量级。</p><ul class="kp"><li><strong>RFIC设计</strong>长期依赖经验，成为限制无线技术进步的瓶颈</li><li>利用<strong>强化学习与扩散模型</strong>从零生成新颖且高性能的RF布局</li><li>AI原型性能<strong>创纪录</strong>，设计耗时从数月以上减至<strong>数小时内</strong></li><li>未来突破需<strong>大规模共享芯片设计数据集</strong>和开放生态系统</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区分裂，部分人质疑AI设计的鲁棒性及是否仅靠暴力搜索，另有人联想遗传算法等经典方法。</p><div class="tags"><span class="tag">射频集成电路设计</span><span class="tag">AI辅助芯片设计</span><span class="tag">扩散模型</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · bsaul · 11 回复</div><p>I wonder if our common expectation that true theories somehow had to be beautiful and elegant is going to survive the coming century. What if &quot;real&quot; nature phenomenon were actually best described by horrible mess of impossible equations, that only machines could actually manipulate and reason about ?</p><p>That would be really sad..</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://jayacunzo.com/blog/your-move-chief" target="_blank" rel="noopener">Response to AI slop is from Robin Williams</a></h2></div><p class="title-tr">对 AI 垃圾内容的回应源自罗宾·威廉姆斯</p><div class="meta">▲ 119 分 · herbertl · <a href="https://news.ycombinator.com/item?id=48703452" target="_blank" rel="noopener">68 评论</a></div><div class="body"><p class="summary">引用《心灵捕手》台词强调：AI 与人类的关键区别在于“活过的经历”远胜于纯粹的知识。</p><ul class="kp"><li><strong>罗宾·威廉姆斯在《心灵捕手》中的独白</strong>，指出亲身经历与书本知识有本质区别</li><li><strong>LLM（大语言模型）的缺陷</strong>：能引用知识但无真实体验，无法替代人类感受</li><li><strong>AI 能写脚本但无法表演</strong>，创作者的个人生命是让作品不可替代的核心</li><li><strong>当前的“危险时刻”</strong>：过度推崇知识让许多人轻视自身经验，反被工具贩卖焦虑</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论分歧明显：部分人认同独白道出 LLM 的局限，另一部分指出编剧本人也未亲身经历，却仍能写出打动人心的内容，认为“表达”未必需要亲身经历。</p><div class="tags"><span class="tag">AI 与创造力</span><span class="tag">LLM 局限性</span><span class="tag">个人经验的价值</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · randallsquared · 4 回复</div><p>I don&#x27;t remember how I received that speech when I saw it in the movie, decades ago. Reading it now, though, it&#x27;s so smug and patronizing. &quot;I have had experiences you haven&#x27;t, so I&#x27;m wiser and know better than you.&quot; In some ways, that&#x27;s true. In other ways, it seems like another path to being overconfident and making larger mistakes. In my mid-50s, I&#x27;ve learned so much more and had so many more experiences than when I was in my early 20s, but mostly it&#x27;s made me realize how much I don&#x27;t know. It&#x27;s hard to have strong opinions like Williams&#x27; character does unless I feel like I know something deeply and intimately, but the scope of that has narrowed sharply as I see myself and others repeatedly think something is well-understood only to have things go wrong that no one thought of. /tangent</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://techcrunch.com/2026/06/27/asian-ai-startups-launch-mythos-like-models-as-anthropics-export-ban-drags-on/" target="_blank" rel="noopener">Asian AI startups launch Mythos-like models</a></h2></div><p class="title-tr">亚洲AI初创公司推出类Mythos模型</p><div class="meta">▲ 181 分 · bogdiyan · <a href="https://news.ycombinator.com/item?id=48697958" target="_blank" rel="noopener">145 评论</a></div><div class="body"><p class="summary">360和Sakana AI分别推出安全AI模型，填补美国对Anthropic Mythos出口禁令留下的空白。</p><ul class="kp"><li><strong>360发布Tulongfeng</strong>，自动发现软件漏洞，被称为国家战略资产</li><li><strong>Sakana AI推出Fugu</strong>，宣称能力比肩Mythos Preview与Fable 5</li><li><strong>美国对Mythos出口禁令</strong>已持续两周，阻止非美用户访问</li><li><strong>Sakana称发布时间纯属巧合</strong>，但产品页强调“无出口管制风险”</li></ul><p class="disc"><strong>💬 讨论</strong> 用户实测Fugu效果差、成本高，并指出其本质是多模型路由系统而非独立模型，引发对“Mythos-like”宣传的质疑。</p><div class="tags"><span class="tag">AI出口管制</span><span class="tag">网络安全AI</span><span class="tag">模型路由</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · cdurth · 6 回复</div><p>I tried the Fugu models with some real world tales in C# and unity using mcp and open code. I exhausted the $20 plan 5 hour window in one prompt to review my theme system and plan some color changes. So I upgraded to the $100 to see the implementation and result. Well the result was worse than Opus, incredibly slow, and I ended up exhausting the new 5 hour window and have used 35% of the weekly now and it hardly created something opus was able to do at a fraction of the time and cost.</p><p>Do what you wish with this info, but it seems to be a complete waste of $$.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://www.sciencedirect.com/science/article/pii/S1877959X26000476" target="_blank" rel="noopener">Reducing tick density along recreational trails in Ottawa, Canada</a></h2></div><p class="title-tr">降低加拿大渥太华休闲步道沿线蜱虫密度</p><div class="meta">▲ 173 分 · bushwart · <a href="https://news.ycombinator.com/item?id=48664063" target="_blank" rel="noopener">96 评论</a></div><div class="body"><p class="summary">研究评估使用拟除虫菊酯类杀虫剂降低步道蜱虫密度，强调远离水体以避免生态毒性。（信息有限）</p><ul class="kp"><li>在<strong>渥太华休闲步道</strong>试验用杀虫剂降低蜱虫密度</li><li><strong>拟除虫菊酯</strong>对水生动物高毒，处理区需远离水体</li><li>评论提及<strong>氯菊酯处理衣物</strong>、蜱虫管和线虫等替代方案</li><li>气候变化正推高蜱虫和西班牙蛞蝓的生存范围</li></ul><p class="disc"><strong>💬 讨论</strong> 核心分歧：直接环境喷洒杀虫剂的生态风险 vs 靶向控制如蜱虫管的安全替代思路。</p><div class="tags"><span class="tag">蜱虫控制</span><span class="tag">杀虫剂生态毒性</span><span class="tag">公共卫生</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · washbasin · 3 回复</div><p>Through a combination of two of my hobbies, I learned that pyrethroids are toxic to aquatic animals. Glad to see that they used &quot;locations [that] were situated away from waterbodies&quot;.</p><p>Pyrethroids are very powerful tools for insect control (and non-toxic to humans) but any place where you have runoff or ground seepage is going to be a problem.</p><p>Aren&#x27;t those places the ones most likely for ticks to thrive -- areas near bodies of water where animals like deer come to drink?</p><p>So hot take: this would only be useful in places where there are not a lot of ticks?</p><p>(PS: Permethrin-sprayed clothing is very effective.)</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://github.com/deepseek-ai/DeepSpec/blob/main/DSpark_paper.pdf" target="_blank" rel="noopener">DSpark: Speculative decoding accelerates LLM inference [pdf]</a></h2></div><p class="title-tr">DSpark：推测解码加速大语言模型推理 [pdf]</p><div class="meta">▲ 742 分 · aurenvale · <a href="https://news.ycombinator.com/item?id=48696585" target="_blank" rel="noopener">311 评论</a></div><div class="body"><p class="summary">DeepSeek 公布 DSpark 推测解码改进方案，已集成至 V4 系列模型并带来明显推理提速与降价。</p><ul class="kp"><li><strong>DeepSeek</strong> 连续公开创新论文，被视作少数真正推动技术边界的 AI 实验室</li><li><strong>DeepSeek-V4-Flash/Pro-DSpark</strong> 模型已在 Hugging Face 上架，内置推测解码模块</li><li>该方法或为 2022 年推测解码的增强版，细节尚未完整披露</li><li>用户报告月消耗 <strong>15 亿 token</strong> 仅花费 40 美元，大部分为缓存命中</li></ul><p class="disc"><strong>💬 讨论</strong> 社区普遍赞赏 DeepSeek 的开放研究与工程坦诚，同时追问与 2022 年原版推测解码的具体差异。</p><div class="tags"><span class="tag">推测解码</span><span class="tag">LLM 推理加速</span><span class="tag">DeepSeek</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · kamranjon · 21 回复</div><p>DeepSeek continues to not only push the boundaries but also publish these incredible papers explaining how they achieved their gains - something the American labs no longer do unfortunately. Chinese labs are doing the most interesting work in AI right now.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://www.psychologytoday.com/au/blog/mood-by-microbe/202606/what-ozempic-does-to-the-gut-brain-axis" target="_blank" rel="noopener">What Ozempic does to the gut-brain axis</a></h2></div><p class="title-tr">Ozempic对肠-脑轴的作用</p><div class="meta">▲ 120 分 · randycupertino · <a href="https://news.ycombinator.com/item?id=48701984" target="_blank" rel="noopener">273 评论</a></div><div class="body"><p class="summary">GLP-1药物通过促进德氏乳杆菌产生内源性大麻素缓解抑郁，与减肥作用无关。</p><ul class="kp"><li><strong>德氏乳杆菌</strong>产生内源性大麻素，缓解抑郁样行为。</li><li><strong>无菌小鼠</strong>中GLP-1药物的抗抑郁效果消失。</li><li><strong>粪便移植</strong>证实肠道微生物对情绪的因果作用。</li><li><strong>杜拉鲁肽</strong>对肠道微生物组的影响优于司美格鲁肽。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区对停药后体重反弹和抑郁复发存在担忧，但也有用户认可其精神改善效果，分歧集中于终身用药的接受度。</p><div class="tags"><span class="tag">GLP-1药物</span><span class="tag">肠道微生物</span><span class="tag">肠脑轴</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · joshuamcginnis · 19 回复</div><p>Studies show almost all subjects regained the weight and reversed gains within 2 years. This means underlying issues (e.g., food addiction) aren&#x27;t being addressed. Short of changing habits, the only maintenance solution is lifelong drug use and that doesn&#x27;t sit well with me.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://github.com/kageroumado/adrafinil" target="_blank" rel="noopener">Show HN: Adrafinil – keep a lid-closed Mac awake only while agents work</a></h2></div><p class="title-tr">Show HN: Adrafinil – 仅当代理工作时保持盒盖Mac唤醒</p><div class="meta">▲ 103 分 · kageroumado · <a href="https://news.ycombinator.com/item?id=48701512" target="_blank" rel="noopener">66 评论</a></div><div class="body"><p class="summary">Adrafinil是一款仅当AI代理活跃时才阻止Mac睡眠的菜单栏工具，代理一停即恢复正常睡眠。</p><ul class="kp"><li><strong>仅代理有活动时阻止睡眠</strong>，空闲或任务结束立即恢复</li><li>支持 <strong>Claude Code、Codex、Cursor 等 9 种代理</strong> 钩子集成</li><li>通过 <strong>pmset disablesleep</strong> 实现合盖不眠，并隔离 root 权限至最小助手</li><li>内置 <strong>过热保护</strong> 与空闲释放，防止背包中过热或耗尽电池</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区推荐 Amphetamine、caffeinate 等替代方案，并有人提出希望增加电池与 token 用量追踪。</p><div class="tags"><span class="tag">macOS 睡眠管理</span><span class="tag">AI 代理工具</span><span class="tag">开源 MIT</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · 47 · 3 回复</div><p>I have been using the builtin macOS `caffeinate` command for this.</p><p>For example:</p><p>caffeinate -dimsu</p><p>That keeps the Mac awake so I can use Claude remotely from phone.</p><p>You can also wrap your command as well, but I rarely use it.</p><p>caffeinate -dimsu your-agent-command</p></div></div></article>
+</div></main>
+<footer>generated 2026-06-28 04:48 UTC · hn-digest agent</footer>
+</body>
+</html>
