@@ -29,6 +29,8 @@ jobs:
     steps:
       - name: Checkout (含历史存档与缓存)
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -57,7 +59,13 @@ jobs:
             echo "Nothing new to commit."
           else
             git commit -m "chore: HN digest $(date -u +%F)"
-            git push
+            git fetch origin main
+            git rebase origin/main
+            git push || {
+              git fetch origin main
+              git rebase origin/main
+              git push
+            }
           fi
 
       - name: Upload Pages artifact
