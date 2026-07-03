@@ -68,11 +68,19 @@ jobs:
             }
           fi
 
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v6
+
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: ./public
+          include-hidden-files: true
 
       - name: Deploy to GitHub Pages
         id: deploy
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
+        with:
+          timeout: 900000
+          error_count: 20
+          reporting_interval: 10000
