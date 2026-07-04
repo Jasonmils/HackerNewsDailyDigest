@@ -1,0 +1,1 @@
+{"title_translation": "借助智能路由节省 Claude Code Token 用量", "summary": "Brick 单次路由到最便宜且能胜任的模型，无需级联，降低 Claude Code 等编码代理成本。", "key_points": ["**Brick** 采用单次调用路由，无需级联，无浪费", "通过 **6 维能力向量** 和复杂度分发查询到最优模型", "可嵌入 **Claude Code** 和 **Codex**，保持 UX 并大幅降本", "开源，兼容 OpenAI API，支持混合开放与闭源模型池"], "discussion": "", "tags": ["LLM 路由", "Claude Code 成本优化", "模型网关"]}
