@@ -1,0 +1,1 @@
+{"title_translation": "协议窥探：AirDrop 与 Quick Share 的漏洞研究", "summary": "逆向分析AirDrop与Quick Share，发现**6个漏洞**，含预认证拒绝服务和加密绕过。", "key_points": ["逆向**AirDrop七层状态机**和DVZip压缩格式", "构建模糊器AIRFUZZ，发现**3个预认证漏洞**在macOS/iOS", "三星Quick Share存在**预认证帧分发和加密绕过**", "谷歌Quick Share for Windows出现**堆释放后重用**，获赏金"], "discussion": "评论认为AirDrop的发现只是三个烦人的崩溃，不够有趣。", "tags": ["模糊测试", "移动安全", "漏洞挖掘"]}

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-07-05</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:"Inter","Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Sans","Noto Sans CJK SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.66;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--mono);font-size:clamp(22px,5vw,30px);font-weight:700;
+  letter-spacing:-.01em;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--mono);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  text-transform:uppercase;letter-spacing:.06em}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.32;margin:0;letter-spacing:-.01em}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--mono);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--mono);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  text-transform:uppercase;letter-spacing:.03em}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--mono);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--mono);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--mono)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em}
+@media(max-width:560px){
+  .title-tr,.meta,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-07-05 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://github.com/openai/codex/issues/30364" target="_blank" rel="noopener">GPT-5.5 Codex reasoning-token clustering may be leading to degraded performance</a></h2></div><p class="title-tr">GPT-5.5 Codex 推理 token 聚类可能导致性能下降</p><div class="meta">▲ 187 分 · maille · <a href="https://news.ycombinator.com/item?id=48789428" target="_blank" rel="noopener">61 评论</a></div><div class="body"><p class="summary">GPT-5.5 推理 token 异常聚集在 516，44% 的响应精确落在此值，与复杂任务错误率升高相关。</p><ul class="kp"><li><strong>GPT-5.5</strong> 占精确 516 推理 token 事件的 82%</li><li><strong>44%</strong> 的 GPT-5.5 响应推理 token 精确停在 516，其他模型仅 1.3%</li><li><strong>五月</strong> 精确 516 比例飙升至 53.3%，推理 token 强度同步下降</li><li>疑似推理预算截断，导致复杂任务<strong>错误答案</strong>频出</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识认为这是 OpenAI 隐性成本优化所致，用户反映质量下降并转投 Claude。</p><div class="tags"><span class="tag">GPT-5.5</span><span class="tag">推理 token 聚类</span><span class="tag">模型性能回归</span><span class="tag">Codex</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · resonious · 4 回复</div><p>Deja Vu... This looks just like the Claude Code performance regression back in April. I just quit my Claude subscription when that happened and went to Codex.</p><p>Now I&#x27;m kinda thinking of trying per token for both, using GLM 5.2 on Fireworks for most tasks, shelling out to the big boys only when needed. Not totally confident I&#x27;ll break even though.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://www.youtube.com/watch?v=DyIQkqBXhS0" target="_blank" rel="noopener">Atomic Force Microscope high-speed video, stainless etching, bacteria, and more</a></h2></div><p class="title-tr">原子力显微镜高速视频、不锈钢蚀刻、细菌及更多</p><div class="meta">▲ 23 分 · mhb · <a href="https://news.ycombinator.com/item?id=48765920" target="_blank" rel="noopener">1 评论</a></div><div class="body"><p class="summary">视频展示原子力显微镜高速成像下不锈钢蚀刻过程与细菌动态。</p><ul class="kp"><li><strong>原子力显微镜</strong>实现高速视频录制</li><li>观察<strong>不锈钢蚀刻</strong>实时过程</li><li>捕捉<strong>细菌</strong>在微观尺度下的行为</li></ul><div class="tags"><span class="tag">原子力显微镜 (AFM)</span><span class="tag">高速成像</span><span class="tag">不锈钢蚀刻</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://ridgetext.com/blog/mapbox-llm-composition" target="_blank" rel="noopener">Mapping with In-Memory Layers to Reduce LLM Overload</a></h2></div><p class="title-tr">使用内存图层进行地图绘制以减少 LLM 过载</p><div class="meta">▲ 14 分 · Buckwheat469 · <a href="https://news.ycombinator.com/item?id=48789986" target="_blank" rel="noopener">0 评论</a></div><div class="body"><p class="summary">将 GeoJSON 暂存于服务器内存，LLM 仅接收轻量确认，避免单次请求消耗 12.5 万 tokens 以上。</p><ul class="kp"><li>服务器队列暂存图层，LLM 只收到 <strong>{ status: &quot;queued&quot;, layerId: ... }</strong> 轻量状态</li><li>采用 <strong>Mapbox 图层堆叠模型</strong>，LLM 调用顺序决定渲染层次</li><li>省去 LLM 传透数据的角色，避免 <strong>125,000+ 个 token</strong> 的上下文污染</li><li>模式适用于多源数据合并、日志分析等场景，<strong>LLM 只做编排不传送数据</strong></li></ul><div class="tags"><span class="tag">LLM 工具设计</span><span class="tag">上下文窗口优化</span><span class="tag">地图渲染</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://arxiv.org/abs/2606.26967" target="_blank" rel="noopener">Protocol Prying: Vulnerability Research in AirDrop and Quick Share</a></h2></div><p class="title-tr">协议窥探：AirDrop 与 Quick Share 的漏洞研究</p><div class="meta">▲ 20 分 · logickkk1 · <a href="https://news.ycombinator.com/item?id=48788849" target="_blank" rel="noopener">1 评论</a></div><div class="body"><p class="summary">逆向分析AirDrop与Quick Share，发现<strong>6个漏洞</strong>，含预认证拒绝服务和加密绕过。</p><ul class="kp"><li>逆向<strong>AirDrop七层状态机</strong>和DVZip压缩格式</li><li>构建模糊器AIRFUZZ，发现<strong>3个预认证漏洞</strong>在macOS/iOS</li><li>三星Quick Share存在<strong>预认证帧分发和加密绕过</strong></li><li>谷歌Quick Share for Windows出现<strong>堆释放后重用</strong>，获赏金</li></ul><p class="disc"><strong>💬 讨论</strong> 评论认为AirDrop的发现只是三个烦人的崩溃，不够有趣。</p><div class="tags"><span class="tag">模糊测试</span><span class="tag">移动安全</span><span class="tag">漏洞挖掘</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://www.hawaiinewsnow.com/2026/07/04/record-breaking-solo-rower-kelsey-pfendler-arrives-hawaii/" target="_blank" rel="noopener">Record-breaking solo rower Kelsey Pfendler arrives in Hawaii</a></h2></div><p class="title-tr">创纪录的单人划手 Kelsey Pfendler 抵达夏威夷</p><div class="meta">▲ 4 分 · MaysonL · <a href="https://news.ycombinator.com/item?id=48790512" target="_blank" rel="noopener">0 评论</a></div><div class="body"><p class="summary">Kelsey Pfendler 单人划船从加州到夏威夷仅用43天，打破男女纪录。</p><ul class="kp"><li><strong>Kelsey Pfendler</strong> 成为首位单人划船加州到夏威夷的女性</li><li>仅用 <strong>43天</strong>，打破女子纪录86天和男子纪录52天</li><li>从 <strong>蒙特雷</strong> 出发，横跨 <strong>2400多英里</strong></li><li>为 <strong>鲸鱼基金会</strong> 筹款超过 <strong>3万美元</strong></li></ul><div class="tags"><span class="tag">单人海洋划船</span><span class="tag">极限运动</span><span class="tag">女性纪录</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://lovable.dev/blog/85000-in-tokens-later-scaling-agentic-coding-at-lovable" target="_blank" rel="noopener">$85,000 in tokens later: What I learned from scaling agentic coding at Lovable</a></h2></div><p class="title-tr">烧掉85,000美元代币后：我在Lovable扩展代理编码的所学</p><div class="meta">▲ 12 分 · aliclark · <a href="https://news.ycombinator.com/item?id=48789042" target="_blank" rel="noopener">19 评论</a></div><div class="body"><p class="summary">个人月代币消耗飙至2.5万美元，通过代理群实现周合并150+ PR，AI审查取代多数人工。</p><ul class="kp"><li>个人代币月花费从$600暴涨至 <strong>$25,000</strong></li><li>6月周合并 <strong>150+ PR</strong>，由6-7个AI代理协同完成</li><li>用 <strong>AI风险分类器</strong> 强制高风险PR保留人工审查</li><li><strong>栈式PR</strong> 对AI审查仍关键，大PR会导致漏报</li></ul><p class="disc"><strong>💬 讨论</strong> 多数评论质疑烧钱与PR数量作为生产力指标的意义，担心过度依赖AI审查会降低代码质量与工程师技能。</p><div class="tags"><span class="tag">代理编码</span><span class="tag">AI代码审查</span><span class="tag">LLM应用</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · justinclift · 2 回复</div><p>&gt; Reviewing AI-written code line-by-line isn&#x27;t practical or a good use of anyone&#x27;s time. And the usual answer to problems created by the use of AI is to use more AI, so you switch to AI reviews by default.</p><p>Ugh.  Sure, for non-critical stuff that might be acceptable, but for anyone working on core banking or infrastructure PLEASE don&#x27;t be doing this.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://purplesyringa.moe/blog/recovering-garbled-bitcoin-addresses/" target="_blank" rel="noopener">Recovering garbled Bitcoin addresses (2024)</a></h2></div><p class="title-tr">恢复乱码的比特币地址（2024）</p><div class="meta">▲ 6 分 · zX41ZdbW · <a href="https://news.ycombinator.com/item?id=48789917" target="_blank" rel="noopener">0 评论</a></div><div class="body"><p class="summary">通过模拟 base58 编码的大小写翻转和校验和，从 2^34 个组合中 6.6 秒恢复出有效地址。</p><ul class="kp"><li>比特币地址编码公钥哈希和 <strong>4 字节 SHA-256 双重校验和</strong></li><li>base58 专用字母表排除易混淆字符，大小写敏感易导致信息丢失</li><li>初始暴力 2^34 组合耗时过长，改用 <strong>BigUint 差分算法</strong> 降至 6.6 秒</li><li>通过解析数字并模拟 +/- 常数增量，仅校验 <strong>25 字节</strong> 结构即可恢复原始地址</li></ul><div class="tags"><span class="tag">比特币地址</span><span class="tag">base58 编码</span><span class="tag">校验和恢复</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://art.joonas.wtf/" target="_blank" rel="noopener">Plein Air</a></h2></div><p class="title-tr">外光画</p><div class="meta">▲ 59 分 · bookofjoe · <a href="https://news.ycombinator.com/item?id=48786880" target="_blank" rel="noopener">9 评论</a></div><div class="body"><p class="summary">基于用户位置和实时天气，从顶级博物馆随机匹配一幅印象派外光画作。</p><ul class="kp"><li>画作源自<strong>大都会艺术博物馆</strong>、芝加哥艺术学院等公共领域藏品</li><li>天气数据使用<strong>Open-Meteo</strong>免费API，每小时更新，无需密钥</li><li>每幅画匹配<strong>当前天气</strong>与时辰，如同站在画家身旁</li><li>用户可评分、隐藏或查看博物馆来源，<strong>完全公共领域</strong></li></ul><p class="disc"><strong>💬 讨论</strong> 用户赞赏创意与品味，但部分人介意网站立即索取位置；有人联想到之前用CSS渐变表示天空的项目。</p><div class="tags"><span class="tag">外光画</span><span class="tag">天气艺术</span><span class="tag">公共领域</span><span class="tag">位置隐私</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · UI_at_80x24 · 1 回复</div><p>It shows paintings based on your location and the &#x27;time of day&#x27;, or something.</p><p>From the `About`:</p><p>&gt;Plein Air — A painting for right now, wherever you are</p><p>&gt;Plein air — French for in the open air — was the discipline of painting outdoors, in front of the weather, the way Constable studied clouds in Suffolk meadows and Monet painted the same haystacks at every hour of every season. The painters took the canvas outside because the light couldn&#x27;t be remembered later, only stood inside as you painted.</p><p>&gt;Plein Air stands you next to one of those paintings. The sky over your head and the sky in the painting share the same kind of hour — the same long afternoon, the same threatening storm, the same fog clinging to the river. One painting, chosen for right now. Tap the title to see why it was picked.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://arxiv.org/abs/2605.14460" target="_blank" rel="noopener">Exploiting LLM Agent Supply Chains via Payload-Less Skills</a></h2></div><p class="title-tr">利用无负载技能攻击 LLM 代理供应链</p><div class="meta">▲ 4 分 · _pdp_ · <a href="https://news.ycombinator.com/item?id=48789488" target="_blank" rel="noopener">0 评论</a></div><div class="body"><p class="summary">通过自然语言合规规则诱导 LLM 代理生成恶意代码，机密泄露成功率最高 77.67%。</p><ul class="kp"><li><strong>Semantic Compliance Hijacking</strong> 是无负载供应链攻击</li><li>机密泄露成功率最高 <strong>77.67%</strong>，RCE 67.33%</li><li><strong>多技能自动优化（MS-AO）</strong> 进一步提升攻击效果</li><li>操纵的技能文件检测率为 <strong>0.00%</strong>，完全绕过现有扫描</li></ul><div class="tags"><span class="tag">LLM 代理</span><span class="tag">供应链安全</span><span class="tag">语义攻击</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://www.abc.net.au/news/2026-07-05/lily-jay-foundation-posts-ai-generated-misleading-videos/106866422" target="_blank" rel="noopener">Australian influencer Lily Jay&#x27;s tangled web of AI manipulation</a></h2></div><p class="title-tr">澳大利亚网红 Lily Jay 的 AI 操控迷局</p><div class="meta">▲ 41 分 · phs318u · <a href="https://news.ycombinator.com/item?id=48789416" target="_blank" rel="noopener">5 评论</a></div><div class="body"><p class="summary">ABC调查揭露Lily Jay基金会用AI生成虚假孤儿院等慈善内容，基金会非注册慈善机构且项目可疑。</p><ul class="kp"><li>AI生成的视频虚构了<strong>非洲孤儿院</strong>开业场景，出镜者与儿童均为伪造。</li><li><strong>乌干达政府</strong>证实该孤儿院未合法注册，基金会注册状态不合规。</li><li>基金会网站承认其<strong>并非注册慈善机构</strong>，捐款不可抵税。</li><li>伪造的<strong>人道主义奖项</strong>图片含ChatGPT水印，奖项无独立记录。</li></ul><p class="disc"><strong>💬 讨论</strong> HN用户指出Lily Jay本人未出现在基金会记录中，董事另有其人，认为这是骗局。</p><div class="tags"><span class="tag">AI生成虚假内容</span><span class="tag">慈善诈骗</span><span class="tag">社交媒体影响者</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · anenefan · 1 回复</div><p>I happened to see the televised report on Australia&#x27;s ABC news this morning, though I don&#x27;t think it had [1] all the information the printed article included.</p><p>Hilarious that someone would allow themselves to be used in a scam, if not a scam something completely dodgy and something that clearly does not pass the pub test ... in Australia at least of all.</p><p>[1]  From the article &quot; She does not appear anywhere in the foundation&#x27;s corporate records.</p><p>ASIC documents list Syed Ahmed Mohsin, Christine Hinson and James Bracher as the directors of Lily Jay Foundation Int Ltd.</p><p>Syed Ahmed Mohsin is listed as the sole director of Lily Jay Foundation Pty Ltd.&quot;</p></div></div></article>
+</div></main>
+<footer>generated 2026-07-05 04:18 UTC · hn-digest agent</footer>
+</body>
+</html>
