@@ -13,7 +13,7 @@ Usage:
   python hn_digest.py                          # top 10 AI/LLM + crypto + business/startup stories
   python hn_digest.py --keywords ""            # disable the topic filter, digest raw top stories
   python hn_digest.py --num 20 --lang en       # top 20, English summaries
-  python hn_digest.py --keywords AI,LLM,crypto # custom title-keyword filter
+  python hn_digest.py --keywords AI,LLM,crypto # custom strict title-keyword filter
   python hn_digest.py --proxy http://127.0.0.1:7897   # route API + fetches through a local proxy
   python hn_digest.py --judge                   # judgment mode: predict before reveal, log to ledger
   python hn_digest.py --grade-only              # only score due predictions from the ledger
@@ -66,9 +66,9 @@ PRICING = {
 # Default topic filter: AI/LLM, crypto/Bitcoin, and business/startup news.
 # Pass --keywords "" to disable filtering and digest the raw top stories instead.
 DEFAULT_KEYWORDS = (
-    "ai,llm,gpt,openai,anthropic,claude,gemini,llama,mistral,agent,"
+    "ai,llm,gpt,openai,xai,anthropic,claude,gemini,llama,mistral,agent,agents,"
     "bitcoin,crypto,blockchain,ethereum,web3,defi,"
-    "startup,funding,raise,raises,raised,valuation,ipo,acquir,acquisition,"
+    "startup,funding,raise,raises,raised,raising,valuation,ipo,acquir*,acquisition,"
     "venture,vc,founder,growth,saas"
 )
 
@@ -101,6 +101,8 @@ LABELS = {
 
 TAG_RE = re.compile(r"<[^>]+>")
 MD_BOLD_RE = re.compile(r"\*\*(.+?)\*\*")
+KEYWORD_EDGE_RE = r"(?<![A-Za-z0-9])"
+KEYWORD_END_RE = r"(?![A-Za-z0-9])"
 
 
 def md_bold_to_html(s: str) -> str:
@@ -186,6 +188,49 @@ def parse_json(raw: str) -> Optional[dict]:
             except Exception:
                 return None
     return None
+
+
+@dataclass(frozen=True)
+class KeywordPattern:
+    raw: str
+    regex: re.Pattern[str]
+
+
+def _keyword_body_regex(keyword: str) -> str:
+    """Build a regex body for one keyword, without the outer word edges."""
+    if keyword == "ai":
+        return r"a\.?i\.?"
+    parts = [p for p in re.split(r"\s+", keyword) if p]
+    if len(parts) > 1:
+        return r"[\s/_-]+".join(re.escape(p) for p in parts)
+    return re.escape(keyword)
+
+
+def build_keyword_patterns(keywords: list[str]) -> list[KeywordPattern]:
+    """Compile keyword filters.
+
+    Keywords match on alphanumeric boundaries, so "ai" matches "AI" but not
+    "airplane". Add a trailing "*" for intentional prefix matching, e.g. acquir*.
+    """
+    patterns: list[KeywordPattern] = []
+    for raw_kw in keywords:
+        raw = raw_kw.strip()
+        if not raw:
+            continue
+        prefix = raw.endswith("*")
+        keyword = raw[:-1].strip().lower() if prefix else raw.lower()
+        if not keyword:
+            continue
+        body = _keyword_body_regex(keyword)
+        end = "" if prefix else KEYWORD_END_RE
+        regex = re.compile(KEYWORD_EDGE_RE + body + end, re.IGNORECASE)
+        patterns.append(KeywordPattern(raw=raw, regex=regex))
+    return patterns
+
+
+def matched_keywords(text: str, patterns: list[KeywordPattern]) -> list[str]:
+    """Return keyword labels that match text using strict keyword boundaries."""
+    return [p.raw for p in patterns if p.regex.search(text or "")]
 
 
 # --------------------------------------------------------------------------- #
@@ -895,9 +940,9 @@ async def _collect_stories(ctx: Ctx, log) -> list[StoryResult]:
     items = [it for it in await fetch_items(ctx.hn, ids, cfg.meta_concurrency) if it and it.get("title")]
 
     if cfg.keywords:
-        kws = [k.strip().lower() for k in cfg.keywords if k.strip()]
-        items = [it for it in items if any(k in it["title"].lower() for k in kws)]
-        log(f"› {len(items)} stories match keywords {kws}")
+        patterns = build_keyword_patterns(cfg.keywords)
+        items = [it for it in items if matched_keywords(it["title"], patterns)]
+        log(f"› {len(items)} stories match strict title keywords {[p.raw for p in patterns]}")
 
     selected = items[: cfg.num_stories]
     if not selected:
@@ -1132,7 +1177,8 @@ def parse_args() -> Config:
     p.add_argument(
         "--keywords",
         default=DEFAULT_KEYWORDS,
-        help="comma-separated title filter (default: AI/LLM + crypto + business/startup topics; "
+        help="comma-separated strict title filter (whole word by default; append * for prefixes; "
+        "default: AI/LLM + crypto + business/startup topics; "
         'pass --keywords "" to disable and digest the raw top stories)',
     )
     p.add_argument("--pool", type=int, default=200, help="candidate pool when filtering by keyword")
