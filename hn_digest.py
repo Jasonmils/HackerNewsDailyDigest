@@ -13,7 +13,8 @@ Usage:
   python hn_digest.py                          # top 10 AI/LLM + crypto + business/startup stories
   python hn_digest.py --keywords ""            # disable the topic filter, digest raw top stories
   python hn_digest.py --num 20 --lang en       # top 20, English summaries
-  python hn_digest.py --keywords AI,LLM,crypto # custom strict title-keyword filter
+  python hn_digest.py --keywords AI,LLM,crypto # custom keyword hints for topic filtering
+  python hn_digest.py --filter-mode strict     # exact title keywords only, no semantic filter
   python hn_digest.py --proxy http://127.0.0.1:7897   # route API + fetches through a local proxy
   python hn_digest.py --judge                   # judgment mode: predict before reveal, log to ledger
   python hn_digest.py --grade-only              # only score due predictions from the ledger
@@ -34,6 +35,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Optional
+from urllib.parse import urlparse
 
 import httpx
 import trafilatura
@@ -70,6 +72,12 @@ DEFAULT_KEYWORDS = (
     "bitcoin,crypto,blockchain,ethereum,web3,defi,"
     "startup,funding,raise,raises,raised,raising,valuation,ipo,acquir*,acquisition,"
     "venture,vc,founder,growth,saas"
+)
+
+DEFAULT_TOPIC_SCOPE = (
+    "AI/LLM systems, AI agents, foundation models, machine learning infrastructure, "
+    "crypto/Bitcoin/Ethereum/blockchain/Web3/DeFi, and startup/business stories about "
+    "funding, venture capital, acquisitions, valuations, IPOs, founders, SaaS, or growth."
 )
 
 DEFAULT_HEADERS = {
@@ -119,6 +127,10 @@ class Config:
     model: str = "deepseek-v4-pro"
     lang: str = "zh"                  # "zh" | "en"
     keywords: list[str] = field(default_factory=lambda: [k for k in DEFAULT_KEYWORDS.split(",") if k])
+    topic_scope: str = DEFAULT_TOPIC_SCOPE
+    filter_mode: str = "semantic"     # "semantic" | "strict"
+    filter_model: str = "deepseek-v4-flash"
+    filter_batch_size: int = 40
     pool: int = 200                   # candidate pool size when filtering by keyword
     max_concurrency: int = 6          # parallel article-fetch + LLM slots
     meta_concurrency: int = 20        # parallel HN metadata fetches (cheap)
@@ -231,6 +243,112 @@ def build_keyword_patterns(keywords: list[str]) -> list[KeywordPattern]:
 def matched_keywords(text: str, patterns: list[KeywordPattern]) -> list[str]:
     """Return keyword labels that match text using strict keyword boundaries."""
     return [p.raw for p in patterns if p.regex.search(text or "")]
+
+
+def story_domain(url: str) -> str:
+    try:
+        return urlparse(url).netloc.lower().removeprefix("www.")
+    except Exception:
+        return ""
+
+
+def semantic_filter_prompt(
+    stories: list[dict],
+    topic_scope: str,
+    keywords: list[str],
+    keyword_hits: dict[int, list[str]],
+) -> str:
+    """Build a compact batch-classification prompt for HN story metadata."""
+    rows = []
+    for s in stories:
+        sid = int(s.get("id"))
+        title = s.get("title", "")
+        url = s.get("url", "")
+        post_text = html_to_text(s.get("text", ""))
+        if len(post_text) > 500:
+            post_text = post_text[:500] + "..."
+        rows.append({
+            "id": sid,
+            "title": title,
+            "domain": story_domain(url),
+            "url": url,
+            "hn_post_text": post_text,
+            "keyword_hits": keyword_hits.get(sid, []),
+        })
+    return (
+        "You are filtering Hacker News stories for a narrowly scoped daily digest.\n"
+        f"Topic scope: {topic_scope}\n\n"
+        "The keyword list is only a hint, not the final rule. Include a story when its "
+        "main subject is substantially about the topic scope, even if the exact keywords "
+        "do not appear. Exclude stories where a keyword-like string is incidental or a "
+        "word collision, such as 'AI' inside 'airplane', or 'agent' meaning an unrelated "
+        "human intermediary. When uncertain, be selective.\n\n"
+        "Return only this JSON shape:\n"
+        '{"decisions":[{"id":123,"include":true,"labels":["AI/LLM"],"reason":"short reason"}]}\n\n'
+        f"Keyword hints: {keywords}\n"
+        f"Stories: {json.dumps(rows, ensure_ascii=False)}"
+    )
+
+
+async def semantic_filter_stories(ctx: "Ctx", stories: list[dict], log) -> Optional[set[int]]:
+    """Use a cheap LLM classifier to keep stories semantically related to cfg.topic_scope."""
+    cfg = ctx.cfg
+    if not stories:
+        return set()
+    patterns = build_keyword_patterns(cfg.keywords)
+    keyword_hits = {
+        int(s.get("id")): matched_keywords(s.get("title", ""), patterns)
+        for s in stories
+        if s.get("id") is not None
+    }
+    included: set[int] = set()
+    batch_size = max(1, cfg.filter_batch_size)
+    for start in range(0, len(stories), batch_size):
+        batch = stories[start:start + batch_size]
+        prompt = semantic_filter_prompt(batch, cfg.topic_scope, cfg.keywords, keyword_hits)
+        try:
+            msg = await ctx.client.chat.completions.create(
+                model=cfg.filter_model,
+                max_tokens=3000,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": (
+                            "You are a precise topic classifier. Return compact JSON only. "
+                            "Do not include Markdown or prose."
+                        ),
+                    },
+                    {"role": "user", "content": prompt},
+                ],
+                extra_body={"thinking": {"type": "disabled"}},
+            )
+        except Exception as e:
+            log(f"› Semantic filter failed, falling back to strict keywords: {e}")
+            return None
+        if msg.usage:
+            ctx.usage["filter_input"] += msg.usage.prompt_tokens
+            ctx.usage["filter_output"] += msg.usage.completion_tokens
+        parsed = parse_json(msg.choices[0].message.content or "")
+        decisions = parsed.get("decisions") if isinstance(parsed, dict) else None
+        if not isinstance(decisions, list):
+            log("› Semantic filter returned invalid JSON, falling back to strict keywords")
+            return None
+        batch_ids = {int(s.get("id")) for s in batch if s.get("id") is not None}
+        for d in decisions:
+            if not isinstance(d, dict) or not d.get("include"):
+                continue
+            try:
+                sid = int(d.get("id"))
+            except Exception:
+                continue
+            if sid in batch_ids:
+                included.add(sid)
+    return included
+
+
+def strict_filter_stories(stories: list[dict], keywords: list[str]) -> list[dict]:
+    patterns = build_keyword_patterns(keywords)
+    return [s for s in stories if matched_keywords(s.get("title", ""), patterns)]
 
 
 # --------------------------------------------------------------------------- #
@@ -914,7 +1032,7 @@ async def _open_ctx(cfg: Config):
     ctx = Ctx(
         hn=hn, http=http, client=client, cfg=cfg,
         sem=asyncio.Semaphore(cfg.max_concurrency),
-        usage={"input": 0, "output": 0},
+        usage={"input": 0, "output": 0, "filter_input": 0, "filter_output": 0},
         cache=Cache(cfg.output_dir, cfg.cache),
     )
     return ctx, http, extra_client
@@ -940,9 +1058,18 @@ async def _collect_stories(ctx: Ctx, log) -> list[StoryResult]:
     items = [it for it in await fetch_items(ctx.hn, ids, cfg.meta_concurrency) if it and it.get("title")]
 
     if cfg.keywords:
-        patterns = build_keyword_patterns(cfg.keywords)
-        items = [it for it in items if matched_keywords(it["title"], patterns)]
-        log(f"› {len(items)} stories match strict title keywords {[p.raw for p in patterns]}")
+        if cfg.filter_mode == "strict":
+            items = strict_filter_stories(items, cfg.keywords)
+            log(f"› {len(items)} stories match strict title keywords {cfg.keywords}")
+        else:
+            log(f"› Semantic topic filtering with {cfg.filter_model} …")
+            semantic_ids = await semantic_filter_stories(ctx, items, log)
+            if semantic_ids is None:
+                items = strict_filter_stories(items, cfg.keywords)
+                log(f"› {len(items)} stories match fallback strict title keywords {cfg.keywords}")
+            else:
+                items = [it for it in items if int(it.get("id")) in semantic_ids]
+                log(f"› {len(items)} stories match topic scope semantically")
 
     selected = items[: cfg.num_stories]
     if not selected:
@@ -971,11 +1098,23 @@ def _write_digest(results: list[StoryResult], cfg: Config, ctx: Ctx, log) -> lis
     n_ok = sum(1 for r in results if r and r.summary)
     n_cached = sum(1 for r in results if r and r.cached)
     pin, pout = PRICING.get(cfg.model, (0.0, 0.0))
-    cost = ctx.usage["input"] / 1e6 * pin + ctx.usage["output"] / 1e6 * pout
+    fpin, fpout = PRICING.get(cfg.filter_model, (0.0, 0.0))
+    summary_cost = ctx.usage["input"] / 1e6 * pin + ctx.usage["output"] / 1e6 * pout
+    filter_cost = (
+        ctx.usage.get("filter_input", 0) / 1e6 * fpin
+        + ctx.usage.get("filter_output", 0) / 1e6 * fpout
+    )
+    cost = summary_cost + filter_cost
     log(f"✓ {n_ok}/{len(results)} summarized ({n_cached} from cache)")
     log(
-        f"  tokens: {ctx.usage['input']:,} in / {ctx.usage['output']:,} out  ≈ ${cost:.4f}"
+        f"  summary tokens: {ctx.usage['input']:,} in / {ctx.usage['output']:,} out"
     )
+    if ctx.usage.get("filter_input") or ctx.usage.get("filter_output"):
+        log(
+            f"  filter tokens: {ctx.usage['filter_input']:,} in / "
+            f"{ctx.usage['filter_output']:,} out"
+        )
+    log(f"  estimated cost: ≈ ${cost:.4f}")
     for p in paths:
         log(f"  → {p}")
     return paths
@@ -1177,9 +1316,31 @@ def parse_args() -> Config:
     p.add_argument(
         "--keywords",
         default=DEFAULT_KEYWORDS,
-        help="comma-separated strict title filter (whole word by default; append * for prefixes; "
-        "default: AI/LLM + crypto + business/startup topics; "
+        help="comma-separated keyword hints (strict whole-word matching in --filter-mode strict; "
+        "append * for prefixes; default: AI/LLM + crypto + business/startup topics; "
         'pass --keywords "" to disable and digest the raw top stories)',
+    )
+    p.add_argument(
+        "--topic-scope",
+        default=DEFAULT_TOPIC_SCOPE,
+        help="semantic topic scope used by --filter-mode semantic",
+    )
+    p.add_argument(
+        "--filter-mode",
+        choices=["semantic", "strict"],
+        default="semantic",
+        help="topic filter mode: semantic LLM classifier (default) or strict title keywords",
+    )
+    p.add_argument(
+        "--filter-model",
+        default="deepseek-v4-flash",
+        help="cheap model used for semantic pre-filtering",
+    )
+    p.add_argument(
+        "--filter-batch-size",
+        type=int,
+        default=40,
+        help="stories per semantic filter request",
     )
     p.add_argument("--pool", type=int, default=200, help="candidate pool when filtering by keyword")
     p.add_argument("--concurrency", type=int, default=6, help="parallel summarization slots")
@@ -1217,6 +1378,10 @@ def parse_args() -> Config:
         model=a.model,
         lang=a.lang,
         keywords=[k for k in a.keywords.split(",") if k.strip()],
+        topic_scope=a.topic_scope,
+        filter_mode=a.filter_mode,
+        filter_model=a.filter_model,
+        filter_batch_size=a.filter_batch_size,
         pool=a.pool,
         max_concurrency=a.concurrency,
         max_comments=a.max_comments,
