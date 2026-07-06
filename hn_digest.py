@@ -136,7 +136,7 @@ class Config:
     filter_model: str = "deepseek-v4-flash"
     filter_batch_size: int = 40
     knowledge_path: Optional[Path] = Path("./knowledge_profile.md")
-    knowledge_char_limit: int = 8_000
+    knowledge_char_limit: int = 12_000
     pool: int = 200                   # candidate pool size when filtering by keyword
     max_concurrency: int = 6          # parallel article-fetch + LLM slots
     meta_concurrency: int = 20        # parallel HN metadata fetches (cheap)
@@ -368,7 +368,8 @@ def clean_knowledge_profile(text: str, limit: int) -> str:
     if len(substantive) < 20:
         return ""
     if len(compact) > limit:
-        compact = compact[:limit].rstrip() + "\n\n[... trimmed ...]"
+        suffix = "\n\n[... trimmed ...]"
+        compact = compact[: max(0, limit - len(suffix))].rstrip() + suffix
     return compact
 
 
@@ -1445,7 +1446,7 @@ def parse_args() -> Config:
     p.add_argument(
         "--knowledge-char-limit",
         type=int,
-        default=8000,
+        default=12000,
         help="maximum characters from the reader knowledge profile",
     )
     p.add_argument("--pool", type=int, default=200, help="candidate pool when filtering by keyword")
