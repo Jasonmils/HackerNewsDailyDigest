@@ -6,6 +6,7 @@ venv/
 
 # Secrets — never commit these
 .env
+knowledge_profile.md
 
 # macOS
 .DS_Store

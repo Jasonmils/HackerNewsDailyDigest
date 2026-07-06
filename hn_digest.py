@@ -15,6 +15,7 @@ Usage:
   python hn_digest.py --num 20 --lang en       # top 20, English summaries
   python hn_digest.py --keywords AI,LLM,crypto # custom keyword hints for topic filtering
   python hn_digest.py --filter-mode strict     # exact title keywords only, no semantic filter
+  python hn_digest.py --knowledge ./knowledge_profile.md # adapt explanations to you
   python hn_digest.py --proxy http://127.0.0.1:7897   # route API + fetches through a local proxy
   python hn_digest.py --judge                   # judgment mode: predict before reveal, log to ledger
   python hn_digest.py --grade-only              # only score due predictions from the ledger
@@ -26,6 +27,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import hashlib
 import html
 import json
 import os
@@ -90,7 +92,8 @@ LABELS = {
     "zh": {
         "title": "Hacker News 每日热榜", "count": "条", "model": "模型",
         "points": "分", "comments": "评论", "hn": "HN 讨论", "summary": "概要",
-        "keypoints": "要点", "discussion": "讨论", "failed": "处理失败",
+        "keypoints": "要点", "discussion": "讨论", "context": "联系你的知识背景",
+        "failed": "处理失败",
         "noinfo": "未能抓取正文，以下基于标题与讨论",
         "top_comment": "回复最多的评论", "replies": "回复",
         "forecast": "预测问题", "prediction": "我的判断", "confidence": "置信度",
@@ -99,7 +102,8 @@ LABELS = {
     "en": {
         "title": "Hacker News Daily", "count": "stories", "model": "model",
         "points": "points", "comments": "comments", "hn": "HN thread", "summary": "Summary",
-        "keypoints": "Key points", "discussion": "Discussion", "failed": "failed",
+        "keypoints": "Key points", "discussion": "Discussion", "context": "Context for you",
+        "failed": "failed",
         "noinfo": "Article body unavailable; summary based on title and discussion",
         "top_comment": "Most-replied comment", "replies": "replies",
         "forecast": "Forecast", "prediction": "My call", "confidence": "confidence",
@@ -131,6 +135,8 @@ class Config:
     filter_mode: str = "semantic"     # "semantic" | "strict"
     filter_model: str = "deepseek-v4-flash"
     filter_batch_size: int = 40
+    knowledge_path: Optional[Path] = Path("./knowledge_profile.md")
+    knowledge_char_limit: int = 8_000
     pool: int = 200                   # candidate pool size when filtering by keyword
     max_concurrency: int = 6          # parallel article-fetch + LLM slots
     meta_concurrency: int = 20        # parallel HN metadata fetches (cheap)
@@ -351,6 +357,55 @@ def strict_filter_stories(stories: list[dict], keywords: list[str]) -> list[dict
     return [s for s in stories if matched_keywords(s.get("title", ""), patterns)]
 
 
+def clean_knowledge_profile(text: str, limit: int) -> str:
+    """Remove template comments and trim the user's knowledge profile for prompting."""
+    text = re.sub(r"<!--.*?-->", "", text, flags=re.DOTALL).strip()
+    lines = [line.rstrip() for line in text.splitlines()]
+    compact = "\n".join(line for line in lines if line.strip()).strip()
+    substantive = "\n".join(
+        line for line in compact.splitlines() if not line.lstrip().startswith("#")
+    ).strip()
+    if len(substantive) < 20:
+        return ""
+    if len(compact) > limit:
+        compact = compact[:limit].rstrip() + "\n\n[... trimmed ...]"
+    return compact
+
+
+def load_knowledge_profile(cfg: Config, log) -> Optional[str]:
+    """Load the reader's self-maintained knowledge profile from env or file."""
+    env_profile = os.environ.get("HN_DIGEST_KNOWLEDGE", "").strip()
+    if env_profile:
+        profile = clean_knowledge_profile(env_profile, cfg.knowledge_char_limit)
+        if profile:
+            log("› Loaded reader knowledge profile from HN_DIGEST_KNOWLEDGE")
+            return profile
+
+    if cfg.knowledge_path is None:
+        return None
+    try:
+        if not cfg.knowledge_path.exists():
+            return None
+        profile = clean_knowledge_profile(
+            cfg.knowledge_path.read_text(encoding="utf-8"),
+            cfg.knowledge_char_limit,
+        )
+    except Exception as e:
+        log(f"› Could not read knowledge profile {cfg.knowledge_path}: {e}")
+        return None
+    if profile:
+        log(f"› Loaded reader knowledge profile from {cfg.knowledge_path}")
+        return profile
+    return None
+
+
+def knowledge_cache_key(item_id: int, knowledge_profile: Optional[str]) -> str:
+    if not knowledge_profile:
+        return str(item_id)
+    sig = hashlib.sha1(knowledge_profile.encode("utf-8")).hexdigest()[:12]
+    return f"{item_id}-kp-{sig}"
+
+
 # --------------------------------------------------------------------------- #
 # Hacker News API client
 # --------------------------------------------------------------------------- #
@@ -456,21 +511,24 @@ def build_system(lang: str) -> str:
     if lang == "zh":
         return (
             "你是一位资深科技分析师，为时间有限的技术读者撰写 Hacker News 每日热榜摘要。"
-            "语言要精炼、信息密度拉满：直接给结论、数字和实体名，不要"
+            "语言要精炼但不能把背景压没：直接给结论、数字和实体名，不要"
             "“本文讨论了/介绍了”这类空话和营销腔，不要编造原文中没有的事实。"
             "尽量少用缩写、简称和首字母缩略词；确需使用时，在首次出现处给出全称，"
             "必要时再加一句简短解释，例如「RAG（检索增强生成）」「FDA（美国食品药品监督管理局）」"
             "——宁可多用几个字写清楚，也不要留下读者看不懂的缩写。"
+            "如果提供了读者知识画像，请用它来决定哪些概念可以略过、哪些概念需要用读者熟悉的领域做桥接解释。"
             "始终只返回一个 JSON 对象，不包含任何额外文字、说明或 Markdown 代码块。"
         )
     return (
         "You are a senior tech analyst writing daily Hacker News digests for time-pressed "
-        "technical readers. Be concise and information-dense: lead with the "
+        "technical readers. Be concise and information-dense without deleting necessary context: lead with the "
         "conclusion, the number, the entity — never filler like 'this article discusses/"
         "explores', never invented facts. Avoid abbreviations, acronyms, and initialisms "
         "where possible; when one is necessary, spell out the full term on first use, with a "
         "short gloss if non-obvious (e.g. 'RAG (retrieval-augmented generation)') — better to "
-        "spend a few extra words than leave the reader with an opaque acronym. Always return a "
+        "spend a few extra words than leave the reader with an opaque acronym. If a reader "
+        "knowledge profile is provided, use it to decide what can be assumed and what needs "
+        "bridging via concepts the reader already knows. Always return a "
         "single JSON object with no extra text, explanation, or Markdown fences."
     )
 
@@ -481,6 +539,7 @@ def build_prompt(
     comments: list[dict],
     lang: str,
     comment_char_limit: int,
+    knowledge_profile: Optional[str] = None,
     judge: bool = False,
 ) -> str:
     title = story.get("title", "")
@@ -515,13 +574,25 @@ def build_prompt(
         if blocks:
             parts.append("Top Hacker News comments:\n" + "\n\n".join(blocks))
 
+    if knowledge_profile:
+        parts.append(
+            "Reader knowledge profile (use this to adapt explanations; do not quote it back):\n"
+            f"{knowledge_profile}\n\n"
+            "Adaptation rules:\n"
+            "- If the story uses concepts the reader likely knows, rely on them and move fast.\n"
+            "- If it uses concepts outside the profile, add a compact bridge from known concepts to the new idea.\n"
+            "- Prefer one useful comparison over generic background."
+        )
+
     if lang == "zh":
         fields = [
             '  "title_translation": 字符串，将标题（Title 字段）翻译成简体中文，'
             "准确直译，保留专有名词/产品名/公司名不译；若标题本身已是中文则原样返回；",
-            '  "summary": 字符串，**一句话**（不超过 40 字；若需展开缩写全称/解释可适当放宽）'
-            "点出最核心的结论或数字，不要泛泛而谈；",
-            '  "key_points": 字符串数组，3-4 条，每条不超过 20 字（同样为展开缩写可适当放宽），并用 Markdown **粗体** '
+            '  "summary": 字符串，1-2 句话（约 50-90 字；若需解释背景可适当放宽）'
+            "点出最核心的结论、数字和为什么值得关注，不要泛泛而谈；",
+            '  "reader_context": 字符串，1 句话，把本文最容易卡住的概念连接到读者知识画像；'
+            "如果没有提供知识画像或无需桥接，写空字符串；",
+            '  "key_points": 字符串数组，3-4 条，每条约 20-40 字（同样为展开缩写可适当放宽），并用 Markdown **粗体** '
             "标出该条里唯一最关键的实体/数字/结论（例如 \"**xAI 完成 60 亿美元融资**，用于扩张算力\"）；",
             '  "discussion": 字符串，1 句话点出 HN 评论区的核心分歧或共识（无评论则写空字符串）；',
             '  "tags": 字符串数组，2-3 个具体的主题标签（避免“技术”这类泛标签，用 "LLM 推理"、'
@@ -544,9 +615,11 @@ def build_prompt(
         )
     else:
         fields = [
-            '  "summary": string, **one sentence** (max ~25 words; relax slightly if needed to '
-            "spell out an acronym) stating the single core conclusion or number — not a vague overview;",
-            '  "key_points": array of 3-4 strings, each under 12 words (relax slightly to expand an acronym), with the one key '
+            '  "summary": string, 1-2 sentences (~35-60 words; relax slightly if needed to '
+            "explain context) stating the core conclusion, number, and why it matters — not a vague overview;",
+            '  "reader_context": string, one sentence bridging the hardest concept to the reader knowledge profile; '
+            "empty string if no profile is provided or no bridge is needed;",
+            '  "key_points": array of 3-4 strings, each ~12-24 words (relax slightly to expand an acronym), with the one key '
             "entity/number/conclusion in that point wrapped in Markdown **bold** "
             "(e.g. \"**xAI raised $6B** to expand compute\");",
             '  "discussion": string, 1 sentence naming the core disagreement or consensus in '
@@ -587,9 +660,12 @@ async def summarize_story(
     comment_char_limit: int,
     thinking: bool,
     reasoning_effort: str,
+    knowledge_profile: Optional[str] = None,
     judge: bool = False,
 ) -> tuple[Optional[dict], Optional[str]]:
-    prompt = build_prompt(story, article_text, comments, lang, comment_char_limit, judge)
+    prompt = build_prompt(
+        story, article_text, comments, lang, comment_char_limit, knowledge_profile, judge
+    )
     extra: dict = {}
     # Reasoning tokens share the max_tokens budget with the final answer, so
     # give thinking mode much more room than a plain non-thinking call needs.
@@ -632,7 +708,7 @@ class Cache:
         if enabled:
             self.root.mkdir(parents=True, exist_ok=True)
 
-    def get(self, item_id: int) -> Optional[dict]:
+    def get(self, item_id: int | str) -> Optional[dict]:
         if not self.enabled:
             return None
         p = self.root / f"{item_id}.json"
@@ -643,7 +719,7 @@ class Cache:
                 return None
         return None
 
-    def set(self, item_id: int, summary: dict) -> None:
+    def set(self, item_id: int | str, summary: dict) -> None:
         if not self.enabled or summary is None:
             return
         try:
@@ -723,6 +799,7 @@ class Ctx:
     sem: asyncio.Semaphore
     usage: dict
     cache: Cache
+    knowledge_profile: Optional[str] = None
 
 
 async def summarize_one(rank: int, story: dict, ctx: Ctx) -> StoryResult:
@@ -742,7 +819,8 @@ async def summarize_one(rank: int, story: dict, ctx: Ctx) -> StoryResult:
 
     # Judge mode needs the forecast_question/rebuttal fields, which normal cached
     # summaries don't have — so bypass the cache read when judging.
-    cached = None if cfg.judge else ctx.cache.get(sid)
+    cache_id = knowledge_cache_key(sid, ctx.knowledge_profile)
+    cached = None if cfg.judge else ctx.cache.get(cache_id)
 
     async with ctx.sem:
         article_task = (
@@ -761,13 +839,14 @@ async def summarize_one(rank: int, story: dict, ctx: Ctx) -> StoryResult:
 
         summary, err = await summarize_story(
             ctx.client, cfg.model, story, article_text, comments, cfg.lang, ctx.usage,
-            cfg.comment_char_limit, cfg.thinking, cfg.reasoning_effort, cfg.judge,
+            cfg.comment_char_limit, cfg.thinking, cfg.reasoning_effort,
+            ctx.knowledge_profile, cfg.judge,
         )
 
     res.summary = summary
     res.error = err
     if summary:
-        ctx.cache.set(sid, summary)
+        ctx.cache.set(cache_id, summary)
     return res
 
 
@@ -799,6 +878,9 @@ def render_markdown(results: list[StoryResult], cfg: Config, generated_at: datet
         if s:
             if s.get("summary"):
                 out.append(f"📝 **{lbl['summary']}**：{s['summary']}")
+            if s.get("reader_context"):
+                out.append("")
+                out.append(f"🧭 **{lbl['context']}**：{s['reader_context']}")
             kps = s.get("key_points") or []
             if kps:
                 out.append("")
@@ -872,6 +954,9 @@ main{padding-bottom:64px}
 .meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
 .body{margin:14px 0 0 44px}
 .summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
 .kp{margin:12px 0 0;padding:0;list-style:none}
 .kp li{position:relative;padding-left:18px;margin:5px 0}
 .kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
@@ -934,6 +1019,9 @@ def render_html(results: list[StoryResult], cfg: Config, generated_at: datetime)
         body_bits: list[str] = []
         if summ:
             body_bits.append(f'<p class="summary">{summ}</p>')
+        if s.get("reader_context"):
+            ctx_html = md_bold_to_html(s["reader_context"])
+            body_bits.append(f'<p class="context"><strong>🧭 {lbl["context"]}</strong> {ctx_html}</p>')
         if kps:
             body_bits.append(f'<ul class="kp">{kps}</ul>')
         if disc:
@@ -1029,11 +1117,13 @@ async def _open_ctx(cfg: Config):
     http = httpx.AsyncClient(proxy=cfg.proxy, limits=limits, headers=DEFAULT_HEADERS)
     client, extra_client = build_client(api_key, cfg.proxy)
     hn = HNClient(http, cfg.request_timeout)
+    knowledge_profile = load_knowledge_profile(cfg, _log)
     ctx = Ctx(
         hn=hn, http=http, client=client, cfg=cfg,
         sem=asyncio.Semaphore(cfg.max_concurrency),
         usage={"input": 0, "output": 0, "filter_input": 0, "filter_output": 0},
         cache=Cache(cfg.output_dir, cfg.cache),
+        knowledge_profile=knowledge_profile,
     )
     return ctx, http, extra_client
 
@@ -1342,6 +1432,22 @@ def parse_args() -> Config:
         default=40,
         help="stories per semantic filter request",
     )
+    p.add_argument(
+        "--knowledge",
+        default="./knowledge_profile.md",
+        help="reader knowledge profile Markdown file; env HN_DIGEST_KNOWLEDGE takes precedence",
+    )
+    p.add_argument(
+        "--no-knowledge",
+        action="store_true",
+        help="disable reader knowledge profile injection",
+    )
+    p.add_argument(
+        "--knowledge-char-limit",
+        type=int,
+        default=8000,
+        help="maximum characters from the reader knowledge profile",
+    )
     p.add_argument("--pool", type=int, default=200, help="candidate pool when filtering by keyword")
     p.add_argument("--concurrency", type=int, default=6, help="parallel summarization slots")
     p.add_argument("--max-comments", type=int, default=8, help="top comments fed to the model")
@@ -1382,6 +1488,8 @@ def parse_args() -> Config:
         filter_mode=a.filter_mode,
         filter_model=a.filter_model,
         filter_batch_size=a.filter_batch_size,
+        knowledge_path=None if a.no_knowledge else Path(a.knowledge),
+        knowledge_char_limit=a.knowledge_char_limit,
         pool=a.pool,
         max_concurrency=a.concurrency,
         max_comments=a.max_comments,
