@@ -996,33 +996,33 @@ CSS_BLOCK = """
 :root{
   --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
   --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
-  --body:"Inter","Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Sans","Noto Sans CJK SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
   --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
-  line-height:1.66;font-size:16.5px;-webkit-font-smoothing:antialiased}
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
 .wrap{max-width:720px;margin:0 auto;padding:0 22px}
 header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
 header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
-header h1{font-family:var(--mono);font-size:clamp(22px,5vw,30px);font-weight:700;
-  letter-spacing:-.01em;margin:0}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
 header h1 .y{color:var(--hn)}
-header .sub{font-family:var(--mono);color:var(--muted);font-size:12.5px;margin:8px 0 0;
-  text-transform:uppercase;letter-spacing:.06em}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
 main{padding-bottom:64px}
 .card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
 .card:last-child{border-bottom:none}
 .head{display:flex;gap:14px;align-items:flex-start}
 .rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
   line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
-.card h2{font-size:20px;font-weight:650;line-height:1.32;margin:0;letter-spacing:-.01em}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
 .card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
   transition:border-color .12s ease,color .12s ease}
 .card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
 .title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
-.meta{font-family:var(--mono);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
   font-variant-numeric:tabular-nums}
 .meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
 .meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
@@ -1041,8 +1041,8 @@ main{padding-bottom:64px}
 .disc strong{font-weight:650}
 .topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
   border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
-.topc .topc-meta{font-family:var(--mono);color:var(--muted);font-size:11.5px;margin-bottom:5px;
-  text-transform:uppercase;letter-spacing:.03em}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
 .topc p{margin:0 0 8px}
 .topc p:last-child{margin-bottom:0}
 .topc strong{color:var(--hn);font-weight:650}
@@ -1050,15 +1050,15 @@ main{padding-bottom:64px}
   border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
 .judge-q{font-weight:600}
 .judge-pred{margin:7px 0 0}
-.judge-meta{font-family:var(--mono);color:var(--muted);font-size:11.5px}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
 .judge-reb{margin:8px 0 0}
 .judge-reb strong{color:#6C5CE7;font-weight:650}
 .tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
-.tag{font-family:var(--mono);font-size:11.5px;color:var(--muted);
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
   border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
-.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--mono)}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
 footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
-  font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em}
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
 @media(max-width:560px){
   .title-tr,.meta,.body,.err{margin-left:0}
   .rank{min-width:26px}

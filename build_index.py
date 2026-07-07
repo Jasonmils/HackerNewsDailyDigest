@@ -54,23 +54,35 @@ HOME_BOTTOM = (
     '<a class="digest-home" href="index.html">← 返回全部日报</a></div>'
 )
 
+DIGEST_TYPOGRAPHY_OVERRIDE = (
+    '<style id="digest-typography-override">'
+    ':root{--body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB",'
+    '"Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif}'
+    'body{font-family:var(--body)!important;line-height:1.72}'
+    'header h1,header .sub,.meta,.topc .topc-meta,.judge-meta,.tag,.err,footer{'
+    'font-family:var(--body)!important;letter-spacing:0!important}'
+    'header h1{font-weight:750!important}'
+    '.card h2{line-height:1.42!important;letter-spacing:0!important}'
+    '</style>'
+)
+
 CSS = """
 :root{--bg:#FCFCFA;--ink:#1B1B1B;--muted:#6F6F68;--hair:#E7E6DF;
   --hn:#FF6600;--hn-soft:#FFF1E8;--hover:#F4F3EE;--card:#FFFFFF;
-  --body:"Inter","Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Sans","Noto Sans CJK SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
   --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
-  line-height:1.66;font-size:16.5px;-webkit-font-smoothing:antialiased}
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
 .wrap{max-width:720px;margin:0 auto;padding:0 22px}
 header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
 header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
-header h1{font-family:var(--mono);font-size:clamp(22px,5vw,30px);font-weight:700;
-  letter-spacing:-.01em;margin:0}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
 header h1 .y{color:var(--hn)}
-header .sub{font-family:var(--mono);color:var(--muted);font-size:12.5px;margin:8px 0 0;
-  text-transform:uppercase;letter-spacing:.06em}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
 main{padding:14px 0 64px}
 
 details.day{border-bottom:1px solid var(--hair)}
@@ -82,21 +94,21 @@ details.day>summary::before{content:"▸";color:var(--muted);font-size:11px;line
   transition:transform .15s ease;display:inline-block}
 details.day[open]>summary::before{transform:rotate(90deg)}
 details.day>summary:hover{background:var(--hover)}
-summary .d{font-family:var(--mono);font-weight:650;font-size:16.5px;color:var(--ink);
-  font-variant-numeric:tabular-nums;letter-spacing:-.01em}
-summary .wd{font-family:var(--mono);color:var(--muted);font-size:12.5px}
-summary .cnt{font-family:var(--mono);color:var(--muted);font-size:12.5px;margin-left:auto;
+summary .d{font-family:var(--body);font-weight:650;font-size:16.5px;color:var(--ink);
+  font-variant-numeric:tabular-nums;letter-spacing:0}
+summary .wd{font-family:var(--body);color:var(--muted);font-size:12.5px}
+summary .cnt{font-family:var(--body);color:var(--muted);font-size:12.5px;margin-left:auto;
   font-variant-numeric:tabular-nums}
-summary .badge{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.07em;
+summary .badge{font-family:var(--body);font-size:10px;font-weight:700;letter-spacing:0;
   text-transform:uppercase;color:#fff;background:var(--hn);border-radius:4px;padding:2px 7px}
 details.day[open]{background:linear-gradient(var(--hn-soft),transparent 64px);border-radius:8px}
 
 .day-body{padding:2px 6px 20px 26px}
 .day-links{margin:0 0 14px}
-.day-links .full{font-family:var(--mono);font-size:12.5px;color:var(--hn);text-decoration:none;
+.day-links .full{font-family:var(--body);font-size:12.5px;color:var(--hn);text-decoration:none;
   border-bottom:1px solid transparent}
 .day-links .full:hover{border-bottom-color:var(--hn)}
-.day-links .md{font-family:var(--mono);font-size:11.5px;color:var(--muted);text-decoration:none;
+.day-links .md{font-family:var(--body);font-size:11.5px;color:var(--muted);text-decoration:none;
   margin-left:14px;border-bottom:1px dotted var(--muted)}
 .day-links .md:hover{color:var(--hn);border-bottom-color:var(--hn)}
 
@@ -111,9 +123,9 @@ ol.stories .t{font-size:15.5px;font-weight:600;line-height:1.42;color:var(--ink)
 ol.stories .t:hover{color:var(--hn);border-bottom-color:var(--hn)}
 ol.stories .s{margin:5px 0 0;color:var(--muted);font-size:13.5px;line-height:1.62}
 
-.empty{color:var(--muted);font-family:var(--mono);padding:30px 0}
+.empty{color:var(--muted);font-family:var(--body);padding:30px 0}
 footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
-  font-family:var(--mono);font-size:12px}
+  font-family:var(--body);font-size:12px}
 """
 
 
@@ -160,6 +172,13 @@ def inject_home(text: str) -> str:
     return text
 
 
+def apply_digest_typography(text: str) -> str:
+    """Normalize typography for old digest HTML when copying to public/."""
+    if "digest-typography-override" in text:
+        return text
+    return text.replace("</head>", DIGEST_TYPOGRAPHY_OVERRIDE + "\n</head>", 1)
+
+
 def render_day(date_str: str, src_name: str, md_name: str | None,
                stories: list[dict], cnt: str, latest: bool) -> str:
     wd = WEEKDAYS[datetime.strptime(date_str, "%Y-%m-%d").weekday()]
@@ -196,7 +215,7 @@ def build(digests: Path, out: Path) -> int:
     for i, (date_str, src) in enumerate(issues):
         text = src.read_text(encoding="utf-8")
         # Copy the digest with the back button injected.
-        (out / src.name).write_text(inject_home(text), encoding="utf-8")
+        (out / src.name).write_text(apply_digest_typography(inject_home(text)), encoding="utf-8")
         md = src.with_suffix(".md")
         md_name = md.name if md.exists() else None
         if md_name:
