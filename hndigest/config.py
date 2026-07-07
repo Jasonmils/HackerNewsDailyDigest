@@ -99,6 +99,7 @@ class Config:
     meta_concurrency: int = 20        # parallel HN metadata fetches (cheap)
     max_comments: int = 8             # top-level comments fed to the summarizer
     article_char_limit: int = 12_000
+    pdf_max_pages: int = 12           # first PDF pages to extract before summarization
     comment_char_limit: int = 4_000
     request_timeout: float = 25.0
     output_dir: Path = Path("./digests")

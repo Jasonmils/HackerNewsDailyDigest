@@ -51,7 +51,13 @@ async def summarize_one(rank: int, story: dict, ctx: Ctx) -> StoryResult:
 
     async with ctx.sem:
         article_task = (
-            fetch_article_text(ctx.http, url, cfg.request_timeout, cfg.article_char_limit)
+            fetch_article_text(
+                ctx.http,
+                url,
+                cfg.request_timeout,
+                cfg.article_char_limit,
+                cfg.pdf_max_pages,
+            )
             if (url and cfg.fetch_articles and not cached)
             else _none()
         )

@@ -61,6 +61,7 @@ def parse_args() -> Config:
     p.add_argument("--pool", type=int, default=200, help="candidate pool when filtering by keyword")
     p.add_argument("--concurrency", type=int, default=6, help="parallel summarization slots")
     p.add_argument("--max-comments", type=int, default=8, help="top comments fed to the model")
+    p.add_argument("--pdf-max-pages", type=int, default=12, help="maximum PDF pages to extract")
     p.add_argument("--out", default="./digests", help="output directory")
     p.add_argument(
         "--proxy",
@@ -103,6 +104,7 @@ def parse_args() -> Config:
         pool=a.pool,
         max_concurrency=a.concurrency,
         max_comments=a.max_comments,
+        pdf_max_pages=a.pdf_max_pages,
         output_dir=Path(a.out),
         proxy=a.proxy,
         fetch_articles=not a.no_articles,

@@ -15,10 +15,10 @@ topstories ──► 抓元数据 ──► 抓正文 + 热门评论 ──► D
 
 ```bash
 pip install -r requirements.txt
-export DEEPSEEK_API_KEY=sk-...        # 或直接在 hn_digest.py 顶部的 DEEPSEEK_API_KEY 处填入
+export DEEPSEEK_API_KEY=sk-...        # 或直接在 hndigest/config.py 的 DEEPSEEK_API_KEY 处填入
 ```
 
-> DeepSeek 接口与 OpenAI 兼容，脚本通过 `openai` SDK 指向 `https://api.deepseek.com` 调用。API key 可填在 `hn_digest.py` 顶部的 `DEEPSEEK_API_KEY = ""`（默认留空），或用上面的环境变量（环境变量优先）。
+> DeepSeek 接口与 OpenAI 兼容，脚本通过 `openai` SDK 指向 `https://api.deepseek.com` 调用。API key 可填在 `hndigest/config.py` 的 `DEEPSEEK_API_KEY = ""`（默认留空），或用上面的环境变量（环境变量优先）。
 
 ## 运行
 
@@ -42,6 +42,7 @@ python hn_digest.py --no-articles                # 只用标题 + 评论（更�
 | `--keywords a,b,c` | 无 | 按标题关键词过滤；命中前会先抓 `--pool`（默认 200）条做筛选 |
 | `--concurrency N` | 6 | 并发摘要槽位（抓正文 + 调模型）|
 | `--max-comments N` | 8 | 喂给模型的热门评论条数 |
+| `--pdf-max-pages N` | 12 | PDF 链接最多抽取前 N 页文本 |
 | `--proxy URL` | `$HTTPS_PROXY` | 代理；也可用环境变量 `HN_DIGEST_PROXY` |
 | `--no-cache` | — | 强制重新摘要（默认按故事 id 缓存，避免重复付费）|
 | `--no-thinking` | — | 关闭 DeepSeek-V4 思考模式（默认开启）|
@@ -88,7 +89,7 @@ python hn_digest.py --grade-only                  # 只复盘到期旧预测，�
 
 一次性设置：
 
-1. **先确认 `hn_digest.py` 顶部的 `DEEPSEEK_API_KEY` 是空字符串**（已清空），key 只通过 secret 注入——千万别把 key 写回代码再推到公开仓库。
+1. **先确认 `hndigest/config.py` 里的 `DEEPSEEK_API_KEY` 是空字符串**（已清空），key 只通过 secret 注入——千万别把 key 写回代码再推到公开仓库。
 2. 把项目推到一个 GitHub 仓库（公开仓库免费用 Pages；私有仓库需 Pro）。
 3. 仓库 → **Settings → Secrets and variables → Actions → New repository secret**：名称填 `DEEPSEEK_API_KEY`，值填你的 key。
 4. 仓库 → **Settings → Pages → Source** 选 **GitHub Actions**。
@@ -111,7 +112,7 @@ python hn_digest.py --grade-only                  # 只复盘到期旧预测，�
 ## 工作方式
 
 - **HN API**：无需鉴权的 Firebase 接口。`topstories.json` 取排名，`item/{id}.json` 取每条详情、`kids` 取评论。带 3 次重试。
-- **正文抽取**：`httpx` 拉 HTML，`trafilatura` 提取正文（自动跳过 PDF/视频等非 HTML；Ask/Show HN 直接用帖子自带 `text`）。正文超长按字符截断。
+- **正文抽取**：`httpx` 拉链接；HTML 用 `trafilatura` 提取正文，PDF 用 `pypdf` 抽取前 `--pdf-max-pages` 页文本；Ask/Show HN 直接用帖子自带 `text`。正文超长按字符截断。
 - **摘要**：每条一次模型调用，要求只返回 JSON（`summary` / `key_points` / `discussion` / `tags`），解析容错（去 ``` 包裹、兜底正则提取）。token 用量累加并在结束时给出估算成本。
 - **缓存**：`digests/.cache/{id}.json` 按故事 id 缓存摘要——常驻热榜的故事跨天不重复付费。注意评论是基于首次摘要时的快照；要刷新加 `--no-cache`。
 
