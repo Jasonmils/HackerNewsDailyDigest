@@ -1,3 +1,15 @@
+"""Small generic utilities shared by multiple modules.
+
+Summary:
+    Contains low-level helpers for HTML/comment text cleanup, Markdown bold
+    rendering, tolerant JSON extraction, and async no-op placeholders.
+
+Adding functions:
+    Add only broadly reusable, dependency-light helpers here. If a helper knows
+    about HN, PDFs, prompts, storage, or rendering details, put it in that
+    domain module instead.
+"""
+
 from __future__ import annotations
 
 import html

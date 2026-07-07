@@ -1,3 +1,16 @@
+"""Linked article fetching and text extraction.
+
+Summary:
+    Downloads each story URL and extracts readable article text. HTML/text pages
+    are handled with trafilatura; PDF links are detected and delegated to the
+    local PDF reader.
+
+Adding functions:
+    Add new extractors here when they turn a fetched URL response into plain
+    text. Keep model calls, HN metadata, and rendering out of this module; this
+    layer should return `Optional[str]` and fail softly with `None`.
+"""
+
 from __future__ import annotations
 
 from typing import Optional

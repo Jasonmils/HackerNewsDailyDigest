@@ -1,3 +1,16 @@
+"""Markdown and HTML rendering for generated digests.
+
+Summary:
+    Converts StoryResult objects and model JSON into the archived Markdown file
+    and the self-contained HTML reading page, including typography and visual
+    styling.
+
+Adding functions:
+    Add presentation-only helpers here when they change how existing results are
+    displayed. Do not fetch data or call models from this module; pass any new
+    data through StoryResult or summary fields first.
+"""
+
 from __future__ import annotations
 
 import html
@@ -243,4 +256,3 @@ def render_html(results: list[StoryResult], cfg: Config, generated_at: datetime)
         f"<footer>generated {gen} · hn-digest agent</footer>\n"
         "</body>\n</html>\n"
     )
-

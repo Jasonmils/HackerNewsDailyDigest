@@ -1,3 +1,15 @@
+"""Interactive judgment and prediction calibration mode.
+
+Summary:
+    Runs the optional predict-before-reveal workflow, records forecasts in the
+    ledger, and scores due predictions with Brier-style calibration feedback.
+
+Adding functions:
+    Add functions here when they affect the interactive judge loop, prediction
+    prompts, reveal behavior, or ledger scoring UI. Keep non-interactive daily
+    digest orchestration in runner.py.
+"""
+
 from __future__ import annotations
 
 from datetime import datetime, timedelta

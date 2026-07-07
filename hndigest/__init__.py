@@ -1,3 +1,15 @@
+"""Package public surface for the HN digest agent.
+
+Summary:
+    Exposes the stable package-level imports while lazy-loading heavier runtime
+    modules so simple imports and CLI help do not require network/model deps.
+
+Adding functions:
+    Keep this file thin. Add new public re-exports only for APIs that callers
+    should import from `hndigest`; implementation should live in a focused
+    module such as runner, summarizer, filtering, or render.
+"""
+
 from .config import Config, StoryResult
 
 __all__ = ["Config", "StoryResult", "run", "run_judge"]

@@ -1,3 +1,15 @@
+"""Story topic filtering.
+
+Summary:
+    Implements strict keyword matching and semantic LLM classification for
+    deciding which Hacker News stories belong in the digest topic scope.
+
+Adding functions:
+    Add new ranking/filtering strategies here when they operate on story
+    metadata before summarization. Keep fetching in hn/articles and keep final
+    summary generation in summarizer.
+"""
+
 from __future__ import annotations
 
 import json

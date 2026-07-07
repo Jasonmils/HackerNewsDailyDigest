@@ -1,3 +1,15 @@
+"""Configuration, constants, and shared result data structures.
+
+Summary:
+    Holds default API endpoints, topic scopes, labels, pricing estimates, and
+    dataclasses used across the digest pipeline.
+
+Adding functions:
+    Prefer plain constants or dataclass fields here. Add helper functions only
+    when they are configuration-related; parsing, fetching, summarizing,
+    filtering, and rendering logic belongs in their own modules.
+"""
+
 from __future__ import annotations
 
 import re

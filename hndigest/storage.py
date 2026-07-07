@@ -1,3 +1,15 @@
+"""Local persistence for summaries and judgment predictions.
+
+Summary:
+    Provides the digest summary cache under `digests/.cache` and the prediction
+    ledger used by judge mode.
+
+Adding functions:
+    Add local persistence helpers here when they read/write cache, ledger, or
+    other small JSON records. Keep remote APIs, rendering, and model prompts in
+    their own modules.
+"""
+
 from __future__ import annotations
 
 import json
@@ -91,4 +103,3 @@ class Ledger:
         mean_brier = sum(e["score"] for e in graded) / n
         hits = sum(1 for e in graded if e.get("outcome") == "hit")
         return {"n": n, "brier": mean_brier, "hits": hits, "open": sum(1 for e in self.entries if e.get("status") == "open")}
-

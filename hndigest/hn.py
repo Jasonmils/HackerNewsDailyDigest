@@ -1,3 +1,15 @@
+"""Hacker News Firebase API access.
+
+Summary:
+    Fetches top story IDs, item metadata, top-level comments, and selects the
+    most-replied comment used in the digest.
+
+Adding functions:
+    Add HN API-specific helpers here, especially anything that reads
+    `item/{id}.json` or transforms HN comments. Keep linked article fetching in
+    articles.py and topic decisions in filtering.py.
+"""
+
 from __future__ import annotations
 
 import asyncio
@@ -72,4 +84,3 @@ def pick_top_comment(comments: list[dict]) -> Optional[dict]:
         return None
     top = max(comments, key=lambda c: c["replies"])
     return top if top["replies"] > 0 else None
-

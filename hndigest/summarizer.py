@@ -1,3 +1,16 @@
+"""Prompt construction, model calls, and JSON repair.
+
+Summary:
+    Builds the DeepSeek prompt from story metadata, article/PDF text, comments,
+    and reader knowledge profile; calls the OpenAI-compatible API; and repairs
+    malformed JSON responses when possible.
+
+Adding functions:
+    Add summary schema fields, prompt variants, model-call wrappers, or response
+    validation here. Keep fetching/ranking outside this module so it remains a
+    pure summarization boundary.
+"""
+
 from __future__ import annotations
 
 from typing import Optional
@@ -239,4 +252,3 @@ async def summarize_story(
             return None, "could not parse model JSON"
         return repaired, None
     return parsed, None
-

@@ -1,3 +1,15 @@
+"""Reader knowledge profile loading and cache identity.
+
+Summary:
+    Loads the user-maintained knowledge profile from an environment secret or
+    local Markdown file, cleans template noise, trims it, and folds it into the
+    summary cache key.
+
+Adding functions:
+    Add profile cleaning, validation, or cache-signature helpers here. Keep the
+    actual explanation style and prompt wording in summarizer.py.
+"""
+
 from __future__ import annotations
 
 import hashlib

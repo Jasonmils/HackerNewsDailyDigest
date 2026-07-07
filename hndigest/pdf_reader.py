@@ -1,3 +1,16 @@
+"""Local PDF detection and text extraction.
+
+Summary:
+    Identifies linked PDF responses and extracts page text with pypdf so PDF
+    stories can be summarized from document content instead of title/comments
+    only.
+
+Adding functions:
+    Add PDF-only parsing improvements here, such as page filtering, metadata
+    extraction, or OCR fallback hooks. Keep HTTP downloading in articles.py and
+    model summarization in summarizer.py.
+"""
+
 from __future__ import annotations
 
 import re

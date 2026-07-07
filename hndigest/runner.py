@@ -1,3 +1,16 @@
+"""Main digest pipeline orchestration.
+
+Summary:
+    Opens clients, collects HN stories, applies filters, fetches article/comment
+    context, calls the summarizer, writes output files, and reports token/cost
+    estimates.
+
+Adding functions:
+    Add functions here when they coordinate multiple pipeline stages. If a new
+    behavior is a leaf operation, place it in the focused module first, then
+    call it from runner.py.
+"""
+
 from __future__ import annotations
 
 import asyncio

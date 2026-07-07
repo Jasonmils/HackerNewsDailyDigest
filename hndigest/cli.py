@@ -1,3 +1,15 @@
+"""Command-line interface for the digest agent.
+
+Summary:
+    Defines argparse flags, converts them into a Config object, and dispatches
+    to the normal runner or interactive judge mode with lazy imports.
+
+Adding functions:
+    Add new CLI flags here when users need to control existing behavior. Wire
+    each flag into Config, and keep business logic in the target module instead
+    of implementing it in the parser.
+"""
+
 from __future__ import annotations
 
 import argparse

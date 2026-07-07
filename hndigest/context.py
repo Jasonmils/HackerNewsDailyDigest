@@ -1,3 +1,16 @@
+"""Runtime context shared across one digest run.
+
+Summary:
+    Groups long-lived clients, config, semaphores, usage counters, cache, and
+    the loaded reader knowledge profile so pipeline functions can pass one
+    object instead of many parameters.
+
+Adding functions:
+    Usually do not add behavior here. Add fields only when multiple pipeline
+    stages need the same runtime state; put logic in the stage module that owns
+    the behavior.
+"""
+
 from __future__ import annotations
 
 import asyncio
@@ -21,4 +34,3 @@ class Ctx:
     usage: dict
     cache: Cache
     knowledge_profile: Optional[str] = None
-
