@@ -189,22 +189,51 @@ async def _none() -> None:
     return None
 
 
+def extract_json_object(raw: str) -> Optional[str]:
+    """Return the first balanced JSON object from raw text."""
+    start = raw.find("{")
+    if start < 0:
+        return None
+    depth = 0
+    in_string = False
+    escape = False
+    for i, ch in enumerate(raw[start:], start):
+        if in_string:
+            if escape:
+                escape = False
+            elif ch == "\\":
+                escape = True
+            elif ch == '"':
+                in_string = False
+            continue
+        if ch == '"':
+            in_string = True
+        elif ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == 0:
+                return raw[start:i + 1]
+    return None
+
+
 def parse_json(raw: str) -> Optional[dict]:
     """Tolerant JSON extraction from a model response."""
     if not raw:
         return None
     raw = raw.strip()
-    raw = re.sub(r"^```(?:json)?", "", raw).strip()
-    raw = re.sub(r"```$", "", raw).strip()
+    raw = re.sub(r"^```(?:json)?\s*", "", raw).strip()
+    raw = re.sub(r"\s*```$", "", raw).strip()
     try:
         return json.loads(raw)
     except Exception:
-        m = re.search(r"\{.*\}", raw, re.DOTALL)
-        if m:
-            try:
-                return json.loads(m.group(0))
-            except Exception:
-                return None
+        obj = extract_json_object(raw)
+        if not obj:
+            return None
+        try:
+            return json.loads(obj)
+        except Exception:
+            return None
     return None
 
 
@@ -650,6 +679,47 @@ def build_prompt(
     return "\n\n".join(parts)
 
 
+async def repair_model_json(
+    client: AsyncOpenAI,
+    model: str,
+    raw: str,
+    usage: dict,
+) -> Optional[dict]:
+    """Ask the model to convert its malformed answer into strict JSON."""
+    if not raw.strip():
+        return None
+    try:
+        msg = await client.chat.completions.create(
+            model=model,
+            max_tokens=2500,
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "You repair malformed JSON from an earlier model response. "
+                        "Return exactly one valid JSON object, with no Markdown, comments, "
+                        "or explanatory text. Preserve the original fields and meanings."
+                    ),
+                },
+                {
+                    "role": "user",
+                    "content": (
+                        "Repair this into one valid JSON object. Escape quotes and newlines "
+                        "inside strings correctly. Output JSON only:\n\n"
+                        f"{raw[:12000]}"
+                    ),
+                },
+            ],
+            extra_body={"thinking": {"type": "disabled"}},
+        )
+    except Exception:
+        return None
+    if msg.usage:
+        usage["input"] += msg.usage.prompt_tokens
+        usage["output"] += msg.usage.completion_tokens
+    return parse_json(msg.choices[0].message.content or "")
+
+
 async def summarize_story(
     client: AsyncOpenAI,
     model: str,
@@ -695,7 +765,10 @@ async def summarize_story(
     raw = msg.choices[0].message.content or ""
     parsed = parse_json(raw)
     if parsed is None:
-        return None, "could not parse model JSON"
+        repaired = await repair_model_json(client, model, raw, usage)
+        if repaired is None:
+            return None, "could not parse model JSON"
+        return repaired, None
     return parsed, None
 
 
