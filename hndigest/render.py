@@ -14,10 +14,56 @@ Adding functions:
 from __future__ import annotations
 
 import html
+import json
+import re
 from datetime import datetime
 
 from .config import Config, LABELS, StoryResult
 from .utils import md_bold_to_html
+
+
+def _plain_share_text(value: object) -> str:
+    text = str(value or "")
+    text = re.sub(r"\*\*(.+?)\*\*", r"\1", text)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text
+
+
+def _json_script_payload(data: object) -> str:
+    return json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
+
+
+def _share_card_payload(
+    r: StoryResult,
+    summary: dict,
+    cfg: Config,
+    date_str: str,
+) -> dict:
+    title_translation = _plain_share_text(summary.get("title_translation"))
+    key_points = [
+        _plain_share_text(p)
+        for p in (summary.get("key_points") or [])[:3]
+        if _plain_share_text(p)
+    ]
+    return {
+        "rank": r.rank,
+        "digestTitle": LABELS[cfg.lang]["title"],
+        "date": date_str,
+        "pointsLabel": LABELS[cfg.lang]["points"],
+        "commentsLabel": LABELS[cfg.lang]["comments"],
+        "title": _plain_share_text(r.title),
+        "titleTranslation": title_translation if title_translation != r.title else "",
+        "summary": _plain_share_text(summary.get("summary")),
+        "keyPoints": key_points,
+        "discussion": _plain_share_text(summary.get("discussion")),
+        "tags": [_plain_share_text(t) for t in (summary.get("tags") or [])[:3]],
+        "score": r.score,
+        "comments": r.comments_count,
+        "by": _plain_share_text(r.by),
+        "url": r.url or r.hn_url,
+        "hnUrl": r.hn_url,
+    }
+
 
 def render_markdown(results: list[StoryResult], cfg: Config, generated_at: datetime) -> str:
     lbl = LABELS[cfg.lang]
@@ -118,6 +164,12 @@ main{padding-bottom:64px}
   font-variant-numeric:tabular-nums}
 .meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
 .meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
 .body{margin:14px 0 0 44px}
 .summary{margin:0}
 .context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
@@ -152,9 +204,210 @@ main{padding-bottom:64px}
 footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
   font-family:var(--body);font-size:11.5px;letter-spacing:0}
 @media(max-width:560px){
-  .title-tr,.meta,.body,.err{margin-left:0}
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
   .rank{min-width:26px}
 }
+"""
+
+
+SHARE_CARD_SCRIPT = """
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\\u4e00-\\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
 """
 
 
@@ -162,12 +415,19 @@ def render_html(results: list[StoryResult], cfg: Config, generated_at: datetime)
     lbl = LABELS[cfg.lang]
     date_str = generated_at.strftime("%Y-%m-%d")
     ok = [r for r in results if r and r.summary]
+    share_label = "分享卡片" if cfg.lang == "zh" else "Share card"
+    share_wait = "生成中..." if cfg.lang == "zh" else "Rendering..."
+    share_done = "已生成" if cfg.lang == "zh" else "Ready"
+    share_fail = "生成失败" if cfg.lang == "zh" else "Failed"
 
     cards: list[str] = []
+    share_cards: list[dict] = []
     for r in results:
         if not r:
             continue
         s = r.summary or {}
+        share_index = len(share_cards)
+        share_cards.append(_share_card_payload(r, s, cfg, date_str))
         title = html.escape(r.title)
         link = html.escape(r.url or r.hn_url, quote=True)
         hn = html.escape(r.hn_url, quote=True)
@@ -225,6 +485,13 @@ def render_html(results: list[StoryResult], cfg: Config, generated_at: datetime)
                 f'<div class="topc"><div class="topc-meta">🔥 {lbl["top_comment"]} · {meta_line}</div>'
                 f'{tc_paras}</div>'
             )
+        actions = (
+            f'<div class="actions"><button class="share-btn" type="button" '
+            f'data-share-index="{share_index}" data-wait="{html.escape(share_wait, quote=True)}" '
+            f'data-done="{html.escape(share_done, quote=True)}" '
+            f'data-fail="{html.escape(share_fail, quote=True)}">'
+            f'{html.escape(share_label)}</button></div>'
+        )
         body = f'<div class="body">{"".join(body_bits)}</div>' if body_bits else ""
         err = "" if s else f'<p class="err">{html.escape(r.error or lbl["failed"])}</p>'
 
@@ -235,12 +502,13 @@ def render_html(results: list[StoryResult], cfg: Config, generated_at: datetime)
             f"{title_tr_html}"
             f'<div class="meta">▲ {r.score} {lbl["points"]} · {html.escape(r.by)} · '
             f'<a href="{hn}" target="_blank" rel="noopener">{r.comments_count} {lbl["comments"]}</a></div>'
-            f"{body}{err}</article>"
+            f"{actions}{body}{err}</article>"
         )
 
     body_html = "\n".join(cards)
     gen = html.escape(generated_at.strftime("%Y-%m-%d %H:%M %Z"))
     model = html.escape(cfg.model)
+    share_data = _json_script_payload(share_cards)
     return (
         "<!doctype html>\n"
         f'<html lang="{cfg.lang}">\n<head>\n'
@@ -254,5 +522,7 @@ def render_html(results: list[StoryResult], cfg: Config, generated_at: datetime)
         "</header>\n"
         f'<main><div class="wrap">\n{body_html}\n</div></main>\n'
         f"<footer>generated {gen} · hn-digest agent</footer>\n"
+        f'<script type="application/json" id="share-card-data">{share_data}</script>\n'
+        f"{SHARE_CARD_SCRIPT}\n"
         "</body>\n</html>\n"
     )
