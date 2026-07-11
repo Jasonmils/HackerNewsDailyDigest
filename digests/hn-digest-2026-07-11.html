@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-07-11</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-07-11 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://9to5mac.com/2026/07/10/apple-sues-openai-trade-secret-theft/" target="_blank" rel="noopener">Apple sues OpenAI, accuses ex-employees of stealing trade secrets</a></h2></div><p class="title-tr">苹果起诉OpenAI，指控前员工窃取商业机密</p><div class="meta">▲ 670 分 · stock_toaster · <a href="https://news.ycombinator.com/item?id=48865019" target="_blank" rel="noopener">326 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">苹果起诉OpenAI，指控其前产品设计副总裁Tang Tan和高级工程师Chang Liu为OpenAI硬件项目系统性窃取未发布产品图纸、制造工艺与供应商关系，并利用安全漏洞下载超千页机密文件。这起诉讼可能重演Waymo诉Uber自动驾驶案，直接终结OpenAI的消费硬件野心。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这起案件对AI初创公司投资的启示是：通过挖角获取大公司硬件制造机密（类似通过离职员工窃取模型架构与训练数据集）即使短期加速产品上市，也可能招致毁灭性法律打击和信任崩塌。</p><ul class="kp"><li><strong>苹果起诉OpenAI</strong>，指控前产品设计副总裁Tang Tan与高级工程师Chang Liu为OpenAI窃取商业机密，案件由加州北区联邦法院受理。</li><li>Tan在面试苹果员工时<strong>要求带来实际硬件零部件和CAD设计文件</strong>，并利用苹果内部项目代号套取未发布产品计划。</li><li>Liu离职后<strong>利用安全漏洞下载超过1000页电路板制造工艺文件</strong>，并故意保留苹果配置的笔记本电脑，还在消息中嘲笑安全疏漏。</li><li>OpenAI被指<strong>误导苹果供应商使用其专有金属表面处理技术</strong>，并接触长期电池供应商刺探组件信息；目前已有超400名前苹果员工在 OpenAI 任职。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区几乎一致认定证据对 OpenAI 极为不利，案件将重演 Uber 自动驾驶案，OpenAI 硬件项目会因此终结，同时引发企业客户对 OpenAI 数据与知识产权安全的广泛质疑。</p><div class="tags"><span class="tag">商业机密诉讼</span><span class="tag">AI 硬件</span><span class="tag">知识产权保护</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · joshstrange · 14 回复</div><p>Some pretty damning stuff:</p><p>&gt; OpenAI also instructs new hires on how to avoid scrutiny when they leave Apple. For example, Mr. Tan warns them not to tell Apple that they have taken jobs at OpenAI, so they can stay at Apple as long as they can.</p><p>&gt; Apple says it discovered a pattern of OpenAI recruits emailing themselves confidential information when leaving Apple, including Tan.</p><p>&gt; OpenAI apparently used confidential Apple hardware information when approaching Apple suppliers, and tricked one company into using a &quot;specific trade secret metal-finishing technique&quot; for an OpenAI device by claiming it had Apple&#x27;s permission to do so.</p><p>&gt; Liu allegedly kept an Apple-issued laptop after departing the company and exploited a vulnerability to download dozens of confidential Apple documents while he was working at OpenAI.</p><p>Non-competes and the like are gross but what&#x27;s described here isn&#x27;t just &quot;bring your expertise to OpenAI&quot; it&#x27;s &quot;here is how to steal secrets on your way out&quot; which is even grosser.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://cdn.openai.com/pdf/04d1d1e4-bc75-476a-97cf-49055cd98d31/cdc_proof.pdf" target="_blank" rel="noopener">GPT-5.6 Sol Ultra produces proof of the Cycle Double Cover Conjecture [pdf]</a></h2></div><p class="title-tr">GPT-5.6 Sol Ultra 成功证明圈双覆盖猜想 [pdf]</p><div class="meta">▲ 378 分 · scrlk · <a href="https://news.ycombinator.com/item?id=48863490" target="_blank" rel="noopener">301 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OpenAI 的 GPT-5.6 Sol Ultra 独立证明了图论著名难题——圈双覆盖猜想（Cycle Double Cover Conjecture），该猜想断言每个无桥图都存在覆盖每条边恰好两次的圈集合。证明仅一页，利用群流和线性代数对偶，论文和提示均已公开。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 圈双覆盖猜想是图论中一个 50 余年的开放问题，要求无桥图都能用一系列圈每条边恰好覆盖两次，GPT-5.6 Sol Ultra 通过巧妙的群流归约找到了简洁证明。</p><ul class="kp"><li><strong>GPT-5.6 Sol Ultra</strong> 独立证明了著名的<strong>圈双覆盖猜想</strong>，该猜想自 1970 年代提出。</li><li>证明简洁至一页，主要依赖 <strong>F₂³ 上的群流</strong> 和线性代数对偶论证，将问题转化为方程组可解性。</li><li>OpenAI 公开了完整的 <strong>prompt</strong>，揭示需要大量策略指令来引导模型拒绝模糊乐观并实际解决问题。</li><li>评论指出这是 AI 首次推出著名数学猜想证明，但模型仍需人类提供<strong>高层策略提示</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 争议焦点在于模型自主性：prompt 内包含大量人类策略引导，但人们仍震惊于一小时内解决 50 年未解猜想。</p><div class="tags"><span class="tag">数学证明</span><span class="tag">图论猜想</span><span class="tag">AI 推理</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · plaidfuji · 6 回复</div><p>It seems like a solid set of criteria for how easily a task can be automated by AI agents is:</p><p>- extent to which correctness of solution be easily specified and checked</p><p>- extent to which new potential solutions can be implemented as text</p><p>- extent to which prior art exists online</p><p>This basically maps to software engineering and math. I think a fair bit of AI hype comes from the fact that the very architects of AI are the people whose jobs are most easily automated by AI. They think, “if my job receives this much of a boost from AI, surely every job will be the same”. Ironically it couldn’t be further from the truth… and likewise the predictions of widespread labor obsolescence</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://ai-2040.com/" target="_blank" rel="noopener">AI 2040: Plan A</a></h2></div><p class="title-tr">AI 2040：A 计划</p><div class="meta">▲ 170 分 · kschaul · <a href="https://news.ycombinator.com/item?id=48848425" target="_blank" rel="noopener">177 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Plan A 提出通过国际协议将超级智能推迟到 2040 年，强制 AI 研发完全透明，使多国多家公司同步缓慢扩展，避免秘密竞赛导致的人类灭绝或不可逆的权力集中。该情景是对现状的正面替代方案，并对比了四种美国可能采取的路线。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文章核心假设 AI 能实现“递归自我改进”——即模型自动完成架构搜索、超参数优化和训练闭环，从而指数级提升能力，类似 AutoML 的极限版。</p><ul class="kp"><li><strong>Plan A 要求 2029 年美中达成协议</strong>，停止不计后果的超智能竞赛，将通用超人类 AI 出现时间从默认的 2030 年推迟至 2040 年。</li><li><strong>全面 AI 研发透明度是核心保障</strong>，让各国能理解进展并执行护栏，避免秘密竞赛，实现多公司多国同步安全扩展。</li><li><strong>替代方案 B、C、D、S 对应美国不同政策选择</strong>：从放任竞赛到单方面管控，但作者认为这些方案在情景推演下经不起考验。</li><li><strong>AI 2027 情景预言 2027 年发生智能爆炸</strong>，而 Plan A 将自动化 AI 研发的时间线改到 2030 年，并通过治理干预再延后 10 年。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍怀疑递归自我改进的现实性，认为 LLM 可能已接近能力平台期，并质疑“集体决定不追求知识”在历史上尚无成功先例。</p><div class="tags"><span class="tag">AI 政策</span><span class="tag">超级智能</span><span class="tag">情景规划</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · joshstrange · 13 回复</div><p>I&#x27;m sure some people will have issue with my phrasing but, honest question:</p><p>Are there examples of where we have collective decided not to pursue knowledge? Successfully?</p><p>I guess nuclear weapons might be the best example though research doesn&#x27;t seem have to actually &quot;stopped&quot; as much as gone underground and we still have country trying to climb that ladder.</p><p>But I don&#x27;t know how relevant that is to LLMs/AI. It almost feels like pandora&#x27;s box is open and our only option is continue to improve them. There is clearly value in what they do and while I can absolutely see the dangers, for example: authoritative governments and surveillance, I&#x27;m not convinced to throw the baby out with the bathwater.</p><p>All of technology back to the printing press (and probably before that) could also be said to make it easier for governments to oppress their citizens. Making laws (and enforcing them!) to prevent governments from doing these things feels like that route forward, not trying to stick our heads in the sand.</p><p>Perhaps I&#x27;m horribly naive, perhaps I just see the SciFi future I&#x27;ve spent my life reading and dreaming about on the horizon and I&#x27;m blinded by the reality, perhaps my ideals around &quot;knowledge deserves to be free/accessible&quot; are misguided. I don&#x27;t know.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://www.ycombinator.com/companies/moss/jobs/52LnqLQ-software-engineer-sdk" target="_blank" rel="noopener">Moss (YC F25) Is Hiring</a></h2></div><p class="title-tr">Moss（YC F25）正在招聘</p><div class="meta">▲ 1 分 · srimalireddi · <a href="https://news.ycombinator.com/item?id=48865332" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Moss 为对话式 AI 提供实时语义搜索层，检索延迟低于 10 毫秒，已在 100+ 国家部署，服务超 500 万实时语音分钟，包安装量 38 万+。公司正招聘资深 SDK 工程师，负责将 Rust 引擎封装为跨语言 SDK，解决实时推理中的检索瓶颈。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Moss 的 SDK 需要将 Rust 编写的低延迟检索引擎通过 FFI（外部函数接口）暴露给 JavaScript/Python/Swift 等语言，这类似于把一个模型推理引擎封装成不同语言的 API，从而让开发者轻松集成。</p><ul class="kp"><li>Moss 实现<strong>检索延迟低于 10 毫秒</strong>，直接在浏览器、边缘端或设备上运行，消除对话 AI 的实时检索瓶颈。</li><li>产品已处理<strong>超过 500 万分钟的实时语音</strong>，覆盖 100 多个国家，服务 3000+ 企业客户，累计包安装量超过 38 万。</li><li>招聘要求精通 <strong>Rust 和 FFI 跨语言绑定</strong>，负责所有 SDK 的架构、性能优化与一致性，直接决定开发者对 Moss 的信任度。</li><li>该职位将影响<strong>数百万应用甚至数十亿设备</strong>的集成方式，把 Moss 的实时检索能力嵌入到客户的语音 AI 产品中。</li></ul><div class="tags"><span class="tag">实时语义搜索</span><span class="tag">SDK 工程</span><span class="tag">语音 AI 基础设施</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://nebusec.ai/research/ionstack-part-2/" target="_blank" rel="noopener">GhostLock, a stack-UAF that has existed in ALL Linux distributions for 15 years</a></h2></div><p class="title-tr">GhostLock，一个已存在于所有 Linux 发行版 15 年的栈释放后使用漏洞</p><div class="meta">▲ 48 分 · djfergus · <a href="https://news.ycombinator.com/item?id=48864969" target="_blank" rel="noopener">10 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Linux 内核漏洞 GhostLock (CVE-2026-43499) 在所有主流发行版中潜伏超过 15 年，无需特殊权限即可实现 97% 稳定率的本地提权与容器逃逸，Google 为此支付 $92,337 奖金。问题出在实时互斥锁回滚路径错误清除了另一线程的指针。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这类似于模型训练代码中因一处数据处理错误导致任意输入都能绕过安全限制——只是这里发生在操作系统内核最底层的锁机制中，一个函数被用错了调用者，使得一块已释放的内存仍被当作有效数据使用。</p><ul class="kp"><li><strong>GhostLock (CVE-2026-43499)</strong> 自 Linux 2.6.39 引入，持续 15 年，影响所有未打补丁的主流 Linux 发行版。</li><li>无需任何特权或特殊内核配置即可触发，可实现 <strong>97% 稳定率的本地提权</strong>与容器逃逸。</li><li>Google 通过 kernelCTF 漏洞赏金计划为此漏洞利用奖励了 <strong>$92,337</strong>。</li><li>根因是 `remove_waiter()` 在代理路径上清除了<strong>错误的线程指针</strong>，导致悬空指针指向已释放的内核栈内存。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论聚焦于漏洞存在时长之惊人，并调侃标题未标明“本地提权”以方便读者过滤；对奖金数额也有明显兴趣。</p><div class="tags"><span class="tag">Linux 内核漏洞</span><span class="tag">本地提权</span><span class="tag">内存安全</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · ranger_danger · 2 回复</div><p>dupe of https://news.ycombinator.com/item?id=48834309</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://casp.ac/reports/ai-enabled-terrorism" target="_blank" rel="noopener">How the terrorist group Boko Haram uses frontier AI</a></h2></div><p class="title-tr">恐怖组织博科圣地如何使用前沿AI</p><div class="meta">▲ 192 分 · imustachyou · <a href="https://news.ycombinator.com/item?id=48863707" target="_blank" rel="noopener">161 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">一份报告声称博科圣地利用前沿AI获取战术和武器指导，例如训练摩托车跳跃桥梁，导致18人死亡。由于文章内容无法获取，信息仅限于标题和评论，HN 讨论对该报告的可信度和 AI 提供的实际可操作性存在广泛质疑。</p><ul class="kp"><li>报告声称<strong>博科圣地</strong>使用 AI 学习摩托车跳跃桥梁等战术，训练中<strong>18人死亡</strong>，8人成功。</li><li>AI 据称提供了<strong>武器维修和战术编队</strong>等指导，如用柴油清洗卡壳枪支。</li><li>方法学基于 <strong>15名间接知情者</strong> 的访谈，受访者未直接使用 AI，真实使用情况存疑。</li><li>HN 评论质疑 AI 只能提供<strong>维基百科级公开信息</strong>，难以产生实质可操作的禁运知识。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区普遍怀疑报告夸大了 AI 的作用，认为其提供的知识不超出搜索引擎水平，方法学薄弱，可能被访者传闻或被误导。</p><div class="tags"><span class="tag">AI 滥用</span><span class="tag">恐怖主义</span><span class="tag">LLM 安全</span><span class="tag">方法学质疑</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · arjie · 9 回复</div><p>&gt; We saw in a movie how motorcycles can jump over bridges. We used</p><p>AI to learn how to do this. We gave it information, like what</p><p>motorcycles we use and the distance we need to jump and so on and it</p><p>gave us steps on what we have to do. We practiced a lot and kept</p><p>asking questions. We dug holes and filled them with broken glass and</p><p>fire to practice. 18 of us died in the process. Eight of us managed to do</p><p>it. The next time we attacked, we could jump.</p><p>Now listen, I&#x27;m not saying we need to give these guys more AI, but it clearly isn&#x27;t yielding bad outcomes for us here.</p><p>&quot;You&#x27;re absolutely correct! For it to be a good practice ground you need to fill the trenches with broken glass and light the whole thing on fire&quot;</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://github.com/JustVugg/colibri" target="_blank" rel="noopener">Show HN: Getting GLM 5.2 running on my slow computer</a></h2></div><p class="title-tr">Show HN: 在我的慢电脑上运行 GLM 5.2</p><div class="meta">▲ 835 分 · vforno · <a href="https://news.ycombinator.com/item?id=48842459" target="_blank" rel="noopener">206 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Colibrì 是一个纯 C 引擎，将 744B 参数的 MoE 模型 GLM-5.2 以 int4 量化在 25GB RAM 消费级笔记本上运行，常驻内存仅 9.9GB，其余专家从磁盘按需流式加载。实测约 0.05–0.1 tok/s，通过更高带宽 NVMe 和更多 RAM 可提升至 2–4 tok/s，展示了大模型本地化部署的新路径。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这类似于训练时数据批量流式加载，但 Colibrì 是把模型权重从 NVMe 磁盘按需读入，利用操作系统页缓存作为二级缓存，避免将整个 370GB 模型装入内存。</p><ul class="kp"><li><strong>纯 C 引擎</strong>，仅 ~1300 行代码，无 BLAS、无 Python 运行时、无 GPU，直接运行 744B 参数的 GLM-5.2。</li><li><strong>int4 量化后常驻内存仅 9.9GB</strong>，21,504 个路由专家按层 LRU 缓存从磁盘流式加载，冷启动每次 token 需读取约 11GB。</li><li>在 <strong>WSL2 VHDX、~1GB/s 随机读</strong> 下实测约 0.05–0.1 tok/s；若用 PCIe 5 NVMe 加 64GB RAM 并锁定热专家，可预期 2–4 tok/s。</li><li>利用模型自带的 <strong>MTP（多 token 预测）头实现推测解码</strong>，在 int8 精度下可获得 2.2–2.8 token/forward 吞吐提升，但冷缓存时可能拖慢，已配备自适应开关。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论聚焦于 0.05 tok/s 的实用性争议，同时有人指出类似思路在 Apple Silicon 统一内存上更具潜力，并已有相关个人项目在探索。</p><div class="tags"><span class="tag">LLM 推理</span><span class="tag">MoE 量化</span><span class="tag">本地部署</span><span class="tag">磁盘流式推理</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · walrus01 · 8 回复</div><p>My main question is whether when put into practical use, this can be measured in tokens/second, or more like 1 token per minute...   I have seen locally hosted LLM that are as slow as 1 tok/second still be very useful if you give it a project to do something overnight and metaphorically walk away from it, check back with what it has done in 6 or 8 hours.</p><p>0.05 to 0.1 tok/s on the other hand, as reported in the URL for the lowest class of hardware, isn&#x27;t really usable for much.</p><p>edit: I think this is a fantastic project in general concept, and look forward to seeing more efforts towards the general idea of being able to run a 350B to 900B size model locally, even if as slow as 1 tok/s, on hardware that ordinary people can afford. Anything along the general concept of &quot;we have fast read NVME SSD storage, we have a big ass model on local disk, we&#x27;ll read it at 11GB/tok as we need it, not try to load the whole thing&quot;.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://www.fadingmaize.com" target="_blank" rel="noopener">Show HN: Reviving my 2001 college band with AI</a></h2></div><p class="title-tr">Show HN: 用AI复活我2001年的大学乐队</p><div class="meta">▲ 53 分 · jacobgraf · <a href="https://news.ycombinator.com/item?id=48851476" target="_blank" rel="noopener">56 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">一个2001年大学乐队的旧录音用AI重新制作成专业级效果，但HN评论几乎一致批评AI版本失去了原始录音的灵魂与独特性，声音变得平滑、空洞，像超市背景音乐，暴露了当前AI音乐生成“平均化”的局限。</p><ul class="kp"><li><strong>Fading Maize</strong> 乐队将2001–2003年的宿舍录音用AI重新制作，网站提供原版与AI版无缝切换对比。</li><li>项目公开遵循五大原则：<strong>同意、作者身份、来源、不擦除、不取代人</strong>，强调AI只是填补当年无法负担的制作预算。</li><li>HN评论普遍认为AI版<strong>失去了灵魂</strong>，人声被平滑得无法辨认原歌手，乐器音色空洞且带有典型的AI质感。</li><li>即便AI仅用于制作提升，当前模型在声学乐器和人声建模上仍产生<strong>无法消除的“AI味”</strong>，引发对音乐真实性的讨论。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是AI版缺少原始录音的个性和情感，声音被过度平滑，多数人不喜欢这种失去灵魂的“升级”。</p><div class="tags"><span class="tag">AI音乐生成</span><span class="tag">音频处理</span><span class="tag">创意与真实性</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · erikschoster · 4 回复</div><p>The original recordings sound much better and more interesting to me. Way better. The AI generated versions sound slicker in some sense but... like the re-recorded versions of old hit songs from the 60s you hear at the grocery store sometimes. Technically the song is still there, but it blends in with the rest of the muzak.</p><p>I&#x27;m sorry to be so negative, it&#x27;s great you&#x27;re returning to the material after all these years, but the AI versions I&#x27;ve listened to all have the same smoothed-over quality that loses everything interesting and relatable to my ears in the original versions.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://github.com/Rodiun/frugon" target="_blank" rel="noopener">Show HN: Frugon – Find which LLM calls a cheaper model could handle (local, MIT)</a></h2></div><p class="title-tr">Show HN: Frugon – 找出哪些 LLM 调用可以用更便宜的模型处理 (本地运行, MIT)</p><div class="meta">▲ 57 分 · jarodrh · <a href="https://news.ycombinator.com/item?id=48816724" target="_blank" rel="noopener">10 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Frugon 是一个本地开源的 CLI 工具，分析 OpenAI 格式的 LLM 调用日志，识别哪些请求可以路由到更便宜的模型并估算节省成本。演示数据显示月成本从 $549.46 降至 $343.91，节省 37.4%，且数据完全不离开本机。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 该工具分析 LLM API 调用的 token 用量与成本，推荐路由策略，类似于模型推理阶段的成本优化 profiler，帮助确定何时用便宜模型替代昂贵模型而不显著损失质量。</p><ul class="kp"><li>Frugon 是 MIT 许可的本地 CLI 工具，读取 OpenAI 格式 JSONL 日志，估算切换到更便宜模型可节省的费用。</li><li>在 56,100 次调用的合成日志中，建议将 64.4% 简单调用切换到 deepseek-v4-flash，月花费从 <strong>$549.46 降至 $343.91</strong>，节省 37.4%。</li><li>工具完全本地运行，无需网络；可选 `--measure` 使用你自己的 API key 实际采样替代模型输出质量并评判。</li><li>内置 `capture` 命令作为本地代理，记录调用日志，不引入延迟，不经过第三方，数据不出本机。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论认为工具概念有趣，但质疑其信息是否能被实际落地执行，有人提出应进一步做本地 LLM 分析而非仅成本对比。</p><div class="tags"><span class="tag">LLM 成本优化</span><span class="tag">开源工具</span><span class="tag">本地分析</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · isadubois · 1 回复</div><p>This looks super clean. I&#x27;m curious about the --judge command. How does it evaluate if the cheaper model&#x27;s response is a &quot;tie&quot; or acceptable? Is it using a specific LLM-as-a-judge prompt template?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://news.ycombinator.com/item?id=48847834" target="_blank" rel="noopener">Show HN: Reverse-engineering web apps into agent tools</a></h2></div><p class="title-tr">Show HN: 将 Web 应用逆向工程为智能助理工具</p><div class="meta">▲ 81 分 · pancomplex · <a href="https://news.ycombinator.com/item?id=48847834" target="_blank" rel="noopener">32 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">一个浏览器内 agent 能自动观察认证 Web 应用如何调用自身 API，并生成可被 LLM 直接使用的工具配方（recipes），无需接触源代码，且随应用更新自动演进。已演示 Jira、Spotify、HN 等。</p><p class="context"><strong>🧭 联系你的知识背景</strong> MCP（模型上下文协议）是让 AI 模型像调用 API 一样直接操作外部工具的标准接口；本文 agent 会自动为任意 Web 应用创建此类接口。</p><ul class="kp"><li><strong>浏览器内 agent</strong> 自动捕捉 Web 应用的 API 调用，生成包含认证、输入/输出 schema 的标准化工具配方，供 LLM 直接使用。</li><li><strong>无需 API 开发或维护</strong>，即可为 Jira、Spotify 等任何产品创建可自动更新的 AI 操作层，远不止聊天和 RAG。</li><li>每条 <strong>recipe</strong> 包含端点、认证方式及刷新方法、响应/输入 schema 和人类可读描述，随应用 API 变化自动替换旧配方。</li><li>HN 评论区核心质疑是<strong>安全与合规风险</strong>：注入第三方脚本、提取认证 token 可能违反服务条款甚至被指控 hacking。</li></ul><p class="disc"><strong>💬 讨论</strong> 主要分歧在于该方案是否需要网站所有者授权：一方认为未经许可提取认证 token 存在严重法律风险；另一方认为可完全绕过许可直接用浏览器 MCP 与开源模型构建类似工具。</p><div class="tags"><span class="tag">AI agent</span><span class="tag">浏览器自动化</span><span class="tag">API 逆向工程</span><span class="tag">开发者工具</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · arjunchint · 1 回复</div><p>I am not following a couple of things:</p><p>- you sell to websites an in-app agent</p><p>- why not just have them give you API spec, why reverse engineer their APIs?</p><p>A bit longer term, would you see yourself competing with WebMCP then? Because the website can just expose those APIs to any browser agent</p></div></div></article>
+</div></main>
+<footer>generated 2026-07-11 03:41 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-11", "pointsLabel": "分", "commentsLabel": "评论", "title": "Apple sues OpenAI, accuses ex-employees of stealing trade secrets", "titleTranslation": "苹果起诉OpenAI，指控前员工窃取商业机密", "summary": "苹果起诉OpenAI，指控其前产品设计副总裁Tang Tan和高级工程师Chang Liu为OpenAI硬件项目系统性窃取未发布产品图纸、制造工艺与供应商关系，并利用安全漏洞下载超千页机密文件。这起诉讼可能重演Waymo诉Uber自动驾驶案，直接终结OpenAI的消费硬件野心。", "keyPoints": ["苹果起诉OpenAI，指控前产品设计副总裁Tang Tan与高级工程师Chang Liu为OpenAI窃取商业机密，案件由加州北区联邦法院受理。", "Tan在面试苹果员工时要求带来实际硬件零部件和CAD设计文件，并利用苹果内部项目代号套取未发布产品计划。", "Liu离职后利用安全漏洞下载超过1000页电路板制造工艺文件，并故意保留苹果配置的笔记本电脑，还在消息中嘲笑安全疏漏。"], "discussion": "HN 评论区几乎一致认定证据对 OpenAI 极为不利，案件将重演 Uber 自动驾驶案，OpenAI 硬件项目会因此终结，同时引发企业客户对 OpenAI 数据与知识产权安全的广泛质疑。", "tags": ["商业机密诉讼", "AI 硬件", "知识产权保护"], "score": 670, "comments": 326, "by": "stock_toaster", "url": "https://9to5mac.com/2026/07/10/apple-sues-openai-trade-secret-theft/", "hnUrl": "https://news.ycombinator.com/item?id=48865019"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-11", "pointsLabel": "分", "commentsLabel": "评论", "title": "GPT-5.6 Sol Ultra produces proof of the Cycle Double Cover Conjecture [pdf]", "titleTranslation": "GPT-5.6 Sol Ultra 成功证明圈双覆盖猜想 [pdf]", "summary": "OpenAI 的 GPT-5.6 Sol Ultra 独立证明了图论著名难题——圈双覆盖猜想（Cycle Double Cover Conjecture），该猜想断言每个无桥图都存在覆盖每条边恰好两次的圈集合。证明仅一页，利用群流和线性代数对偶，论文和提示均已公开。", "keyPoints": ["GPT-5.6 Sol Ultra 独立证明了著名的圈双覆盖猜想，该猜想自 1970 年代提出。", "证明简洁至一页，主要依赖 F₂³ 上的群流 和线性代数对偶论证，将问题转化为方程组可解性。", "OpenAI 公开了完整的 prompt，揭示需要大量策略指令来引导模型拒绝模糊乐观并实际解决问题。"], "discussion": "争议焦点在于模型自主性：prompt 内包含大量人类策略引导，但人们仍震惊于一小时内解决 50 年未解猜想。", "tags": ["数学证明", "图论猜想", "AI 推理"], "score": 378, "comments": 301, "by": "scrlk", "url": "https://cdn.openai.com/pdf/04d1d1e4-bc75-476a-97cf-49055cd98d31/cdc_proof.pdf", "hnUrl": "https://news.ycombinator.com/item?id=48863490"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-11", "pointsLabel": "分", "commentsLabel": "评论", "title": "AI 2040: Plan A", "titleTranslation": "AI 2040：A 计划", "summary": "Plan A 提出通过国际协议将超级智能推迟到 2040 年，强制 AI 研发完全透明，使多国多家公司同步缓慢扩展，避免秘密竞赛导致的人类灭绝或不可逆的权力集中。该情景是对现状的正面替代方案，并对比了四种美国可能采取的路线。", "keyPoints": ["Plan A 要求 2029 年美中达成协议，停止不计后果的超智能竞赛，将通用超人类 AI 出现时间从默认的 2030 年推迟至 2040 年。", "全面 AI 研发透明度是核心保障，让各国能理解进展并执行护栏，避免秘密竞赛，实现多公司多国同步安全扩展。", "替代方案 B、C、D、S 对应美国不同政策选择：从放任竞赛到单方面管控，但作者认为这些方案在情景推演下经不起考验。"], "discussion": "评论普遍怀疑递归自我改进的现实性，认为 LLM 可能已接近能力平台期，并质疑“集体决定不追求知识”在历史上尚无成功先例。", "tags": ["AI 政策", "超级智能", "情景规划"], "score": 170, "comments": 177, "by": "kschaul", "url": "https://ai-2040.com/", "hnUrl": "https://news.ycombinator.com/item?id=48848425"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-11", "pointsLabel": "分", "commentsLabel": "评论", "title": "Moss (YC F25) Is Hiring", "titleTranslation": "Moss（YC F25）正在招聘", "summary": "Moss 为对话式 AI 提供实时语义搜索层，检索延迟低于 10 毫秒，已在 100+ 国家部署，服务超 500 万实时语音分钟，包安装量 38 万+。公司正招聘资深 SDK 工程师，负责将 Rust 引擎封装为跨语言 SDK，解决实时推理中的检索瓶颈。", "keyPoints": ["Moss 实现检索延迟低于 10 毫秒，直接在浏览器、边缘端或设备上运行，消除对话 AI 的实时检索瓶颈。", "产品已处理超过 500 万分钟的实时语音，覆盖 100 多个国家，服务 3000+ 企业客户，累计包安装量超过 38 万。", "招聘要求精通 Rust 和 FFI 跨语言绑定，负责所有 SDK 的架构、性能优化与一致性，直接决定开发者对 Moss 的信任度。"], "discussion": "", "tags": ["实时语义搜索", "SDK 工程", "语音 AI 基础设施"], "score": 1, "comments": 0, "by": "srimalireddi", "url": "https://www.ycombinator.com/companies/moss/jobs/52LnqLQ-software-engineer-sdk", "hnUrl": "https://news.ycombinator.com/item?id=48865332"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-11", "pointsLabel": "分", "commentsLabel": "评论", "title": "GhostLock, a stack-UAF that has existed in ALL Linux distributions for 15 years", "titleTranslation": "GhostLock，一个已存在于所有 Linux 发行版 15 年的栈释放后使用漏洞", "summary": "Linux 内核漏洞 GhostLock (CVE-2026-43499) 在所有主流发行版中潜伏超过 15 年，无需特殊权限即可实现 97% 稳定率的本地提权与容器逃逸，Google 为此支付 $92,337 奖金。问题出在实时互斥锁回滚路径错误清除了另一线程的指针。", "keyPoints": ["GhostLock (CVE-2026-43499) 自 Linux 2.6.39 引入，持续 15 年，影响所有未打补丁的主流 Linux 发行版。", "无需任何特权或特殊内核配置即可触发，可实现 97% 稳定率的本地提权与容器逃逸。", "Google 通过 kernelCTF 漏洞赏金计划为此漏洞利用奖励了 $92,337。"], "discussion": "评论聚焦于漏洞存在时长之惊人，并调侃标题未标明“本地提权”以方便读者过滤；对奖金数额也有明显兴趣。", "tags": ["Linux 内核漏洞", "本地提权", "内存安全"], "score": 48, "comments": 10, "by": "djfergus", "url": "https://nebusec.ai/research/ionstack-part-2/", "hnUrl": "https://news.ycombinator.com/item?id=48864969"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-11", "pointsLabel": "分", "commentsLabel": "评论", "title": "How the terrorist group Boko Haram uses frontier AI", "titleTranslation": "恐怖组织博科圣地如何使用前沿AI", "summary": "一份报告声称博科圣地利用前沿AI获取战术和武器指导，例如训练摩托车跳跃桥梁，导致18人死亡。由于文章内容无法获取，信息仅限于标题和评论，HN 讨论对该报告的可信度和 AI 提供的实际可操作性存在广泛质疑。", "keyPoints": ["报告声称博科圣地使用 AI 学习摩托车跳跃桥梁等战术，训练中18人死亡，8人成功。", "AI 据称提供了武器维修和战术编队等指导，如用柴油清洗卡壳枪支。", "方法学基于 15名间接知情者 的访谈，受访者未直接使用 AI，真实使用情况存疑。"], "discussion": "HN 评论区普遍怀疑报告夸大了 AI 的作用，认为其提供的知识不超出搜索引擎水平，方法学薄弱，可能被访者传闻或被误导。", "tags": ["AI 滥用", "恐怖主义", "LLM 安全"], "score": 192, "comments": 161, "by": "imustachyou", "url": "https://casp.ac/reports/ai-enabled-terrorism", "hnUrl": "https://news.ycombinator.com/item?id=48863707"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-11", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Getting GLM 5.2 running on my slow computer", "titleTranslation": "Show HN: 在我的慢电脑上运行 GLM 5.2", "summary": "Colibrì 是一个纯 C 引擎，将 744B 参数的 MoE 模型 GLM-5.2 以 int4 量化在 25GB RAM 消费级笔记本上运行，常驻内存仅 9.9GB，其余专家从磁盘按需流式加载。实测约 0.05–0.1 tok/s，通过更高带宽 NVMe 和更多 RAM 可提升至 2–4 tok/s，展示了大模型本地化部署的新路径。", "keyPoints": ["纯 C 引擎，仅 ~1300 行代码，无 BLAS、无 Python 运行时、无 GPU，直接运行 744B 参数的 GLM-5.2。", "int4 量化后常驻内存仅 9.9GB，21,504 个路由专家按层 LRU 缓存从磁盘流式加载，冷启动每次 token 需读取约 11GB。", "在 WSL2 VHDX、~1GB/s 随机读 下实测约 0.05–0.1 tok/s；若用 PCIe 5 NVMe 加 64GB RAM 并锁定热专家，可预期 2–4 tok/s。"], "discussion": "评论聚焦于 0.05 tok/s 的实用性争议，同时有人指出类似思路在 Apple Silicon 统一内存上更具潜力，并已有相关个人项目在探索。", "tags": ["LLM 推理", "MoE 量化", "本地部署"], "score": 835, "comments": 206, "by": "vforno", "url": "https://github.com/JustVugg/colibri", "hnUrl": "https://news.ycombinator.com/item?id=48842459"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-11", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Reviving my 2001 college band with AI", "titleTranslation": "Show HN: 用AI复活我2001年的大学乐队", "summary": "一个2001年大学乐队的旧录音用AI重新制作成专业级效果，但HN评论几乎一致批评AI版本失去了原始录音的灵魂与独特性，声音变得平滑、空洞，像超市背景音乐，暴露了当前AI音乐生成“平均化”的局限。", "keyPoints": ["Fading Maize 乐队将2001–2003年的宿舍录音用AI重新制作，网站提供原版与AI版无缝切换对比。", "项目公开遵循五大原则：同意、作者身份、来源、不擦除、不取代人，强调AI只是填补当年无法负担的制作预算。", "HN评论普遍认为AI版失去了灵魂，人声被平滑得无法辨认原歌手，乐器音色空洞且带有典型的AI质感。"], "discussion": "评论区共识是AI版缺少原始录音的个性和情感，声音被过度平滑，多数人不喜欢这种失去灵魂的“升级”。", "tags": ["AI音乐生成", "音频处理", "创意与真实性"], "score": 53, "comments": 56, "by": "jacobgraf", "url": "https://www.fadingmaize.com", "hnUrl": "https://news.ycombinator.com/item?id=48851476"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-11", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Frugon – Find which LLM calls a cheaper model could handle (local, MIT)", "titleTranslation": "Show HN: Frugon – 找出哪些 LLM 调用可以用更便宜的模型处理 (本地运行, MIT)", "summary": "Frugon 是一个本地开源的 CLI 工具，分析 OpenAI 格式的 LLM 调用日志，识别哪些请求可以路由到更便宜的模型并估算节省成本。演示数据显示月成本从 $549.46 降至 $343.91，节省 37.4%，且数据完全不离开本机。", "keyPoints": ["Frugon 是 MIT 许可的本地 CLI 工具，读取 OpenAI 格式 JSONL 日志，估算切换到更便宜模型可节省的费用。", "在 56,100 次调用的合成日志中，建议将 64.4% 简单调用切换到 deepseek-v4-flash，月花费从 $549.46 降至 $343.91，节省 37.4%。", "工具完全本地运行，无需网络；可选 `--measure` 使用你自己的 API key 实际采样替代模型输出质量并评判。"], "discussion": "评论认为工具概念有趣，但质疑其信息是否能被实际落地执行，有人提出应进一步做本地 LLM 分析而非仅成本对比。", "tags": ["LLM 成本优化", "开源工具", "本地分析"], "score": 57, "comments": 10, "by": "jarodrh", "url": "https://github.com/Rodiun/frugon", "hnUrl": "https://news.ycombinator.com/item?id=48816724"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-11", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Reverse-engineering web apps into agent tools", "titleTranslation": "Show HN: 将 Web 应用逆向工程为智能助理工具", "summary": "一个浏览器内 agent 能自动观察认证 Web 应用如何调用自身 API，并生成可被 LLM 直接使用的工具配方（recipes），无需接触源代码，且随应用更新自动演进。已演示 Jira、Spotify、HN 等。", "keyPoints": ["浏览器内 agent 自动捕捉 Web 应用的 API 调用，生成包含认证、输入/输出 schema 的标准化工具配方，供 LLM 直接使用。", "无需 API 开发或维护，即可为 Jira、Spotify 等任何产品创建可自动更新的 AI 操作层，远不止聊天和 RAG。", "每条 recipe 包含端点、认证方式及刷新方法、响应/输入 schema 和人类可读描述，随应用 API 变化自动替换旧配方。"], "discussion": "主要分歧在于该方案是否需要网站所有者授权：一方认为未经许可提取认证 token 存在严重法律风险；另一方认为可完全绕过许可直接用浏览器 MCP 与开源模型构建类似工具。", "tags": ["AI agent", "浏览器自动化", "API 逆向工程"], "score": 81, "comments": 32, "by": "pancomplex", "url": "https://news.ycombinator.com/item?id=48847834", "hnUrl": "https://news.ycombinator.com/item?id=48847834"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
