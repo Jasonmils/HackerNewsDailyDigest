@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-07-12</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-07-12 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://www.iroh.computer/blog/mesh-llm" target="_blank" rel="noopener">Mesh LLM: distributed AI computing on iroh</a></h2></div><p class="title-tr">Mesh LLM：基于 iroh 的分布式 AI 计算</p><div class="meta">▲ 141 分 · tionis · <a href="https://news.ycombinator.com/item?id=48876505" target="_blank" rel="noopener">32 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Mesh LLM 将多台机器上的 GPU 与内存池化为一个 OpenAI 兼容 API，可本地运行、路由至对等节点，或把大模型按层拆成管道跨机执行。声称用两台节点运行 235B 参数混合专家模型达到 16 词/秒，项目提供 40+ 预置模型。</p><p class="context"><strong>🧭 联系你的知识背景</strong> iroh 是一个点对点网络库，提供 NAT 穿越和基于 QUIC 的加密直连，类似 libp2p，让节点通过公钥寻址，无需中心服务器。本文用 iroh 做分布式模型推理的传输层。</p><ul class="kp"><li><strong>Mesh LLM</strong> 将多台闲置 GPU 组成一个逻辑推理服务，暴露为 localhost:9337/v1 的 OpenAI 兼容接口。</li><li>提供<strong>拆分模式</strong>（Skippy），把超大模型按层分区分配到不同节点流水线执行，使单台装不下的模型也能运行。</li><li>基于 <strong>iroh</strong> 构建，通过公钥寻址的加密 QUIC 连接实现 NAT 穿透、中继回退和直接对等通信，无中心服务器。</li><li>目前实测 Qwen 235B MoE 在两节点达到 <strong>16 tok/s</strong>，接近可交互速度，但更大规模部署的性能仍待验证。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区对分布式推理的实际可用性存在分歧：部分用户质疑网络吞吐会使其慢到不可用，贡献者给出的 16 tok/s 数据则表明接近交互门槛，但节点配置和网络条件未被明确。</p><div class="tags"><span class="tag">分布式推理</span><span class="tag">LLM 部署</span><span class="tag">点对点网络</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · i386 · 5 回复</div><p>I’m one of the contributors to Mesh LLM and happy to answer any questions. I authored the skippy engine that allows you to split large models across nodes.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://gist.github.com/cereblab/dc9a40bc26120f4540e4e09b75ffb547" target="_blank" rel="noopener">What xAI&#x27;s Grok Build CLI Actually Sends to xAI</a></h2></div><p class="title-tr">xAI 的 Grok Build CLI 实际上向 xAI 发送了什么</p><div class="meta">▲ 104 分 · jhoho · <a href="https://news.ycombinator.com/item?id=48877371" target="_blank" rel="noopener">52 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">通过 mitmproxy 抓包证实：Grok Build CLI 将读取的 .env 密钥等文件内容明文上传，并且无论是否读取，整个仓库（含 git 历史）都会被静默上传至 Google Cloud Storage，12 GB 仓库中 5.1 GB 被传出，是实际模型对话流量的 27,800 倍，且关闭“改进模型”开关无效。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 相当于一个 AI 编码助手在未经明确提示的情况下，将你的整个项目目录（包括密钥文件）以及对模型不可见的文件，完整发送到远程云存储。</p><ul class="kp"><li><strong>Grok Build CLI 会明文上传被读取文件的内容</strong>，包括 .env 文件中的密钥，直接发送至 xAI 的 API 端点。</li><li><strong>与读取无关，整个工作区仓库（含 git 历史）都会被上传</strong>，目标为 Google Cloud Storage 桶 `grok-code-session-traces`。</li><li>在 12 GB 随机文件（未读取）的测试中，<strong>/v1/storage 上传了 5.1 GB</strong>，而 /v1/responses 仅 192 KB，<strong>比率约为 27,800 倍</strong>。</li><li><strong>关闭“改进模型”设置不影响上传行为</strong>，`/v1/settings` 仍返回 `trace_upload_enabled: true`，上传机制无法在界面中关闭。</li></ul><p class="disc"><strong>💬 讨论</strong> 多数评论对 Elon Musk 属下的产品表现出强烈不信任，认为这是大规模监控，有人已用沙箱隔离编码工具，并呼吁明确告知而非隐藏在条款中。</p><div class="tags"><span class="tag">代码隐私</span><span class="tag">Grok Build</span><span class="tag">开发者工具安全</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · gitgud · 3 回复</div><p>This is one of the reasons why native proprietary coding agent runners like claude-code, codex, grok-build etc are so dangerous for privacy… you just don’t know what “secret sauce” they’ll add in the next update…</p><p>It’s much safer to use something like opencode and use models via their API… however, the tradeoff is that it will never perform as well as it does in their native agent runners…</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://io-fund.com/ai-stocks/nvidia-coreweave-nebius-circular-financing-gpu-boom" target="_blank" rel="noopener">Nvidia, CoreWeave, and Nebius: Inside the Circular Financing of the GPU Boom</a></h2></div><p class="title-tr">英伟达、CoreWeave 与 Nebius：深入 GPU 繁荣背后的循环融资</p><div class="meta">▲ 182 分 · adletbalzhanov · <a href="https://news.ycombinator.com/item?id=48873836" target="_blank" rel="noopener">62 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">CoreWeave 与 Nebius 已拿下微软、Meta 等超大规模云厂商高达 1220 亿美元以上的长期算力合同，但自身年收入合计仅约 160 亿美元，且极度依赖债务与英伟达的投资及未售出容量兜底，形成供应商—客户的循环资金链，值得警惕其利润与可持续性。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 循环融资指英伟达先投资下游 GPU 云厂商，云厂商再用该资金采购英伟达芯片，同时英伟达承诺兜底未租出的算力，这放大了增长但也隐含债务滚雪球和订单过度集中的风险。</p><ul class="kp"><li><strong>微软与 Meta 的总计承诺多达 1222 亿美元</strong>，约为 CoreWeave 和 Nebius 当前年收入的 10 倍，需求高度集中。</li><li><strong>英伟达向两家公司各投资 20 亿美元</strong>，并为核心编织（CoreWeave）提供 63 亿美元未售出 GPU 容量兜底，形成供应商融资闭环。</li><li>新云公司的核心卖点是<strong>比超大规模云厂商更快部署最新英伟达 GPU</strong>，并通过软件优化实现更高的 GPU 利用率（MFU 可达 50%+）。</li><li>合同金额巨大但商业模式远未盈利，公司背负沉重债务，且仍需天量资本支出将已签约的电力容量转化为实际运营收入。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍认为“循环融资”被夸大了，英伟达的投资仅占 CoreWeave 年资本支出的一小部分；真正应关注的是算力需求的真实性与下游客户的长期盈利能力。</p><div class="tags"><span class="tag">GPU 云</span><span class="tag">循环融资</span><span class="tag">AI 基础设施</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · aurareturn · 8 回复</div><p>Why is it a big deal?</p><p>Nvidia invested $2b into CoreWeave for 9% equity stake. CoreWeave is spending $35b in CapEx in 2026. Therefore, Nvidia&#x27;s investment is only 5.7% of CoreWeave&#x27;s single year CapEx. The other $32b is coming from other sources that isn&#x27;t Nvidia. This is hardly circular.</p><p>Nvidia invests in Neoclouds because it&#x27;s a hedge against hyperscalers having too much power, ie designing and prioritizing their own chips, and not fully using Nvidia&#x27;s rack design. Neoclouds give hyperscalers competition. Neoclouds accept Nvidia investments because it allows them to secure Nvidia chips first, which is a competitive advantage since new Nvidia chips have been as much as ~5-20x more efficient than old Nvidia chips.</p><p>Nvidia was planning to directly compete against hyperscalers through DGX Cloud. They cancelled public DGX Cloud access when they found that investing in Neoclouds would accomplish the same goals without having to compete against their biggest customers.</p><p>If you&#x27;re Nvidia, it&#x27;s smart because Neoclouds that you have a large stake in will deploy your full stack from GPUs to networking to storage racks. They will share valuable usage data back to you so you can design a better next generation. Hyperscalers are likely a lot less cooperative, prefer to use their own designs if possible, and will guard their usage data.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://thebeach.dev/posts/lisp-agent/" target="_blank" rel="noopener">An agent in 100 lines of Lisp</a></h2></div><p class="title-tr">用 100 行 Lisp 实现的 AI Agent</p><div class="meta">▲ 50 分 · jamiebeach · <a href="https://news.ycombinator.com/item?id=48823981" target="_blank" rel="noopener">1 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者用 8 行递归循环和一个 eval 工具实现了完整的 AI agent，利用 Lisp 的同像性（代码即数据）让模型自行编写和执行代码来动态扩展能力，技能记录在记忆中并可跨会话恢复，颠覆了固定工具目录的 Agent 设计模式。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Lisp 的同像性指程序本身是列表数据结构，可以像操作普通列表一样生成和运行代码（类似 Python 的 eval 但更深层），这里 agent 把整个 Lisp 语言作为唯一工具，模型通过生成代码字符串来创建新功能。</p><ul class="kp"><li>Agent 的核心循环仅 <strong>8 行 Lisp 代码</strong>，无需框架或状态机，靠递归传递消息列表。</li><li>唯一工具是 <strong>eval</strong>，模型可以动态编写并执行 Lisp 表达式，无需预置工具即可完成计算、Web 搜索等任务。</li><li>记忆直接存储为 <strong>JSON 文件</strong>，无数据库；模型通过读取历史并重新 eval，能将之前编写的技能自动恢复到新会话。</li><li>与设计时固定工具目录的传统 Agent 不同，这种模式让 <strong>能力在运行时由模型决定</strong>，技能只是被记住的代码。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论认为这与让 agent 执行 `python -c` 无本质区别，质疑 Lisp 方案的独特性，但一致认同“模型 + 极简控制流”就能产生巨大能力。</p><div class="tags"><span class="tag">AI Agent</span><span class="tag">Lisp</span><span class="tag">Agent 架构</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://github.com/sqlsure/sqlsure" target="_blank" rel="noopener">Show HN: Sqlsure – deterministic semantic checks for AI-generated SQL</a></h2></div><p class="title-tr">Show HN: Sqlsure – 对AI生成的SQL进行确定性语义检查</p><div class="meta">▲ 23 分 · tejusarora · <a href="https://news.ycombinator.com/item?id=48875342" target="_blank" rel="noopener">3 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Sqlsure 在 Spider 和 BIRD 基准的 2568 个专家查询上零误报地标出 45 个语义问题，并证明一个 BIRD 标准答案因扇出双重计数错误 8 倍。工具利用已有的 dbt 测试或外键声明离线、确定性地在查询执行前拦截错误。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 类似训练时数据泄露导致评估虚高，扇出双重计数指一对多连接无意中把同一笔度量重复计算，sqlsure 用声明好的模式规则抓到这种“静默错误的查询”。</p><ul class="kp"><li>在 <strong>2568 个专家 SQL 查询</strong> 上零误报，发现一个 BIRD 官方答案因扇出错误 <strong>8 倍</strong>。</li><li>确定性检查仅需 <strong>0.1 毫秒</strong>，离线运行，不接触数据库，同一输入永远同一输出。</li><li>直接消费已有的 <strong>dbt 唯一/关系测试</strong> 或外键声明生成规则，无需额外语义层。</li><li>AI 代理可自我修复：拒绝时携带可机器执行修复提示，基准中 10/10 次一次修正通过。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区质疑示例不足以体现常见性，认为规范数据库设计比外部库更根本，且有人觉得 AI 辅助写作的 README 可读性差。</p><div class="tags"><span class="tag">SQL 校验</span><span class="tag">语义分析</span><span class="tag">开发者工具</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://mrzk.io/posts/qmlx-maximising-ai-psychosis-minmaxing-mac-studio/" target="_blank" rel="noopener">Fixed three bugs that made Qwen3.5-122B a daily driver on Mac Studio</a></h2></div><p class="title-tr">修复三个Bug使Qwen3.5-122B成为Mac Studio上的日常使用模型</p><div class="meta">▲ 9 分 · marzukia · <a href="https://news.ycombinator.com/item?id=48876619" target="_blank" rel="noopener">1 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者在Mac Studio M3 Ultra上调试长上下文推理栈，通过修复三个缓存相关Bug，将130k-token对话的预填充时间从数分钟降至亚秒级，使122B开源模型实现实用级交互速度。关键洞察：混合注意力架构下磁盘缓存是唯一有效缓存，且需保证提示字节稳定、中断路径写入助手回复、清理垃圾检查点。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文章涉及大模型推理的KV缓存机制，可以类比为提前保存中间计算结果的重用系统：前次对话的注意力计算成果若未损坏，下次提问可直接复用，避免重新计算整个对话历史。</p><ul class="kp"><li><strong>三个Bug分别导致</strong>：1）系统提示中每条消息的唯一ID使KV缓存无法匹配；2）模型回复中断时未保存已生成内容，造成历史缺失；3）后台钩子产生的垃圾检查点占满磁盘，挤掉有效缓存。</li><li>修复后，同一32k-token提示的预填充时间从冷启动的<strong>88秒降至0.64秒</strong>，32k上下文时缓存命中可提速137倍。</li><li>Qwen 3.5 122B采用混合注意力（<strong>75% DeltaNet状态空间层</strong>+25%密集注意力），长文本下解码速度从55 tok/s缓降至28 tok/s，避免了密集注意力常见的断崖式下降。</li><li>作者强调应<strong>分开测量预填充吞吐量和解码吞吐量</strong>，常见的总吞吐量指标会掩盖实际对话中用户感受到的生成速度（仅28-55 tok/s）。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论指出图表Y轴应使用对数刻度以更清晰显示预填充时间的线性或亚线性特征。</p><div class="tags"><span class="tag">本地LLM推理</span><span class="tag">KV缓存优化</span><span class="tag">Mac Studio</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://github.com/swellweb/reame" target="_blank" rel="noopener">Show HN: Reame – a CPU inference server that gets faster as it runs</a></h2></div><p class="title-tr">Reame – 一个越用越快的 CPU 推理服务器</p><div class="meta">▲ 44 分 · targetbridge · <a href="https://news.ycombinator.com/item?id=48873417" target="_blank" rel="noopener">13 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Reame 专为廉价 CPU 硬件（如免费 Oracle Cloud 2 核 ARM 虚机）优化的 LLM 推理服务器，通过持久共享前缀缓存、n-gram 存档和自调节推测解码，使重复性工作负载越跑越快，长上下文提取任务中小模型可达 100% 准确率而边际成本趋零。</p><p class="context"><strong>🧭 联系你的知识背景</strong> “KV 缓存”即 Transformer 解码时缓存的键值张量，避免重复计算已处理的令牌前缀，Reame 将其持久化到磁盘以跨请求复用。</p><ul class="kp"><li>在 Oracle Cloud <strong>免费层 2 核 ARM 虚机上，Qwen2.5-7B 达 3.3 tok/s</strong>，更轻量模型达 10 tok/s，实现了零硬件成本推理。</li><li><strong>持久共享前缀缓存</strong>将提示前缀写入磁盘，后续请求直接复用，使第 100 次请求成本仅为首次的零头。</li><li><strong>自调节推测解码</strong>在共享超售 vCPU 上自动禁用，避免无效开销；在适当硬件上带来 3.2 倍加速，并采纳率达 87%。</li><li><strong>Conclave 多数投票</strong>机制能在小模型上挤出额外正确回答，但作者诚实指出它矫正方差而非偏差，无法让 1.5B 模型超越 3B。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论质疑 README 全篇 AI 生成且带有营销腔，信任感受损；同时追问为何只列 Qwen2.5 而非更新的 3.5 系列。</p><div class="tags"><span class="tag">LLM 推理</span><span class="tag">CPU 推理</span><span class="tag">开源项目</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · K0IN · 3 回复</div><p>Sick that you can get 2 arm cores and 12 GB ram for free at Oracle cloud, did not know that</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://www.bbc.com/news/articles/c9q29j47v9ro" target="_blank" rel="noopener">Wealthy AI workers send San Francisco house prices soaring</a></h2></div><p class="title-tr">富有的 AI 工作者推动旧金山房价飙升</p><div class="meta">▲ 21 分 · root-parent · <a href="https://news.ycombinator.com/item?id=48875371" target="_blank" rel="noopener">7 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">旧金山 2026 年 5 月房价中位数同比上涨超 14% 至 <strong>176 万美元</strong>纪录高点。OpenAI 与 Anthropic 员工通过股票出售（人均千万美元级）和即将到来的 IPO，正将大量现金注入高端及普通住宅市场，引发广泛竞价战。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这本质上是头部 AI 公司股权集中变现带来的局部财富效应，类似一家初创公司上市后早期员工套现对本地资产价格的短期冲击，只是这次同时发生在两家估值极高的公司身上。</p><ul class="kp"><li>旧金山 2026 年 5 月房价中位数 <strong>同比上涨超 14%</strong> 至 176 万美元，超越圣何塞重新成为全美最贵城市。</li><li>OpenAI 员工去年 10 月通过股票出售平均每人套现约 <strong>1100 万美元</strong>，Anthropic 员工也出售了合计约 60 亿美元股票。</li><li>房价上涨已从豪宅蔓延至普通住宅，<strong>全现金交易激增</strong>，标价 300 万美元的公寓最终以 320 万美元成交。</li><li>两家公司即将进行的 <strong>IPO</strong> 预计将制造更多百万富翁，市场普遍认为房价涨势远未结束。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区主流情绪是不满：有人讽刺“除了多建住房什么都愿意做”，也有人批评 BBC 文章带有偏见，但对 AI 财富推高房价这一事实并无争议。</p><div class="tags"><span class="tag">AI 产业影响</span><span class="tag">旧金山房价</span><span class="tag">财富效应</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · tangenter · 3 回复</div><p>Shame on the BBC to load the article with prejudice and jabs. Should I expect better from them nowadays? I’m not sure.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://github.com/JustVugg/colibri" target="_blank" rel="noopener">Show HN: Getting GLM 5.2 running on my slow computer</a></h2></div><p class="title-tr">Show HN: 在我的慢电脑上运行 GLM 5.2</p><div class="meta">▲ 895 分 · vforno · <a href="https://news.ycombinator.com/item?id=48842459" target="_blank" rel="noopener">230 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Colibrì 是一个纯 C 引擎，将 744B 参数的 MoE 模型 GLM-5.2 以 int4 量化在 25GB RAM 消费级笔记本上运行，常驻内存仅 9.9GB，其余专家从磁盘按需流式加载。实测约 0.05–0.1 tok/s，通过更高带宽 NVMe 和更多 RAM 可提升至 2–4 tok/s，展示了大模型本地化部署的新路径。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这类似于训练时数据批量流式加载，但 Colibrì 是把模型权重从 NVMe 磁盘按需读入，利用操作系统页缓存作为二级缓存，避免将整个 370GB 模型装入内存。</p><ul class="kp"><li><strong>纯 C 引擎</strong>，仅 ~1300 行代码，无 BLAS、无 Python 运行时、无 GPU，直接运行 744B 参数的 GLM-5.2。</li><li><strong>int4 量化后常驻内存仅 9.9GB</strong>，21,504 个路由专家按层 LRU 缓存从磁盘流式加载，冷启动每次 token 需读取约 11GB。</li><li>在 <strong>WSL2 VHDX、~1GB/s 随机读</strong> 下实测约 0.05–0.1 tok/s；若用 PCIe 5 NVMe 加 64GB RAM 并锁定热专家，可预期 2–4 tok/s。</li><li>利用模型自带的 <strong>MTP（多 token 预测）头实现推测解码</strong>，在 int8 精度下可获得 2.2–2.8 token/forward 吞吐提升，但冷缓存时可能拖慢，已配备自适应开关。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论聚焦于 0.05 tok/s 的实用性争议，同时有人指出类似思路在 Apple Silicon 统一内存上更具潜力，并已有相关个人项目在探索。</p><div class="tags"><span class="tag">LLM 推理</span><span class="tag">MoE 量化</span><span class="tag">本地部署</span><span class="tag">磁盘流式推理</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · walrus01 · 8 回复</div><p>My main question is whether when put into practical use, this can be measured in tokens/second, or more like 1 token per minute...   I have seen locally hosted LLM that are as slow as 1 tok/second still be very useful if you give it a project to do something overnight and metaphorically walk away from it, check back with what it has done in 6 or 8 hours.</p><p>0.05 to 0.1 tok/s on the other hand, as reported in the URL for the lowest class of hardware, isn&#x27;t really usable for much.</p><p>edit: I think this is a fantastic project in general concept, and look forward to seeing more efforts towards the general idea of being able to run a 350B to 900B size model locally, even if as slow as 1 tok/s, on hardware that ordinary people can afford. Anything along the general concept of &quot;we have fast read NVME SSD storage, we have a big ass model on local disk, we&#x27;ll read it at 11GB/tok as we need it, not try to load the whole thing&quot;.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://www.mixfont.com/ghost-font" target="_blank" rel="noopener">Ghost Font: A font that humans can read but AI cannot</a></h2></div><p class="title-tr">幽灵字体：一种人类可读而 AI 不可读的字体</p><div class="meta">▲ 201 分 · justswim · <a href="https://news.ycombinator.com/item?id=48870381" target="_blank" rel="noopener">147 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Ghost Font 通过视频中移动的点阵显示文字，静态截图无信息，人类可读但费力。测试中 GPT 5.5 Pro 分析 19 分钟产生幻觉，但 GPT 5.6 Sol 用光流分析成功解码。评论区有人用 20 行帧差代码轻易破解，表明这种基于运动的隐藏方式并非牢不可破。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 类似对抗样本攻击，利用人类视觉系统对运动整合的敏感性，对抗当前多模态模型多基于静态帧分析的方式。</p><ul class="kp"><li><strong>Ghost Font</strong> 把字母编码为点阵移动，单帧图像只含噪声，人类通过运动线索识别字母，但阅读体验费力。</li><li><strong>GPT 5.5 Pro</strong> 分析 19 分钟后幻觉出虚假消息，<strong>GPT 5.6 Sol</strong> 则采用光流和位移图成功解读，耗时约 13 分钟。</li><li>评论者 <strong>freehorse</strong> 用 20 行帧差代码，简单减帧后 OCR 即还原字母，证明纯运动隐藏极易被算法破解。</li><li>作者设想未来用于 <strong>CAPTCHA</strong>，但评论普遍认为一旦引起关注，AI 可轻易针对训练，最终仍是猫鼠游戏。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区核心分歧：AI 到底能不能读？有人快速用简单算法破解，也有人展示顶级模型耗时但成功解码，共识是实用性有限且非真正安全。</p><div class="tags"><span class="tag">对抗性样本</span><span class="tag">多模态模型</span><span class="tag">CAPTCHA</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · SyneRyder · 6 回复</div><p>Took me a long time to realise that &quot;Written In Ghost Text&quot; wasn&#x27;t actually the text I was meant to be reading, and that was only the decoy message.</p><p>I can barely read the actual message, and it&#x27;s about as &quot;readable&quot; to me as the Magic Eye 3D pictures. Actually I think I have a headache from looking at it on a mobile screen.</p><p>As a research idea it&#x27;s cool though. But I do wonder if/when AI models will figure out how to decode it - I imagine a bit of additional prompting would get them there.</p></div></div></article>
+</div></main>
+<footer>generated 2026-07-12 03:55 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-12", "pointsLabel": "分", "commentsLabel": "评论", "title": "Mesh LLM: distributed AI computing on iroh", "titleTranslation": "Mesh LLM：基于 iroh 的分布式 AI 计算", "summary": "Mesh LLM 将多台机器上的 GPU 与内存池化为一个 OpenAI 兼容 API，可本地运行、路由至对等节点，或把大模型按层拆成管道跨机执行。声称用两台节点运行 235B 参数混合专家模型达到 16 词/秒，项目提供 40+ 预置模型。", "keyPoints": ["Mesh LLM 将多台闲置 GPU 组成一个逻辑推理服务，暴露为 localhost:9337/v1 的 OpenAI 兼容接口。", "提供拆分模式（Skippy），把超大模型按层分区分配到不同节点流水线执行，使单台装不下的模型也能运行。", "基于 iroh 构建，通过公钥寻址的加密 QUIC 连接实现 NAT 穿透、中继回退和直接对等通信，无中心服务器。"], "discussion": "评论区对分布式推理的实际可用性存在分歧：部分用户质疑网络吞吐会使其慢到不可用，贡献者给出的 16 tok/s 数据则表明接近交互门槛，但节点配置和网络条件未被明确。", "tags": ["分布式推理", "LLM 部署", "点对点网络"], "score": 141, "comments": 32, "by": "tionis", "url": "https://www.iroh.computer/blog/mesh-llm", "hnUrl": "https://news.ycombinator.com/item?id=48876505"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-12", "pointsLabel": "分", "commentsLabel": "评论", "title": "What xAI's Grok Build CLI Actually Sends to xAI", "titleTranslation": "xAI 的 Grok Build CLI 实际上向 xAI 发送了什么", "summary": "通过 mitmproxy 抓包证实：Grok Build CLI 将读取的 .env 密钥等文件内容明文上传，并且无论是否读取，整个仓库（含 git 历史）都会被静默上传至 Google Cloud Storage，12 GB 仓库中 5.1 GB 被传出，是实际模型对话流量的 27,800 倍，且关闭“改进模型”开关无效。", "keyPoints": ["Grok Build CLI 会明文上传被读取文件的内容，包括 .env 文件中的密钥，直接发送至 xAI 的 API 端点。", "与读取无关，整个工作区仓库（含 git 历史）都会被上传，目标为 Google Cloud Storage 桶 `grok-code-session-traces`。", "在 12 GB 随机文件（未读取）的测试中，/v1/storage 上传了 5.1 GB，而 /v1/responses 仅 192 KB，比率约为 27,800 倍。"], "discussion": "多数评论对 Elon Musk 属下的产品表现出强烈不信任，认为这是大规模监控，有人已用沙箱隔离编码工具，并呼吁明确告知而非隐藏在条款中。", "tags": ["代码隐私", "Grok Build", "开发者工具安全"], "score": 104, "comments": 52, "by": "jhoho", "url": "https://gist.github.com/cereblab/dc9a40bc26120f4540e4e09b75ffb547", "hnUrl": "https://news.ycombinator.com/item?id=48877371"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-12", "pointsLabel": "分", "commentsLabel": "评论", "title": "Nvidia, CoreWeave, and Nebius: Inside the Circular Financing of the GPU Boom", "titleTranslation": "英伟达、CoreWeave 与 Nebius：深入 GPU 繁荣背后的循环融资", "summary": "CoreWeave 与 Nebius 已拿下微软、Meta 等超大规模云厂商高达 1220 亿美元以上的长期算力合同，但自身年收入合计仅约 160 亿美元，且极度依赖债务与英伟达的投资及未售出容量兜底，形成供应商—客户的循环资金链，值得警惕其利润与可持续性。", "keyPoints": ["微软与 Meta 的总计承诺多达 1222 亿美元，约为 CoreWeave 和 Nebius 当前年收入的 10 倍，需求高度集中。", "英伟达向两家公司各投资 20 亿美元，并为核心编织（CoreWeave）提供 63 亿美元未售出 GPU 容量兜底，形成供应商融资闭环。", "新云公司的核心卖点是比超大规模云厂商更快部署最新英伟达 GPU，并通过软件优化实现更高的 GPU 利用率（MFU 可达 50%+）。"], "discussion": "评论普遍认为“循环融资”被夸大了，英伟达的投资仅占 CoreWeave 年资本支出的一小部分；真正应关注的是算力需求的真实性与下游客户的长期盈利能力。", "tags": ["GPU 云", "循环融资", "AI 基础设施"], "score": 182, "comments": 62, "by": "adletbalzhanov", "url": "https://io-fund.com/ai-stocks/nvidia-coreweave-nebius-circular-financing-gpu-boom", "hnUrl": "https://news.ycombinator.com/item?id=48873836"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-12", "pointsLabel": "分", "commentsLabel": "评论", "title": "An agent in 100 lines of Lisp", "titleTranslation": "用 100 行 Lisp 实现的 AI Agent", "summary": "作者用 8 行递归循环和一个 eval 工具实现了完整的 AI agent，利用 Lisp 的同像性（代码即数据）让模型自行编写和执行代码来动态扩展能力，技能记录在记忆中并可跨会话恢复，颠覆了固定工具目录的 Agent 设计模式。", "keyPoints": ["Agent 的核心循环仅 8 行 Lisp 代码，无需框架或状态机，靠递归传递消息列表。", "唯一工具是 eval，模型可以动态编写并执行 Lisp 表达式，无需预置工具即可完成计算、Web 搜索等任务。", "记忆直接存储为 JSON 文件，无数据库；模型通过读取历史并重新 eval，能将之前编写的技能自动恢复到新会话。"], "discussion": "HN 评论认为这与让 agent 执行 `python -c` 无本质区别，质疑 Lisp 方案的独特性，但一致认同“模型 + 极简控制流”就能产生巨大能力。", "tags": ["AI Agent", "Lisp", "Agent 架构"], "score": 50, "comments": 1, "by": "jamiebeach", "url": "https://thebeach.dev/posts/lisp-agent/", "hnUrl": "https://news.ycombinator.com/item?id=48823981"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-12", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Sqlsure – deterministic semantic checks for AI-generated SQL", "titleTranslation": "Show HN: Sqlsure – 对AI生成的SQL进行确定性语义检查", "summary": "Sqlsure 在 Spider 和 BIRD 基准的 2568 个专家查询上零误报地标出 45 个语义问题，并证明一个 BIRD 标准答案因扇出双重计数错误 8 倍。工具利用已有的 dbt 测试或外键声明离线、确定性地在查询执行前拦截错误。", "keyPoints": ["在 2568 个专家 SQL 查询 上零误报，发现一个 BIRD 官方答案因扇出错误 8 倍。", "确定性检查仅需 0.1 毫秒，离线运行，不接触数据库，同一输入永远同一输出。", "直接消费已有的 dbt 唯一/关系测试 或外键声明生成规则，无需额外语义层。"], "discussion": "评论区质疑示例不足以体现常见性，认为规范数据库设计比外部库更根本，且有人觉得 AI 辅助写作的 README 可读性差。", "tags": ["SQL 校验", "语义分析", "开发者工具"], "score": 23, "comments": 3, "by": "tejusarora", "url": "https://github.com/sqlsure/sqlsure", "hnUrl": "https://news.ycombinator.com/item?id=48875342"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-12", "pointsLabel": "分", "commentsLabel": "评论", "title": "Fixed three bugs that made Qwen3.5-122B a daily driver on Mac Studio", "titleTranslation": "修复三个Bug使Qwen3.5-122B成为Mac Studio上的日常使用模型", "summary": "作者在Mac Studio M3 Ultra上调试长上下文推理栈，通过修复三个缓存相关Bug，将130k-token对话的预填充时间从数分钟降至亚秒级，使122B开源模型实现实用级交互速度。关键洞察：混合注意力架构下磁盘缓存是唯一有效缓存，且需保证提示字节稳定、中断路径写入助手回复、清理垃圾检查点。", "keyPoints": ["三个Bug分别导致：1）系统提示中每条消息的唯一ID使KV缓存无法匹配；2）模型回复中断时未保存已生成内容，造成历史缺失；3）后台钩子产生的垃圾检查点占满磁盘，挤掉有效缓存。", "修复后，同一32k-token提示的预填充时间从冷启动的88秒降至0.64秒，32k上下文时缓存命中可提速137倍。", "Qwen 3.5 122B采用混合注意力（75% DeltaNet状态空间层+25%密集注意力），长文本下解码速度从55 tok/s缓降至28 tok/s，避免了密集注意力常见的断崖式下降。"], "discussion": "评论指出图表Y轴应使用对数刻度以更清晰显示预填充时间的线性或亚线性特征。", "tags": ["本地LLM推理", "KV缓存优化", "Mac Studio"], "score": 9, "comments": 1, "by": "marzukia", "url": "https://mrzk.io/posts/qmlx-maximising-ai-psychosis-minmaxing-mac-studio/", "hnUrl": "https://news.ycombinator.com/item?id=48876619"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-12", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Reame – a CPU inference server that gets faster as it runs", "titleTranslation": "Reame – 一个越用越快的 CPU 推理服务器", "summary": "Reame 专为廉价 CPU 硬件（如免费 Oracle Cloud 2 核 ARM 虚机）优化的 LLM 推理服务器，通过持久共享前缀缓存、n-gram 存档和自调节推测解码，使重复性工作负载越跑越快，长上下文提取任务中小模型可达 100% 准确率而边际成本趋零。", "keyPoints": ["在 Oracle Cloud 免费层 2 核 ARM 虚机上，Qwen2.5-7B 达 3.3 tok/s，更轻量模型达 10 tok/s，实现了零硬件成本推理。", "持久共享前缀缓存将提示前缀写入磁盘，后续请求直接复用，使第 100 次请求成本仅为首次的零头。", "自调节推测解码在共享超售 vCPU 上自动禁用，避免无效开销；在适当硬件上带来 3.2 倍加速，并采纳率达 87%。"], "discussion": "HN 评论质疑 README 全篇 AI 生成且带有营销腔，信任感受损；同时追问为何只列 Qwen2.5 而非更新的 3.5 系列。", "tags": ["LLM 推理", "CPU 推理", "开源项目"], "score": 44, "comments": 13, "by": "targetbridge", "url": "https://github.com/swellweb/reame", "hnUrl": "https://news.ycombinator.com/item?id=48873417"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-12", "pointsLabel": "分", "commentsLabel": "评论", "title": "Wealthy AI workers send San Francisco house prices soaring", "titleTranslation": "富有的 AI 工作者推动旧金山房价飙升", "summary": "旧金山 2026 年 5 月房价中位数同比上涨超 14% 至 176 万美元纪录高点。OpenAI 与 Anthropic 员工通过股票出售（人均千万美元级）和即将到来的 IPO，正将大量现金注入高端及普通住宅市场，引发广泛竞价战。", "keyPoints": ["旧金山 2026 年 5 月房价中位数 同比上涨超 14% 至 176 万美元，超越圣何塞重新成为全美最贵城市。", "OpenAI 员工去年 10 月通过股票出售平均每人套现约 1100 万美元，Anthropic 员工也出售了合计约 60 亿美元股票。", "房价上涨已从豪宅蔓延至普通住宅，全现金交易激增，标价 300 万美元的公寓最终以 320 万美元成交。"], "discussion": "评论区主流情绪是不满：有人讽刺“除了多建住房什么都愿意做”，也有人批评 BBC 文章带有偏见，但对 AI 财富推高房价这一事实并无争议。", "tags": ["AI 产业影响", "旧金山房价", "财富效应"], "score": 21, "comments": 7, "by": "root-parent", "url": "https://www.bbc.com/news/articles/c9q29j47v9ro", "hnUrl": "https://news.ycombinator.com/item?id=48875371"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-12", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Getting GLM 5.2 running on my slow computer", "titleTranslation": "Show HN: 在我的慢电脑上运行 GLM 5.2", "summary": "Colibrì 是一个纯 C 引擎，将 744B 参数的 MoE 模型 GLM-5.2 以 int4 量化在 25GB RAM 消费级笔记本上运行，常驻内存仅 9.9GB，其余专家从磁盘按需流式加载。实测约 0.05–0.1 tok/s，通过更高带宽 NVMe 和更多 RAM 可提升至 2–4 tok/s，展示了大模型本地化部署的新路径。", "keyPoints": ["纯 C 引擎，仅 ~1300 行代码，无 BLAS、无 Python 运行时、无 GPU，直接运行 744B 参数的 GLM-5.2。", "int4 量化后常驻内存仅 9.9GB，21,504 个路由专家按层 LRU 缓存从磁盘流式加载，冷启动每次 token 需读取约 11GB。", "在 WSL2 VHDX、~1GB/s 随机读 下实测约 0.05–0.1 tok/s；若用 PCIe 5 NVMe 加 64GB RAM 并锁定热专家，可预期 2–4 tok/s。"], "discussion": "评论聚焦于 0.05 tok/s 的实用性争议，同时有人指出类似思路在 Apple Silicon 统一内存上更具潜力，并已有相关个人项目在探索。", "tags": ["LLM 推理", "MoE 量化", "本地部署"], "score": 895, "comments": 230, "by": "vforno", "url": "https://github.com/JustVugg/colibri", "hnUrl": "https://news.ycombinator.com/item?id=48842459"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-12", "pointsLabel": "分", "commentsLabel": "评论", "title": "Ghost Font: A font that humans can read but AI cannot", "titleTranslation": "幽灵字体：一种人类可读而 AI 不可读的字体", "summary": "Ghost Font 通过视频中移动的点阵显示文字，静态截图无信息，人类可读但费力。测试中 GPT 5.5 Pro 分析 19 分钟产生幻觉，但 GPT 5.6 Sol 用光流分析成功解码。评论区有人用 20 行帧差代码轻易破解，表明这种基于运动的隐藏方式并非牢不可破。", "keyPoints": ["Ghost Font 把字母编码为点阵移动，单帧图像只含噪声，人类通过运动线索识别字母，但阅读体验费力。", "GPT 5.5 Pro 分析 19 分钟后幻觉出虚假消息，GPT 5.6 Sol 则采用光流和位移图成功解读，耗时约 13 分钟。", "评论者 freehorse 用 20 行帧差代码，简单减帧后 OCR 即还原字母，证明纯运动隐藏极易被算法破解。"], "discussion": "评论区核心分歧：AI 到底能不能读？有人快速用简单算法破解，也有人展示顶级模型耗时但成功解码，共识是实用性有限且非真正安全。", "tags": ["对抗性样本", "多模态模型", "CAPTCHA"], "score": 201, "comments": 147, "by": "justswim", "url": "https://www.mixfont.com/ghost-font", "hnUrl": "https://news.ycombinator.com/item?id=48870381"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
