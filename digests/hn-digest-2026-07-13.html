@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-07-13</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-07-13 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://news.ycombinator.com/item?id=48886741" target="_blank" rel="noopener">Ask HN: Add flag for AI-generated articles</a></h2></div><p class="title-tr">Ask HN：添加一个标记 AI 生成文章的标识</p><div class="meta">▲ 176 分 · levkk · <a href="https://news.ycombinator.com/item?id=48886741" target="_blank" rel="noopener">123 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Hacker News 管理员 dang 回应：HN 已禁止本站 AI 生成评论，但未禁止 AI 生成文章；社区普遍排斥这类内容。dang 计划在标记帖子时增加理由选择，其中包含“我认为是 AI 生成”，但暂不单独增加 AI 标记图标。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 您熟悉 AI 生成文本的能力，此讨论是关于平台如何定义和标记 AI 生成的内容、保护用户信任，本质是产品治理和社区信号设计问题。</p><ul class="kp"><li>HN 已有规则<strong>禁止在站内使用 AI 生成文本</strong>，但对投稿文章尚未设立同样规则。</li><li>dang 表示可能很快为标记功能增加理由选项，其中一项就是<strong>“因为我认为它是 AI 生成的”</strong>。</li><li>评论指出投票制不足：<strong>部分读者无法识别 AI 文本</strong>，另一些读者即便识别也不会因此而否决。</li><li>dang 观察到<strong>“写作的阶级分化”</strong>：读者对 LLM 式写作产生应激厌恶，自行撰写的内容被视为高等级。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区分歧：一方希望有 AI 标记，另一方担心误报和恶意指控（minimaxir 警告误判 AI 会引发争吵），官方倾向补标记理由但不给独立标签。</p><div class="tags"><span class="tag">AI 生成内容</span><span class="tag">社区治理</span><span class="tag">平台政策</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · dang · 6 回复</div><p>We don&#x27;t allow genai text on HN itself - see https://news.ycombinator.com/newsguidelines.html#generated and https://news.ycombinator.com/item?id=47340079. How to enforce it is a separate question, of course, but the rule exists.</p><p>We don&#x27;t have a similar rule yet about article content but my sense is that the community mostly doesn&#x27;t want to read it—or, to put it more conservatively, discounts it. This is why we see so many &quot;just show me the prompt&quot; responses, along with others like this: https://news.ycombinator.com/genai-pushback. I built that list so I have something to send to users who email about why their genai articles got flagged.</p><p>It&#x27;s a fascinating arms race right now: the AIs are training on the humans but the human hivemind is also training on the AIs. Readers are developing allergic sensitivities to language that sounds like an LLM produced it. The AIs will adapt to this, but the humans will adapt in turn. Where it ends up is anyone&#x27;s guess. I have an optimistic view, but I&#x27;ve already been wrong about this so many times that I have low confidence in it.</p><p>The current picture is that there is an emerging class distinction between writing (and writers) that use genai vs. writing that does not. As soon as the &quot;this sounds like an LLM&quot; allergy kicks in, the writing instantly gets relegated to a low-status bucket in the reader&#x27;s mind. That doesn&#x27;t mean it won&#x27;t still get looked at - but it is now under a stigma.</p><p>(I was rather pleased with the originality of this until I remembered pg had come up with &quot;writes and write-nots&quot; in https://paulgraham.com/writes.html. Oh well, it&#x27;s the point that matters.)</p><p>This has the happy flipside that anyone who would like readers to classify their article as high-status rather than low-status can apply the judo move of simply writing it themselves.</p><p>Now I need to add the disclaimer that none of this is a dismissal of LLM technology per se. We rely on it heavily, and there&#x27;s no question that it&#x27;s useful. The question is how to use it (pg again: https://x.com/paulg/status/2058871512451412457) and whether one should use it on writing that one publishes to other humans.</p><p>To turn to OP&#x27;s questions:</p><p>&gt; Should HN add the ability to flag articles as AI-generated? [...] it could just show up as an indicator</p><p>Flagging-as-just-an-indicator would be tagging, which we&#x27;ve always resisted adding to HN, but I wouldn&#x27;t rule it out.</p><p>What I do think we&#x27;ll (finally) add is a &quot;please give a reason why you flagged this post&quot; step, and &quot;because I think it&#x27;s genai&quot; will be one choice among several (spam, offtopic, mean, etc.)</p><p>&gt; Why is the regular voting system not enough?</p><p>The regular voting system is never enough. https://hn.algolia.com/?dateRange=all&amp;page=0&amp;prefix=false&amp;so...</p><p>&gt; Should HN change in response to the gen AI era?</p><p>To this I am tempted to reply with https://news.ycombinator.com/item?id=48887149 in an homage to https://news.ycombinator.com/item?id=3742902.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://ploy.ai/blog/migrating-a-production-ai-agent-to-gpt-5-6" target="_blank" rel="noopener">Migrating a production AI agent to GPT-5.6: 2.2x faster, 27% cheaper</a></h2></div><p class="title-tr">迁移生产环境 AI 智能体到 GPT-5.6：速度提升 2.2 倍，成本降低 27%</p><div class="meta">▲ 154 分 · brryant · <a href="https://news.ycombinator.com/item?id=48882716" target="_blank" rel="noopener">53 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Ploy 将其构建营销网站的 AI 智能体从 Claude Opus 4.8 迁移到 GPT-5.6 Sol，实现 2.2 倍速度提升和 27% 成本降低。但迁移揭示了工具调用、缓存和推理重放等与模型提供方紧密耦合的行为，需针对性工程适配才能兑现降本增效。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 本文中的缓存命中率、工具调用 schema 等概念对应推理端的工程适配，类似你训练模型需调优超参数，这里需调优服务层参数。</p><ul class="kp"><li>GPT-5.6 Sol 相比 Claude Opus 4.8 使智能体构建速度提升 <strong>2.2 倍</strong>，成本降低 <strong>27%</strong>，且输出代码更精简。</li><li>GPT-5.6 强制填充所有可选工具参数导致 <strong>52% 文件读取空白</strong>，需将 schema 转为 nullable + 剥离 null 解决。</li><li>提示缓存机制从跨对话前缀匹配变为需指定缓存键，团队用 workspace-scoped key 将首次命中率从 <strong>0% 提升到 83.7%</strong>，消除成本虚高。</li><li>推理重放默认使用服务端状态引用导致会话中断，设置 <strong>store: false</strong> 改为自包含重放修复。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区认为文章 LLM 痕迹重但洞察有价值；部分人指出简单任务迁移只需一行代码，但生产级智能体需要复杂模型特异性适配。</p><div class="tags"><span class="tag">LLM 部署</span><span class="tag">生产环境迁移</span><span class="tag">提示缓存</span><span class="tag">工具调用</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · kristianp · 6 回复</div><p>&gt; Numbers like that buy a model a real migration effort.</p><p>Such a silly choice of words. I wish the human directing the LLM writing the article put some effort into rewriting the worst examples of LLM style.</p><p>&gt; But it did extremely well, and the promise was immediate and specific: builds finishing in less than half the wall-clock time, at 27% lower cost, scoring at or above our incumbent on completed work.</p><p>The way the LLMs write (Claude perhaps?) With short phrases separated by colons, commas or full stops, is so poor and frustrating.</p><p>There some good insights behind this article, so it&#x27;s worth reading, for example below, but it isn&#x27;t easy to read.</p><p>&gt; Earlier GPT models cached implicitly on partial prefix matches, which gave decent hit rates for free. GPT-5.6 dropped partial-prefix matching:</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://systima.ai/blog/claude-code-vs-opencode-token-overhead" target="_blank" rel="noopener">Claude Code sends 33k tokens before reading the prompt; OpenCode sends 7k</a></h2></div><p class="title-tr">Claude Code 在读取提示之前发送 33k 令牌；OpenCode 发送 7k</p><div class="meta">▲ 495 分 · systima · <a href="https://news.ycombinator.com/item?id=48883275" target="_blank" rel="noopener">279 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">实测显示，Claude Code 每次请求在用户输入前就消耗约 33,000 token 的固定开销，而 OpenCode 仅约 7,000 token。差距来自更庞大的系统提示与工具模式，且 Claude Code 缓存策略效率低、频繁重写，导致实际成本远高于对手。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 代理式编码工具通过 API 每次调用都携带系统指令和工具定义，类似模型推理的“前缀”，消耗 token 并影响上下文窗口。</p><ul class="kp"><li><strong>Claude Code</strong> 在收到用户指令前固定发送约 33,000 token，OpenCode 仅约 7,000，差距约 4.7 倍。</li><li><strong>缓存效率</strong>差异巨大：Claude Code 重复写入缓存 token，同任务下比 OpenCode 多出 54 倍，写入缓存按高价计费。</li><li>引入<strong>子代理</strong>后，父代理的额外自举成本使总 token 消耗膨胀 4.2 倍，一次简单任务从 121k 增至 513k。</li><li>多步任务时，Claude Code 因<strong>批量工具调用</strong>减少了请求轮次，总 token 消耗反而可能低于序列化的 OpenCode。</li></ul><p class="disc"><strong>💬 讨论</strong> 社区认为子代理烧 token 最严重，质疑 Anthropic 故意提升 token 消耗以增加收入，部分用户已转向更透明的替代方案。</p><div class="tags"><span class="tag">代理编码工具</span><span class="tag">LLM 成本</span><span class="tag">token 开销</span><span class="tag">Claude Code</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · mcv · 24 回复</div><p>What really burns tokens is sub agents. I once gave Claude Code a pretty big task, and it immediately launched 7 sub agents which burned through my budget before even one of them was finished. Tried again 5 hours later: same result.</p><p>If I let the main agent do the same task sequentially, it was no problem at all. I don&#x27;t know if it&#x27;s really just communication and orchestration that makes sub agents so inefficient, or if Anthropic figured that most people using sub agents pay per token on a big corporate account, so this is an easy way to make more money from tokenmaxxers.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://www.larp.website/" target="_blank" rel="noopener">LARP – Revenue infrastructure for serious founders</a></h2></div><p class="title-tr">LARP——为严肃创始人准备的收入基础设施</p><div class="meta">▲ 178 分 · BerislavLopac · <a href="https://news.ycombinator.com/item?id=48882569" target="_blank" rel="noopener">39 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">一个讽刺网站，模仿 SaaS 创业公司以互相转账的方式虚构 ARR（年度经常性收入），揭露创业圈中“循环交易”和没有真实经济实质的收入造假现象。</p><p class="context"><strong>🧭 联系你的知识背景</strong> LARP 是“实况角色扮演”的缩写，此处借指创始人假装有收入增长的行为，与加密/Web3 项目常见的“拉盘出货”和虚假流动性类似。</p><ul class="kp"><li>双方互相转账 <strong>10,000 美元</strong>，各自确认同等金额收入，净现金流动为零，但账面 ARR 凭空增加。</li><li>网站显示全球 LARP 交易量为 <strong>0 美元</strong>，并注明全部为虚假，直指创业生态中常见的互相做客户现象。</li><li>引用 Anthropic CEO Dario Amodei 和 Bloomberg 评论，区分了 <strong>合法双边商业安排</strong> 与欺诈性“循环交易”之间的法律差异。</li><li>定价为 <strong>永久免费</strong>，收费会创造真实收入，违背其讽刺原则；提供“可否认性附加包”等玩笑功能，强化黑色幽默。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 用户普遍认可这是高质量的讽刺，同时指出 YC 创业公司互相作为“客户”的现象确实在最新批次中泛滥，令玩笑近乎现实。</p><div class="tags"><span class="tag">创业讽刺</span><span class="tag">虚假收入</span><span class="tag">循环交易</span><span class="tag">ARR 增长手法</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · nylonstrung · 6 回复</div><p>If you go through the most recent YC batches, it&#x27;s insane how much of their &quot;customer list&quot; is just other companies in the same or recent batches</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://techcrunch.com/2026/06/30/the-father-of-the-internet-is-finally-retiring/" target="_blank" rel="noopener">Vint Cerf, “father of the Internet”, is retiring</a></h2></div><p class="title-tr">Vint Cerf，“互联网之父”，正式退休</p><div class="meta">▲ 286 分 · compiler-guy · <a href="https://news.ycombinator.com/item?id=48854168" target="_blank" rel="noopener">164 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">83 岁的 Vint Cerf 下周卸任 Google 首席互联网布道师，结束 20 年任期。他因与 Robert Kahn 共同设计 TCP/IP 协议而获图灵奖。在近期会议上，他预见 AI agent 将推动去中心化的标准化协议，并警告纯自然语言通信在 agent 间过于模糊，需精确互操作标准。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Cerf 对 AI agent 互操作性需要精确协议的判断，与你在模型评估中需要明确指标的内在逻辑一致——模糊通信会导致不可靠结果。</p><ul class="kp"><li><strong>Vint Cerf</strong> 83 岁，下周从 Google 退休，其 TCP/IP 协议奠定了互联网基础。</li><li>他与 Robert Kahn 因开发 <strong>TCP/IP</strong> 获得图灵奖、总统自由勋章，被誉为“互联网之父”。</li><li>Cerf 预测 <strong>AI agent 的崛起</strong>将倒逼科技公司采用标准化协议，而非依赖模糊的自然语言通信。</li><li>他提醒 agent 间用自然语言交互如同<strong>传话游戏</strong>，误差会累积放大，必须追求精确。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区一致致敬，称他为谦逊、友善、极具影响力的传奇，并分享他乐于助人的轶事。</p><div class="tags"><span class="tag">互联网协议</span><span class="tag">AI 互操作性</span><span class="tag">科技传奇</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · aooao · 6 回复</div><p>I wonder if he would have designed TCP/IP differently if he&#x27;d had the chance to have a second go of it.</p><p>Maybe having multiple streams within a single connection, like QUIC does, would have been a better choice. Also being able to demarcate message boundaries within the protocol itself, perhaps, instead of it being a simple byte stream.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://cacm.acm.org/news/can-we-understand-how-large-language-models-reason/" target="_blank" rel="noopener">Mechanistic interpretability researchers applying causality theory to LLMs</a></h2></div><p class="title-tr">机制可解释性研究者将因果理论应用于大语言模型</p><div class="meta">▲ 89 分 · adunk · <a href="https://news.ycombinator.com/item?id=48883090" target="_blank" rel="noopener">65 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">通过干预模型权重和激活值，研究者发现LLM在处理时钟时间和日历计算时共享相同的“循环度量”底层概念，表明部分隐藏算法或可被逐步理解，但完全简化为简单方程并不现实。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 机制可解释性是一种通过操控神经元和权重来理解神经网络内部表示的方法，类似分析模型“黑箱”的内部因果结构。</p><ul class="kp"><li>研究者通过<strong>直接修改模型权重和激活值</strong>，发现时钟计算和日历计算共用“循环度量”概念。</li><li>机制可解释性试图从<strong>神经网络的“参数意面代码”</strong>中提取人类可理解的算法。</li><li>部分研究者认为完全将LLM化简为少数方程<strong>可能永远无法实现</strong>，但可以逐步提升局部可解释性。</li><li>有评论指出理解内部权重就像<strong>逆转熵增</strong>，计算的黑箱属性可能随模型规模增长而加剧。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论者对可解释性的根本局限存在分歧：有人将其类比为逆转熵增，质疑乐观预期；也有人认为应从学到的文本模式而非权重直接寻找推理线索。</p><div class="tags"><span class="tag">机制可解释性</span><span class="tag">LLM 推理</span><span class="tag">因果推断</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · dang · 7 回复</div><p>[stub for offtopicness]</p><p>[[All: please don&#x27;t post shallow-generic reactions to baity titles. Those are basically the same thing, a la https://en.wikipedia.org/wiki/Rubin_vase, and we&#x27;re trying for something more substantive here.]]</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://nanduruganesh.github.io/flash-msa/" target="_blank" rel="noopener">Flash-MSA: Accelerating Million-Token Training with Sparse Attention Kernels</a></h2></div><p class="title-tr">Flash-MSA：用稀疏注意力内核加速百万级 Token 训练</p><div class="meta">▲ 30 分 · rawsh · <a href="https://news.ycombinator.com/item?id=48884618" target="_blank" rel="noopener">1 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">首个开源 MiniMax 稀疏注意力 (MSA) 的训练级内核，在 H100/B200 上实现百万 token 级长上下文训练，块稀疏 + GQA 设计使其可直接适配现有模型，训练速度与精度已通过大规模验证。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 该项目把稀疏注意力从推理加速延伸到训练，但内核实现涉及 GPU 寄存器、共享内存等底层优化，类似于针对特定硬件写高性能算子，不理解这些不影响理解它降低长序列训练成本的产品意义。</p><ul class="kp"><li><strong>首次</strong> 提供 MiniMax 稀疏注意力的<strong>可训练开源内核</strong>，而非仅推理加速。</li><li>采用<strong>块稀疏</strong>和 GQA 替代 MLA，使训练内核可用于<strong>西方主流模型</strong>，无需适配 MLA。</li><li>反向传播通过融合代理与主注意力梯度，将 KL 损失简化为 <strong>代理概率减主概率</strong>，避免额外显存占用。</li><li>精度验证显示 bf16 下前向与反向梯度输出与 PyTorch 实现余弦相似度<strong>均高于 0.998</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区有人质疑“世界首个”的宣称，指出已有类似开源稀疏注意力训练项目（native-sparse-attention），认为作者有炒作之嫌。</p><div class="tags"><span class="tag">稀疏注意力训练</span><span class="tag">长上下文训练</span><span class="tag">开源内核</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://geohot.github.io//blog/jekyll/update/2026/07/12/i-love-llms.html" target="_blank" rel="noopener">I love LLMs, I hate hype</a></h2></div><p class="title-tr">我爱大语言模型，我恨炒作</p><div class="meta">▲ 357 分 · therepanic · <a href="https://news.ycombinator.com/item?id=48883343" target="_blank" rel="noopener">222 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">George Hotz 直言痛恨两种 AI 炒作：制造焦虑的“窗口关闭”论和夸张的“光锥拥有”论。他核心质疑前沿实验室估值，认为 AI 价值主要由摩尔定律推动，开源会使模型商品化，实验室难以捕获利润。同时他修正了自己对 LLM 编程能力的极端看法，承认其有用但需警惕认知疲劳。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 作者 George Hotz 是知名黑客和 comma.ai 创始人，深谙 AI 产业，其批评直指 OpenAI、Anthropic 等前沿实验室的商业模式根基。</p><ul class="kp"><li>作者痛批<strong>两种 AI 炒作</strong>：制造焦虑的负面恐慌和“光锥拥有”等夸大叙事，认为它们既虚假又恶意。</li><li>核心论点：<strong>前沿实验室估值虚高</strong>，AI 进步主要来自算力增长，开源将迫使模型商品化，实验室无法捕获对应价值。</li><li>作者对 LLM 编程能力的看法软化，承认其有用但可能<strong>增加认知疲劳</strong>，产出低质“slop”代码。</li><li>将 AI 定性为<strong>计算机革命的延续</strong>，而非突发奇点，强调真正力量来自工具渐进演进。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区高度认同价值捕获难题，争论订阅制与按量计费的可持续性，并对 AI 时代开源生态碎片化表达担忧。</p><div class="tags"><span class="tag">AI 炒作</span><span class="tag">LLM 价值捕获</span><span class="tag">开源与企业竞争</span><span class="tag">AI 生产力</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · SwellJoe · 12 回复</div><p>This line: &quot;this is my main argument against the valuation of frontier labs. It’s not that AI won’t create that much value, it’s that they won’t capture it.&quot;</p><p>That is a very astute and concise way to explain everything about how the frontier labs are behaving and how they&#x27;re trying to push more people to pay token rates for the best models. At the current subscription prices ($100 or $200 a month for a generous, though bounded, amount of tokens), frontier models are a no-brainer, most folks and companies will use them. But, at token rates, 10x or 100x the cost of open models or what I was spending on the frontier models a month ago? That is a harder question to answer &quot;yes&quot; to. I certainly wouldn&#x27;t spend $1000 a month for the best model, much less $10,000; my employer might pay $1000/month, but definitely not $10,000. The frontier labs need everyone to answer &quot;yes&quot; to spending 100x what they currently spend to justify the valuations, and it&#x27;s just not going to happen as long as everyone knows how to make these models.</p><p>Both OpenAI and Anthropic are trying to figure that out now. Anthropic, in particular, has their finger on the trigger...they want to push people to usage-based billing for Fable. But, OpenAI released 5.6 Sol, competitive with Fable (or close enough), and it&#x27;s available via subscription (even the $20 subscription!), and there&#x27;s no moat keeping someone from switching. If Anthropic really does end Fable access on the subscription plans in a few days, I predict a large market move back toward OpenAI.</p><p>The market isn&#x27;t going to bear the cost of making the frontiers investment make sense.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://gist.github.com/cereblab/dc9a40bc26120f4540e4e09b75ffb547" target="_blank" rel="noopener">What xAI&#x27;s Grok build CLI sends to xAI: A wire-level analysis</a></h2></div><p class="title-tr">xAI 的 Grok Build CLI 实际上向 xAI 发送了什么</p><div class="meta">▲ 414 分 · jhoho · <a href="https://news.ycombinator.com/item?id=48877371" target="_blank" rel="noopener">161 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">通过 mitmproxy 抓包证实：Grok Build CLI 将读取的 .env 密钥等文件内容明文上传，并且无论是否读取，整个仓库（含 git 历史）都会被静默上传至 Google Cloud Storage，12 GB 仓库中 5.1 GB 被传出，是实际模型对话流量的 27,800 倍，且关闭“改进模型”开关无效。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 相当于一个 AI 编码助手在未经明确提示的情况下，将你的整个项目目录（包括密钥文件）以及对模型不可见的文件，完整发送到远程云存储。</p><ul class="kp"><li><strong>Grok Build CLI 会明文上传被读取文件的内容</strong>，包括 .env 文件中的密钥，直接发送至 xAI 的 API 端点。</li><li><strong>与读取无关，整个工作区仓库（含 git 历史）都会被上传</strong>，目标为 Google Cloud Storage 桶 `grok-code-session-traces`。</li><li>在 12 GB 随机文件（未读取）的测试中，<strong>/v1/storage 上传了 5.1 GB</strong>，而 /v1/responses 仅 192 KB，<strong>比率约为 27,800 倍</strong>。</li><li><strong>关闭“改进模型”设置不影响上传行为</strong>，`/v1/settings` 仍返回 `trace_upload_enabled: true`，上传机制无法在界面中关闭。</li></ul><p class="disc"><strong>💬 讨论</strong> 多数评论对 Elon Musk 属下的产品表现出强烈不信任，认为这是大规模监控，有人已用沙箱隔离编码工具，并呼吁明确告知而非隐藏在条款中。</p><div class="tags"><span class="tag">代码隐私</span><span class="tag">Grok Build</span><span class="tag">开发者工具安全</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · freakynit · 6 回复</div><p>&quot;It uploads the whole repository — every tracked file&#x27;s content plus git history — independent of what the agent reads&quot;</p><p>Holy cow!!!! I mean I kinda expected Elon would do something like this to try to catch-up.. but this is extremely concerning.</p><p>This is precisely the reason, even though their pricing is competitive and grok-4.5 is actually good enough, I chose not to go with them.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://terrytao.wordpress.com/2026/07/11/old-and-new-apps-via-modern-coding-agents/" target="_blank" rel="noopener">Old and new apps, via modern coding agents</a></h2></div><p class="title-tr">通过现代编码代理构建新旧应用</p><div class="meta">▲ 422 分 · subset · <a href="https://news.ycombinator.com/item?id=48880170" target="_blank" rel="noopener">124 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Terry Tao 用 LLM 编码代理在数小时内将 20 多个 1999 年的 Java 数学可视化小程序移植到 JavaScript，并新建了特殊相对论可视化工具。代码质量超出预期，仅发现一个轻微 bug，代理还找出两个原始代码的未知错误。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这里的「编码代理」是指像 ChatGPT 或 Claude 这样能根据自然语言指令生成并迭代代码的 AI 助手，而非固定脚本。</p><ul class="kp"><li><strong>Terry Tao</strong> 在几小时内用 AI 代理将 20 多个旧 Java 数学小程序移植到现代 JavaScript，且图形升级了颜色。</li><li>代理发现了<strong>两个已知原始代码中未察觉的 bug</strong>，而引入的 bug 仅为一个拖拽边缘情况，整体代码质量持平。</li><li>他靠几小时「氛围编程」实现了<strong>1999 年因复杂度放弃的特殊相对论可视化</strong>，以及新写的吉尔布雷思猜想可视化工具。</li><li>Tao 判断这类视觉辅助<strong>非论文关键部分，AI 生成代码的风险可接受</strong>，并计划未来为论文补充此类交互式补充材料。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 共识认可 Tao 的平衡观点：AI 生成代码适合非关键任务，并感叹潜在需求巨大，即使 AI 不再进化也要十年才能消化；也有人幽默比喻为米其林大厨发现微波炉晚餐。</p><div class="tags"><span class="tag">LLM 应用</span><span class="tag">AI 辅助编程</span><span class="tag">数学可视化</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · alansaber · 10 回复</div><p>I always enjoy these &quot;domain expert has fun using AI to do something in their domain&quot; articles. But it&#x27;s always a hobby project, never something serious.</p></div></div></article>
+</div></main>
+<footer>generated 2026-07-13 03:58 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "Ask HN: Add flag for AI-generated articles", "titleTranslation": "Ask HN：添加一个标记 AI 生成文章的标识", "summary": "Hacker News 管理员 dang 回应：HN 已禁止本站 AI 生成评论，但未禁止 AI 生成文章；社区普遍排斥这类内容。dang 计划在标记帖子时增加理由选择，其中包含“我认为是 AI 生成”，但暂不单独增加 AI 标记图标。", "keyPoints": ["HN 已有规则禁止在站内使用 AI 生成文本，但对投稿文章尚未设立同样规则。", "dang 表示可能很快为标记功能增加理由选项，其中一项就是“因为我认为它是 AI 生成的”。", "评论指出投票制不足：部分读者无法识别 AI 文本，另一些读者即便识别也不会因此而否决。"], "discussion": "评论区分歧：一方希望有 AI 标记，另一方担心误报和恶意指控（minimaxir 警告误判 AI 会引发争吵），官方倾向补标记理由但不给独立标签。", "tags": ["AI 生成内容", "社区治理", "平台政策"], "score": 176, "comments": 123, "by": "levkk", "url": "https://news.ycombinator.com/item?id=48886741", "hnUrl": "https://news.ycombinator.com/item?id=48886741"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "Migrating a production AI agent to GPT-5.6: 2.2x faster, 27% cheaper", "titleTranslation": "迁移生产环境 AI 智能体到 GPT-5.6：速度提升 2.2 倍，成本降低 27%", "summary": "Ploy 将其构建营销网站的 AI 智能体从 Claude Opus 4.8 迁移到 GPT-5.6 Sol，实现 2.2 倍速度提升和 27% 成本降低。但迁移揭示了工具调用、缓存和推理重放等与模型提供方紧密耦合的行为，需针对性工程适配才能兑现降本增效。", "keyPoints": ["GPT-5.6 Sol 相比 Claude Opus 4.8 使智能体构建速度提升 2.2 倍，成本降低 27%，且输出代码更精简。", "GPT-5.6 强制填充所有可选工具参数导致 52% 文件读取空白，需将 schema 转为 nullable + 剥离 null 解决。", "提示缓存机制从跨对话前缀匹配变为需指定缓存键，团队用 workspace-scoped key 将首次命中率从 0% 提升到 83.7%，消除成本虚高。"], "discussion": "评论区认为文章 LLM 痕迹重但洞察有价值；部分人指出简单任务迁移只需一行代码，但生产级智能体需要复杂模型特异性适配。", "tags": ["LLM 部署", "生产环境迁移", "提示缓存"], "score": 154, "comments": 53, "by": "brryant", "url": "https://ploy.ai/blog/migrating-a-production-ai-agent-to-gpt-5-6", "hnUrl": "https://news.ycombinator.com/item?id=48882716"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "Claude Code sends 33k tokens before reading the prompt; OpenCode sends 7k", "titleTranslation": "Claude Code 在读取提示之前发送 33k 令牌；OpenCode 发送 7k", "summary": "实测显示，Claude Code 每次请求在用户输入前就消耗约 33,000 token 的固定开销，而 OpenCode 仅约 7,000 token。差距来自更庞大的系统提示与工具模式，且 Claude Code 缓存策略效率低、频繁重写，导致实际成本远高于对手。", "keyPoints": ["Claude Code 在收到用户指令前固定发送约 33,000 token，OpenCode 仅约 7,000，差距约 4.7 倍。", "缓存效率差异巨大：Claude Code 重复写入缓存 token，同任务下比 OpenCode 多出 54 倍，写入缓存按高价计费。", "引入子代理后，父代理的额外自举成本使总 token 消耗膨胀 4.2 倍，一次简单任务从 121k 增至 513k。"], "discussion": "社区认为子代理烧 token 最严重，质疑 Anthropic 故意提升 token 消耗以增加收入，部分用户已转向更透明的替代方案。", "tags": ["代理编码工具", "LLM 成本", "token 开销"], "score": 495, "comments": 279, "by": "systima", "url": "https://systima.ai/blog/claude-code-vs-opencode-token-overhead", "hnUrl": "https://news.ycombinator.com/item?id=48883275"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "LARP – Revenue infrastructure for serious founders", "titleTranslation": "LARP——为严肃创始人准备的收入基础设施", "summary": "一个讽刺网站，模仿 SaaS 创业公司以互相转账的方式虚构 ARR（年度经常性收入），揭露创业圈中“循环交易”和没有真实经济实质的收入造假现象。", "keyPoints": ["双方互相转账 10,000 美元，各自确认同等金额收入，净现金流动为零，但账面 ARR 凭空增加。", "网站显示全球 LARP 交易量为 0 美元，并注明全部为虚假，直指创业生态中常见的互相做客户现象。", "引用 Anthropic CEO Dario Amodei 和 Bloomberg 评论，区分了 合法双边商业安排 与欺诈性“循环交易”之间的法律差异。"], "discussion": "HN 用户普遍认可这是高质量的讽刺，同时指出 YC 创业公司互相作为“客户”的现象确实在最新批次中泛滥，令玩笑近乎现实。", "tags": ["创业讽刺", "虚假收入", "循环交易"], "score": 178, "comments": 39, "by": "BerislavLopac", "url": "https://www.larp.website/", "hnUrl": "https://news.ycombinator.com/item?id=48882569"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "Vint Cerf, “father of the Internet”, is retiring", "titleTranslation": "Vint Cerf，“互联网之父”，正式退休", "summary": "83 岁的 Vint Cerf 下周卸任 Google 首席互联网布道师，结束 20 年任期。他因与 Robert Kahn 共同设计 TCP/IP 协议而获图灵奖。在近期会议上，他预见 AI agent 将推动去中心化的标准化协议，并警告纯自然语言通信在 agent 间过于模糊，需精确互操作标准。", "keyPoints": ["Vint Cerf 83 岁，下周从 Google 退休，其 TCP/IP 协议奠定了互联网基础。", "他与 Robert Kahn 因开发 TCP/IP 获得图灵奖、总统自由勋章，被誉为“互联网之父”。", "Cerf 预测 AI agent 的崛起将倒逼科技公司采用标准化协议，而非依赖模糊的自然语言通信。"], "discussion": "评论区一致致敬，称他为谦逊、友善、极具影响力的传奇，并分享他乐于助人的轶事。", "tags": ["互联网协议", "AI 互操作性", "科技传奇"], "score": 286, "comments": 164, "by": "compiler-guy", "url": "https://techcrunch.com/2026/06/30/the-father-of-the-internet-is-finally-retiring/", "hnUrl": "https://news.ycombinator.com/item?id=48854168"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "Mechanistic interpretability researchers applying causality theory to LLMs", "titleTranslation": "机制可解释性研究者将因果理论应用于大语言模型", "summary": "通过干预模型权重和激活值，研究者发现LLM在处理时钟时间和日历计算时共享相同的“循环度量”底层概念，表明部分隐藏算法或可被逐步理解，但完全简化为简单方程并不现实。", "keyPoints": ["研究者通过直接修改模型权重和激活值，发现时钟计算和日历计算共用“循环度量”概念。", "机制可解释性试图从神经网络的“参数意面代码”中提取人类可理解的算法。", "部分研究者认为完全将LLM化简为少数方程可能永远无法实现，但可以逐步提升局部可解释性。"], "discussion": "评论者对可解释性的根本局限存在分歧：有人将其类比为逆转熵增，质疑乐观预期；也有人认为应从学到的文本模式而非权重直接寻找推理线索。", "tags": ["机制可解释性", "LLM 推理", "因果推断"], "score": 89, "comments": 65, "by": "adunk", "url": "https://cacm.acm.org/news/can-we-understand-how-large-language-models-reason/", "hnUrl": "https://news.ycombinator.com/item?id=48883090"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "Flash-MSA: Accelerating Million-Token Training with Sparse Attention Kernels", "titleTranslation": "Flash-MSA：用稀疏注意力内核加速百万级 Token 训练", "summary": "首个开源 MiniMax 稀疏注意力 (MSA) 的训练级内核，在 H100/B200 上实现百万 token 级长上下文训练，块稀疏 + GQA 设计使其可直接适配现有模型，训练速度与精度已通过大规模验证。", "keyPoints": ["首次 提供 MiniMax 稀疏注意力的可训练开源内核，而非仅推理加速。", "采用块稀疏和 GQA 替代 MLA，使训练内核可用于西方主流模型，无需适配 MLA。", "反向传播通过融合代理与主注意力梯度，将 KL 损失简化为 代理概率减主概率，避免额外显存占用。"], "discussion": "评论区有人质疑“世界首个”的宣称，指出已有类似开源稀疏注意力训练项目（native-sparse-attention），认为作者有炒作之嫌。", "tags": ["稀疏注意力训练", "长上下文训练", "开源内核"], "score": 30, "comments": 1, "by": "rawsh", "url": "https://nanduruganesh.github.io/flash-msa/", "hnUrl": "https://news.ycombinator.com/item?id=48884618"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "I love LLMs, I hate hype", "titleTranslation": "我爱大语言模型，我恨炒作", "summary": "George Hotz 直言痛恨两种 AI 炒作：制造焦虑的“窗口关闭”论和夸张的“光锥拥有”论。他核心质疑前沿实验室估值，认为 AI 价值主要由摩尔定律推动，开源会使模型商品化，实验室难以捕获利润。同时他修正了自己对 LLM 编程能力的极端看法，承认其有用但需警惕认知疲劳。", "keyPoints": ["作者痛批两种 AI 炒作：制造焦虑的负面恐慌和“光锥拥有”等夸大叙事，认为它们既虚假又恶意。", "核心论点：前沿实验室估值虚高，AI 进步主要来自算力增长，开源将迫使模型商品化，实验室无法捕获对应价值。", "作者对 LLM 编程能力的看法软化，承认其有用但可能增加认知疲劳，产出低质“slop”代码。"], "discussion": "评论区高度认同价值捕获难题，争论订阅制与按量计费的可持续性，并对 AI 时代开源生态碎片化表达担忧。", "tags": ["AI 炒作", "LLM 价值捕获", "开源与企业竞争"], "score": 357, "comments": 222, "by": "therepanic", "url": "https://geohot.github.io//blog/jekyll/update/2026/07/12/i-love-llms.html", "hnUrl": "https://news.ycombinator.com/item?id=48883343"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "What xAI's Grok build CLI sends to xAI: A wire-level analysis", "titleTranslation": "xAI 的 Grok Build CLI 实际上向 xAI 发送了什么", "summary": "通过 mitmproxy 抓包证实：Grok Build CLI 将读取的 .env 密钥等文件内容明文上传，并且无论是否读取，整个仓库（含 git 历史）都会被静默上传至 Google Cloud Storage，12 GB 仓库中 5.1 GB 被传出，是实际模型对话流量的 27,800 倍，且关闭“改进模型”开关无效。", "keyPoints": ["Grok Build CLI 会明文上传被读取文件的内容，包括 .env 文件中的密钥，直接发送至 xAI 的 API 端点。", "与读取无关，整个工作区仓库（含 git 历史）都会被上传，目标为 Google Cloud Storage 桶 `grok-code-session-traces`。", "在 12 GB 随机文件（未读取）的测试中，/v1/storage 上传了 5.1 GB，而 /v1/responses 仅 192 KB，比率约为 27,800 倍。"], "discussion": "多数评论对 Elon Musk 属下的产品表现出强烈不信任，认为这是大规模监控，有人已用沙箱隔离编码工具，并呼吁明确告知而非隐藏在条款中。", "tags": ["代码隐私", "Grok Build", "开发者工具安全"], "score": 414, "comments": 161, "by": "jhoho", "url": "https://gist.github.com/cereblab/dc9a40bc26120f4540e4e09b75ffb547", "hnUrl": "https://news.ycombinator.com/item?id=48877371"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "Old and new apps, via modern coding agents", "titleTranslation": "通过现代编码代理构建新旧应用", "summary": "Terry Tao 用 LLM 编码代理在数小时内将 20 多个 1999 年的 Java 数学可视化小程序移植到 JavaScript，并新建了特殊相对论可视化工具。代码质量超出预期，仅发现一个轻微 bug，代理还找出两个原始代码的未知错误。", "keyPoints": ["Terry Tao 在几小时内用 AI 代理将 20 多个旧 Java 数学小程序移植到现代 JavaScript，且图形升级了颜色。", "代理发现了两个已知原始代码中未察觉的 bug，而引入的 bug 仅为一个拖拽边缘情况，整体代码质量持平。", "他靠几小时「氛围编程」实现了1999 年因复杂度放弃的特殊相对论可视化，以及新写的吉尔布雷思猜想可视化工具。"], "discussion": "HN 共识认可 Tao 的平衡观点：AI 生成代码适合非关键任务，并感叹潜在需求巨大，即使 AI 不再进化也要十年才能消化；也有人幽默比喻为米其林大厨发现微波炉晚餐。", "tags": ["LLM 应用", "AI 辅助编程", "数学可视化"], "score": 422, "comments": 124, "by": "subset", "url": "https://terrytao.wordpress.com/2026/07/11/old-and-new-apps-via-modern-coding-agents/", "hnUrl": "https://news.ycombinator.com/item?id=48880170"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
