@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-07-14</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-07-14 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://www.normaltech.ai/p/what-will-be-left-for-us-to-work" target="_blank" rel="noopener">What will be left for us to work on?</a></h2></div><p class="title-tr">未来还有什么工作留给我们？</p><div class="meta">▲ 36 分 · randomwalker · <a href="https://news.ycombinator.com/item?id=48901292" target="_blank" rel="noopener">16 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者提出“AI 作为正常技术”框架，认为 AI 的经济影响将经历方法、产品、采纳、适应四个阶段，其中组织适应需数十年，至今尚未真正开始；可靠性而非能力是当前部署瓶颈，人类未来将转向评估与引导，与 AI 形成“共超智能”。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文章将 AI 部署类比电力革命，强调技术采纳后需要长期的组织与流程变革才能释放生产力——这类似于你熟悉的从模型能力到可落地的产品采纳过程。</p><ul class="kp"><li><strong>AI 经济影响分四阶段</strong>，其中“适应”（组织变革）最为缓慢，需数十年，目前尚未启动。</li><li><strong>可靠性才是部署瓶颈</strong>：作者团队发现 AI 代理的准确性基准未区分一致性与稳健性，70% 正确率可能毫无部署价值。</li><li><strong>递归自我改进不会骤然消灭工作</strong>：任何实验室里程碑都不可能瞬间转化为大规模失业，经济变革是渐进过程。</li><li><strong>人类价值将集中于评估、判断和引导</strong>，未来可能出现极度个性化的软件，人类与 AI 形成“共超智能”。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区分化明显：部分开发者认同角色将像医疗行业分层演进，但也有年轻员工群体开始抵制 AI，且不少人质疑 AI 是否真的减少了实际工作量。</p><div class="tags"><span class="tag">AI 对就业影响</span><span class="tag">技术采纳周期</span><span class="tag">AI 可靠性评估</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · franze · 3 回复</div><p>Question: Does anybody here yet personally has less (to) work &#x27;cause of AI?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://elasticity.institute/rsi-paper.pdf" target="_blank" rel="noopener">The Economics of Recursive Self-Improvement [pdf]</a></h2></div><p class="title-tr">递归自我改进的经济学 [pdf]</p><div class="meta">▲ 20 分 · apsec112 · <a href="https://news.ycombinator.com/item?id=48901224" target="_blank" rel="noopener">1 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">模型分析AI递归自我改进（RSI）的条件：自持加速需AI能力提升1单位带来至少<strong>15%的AI R&amp;D生产力增长</strong>。当前基于编码代理的估算仅约9%，未触发加速，但反馈回路在加强。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 论文用有向图表示反馈回路，每条边的强度是“弹性”（类似模型输出对输入的敏感度），乘积决定是否自持加速。可将AI能力增长想象成强化学习中的自我反馈过程。</p><ul class="kp"><li>自持加速阈值：AI能力提升1单位需带来至少<strong>15%的AI R&amp;D生产力增长</strong>。</li><li>当前数据：编码代理带来的生产力提升仅约<strong>9%</strong>，低于阈值，尚未形成自持加速。</li><li>区分<strong>窄能力</strong>（优化基准）与<strong>宽能力</strong>（经济价值），可能只在窄AI上加速而经济影响有限。</li><li>关键未知数：<strong>算法效率增速</strong>、<strong>R&amp;D支出分配</strong>、<strong>AI对技术进步贡献份额</strong>，呼吁AI公司公开数据。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论指出数据来自自报生产力增益调查，基础薄弱，但论文框架本身有价值。</p><div class="tags"><span class="tag">递归自我改进</span><span class="tag">AI经济学</span><span class="tag">反馈回路</span><span class="tag">AI政策</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://get-inscribe.com/blog/apple-speech-api-benchmark.html" target="_blank" rel="noopener">Apple&#x27;s new SpeechAnalyzer API, benchmarked against Whisper and its predecessor</a></h2></div><p class="title-tr">苹果新 SpeechAnalyzer API 与 Whisper 及前代 API 的基准对比测试</p><div class="meta">▲ 481 分 · get-inscribe · <a href="https://news.ycombinator.com/item?id=48894752" target="_blank" rel="noopener">191 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">苹果 iOS/macOS 26 内置的 SpeechAnalyzer 在 LibriSpeech 上的词错误率（WER）低至 2.12%（干净语音）和 4.56%（噪声语音），显著优于自家的旧版 API（9.02%）和 Whisper Small（3.74%），且速度快约 3 倍，成为当前 Apple 设备上英语语音识别的最佳选择。</p><p class="context"><strong>🧭 联系你的知识背景</strong> WER（词错误率）类似于分类任务中的错误率，但衡量的是转录文本中替换、删除或插入的词占参考文本总词数的百分比，数字越低越好。</p><ul class="kp"><li><strong>SpeechAnalyzer 词错误率仅为 2.12%</strong>，比 Whisper Small 低 1.62 个百分点，同时推理速度快 3 倍，无精度妥协。</li><li><strong>旧版 API 的 WER 高达 9.02%</strong>，新 API 将其改善了 3.5-4 倍，迁移几乎只有收益。</li><li><strong>Whisper 模型仍覆盖 100+ 语言</strong>，而 SpeechAnalyzer 仅支持约 30 种语言，因此多语言场景仍依赖 Whisper。</li><li><strong>开发团队 Inscribe 已将其默认引擎切换为新 API</strong>，并公开了原始转录数据以供独立验证，增加基准可信度。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论认为应对比更强的模型如 Nemotron、Voxtral，但普遍认同苹果新 API 会挤压仅封装 Whisper 的付费应用，并且最终用户将无需第三方工具。</p><div class="tags"><span class="tag">语音识别基准</span><span class="tag">Apple SpeechAnalyzer</span><span class="tag">词错误率</span><span class="tag">模型对比</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · satvikpendem · 20 回复</div><p>Whisper is the wrong model to benchmark against, or rather, there are better models that are state of the art now like Nemotron and Parakeet both by Nvidia, as well as Mistral&#x27;s Voxtral and Cohere Transcribe.</p><p>However, what&#x27;s funny is, RIP to a lot of the paid apps that simply wrap Whisper, I&#x27;m sure Apple will make a native GUI such as a recorder app for macOS that obviates the need for these wrappers, which everyone seems to be vibe coding these days.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://careersatdoordash.com/blog/building-food-metadata-with-llm-juries-context-optimization-multimodal-ai/" target="_blank" rel="noopener">Building Food Metadata with LLM Juries</a></h2></div><p class="title-tr">利用 LLM 评审团构建食品元数据</p><div class="meta">▲ 16 分 · tie-in · <a href="https://news.ycombinator.com/item?id=48901275" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">因无法获取原文，信息有限。DoorDash 探索用多个 LLM 组成的“评审团”自动化生成食品元数据（如成分、营养），以降低人工标注成本并规模化处理菜单信息。</p><p class="context"><strong>🧭 联系你的知识背景</strong> LLM 评审团类似集成学习，用多个模型相互校验提高准确率，与你熟悉的 ensemble 思路相通。</p><ul class="kp"><li><strong>LLM 评审团</strong>让多个大语言模型协作决策，交叉验证来提高食品属性标注的可靠性。</li><li><strong>多模态 AI</strong> 融合菜品图片与文本，直接提取食材、分量等结构化元数据。</li><li><strong>DoorDash</strong> 将技术用于外卖平台，改善搜索、筛选与配送体验。</li><li>上下文优化（<strong>Context Optimization</strong>）为不同菜品动态调整提示词，提升模型输出稳定性。</li></ul><div class="tags"><span class="tag">LLM 应用</span><span class="tag">数据标注</span><span class="tag">多模态 AI</span><span class="tag">DoorDash</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://github.com/marcelpanse/youtube-guitar-tab-parser" target="_blank" rel="noopener">Show HN: YouTube Guitar Tab Parser</a></h2></div><p class="title-tr">YouTube 吉他谱解析器</p><div class="meta">▲ 83 分 · neogenix · <a href="https://news.ycombinator.com/item?id=48898154" target="_blank" rel="noopener">52 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">一个 CLI 工具，下载 YouTube 吉他教学视频后，用 Claude vision 检测六线谱区域，再按小节号去重，自动拼接成 A4 PDF。无需配置，默认参数即开即用，把视频直接转成可打印的曲谱。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 你将熟悉基于 Transformer 的视觉模型应用于文档理解，Claude vision 在这里替代了传统 CV，定位并裁剪六线谱区域，后续按小节号去重类似于从序列帧中提取唯一帧。</p><ul class="kp"><li>使用 <strong>Claude vision</strong> 粗粒度定位六线谱区域，比传统 CV 策略更省人工调参，但每次调用会产生 API 成本。</li><li>通过 <strong>小节号</strong> 去重，确保播放头扫过的重复帧只保留一行，最终竖向拼接成 PDF。</li><li>默认 <strong>2 秒间隔采样、720p 高度</strong>，用户可用 --interval、--max-height 等参数适配不同视频。</li><li>当前局限：对<strong>移动曲谱</strong>（播放头居中、音符滚动）的视频效果不佳，只适合曲谱逐步显示的画面。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区既有用户称赞解决手动截图组谱的痛点，也有音乐内容创作者担忧 AI 会直接提取收费曲谱冲击 Patreon 模式；另有人质疑 Claude vision 成本 vs 传统 CV。</p><div class="tags"><span class="tag">AI 应用</span><span class="tag">开发工具</span><span class="tag">音乐技术</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · adrianh · 2 回复</div><p>I&#x27;m curious how it works for videos that contain moving tab (as in, the playhead stays in the center while the tab moves behind it). Seems like that sort of tab wouldn&#x27;t work with this approach...?</p><p>Kudos from one of the Soundslice guys — we&#x27;ve been making web-based tab and sheet music stuff since 2012. :)</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://sleuth-io.github.io/sx/2026/07/10/your-dropbox-is-now-a-skill-server.html" target="_blank" rel="noopener">Show HN: Sx 2.0 – Share AI skills with your team through a Dropbox folder</a></h2></div><p class="title-tr">Sx 2.0 – 通过 Dropbox 文件夹与团队共享 AI 技能</p><div class="meta">▲ 21 分 · detkin · <a href="https://news.ycombinator.com/item?id=48900319" target="_blank" rel="noopener">24 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Sx 2.0 发布跨平台桌面应用，让非技术团队无需 Git 或终端，通过 Dropbox、Google Drive 等共享文件夹即可快速分发 AI 技能（Markdown 提示模板）。同时引入可插拔扩展系统，支持技能评估、去重和使用情况跟踪。</p><p class="context"><strong>🧭 联系你的知识背景</strong> AI 技能本质是指导 LLM 执行特定任务的 Markdown 文件，类似可复用的提示模板；Sx 负责把这些文件翻译成不同 AI 开发工具（Claude Code、Cursor 等）的本地格式。</p><ul class="kp"><li><strong>Sx 2.0 推出原生桌面应用</strong>，覆盖 Mac、Windows 和 Linux，彻底消除命令行使用门槛。</li><li><strong>以共享文件夹为后端</strong>，团队把技能拖入 Dropbox/Google Drive 等同步文件夹即可自动分发，无需账号或服务器。</li><li><strong>扩展系统可插拔</strong>，提供技能评分、去重、使用率仪表盘等团队健康检查功能，且权限严格限制。</li><li><strong>新 Vault 格式 v2</strong> 将最新技能以纯 Markdown 存在磁盘上，可直接被 Obsidian 或 AI 客户端读取。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区核心分歧在于用 Dropbox 同步是否可靠，部分用户认为版本管理和溯源是硬伤，更倾向 Git 仓库；另一些用户已在实际团队中用类似方法，认为简单易用。</p><div class="tags"><span class="tag">AI 技能共享</span><span class="tag">团队协作工具</span><span class="tag">开发者工作流</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · angry_octet · 2 回复</div><p>I can&#x27;t think of anything worse than sharing skills via Dropbox. The version management and AIBoM problems that generates is extremely painful. There&#x27;s no way to track which version LLM is being used or match it against the skill, and people will likely load up too many skills.</p><p>You don&#x27;t have to expose git repos to end users to use git, or some other database, to provision skills.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://jobs.ashbyhq.com/SalesPatriot/df223727-5781-433e-bc75-2aa5bf8dc8d7" target="_blank" rel="noopener">SalesPatriot (YC W25) Is Hiring Full Stack Engineers (SF)</a></h2></div><p class="title-tr">SalesPatriot (YC W25) 招聘全栈工程师（旧金山）</p><div class="meta">▲ 1 分 · maciejSz · <a href="https://news.ycombinator.com/item?id=48898814" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">SalesPatriot 是一家入选 Y Combinator 2025 冬季批次的初创公司，正在旧金山招聘全栈工程师，具体技术栈和业务方向未在可见内容中披露。</p><p class="context"><strong>🧭 联系你的知识背景</strong> YC（Y Combinator）是著名创业加速器，W25 指 2025 年冬季批次，代表公司已通过早期筛选并获种子投资。</p><ul class="kp"><li><strong>SalesPatriot</strong> 已入选 YC W25 批次，在旧金山招聘全栈工程师</li><li>职位页面需启用 JavaScript 才能查看，<strong>实际 JD 内容不可见</strong></li><li>招聘信息发布于 Ashby，一家专注初创公司的 <strong>ATS（招聘管理系统）</strong> 平台</li><li>YC W25 公司近期集中发布招聘，反映 <strong>早期团队扩张阶段</strong> 的用人需求</li></ul><div class="tags"><span class="tag">YC W25</span><span class="tag">全栈工程师招聘</span><span class="tag">初创公司招聘</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://12gramsofcarbon.com/p/founders-guide-success-may-not-matter" target="_blank" rel="noopener">Success may not matter if you aren&#x27;t doing what you love</a></h2></div><p class="title-tr">如果你不是在做自己喜欢的事，成功可能无关紧要</p><div class="meta">▲ 48 分 · theahura · <a href="https://news.ycombinator.com/item?id=48900790" target="_blank" rel="noopener">10 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">文章指出，即使找到产品-市场契合（PMF），若缺乏创始人-市场契合（创始人的个性、文化背景、兴趣与目标客户群不匹配），创始人可能失去热情，导致创业在达到七位数ARR后依然崩溃。核心警示：选择与自己长期合拍的市场，比追逐表面成功更重要。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 你已经理解产品-市场契合（PMF）；本文引入创始人-市场契合（FMF）——创始人的个人特质、文化认同、沟通风格与目标客户群的内在匹配度，决定了能否长期坚持。</p><ul class="kp"><li><strong>创始人-市场契合</strong> 是比产品-市场契合更前置于创业成功的生存条件，缺乏它即使有营收也会半途而废。</li><li><strong>内向/外向、文化圈子、技术背景、穿着风格</strong> 等维度构成与客户产生同类认同的信号，影响信任和销售效率。</li><li>创始人需提前识别自己的<strong>交易破坏因素（deal breakers）</strong>，如无法忍受西装文化或频繁出差，否则3-7年后会因磨损而放弃。</li><li>忽视创始人-市场契合可能导致创始人即便达到 <strong>七位数ARR</strong> 也精疲力尽，团队散伙，增长戛然而止。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区分裂：有人批评该文为自我推广，有人则认为对内向型创始人有实质启发；另有声音质疑“成功”定义模糊，或主张不必过度追求“热爱”而忽略现实约束。</p><div class="tags"><span class="tag">创始人-市场契合</span><span class="tag">创业心理</span><span class="tag">创始人决策</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · gnabgib · 1 回复</div><p>Your entire history seems to be self-promotion, you&#x27;re aware of the guidelines?</p><p>&gt; Please don&#x27;t use HN primarily for promotion. It&#x27;s ok to post your own stuff part of the time, but the primary use of the site should be for curiosity.</p><p>Perhaps you could submit something you&#x27;re curious about, instead?</p><p>https://news.ycombinator.com/newsguidelines.html</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://github.com/jbwinters/jacquard-lang" target="_blank" rel="noopener">Show HN: Jacquard, a programming language for AI-written, human-reviewed code</a></h2></div><p class="title-tr">Show HN: Jacquard，一种为 AI 编写、人类审查的代码而设计的编程语言</p><div class="meta">▲ 60 分 · jbwinters · <a href="https://news.ycombinator.com/item?id=48894630" target="_blank" rel="noopener">29 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Jacquard 让函数副作用（网络、文件系统等）在签名中显式可见，运行时需显式授权，并通过内容寻址哈希使重命名和格式改动无需重编译。已发布可安装的 0.1 研究原型，包含记录回放与概率测试框架 Warp。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 效应系统可类比模型训练的显式配置：每个函数必须声明它会执行哪些外部操作，使 AI 生成的代码更容易被人类审查，而内容寻址哈希类似模型权重的不可变标识。</p><ul class="kp"><li>函数签名显式列出<strong>效应（如 net、fs）</strong>，运行时拒绝未授权的世界交互，需要 --allow 显式开放权限。</li><li>采用<strong>内容寻址的规范身份哈希</strong>，注释、格式化、重命名不影响下游代码，纯测试仅在规范代码或依赖变更时重新运行。</li><li>同一份代码可针对<strong>真实网络、录制的流量、脚本化的假世界或概率模型</strong>运行，通过替换 handler 实现零改动换世界。</li><li>内置<strong>测试框架 Warp</strong>，融合回放、结果缓存、handler 替换和精确概率枚举，支持 AI 修补程序后计算候选补丁的后验概率。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论质疑效应系统在浏览器等庞大 API 表面的可行性，也有人不信任 LLM 为自身设计语言的能力；另有人提及类似理念已在 Unison 语言中出现。</p><div class="tags"><span class="tag">编程语言设计</span><span class="tag">代数效应</span><span class="tag">AI 代码审查</span><span class="tag">开发者工具</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · sajithdilshan · 4 回复</div><p>I love how people create so many new things with AI, but to think how much tokens, and in turn money we all have collectively burned for these side projects is crazy.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://github.com/xqlsystems/xarray-sql/blob/claude/xarray-sql-mnist-demo/benchmarks/nn.py" target="_blank" rel="noopener">Show HN: I implemented a neural network in SQL</a></h2></div><p class="title-tr">Show HN: 我用 SQL 实现了一个神经网络</p><div class="meta">▲ 65 分 · alxmrs · <a href="https://news.ycombinator.com/item?id=48897975" target="_blank" rel="noopener">13 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者用纯 SQL 实现了完整神经网络训练（前向/反向/梯度更新），将矩阵乘法表达为 SUM(JOIN…GROUP BY)，并实现类似 JAX 的自动微分。论证关系代数可为分布式深度学习提供逻辑与物理分离的优化基础，代码已开源并跑通 Fashion-MNIST。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可将 SQL 的 join+sum 直接对应到 einsum/矩阵乘法，数据库的查询计划等价于分布式计算图，对熟 ML 不熟数据库的读者来说，本质是用声明式关系运算替代手写张量框架。</p><ul class="kp"><li>将神经网络<strong>前向传播的矩阵乘法</strong>转化为 SQL 的 SUM(val*val) JOIN…GROUP BY</li><li>在 DataFusion 查询引擎上实现<strong>基于 visitor 模式的自动微分</strong>，支持 grad、jvp、vjp</li><li>用 SQL 完成<strong>完整的训练循环</strong>（学习率 0.5，60 步），在 Fashion-MNIST 上验证可行性</li><li>项目目标：利用<strong>逻辑层与物理层分离</strong>的关系数据库原则，简化千卡 GPU 级别的分布式训练调度</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论指出社区早有 MADlib 等 SQL 内建 ML 的先例，核心争论在于 SQL 的声明式查询优化能力是否比关系代数本身的张量等效更能推动分布式训练。</p><div class="tags"><span class="tag">深度学习</span><span class="tag">SQL</span><span class="tag">分布式训练</span><span class="tag">自动微分</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · soupspaces · 2 回复</div><p>Neat! Feels analogous to &quot;X runs Doom&quot; demos (but NN).</p></div></div></article>
+</div></main>
+<footer>generated 2026-07-14 03:32 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "What will be left for us to work on?", "titleTranslation": "未来还有什么工作留给我们？", "summary": "作者提出“AI 作为正常技术”框架，认为 AI 的经济影响将经历方法、产品、采纳、适应四个阶段，其中组织适应需数十年，至今尚未真正开始；可靠性而非能力是当前部署瓶颈，人类未来将转向评估与引导，与 AI 形成“共超智能”。", "keyPoints": ["AI 经济影响分四阶段，其中“适应”（组织变革）最为缓慢，需数十年，目前尚未启动。", "可靠性才是部署瓶颈：作者团队发现 AI 代理的准确性基准未区分一致性与稳健性，70% 正确率可能毫无部署价值。", "递归自我改进不会骤然消灭工作：任何实验室里程碑都不可能瞬间转化为大规模失业，经济变革是渐进过程。"], "discussion": "评论区分化明显：部分开发者认同角色将像医疗行业分层演进，但也有年轻员工群体开始抵制 AI，且不少人质疑 AI 是否真的减少了实际工作量。", "tags": ["AI 对就业影响", "技术采纳周期", "AI 可靠性评估"], "score": 36, "comments": 16, "by": "randomwalker", "url": "https://www.normaltech.ai/p/what-will-be-left-for-us-to-work", "hnUrl": "https://news.ycombinator.com/item?id=48901292"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "The Economics of Recursive Self-Improvement [pdf]", "titleTranslation": "递归自我改进的经济学 [pdf]", "summary": "模型分析AI递归自我改进（RSI）的条件：自持加速需AI能力提升1单位带来至少15%的AI R&D生产力增长。当前基于编码代理的估算仅约9%，未触发加速，但反馈回路在加强。", "keyPoints": ["自持加速阈值：AI能力提升1单位需带来至少15%的AI R&D生产力增长。", "当前数据：编码代理带来的生产力提升仅约9%，低于阈值，尚未形成自持加速。", "区分窄能力（优化基准）与宽能力（经济价值），可能只在窄AI上加速而经济影响有限。"], "discussion": "评论指出数据来自自报生产力增益调查，基础薄弱，但论文框架本身有价值。", "tags": ["递归自我改进", "AI经济学", "反馈回路"], "score": 20, "comments": 1, "by": "apsec112", "url": "https://elasticity.institute/rsi-paper.pdf", "hnUrl": "https://news.ycombinator.com/item?id=48901224"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "Apple's new SpeechAnalyzer API, benchmarked against Whisper and its predecessor", "titleTranslation": "苹果新 SpeechAnalyzer API 与 Whisper 及前代 API 的基准对比测试", "summary": "苹果 iOS/macOS 26 内置的 SpeechAnalyzer 在 LibriSpeech 上的词错误率（WER）低至 2.12%（干净语音）和 4.56%（噪声语音），显著优于自家的旧版 API（9.02%）和 Whisper Small（3.74%），且速度快约 3 倍，成为当前 Apple 设备上英语语音识别的最佳选择。", "keyPoints": ["SpeechAnalyzer 词错误率仅为 2.12%，比 Whisper Small 低 1.62 个百分点，同时推理速度快 3 倍，无精度妥协。", "旧版 API 的 WER 高达 9.02%，新 API 将其改善了 3.5-4 倍，迁移几乎只有收益。", "Whisper 模型仍覆盖 100+ 语言，而 SpeechAnalyzer 仅支持约 30 种语言，因此多语言场景仍依赖 Whisper。"], "discussion": "评论认为应对比更强的模型如 Nemotron、Voxtral，但普遍认同苹果新 API 会挤压仅封装 Whisper 的付费应用，并且最终用户将无需第三方工具。", "tags": ["语音识别基准", "Apple SpeechAnalyzer", "词错误率"], "score": 481, "comments": 191, "by": "get-inscribe", "url": "https://get-inscribe.com/blog/apple-speech-api-benchmark.html", "hnUrl": "https://news.ycombinator.com/item?id=48894752"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "Building Food Metadata with LLM Juries", "titleTranslation": "利用 LLM 评审团构建食品元数据", "summary": "因无法获取原文，信息有限。DoorDash 探索用多个 LLM 组成的“评审团”自动化生成食品元数据（如成分、营养），以降低人工标注成本并规模化处理菜单信息。", "keyPoints": ["LLM 评审团让多个大语言模型协作决策，交叉验证来提高食品属性标注的可靠性。", "多模态 AI 融合菜品图片与文本，直接提取食材、分量等结构化元数据。", "DoorDash 将技术用于外卖平台，改善搜索、筛选与配送体验。"], "discussion": "", "tags": ["LLM 应用", "数据标注", "多模态 AI"], "score": 16, "comments": 0, "by": "tie-in", "url": "https://careersatdoordash.com/blog/building-food-metadata-with-llm-juries-context-optimization-multimodal-ai/", "hnUrl": "https://news.ycombinator.com/item?id=48901275"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: YouTube Guitar Tab Parser", "titleTranslation": "YouTube 吉他谱解析器", "summary": "一个 CLI 工具，下载 YouTube 吉他教学视频后，用 Claude vision 检测六线谱区域，再按小节号去重，自动拼接成 A4 PDF。无需配置，默认参数即开即用，把视频直接转成可打印的曲谱。", "keyPoints": ["使用 Claude vision 粗粒度定位六线谱区域，比传统 CV 策略更省人工调参，但每次调用会产生 API 成本。", "通过 小节号 去重，确保播放头扫过的重复帧只保留一行，最终竖向拼接成 PDF。", "默认 2 秒间隔采样、720p 高度，用户可用 --interval、--max-height 等参数适配不同视频。"], "discussion": "评论区既有用户称赞解决手动截图组谱的痛点，也有音乐内容创作者担忧 AI 会直接提取收费曲谱冲击 Patreon 模式；另有人质疑 Claude vision 成本 vs 传统 CV。", "tags": ["AI 应用", "开发工具", "音乐技术"], "score": 83, "comments": 52, "by": "neogenix", "url": "https://github.com/marcelpanse/youtube-guitar-tab-parser", "hnUrl": "https://news.ycombinator.com/item?id=48898154"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Sx 2.0 – Share AI skills with your team through a Dropbox folder", "titleTranslation": "Sx 2.0 – 通过 Dropbox 文件夹与团队共享 AI 技能", "summary": "Sx 2.0 发布跨平台桌面应用，让非技术团队无需 Git 或终端，通过 Dropbox、Google Drive 等共享文件夹即可快速分发 AI 技能（Markdown 提示模板）。同时引入可插拔扩展系统，支持技能评估、去重和使用情况跟踪。", "keyPoints": ["Sx 2.0 推出原生桌面应用，覆盖 Mac、Windows 和 Linux，彻底消除命令行使用门槛。", "以共享文件夹为后端，团队把技能拖入 Dropbox/Google Drive 等同步文件夹即可自动分发，无需账号或服务器。", "扩展系统可插拔，提供技能评分、去重、使用率仪表盘等团队健康检查功能，且权限严格限制。"], "discussion": "评论区核心分歧在于用 Dropbox 同步是否可靠，部分用户认为版本管理和溯源是硬伤，更倾向 Git 仓库；另一些用户已在实际团队中用类似方法，认为简单易用。", "tags": ["AI 技能共享", "团队协作工具", "开发者工作流"], "score": 21, "comments": 24, "by": "detkin", "url": "https://sleuth-io.github.io/sx/2026/07/10/your-dropbox-is-now-a-skill-server.html", "hnUrl": "https://news.ycombinator.com/item?id=48900319"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "SalesPatriot (YC W25) Is Hiring Full Stack Engineers (SF)", "titleTranslation": "SalesPatriot (YC W25) 招聘全栈工程师（旧金山）", "summary": "SalesPatriot 是一家入选 Y Combinator 2025 冬季批次的初创公司，正在旧金山招聘全栈工程师，具体技术栈和业务方向未在可见内容中披露。", "keyPoints": ["SalesPatriot 已入选 YC W25 批次，在旧金山招聘全栈工程师", "职位页面需启用 JavaScript 才能查看，实际 JD 内容不可见", "招聘信息发布于 Ashby，一家专注初创公司的 ATS（招聘管理系统） 平台"], "discussion": "", "tags": ["YC W25", "全栈工程师招聘", "初创公司招聘"], "score": 1, "comments": 0, "by": "maciejSz", "url": "https://jobs.ashbyhq.com/SalesPatriot/df223727-5781-433e-bc75-2aa5bf8dc8d7", "hnUrl": "https://news.ycombinator.com/item?id=48898814"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "Success may not matter if you aren't doing what you love", "titleTranslation": "如果你不是在做自己喜欢的事，成功可能无关紧要", "summary": "文章指出，即使找到产品-市场契合（PMF），若缺乏创始人-市场契合（创始人的个性、文化背景、兴趣与目标客户群不匹配），创始人可能失去热情，导致创业在达到七位数ARR后依然崩溃。核心警示：选择与自己长期合拍的市场，比追逐表面成功更重要。", "keyPoints": ["创始人-市场契合 是比产品-市场契合更前置于创业成功的生存条件，缺乏它即使有营收也会半途而废。", "内向/外向、文化圈子、技术背景、穿着风格 等维度构成与客户产生同类认同的信号，影响信任和销售效率。", "创始人需提前识别自己的交易破坏因素（deal breakers），如无法忍受西装文化或频繁出差，否则3-7年后会因磨损而放弃。"], "discussion": "评论区分裂：有人批评该文为自我推广，有人则认为对内向型创始人有实质启发；另有声音质疑“成功”定义模糊，或主张不必过度追求“热爱”而忽略现实约束。", "tags": ["创始人-市场契合", "创业心理", "创始人决策"], "score": 48, "comments": 10, "by": "theahura", "url": "https://12gramsofcarbon.com/p/founders-guide-success-may-not-matter", "hnUrl": "https://news.ycombinator.com/item?id=48900790"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Jacquard, a programming language for AI-written, human-reviewed code", "titleTranslation": "Show HN: Jacquard，一种为 AI 编写、人类审查的代码而设计的编程语言", "summary": "Jacquard 让函数副作用（网络、文件系统等）在签名中显式可见，运行时需显式授权，并通过内容寻址哈希使重命名和格式改动无需重编译。已发布可安装的 0.1 研究原型，包含记录回放与概率测试框架 Warp。", "keyPoints": ["函数签名显式列出效应（如 net、fs），运行时拒绝未授权的世界交互，需要 --allow 显式开放权限。", "采用内容寻址的规范身份哈希，注释、格式化、重命名不影响下游代码，纯测试仅在规范代码或依赖变更时重新运行。", "同一份代码可针对真实网络、录制的流量、脚本化的假世界或概率模型运行，通过替换 handler 实现零改动换世界。"], "discussion": "评论质疑效应系统在浏览器等庞大 API 表面的可行性，也有人不信任 LLM 为自身设计语言的能力；另有人提及类似理念已在 Unison 语言中出现。", "tags": ["编程语言设计", "代数效应", "AI 代码审查"], "score": 60, "comments": 29, "by": "jbwinters", "url": "https://github.com/jbwinters/jacquard-lang", "hnUrl": "https://news.ycombinator.com/item?id=48894630"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: I implemented a neural network in SQL", "titleTranslation": "Show HN: 我用 SQL 实现了一个神经网络", "summary": "作者用纯 SQL 实现了完整神经网络训练（前向/反向/梯度更新），将矩阵乘法表达为 SUM(JOIN…GROUP BY)，并实现类似 JAX 的自动微分。论证关系代数可为分布式深度学习提供逻辑与物理分离的优化基础，代码已开源并跑通 Fashion-MNIST。", "keyPoints": ["将神经网络前向传播的矩阵乘法转化为 SQL 的 SUM(val*val) JOIN…GROUP BY", "在 DataFusion 查询引擎上实现基于 visitor 模式的自动微分，支持 grad、jvp、vjp", "用 SQL 完成完整的训练循环（学习率 0.5，60 步），在 Fashion-MNIST 上验证可行性"], "discussion": "HN 评论指出社区早有 MADlib 等 SQL 内建 ML 的先例，核心争论在于 SQL 的声明式查询优化能力是否比关系代数本身的张量等效更能推动分布式训练。", "tags": ["深度学习", "SQL", "分布式训练"], "score": 65, "comments": 13, "by": "alxmrs", "url": "https://github.com/xqlsystems/xarray-sql/blob/claude/xarray-sql-mnist-demo/benchmarks/nn.py", "hnUrl": "https://news.ycombinator.com/item?id=48897975"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
