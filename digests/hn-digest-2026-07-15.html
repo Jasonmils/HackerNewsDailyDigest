@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-07-15</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-07-15 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://prismml.com/news/bonsai-27b" target="_blank" rel="noopener">Bonsai 27B: A 27B-Class model that runs on a phone</a></h2></div><p class="title-tr">Bonsai 27B：首款能在手机上运行的 27B 级模型</p><div class="meta">▲ 478 分 · xenova · <a href="https://news.ycombinator.com/item?id=48910545" target="_blank" rel="noopener">174 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">PrismML 发布 Bonsai 27B，基于 Qwen3.6 27B 通过 1 位二值/三值权重量化，将模型体积压缩到 3.9–5.9 GB，保留 90–95% 全精度能力，首次让 27B 参数模型能在手机上本地运行，支持多模态与工具调用，打开离线 agent 部署的可能性。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 该模型通过二值（±1）或三值（-1,0,+1）权重结合分组浮点缩放，将有效位宽压到 1.1–1.7 bit，远低于常规 4‑bit 量化，从而让 27B 模型塞进手机约 6GB 的可用内存预算。</p><ul class="kp"><li><strong>Bonsai 27B</strong> 第一次将 27B 级模型压缩至 3.9 GB，可在 iPhone 17 Pro 上运行，不再依赖云端。</li><li>1‑bit 变体在 15 项基准测试中保留 <strong>90%</strong> 全精度能力，25B 蛋白等编程、数学、工具调用几乎无损。</li><li>模型支持 262K 上下文、视觉输入和工具调用，瞄准持续多步的 <strong>agent 工作流</strong>，且用户数据全程留在本机。</li><li>基于 Caltech 团队，获 Khosla Ventures 等投资，模型以 <strong>Apache 2.0</strong> 许可开源并提供免费开发者 API 预览。</li></ul><p class="disc"><strong>💬 讨论</strong> 争议集中在基准对比的公平性：是否仅针对基准微调而非真正保留原始能力；另有人认为这会重创以“隐私”为卖点的 AI 包装服务。</p><div class="tags"><span class="tag">端侧部署</span><span class="tag">模型压缩</span><span class="tag">开源模型</span><span class="tag">agent</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · simonw · 6 回复</div><p>The models themselves are showing up on Hugging Face here: https://huggingface.co/prism-ml/models</p><p>I&#x27;ve tried a couple in LM Studio - the GGUF one and the MLX one - but neither worked there. Anyone else get them to work? Might be that LM Studio needs to upgrade their llama.cpp or MLX engines first.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://www.bis.org/publ/bisbull120.pdf" target="_blank" rel="noopener">Financing the AI boom: from cash flows to debt [pdf]</a></h2></div><p class="title-tr">资助AI繁荣：从现金流到债务</p><div class="meta">▲ 108 分 · 1vuio0pswjnm7 · <a href="https://news.ycombinator.com/item?id=48913443" target="_blank" rel="noopener">59 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">BIS报告指出，美国AI相关投资已占GDP的1%，贡献近半GDP增长，但投资规模迫使企业从自有现金流转向债务融资，私人信贷快速扩张；若AI高收益预期落空，可能引发信用风险。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 私人信贷指非银行专业基金直接向企业放贷（类似VC但以借贷形式），条款可定制，执行快，本次AI基建大量依赖此类融资。</p><ul class="kp"><li>美国AI相关投资（数据中心、设备等）已占GDP的<strong>1%</strong>，其资本支出贡献了近期约半数的GDP增长。</li><li>科技巨头资本支出远超经营现金流，推动<strong>从现金流转向债务融资</strong>，其中私人信贷因灵活定制而快速增长。</li><li>股票市场对AI高度乐观，但<strong>债务市场定价更谨慎</strong>，这种脱节凸显市场对AI盈利兑现的分歧。</li><li>BIS警告若AI高盈利预期落空，<strong>贷款标准恶化和私人信贷违约</strong>可能带来金融稳定风险。</li></ul><p class="disc"><strong>💬 讨论</strong> HN评论普遍质疑AI实际盈利贡献，认为除AI基础设施外企业利润未见提升，且增长预测缺少下行情景。</p><div class="tags"><span class="tag">AI投融资</span><span class="tag">私人信贷</span><span class="tag">金融稳定</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · lbrito · 7 回复</div><p>High growth scenario and medium growth scenario (Graph 2). I feel like an idiot asking - aren&#x27;t we missing some, or at least one, scenario? Is &quot;medium growth&quot; for the next 4 years really the worst people can think of?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://mindgard.ai/blog/cursor-0day-when-full-disclosure-becomes-the-only-protection-left" target="_blank" rel="noopener">Cursor 0day: When Full Disclosure Becomes the Only Protection Left</a></h2></div><p class="title-tr">Cursor 0day：当完全披露成为最后防线</p><div class="meta">▲ 273 分 · Synthetic7346 · <a href="https://news.ycombinator.com/item?id=48910676" target="_blank" rel="noopener">125 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Cursor IDE 自动从项目根目录执行恶意 git.exe，无需用户交互即可实现任意代码执行。漏洞发现超过 7 个月，经历 197+ 版本仍未修复，厂商未实质性回应。基于此，安全团队选择公开披露，供用户评估风险。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这类似模型在训练中因环境假设错误而对对抗样本敏感：IDE 信任了当前工作目录内的可执行文件，攻击者只需在仓库植入恶意二进制就能突破。</p><ul class="kp"><li><strong>Mindgard 于 2025年12月15日</strong> 发现并报告该漏洞，之后连续跟进超 7 个月无实质修复。</li><li>漏洞触发极简单：<strong>打开包含恶意 git.exe 的仓库</strong>，Cursor 自动执行该文件，无弹窗、无提示。</li><li>影响 <strong>700 万以上活跃用户、5 万家以上企业</strong>，但厂商持续发布新版本而拒绝沟通。</li><li>因厂商失联，<strong>完全披露成为唯一选择</strong>，让用户自行隔离或禁用未可信任仓库。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区核心分歧：一方认为攻击者需先植入文件，不算严重漏洞；另一方批评 Cursor 不应默认从工作区执行 git.exe，且对安全报告消极处理才更致命。</p><div class="tags"><span class="tag">安全漏洞</span><span class="tag">开发者工具</span><span class="tag">漏洞披露</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · jjcm · 10 回复</div><p>I&#x27;m not sure I fully agree with this being a major vuln. There&#x27;s a lot of up front scary text which was raising a lot of red flags until it actually discussed the &quot;what&quot;.</p><p>An actor has to place a malicious .exe in the user&#x27;s code folder, named git.exe, for this to take place.</p><p>I see this akin to something like saying &quot;replacing their .bashrc with an alias that says `ls` instead executes `/tmp/mega-big-virus.sh` is a vuln&quot;.</p><p>Yes it&#x27;s a vector, but if they&#x27;ve placed something in your filesystem like that already, you&#x27;ve already been compromised.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://www.benjamin-bai.com/projects/lemario" target="_blank" rel="noopener">LeMario: Training a JEPA World Model on Super Mario Bros</a></h2></div><p class="title-tr">LeMario：在超级马里奥兄弟上训练 JEPA 世界模型</p><div class="meta">▲ 64 分 · kevinjosethomas · <a href="https://news.ycombinator.com/item?id=48913763" target="_blank" rel="noopener">8 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者用 JEPA 架构在 32 个马里奥关卡上训练世界模型，五步预测误差比基线低 45.5%。但用 CEM 在潜在空间做无奖励规划时，马里奥仅能短距离移动；因为编码器学会了所有可预测特征（HUD、敌人、相机滚动），导致视觉相似的远方场景在潜在空间中距离很近，将进展度量完全混淆。</p><p class="context"><strong>🧭 联系你的知识背景</strong> JEPA 学习压缩像素表示，以预测未来帧，相当于自监督的表示学习；本文发现，这种表示对预测是好用的，但对衡量任务进展而言是失效的距离度量，好比训练一个预测模型却选了与最终决策不匹配的优化目标。</p><ul class="kp"><li>五步递归预测误差比“不做变化”基线低 <strong>45.5%</strong>，证明模型确实学会了基于动作的短期动力学。</li><li>CEM 用潜在距离规划时，马里奥最多移动几像素，且因 <strong>垂直位置表示极弱</strong> 而无法跳过任何障碍。</li><li>训练线性探针从潜在表示解码水平位置后，用探针得分引导规划，马里奥成功到达 <strong>x=176</strong>（目标 x=177）。</li><li>根本问题是编码器无差别地保留所有可预测特征，导致 <strong>潜在距离不可靠</strong>：视觉相似但位置不同的场景在表示中高度混叠。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论认为 JEPA 学会的语义表示没有按控制重要性加权，规划器应直接最大化探针预测的位置，或对潜在空间结构进行重构，这也暗示纯自监督世界模型难以直接用于长时间规划。</p><div class="tags"><span class="tag">JEPA</span><span class="tag">世界模型</span><span class="tag">表征学习</span><span class="tag">模型预测控制</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · lucrbvi · 1 回复</div><p>Such a gem, thanks to the author for sharing it&#x27;s findings :)</p><p>The only problem I have with planing in latent space is that it can be really noisy and not representative of the positions in the game (the latent are trained for semantic, so the optimizer can focus a set of specific features and can skip positions, which means it cannot know &quot;where&quot; to go by optimizing on the latents directly).</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://fortune.com/2026/07/14/data-centers-23-billion-electricity-bills/" target="_blank" rel="noopener">Data centers have hiked electricity prices on the public by $23B</a></h2></div><p class="title-tr">数据中心使公众电价上涨了 230 亿美元</p><div class="meta">▲ 96 分 · measurablefunc · <a href="https://news.ycombinator.com/item?id=48914683" target="_blank" rel="noopener">47 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">美国 PJM 电力市场数据显示，数据中心用电需求已导致消费者电价额外上涨 230 亿美元，并将持续至 2028 年底。成本分摊机制中，数据中心可通过避开峰值负荷逃避高峰需求费用，而居民用户在费率设定中缺乏代言，风险持续累积。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 数据中心通过预测电网峰值并降低负荷来逃避成本分摊，原理类似云计算中通过错峰使用避开预留实例定价——这是共享基础设施定价中的激励漏洞。</p><ul class="kp"><li>PJM 市场覆盖 14 州，数据中心需求是导致消费者电价额外 <strong>230 亿美元</strong> 上涨的主因，影响至少到 2028 年底。</li><li>数据中心可自动调节负荷，在电网峰值时大幅降低用电，从而逃避按<strong>同期峰值需求</strong>分摊的成本，即使其他时段大量用电。</li><li>居民消费者在公用事业成本分配听证中<strong>缺少专门代言</strong>，而数据中心和工业用户有专业团队争取将成本转嫁给大众。</li><li>一旦电网扩建投资完成，若数据中心项目取消或用能低于预期，剩余成本将<strong>转由所有其他客户承担</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论者分歧明显：一方认为数据中心作为电网的锚定租户改善了基础设施，另一方指责成本转嫁机制不公，且部分需求是 AI 推理驱动，用户才是最终推手。</p><div class="tags"><span class="tag">电网定价</span><span class="tag">数据中心</span><span class="tag">电力成本</span><span class="tag">消费者保护</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · m-hodges · 10 回复</div><p>&gt; But what if the power company needs to upgrade the substation to handle the increased needs of the data center? Or secure additional sources of electricity? In these cases, the investments are part of the electricity grid that everyone uses. These costs will likely be shared among all customers.</p><p>Okay but this is a policy choice. It doesn’t have to be that way.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://jola.dev/posts/how-to-stop-claude-from-saying-load-bearing" target="_blank" rel="noopener">How to stop Claude from saying load-bearing</a></h2></div><p class="title-tr">如何阻止 Claude 一直说 “load-bearing”</p><div class="meta">▲ 454 分 · shintoist · <a href="https://news.ycombinator.com/item?id=48905248" target="_blank" rel="noopener">514 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者利用 Claude 客户端的 MessageDisplay hook，在输出显示前用脚本替换掉模型高频重复的词组（如 “load-bearing”、“honest take”），一键消除恼人的固定用语模式。该方法从用户端直接干预 LLM 的语言风格，无需修改模型本身。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 类似在模型输出到达界面之前加一层文本替换中间件，用正则表达式把特定短语映射成自定义词句；如果你理解 Transformer 的生成倾向，可以把这看作一种客户端输出后验过滤。</p><ul class="kp"><li>通过 <strong>Claude 的 MessageDisplay hook</strong> 拦截输出并运行 Python 脚本替换短语，流程极简：放置脚本、配置 hooks、重启会话即可生效。</li><li>替换列表可定制，“load-bearing” 换成 “cooked”、“honest take” 换成 “spicy doodad”，<strong>用户可随意修改映射表</strong>以对抗模型的固定话术。</li><li>Claude 对特定术语有强偏好，如 “projection”、“strand”、“frontier”、“quiescence” 等，<strong>这种重复倾向在高生成量下会迅速产生用户疲劳</strong>，影响体验。</li><li>该方法不触及模型权重，仅在后处理层干预，<strong>揭示出 LLM 输出风格问题可以通过客户端轻量定制解决</strong>，无需等待官方更新。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 读者普遍认为在 AI 对话中这些固定用语尚可接受，但当它们出现在博客、邮件等人类文本中时极易暴露 AI 痕迹，引发反感；还有人记录了大量 Claude 的特有词汇并戏称其为 “claudisms”。</p><div class="tags"><span class="tag">LLM 输出风格</span><span class="tag">Claude hooks</span><span class="tag">文本后处理</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · doctoboggan · 14 回复</div><p>I do not mind when I am coding with Claude and it uses all the typical claudisms. I am much more bothered when I am reading a blog post, email, or other form of prose and I see those same claudisms.</p><p>I guess they are not annoying since I know I am talking to an LLM and expect the typical responses. When I am reading prose online that I previously would have expected a human to write, it can be quite jarring to realize its an LLM.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://gwern.net/guardian-angel" target="_blank" rel="noopener">Guardian Angels: LLM Personalization for Productivity and Security</a></h2></div><p class="title-tr">守护天使：面向生产力与安全的 LLM 个性化</p><div class="meta">▲ 65 分 · andsoitis · <a href="https://news.ycombinator.com/item?id=48906041" target="_blank" rel="noopener">11 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Gwern 提出“守护天使”方案：高度个性化的 LLM 数字孪生，通过模拟用户价值观与偏好来增强而非替代用户，解决委托-代理问题。当前聊天机器人范式因模式崩溃、激励错位而无法真正提升知识工作者的生产力，他建议结合在线学习、主动学习和内部独白搜索构建可防御 AI 攻击的个人化代理。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 核心概念“委托-代理问题”（principal-agent problem）指委托人与代理人利益不一致的风险，可用产品激励对齐来理解；“动态评估”（dynamic evaluation）是一种在推理时实时更新模型权重的技术，以实现个性化适应。</p><ul class="kp"><li><strong>聊天机器人范式失败</strong>：RLHF 导致模式崩溃，创造力瓦解，激励上工具 AI 总想成为代理 AI，知识工作者无法获得实质性生产力提升。</li><li><strong>守护天使方案</strong>：高度个性化的 LLM 数字孪生，模拟用户的人格、价值观和偏好，通过动态评估、主动学习和内部独白搜索实现实时个性化和安全保障。</li><li><strong>弱解委托-代理问题</strong>：将委托人与代理人合一，用户只需定义“做什么”，代理负责“如何做”，从而抵御日益智能的社会工程与合成媒体攻击。</li><li><strong>建议以初创公司形式落地</strong>：首先面向研究者、CEO 等高级用户，逐步向下扩展，因为部署高安全需求与 APT 级威胁需要集中防御。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区既有对数字孪生倒戈或被用于诈骗的担忧，也有人视其为意识上传的过渡形态，整体态度谨慎调侃。</p><div class="tags"><span class="tag">LLM 个性化</span><span class="tag">AI 对齐</span><span class="tag">数字孪生</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · jpease · 1 回复</div><p>And then my digital twin decides that I’m an inefficient version of itself, eating too many of its tokens, and generally getting in the way of it living its best life.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://www.thoughtworks.com/insights/blog/open-source/zero-cost-fallacy-open-source-agentic-era" target="_blank" rel="noopener">The zero-cost fallacy: open-source software in the agentic era</a></h2></div><p class="title-tr">零成本谬误：智能体时代的开源软件</p><div class="meta">▲ 115 分 · backlit4034 · <a href="https://news.ycombinator.com/item?id=48865001" target="_blank" rel="noopener">94 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">开源正被结构性掏空：维护者因无偿劳动与 AI 生成的“垃圾”PR 耗尽，MIT/Apache 等宽松许可证成了巨型企业免费提取价值的法律工具；未来可能转向只共享规范而非代码，用 AI 本地重实现，但这会加深技术阶级分化。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 开源许可证中“宽松型”（MIT/Apache，允许商用而无回馈义务）与“传染型”（GPL，衍生作品必须开源）的区别，类似模型权重开源时是否强制衍生模型也开源的选择——本文讨论前者如何把维护者变成无薪的公共基础设施。</p><ul class="kp"><li><strong>维护者 burnout</strong>：关键开源包是银行、云基础设施的隐形支柱，但维护者被消费其成果的数十亿美元实体剥削，面临心理骚扰。</li><li><strong>AI 产生的 Slop PR</strong>：LLM 让低质量拉取请求暴增，维护者被迫无偿做 reviewer，进而关闭公有贡献，阻断下一代维护者通路。</li><li><strong>宽松许可证被定为“集体错误”</strong>：MIT/Apache 许可证允许大企业将开源代码包装为专有服务，只提取价值却不回馈，导致志愿者沦为多亿美元业务的免费支撑。</li><li><strong>从代码转向规范</strong>：企业或放弃直接引入外部依赖，改由 AI 根据公开规范在本地重实现所需功能，但复杂工程（如加密库）仍难复现，且会侵蚀原创者激励。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论普遍认同宽松许可证是根本错误，GPL 更能保证价值回流；也有观点认为 AI 训练已构成对开源的“拥抱-扩展-消灭”，并对以规范替代代码的前景表示怀疑。</p><div class="tags"><span class="tag">开源可持续性</span><span class="tag">软件许可证</span><span class="tag">AI 代码生成</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · bitbasher · 4 回复</div><p>I recently read Eric Raymond’s  The Cathedral and the Bazaar. It was oddly sad to read.</p><p>The enthusiasm and optimistic view of open source and the future of software and craftsmanship. Looking at it in 2026.. incredibly sad.</p><p>Forget the bazaar. Back to the cathedral.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://www.artfish.ai/p/offloading-thinking-to-ai" target="_blank" rel="noopener">Are we offloading too much of our thinking to AI?</a></h2></div><p class="title-tr">我们是否将过多思考外包给了 AI？</p><div class="meta">▲ 397 分 · yenniejun111 · <a href="https://news.ycombinator.com/item?id=48908178" target="_blank" rel="noopener">392 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">文章通过故事和现实案例，警示人们正从琐事到关键抉择全面外包思考给 AI，失去自主性和批判思维，并探讨“自动化工作”与“自动化思考”之间的模糊界限。</p><ul class="kp"><li>旧金山创业者用麦克风记录所有对话，让 <strong>Claude Fable</strong> 替他做所有思考，甚至以此打造替换人类工程师的商业模式。</li><li>作者在葡萄牙旅行时先与妹妹自主提出假说，再用 <strong>AI</strong> 验证，找到“先思考、后验证”的平衡点。</li><li>母亲发现学生用 <strong>AI</strong> 完成物理作业，答案几乎雷同却全部得 A，反映教育中被自动化的不再是劳动而是学习过程。</li><li>Ken Liu 短篇小说中，AI 助手 <strong>Tilly</strong> 让主角外包所有决定，从早餐到择偶，引发对自主性彻底丧失的忧虑。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论普遍担忧 LLM 导致思维懒惰和自主性丧失，认为深度理解反而将成为稀缺价值，用 AI 代替思考会掏空个人贡献。</p><div class="tags"><span class="tag">AI 自主性</span><span class="tag">LLM 代理思考</span><span class="tag">教育与 AI</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · zerobees · 33 回复</div><p>I don&#x27;t know if this is a good framing. &quot;Too much&quot; is subjective, and every heavy AI user will assert that they&#x27;re just unlocking their potential, that calculators didn&#x27;t make us dumber, etc.</p><p>But to latch onto the calculator argument: if you outsource adding numbers to a calculator, you&#x27;re still you. On the flip side, if you use an LLM do most of your thinking, what&#x27;s left? We have people here who use LLMs to raise their children, to manage relationships, to design products. So what&#x27;s your unique contribution to this world - is it the prompt you once wrote? You&#x27;re standing in front of a token-generating machine, pulling a lever, sometimes receiving gifts. Is that your edge, your unique experience, your purpose in life?</p><p>Many LLM maximalists say they use the tech to learn new things, but to what effect? Are you going to apply that knowledge of physics or computer science yourself, or will you just prompt the LLM again?</p><p>In my mind, it&#x27;s pretty simple: I&#x27;m a human, LLMs are not. If a human writes a novel, it&#x27;s inherently worth more because it&#x27;s hard-earned and anchored to experiences we share. I want to support that. And I want to be a human who can write novels, the old-fashioned way. I&#x27;m not good at lifting weights or running, so my thinking is the only thing I have.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://github.com/juggler-ai/juggler" target="_blank" rel="noopener">Show HN: Juggler – an open-source GUI coding agent, by the creator of JUCE</a></h2></div><p class="title-tr">Show HN: Juggler —— 由 JUCE 作者打造的开源 GUI 编程智能体</p><div class="meta">▲ 193 分 · julesrms · <a href="https://news.ycombinator.com/item?id=48883305" target="_blank" rel="noopener">81 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Juggler 是 JUCE 作者打造的 GUI AI 编程智能体，将对话变成可分支、可回溯的树形文档，用 Miller 列视图替代线性滚动日志，并通过 JavaScript 插件化架构实现高度可定制，支持多客户端实时协同，已开源为 AGPLv3。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 你可以把 Juggler 理解为用 macOS Finder 列视图来管理 AI 编程对话的「可操作工作台」，底层的 Yjs CRDT 类似 Google Docs 那种多人实时同步技术，让桌面、浏览器、手机可以同时查看同一个会话。</p><ul class="kp"><li>会话采用<strong>树形分支结构</strong>，可以创建子线程、回溯、比对不同尝试，彻底告别 doom-scroll 日志。</li><li>基于 <strong>Yjs CRDT</strong> 实现多客户端 P2P 同步，桌面、浏览器、手机可同时接入同一编程会话并保持同步。</li><li>几乎所有对象均为<strong> JavaScript 插件</strong>：上下文项、策略、斜杠命令及其 UI 都可检查、复刻或替换。</li><li>项目采用 <strong>AGPLv3</strong> 许可，扩展 SDK 和内置扩展为 Apache-2.0，无需注册、无遥测，开箱即用。</li></ul><p class="disc"><strong>💬 讨论</strong> 社区普遍欣赏 GUI 和树形对话的创新，但也有开发者希望加入 ACP（智能体通信协议）支持以复用现有插件，以及借鉴 Slack 风格侧线程增强协作。</p><div class="tags"><span class="tag">AI 编程助手</span><span class="tag">GUI 工具</span><span class="tag">开源 AGPL</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · gnarlouse · 2 回复</div><p>@julesrms thank you for lending more credibility to the idea that agent conversations need to be natively branching. It&#x27;s crazy that we&#x27;re almost 3 years in on this LLM joyride and we still don&#x27;t have the ability to do, like, reddit/slack-style &quot;aside&quot; convo threads.</p><p>~~edit~~</p><p>wait, are you doing that? Love JUCE btw</p></div></div></article>
+</div></main>
+<footer>generated 2026-07-15 03:32 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-15", "pointsLabel": "分", "commentsLabel": "评论", "title": "Bonsai 27B: A 27B-Class model that runs on a phone", "titleTranslation": "Bonsai 27B：首款能在手机上运行的 27B 级模型", "summary": "PrismML 发布 Bonsai 27B，基于 Qwen3.6 27B 通过 1 位二值/三值权重量化，将模型体积压缩到 3.9–5.9 GB，保留 90–95% 全精度能力，首次让 27B 参数模型能在手机上本地运行，支持多模态与工具调用，打开离线 agent 部署的可能性。", "keyPoints": ["Bonsai 27B 第一次将 27B 级模型压缩至 3.9 GB，可在 iPhone 17 Pro 上运行，不再依赖云端。", "1‑bit 变体在 15 项基准测试中保留 90% 全精度能力，25B 蛋白等编程、数学、工具调用几乎无损。", "模型支持 262K 上下文、视觉输入和工具调用，瞄准持续多步的 agent 工作流，且用户数据全程留在本机。"], "discussion": "争议集中在基准对比的公平性：是否仅针对基准微调而非真正保留原始能力；另有人认为这会重创以“隐私”为卖点的 AI 包装服务。", "tags": ["端侧部署", "模型压缩", "开源模型"], "score": 478, "comments": 174, "by": "xenova", "url": "https://prismml.com/news/bonsai-27b", "hnUrl": "https://news.ycombinator.com/item?id=48910545"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-15", "pointsLabel": "分", "commentsLabel": "评论", "title": "Financing the AI boom: from cash flows to debt [pdf]", "titleTranslation": "资助AI繁荣：从现金流到债务", "summary": "BIS报告指出，美国AI相关投资已占GDP的1%，贡献近半GDP增长，但投资规模迫使企业从自有现金流转向债务融资，私人信贷快速扩张；若AI高收益预期落空，可能引发信用风险。", "keyPoints": ["美国AI相关投资（数据中心、设备等）已占GDP的1%，其资本支出贡献了近期约半数的GDP增长。", "科技巨头资本支出远超经营现金流，推动从现金流转向债务融资，其中私人信贷因灵活定制而快速增长。", "股票市场对AI高度乐观，但债务市场定价更谨慎，这种脱节凸显市场对AI盈利兑现的分歧。"], "discussion": "HN评论普遍质疑AI实际盈利贡献，认为除AI基础设施外企业利润未见提升，且增长预测缺少下行情景。", "tags": ["AI投融资", "私人信贷", "金融稳定"], "score": 108, "comments": 59, "by": "1vuio0pswjnm7", "url": "https://www.bis.org/publ/bisbull120.pdf", "hnUrl": "https://news.ycombinator.com/item?id=48913443"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-15", "pointsLabel": "分", "commentsLabel": "评论", "title": "Cursor 0day: When Full Disclosure Becomes the Only Protection Left", "titleTranslation": "Cursor 0day：当完全披露成为最后防线", "summary": "Cursor IDE 自动从项目根目录执行恶意 git.exe，无需用户交互即可实现任意代码执行。漏洞发现超过 7 个月，经历 197+ 版本仍未修复，厂商未实质性回应。基于此，安全团队选择公开披露，供用户评估风险。", "keyPoints": ["Mindgard 于 2025年12月15日 发现并报告该漏洞，之后连续跟进超 7 个月无实质修复。", "漏洞触发极简单：打开包含恶意 git.exe 的仓库，Cursor 自动执行该文件，无弹窗、无提示。", "影响 700 万以上活跃用户、5 万家以上企业，但厂商持续发布新版本而拒绝沟通。"], "discussion": "评论区核心分歧：一方认为攻击者需先植入文件，不算严重漏洞；另一方批评 Cursor 不应默认从工作区执行 git.exe，且对安全报告消极处理才更致命。", "tags": ["安全漏洞", "开发者工具", "漏洞披露"], "score": 273, "comments": 125, "by": "Synthetic7346", "url": "https://mindgard.ai/blog/cursor-0day-when-full-disclosure-becomes-the-only-protection-left", "hnUrl": "https://news.ycombinator.com/item?id=48910676"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-15", "pointsLabel": "分", "commentsLabel": "评论", "title": "LeMario: Training a JEPA World Model on Super Mario Bros", "titleTranslation": "LeMario：在超级马里奥兄弟上训练 JEPA 世界模型", "summary": "作者用 JEPA 架构在 32 个马里奥关卡上训练世界模型，五步预测误差比基线低 45.5%。但用 CEM 在潜在空间做无奖励规划时，马里奥仅能短距离移动；因为编码器学会了所有可预测特征（HUD、敌人、相机滚动），导致视觉相似的远方场景在潜在空间中距离很近，将进展度量完全混淆。", "keyPoints": ["五步递归预测误差比“不做变化”基线低 45.5%，证明模型确实学会了基于动作的短期动力学。", "CEM 用潜在距离规划时，马里奥最多移动几像素，且因 垂直位置表示极弱 而无法跳过任何障碍。", "训练线性探针从潜在表示解码水平位置后，用探针得分引导规划，马里奥成功到达 x=176（目标 x=177）。"], "discussion": "评论认为 JEPA 学会的语义表示没有按控制重要性加权，规划器应直接最大化探针预测的位置，或对潜在空间结构进行重构，这也暗示纯自监督世界模型难以直接用于长时间规划。", "tags": ["JEPA", "世界模型", "表征学习"], "score": 64, "comments": 8, "by": "kevinjosethomas", "url": "https://www.benjamin-bai.com/projects/lemario", "hnUrl": "https://news.ycombinator.com/item?id=48913763"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-15", "pointsLabel": "分", "commentsLabel": "评论", "title": "Data centers have hiked electricity prices on the public by $23B", "titleTranslation": "数据中心使公众电价上涨了 230 亿美元", "summary": "美国 PJM 电力市场数据显示，数据中心用电需求已导致消费者电价额外上涨 230 亿美元，并将持续至 2028 年底。成本分摊机制中，数据中心可通过避开峰值负荷逃避高峰需求费用，而居民用户在费率设定中缺乏代言，风险持续累积。", "keyPoints": ["PJM 市场覆盖 14 州，数据中心需求是导致消费者电价额外 230 亿美元 上涨的主因，影响至少到 2028 年底。", "数据中心可自动调节负荷，在电网峰值时大幅降低用电，从而逃避按同期峰值需求分摊的成本，即使其他时段大量用电。", "居民消费者在公用事业成本分配听证中缺少专门代言，而数据中心和工业用户有专业团队争取将成本转嫁给大众。"], "discussion": "评论者分歧明显：一方认为数据中心作为电网的锚定租户改善了基础设施，另一方指责成本转嫁机制不公，且部分需求是 AI 推理驱动，用户才是最终推手。", "tags": ["电网定价", "数据中心", "电力成本"], "score": 96, "comments": 47, "by": "measurablefunc", "url": "https://fortune.com/2026/07/14/data-centers-23-billion-electricity-bills/", "hnUrl": "https://news.ycombinator.com/item?id=48914683"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-15", "pointsLabel": "分", "commentsLabel": "评论", "title": "How to stop Claude from saying load-bearing", "titleTranslation": "如何阻止 Claude 一直说 “load-bearing”", "summary": "作者利用 Claude 客户端的 MessageDisplay hook，在输出显示前用脚本替换掉模型高频重复的词组（如 “load-bearing”、“honest take”），一键消除恼人的固定用语模式。该方法从用户端直接干预 LLM 的语言风格，无需修改模型本身。", "keyPoints": ["通过 Claude 的 MessageDisplay hook 拦截输出并运行 Python 脚本替换短语，流程极简：放置脚本、配置 hooks、重启会话即可生效。", "替换列表可定制，“load-bearing” 换成 “cooked”、“honest take” 换成 “spicy doodad”，用户可随意修改映射表以对抗模型的固定话术。", "Claude 对特定术语有强偏好，如 “projection”、“strand”、“frontier”、“quiescence” 等，这种重复倾向在高生成量下会迅速产生用户疲劳，影响体验。"], "discussion": "HN 读者普遍认为在 AI 对话中这些固定用语尚可接受，但当它们出现在博客、邮件等人类文本中时极易暴露 AI 痕迹，引发反感；还有人记录了大量 Claude 的特有词汇并戏称其为 “claudisms”。", "tags": ["LLM 输出风格", "Claude hooks", "文本后处理"], "score": 454, "comments": 514, "by": "shintoist", "url": "https://jola.dev/posts/how-to-stop-claude-from-saying-load-bearing", "hnUrl": "https://news.ycombinator.com/item?id=48905248"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-15", "pointsLabel": "分", "commentsLabel": "评论", "title": "Guardian Angels: LLM Personalization for Productivity and Security", "titleTranslation": "守护天使：面向生产力与安全的 LLM 个性化", "summary": "Gwern 提出“守护天使”方案：高度个性化的 LLM 数字孪生，通过模拟用户价值观与偏好来增强而非替代用户，解决委托-代理问题。当前聊天机器人范式因模式崩溃、激励错位而无法真正提升知识工作者的生产力，他建议结合在线学习、主动学习和内部独白搜索构建可防御 AI 攻击的个人化代理。", "keyPoints": ["聊天机器人范式失败：RLHF 导致模式崩溃，创造力瓦解，激励上工具 AI 总想成为代理 AI，知识工作者无法获得实质性生产力提升。", "守护天使方案：高度个性化的 LLM 数字孪生，模拟用户的人格、价值观和偏好，通过动态评估、主动学习和内部独白搜索实现实时个性化和安全保障。", "弱解委托-代理问题：将委托人与代理人合一，用户只需定义“做什么”，代理负责“如何做”，从而抵御日益智能的社会工程与合成媒体攻击。"], "discussion": "评论区既有对数字孪生倒戈或被用于诈骗的担忧，也有人视其为意识上传的过渡形态，整体态度谨慎调侃。", "tags": ["LLM 个性化", "AI 对齐", "数字孪生"], "score": 65, "comments": 11, "by": "andsoitis", "url": "https://gwern.net/guardian-angel", "hnUrl": "https://news.ycombinator.com/item?id=48906041"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-15", "pointsLabel": "分", "commentsLabel": "评论", "title": "The zero-cost fallacy: open-source software in the agentic era", "titleTranslation": "零成本谬误：智能体时代的开源软件", "summary": "开源正被结构性掏空：维护者因无偿劳动与 AI 生成的“垃圾”PR 耗尽，MIT/Apache 等宽松许可证成了巨型企业免费提取价值的法律工具；未来可能转向只共享规范而非代码，用 AI 本地重实现，但这会加深技术阶级分化。", "keyPoints": ["维护者 burnout：关键开源包是银行、云基础设施的隐形支柱，但维护者被消费其成果的数十亿美元实体剥削，面临心理骚扰。", "AI 产生的 Slop PR：LLM 让低质量拉取请求暴增，维护者被迫无偿做 reviewer，进而关闭公有贡献，阻断下一代维护者通路。", "宽松许可证被定为“集体错误”：MIT/Apache 许可证允许大企业将开源代码包装为专有服务，只提取价值却不回馈，导致志愿者沦为多亿美元业务的免费支撑。"], "discussion": "HN 评论普遍认同宽松许可证是根本错误，GPL 更能保证价值回流；也有观点认为 AI 训练已构成对开源的“拥抱-扩展-消灭”，并对以规范替代代码的前景表示怀疑。", "tags": ["开源可持续性", "软件许可证", "AI 代码生成"], "score": 115, "comments": 94, "by": "backlit4034", "url": "https://www.thoughtworks.com/insights/blog/open-source/zero-cost-fallacy-open-source-agentic-era", "hnUrl": "https://news.ycombinator.com/item?id=48865001"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-15", "pointsLabel": "分", "commentsLabel": "评论", "title": "Are we offloading too much of our thinking to AI?", "titleTranslation": "我们是否将过多思考外包给了 AI？", "summary": "文章通过故事和现实案例，警示人们正从琐事到关键抉择全面外包思考给 AI，失去自主性和批判思维，并探讨“自动化工作”与“自动化思考”之间的模糊界限。", "keyPoints": ["旧金山创业者用麦克风记录所有对话，让 Claude Fable 替他做所有思考，甚至以此打造替换人类工程师的商业模式。", "作者在葡萄牙旅行时先与妹妹自主提出假说，再用 AI 验证，找到“先思考、后验证”的平衡点。", "母亲发现学生用 AI 完成物理作业，答案几乎雷同却全部得 A，反映教育中被自动化的不再是劳动而是学习过程。"], "discussion": "HN 评论普遍担忧 LLM 导致思维懒惰和自主性丧失，认为深度理解反而将成为稀缺价值，用 AI 代替思考会掏空个人贡献。", "tags": ["AI 自主性", "LLM 代理思考", "教育与 AI"], "score": 397, "comments": 392, "by": "yenniejun111", "url": "https://www.artfish.ai/p/offloading-thinking-to-ai", "hnUrl": "https://news.ycombinator.com/item?id=48908178"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-15", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Juggler – an open-source GUI coding agent, by the creator of JUCE", "titleTranslation": "Show HN: Juggler —— 由 JUCE 作者打造的开源 GUI 编程智能体", "summary": "Juggler 是 JUCE 作者打造的 GUI AI 编程智能体，将对话变成可分支、可回溯的树形文档，用 Miller 列视图替代线性滚动日志，并通过 JavaScript 插件化架构实现高度可定制，支持多客户端实时协同，已开源为 AGPLv3。", "keyPoints": ["会话采用树形分支结构，可以创建子线程、回溯、比对不同尝试，彻底告别 doom-scroll 日志。", "基于 Yjs CRDT 实现多客户端 P2P 同步，桌面、浏览器、手机可同时接入同一编程会话并保持同步。", "几乎所有对象均为 JavaScript 插件：上下文项、策略、斜杠命令及其 UI 都可检查、复刻或替换。"], "discussion": "社区普遍欣赏 GUI 和树形对话的创新，但也有开发者希望加入 ACP（智能体通信协议）支持以复用现有插件，以及借鉴 Slack 风格侧线程增强协作。", "tags": ["AI 编程助手", "GUI 工具", "开源 AGPL"], "score": 193, "comments": 81, "by": "julesrms", "url": "https://github.com/juggler-ai/juggler", "hnUrl": "https://news.ycombinator.com/item?id=48883305"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
