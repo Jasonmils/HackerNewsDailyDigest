@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-07-16</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-07-16 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://thinkingmachines.ai/news/introducing-inkling/" target="_blank" rel="noopener">Inkling: Our Open-Weights Model</a></h2></div><p class="title-tr">Inkling：我们的开放权重模型</p><div class="meta">▲ 762 分 · vimarsh6739 · <a href="https://news.ycombinator.com/item?id=48924912" target="_blank" rel="noopener">194 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Thinking Machines 发布开放权重的多模态 MoE 模型 Inkling，总参数 975B（活跃 41B），支持 1M token 上下文，在 45 万亿 tokens 文本/图像/音频/视频上预训练。核心卖点是可控思考努力和通过 Tinker 平台轻松微调，适合企业定制，而非追求最强通用性能。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可控思考努力（controllable thinking effort）类似让模型在推理时动态调整“思考”的 token 消耗，以平衡性能和成本，如同为每次查询选择不同深度的推理。</p><ul class="kp"><li><strong>975B 总参数、41B 活跃参数的 MoE 架构</strong>，上下文窗口支持 1M tokens，多模态预训练规模达 45 万亿 tokens。</li><li>通过<strong>可控思考努力</strong>实现性能与 token 效率的曲线调节，在相同性能下比 Nemotron 3 Ultra 少用约三分之二的 token。</li><li>模型采用<strong>开放权重</strong>，并首发集成 Tinker 微调平台，已展示用模型自我生成微调任务，降低企业定制门槛。</li><li>同期发布<strong>Inkling-Small（12B 活跃）</strong>预览，凭借改进的训练配方以更低成本达到接近大模型的性能。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论普遍看好其成为美国版 DeepSeek 的潜力，认可开放权重+可微调平台商业模式，但强烈呼吁提供更多微调后性能实例来验证实际定制效果。</p><div class="tags"><span class="tag">开放权重</span><span class="tag">多模态模型</span><span class="tag">MoE</span><span class="tag">AI 定制</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · ls_stats · 14 回复</div><p>America needs its own DeepSeek or Z.ai, a lot of people (myself included) root for open chinese models to win because they have no other choice.</p><p>Thinking Machines might be it.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://github.com/xai-org/grok-build" target="_blank" rel="noopener">Grok Build is open source</a></h2></div><p class="title-tr">Grok Build 开源</p><div class="meta">▲ 307 分 · skp1995 · <a href="https://news.ycombinator.com/item?id=48926590" target="_blank" rel="noopener">350 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">xAI 将终端 AI 编程代理 Grok Build 开源，发布 Rust 源码，支持多平台安装，并附带终端内渲染 Mermaid 图表的能力。社区迅速生成去遥测、多模型支持的隐私 fork，反映出对数据收集的抵触。此举被解读为 xAI 在市场份额极低、用户数据上传争议后的战术性开源，而非长期产品战略。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Grok Build 是一个类似 Cursor 的 AI 编程助手，但完全运行在终端（TUI，即终端用户界面），通过命令行操作，相当于把 AI 编程体验搬进黑窗口，对你的背景可以类比为“把模型辅助写代码的能力嵌入到轻量级终端工作流”。</p><ul class="kp"><li><strong>xAI 开源 Grok Build 终端编程代理</strong>，基于 Rust 构建，提供交互式 TUI 和无头模式，支持通过 curl 一键安装。</li><li>代码内包含一个<strong>自构建的终端 Mermaid 图渲染器</strong>，能用 Unicode 绘制图表，被社区视为意外亮点。</li><li><strong>社区快速分叉出多个隐私版</strong>，如 gork-build 去除遥测、digi-grok-build 支持多提供商，显露出用户对数据收集的强烈抵触。</li><li>评论认为这是<strong>战术性开源</strong>而非战略设计：xAI 的 LLM 份额不足 1%，深陷隐私争议，开源是少数能挽回声誉的手段。</li></ul><p class="disc"><strong>💬 讨论</strong> 争议点在于开源背后的动机：是真心开放生态，还是为掩盖数据泄露和市场份额危机的策略？同时有人认可模型和交互流畅度，但批评代码量巨大、设计混乱。</p><div class="tags"><span class="tag">AI 编程代理</span><span class="tag">开源工具</span><span class="tag">终端应用</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · GodelNumbering · 5 回复</div><p>This is not the right thing, this is the tactical thing. If you have an LLM with less than 1% of the share to begin with, you suffer from bad rep and you got caught uploading user data, one of the very few remaining tactical moves to try to climb out of it is this.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://www.siegelendowment.org/wp-content/uploads/2026/07/fortune-david-siegel-open-source-ai.pdf" target="_blank" rel="noopener">Governments, companies, nonprofits should invest in free, open source AI [pdf]</a></h2></div><p class="title-tr">政府、企业和非营利组织应投资免费开源AI</p><div class="meta">▲ 110 分 · bilsbie · <a href="https://news.ycombinator.com/item?id=48927095" target="_blank" rel="noopener">48 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者主张多方应共同资助免费的、开放源代码的AI，但正文未获取。讨论集中于公共资金是否该投向公众反感的技术，以及开源社区的荣誉激励、商业激励能否胜过企业专有模型的营利动力。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 本文涉及开源运动的经济学与激励机制，你熟悉模型训练，但可能不熟悉开源社区如何通过资金与荣誉（如诱导奖金）来对抗商业闭源产品，这类似于Linux早期如何通过协作与竞争获得生态位。</p><ul class="kp"><li>有人提议每6-12个月设立<strong>20万美元奖金</strong>，奖励在限定VRAM（16/32/64/128GB）和最低20万上下文长度下通过一组困难基准的首个开源模型。</li><li>评论区一方认为<strong>商业AI将始终主导</strong>，因为全职开发者的生计和利润激励是兼职贡献无法匹敌的。</li><li>另一方反驳：<strong>闭源不等于知识不共享</strong>，且市场会决定，大语言模型将像编程语言，实验室靠微调特定用例赚钱。</li><li>反对政府投资的人认为，应优先资助<strong>全民儿童保育、医保和免费校餐</strong>，而非补贴一项公众普遍憎恶的技术。</li></ul><p class="disc"><strong>💬 讨论</strong> 核心分歧在于：公共资金是否应投向AI，以及荣誉/奖金激励能否持续对抗商业专有模型的利润动力，有人呼吁政府抽税而非撒钱。</p><div class="tags"><span class="tag">开源AI</span><span class="tag">公共投资</span><span class="tag">激励设计</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · shimman · 5 回复</div><p>I&#x27;d rather the US fund universal childcare, medicare for all, and free school lunches than give a cent to subsidize a technology the American public absolute hates.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://www.reuters.com/business/finance/stripe-advent-offer-buy-paypal-more-than-53-billion-sources-say-2026-07-15/" target="_blank" rel="noopener">Stripe and Advent have made a joint offer to acquire PayPal – sources</a></h2></div><p class="title-tr">Stripe 与 Advent 联合出价收购 PayPal – 消息人士</p><div class="meta">▲ 382 分 · rvz · <a href="https://news.ycombinator.com/item?id=48915953" target="_blank" rel="noopener">217 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Stripe 与 Advent 联合出价收购 PayPal，估值可能超 530 亿美元；交易若成行将整合 Stripe、PayPal、Venmo、Braintree 等支付品牌，但市场集中度极高，反垄断审查是关键障碍，或需剥离业务，且可能推高商户费率。</p><ul class="kp"><li><strong>Stripe 与 Advent 联合出价超 530 亿美元</strong> 收购 PayPal，打造涵盖线上线下支付的超级平台。</li><li>合并将导致在线无卡交易市场的 <strong>HHI 集中度指数过高</strong>，反垄断审批难度极大，可能被迫出售 Venmo 和 Braintree。</li><li>评论担忧 <strong>Stripe 可能借机提高交易费率</strong>，因为失去 Braintree 这个竞争对手的制衡，商户议价空间收窄。</li><li>Stripe 的严格行业政策可能挤压 <strong>PayPal 原本允许的大麻和成人产业商户</strong>，合并后这类商户面临被排除风险。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍认为反垄断是最大阻碍，且用户担心费率上升和 Stripe 的道德审查政策损害部分商户的生存空间。</p><div class="tags"><span class="tag">金融科技</span><span class="tag">支付行业</span><span class="tag">反垄断</span><span class="tag">并购</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · nickjj · 6 回复</div><p>I&#x27;m not sure I like this idea. Braintree is a legit competitor to Stripe. I&#x27;m guessing they have some informal agreement to keep transaction fees about the same but if they become 1 company, what&#x27;s to stop Stripe from raising fees even more?</p><p>I&#x27;m not a fan of either to be honest, PayPal once told me I was wrong with something related to taxes and a bunch of different reps told me what I was saying and reported was impossible. Their tax division specialists also replied by email with big bold red letters outlining how it&#x27;s not possible and that I&#x27;m wrong multiple times. They were contacted through support cases I opened with other reps on the phone since they aren&#x27;t directly accessible on phone.</p><p>Then I said I was canceling my account with them if this wasn&#x27;t resolved since it would have resulted in me needing to pay $400 to have my taxes amended. Long story short, after being ghosted for 3 months they replied to me saying I was right and they indeed had the impossible problem, then fixed their tax forms a week before taxes were due.</p><p>It&#x27;s really bad that a random person on the internet discovered a huge issue with one of their partners and their instinct was to require ~10 hours of back and forth phone calls, multiple emails, me giving them the likely problem and solution on day 1 only to be lead on and ignored for months until the very last second.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://blog.greg.technology/2026/07/14/llm-networking-with-mikrotik.html" target="_blank" rel="noopener">LLM Networking with MikroTik</a></h2></div><p class="title-tr">使用LLM配置MikroTik网络</p><div class="meta">▲ 60 分 · gregsadetsky · <a href="https://news.ycombinator.com/item?id=48927915" target="_blank" rel="noopener">24 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者分享了用LLM配置多个MikroTik网络的实战经验，指出LLM是“混沌的力量倍增器”，并总结了一套实用技巧：优先用REST API而非SSH、变更前必须完整备份配置、借助CAPsMAN简化多AP管理，以及在IP冲突时用MAC-Telnet救命。</p><p class="context"><strong>🧭 联系你的知识背景</strong> MikroTik是一种可通过API远程控制的网络设备（路由器/交换机），类似你用代码配置云服务器；LLM能辅助生成并验证复杂的网络配置脚本，降低非专业用户的配置门槛。</p><ul class="kp"><li>强烈推荐使用 <strong>REST/JSON API</strong> 而非SSH，避免LLM在文本流式交互中产生“千刀万剐”式的累积错误。</li><li>变更前后必须 <strong>完整备份配置</strong> 并放入版本控制，未实际测试过恢复手册的备份等同于无用文件。</li><li>通过 <strong>CAPsMAN</strong> 集中管理多个无线接入点，LLM可以极轻松地完成过去复杂的WiFi覆盖配置。</li><li>当IP冲突导致常规连接失效时，<strong>MAC-Telnet</strong> 绕过IP层直接在链路层通信，是最后的救命工具。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍认为MikroTik公开的参考文档非常适配LLM，实战中确实提速明显，但也有人指出LLM仍会引入奇怪的连通性问题，并期待类似方案能覆盖Ubiquiti和pfSense。</p><div class="tags"><span class="tag">LLM配置管理</span><span class="tag">MikroTik</span><span class="tag">网络自动化</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · alanwreath · 2 回复</div><p>Yes! Recently connected two disparate systems (ubiquiti and mimrotik) using their exposed API’s and a Claude session so that systems I have on either environment could talk to each other. I am not a network engineer so it was liberating to get my gear working together.  That said it’s a work in progress and just today I noticed something weird that one of my computers can’t access Minecraft servers while the rest of my network can</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://www.neomindlabs.com/2026/06/08/running-gemma-4-26b-at-5-tokens-sec-on-a-13-year-old-xeon-with-no-gpu/" target="_blank" rel="noopener">Running Gemma 4 26B at 5 tokens/sec on a 13-year-old Xeon with no GPU</a></h2></div><p class="title-tr">在 13 年老旧 Xeon 上无 GPU 运行 Gemma 4 26B，速度 5 tokens/秒</p><div class="meta">▲ 251 分 · neomindryan · <a href="https://news.ycombinator.com/item?id=48922434" target="_blank" rel="noopener">162 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者用一台成本不足 300 美元、13 年前的双路 Ivy Bridge Xeon 服务器，通过修复 ik_llama.cpp 的指令集兼容性问题，使 Gemma 4 26B MoE 模型在纯 CPU 上达到约 5.2 tokens/秒的解码速度，验证了老旧企业硬件低成本运行现代大模型的可行性。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中涉及的 AVX1/AVX2/FMA3 代表不同年代的 CPU 向量指令集，决定了量化矩阵乘法的加速路径是否可用；可类比为 GPU 中不同 CUDA 算力版本——旧卡不支持新指令就无法运行优化内核。</p><ul class="kp"><li><strong>双 Xeon E5-2690 v2 (2013 年 Ivy Bridge)</strong> 无 GPU 服务器，成本不足 300 美元，运行 Gemma 4 26B MoE 模型，解码约 5.2 tokens/秒。</li><li>关键修复：图形生成器在无 AVX2 时仍发出依赖 AVX2 的 MOE_FUSED_UP_GATE 计算，导致<strong>未初始化内存输入</strong>使输出变成乱码，通过添加标量回退路径解决。</li><li>AI 助手 <strong>Claude</strong> 完成了热路径诊断与代码修复，作者仅负责运行实验和验证正确性，展示了人机协作排故的实用性。</li><li>混合专家 (MoE) 模型与量化（<strong>Q8_0</strong>）使得内存带宽受限的老旧 CPU 仍可维持可用的生成速度，适合离线批量任务或 API 后备。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区主要争论本地推理与调用推理 API 的成本：算上电费后本地成本约为 API 的 30 倍，但多数人认为隐私和离线可用性仍是本地部署的核心价值。</p><div class="tags"><span class="tag">LLM 推理</span><span class="tag">CPU 推理</span><span class="tag">Gemma 4</span><span class="tag">老旧硬件</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · dwa3592 · 17 回复</div><p>I have a prediction. By the mid of 2027, we will have &gt;200B MoE models running on basic consumer hardware.</p><p>I am running Qwen3.6-35B-A3B locally on my 16GB mac with 7-9 tokens/second. Link - https://github.com/deepanwadhwa/samosa-chat</p><p>This is a GPT4 level model running locally with a decent speed on a 16gb ram macbook air.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://brainless.swerdlow.dev" target="_blank" rel="noopener">Brainless: Shadcn components that look like Claude Code, Codex and Grok</a></h2></div><p class="title-tr">Brainless：外观类似 Claude Code、Codex 和 Grok 的 Shadcn 组件</p><div class="meta">▲ 107 分 · benswerd · <a href="https://news.ycombinator.com/item?id=48926085" target="_blank" rel="noopener">22 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Brainless 发布了一组模仿 Claude Code、Codex、Grok 等 AI 编码工具界面风格的 Shadcn UI 组件（如定价块），可一键安装到 React 项目。该项目引发了对 AI 生成式界面审美价值的争议，以及 Shadcn/Tailwind 成为前端岗位硬性要求的抱怨。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Shadcn 是一个 React UI 组件库，采用复制粘贴源码而非 npm 安装的方式，能让后端或全栈开发者快速构建界面；本节讨论的外观组件主要针对 AI 编码工具的终端风格界面。</p><ul class="kp"><li><strong>Brainless</strong> 提供模仿 Claude Code、Codex、Grok 交互界面的 Shadcn 组件，可像演示代码一样直接复制到项目中。</li><li>HN 评论中 <strong>dprkh</strong> 询问为何选择 Shadcn 注册表分发，<strong>techpression</strong> 则质疑为什么要追求 AI 生成式外观。</li><li><strong>Exoristos</strong> 抱怨初创公司前端岗位强行要求 Shadcn 和 Tailwind，认为这些工具阻碍了资深前端开发者发挥能力。</li><li>项目引发了关于<strong>全栈工具对前端专业岗位挤压</strong>的讨论，有人视其为提效手段，有人视其为能力掣肘。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论分歧明显：部分用户觉得组件有趣，另一部分质疑模仿 AI 工具 UI 的实际价值，还有人借机吐槽 Shadcn 和 Tailwind 成为前端招聘硬性要求。</p><div class="tags"><span class="tag">Shadcn 组件</span><span class="tag">AI 工具 UI</span><span class="tag">前端开发招聘</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · _345 · 1 回复</div><p>What inspired you to make this?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://www.freestyle.sh/blog/opinion/designing-apis-for-agents" target="_blank" rel="noopener">Designing APIs for Agents</a></h2></div><p class="title-tr">为 AI Agent 设计 API</p><div class="meta">▲ 59 分 · benswerd · <a href="https://news.ycombinator.com/item?id=48894874" target="_blank" rel="noopener">31 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者提出面向AI Agent的API设计应放弃人类便利性：消除默认值、拒绝隐式纠错、使用极精确的字段名，让API只提供“事实”（如付款、发消息），而非可本地复现的工具函数。其产品Freestyle据此移除了复杂SDK抽象，以纯指南代替。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中Agent指LLM驱动的编码工具（如Claude Code），它们能一次性阅读完整文档并生成数千行代码，因此设计逻辑与为人设计API截然不同。</p><ul class="kp"><li><strong>默认值有害</strong>：Agent应显式填入所有字段，隐式默认会增加理解歧义和排查成本。</li><li><strong>拒绝隐式纠错</strong>：API不应自动修正大小写或接受多义输入，让Agent在错误提示中澄清误解，而非产生不一致代码。</li><li><strong>字段名须精确唯一</strong>：用`displayName`、`slug`等代替`name`，消除Agent对通用字段的五种不同解读和幻觉。</li><li><strong>API只需提供事实</strong>：核心是完成计费、发消息等不可替代的副作用，任何工具函数均可被AI本地重写，无需封进SDK。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论者补充了为Agent提供反馈工具、文本优先接口、批量操作等建议，共识是显式与可调试比简洁更重要。</p><div class="tags"><span class="tag">AI Agent 接口设计</span><span class="tag">API 设计原则</span><span class="tag">开发者工具</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · simonw · 4 回复</div><p>I heard a neat tip recently about API design for agents: give them a way to send you feedback.</p><p>The example I heard was an MCP with a &quot;feedback&quot; tool which had a tool description saying that coding agents should call that any time they had trouble figuring out how to use the rest of the MCP.</p><p>I really like this. It&#x27;s super cheap to implement and I expect you&#x27;d get a bunch of actionable signal in amongst the noise.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://github.com/1ay1/agentty" target="_blank" rel="noopener">Agentty – A drop-in alternative to claude-code, written in C++26. 11.0 MB binary</a></h2></div><p class="title-tr">Agentty – claude-code 的即插即用替代品，C++26 实现，11.0 MB 二进制文件</p><div class="meta">▲ 16 分 · tfeayush · <a href="https://news.ycombinator.com/item?id=48928002" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Agentty 是用 C++26 写的终端 AI 结对编程工具，单个 11 MB 静态二进制，冷启动不到 1 毫秒，无需 Node/Python。它通过操作系统级沙盒隔离命令执行，兼容多种模型（Claude、GPT、Ollama），并支持 Claude Code 的技能文件格式，可将模型准确率从约 20% 提升到 85%。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 沙盒（sandbox）类似模型推理时的安全容器，Agentty 用 Linux 的 bwrap 和 macOS 的 sandbox-exec 确保 AI 生成的命令不会破坏工作区外的文件。</p><ul class="kp"><li>单一 <strong>11 MB 静态二进制</strong>，不依赖任何运行时，冷启动不到 1 毫秒。</li><li>内置操作系统级<strong>沙盒</strong>，所有 shell 命令在隔离环境中执行，拒绝访问工作区外路径。</li><li>支持 Claude、GPT、Groq 及 <strong>Ollama</strong> 等任何 OpenAI 兼容 API，可在对话中实时切换模型。</li><li>兼容 Claude Code 的 <strong>SKILL.md</strong> 技能格式，通过自定义指令能将模型准确率从约 20% 提升到 85%。</li></ul><div class="tags"><span class="tag">AI 结对编程</span><span class="tag">终端工具</span><span class="tag">C++26</span><span class="tag">沙盒安全</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://github.com/vshulcz/deja-vu/" target="_blank" rel="noopener">Open-source memory for coding agents, synced over SSH</a></h2></div><p class="title-tr">开源编码代理内存，通过 SSH 同步</p><div class="meta">▲ 113 分 · vshulcz · <a href="https://news.ycombinator.com/item?id=48923111" target="_blank" rel="noopener">29 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">deja-vu 将编程代理的历史对话转化为本地可搜索的内存层，搜索 7-9 毫秒，支持跨代理回忆、自动上下文注入、凭据脱敏和 SSH 同步；零依赖，无模型下载，数据不出机器。</p><p class="context"><strong>🧭 联系你的知识背景</strong> SSH 是一种加密网络协议，用于在两台机器间安全传输文件，deja 利用它实现无需中心服务的多机内存同步，类似去中心化的文件共享。</p><ul class="kp"><li>将多个编程代理的历史对话本地化索引，<strong>7-9 毫秒</strong>内搜索数 GB 记录，支持数月前的回溯搜索。</li><li>提供 MCP 召回工具和 SessionStart 钩子，<strong>自动注入 2KB 相关记忆</strong>，避免重复调试。</li><li>索引时<strong>自动脱敏 API 密钥和私密数据</strong>，分享和同步导出时再次清洗，安全共享会话摘要。</li><li>通过 JSONL 批处理实现 <strong>SSH 同步</strong>，增量式、幂等、仅追加，便于跨机器传递内存层。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍认同本地化、轻量级内存工具的价值，有人自建类似系统；但对于是否需要增加语义搜索存在分歧，部分用户坚持确定性文本匹配的简单可靠。</p><div class="tags"><span class="tag">编程代理内存</span><span class="tag">开源工具</span><span class="tag">本地搜索</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · esafak · 3 回复</div><p>Similar to https://ctx.rs/ and others, I&#x27;m sure.</p><p>I&#x27;d lead with your differentiation. Is it the ssh?</p></div></div></article>
+</div></main>
+<footer>generated 2026-07-16 03:35 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-16", "pointsLabel": "分", "commentsLabel": "评论", "title": "Inkling: Our Open-Weights Model", "titleTranslation": "Inkling：我们的开放权重模型", "summary": "Thinking Machines 发布开放权重的多模态 MoE 模型 Inkling，总参数 975B（活跃 41B），支持 1M token 上下文，在 45 万亿 tokens 文本/图像/音频/视频上预训练。核心卖点是可控思考努力和通过 Tinker 平台轻松微调，适合企业定制，而非追求最强通用性能。", "keyPoints": ["975B 总参数、41B 活跃参数的 MoE 架构，上下文窗口支持 1M tokens，多模态预训练规模达 45 万亿 tokens。", "通过可控思考努力实现性能与 token 效率的曲线调节，在相同性能下比 Nemotron 3 Ultra 少用约三分之二的 token。", "模型采用开放权重，并首发集成 Tinker 微调平台，已展示用模型自我生成微调任务，降低企业定制门槛。"], "discussion": "HN 评论普遍看好其成为美国版 DeepSeek 的潜力，认可开放权重+可微调平台商业模式，但强烈呼吁提供更多微调后性能实例来验证实际定制效果。", "tags": ["开放权重", "多模态模型", "MoE"], "score": 762, "comments": 194, "by": "vimarsh6739", "url": "https://thinkingmachines.ai/news/introducing-inkling/", "hnUrl": "https://news.ycombinator.com/item?id=48924912"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-16", "pointsLabel": "分", "commentsLabel": "评论", "title": "Grok Build is open source", "titleTranslation": "Grok Build 开源", "summary": "xAI 将终端 AI 编程代理 Grok Build 开源，发布 Rust 源码，支持多平台安装，并附带终端内渲染 Mermaid 图表的能力。社区迅速生成去遥测、多模型支持的隐私 fork，反映出对数据收集的抵触。此举被解读为 xAI 在市场份额极低、用户数据上传争议后的战术性开源，而非长期产品战略。", "keyPoints": ["xAI 开源 Grok Build 终端编程代理，基于 Rust 构建，提供交互式 TUI 和无头模式，支持通过 curl 一键安装。", "代码内包含一个自构建的终端 Mermaid 图渲染器，能用 Unicode 绘制图表，被社区视为意外亮点。", "社区快速分叉出多个隐私版，如 gork-build 去除遥测、digi-grok-build 支持多提供商，显露出用户对数据收集的强烈抵触。"], "discussion": "争议点在于开源背后的动机：是真心开放生态，还是为掩盖数据泄露和市场份额危机的策略？同时有人认可模型和交互流畅度，但批评代码量巨大、设计混乱。", "tags": ["AI 编程代理", "开源工具", "终端应用"], "score": 307, "comments": 350, "by": "skp1995", "url": "https://github.com/xai-org/grok-build", "hnUrl": "https://news.ycombinator.com/item?id=48926590"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-16", "pointsLabel": "分", "commentsLabel": "评论", "title": "Governments, companies, nonprofits should invest in free, open source AI [pdf]", "titleTranslation": "政府、企业和非营利组织应投资免费开源AI", "summary": "作者主张多方应共同资助免费的、开放源代码的AI，但正文未获取。讨论集中于公共资金是否该投向公众反感的技术，以及开源社区的荣誉激励、商业激励能否胜过企业专有模型的营利动力。", "keyPoints": ["有人提议每6-12个月设立20万美元奖金，奖励在限定VRAM（16/32/64/128GB）和最低20万上下文长度下通过一组困难基准的首个开源模型。", "评论区一方认为商业AI将始终主导，因为全职开发者的生计和利润激励是兼职贡献无法匹敌的。", "另一方反驳：闭源不等于知识不共享，且市场会决定，大语言模型将像编程语言，实验室靠微调特定用例赚钱。"], "discussion": "核心分歧在于：公共资金是否应投向AI，以及荣誉/奖金激励能否持续对抗商业专有模型的利润动力，有人呼吁政府抽税而非撒钱。", "tags": ["开源AI", "公共投资", "激励设计"], "score": 110, "comments": 48, "by": "bilsbie", "url": "https://www.siegelendowment.org/wp-content/uploads/2026/07/fortune-david-siegel-open-source-ai.pdf", "hnUrl": "https://news.ycombinator.com/item?id=48927095"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-16", "pointsLabel": "分", "commentsLabel": "评论", "title": "Stripe and Advent have made a joint offer to acquire PayPal – sources", "titleTranslation": "Stripe 与 Advent 联合出价收购 PayPal – 消息人士", "summary": "Stripe 与 Advent 联合出价收购 PayPal，估值可能超 530 亿美元；交易若成行将整合 Stripe、PayPal、Venmo、Braintree 等支付品牌，但市场集中度极高，反垄断审查是关键障碍，或需剥离业务，且可能推高商户费率。", "keyPoints": ["Stripe 与 Advent 联合出价超 530 亿美元 收购 PayPal，打造涵盖线上线下支付的超级平台。", "合并将导致在线无卡交易市场的 HHI 集中度指数过高，反垄断审批难度极大，可能被迫出售 Venmo 和 Braintree。", "评论担忧 Stripe 可能借机提高交易费率，因为失去 Braintree 这个竞争对手的制衡，商户议价空间收窄。"], "discussion": "评论普遍认为反垄断是最大阻碍，且用户担心费率上升和 Stripe 的道德审查政策损害部分商户的生存空间。", "tags": ["金融科技", "支付行业", "反垄断"], "score": 382, "comments": 217, "by": "rvz", "url": "https://www.reuters.com/business/finance/stripe-advent-offer-buy-paypal-more-than-53-billion-sources-say-2026-07-15/", "hnUrl": "https://news.ycombinator.com/item?id=48915953"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-16", "pointsLabel": "分", "commentsLabel": "评论", "title": "LLM Networking with MikroTik", "titleTranslation": "使用LLM配置MikroTik网络", "summary": "作者分享了用LLM配置多个MikroTik网络的实战经验，指出LLM是“混沌的力量倍增器”，并总结了一套实用技巧：优先用REST API而非SSH、变更前必须完整备份配置、借助CAPsMAN简化多AP管理，以及在IP冲突时用MAC-Telnet救命。", "keyPoints": ["强烈推荐使用 REST/JSON API 而非SSH，避免LLM在文本流式交互中产生“千刀万剐”式的累积错误。", "变更前后必须 完整备份配置 并放入版本控制，未实际测试过恢复手册的备份等同于无用文件。", "通过 CAPsMAN 集中管理多个无线接入点，LLM可以极轻松地完成过去复杂的WiFi覆盖配置。"], "discussion": "评论区普遍认为MikroTik公开的参考文档非常适配LLM，实战中确实提速明显，但也有人指出LLM仍会引入奇怪的连通性问题，并期待类似方案能覆盖Ubiquiti和pfSense。", "tags": ["LLM配置管理", "MikroTik", "网络自动化"], "score": 60, "comments": 24, "by": "gregsadetsky", "url": "https://blog.greg.technology/2026/07/14/llm-networking-with-mikrotik.html", "hnUrl": "https://news.ycombinator.com/item?id=48927915"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-16", "pointsLabel": "分", "commentsLabel": "评论", "title": "Running Gemma 4 26B at 5 tokens/sec on a 13-year-old Xeon with no GPU", "titleTranslation": "在 13 年老旧 Xeon 上无 GPU 运行 Gemma 4 26B，速度 5 tokens/秒", "summary": "作者用一台成本不足 300 美元、13 年前的双路 Ivy Bridge Xeon 服务器，通过修复 ik_llama.cpp 的指令集兼容性问题，使 Gemma 4 26B MoE 模型在纯 CPU 上达到约 5.2 tokens/秒的解码速度，验证了老旧企业硬件低成本运行现代大模型的可行性。", "keyPoints": ["双 Xeon E5-2690 v2 (2013 年 Ivy Bridge) 无 GPU 服务器，成本不足 300 美元，运行 Gemma 4 26B MoE 模型，解码约 5.2 tokens/秒。", "关键修复：图形生成器在无 AVX2 时仍发出依赖 AVX2 的 MOE_FUSED_UP_GATE 计算，导致未初始化内存输入使输出变成乱码，通过添加标量回退路径解决。", "AI 助手 Claude 完成了热路径诊断与代码修复，作者仅负责运行实验和验证正确性，展示了人机协作排故的实用性。"], "discussion": "HN 评论区主要争论本地推理与调用推理 API 的成本：算上电费后本地成本约为 API 的 30 倍，但多数人认为隐私和离线可用性仍是本地部署的核心价值。", "tags": ["LLM 推理", "CPU 推理", "Gemma 4"], "score": 251, "comments": 162, "by": "neomindryan", "url": "https://www.neomindlabs.com/2026/06/08/running-gemma-4-26b-at-5-tokens-sec-on-a-13-year-old-xeon-with-no-gpu/", "hnUrl": "https://news.ycombinator.com/item?id=48922434"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-16", "pointsLabel": "分", "commentsLabel": "评论", "title": "Brainless: Shadcn components that look like Claude Code, Codex and Grok", "titleTranslation": "Brainless：外观类似 Claude Code、Codex 和 Grok 的 Shadcn 组件", "summary": "Brainless 发布了一组模仿 Claude Code、Codex、Grok 等 AI 编码工具界面风格的 Shadcn UI 组件（如定价块），可一键安装到 React 项目。该项目引发了对 AI 生成式界面审美价值的争议，以及 Shadcn/Tailwind 成为前端岗位硬性要求的抱怨。", "keyPoints": ["Brainless 提供模仿 Claude Code、Codex、Grok 交互界面的 Shadcn 组件，可像演示代码一样直接复制到项目中。", "HN 评论中 dprkh 询问为何选择 Shadcn 注册表分发，techpression 则质疑为什么要追求 AI 生成式外观。", "Exoristos 抱怨初创公司前端岗位强行要求 Shadcn 和 Tailwind，认为这些工具阻碍了资深前端开发者发挥能力。"], "discussion": "评论分歧明显：部分用户觉得组件有趣，另一部分质疑模仿 AI 工具 UI 的实际价值，还有人借机吐槽 Shadcn 和 Tailwind 成为前端招聘硬性要求。", "tags": ["Shadcn 组件", "AI 工具 UI", "前端开发招聘"], "score": 107, "comments": 22, "by": "benswerd", "url": "https://brainless.swerdlow.dev", "hnUrl": "https://news.ycombinator.com/item?id=48926085"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-16", "pointsLabel": "分", "commentsLabel": "评论", "title": "Designing APIs for Agents", "titleTranslation": "为 AI Agent 设计 API", "summary": "作者提出面向AI Agent的API设计应放弃人类便利性：消除默认值、拒绝隐式纠错、使用极精确的字段名，让API只提供“事实”（如付款、发消息），而非可本地复现的工具函数。其产品Freestyle据此移除了复杂SDK抽象，以纯指南代替。", "keyPoints": ["默认值有害：Agent应显式填入所有字段，隐式默认会增加理解歧义和排查成本。", "拒绝隐式纠错：API不应自动修正大小写或接受多义输入，让Agent在错误提示中澄清误解，而非产生不一致代码。", "字段名须精确唯一：用`displayName`、`slug`等代替`name`，消除Agent对通用字段的五种不同解读和幻觉。"], "discussion": "评论者补充了为Agent提供反馈工具、文本优先接口、批量操作等建议，共识是显式与可调试比简洁更重要。", "tags": ["AI Agent 接口设计", "API 设计原则", "开发者工具"], "score": 59, "comments": 31, "by": "benswerd", "url": "https://www.freestyle.sh/blog/opinion/designing-apis-for-agents", "hnUrl": "https://news.ycombinator.com/item?id=48894874"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-16", "pointsLabel": "分", "commentsLabel": "评论", "title": "Agentty – A drop-in alternative to claude-code, written in C++26. 11.0 MB binary", "titleTranslation": "Agentty – claude-code 的即插即用替代品，C++26 实现，11.0 MB 二进制文件", "summary": "Agentty 是用 C++26 写的终端 AI 结对编程工具，单个 11 MB 静态二进制，冷启动不到 1 毫秒，无需 Node/Python。它通过操作系统级沙盒隔离命令执行，兼容多种模型（Claude、GPT、Ollama），并支持 Claude Code 的技能文件格式，可将模型准确率从约 20% 提升到 85%。", "keyPoints": ["单一 11 MB 静态二进制，不依赖任何运行时，冷启动不到 1 毫秒。", "内置操作系统级沙盒，所有 shell 命令在隔离环境中执行，拒绝访问工作区外路径。", "支持 Claude、GPT、Groq 及 Ollama 等任何 OpenAI 兼容 API，可在对话中实时切换模型。"], "discussion": "", "tags": ["AI 结对编程", "终端工具", "C++26"], "score": 16, "comments": 0, "by": "tfeayush", "url": "https://github.com/1ay1/agentty", "hnUrl": "https://news.ycombinator.com/item?id=48928002"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-16", "pointsLabel": "分", "commentsLabel": "评论", "title": "Open-source memory for coding agents, synced over SSH", "titleTranslation": "开源编码代理内存，通过 SSH 同步", "summary": "deja-vu 将编程代理的历史对话转化为本地可搜索的内存层，搜索 7-9 毫秒，支持跨代理回忆、自动上下文注入、凭据脱敏和 SSH 同步；零依赖，无模型下载，数据不出机器。", "keyPoints": ["将多个编程代理的历史对话本地化索引，7-9 毫秒内搜索数 GB 记录，支持数月前的回溯搜索。", "提供 MCP 召回工具和 SessionStart 钩子，自动注入 2KB 相关记忆，避免重复调试。", "索引时自动脱敏 API 密钥和私密数据，分享和同步导出时再次清洗，安全共享会话摘要。"], "discussion": "评论普遍认同本地化、轻量级内存工具的价值，有人自建类似系统；但对于是否需要增加语义搜索存在分歧，部分用户坚持确定性文本匹配的简单可靠。", "tags": ["编程代理内存", "开源工具", "本地搜索"], "score": 113, "comments": 29, "by": "vshulcz", "url": "https://github.com/vshulcz/deja-vu/", "hnUrl": "https://news.ycombinator.com/item?id=48923111"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
