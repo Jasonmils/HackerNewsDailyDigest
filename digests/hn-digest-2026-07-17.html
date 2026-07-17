@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-07-17</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-07-17 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://www.kimi.com/blog/kimi-k3" target="_blank" rel="noopener">Kimi K3: Open Frontier Intelligence</a></h2></div><p class="title-tr">Kimi K3：开源前沿智能</p><div class="meta">▲ 1259 分 · vincent_s · <a href="https://news.ycombinator.com/item?id=48935342" target="_blank" rel="noopener">797 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">月之暗面发布2.8万亿参数的开源混合专家模型Kimi K3，支持100万token上下文，性能在编码与知识工作评测中接近Claude Fable 5和GPT 5.6 Sol，推理定价$3/$15每百万token，完整模型权重将于2026年7月27日开放。</p><ul class="kp"><li>首个<strong>2.8万亿参数</strong>的开源模型，激活16/896个专家，使用Delta Attention与Attention Residuals提升扩展效率。</li><li>长程编码能力突出，可自主优化GPU内核、构建Triton类编译器、设计4mm²芯片，并在研究中重现天体物理通用关系。</li><li>API定价<strong>$3/$15每百万token</strong>（缓存命中$0.3），与Anthropic Sonnet定价持平，推理成本成用户采用关键变量。</li><li>完整模型权重<strong>2026年7月27日</strong>前开放，技术报告将公布更多架构、训练与评估细节。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍认可性能突破，但激烈争论$15/Mtok输出定价对开源模型过高，推理效率若不及GPT-6 Sol则实际成本优势有限；芯片自主设计案例获得最多惊叹但仍待真实验证。</p><div class="tags"><span class="tag">大语言模型</span><span class="tag">开放权重</span><span class="tag">推理定价</span><span class="tag">智能体</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Tiberium · 16 回复</div><p>More details:</p><p>- https://platform.kimi.ai/docs/guide/kimi-k3-quickstart</p><p>- https://platform.kimi.ai/docs/pricing/chat-k3</p><p>1M context, pricing is $3/$15 for 1M tokens (cache $0.3), which is extremely high for a Chinese open-weight model, but if it&#x27;s truly competitive with most of the current frontier and is only behind Fable/Sol, the pricing is justified.</p><p>This is 1:1 pricing of Anthropic&#x27;s Sonnet series (except Sonnet 5 which is currently on discount), and very close to 5.6 Terra pricing (Terra&#x27;s input is $2.5).</p><p>One thing to consider, though: reasoning efficiency matters directly for how expensive a model actually is in real use. GPT&#x27;s models are extremely reasoning efficient, and some Claude models like Fable at lower effort are as well. So if Sol spends 10K reasoning tokens to do something (at $30/1M) vs Kimi K3 that spends 50K reasoning tokens, Sol would win on cost effectiveness.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://lmstudio.ai/blog/introducing-lm-studio-bionic" target="_blank" rel="noopener">LM Studio Bionic: the AI agent for open models</a></h2></div><p class="title-tr">LM Studio Bionic：面向开源模型的 AI agent</p><div class="meta">▲ 180 分 · minimaxir · <a href="https://news.ycombinator.com/item?id=48939662" target="_blank" rel="noopener">67 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">LM Studio 发布全新应用 Bionic，专为运行开源模型设计，可在本地或自有安全云上执行编码、文档处理和复杂工作，承诺零数据保留。这是 AI agent 从本地模型侧切入生产力场景的一次重要尝试。</p><ul class="kp"><li>Bionic 是一个<strong>面向开源模型</strong>的 AI agent 应用，支持编码和文档处理，并保证零数据保留与不训练用户数据。</li><li>提供<strong>本地语音转录</strong>（基于 Voxtral）和灵活的执行层：本地运行、LM Link 连接，或通过 LM Studio Secure Cloud 使用云端前沿开源模型。</li><li>用户可自由选择模型与计算环境，<strong>控制推理成本</strong>，在隐私和云算力之间取得平衡。</li><li>应用<strong>整体闭源</strong>，创始人在评论区为 HN 用户提供免费额度试用，但部分用户担忧从纯本地工具向云服务转变的商业模式风险。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍认可 Bionic 的可用性，但对其闭源、商业模式转向云服务，以及相比其他 agent harness 的差异化提出质疑。</p><div class="tags"><span class="tag">AI agent</span><span class="tag">开源模型</span><span class="tag">LLM 应用</span><span class="tag">隐私保护</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · gehsty · 9 回复</div><p>This kind of thing just makes me think Apple will get to a point where they have good enough local models and good enough harnesses for doing things, and most normal people will just use them… Does the LLM become another interface to computing?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://www.tryai.dev/blog/ai-music-video-arena-claude-vs-gpt-5.6" target="_blank" rel="noopener">$100 AI Music Video: Claude Fable 5 vs. GPT-5.6 Sol</a></h2></div><p class="title-tr">100美元AI音乐视频：Claude Fable 5 vs. GPT-5.6 Sol</p><div class="meta">▲ 162 分 · hershyb_ · <a href="https://news.ycombinator.com/item?id=48939524" target="_blank" rel="noopener">173 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者给两个前沿模型相同的歌曲和100美元预算，让它们全自主制作音乐视频。四个成片质量都差，GPT-5.6 Sol 编辑更有创意但总成本更低（$27.45 vs $73.65），暴露出模型在长周期主观任务、自我审查和预算使用上的明显短板。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这是一个自主智能体（agent）工具调用的压力测试：模型需自己决定搜索什么生成模型、调用哪个API、用ffmpeg剪辑，类似你熟悉的模型在开放任务中自主规划工具链，而非被动回答。</p><ul class="kp"><li><strong>所有四个视频表现都很糟糕</strong>，角色一致性和故事线断裂，节奏匹配弱，歌词被过度直译</li><li><strong>GPT-5.6 Sol 在25美元预算下展现出最强编辑创造力</strong>，叠加文字并动画化静态图片，而其他模型仅拼接片段</li><li><strong>Claude Fable 5 总成本最高达73.65美元</strong>，其模型推理花费占30%-40%，远高于 GPT-5.6 Sol 的 $3-$4</li><li><strong>两模型都未用满预算</strong>，缺乏剪辑迭代和自我审查，前沿模型在主观/风格化任务上仍有巨大差距</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区普遍批评生成内容“不是艺术”，更有人称之为“垃圾”，少数观点认为应主动利用AI的怪异感制造风格，但普遍承认当前输出无法威胁人类创作者。</p><div class="tags"><span class="tag">AI视频生成</span><span class="tag">自主智能体</span><span class="tag">模型对比</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · maerF0x0 · 7 回复</div><p>Unsure if it&#x27;s just the way they prompted it / coded it, but the output is far too  much a literal direct copy of the lyrics. The best music videos have a story arc on the theme of but often not litearlly the lyrics, and start with obscurity and reveal something (following all the literary/story mechanisms)</p><p>Consider Amber Run - Found lyrics versus the video, and the story arc of the video</p><p>https://www.youtube.com/watch?v=Yj6V_a1-EUA</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://blog.google/innovation-and-ai/products/gemini-notebook/notebooklm-gemini-notebook/" target="_blank" rel="noopener">NotebookLM is now Gemini Notebook</a></h2></div><p class="title-tr">NotebookLM 现更名为 Gemini Notebook</p><div class="meta">▲ 263 分 · xnx · <a href="https://news.ycombinator.com/item?id=48936451" target="_blank" rel="noopener">133 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Google 将 NotebookLM 更名为 Gemini Notebook，该工具已积累超过 3000 万用户和 60 万组织；同时推出安全云电脑功能，让每个笔记本可直接执行代码进行数据分析，率先向 Ultra 和 Workspace 企业用户开放，后续推向全体 Pro 用户。</p><p class="context"><strong>🧭 联系你的知识背景</strong> NotebookLM 是 Google 的 AI 研究笔记产品，此次更名代表其从实验项目正式并入 Gemini 品牌生态，类似 Google 以往产品整合的路径。</p><ul class="kp"><li>NotebookLM 已积累 <strong>超过 3000 万用户和 60 万组织</strong>，用于交互式学习和内容总结。</li><li>正式更名为 <strong>Gemini Notebook</strong>，并将深度集成到 Gemini 应用和 Google 搜索的 AI 模式中。</li><li>为每个笔记本配备 <strong>安全云电脑</strong>，可原生撰写并执行 Python 代码，支持基于用户资料的复杂数据分析。</li><li>新功能首先对 <strong>Google AI Ultra 和 Workspace 商业客户</strong> 开放，数周内覆盖所有 Web 端 Pro 用户。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 用户普遍担心更名是产品功能臃肿和被砍的前兆，同时部分用户已转向 ChatGPT Live 等更灵活的交互式学习工具。</p><div class="tags"><span class="tag">AI 笔记工具</span><span class="tag">Google Gemini</span><span class="tag">产品更名与生态整合</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · rhipitr · 6 回复</div><p>Any people with insight on why this happens? From my corporate experience this generally happens when two teams are working on a similar thing, they complain about turf to leadership, and leadership either makes them consolidate efforts or chooses a winner. Is that what happens at Google a lot? Or do they just constantly tweak things to the point they cease to live or be used?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://arstechnica.com/ai/2026/07/simulating-everything-sort-of-the-promise-and-limits-of-world-models/" target="_blank" rel="noopener">Simulating everything, sort of: The promise and limits of world models</a></h2></div><p class="title-tr">模拟一切，某种程度上：世界模型的承诺与局限</p><div class="meta">▲ 13 分 · LorenDB · <a href="https://news.ycombinator.com/item?id=48896044" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">世界模型（world model）试图模拟物理世界或其近似，与 LLM 从聊天界面找用例相反，世界模型玩家从机器人、研究、资产生成等具体应用出发，但工具和界面形态尚未定型。LeCun 直言把 LLM 扩展到人类智能是“无稽之谈”，世界模型被视为突破 LLM 局限的潜在方向。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 世界模型的核心不是生成文本，而是学习物理世界的表征，类似训练一个可交互的仿真环境；你可将其类比为从序列建模（LLM）转向学习世界状态转移函数。</p><ul class="kp"><li><strong>LeCun 称将 LLM 扩展到人类级智能是“无稽之谈”</strong>，反映了学界不少人对纯语言路径的怀疑，世界模型成为替代叙事。</li><li><strong>与 LLM 接口先行、后找用例相反</strong>，世界模型公司（Runway、World Labs 等）从机器人、资产生成等具体应用切入，接口和工具仍不确定。</li><li><strong>Vincent Sitzmann（MIT）等研究者</strong>指出世界模型与 LLM 在架构和预期提升路径上有许多平行之处，但世界模型更强调对物理规律的捕捉。</li><li><strong>世界模型目前高度受限于用例场景</strong>，尚未形成通用平台，产品化路径更依赖垂直领域的验证而非通用聊天能力。</li></ul><div class="tags"><span class="tag">世界模型</span><span class="tag">AI 架构路线</span><span class="tag">机器人</span><span class="tag">LeCun</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://pydantic.dev/articles/the-human-in-the-loop-is-tired" target="_blank" rel="noopener">The Human-in-the-Loop Is Tired</a></h2></div><p class="title-tr">人机循环中的人类累了</p><div class="meta">▲ 43 分 · haritha1313 · <a href="https://news.ycombinator.com/item?id=48942000" target="_blank" rel="noopener">30 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Pydantic 团队剖析 LLM 辅助编程引发的“人类奖励函数问题”——手工编码带来的多巴胺奖励被审查与监督的认知负荷取代，导致开发者生产力上升但满足感下降，工作变得更容易倦怠。文章认为品味、架构判断等将成为区分因素，并建议将 LLM 视为代码生成器而非自主代理。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 作者借用强化学习的“奖励函数”概念，描述 LLM 接管了原本触发多巴胺的编码环节，使开发者失去写代码时自然获得的满足感。</p><ul class="kp"><li><strong>Pydantic 团队</strong> 亲身经历表明，LLM 编程让工作更高效却更空虚，核心矛盾是“人类奖励函数问题”。</li><li><strong>认知疲劳</strong> 来自从创造代码转为审查 AI 输出，多巴胺驱动的小胜利被批量监督的枯燥取代。</li><li><strong>未来区分因素</strong> 不再是代码产出速度，而是审美、架构判断力和敢于反共识的专业品味。</li><li><strong>缓解策略</strong> 是避免多会话并行的代理模式，将 LLM 当作一步步可控制的代码生成器，全程保持人类深度介入。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共鸣者认为奖励感确实消失，但也有人批评文章像 AI 写作，实用派建议避免代理模式、保持单会话并持续审查以保留掌控感。</p><div class="tags"><span class="tag">LLM 辅助编程</span><span class="tag">开发者心理健康</span><span class="tag">人机协作</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · N_Lens · 4 回复</div><p>While I appreciate and agree with the key points of the post, Claude&#x27;s writing style fingerprints are all over it and I guess it&#x27;s even more exhausting to read someone&#x27;s AI written article.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://blog.lyc8503.net/en/post/llm-classifier/" target="_blank" rel="noopener">Detecting LLM-Generated Texts with “Classical” Machine Learning</a></h2></div><p class="title-tr">用“经典”机器学习检测 LLM 生成文本</p><div class="meta">▲ 166 分 · uneven9434 · <a href="https://news.ycombinator.com/item?id=48936880" target="_blank" rel="noopener">113 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">使用 TF-IDF 特征和 LinearSVC 分类器区分 LLM 与人类文本，单句检测准确率约 85%，长文综合判别假阳性率低于 0.04%。该模型对未见过的 LLM（如 GPT-4o）仍能保持 70%+ 的检出率，作者在 Lofter 平台实测发现热门标签下约 32% 的文章高度疑似 AI 生成。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 虽然你更熟悉 Transformer 等深度学习模型，但本文表明，LLM 在词频与句式选择上残留的统计偏差足以让传统的 TF-IDF + 线性 SVM 轻松捕捉，相当于给每种 LLM 找到了可量化的“口音”指纹。</p><ul class="kp"><li>使用 <strong>TF-IDF + LinearSVC</strong> 对中文单句进行人机二分类，准确率达 <strong>85%</strong>。</li><li>在 10,000 篇 2022 年前的人类创作文章上，以 <strong>60% AI 得分为阈值，假阳性仅 0.04%</strong>。</li><li>模型对训练时未见过的 <strong>GPT-4o</strong> 等模型仍可保持 <strong>70% 以上的检测率</strong>，泛化能力强。</li><li>在 Lofter 热门标签的 1,500+ 篇文章中，<strong>32.22%</strong> 的被检测为部分或完全由 AI 生成。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区核心分歧：一方认为文本检测本质上不可靠，是“塔罗牌读数”；另一方则强调小型编码器 Transformer 已在基准上达到 99.81 AUROC，且类似于广告过滤器的浏览器端检测工具有实际需求。</p><div class="tags"><span class="tag">AI文本检测</span><span class="tag">经典机器学习</span><span class="tag">SVM分类器</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · akersten · 16 回复</div><p>Text is simply not information dense enough to be able to decode some arbitrary signal of provenance from it. Sure you might be able to detect today&#x27;s tells (particular sentence structures preferred by Claude, phrases, etc) to get you some arbitrary chance percentage it was machine generated, but it&#x27;s a bad fiction to perpetuate that any of this is anything more than tarot card reading.</p><p>Images, absolutely, there are tell-tale artifacts from today&#x27;s generators that simply aren&#x27;t emitted by &quot;natural&quot; paths to create them, and you can &quot;detect AI&quot; with high confidence (for now). Words, no, the signal is far too sparse and we are well into undetectable sophistication with today&#x27;s models, let alone tomorrow&#x27;s.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://arxiv.org/abs/2607.12395" target="_blank" rel="noopener">Ring-Zero: Scaling Zero RL to a Trillion Parameters for Emergent Reasoning</a></h2></div><p class="title-tr">Ring-Zero: 将 Zero RL 扩展到万亿参数以实现涌现推理</p><div class="meta">▲ 39 分 · binyu · <a href="https://news.ycombinator.com/item?id=48940603" target="_blank" rel="noopener">14 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">团队将无人类标注的强化学习（Zero RL）扩至 1 万亿参数，发现规模提升显著提高样本效率与性能上限，模型自发涌现自我验证、并行推理等高级认知行为，在 7 项数学基准上表现优异。</p><p class="context"><strong>🧭 联系你的知识背景</strong> “Zero RL”指完全不用人类标注数据，仅靠答案对错等可验证奖励信号进行强化学习，让模型自己摸索推理过程，与你熟悉的监督微调范式不同。</p><ul class="kp"><li>训练出 <strong>1 万亿参数</strong> 的 Ring-2.5-1T-Zero，在多个数学基准上达到有竞争力的准确率。</li><li>训练过程清晰分为 <strong>发现阶段</strong> 与 <strong>锐化阶段</strong>，模型先摸索推理模式后自我精炼。</li><li>规模扩展后模型自发涌现 <strong>自我验证、并行推理、结构化格式</strong> 等能力，不再依赖手工启发式设计。</li><li>提出从 <strong>可理解性、可复现性、效率</strong> 三维度评估推理质量，该模型产生更结构化和简洁的思维链。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论质疑用 LLM 充当评判和知识蒸馏评估可复现性的可靠性，认为这既可能引入误判又极其低效；同时讽刺万亿参数才勉强超越人脑几十亿神经元的能效。</p><div class="tags"><span class="tag">LLM 推理</span><span class="tag">强化学习</span><span class="tag">模型涌现能力</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · plastic-enjoyer · 7 回复</div><p>&gt; scaling to 1T parameters significantly enhances sample efficiency and performance ceilings;</p><p>Man, I find SOTA deep learning somewhat hilarious. We scale models to absurd proportions, burning through a shitload of resources just to achieve (slightly above) human intelligence.</p><p>The human brain has a few billion neurons and uses as much power as a light bulb.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://www.ycombinator.com/companies/adaptional/jobs" target="_blank" rel="noopener">Adaptional (YC S25) Is Hiring</a></h2></div><p class="title-tr">Adaptional (YC S25) 正在招聘</p><div class="meta">▲ 1 分 · acesohc · <a href="https://news.ycombinator.com/item?id=48937125" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">YC S25 批次的 AI 创业公司 Adaptional 专注保险理赔自动审查，在旧金山招聘首位 GTM 负责人（$140K-185K + 0.35-0.75% 期权）与首位工程师（$180K-280K + 1-2% 期权），反映 AI 切入文档繁重的传统保险理赔流程的商业化趋势。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 保险理赔审查涉及大量非结构化医疗报告、保单条款等文本，创业公司常用 Transformer 模型做文档理解与决策辅助；GTM 即从零搭建销售与客户获取策略，是早期创业公司的关键角色。</p><ul class="kp"><li><strong>Adaptional</strong> 获 YC S25 批次投资，2024 年成立，利用 AI 自动化保险理赔审查，对标文档密集型工作流。</li><li>招聘 <strong>创始 GTM 负责人</strong> 薪资 $140K-$185K + 0.35%-0.75% 股权，负责从零搭建销售体系，要求 3 年以上经验。</li><li>招聘 <strong>创始工程师</strong> 薪资 $180K-$280K + 1%-2% 股权，要求 1 年以上经验，承担早期技术栈与产品落地。</li></ul><div class="tags"><span class="tag">AI 保险科技</span><span class="tag">YC 招聘</span><span class="tag">创业公司</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://www.zhinit.dev/blog/training-a-kick-drum-diffusion-model" target="_blank" rel="noopener">How to Train a Gen AI Kick Drum Model on Your Old Linux Desktop with 6GB VRAM</a></h2></div><p class="title-tr">如何在 6GB 显存的旧 Linux 桌面上训练一个生成式 AI 底鼓模型</p><div class="meta">▲ 106 分 · zhinit · <a href="https://news.ycombinator.com/item?id=48935687" target="_blank" rel="noopener">55 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">文章在仅 6GB VRAM 的老旧 Linux 桌面上训练了一个生成底鼓（kick drum）声音的扩散模型，展示了低资源硬件上的音频生成实验。由于无法获取正文，信息仅限于标题和评论。</p><ul class="kp"><li>使用<strong>扩散模型</strong>生成底鼓音频，训练仅需 6GB 显存的旧 Linux 桌面</li><li>评论指出已有商业产品如 <strong>Emergent Drums 2</strong> 和 Synplant 的 Genopatch 实现类似功能</li><li>有讨论质疑是否值得用生成模型，因为<strong>用正弦波合成</strong>就足以制作底鼓</li><li>方法展示了低资源环境下的可行性，或可启发<strong>旧数据的再利用</strong></li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论的分歧在于：用简单合成方法（正弦波）已足够制作底鼓，还是生成模型能带来新的创作可能性；同时提到了已有的商业音频生成工具。</p><div class="tags"><span class="tag">音频生成</span><span class="tag">扩散模型</span><span class="tag">低资源训练</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · robotswantdata · 4 回复</div><p>Confused. Why not just make the kick drum from a sine? Seconds</p></div></div></article>
+</div></main>
+<footer>generated 2026-07-17 03:36 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "Kimi K3: Open Frontier Intelligence", "titleTranslation": "Kimi K3：开源前沿智能", "summary": "月之暗面发布2.8万亿参数的开源混合专家模型Kimi K3，支持100万token上下文，性能在编码与知识工作评测中接近Claude Fable 5和GPT 5.6 Sol，推理定价$3/$15每百万token，完整模型权重将于2026年7月27日开放。", "keyPoints": ["首个2.8万亿参数的开源模型，激活16/896个专家，使用Delta Attention与Attention Residuals提升扩展效率。", "长程编码能力突出，可自主优化GPU内核、构建Triton类编译器、设计4mm²芯片，并在研究中重现天体物理通用关系。", "API定价$3/$15每百万token（缓存命中$0.3），与Anthropic Sonnet定价持平，推理成本成用户采用关键变量。"], "discussion": "评论普遍认可性能突破，但激烈争论$15/Mtok输出定价对开源模型过高，推理效率若不及GPT-6 Sol则实际成本优势有限；芯片自主设计案例获得最多惊叹但仍待真实验证。", "tags": ["大语言模型", "开放权重", "推理定价"], "score": 1259, "comments": 797, "by": "vincent_s", "url": "https://www.kimi.com/blog/kimi-k3", "hnUrl": "https://news.ycombinator.com/item?id=48935342"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "LM Studio Bionic: the AI agent for open models", "titleTranslation": "LM Studio Bionic：面向开源模型的 AI agent", "summary": "LM Studio 发布全新应用 Bionic，专为运行开源模型设计，可在本地或自有安全云上执行编码、文档处理和复杂工作，承诺零数据保留。这是 AI agent 从本地模型侧切入生产力场景的一次重要尝试。", "keyPoints": ["Bionic 是一个面向开源模型的 AI agent 应用，支持编码和文档处理，并保证零数据保留与不训练用户数据。", "提供本地语音转录（基于 Voxtral）和灵活的执行层：本地运行、LM Link 连接，或通过 LM Studio Secure Cloud 使用云端前沿开源模型。", "用户可自由选择模型与计算环境，控制推理成本，在隐私和云算力之间取得平衡。"], "discussion": "评论普遍认可 Bionic 的可用性，但对其闭源、商业模式转向云服务，以及相比其他 agent harness 的差异化提出质疑。", "tags": ["AI agent", "开源模型", "LLM 应用"], "score": 180, "comments": 67, "by": "minimaxir", "url": "https://lmstudio.ai/blog/introducing-lm-studio-bionic", "hnUrl": "https://news.ycombinator.com/item?id=48939662"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "$100 AI Music Video: Claude Fable 5 vs. GPT-5.6 Sol", "titleTranslation": "100美元AI音乐视频：Claude Fable 5 vs. GPT-5.6 Sol", "summary": "作者给两个前沿模型相同的歌曲和100美元预算，让它们全自主制作音乐视频。四个成片质量都差，GPT-5.6 Sol 编辑更有创意但总成本更低（$27.45 vs $73.65），暴露出模型在长周期主观任务、自我审查和预算使用上的明显短板。", "keyPoints": ["所有四个视频表现都很糟糕，角色一致性和故事线断裂，节奏匹配弱，歌词被过度直译", "GPT-5.6 Sol 在25美元预算下展现出最强编辑创造力，叠加文字并动画化静态图片，而其他模型仅拼接片段", "Claude Fable 5 总成本最高达73.65美元，其模型推理花费占30%-40%，远高于 GPT-5.6 Sol 的 $3-$4"], "discussion": "HN 评论区普遍批评生成内容“不是艺术”，更有人称之为“垃圾”，少数观点认为应主动利用AI的怪异感制造风格，但普遍承认当前输出无法威胁人类创作者。", "tags": ["AI视频生成", "自主智能体", "模型对比"], "score": 162, "comments": 173, "by": "hershyb_", "url": "https://www.tryai.dev/blog/ai-music-video-arena-claude-vs-gpt-5.6", "hnUrl": "https://news.ycombinator.com/item?id=48939524"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "NotebookLM is now Gemini Notebook", "titleTranslation": "NotebookLM 现更名为 Gemini Notebook", "summary": "Google 将 NotebookLM 更名为 Gemini Notebook，该工具已积累超过 3000 万用户和 60 万组织；同时推出安全云电脑功能，让每个笔记本可直接执行代码进行数据分析，率先向 Ultra 和 Workspace 企业用户开放，后续推向全体 Pro 用户。", "keyPoints": ["NotebookLM 已积累 超过 3000 万用户和 60 万组织，用于交互式学习和内容总结。", "正式更名为 Gemini Notebook，并将深度集成到 Gemini 应用和 Google 搜索的 AI 模式中。", "为每个笔记本配备 安全云电脑，可原生撰写并执行 Python 代码，支持基于用户资料的复杂数据分析。"], "discussion": "HN 用户普遍担心更名是产品功能臃肿和被砍的前兆，同时部分用户已转向 ChatGPT Live 等更灵活的交互式学习工具。", "tags": ["AI 笔记工具", "Google Gemini", "产品更名与生态整合"], "score": 263, "comments": 133, "by": "xnx", "url": "https://blog.google/innovation-and-ai/products/gemini-notebook/notebooklm-gemini-notebook/", "hnUrl": "https://news.ycombinator.com/item?id=48936451"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "Simulating everything, sort of: The promise and limits of world models", "titleTranslation": "模拟一切，某种程度上：世界模型的承诺与局限", "summary": "世界模型（world model）试图模拟物理世界或其近似，与 LLM 从聊天界面找用例相反，世界模型玩家从机器人、研究、资产生成等具体应用出发，但工具和界面形态尚未定型。LeCun 直言把 LLM 扩展到人类智能是“无稽之谈”，世界模型被视为突破 LLM 局限的潜在方向。", "keyPoints": ["LeCun 称将 LLM 扩展到人类级智能是“无稽之谈”，反映了学界不少人对纯语言路径的怀疑，世界模型成为替代叙事。", "与 LLM 接口先行、后找用例相反，世界模型公司（Runway、World Labs 等）从机器人、资产生成等具体应用切入，接口和工具仍不确定。", "Vincent Sitzmann（MIT）等研究者指出世界模型与 LLM 在架构和预期提升路径上有许多平行之处，但世界模型更强调对物理规律的捕捉。"], "discussion": "", "tags": ["世界模型", "AI 架构路线", "机器人"], "score": 13, "comments": 0, "by": "LorenDB", "url": "https://arstechnica.com/ai/2026/07/simulating-everything-sort-of-the-promise-and-limits-of-world-models/", "hnUrl": "https://news.ycombinator.com/item?id=48896044"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "The Human-in-the-Loop Is Tired", "titleTranslation": "人机循环中的人类累了", "summary": "Pydantic 团队剖析 LLM 辅助编程引发的“人类奖励函数问题”——手工编码带来的多巴胺奖励被审查与监督的认知负荷取代，导致开发者生产力上升但满足感下降，工作变得更容易倦怠。文章认为品味、架构判断等将成为区分因素，并建议将 LLM 视为代码生成器而非自主代理。", "keyPoints": ["Pydantic 团队 亲身经历表明，LLM 编程让工作更高效却更空虚，核心矛盾是“人类奖励函数问题”。", "认知疲劳 来自从创造代码转为审查 AI 输出，多巴胺驱动的小胜利被批量监督的枯燥取代。", "未来区分因素 不再是代码产出速度，而是审美、架构判断力和敢于反共识的专业品味。"], "discussion": "评论区共鸣者认为奖励感确实消失，但也有人批评文章像 AI 写作，实用派建议避免代理模式、保持单会话并持续审查以保留掌控感。", "tags": ["LLM 辅助编程", "开发者心理健康", "人机协作"], "score": 43, "comments": 30, "by": "haritha1313", "url": "https://pydantic.dev/articles/the-human-in-the-loop-is-tired", "hnUrl": "https://news.ycombinator.com/item?id=48942000"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "Detecting LLM-Generated Texts with “Classical” Machine Learning", "titleTranslation": "用“经典”机器学习检测 LLM 生成文本", "summary": "使用 TF-IDF 特征和 LinearSVC 分类器区分 LLM 与人类文本，单句检测准确率约 85%，长文综合判别假阳性率低于 0.04%。该模型对未见过的 LLM（如 GPT-4o）仍能保持 70%+ 的检出率，作者在 Lofter 平台实测发现热门标签下约 32% 的文章高度疑似 AI 生成。", "keyPoints": ["使用 TF-IDF + LinearSVC 对中文单句进行人机二分类，准确率达 85%。", "在 10,000 篇 2022 年前的人类创作文章上，以 60% AI 得分为阈值，假阳性仅 0.04%。", "模型对训练时未见过的 GPT-4o 等模型仍可保持 70% 以上的检测率，泛化能力强。"], "discussion": "评论区核心分歧：一方认为文本检测本质上不可靠，是“塔罗牌读数”；另一方则强调小型编码器 Transformer 已在基准上达到 99.81 AUROC，且类似于广告过滤器的浏览器端检测工具有实际需求。", "tags": ["AI文本检测", "经典机器学习", "SVM分类器"], "score": 166, "comments": 113, "by": "uneven9434", "url": "https://blog.lyc8503.net/en/post/llm-classifier/", "hnUrl": "https://news.ycombinator.com/item?id=48936880"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "Ring-Zero: Scaling Zero RL to a Trillion Parameters for Emergent Reasoning", "titleTranslation": "Ring-Zero: 将 Zero RL 扩展到万亿参数以实现涌现推理", "summary": "团队将无人类标注的强化学习（Zero RL）扩至 1 万亿参数，发现规模提升显著提高样本效率与性能上限，模型自发涌现自我验证、并行推理等高级认知行为，在 7 项数学基准上表现优异。", "keyPoints": ["训练出 1 万亿参数 的 Ring-2.5-1T-Zero，在多个数学基准上达到有竞争力的准确率。", "训练过程清晰分为 发现阶段 与 锐化阶段，模型先摸索推理模式后自我精炼。", "规模扩展后模型自发涌现 自我验证、并行推理、结构化格式 等能力，不再依赖手工启发式设计。"], "discussion": "评论质疑用 LLM 充当评判和知识蒸馏评估可复现性的可靠性，认为这既可能引入误判又极其低效；同时讽刺万亿参数才勉强超越人脑几十亿神经元的能效。", "tags": ["LLM 推理", "强化学习", "模型涌现能力"], "score": 39, "comments": 14, "by": "binyu", "url": "https://arxiv.org/abs/2607.12395", "hnUrl": "https://news.ycombinator.com/item?id=48940603"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "Adaptional (YC S25) Is Hiring", "titleTranslation": "Adaptional (YC S25) 正在招聘", "summary": "YC S25 批次的 AI 创业公司 Adaptional 专注保险理赔自动审查，在旧金山招聘首位 GTM 负责人（$140K-185K + 0.35-0.75% 期权）与首位工程师（$180K-280K + 1-2% 期权），反映 AI 切入文档繁重的传统保险理赔流程的商业化趋势。", "keyPoints": ["Adaptional 获 YC S25 批次投资，2024 年成立，利用 AI 自动化保险理赔审查，对标文档密集型工作流。", "招聘 创始 GTM 负责人 薪资 $140K-$185K + 0.35%-0.75% 股权，负责从零搭建销售体系，要求 3 年以上经验。", "招聘 创始工程师 薪资 $180K-$280K + 1%-2% 股权，要求 1 年以上经验，承担早期技术栈与产品落地。"], "discussion": "", "tags": ["AI 保险科技", "YC 招聘", "创业公司"], "score": 1, "comments": 0, "by": "acesohc", "url": "https://www.ycombinator.com/companies/adaptional/jobs", "hnUrl": "https://news.ycombinator.com/item?id=48937125"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "How to Train a Gen AI Kick Drum Model on Your Old Linux Desktop with 6GB VRAM", "titleTranslation": "如何在 6GB 显存的旧 Linux 桌面上训练一个生成式 AI 底鼓模型", "summary": "文章在仅 6GB VRAM 的老旧 Linux 桌面上训练了一个生成底鼓（kick drum）声音的扩散模型，展示了低资源硬件上的音频生成实验。由于无法获取正文，信息仅限于标题和评论。", "keyPoints": ["使用扩散模型生成底鼓音频，训练仅需 6GB 显存的旧 Linux 桌面", "评论指出已有商业产品如 Emergent Drums 2 和 Synplant 的 Genopatch 实现类似功能", "有讨论质疑是否值得用生成模型，因为用正弦波合成就足以制作底鼓"], "discussion": "HN 评论的分歧在于：用简单合成方法（正弦波）已足够制作底鼓，还是生成模型能带来新的创作可能性；同时提到了已有的商业音频生成工具。", "tags": ["音频生成", "扩散模型", "低资源训练"], "score": 106, "comments": 55, "by": "zhinit", "url": "https://www.zhinit.dev/blog/training-a-kick-drum-diffusion-model", "hnUrl": "https://news.ycombinator.com/item?id=48935687"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
