@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-07-18</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-07-18 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://localnewsmatters.org/2026/07/15/kaiser-nurses-say-ai-workplace-surveillance-are-making-their-jobs-and-patient-care-worse/" target="_blank" rel="noopener">Kaiser nurses say AI, workplace surveillance are making their jobs, care worse</a></h2></div><p class="title-tr">Kaiser 护士称 AI 与职场监控让她们的工作和护理变差</p><div class="meta">▲ 346 分 · gnabgib · <a href="https://news.ycombinator.com/item?id=48952880" target="_blank" rel="noopener">231 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Kaiser Permanente 护士透露，15 分钟通话时限和 AI 同理心评估等监控手段导致压力增加、护理质量下降，护士协会正就 AI 条款进行合同谈判，加州立法机构也在推进 AI 职场监管。</p><p class="context"><strong>🧭 联系你的知识背景</strong> AI 评估护士的同理心与语气，类似于用自动指标评价模型输出质量，但用于人类工作绩效可能导致误判和压力放大。</p><ul class="kp"><li><strong>Kaiser 护士</strong> 面临超时通话会被约谈的压力，15 分钟时限连翻译通话都不够，影响对重病或自杀患者的安抚。</li><li><strong>AI 同理心评估工具</strong> 于 2024 年夏季测试，因护士抗议而中止，但管理层表示可能重启。</li><li>通话后仅<strong>30 秒</strong>的整理时间导致护士情绪耗竭，增加漏判风险，患者安全遭威胁。</li><li><strong>加州护士协会</strong> 正为 25,000 名护士谈判新合同，AI 监控将是关键议题；议员推动保护推翻自动化决策的医护。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区核心分歧：一方认为问题是通话时长等传统指标滥用，而非 AI 本身，且临床 LLM 工具有助效率；另一方坚持用机器评估人类同理心从根本上错误。</p><div class="tags"><span class="tag">AI 职场监控</span><span class="tag">医疗护理质量</span><span class="tag">劳工谈判</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · derekdahmer · 9 回复</div><p>I RFTA and the majority of the complaints are about call center metrics and the pressure to ration care.  These are real concerns about misuse of metrics, but not AI.  The AI empathy thing was a 2024 pilot that was discontinued.</p><p>FWIW my wife works for Kaiser and finds a lot of value in the the medical LLM tools available to her.  She tells me being able to do live translation, summarize notes, and quickly get comprehensive answers save her time and help her give better care.  Her older patients also frequently come in bringing AI-powered alerts from their apple watches that detected cardiac events.</p><p>It&#x27;s annoying that we use broad terms to describe a set of technologies that in some ways can be problematic and in another ways are very beneficial.  We gotta evaluate each of these as they come rather than talk about blanket bans.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://www.isomorphiclabs.com/articles/the-isomorphic-labs-drug-design-engine-unlocks-a-new-frontier" target="_blank" rel="noopener">The Isomorphic Labs Drug Design Engine unlocks a new frontier beyond AlphaFold</a></h2></div><p class="title-tr">Isomorphic Labs 药物设计引擎开启超越 AlphaFold 的前沿新领域</p><div class="meta">▲ 46 分 · andsoitis · <a href="https://news.ycombinator.com/item?id=48953406" target="_blank" rel="noopener">4 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">IsoDDE 在蛋白质-配体结构预测泛化基准上准确率是 AlphaFold 3 的两倍以上，结合亲和力预测超越物理方法，且能仅凭序列发现隐蔽口袋，大幅缩短药物设计周期。这是 AI 药物发现的重要进展，但模型未公开、未经过同行评审。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 像深度学习模型需要泛化到分布外数据，AlphaFold 3 对训练集缺乏的新型蛋白-配体结构预测不佳，IsoDDE 宣称解决了这一挑战。</p><ul class="kp"><li>IsoDDE 在「Runs N&#x27; Poses」泛化基准上，<strong>准确率超过 AlphaFold 3 两倍以上</strong>，尤其擅长陌生口袋与配体系统。</li><li>结合亲和力预测<strong>超越 FEP 等金牌物理方法</strong>，且无需实验晶体结构，速度与成本大幅优于传统方案。</li><li>仅用氨基酸序列即可<strong>识别全新隐蔽结合口袋</strong>，如 cereblon 蛋白上最近才被实验发现的新位点。</li><li>在抗体-抗原界面预测中，高保真度（DockQ &gt; 0.8）比 AlphaFold 3 提升 2.3 倍，比 Boltz-2 提升 19.8 倍，<strong>解决了 CDR-H3 环预测难题</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论指出这已是旧闻（2026 年 2 月），模型未公开、无同行评审，且恰逢公司首次外部融资后发布，被认为商业宣传意味浓。</p><div class="tags"><span class="tag">AI 药物发现</span><span class="tag">蛋白质结构预测</span><span class="tag">深度学习泛化</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://www.ycombinator.com/companies/drdroid/jobs/w45QcNV-product-engineer-assignment-mandatory" target="_blank" rel="noopener">DrDroid (YC W23) Is Hiring</a></h2></div><p class="title-tr">DrDroid (YC W23) 正在招聘</p><div class="meta">▲ 1 分 · TheBengaluruGuy · <a href="https://news.ycombinator.com/item?id=48954074" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">DrDroid（YC W23）招聘全栈产品工程师，薪资 170-210 万印度卢比，要求完成一个强制作业。公司为平台和基础设施团队构建 AI 代理，自动分诊、调试和修复生产环境问题，目标是让普通工程师无需资深专家即可解决复杂事故。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 生产环境（production）类似于你部署上线后的模型推理服务，分布式系统则类似多 GPU 协同训练——问题定位远比单机复杂，DrDroid 试图用 AI 代理自动完成这种运维排障。</p><ul class="kp"><li>招募<strong>产品工程师</strong>，要求掌握 JavaScript/Python/TypeScript 并有分布式系统经验。</li><li>招聘流程包含<strong>一个强制完成的指定作业</strong>，随后是 CTO 和工程师面试，一周内出结果。</li><li>公司开发 AI 代理，帮助团队<strong>自动调试和修复生产问题</strong>，减少对资深工程师的依赖。</li><li>DrDroid 已获 <strong>Accel 投资并入选 Y Combinator W23 批次</strong>，还有 Playbooks、Kenobi 两个运行开源项目。</li></ul><div class="tags"><span class="tag">AI 运维</span><span class="tag">创业公司招聘</span><span class="tag">YC W23</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://simonwillison.net/2026/Jul/16/kimi-k3/" target="_blank" rel="noopener">Kimi K3, and what we can still learn from the pelican benchmark</a></h2></div><p class="title-tr">Kimi K3 及我们仍能从鹈鹕基准中学到什么</p><div class="meta">▲ 287 分 · droidjj · <a href="https://news.ycombinator.com/item?id=48947717" target="_blank" rel="noopener">152 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Moonshot AI 发布 2.8 万亿参数模型 Kimi K3，定价对标 Claude Sonnet，是中国实验室推出最贵的模型。鹈鹕测试成本 25 美分，暴露其“max”推理努力下简单任务的巨大开销。作者认为该测试虽已不能衡量智能，但作为“hello world”仍能快速揭示模型成本与特性。</p><p class="context"><strong>🧭 联系你的知识背景</strong> “鹈鹕基准”是作者用来生成“骑自行车的鹈鹕”SVG 的玩笑测试，可快速暴露模型推理成本、token 消耗和空间感知，但现在已不能反映工具调用等真正重要的代理能力。</p><ul class="kp"><li>Kimi K3 拥有 <strong>2.8 万亿参数</strong>，价格 $3/$15（百万 token），是中国 AI 实验室迄今最贵的模型。</li><li>在人工分析基准上智能指数 Elo 达 <strong>1547</strong>，比前代提升 732 点，但仅支持“max”推理努力，简单任务消耗 1.3 万推理 token。</li><li>生成鹈鹕 SVG 花费 <strong>25 美分</strong>，其中 95 输入 token 中有约 85 个可能是隐藏系统提示词。</li><li>作者指出鹈鹕测试已无法反映智能，真正关键的是<strong>代理工具调用和长对话可靠性</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论者争论鹈鹕数据可能已被训练集污染，主张用更复杂的工具调用与长上下文测试来替代。</p><div class="tags"><span class="tag">LLM 基准测试</span><span class="tag">模型定价</span><span class="tag">推理成本</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · OsrsNeedsf2P · 11 回复</div><p>It&#x27;s incredible Simon still believes pelicans on bikes aren&#x27;t part of the training set, despite hundreds of them on blogs, forums, and Github. Stuff we put in our company blog shows up known by LLMs 6 months later, and we have 1000x less traffic than Simon&#x27;s own website</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://stateofopensource.ai/" target="_blank" rel="noopener">The state of open source AI</a></h2></div><p class="title-tr">开源 AI 的现状</p><div class="meta">▲ 388 分 · rellem · <a href="https://news.ycombinator.com/item?id=48947825" target="_blank" rel="noopener">287 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">开源模型能力已逼近闭源前沿，Chatbot Arena 差距一度缩至 0.5%，GPT-4 级推理成本 36 个月暴降 50 倍，开放权重模型在 OpenRouter 上的 token 流量已占多数。但生产部署率仅 51%，落后闭源的 63%，瓶颈在运维工具链而非模型本身，反映出从实验到产品的工程鸿沟。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中的“运维工具链差距”指将模型权重转化为稳定、可扩展、合规的生产服务所需的后端基础设施和 DevOps 能力，类似于深度学习从训练脚本到可靠 API 服务的工程化落差。</p><ul class="kp"><li>开源与闭源模型的 Chatbot Arena 能力差距从 8.04% 骤降至 <strong>0.5%</strong>，近期因闭源推理进步略回升至 3.3%，但编码等任务已持平。</li><li>GPT-4 级推理成本 36 个月内下降 <strong>50 倍</strong>，从每百万 token 20 美元跌至 0.40 美元，降速超过互联网带宽成本下跌。</li><li>OpenRouter 上开放权重模型处理的 token 量占比从几乎为零增长到 <strong>超过半数</strong>，月用量前五的模型均为开源权重。</li><li>开源模型开发者采用率高达 <strong>79%</strong>，但生产环境部署率仅 51%，远低于闭源的 63%；约四分之一开发者将基础设施成本列为首要阻碍。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍批评报告行文明显由 AI 代笔，削弱说服力；同时也有人指出开源模型正在快速蚕食闭源厂商份额，对 Anthropic 和 OpenAI 的商业模式构成长期威胁，而对 Mozilla 未专注浏览器核心产品的批评同样突出。</p><div class="tags"><span class="tag">开源 AI 模型</span><span class="tag">推理成本</span><span class="tag">模型部署运维</span><span class="tag">AI 产业竞争格局</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · babblingfish · 29 回复</div><p>Speculation: open models is what will kill Anthropic and OpenAI. Hyperscalers can run the models without a licensing fee. Apple can make them smaller and put them on the device.</p><p>The frontier models are an edge and a liability. They&#x27;re astronomically expensive to train. Without them, their models will fade into obscurity. Their marketing depends on people believing the models are meaningfully different, as people have sweatily argued on this forum. Personally, I&#x27;m not convinced there&#x27;s much of a difference between these models at this point. The harness is what takes these random and hallucinogenic models and make them into something deterministic and useful.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://blog.zksecurity.xyz/posts/openvm-bugs/" target="_blank" rel="noopener">AI Meets Cryptography 2: What AI Found in OpenVM&#x27;s ZkVM</a></h2></div><p class="title-tr">AI 遇见密码学 2：AI 在 OpenVM 的 ZkVM 中发现了什么</p><div class="meta">▲ 86 分 · duha · <a href="https://news.ycombinator.com/item?id=48947714" target="_blank" rel="noopener">6 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">AI 审计工具 zkao 在 OpenVM 的 zkVM 中发现关键漏洞（CVE-2026-46669），攻击者可伪造任何配对等式，导致基于该库的 Groth16、PLONK 验证器和 BLS 签名完全失效。漏洞源于缩放因子子域检查的缺失，普通 LLM 无法发现，最终由人类团队验证并推动 OpenVM 1.6.0 修复。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 配对运算是零知识证明中验证“加密等式”的核心操作，此漏洞相当于签名验证中只检查哈希是否匹配却跳过了消息本身，让虚假证明都能通过。</p><ul class="kp"><li><strong>CVE-2026-46669</strong> 是 zkao 在 openvm-pairing 库中发现的严重漏洞，可让恶意证明者伪造任意配对等式乘积。</li><li>漏洞影响<strong>Groth16 SNARK 验证器、BLS 签名和 KZG 承诺</strong>，使基于该库的 ZK 证明系统完全丧失安全性。</li><li>根本原因：缩放因子未约束在 <strong>Fp6 子域</strong>，攻击者只需设 c=1、u=f⁻¹ 即可使检查通过，无需真正有效的配对。</li><li>OpenVM 1.6.0 已在提交 <strong>a720e2c</strong> 中修复，所有合作方已升级至该版本。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论将此漏洞类比为签名验证中跳过消息验证，并讨论其对 L2 生态的潜在灾难性影响。</p><div class="tags"><span class="tag">配对验证漏洞</span><span class="tag">AI 代码审计</span><span class="tag">零知识证明</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · SonOfLilit · 1 回复</div><p>TL;DR imagine a signature verification library that verifies a signature indeed signs the given hash, but not that the signed data hashes to that hash. Woopsie.</p><p>I guess nobody&#x27;s commenting on this because it&#x27;s very dense math without any context. Lucky for me I spent an hour or two yesterday learning how practical non-interactive zero knowledge proofs work.</p><p>In SNARKs (and other commitment schemes based on polynomials in elliptic curve groups, hope I got the terminology right), you verify the commitment (unneeded technical details: polynomial on EC at secret point nobody knows including the committer so he has to make the polynomial match at most points, and polynomials that match at most points match at all points) by multiplying two things you calculated from the circuit and commitment (which is just a couple of group elements) and verifying that it comes out as 1. The multiplication and comparison under encryption is done with a homomorphic encryption primitive-type thing called a &quot;pairing&quot; (normally with elliptic curve encryption only addition can be done on secret group elements that you don&#x27;t know the value of).</p><p>They found a way to tell a specific library that implements this operation &quot;believe me, this pairing is ok&quot; that doesn&#x27;t depend on any of those technical things. Just &quot;these are not the droids you&#x27;re looking for&quot;. Because it was not validating that some precomputed thing needed for the pairing verification actually matches this specific situation, and there are trivial parameters that would always yield 1 (but not be valid in the situation).</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://kevinkelly.substack.com/p/latent-space-as-a-new-medium" target="_blank" rel="noopener">Latent Space as a New Medium</a></h2></div><p class="title-tr">潜在空间：一种新媒介</p><div class="meta">▲ 92 分 · thm · <a href="https://news.ycombinator.com/item?id=48896513" target="_blank" rel="noopener">31 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">由于正文无法获取，仅基于标题与评论摘要：Kevin Kelly 提出将潜在空间视为一种新媒介，但 HN 评论普遍批评其过度夸大 LLM 能力，并指出潜在空间仅是更广泛计算范式的一部分。</p><ul class="kp"><li><strong>Kevin Kelly</strong> 被批将 LLM 描述为“包含所有人类知识的小型 zip 文件”，严重<strong>脱离现实</strong>。</li><li>潜在空间本质是一个<strong>多维排序集合</strong>，LLM 仅仅是利用该概念的一个具体子集，并非全部。</li><li>将 AI 视为<strong>先知</strong>是危险的，因为其“真理”只是训练语料库共识的向量方向，而非客观事实。</li><li>潜在空间可作为一种<strong>连续计算基底</strong>，在任意两个函数间无限插值，但其哲学意义不应与语言模型绑定。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论几乎一边倒地批评文章混淆 LLM 与通用智能，并警告将模型输出等同于知识或真理会带来社会风险。</p><div class="tags"><span class="tag">潜在空间</span><span class="tag">AI 批判</span><span class="tag">LLM 炒作</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · ux266478 · 3 回复</div><p>That&#x27;s a mischaracterization. Latent space is simply a (multidimensionally) sorted collection, it&#x27;s only a piece of the pie. A massive amount of structure is held in the unembedding layer. Generative AI models are a very specific ordering, LLMs a very specific subset of that, and they&#x27;re hardly the only users of the concept.</p><p>I get what the author is going for, and they&#x27;re on the right track. There is something interesting going on with embedding spaces: When used as the substrate for a neural network, you can effectively treat them as a kind of continuous form of computation. That is, given two functions, you can trivially derive a function which sits exactly between those two, and do so ad infinitum, for any arbitrary program (in theory. Obviously everything materially accessible is finite.) This is only one such manipulation. You can deform a function in an unenumerable amount of ways. Think like a bezier curve path tool in something like Krita or Photoshop, but for a function. You can keep adding points and twist it to your heart&#x27;s content.</p><p>It&#x27;s wrong to focus on LLMs specifically, as well. This is a much, much broader topic than you realize. Most of the interesting stuff has nothing to do with language models at all. I get a huge chunk of the industry is currently having a stroke over LLMs being able to brute-force problem solving, but if we&#x27;re to talk philosophy, theory, and so on, we have to get past the surface level misuse of Machine Translation&#x27;s holy grail. That&#x27;s like having a conversation about the potential of computation itself, but all you talk about is web browsers, using them interchangeably with &quot;computer&quot;.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://www.kimi.com/blog/kimi-k3" target="_blank" rel="noopener">Kimi K3: Open Frontier Intelligence</a></h2></div><p class="title-tr">Kimi K3：开源前沿智能</p><div class="meta">▲ 2003 分 · vincent_s · <a href="https://news.ycombinator.com/item?id=48935342" target="_blank" rel="noopener">1165 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">月之暗面发布2.8万亿参数的开源混合专家模型Kimi K3，支持100万token上下文，性能在编码与知识工作评测中接近Claude Fable 5和GPT 5.6 Sol，推理定价$3/$15每百万token，完整模型权重将于2026年7月27日开放。</p><ul class="kp"><li>首个<strong>2.8万亿参数</strong>的开源模型，激活16/896个专家，使用Delta Attention与Attention Residuals提升扩展效率。</li><li>长程编码能力突出，可自主优化GPU内核、构建Triton类编译器、设计4mm²芯片，并在研究中重现天体物理通用关系。</li><li>API定价<strong>$3/$15每百万token</strong>（缓存命中$0.3），与Anthropic Sonnet定价持平，推理成本成用户采用关键变量。</li><li>完整模型权重<strong>2026年7月27日</strong>前开放，技术报告将公布更多架构、训练与评估细节。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍认可性能突破，但激烈争论$15/Mtok输出定价对开源模型过高，推理效率若不及GPT-6 Sol则实际成本优势有限；芯片自主设计案例获得最多惊叹但仍待真实验证。</p><div class="tags"><span class="tag">大语言模型</span><span class="tag">开放权重</span><span class="tag">推理定价</span><span class="tag">智能体</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · simonw · 23 回复</div><p>Pelican: https://tools.simonwillison.net/markdown-svg-renderer#url=ht... - rendered via the OpenRouter API: https://openrouter.ai/moonshotai/kimi-k3</p><p>95 input, 16,658 output = 25 cents! https://www.llm-prices.com/#it=95&amp;ot=16658&amp;ic=3&amp;oc=15 (13,241 of those were reasoning tokens.)</p><p>I think that&#x27;s the most expensive pelican I&#x27;ve rendered through a Chinese model so far.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://sofar.belfortlabs.cloud/" target="_blank" rel="noopener">Homomorphically encrypted CIFAR-10 inference in 200ms</a></h2></div><p class="title-tr">同态加密下的 CIFAR-10 推理仅需 200 毫秒</p><div class="meta">▲ 67 分 · j2kun · <a href="https://news.ycombinator.com/item?id=48949240" target="_blank" rel="noopener">33 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Belfort Labs 演示了在加密的 ResNet-20 上对 CIFAR-10 图像进行分类，总延迟低于 200 毫秒，声称比之前最优结果快 3 倍。由于密钥由服务器端生成且计算过程不可验证，评论普遍质疑是否真正实现了全同态加密。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 同态加密允许直接在加密数据上执行计算而无需解密，相当于模型可以处理用户看不见的加密输入，但这里的信任模型要求客户端生成密钥，否则服务器可能解密偷看数据。</p><ul class="kp"><li><strong>Belfort Labs</strong> 展示加密 ResNet-20 在 CIFAR-10 上的推理，端到端延迟低于 <strong>200 毫秒</strong>，号称比已有最佳速度快 3 倍。</li><li>关键争议：客户端从服务器下载 <strong>client_secret.bin</strong>，意味着服务器掌握密钥，无法排除服务器<strong>直接解密后计算</strong>的可能性。</li><li>加密导致文件体积膨胀约 <strong>341 倍</strong>，且演示模型将德国牧羊犬和计算器误判为猫，推理质量存疑。</li><li>团队暗示底层为即将发布的 GPU 库 <strong>Cyclops</strong>，声称针对加密 AI 工作负载做了多项优化，但细节尚未公开。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论广泛质疑演示无法自证真正使用了全同态加密，且密钥生成方式违背加密计算中“服务器无法读取数据”的核心安全假设，实际用途有限。</p><div class="tags"><span class="tag">同态加密</span><span class="tag">AI 推理</span><span class="tag">安全</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · rcr-anti · 3 回复</div><p>Looked at the network logs and the JS, did some testing, there&#x27;s a caveat here. For an encryption demo you might expect your secrets to be generated locally, they do the compute on something they can&#x27;t read, you compare their results to your original plaintext; (imo at least) the point would be that it isn&#x27;t physically possible for them to cheat.</p><p>Here, you literally download client_secret.bin from their server, so they have control over the keys and evaluators. So two things. First, the per user key flow would be several minutes for per user keys, the evaluator bundle would be in the 100s MB to GB realm. Second, there&#x27;s no way for us to tell the difference between them really doing FHE or decrypting with the key. To be clear, not evidence it&#x27;s fake, just not total proof it&#x27;s real. Really hope it&#x27;s real, been a field I&#x27;ve been following for awhile.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://www.ft.com/content/1b8c9d52-88a9-426b-ba47-f1811f859166" target="_blank" rel="noopener">Apple targets dozens of OpenAI employees with legal letters</a></h2></div><p class="title-tr">苹果向数十名 OpenAI 员工发出法律信函</p><div class="meta">▲ 381 分 · merksittich · <a href="https://news.ycombinator.com/item?id=48946303" target="_blank" rel="noopener">324 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">苹果向数十名 OpenAI 前员工发出文件保留信，可能涉及泄露商业机密；若指控成立，将冲击 OpenAI 硬件产品线及 IPO 计划。（文章正文无法获取，信息有限）</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文件保留信（document retention letter）是诉讼前的一种法律文书，要求收件人保存所有相关文件，防止证据被销毁——这通常意味着原告已有一定证据。</p><ul class="kp"><li>苹果向 <strong>数十名 OpenAI 员工</strong> 发出文件保留信，预示可能即将提起诉讼</li><li>争端核心疑为 <strong>苹果商业机密</strong> 被前员工带往 OpenAI，涉及硬件设计等敏感领域</li><li>若苹果胜诉，OpenAI 的 <strong>硬件路线和 IPO 进程</strong> 将面临重大不确定性</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论分歧：一方认为文件保留信只是标准法律流程，被过度解读；另一方认为苹果出手极重，暗示已掌握确凿证据。</p><div class="tags"><span class="tag">Apple</span><span class="tag">OpenAI</span><span class="tag">商业机密</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Zigurd · 22 回复</div><p>Everybody wants a platform but nobody wants to spend what it takes to make a platform. That includes things like Windows Phone, Fire Phone, all the glasses, Humane, etc.</p><p>As much as everybody hates on OpenAI for chaotic management, they did buy Jony Ive and are presumably giving him everything he wants to build a platform for them. Even though it probably only buys them a 20% chance of success, they haven&#x27;t doomed the project by underestimating what it takes budget-wise.</p><p>And they blew it. Maybe they blew it by not realizing that even long time Apple employees could get arrogant about security. Or maybe it was a loose ethical environment in general. Whatever is it the root or the problem, they set billions of dollars on fire maybe tens of billions, by being unnecessarily cute about Apple proprietary information when they could&#x27;ve been above reproach. They had the resources to hire all the right people with the right knowledge and probably already had them on board.</p></div></div></article>
+</div></main>
+<footer>generated 2026-07-18 03:30 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-18", "pointsLabel": "分", "commentsLabel": "评论", "title": "Kaiser nurses say AI, workplace surveillance are making their jobs, care worse", "titleTranslation": "Kaiser 护士称 AI 与职场监控让她们的工作和护理变差", "summary": "Kaiser Permanente 护士透露，15 分钟通话时限和 AI 同理心评估等监控手段导致压力增加、护理质量下降，护士协会正就 AI 条款进行合同谈判，加州立法机构也在推进 AI 职场监管。", "keyPoints": ["Kaiser 护士 面临超时通话会被约谈的压力，15 分钟时限连翻译通话都不够，影响对重病或自杀患者的安抚。", "AI 同理心评估工具 于 2024 年夏季测试，因护士抗议而中止，但管理层表示可能重启。", "通话后仅30 秒的整理时间导致护士情绪耗竭，增加漏判风险，患者安全遭威胁。"], "discussion": "评论区核心分歧：一方认为问题是通话时长等传统指标滥用，而非 AI 本身，且临床 LLM 工具有助效率；另一方坚持用机器评估人类同理心从根本上错误。", "tags": ["AI 职场监控", "医疗护理质量", "劳工谈判"], "score": 346, "comments": 231, "by": "gnabgib", "url": "https://localnewsmatters.org/2026/07/15/kaiser-nurses-say-ai-workplace-surveillance-are-making-their-jobs-and-patient-care-worse/", "hnUrl": "https://news.ycombinator.com/item?id=48952880"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-18", "pointsLabel": "分", "commentsLabel": "评论", "title": "The Isomorphic Labs Drug Design Engine unlocks a new frontier beyond AlphaFold", "titleTranslation": "Isomorphic Labs 药物设计引擎开启超越 AlphaFold 的前沿新领域", "summary": "IsoDDE 在蛋白质-配体结构预测泛化基准上准确率是 AlphaFold 3 的两倍以上，结合亲和力预测超越物理方法，且能仅凭序列发现隐蔽口袋，大幅缩短药物设计周期。这是 AI 药物发现的重要进展，但模型未公开、未经过同行评审。", "keyPoints": ["IsoDDE 在「Runs N' Poses」泛化基准上，准确率超过 AlphaFold 3 两倍以上，尤其擅长陌生口袋与配体系统。", "结合亲和力预测超越 FEP 等金牌物理方法，且无需实验晶体结构，速度与成本大幅优于传统方案。", "仅用氨基酸序列即可识别全新隐蔽结合口袋，如 cereblon 蛋白上最近才被实验发现的新位点。"], "discussion": "HN 评论指出这已是旧闻（2026 年 2 月），模型未公开、无同行评审，且恰逢公司首次外部融资后发布，被认为商业宣传意味浓。", "tags": ["AI 药物发现", "蛋白质结构预测", "深度学习泛化"], "score": 46, "comments": 4, "by": "andsoitis", "url": "https://www.isomorphiclabs.com/articles/the-isomorphic-labs-drug-design-engine-unlocks-a-new-frontier", "hnUrl": "https://news.ycombinator.com/item?id=48953406"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-18", "pointsLabel": "分", "commentsLabel": "评论", "title": "DrDroid (YC W23) Is Hiring", "titleTranslation": "DrDroid (YC W23) 正在招聘", "summary": "DrDroid（YC W23）招聘全栈产品工程师，薪资 170-210 万印度卢比，要求完成一个强制作业。公司为平台和基础设施团队构建 AI 代理，自动分诊、调试和修复生产环境问题，目标是让普通工程师无需资深专家即可解决复杂事故。", "keyPoints": ["招募产品工程师，要求掌握 JavaScript/Python/TypeScript 并有分布式系统经验。", "招聘流程包含一个强制完成的指定作业，随后是 CTO 和工程师面试，一周内出结果。", "公司开发 AI 代理，帮助团队自动调试和修复生产问题，减少对资深工程师的依赖。"], "discussion": "", "tags": ["AI 运维", "创业公司招聘", "YC W23"], "score": 1, "comments": 0, "by": "TheBengaluruGuy", "url": "https://www.ycombinator.com/companies/drdroid/jobs/w45QcNV-product-engineer-assignment-mandatory", "hnUrl": "https://news.ycombinator.com/item?id=48954074"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-18", "pointsLabel": "分", "commentsLabel": "评论", "title": "Kimi K3, and what we can still learn from the pelican benchmark", "titleTranslation": "Kimi K3 及我们仍能从鹈鹕基准中学到什么", "summary": "Moonshot AI 发布 2.8 万亿参数模型 Kimi K3，定价对标 Claude Sonnet，是中国实验室推出最贵的模型。鹈鹕测试成本 25 美分，暴露其“max”推理努力下简单任务的巨大开销。作者认为该测试虽已不能衡量智能，但作为“hello world”仍能快速揭示模型成本与特性。", "keyPoints": ["Kimi K3 拥有 2.8 万亿参数，价格 $3/$15（百万 token），是中国 AI 实验室迄今最贵的模型。", "在人工分析基准上智能指数 Elo 达 1547，比前代提升 732 点，但仅支持“max”推理努力，简单任务消耗 1.3 万推理 token。", "生成鹈鹕 SVG 花费 25 美分，其中 95 输入 token 中有约 85 个可能是隐藏系统提示词。"], "discussion": "评论者争论鹈鹕数据可能已被训练集污染，主张用更复杂的工具调用与长上下文测试来替代。", "tags": ["LLM 基准测试", "模型定价", "推理成本"], "score": 287, "comments": 152, "by": "droidjj", "url": "https://simonwillison.net/2026/Jul/16/kimi-k3/", "hnUrl": "https://news.ycombinator.com/item?id=48947717"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-18", "pointsLabel": "分", "commentsLabel": "评论", "title": "The state of open source AI", "titleTranslation": "开源 AI 的现状", "summary": "开源模型能力已逼近闭源前沿，Chatbot Arena 差距一度缩至 0.5%，GPT-4 级推理成本 36 个月暴降 50 倍，开放权重模型在 OpenRouter 上的 token 流量已占多数。但生产部署率仅 51%，落后闭源的 63%，瓶颈在运维工具链而非模型本身，反映出从实验到产品的工程鸿沟。", "keyPoints": ["开源与闭源模型的 Chatbot Arena 能力差距从 8.04% 骤降至 0.5%，近期因闭源推理进步略回升至 3.3%，但编码等任务已持平。", "GPT-4 级推理成本 36 个月内下降 50 倍，从每百万 token 20 美元跌至 0.40 美元，降速超过互联网带宽成本下跌。", "OpenRouter 上开放权重模型处理的 token 量占比从几乎为零增长到 超过半数，月用量前五的模型均为开源权重。"], "discussion": "评论区普遍批评报告行文明显由 AI 代笔，削弱说服力；同时也有人指出开源模型正在快速蚕食闭源厂商份额，对 Anthropic 和 OpenAI 的商业模式构成长期威胁，而对 Mozilla 未专注浏览器核心产品的批评同样突出。", "tags": ["开源 AI 模型", "推理成本", "模型部署运维"], "score": 388, "comments": 287, "by": "rellem", "url": "https://stateofopensource.ai/", "hnUrl": "https://news.ycombinator.com/item?id=48947825"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-18", "pointsLabel": "分", "commentsLabel": "评论", "title": "AI Meets Cryptography 2: What AI Found in OpenVM's ZkVM", "titleTranslation": "AI 遇见密码学 2：AI 在 OpenVM 的 ZkVM 中发现了什么", "summary": "AI 审计工具 zkao 在 OpenVM 的 zkVM 中发现关键漏洞（CVE-2026-46669），攻击者可伪造任何配对等式，导致基于该库的 Groth16、PLONK 验证器和 BLS 签名完全失效。漏洞源于缩放因子子域检查的缺失，普通 LLM 无法发现，最终由人类团队验证并推动 OpenVM 1.6.0 修复。", "keyPoints": ["CVE-2026-46669 是 zkao 在 openvm-pairing 库中发现的严重漏洞，可让恶意证明者伪造任意配对等式乘积。", "漏洞影响Groth16 SNARK 验证器、BLS 签名和 KZG 承诺，使基于该库的 ZK 证明系统完全丧失安全性。", "根本原因：缩放因子未约束在 Fp6 子域，攻击者只需设 c=1、u=f⁻¹ 即可使检查通过，无需真正有效的配对。"], "discussion": "HN 评论将此漏洞类比为签名验证中跳过消息验证，并讨论其对 L2 生态的潜在灾难性影响。", "tags": ["配对验证漏洞", "AI 代码审计", "零知识证明"], "score": 86, "comments": 6, "by": "duha", "url": "https://blog.zksecurity.xyz/posts/openvm-bugs/", "hnUrl": "https://news.ycombinator.com/item?id=48947714"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-18", "pointsLabel": "分", "commentsLabel": "评论", "title": "Latent Space as a New Medium", "titleTranslation": "潜在空间：一种新媒介", "summary": "由于正文无法获取，仅基于标题与评论摘要：Kevin Kelly 提出将潜在空间视为一种新媒介，但 HN 评论普遍批评其过度夸大 LLM 能力，并指出潜在空间仅是更广泛计算范式的一部分。", "keyPoints": ["Kevin Kelly 被批将 LLM 描述为“包含所有人类知识的小型 zip 文件”，严重脱离现实。", "潜在空间本质是一个多维排序集合，LLM 仅仅是利用该概念的一个具体子集，并非全部。", "将 AI 视为先知是危险的，因为其“真理”只是训练语料库共识的向量方向，而非客观事实。"], "discussion": "评论几乎一边倒地批评文章混淆 LLM 与通用智能，并警告将模型输出等同于知识或真理会带来社会风险。", "tags": ["潜在空间", "AI 批判", "LLM 炒作"], "score": 92, "comments": 31, "by": "thm", "url": "https://kevinkelly.substack.com/p/latent-space-as-a-new-medium", "hnUrl": "https://news.ycombinator.com/item?id=48896513"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-18", "pointsLabel": "分", "commentsLabel": "评论", "title": "Kimi K3: Open Frontier Intelligence", "titleTranslation": "Kimi K3：开源前沿智能", "summary": "月之暗面发布2.8万亿参数的开源混合专家模型Kimi K3，支持100万token上下文，性能在编码与知识工作评测中接近Claude Fable 5和GPT 5.6 Sol，推理定价$3/$15每百万token，完整模型权重将于2026年7月27日开放。", "keyPoints": ["首个2.8万亿参数的开源模型，激活16/896个专家，使用Delta Attention与Attention Residuals提升扩展效率。", "长程编码能力突出，可自主优化GPU内核、构建Triton类编译器、设计4mm²芯片，并在研究中重现天体物理通用关系。", "API定价$3/$15每百万token（缓存命中$0.3），与Anthropic Sonnet定价持平，推理成本成用户采用关键变量。"], "discussion": "评论普遍认可性能突破，但激烈争论$15/Mtok输出定价对开源模型过高，推理效率若不及GPT-6 Sol则实际成本优势有限；芯片自主设计案例获得最多惊叹但仍待真实验证。", "tags": ["大语言模型", "开放权重", "推理定价"], "score": 2003, "comments": 1165, "by": "vincent_s", "url": "https://www.kimi.com/blog/kimi-k3", "hnUrl": "https://news.ycombinator.com/item?id=48935342"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-18", "pointsLabel": "分", "commentsLabel": "评论", "title": "Homomorphically encrypted CIFAR-10 inference in 200ms", "titleTranslation": "同态加密下的 CIFAR-10 推理仅需 200 毫秒", "summary": "Belfort Labs 演示了在加密的 ResNet-20 上对 CIFAR-10 图像进行分类，总延迟低于 200 毫秒，声称比之前最优结果快 3 倍。由于密钥由服务器端生成且计算过程不可验证，评论普遍质疑是否真正实现了全同态加密。", "keyPoints": ["Belfort Labs 展示加密 ResNet-20 在 CIFAR-10 上的推理，端到端延迟低于 200 毫秒，号称比已有最佳速度快 3 倍。", "关键争议：客户端从服务器下载 client_secret.bin，意味着服务器掌握密钥，无法排除服务器直接解密后计算的可能性。", "加密导致文件体积膨胀约 341 倍，且演示模型将德国牧羊犬和计算器误判为猫，推理质量存疑。"], "discussion": "HN 评论广泛质疑演示无法自证真正使用了全同态加密，且密钥生成方式违背加密计算中“服务器无法读取数据”的核心安全假设，实际用途有限。", "tags": ["同态加密", "AI 推理", "安全"], "score": 67, "comments": 33, "by": "j2kun", "url": "https://sofar.belfortlabs.cloud/", "hnUrl": "https://news.ycombinator.com/item?id=48949240"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-18", "pointsLabel": "分", "commentsLabel": "评论", "title": "Apple targets dozens of OpenAI employees with legal letters", "titleTranslation": "苹果向数十名 OpenAI 员工发出法律信函", "summary": "苹果向数十名 OpenAI 前员工发出文件保留信，可能涉及泄露商业机密；若指控成立，将冲击 OpenAI 硬件产品线及 IPO 计划。（文章正文无法获取，信息有限）", "keyPoints": ["苹果向 数十名 OpenAI 员工 发出文件保留信，预示可能即将提起诉讼", "争端核心疑为 苹果商业机密 被前员工带往 OpenAI，涉及硬件设计等敏感领域", "若苹果胜诉，OpenAI 的 硬件路线和 IPO 进程 将面临重大不确定性"], "discussion": "HN 评论分歧：一方认为文件保留信只是标准法律流程，被过度解读；另一方认为苹果出手极重，暗示已掌握确凿证据。", "tags": ["Apple", "OpenAI", "商业机密"], "score": 381, "comments": 324, "by": "merksittich", "url": "https://www.ft.com/content/1b8c9d52-88a9-426b-ba47-f1811f859166", "hnUrl": "https://news.ycombinator.com/item?id=48946303"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
