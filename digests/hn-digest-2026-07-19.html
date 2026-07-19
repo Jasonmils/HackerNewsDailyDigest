@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-07-19</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-07-19 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://calculus.academa.ai/" target="_blank" rel="noopener">LLM-Integrated Multivariable Calculus Course</a></h2></div><p class="title-tr">集成大语言模型的多变量微积分课程</p><div class="meta">▲ 5 分 · sinaatalay · <a href="https://news.ycombinator.com/item?id=48964585" target="_blank" rel="noopener">1 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Academa 发布了一门多变量微积分视频课程，每个讲座都内置 LLM，支持学生在视频任意时间点提问，LLM 会结合视频上下文（包括画面）给出回答。这提供了一种类似实时辅导的交互式学习体验。</p><ul class="kp"><li>课程覆盖<strong>向量、偏导数、多重积分和向量微积分</strong>等完整多变量微积分章节</li><li>LLM 拥有<strong>视频的完整上下文和视觉信息</strong>，可针对视频中出现的公式、图形或步骤进行精准答疑</li><li>用户可以<strong>跳转到视频任意位置直接提问</strong>，获得即时解释，降低自学数学的门槛</li><li>该项目展示了<strong>LLM 与结构化教学内容深度融合</strong>的产品形态，具有教育场景的潜在差异化价值</li></ul><p class="disc"><strong>💬 讨论</strong> 仅有的评论表示认可，认为 LLM 拥有视频完整上下文并支持交互提问是一种有吸引力的学习方式。</p><div class="tags"><span class="tag">在线教育</span><span class="tag">LLM 集成</span><span class="tag">数学课程</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://old.reddit.com/r/math/comments/1uxj3cy/after_openais_cdc_proof_announcement_gpt56_used_a/" target="_blank" rel="noopener">GPT-5.6 used a prompt to close a 30-year gap in convex optimization</a></h2></div><p class="title-tr">GPT-5.6 用一段提示词填补了凸优化领域30年未解的空白</p><div class="meta">▲ 519 分 · mbustamanter · <a href="https://news.ycombinator.com/item?id=48957779" target="_blank" rel="noopener">331 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">（仅基于 Reddit 讨论，原帖未抓取）GPT-5.6 被宣称用 148 分钟证明了凸 Lipschitz 函数优化的评估次数下界为 Ω(d²)，与 30 年前已知算法复杂度匹配；但评论区指出作者预先用一年时间与 GPT-5.4/5.5 迭代，并将所有合理技术路径写入提示词，AI 并非从零独立完成。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 凸优化中的评估下界问题类似于分析 Adam 等优化器在最坏情况下的收敛速率下界：问的是“至少需要多少次函数评估（或梯度查询）才能达到给定精度”。</p><ul class="kp"><li><strong>GPT-5.6 在 148 分钟内</strong> 证明了凸优化下界 Ω(d²)，与 Nesterov 30 年前算法的复杂度上限匹配，结论本身有学术价值。</li><li>实际工作流：作者<strong>用一年时间通过 GPT-5.4/5.5 探索</strong>，并将所有合理攻击路径预先写入提示词，并非模型自发从零解决。</li><li>该猜想比 OpenAI 近期证明的<strong>循环双重覆盖猜想更小众</strong>，但仍代表凸优化复杂度领域的真实贡献。</li><li>讨论凸显当前 AI 数学辅助的<strong>“人机协作”模式</strong>，对外宣传的“分钟级”突破可能掩盖了事前大量的人类提示与实验。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论主流质疑 AI 的独立贡献，认为作者长达一年的提示准备才是关键，对外宣称的 148 分钟具有误导性；同时也有人讨论 AI 是否正吞掉数学研究中的“低垂果实”，并可能改变数学家的训练路径。</p><div class="tags"><span class="tag">凸优化复杂度</span><span class="tag">AI辅助数学证明</span><span class="tag">提示工程</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · mw67 · 14 回复</div><p>Crazy how intelligence is cheap, efficient and commonplace now.</p><p>We humans better refocusing our energy on our core values/principles, given most of our skills are becoming irrelevant</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://petapixel.com/2026/07/16/mayor-mamdani-says-landlords-cant-secretly-use-ai-images-to-advertise-properties/" target="_blank" rel="noopener">Mayor Mamdani Says Landlords Can&#x27;t Use AI Images to Advertise</a></h2></div><p class="title-tr">纽约市长Mamdani表示房东不得偷偷使用AI图片打广告</p><div class="meta">▲ 310 分 · gnabgib · <a href="https://news.ycombinator.com/item?id=48962983" target="_blank" rel="noopener">154 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">纽约市长Zohran Mamdani发布《租赁骗局报告》，要求房东和中介在房源列表中使用AI生成或修改过的图片时必须进行披露。这一政策回应了远程签约租客被虚假影像误导的普遍问题，且已在Hacker News上引发关于“全面禁止欺骗性广告而非仅限AI”的讨论。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这项政策相当于强制AI生成内容在房地产广告中的透明度，与你熟悉的模型水印或内容标注要求类似，但发生在消费场景的信任机制上。</p><ul class="kp"><li><strong>纽约市长Mamdani</strong> 推出新规，要求披露AI修改过的房源图片，打击房东欺骗行为。</li><li>《租赁骗局报告》基于与<strong>2400名纽约市民</strong>的听证会，揭示霉菌、害虫、隐藏费用等普遍问题。</li><li>政策强调<strong>透明度</strong>：只要披露AI使用，并不完全禁止AI美化图片，评论文本指出标题原意是“偷偷”使用。</li><li>Hacker News评论普遍支持，但指出根本问题在于<strong>欺骗性广告</strong>，不应仅针对AI工具。</li></ul><p class="disc"><strong>💬 讨论</strong> HN评论高度认可这一政策，但核心分歧在于：应直接禁止所有欺骗性房产广告，而非仅要求披露AI使用。</p><div class="tags"><span class="tag">AI监管</span><span class="tag">消费者保护</span><span class="tag">房地产租赁</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · plants · 3 回复</div><p>This is awesome! StreetEasy is how many New Yorkers find apartments. In the past few years, it has been flooded with AI-staged apartments. The AI stagings warp the room to fit furniture that would 100% certainly not fit there. It’s deceptive, and I’m glad it at least requires disclosure now (although I wish it were fully banned)</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://ludic.mataroa.blog/blog/ai-mania-is-eviscerating-global-decision-making/#fnref:3" target="_blank" rel="noopener">AI Mania Is Eviscerating Global Decision-Making</a></h2></div><p class="title-tr">AI 狂热正在摧毁全球决策</p><div class="meta">▲ 49 分 · subset · <a href="https://news.ycombinator.com/item?id=48964185" target="_blank" rel="noopener">10 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者根据自身销售和咨询经验指出，企业 AI 项目成功率为 0%，管理层却在强制推行并谎报收益，导致理性质疑被压制，决策体系全面扭曲。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文章中的 AI 项目主要指企业内部或面向客户的 LLM 聊天机器人等应用，失败并非因为模型能力不足，而是源于管理层非理性的强制推行和组织执行混乱，这与你熟悉的纯技术视角形成对比。</p><ul class="kp"><li>在一年半的观察中，作者团队接触和目睹的所有 AI 项目<strong>成功率为 0%</strong>，没有例外。</li><li>企业出现<strong>高效员工因未使用 AI 被解雇</strong>的现象，迫使其他人“AI 洗”工作，假装采纳大模型。</li><li>许多公司所谓“AI 生产力提升”实际只是<strong>购买 Copilot 许可便宣告胜利</strong>，并未带来真正改善。</li><li>管理层陷入宗教式狂热，<strong>质疑 AI 战略等同于异端</strong>，理性讨论已不可能，决策被信仰绑架。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论对作者未明确“AI 项目”的定义提出质疑，并讨论为何聪明人也会陷入这种非理性狂热。</p><div class="tags"><span class="tag">AI 项目失败</span><span class="tag">AI 炒作</span><span class="tag">组织决策扭曲</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · azakai · 2 回复</div><p>&gt; All of the AI projects we have observed as a team are failing. Every single one – we have seen 0% success in a year and a half,</p><p>What is an &quot;AI project&quot;? The post doesn&#x27;t define it.</p><p>Is it writing some software from scratch? Using an LLM chatbot by non-coders, either internally or externally? Or something else entirely?</p><p>Some examples would really help.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://charlesazam.com/blog/fable-5-gpt-5-6-sol-goal/" target="_blank" rel="noopener">Fable 5 vs. GPT-5.6 Sol on an NP-Hard Problem: Does /goal help?</a></h2></div><p class="title-tr">Fable 5 对比 GPT-5.6 Sol 在 NP 难问题上的表现：/goal 有帮助吗？</p><div class="meta">▲ 224 分 · couAUIA · <a href="https://news.ycombinator.com/item?id=48956879" target="_blank" rel="noopener">107 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">在未公开的 NP 难光纤网络优化任务（KIRO）上，Claude Fable 5 基础模式均分 32,386，远优于 GPT-5.6 Sol 的 34,261，且稳定性极高；/goal 模式在 6 次试验中赢了 4 次，但两模型的均值反而因偶发大幅回退而变差，说明 /goal 并非通用“更努力”开关。</p><p class="context"><strong>🧭 联系你的知识背景</strong> /goal 是 Claude Code 和 Codex CLI 中的一种持久化目标指令，类似于让模型在给定时间内反复“查漏补缺”直到满足条件，并非简单的再多运行一轮优化。</p><ul class="kp"><li><strong>Claude Fable 5</strong> 在无提示基础模式下均分 32,386，比 Sol 优胜 1,875 点，且得分范围仅 319 点，稳定性前所未见。</li><li><strong>/goal 模式</strong> 赢多数试次但均值更差：Fable 均值变差 759 点，Sol 变差 868 点，因偶发回退极严重，暴露循环质量比循环本身更关键。</li><li>巴黎单城的搜索空间下界高达 <strong>10^1223</strong> 种可能，Fable 的并行编译组合策略放大了其优势，任务充分考验原始推理与搜索策略。</li><li>实验证明持久化功能可在个别试次中看似有用，但平均效果可能为负；优化问题中 <strong>/goal 不是通用“多试试”开关</strong>，它改变搜索路径，好或坏都会被放大。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区提出图表 y 轴反转造成混淆，并指出 /ultra 模式多路并行审查可能更适合此类搜索任务；也有用户认为 GPT 在启发式竞赛胜出，而 Anthropic 焦点不同，以及 Claude 长会话遗忘问题。</p><div class="tags"><span class="tag">LLM 编码能力评测</span><span class="tag">NP 难优化</span><span class="tag">代码代理控制流</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Tenoke · 7 回复</div><p>Claude seems to forget what you tell it in very long work sessions (things that take weeks to develop), no matter how many times you tell it which part is extra important. I dont use goal (I guess I should), but presumably it makes it actually remember the most important instruction. I believe this here is about shorter sessions where the issue doesn&#x27;t crop up as much.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://deepmind.google/blog/our-approach-to-bioresilience/" target="_blank" rel="noopener">Our Approach to Bioresilience: Isomorphic Labs and Google DeepMind</a></h2></div><p class="title-tr">我们的生物韧性方法：Isomorphic Labs与Google DeepMind</p><div class="meta">▲ 74 分 · bookofjoe · <a href="https://news.ycombinator.com/item?id=48959297" target="_blank" rel="noopener">23 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Google DeepMind和Isomorphic Labs公布生物韧性战略，涵盖预防、检测和响应，已与政府等建立超15个合作。利用AlphaFold、IsoDDE等模型加速疫苗和治疗设计，同时通过威胁建模、SynthID水印等防止AI滥用。</p><p class="context"><strong>🧭 联系你的知识背景</strong> “生物韧性”可类比为模型面对对抗样本的鲁棒性，但针对病原体爆发：指社会预防、检测和应对生物威胁的能力。文章中提到的威胁建模与您熟知的AI安全评估流程一致。</p><ul class="kp"><li>已与政府、生物安全机构等建立<strong>超过15个合作伙伴关系</strong>，覆盖预防、检测和响应三大环节。</li><li>利用<strong>AlphaFold预测蛋白结构</strong>、IsoDDE药物设计引擎和AlphaGenome等模型，从被动应对转为主动设计防御。</li><li>对Gemini等模型实施<strong>四步安全流程</strong>：威胁建模、评估、缓解和监控，并尝试将SynthID水印扩展至DNA序列筛查。</li><li>Isomorphic Labs成立专门团队，<strong>快速部署其药物设计引擎</strong>，在新型疫情中加速诊断和治疗方案开发。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论者赞赏DeepMind将人类智慧编码进模型的创新能力，但有股东批评谷歌AI产品表现落后于Anthropic和OpenAI，呼吁少说多做。</p><div class="tags"><span class="tag">生物安全</span><span class="tag">AI制药</span><span class="tag">DeepMind</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · PunchTornado · 8 回复</div><p>How about focus on keeping up with anthropic and openai. Less talk and more work. As a google shareholder I am really disappointed by their performance lately.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://ykdojo.github.io/claude-controls-mac/" target="_blank" rel="noopener">Setting up your spare Mac for Claude Code to control, a step-by-step guide</a></h2></div><p class="title-tr">设置你的备用 Mac 供 Claude Code 控制，逐步指南</p><div class="meta">▲ 195 分 · ykev · <a href="https://news.ycombinator.com/item?id=48959392" target="_blank" rel="noopener">137 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">指南用一台闲置 Mac 创建 Claude Code 的完全隔离环境，避免在主设备上运行代理的风险，同时支持手机远程交互和桌面控制（computer use）。核心思路是通过本地网络 SSH 驱动代理，并借助 LaunchAgent/tmux 绕开 macOS 屏幕权限限制。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中涉及的 SSH、LaunchAgent 等系统概念类似给模型一个独立 sandbox，只是从软件容器换成了真实硬件；理解这些机制需要一些系统运维背景。</p><ul class="kp"><li><strong>备用 Mac 硬件隔离</strong>：在独立设备上运行 Claude Code 代理，完全远离主工作机，避免误操作和数据泄露。</li><li><strong>免密码 sudo 与 SSH 免密登录</strong>：通过 sudoers 规则和 SSH 密钥使自动化流程无人工干预，同时保持本地网络访问。</li><li><strong>突破 macOS 屏幕权限</strong>：利用 LaunchAgent 维持 GUI 会话内的 tmux 服务器，让 Claude 能截图、点击和键入，实现完整的 computer use。</li><li><strong>模块化设置脚本</strong>：提供一键安装 Claude Code、可选开发工具链和 computer use 配置，降低从零搭建的门槛。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区分歧明显：部分用户认为用虚拟机足以实现隔离，无需物理硬件；另一部分人质疑全时 AI 代理的实际用途，但同时已有不少人用类似方案运行 HomeBridge 或自动化任务。</p><div class="tags"><span class="tag">Claude Code</span><span class="tag">LLM 代理控制</span><span class="tag">macOS 隔离环境</span><span class="tag">开发工具自动化</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · catoc · 16 回复</div><p>I just cannot come up with a good AI-is-actually-24/7-helping-me-out use case.</p><p>Please help: I wánt to need this!</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://data.stackexchange.com/stackoverflow/query/1953768#graph" target="_blank" rel="noopener">What AI did to stackoverflow in a graph</a></h2></div><p class="title-tr">一张图表展示 AI 对 Stack Overflow 做了什么</p><div class="meta">▲ 381 分 · secretslol · <a href="https://news.ycombinator.com/item?id=48956949" target="_blank" rel="noopener">475 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Stack Overflow 每周新问题数从峰值 207,000 暴跌至约 1,226，降幅超 99%。评论普遍认为主因是社区排外、审核机制毒化，AI 只是加速了自 2014 年已开始的衰落，2021 年以 18 亿美元被 Prosus 收购后衰退加剧。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Stack Overflow 的“游戏化审核”类似产品中的激励设计：用积分、徽章让资深用户管理内容，但设计失衡会驱逐目标用户，形成排外社区。</p><ul class="kp"><li>每周新问题从峰值 <strong>207,000 个</strong> 跌至近期 <strong>约 1,226 个</strong>，跌幅 <strong>99.4%</strong>。</li><li>衰退早在 <strong>2014 年</strong> 即开始，远早于 AI 工具普及，核心原因是 <strong>社区排外文化</strong> 与 <strong>僵化的审核机制</strong>。</li><li><strong>2021 年 Prosus 以 18 亿美元收购</strong> Stack Overflow 后，活动量反而加速下滑，收购前曾出现短暂增长尖峰。</li><li>AI 问答工具是最终一击，而管理层强行在站内植入 AI 功能，<strong>疏远了剩余的重度用户</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 高度共识：社区治理失败是根本病因，AI 只是催化剂；管理层未修正排外文化，反而用 AI 进一步伤害核心用户。</p><div class="tags"><span class="tag">社区治理</span><span class="tag">AI 替代</span><span class="tag">Stack Overflow</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · lynndotpy · 39 回复</div><p>Any social organization needs to carefully consider their inclusion-exclusion curve with intentionality.</p><p>I think a lot of people might balk at the word &quot;inclusivity&quot; today, but StackExchange had ridiculously high barriers to participation, making it inclusive to the long-time users on the site, but exclusive to the newbie participants who found themselves blocked for asking questions. They slowly killed the site in this manner.</p><p>The community might have survived this folly, even with AI, because it was still the best place for people with qualms about AI to ask questions... Except until StackOverflow management alienated those users, too, by shoving AI down their throats in every facet of the site.</p><p>Even I had internalized the vagaries and neuroses of the SO community but I had heavy reticence to ask questions, knowing I&#x27;d have to consider all the ways a bully eager to use their powers might misunderstand me. I can&#x27;t imagine asking a question there without having had lurked for longer than a typical Bachelor&#x27;s + Masters program.</p><p>Peak at 207K, minimum at 588. That might be an incomplete date point, so using the next most recent value 1226, StackOverflow has lost 99.41% of its activity.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://techcrunch.com/2026/07/14/anthropics-newest-ad-is-creeping-people-out/" target="_blank" rel="noopener">Anthropic&#x27;s newest ad is creeping people out</a></h2></div><p class="title-tr">Anthropic 的最新广告令人不安</p><div class="meta">▲ 22 分 · gnabgib · <a href="https://news.ycombinator.com/item?id=48963614" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Anthropic 推出充满燃烧房屋、人脸监控、公墓等灰暗意象的广告，试图借承认 AI 风险来凸显自身责任感，却引发反感与嘲讽，包括 OpenAI CEO Sam Altman 的挖苦，被认为过度阴森，让伦理人设适得其反。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Anthropic 一贯以“AI 伦理对手”的定位与 OpenAI 等公司差异化，本文展现了这种品牌策略翻车的风险。</p><ul class="kp"><li>广告呈现<strong>燃烧房屋、人脸识别监控、阿灵顿国家公墓</strong>等画面，旁白问题包括“AI 可信吗？”，调性极度阴郁。</li><li><strong>OpenAI CEO Sam Altman</strong> 在 X 上嘲讽称以为是讽刺作品，其他业内人士也批评公司“最糟企业传播”和“AI 精神病泡沫”。</li><li>Anthropic 意图采用<strong>“承认行业危害以彰显责任”</strong>的营销套路，但公墓镜头等意象被认为对逝者不敬，引发强烈反弹。</li><li>这与 Anthropic 在<strong>超级碗期间揶揄 ChatGPT 内置广告</strong>的幽默广告形成反差，上次成功惹怒对手，这次却激怒观众。</li></ul><div class="tags"><span class="tag">AI 广告伦理</span><span class="tag">Anthropic 品牌</span><span class="tag">企业营销翻车</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://www.kimi.com/blog/kimi-k3" target="_blank" rel="noopener">Kimi K3: Open Frontier Intelligence</a></h2></div><p class="title-tr">Kimi K3：开源前沿智能</p><div class="meta">▲ 2065 分 · vincent_s · <a href="https://news.ycombinator.com/item?id=48935342" target="_blank" rel="noopener">1189 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">月之暗面发布2.8万亿参数的开源混合专家模型Kimi K3，支持100万token上下文，性能在编码与知识工作评测中接近Claude Fable 5和GPT 5.6 Sol，推理定价$3/$15每百万token，完整模型权重将于2026年7月27日开放。</p><ul class="kp"><li>首个<strong>2.8万亿参数</strong>的开源模型，激活16/896个专家，使用Delta Attention与Attention Residuals提升扩展效率。</li><li>长程编码能力突出，可自主优化GPU内核、构建Triton类编译器、设计4mm²芯片，并在研究中重现天体物理通用关系。</li><li>API定价<strong>$3/$15每百万token</strong>（缓存命中$0.3），与Anthropic Sonnet定价持平，推理成本成用户采用关键变量。</li><li>完整模型权重<strong>2026年7月27日</strong>前开放，技术报告将公布更多架构、训练与评估细节。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍认可性能突破，但激烈争论$15/Mtok输出定价对开源模型过高，推理效率若不及GPT-6 Sol则实际成本优势有限；芯片自主设计案例获得最多惊叹但仍待真实验证。</p><div class="tags"><span class="tag">大语言模型</span><span class="tag">开放权重</span><span class="tag">推理定价</span><span class="tag">智能体</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · simonw · 23 回复</div><p>Pelican: https://tools.simonwillison.net/markdown-svg-renderer#url=ht... - rendered via the OpenRouter API: https://openrouter.ai/moonshotai/kimi-k3</p><p>95 input, 16,658 output = 25 cents! https://www.llm-prices.com/#it=95&amp;ot=16658&amp;ic=3&amp;oc=15 (13,241 of those were reasoning tokens.)</p><p>I think that&#x27;s the most expensive pelican I&#x27;ve rendered through a Chinese model so far.</p></div></div></article>
+</div></main>
+<footer>generated 2026-07-19 03:52 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "LLM-Integrated Multivariable Calculus Course", "titleTranslation": "集成大语言模型的多变量微积分课程", "summary": "Academa 发布了一门多变量微积分视频课程，每个讲座都内置 LLM，支持学生在视频任意时间点提问，LLM 会结合视频上下文（包括画面）给出回答。这提供了一种类似实时辅导的交互式学习体验。", "keyPoints": ["课程覆盖向量、偏导数、多重积分和向量微积分等完整多变量微积分章节", "LLM 拥有视频的完整上下文和视觉信息，可针对视频中出现的公式、图形或步骤进行精准答疑", "用户可以跳转到视频任意位置直接提问，获得即时解释，降低自学数学的门槛"], "discussion": "仅有的评论表示认可，认为 LLM 拥有视频完整上下文并支持交互提问是一种有吸引力的学习方式。", "tags": ["在线教育", "LLM 集成", "数学课程"], "score": 5, "comments": 1, "by": "sinaatalay", "url": "https://calculus.academa.ai/", "hnUrl": "https://news.ycombinator.com/item?id=48964585"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "GPT-5.6 used a prompt to close a 30-year gap in convex optimization", "titleTranslation": "GPT-5.6 用一段提示词填补了凸优化领域30年未解的空白", "summary": "（仅基于 Reddit 讨论，原帖未抓取）GPT-5.6 被宣称用 148 分钟证明了凸 Lipschitz 函数优化的评估次数下界为 Ω(d²)，与 30 年前已知算法复杂度匹配；但评论区指出作者预先用一年时间与 GPT-5.4/5.5 迭代，并将所有合理技术路径写入提示词，AI 并非从零独立完成。", "keyPoints": ["GPT-5.6 在 148 分钟内 证明了凸优化下界 Ω(d²)，与 Nesterov 30 年前算法的复杂度上限匹配，结论本身有学术价值。", "实际工作流：作者用一年时间通过 GPT-5.4/5.5 探索，并将所有合理攻击路径预先写入提示词，并非模型自发从零解决。", "该猜想比 OpenAI 近期证明的循环双重覆盖猜想更小众，但仍代表凸优化复杂度领域的真实贡献。"], "discussion": "HN 评论主流质疑 AI 的独立贡献，认为作者长达一年的提示准备才是关键，对外宣称的 148 分钟具有误导性；同时也有人讨论 AI 是否正吞掉数学研究中的“低垂果实”，并可能改变数学家的训练路径。", "tags": ["凸优化复杂度", "AI辅助数学证明", "提示工程"], "score": 519, "comments": 331, "by": "mbustamanter", "url": "https://old.reddit.com/r/math/comments/1uxj3cy/after_openais_cdc_proof_announcement_gpt56_used_a/", "hnUrl": "https://news.ycombinator.com/item?id=48957779"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "Mayor Mamdani Says Landlords Can't Use AI Images to Advertise", "titleTranslation": "纽约市长Mamdani表示房东不得偷偷使用AI图片打广告", "summary": "纽约市长Zohran Mamdani发布《租赁骗局报告》，要求房东和中介在房源列表中使用AI生成或修改过的图片时必须进行披露。这一政策回应了远程签约租客被虚假影像误导的普遍问题，且已在Hacker News上引发关于“全面禁止欺骗性广告而非仅限AI”的讨论。", "keyPoints": ["纽约市长Mamdani 推出新规，要求披露AI修改过的房源图片，打击房东欺骗行为。", "《租赁骗局报告》基于与2400名纽约市民的听证会，揭示霉菌、害虫、隐藏费用等普遍问题。", "政策强调透明度：只要披露AI使用，并不完全禁止AI美化图片，评论文本指出标题原意是“偷偷”使用。"], "discussion": "HN评论高度认可这一政策，但核心分歧在于：应直接禁止所有欺骗性房产广告，而非仅要求披露AI使用。", "tags": ["AI监管", "消费者保护", "房地产租赁"], "score": 310, "comments": 154, "by": "gnabgib", "url": "https://petapixel.com/2026/07/16/mayor-mamdani-says-landlords-cant-secretly-use-ai-images-to-advertise-properties/", "hnUrl": "https://news.ycombinator.com/item?id=48962983"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "AI Mania Is Eviscerating Global Decision-Making", "titleTranslation": "AI 狂热正在摧毁全球决策", "summary": "作者根据自身销售和咨询经验指出，企业 AI 项目成功率为 0%，管理层却在强制推行并谎报收益，导致理性质疑被压制，决策体系全面扭曲。", "keyPoints": ["在一年半的观察中，作者团队接触和目睹的所有 AI 项目成功率为 0%，没有例外。", "企业出现高效员工因未使用 AI 被解雇的现象，迫使其他人“AI 洗”工作，假装采纳大模型。", "许多公司所谓“AI 生产力提升”实际只是购买 Copilot 许可便宣告胜利，并未带来真正改善。"], "discussion": "HN 评论对作者未明确“AI 项目”的定义提出质疑，并讨论为何聪明人也会陷入这种非理性狂热。", "tags": ["AI 项目失败", "AI 炒作", "组织决策扭曲"], "score": 49, "comments": 10, "by": "subset", "url": "https://ludic.mataroa.blog/blog/ai-mania-is-eviscerating-global-decision-making/#fnref:3", "hnUrl": "https://news.ycombinator.com/item?id=48964185"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "Fable 5 vs. GPT-5.6 Sol on an NP-Hard Problem: Does /goal help?", "titleTranslation": "Fable 5 对比 GPT-5.6 Sol 在 NP 难问题上的表现：/goal 有帮助吗？", "summary": "在未公开的 NP 难光纤网络优化任务（KIRO）上，Claude Fable 5 基础模式均分 32,386，远优于 GPT-5.6 Sol 的 34,261，且稳定性极高；/goal 模式在 6 次试验中赢了 4 次，但两模型的均值反而因偶发大幅回退而变差，说明 /goal 并非通用“更努力”开关。", "keyPoints": ["Claude Fable 5 在无提示基础模式下均分 32,386，比 Sol 优胜 1,875 点，且得分范围仅 319 点，稳定性前所未见。", "/goal 模式 赢多数试次但均值更差：Fable 均值变差 759 点，Sol 变差 868 点，因偶发回退极严重，暴露循环质量比循环本身更关键。", "巴黎单城的搜索空间下界高达 10^1223 种可能，Fable 的并行编译组合策略放大了其优势，任务充分考验原始推理与搜索策略。"], "discussion": "评论区提出图表 y 轴反转造成混淆，并指出 /ultra 模式多路并行审查可能更适合此类搜索任务；也有用户认为 GPT 在启发式竞赛胜出，而 Anthropic 焦点不同，以及 Claude 长会话遗忘问题。", "tags": ["LLM 编码能力评测", "NP 难优化", "代码代理控制流"], "score": 224, "comments": 107, "by": "couAUIA", "url": "https://charlesazam.com/blog/fable-5-gpt-5-6-sol-goal/", "hnUrl": "https://news.ycombinator.com/item?id=48956879"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "Our Approach to Bioresilience: Isomorphic Labs and Google DeepMind", "titleTranslation": "我们的生物韧性方法：Isomorphic Labs与Google DeepMind", "summary": "Google DeepMind和Isomorphic Labs公布生物韧性战略，涵盖预防、检测和响应，已与政府等建立超15个合作。利用AlphaFold、IsoDDE等模型加速疫苗和治疗设计，同时通过威胁建模、SynthID水印等防止AI滥用。", "keyPoints": ["已与政府、生物安全机构等建立超过15个合作伙伴关系，覆盖预防、检测和响应三大环节。", "利用AlphaFold预测蛋白结构、IsoDDE药物设计引擎和AlphaGenome等模型，从被动应对转为主动设计防御。", "对Gemini等模型实施四步安全流程：威胁建模、评估、缓解和监控，并尝试将SynthID水印扩展至DNA序列筛查。"], "discussion": "评论者赞赏DeepMind将人类智慧编码进模型的创新能力，但有股东批评谷歌AI产品表现落后于Anthropic和OpenAI，呼吁少说多做。", "tags": ["生物安全", "AI制药", "DeepMind"], "score": 74, "comments": 23, "by": "bookofjoe", "url": "https://deepmind.google/blog/our-approach-to-bioresilience/", "hnUrl": "https://news.ycombinator.com/item?id=48959297"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "Setting up your spare Mac for Claude Code to control, a step-by-step guide", "titleTranslation": "设置你的备用 Mac 供 Claude Code 控制，逐步指南", "summary": "指南用一台闲置 Mac 创建 Claude Code 的完全隔离环境，避免在主设备上运行代理的风险，同时支持手机远程交互和桌面控制（computer use）。核心思路是通过本地网络 SSH 驱动代理，并借助 LaunchAgent/tmux 绕开 macOS 屏幕权限限制。", "keyPoints": ["备用 Mac 硬件隔离：在独立设备上运行 Claude Code 代理，完全远离主工作机，避免误操作和数据泄露。", "免密码 sudo 与 SSH 免密登录：通过 sudoers 规则和 SSH 密钥使自动化流程无人工干预，同时保持本地网络访问。", "突破 macOS 屏幕权限：利用 LaunchAgent 维持 GUI 会话内的 tmux 服务器，让 Claude 能截图、点击和键入，实现完整的 computer use。"], "discussion": "评论区分歧明显：部分用户认为用虚拟机足以实现隔离，无需物理硬件；另一部分人质疑全时 AI 代理的实际用途，但同时已有不少人用类似方案运行 HomeBridge 或自动化任务。", "tags": ["Claude Code", "LLM 代理控制", "macOS 隔离环境"], "score": 195, "comments": 137, "by": "ykev", "url": "https://ykdojo.github.io/claude-controls-mac/", "hnUrl": "https://news.ycombinator.com/item?id=48959392"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "What AI did to stackoverflow in a graph", "titleTranslation": "一张图表展示 AI 对 Stack Overflow 做了什么", "summary": "Stack Overflow 每周新问题数从峰值 207,000 暴跌至约 1,226，降幅超 99%。评论普遍认为主因是社区排外、审核机制毒化，AI 只是加速了自 2014 年已开始的衰落，2021 年以 18 亿美元被 Prosus 收购后衰退加剧。", "keyPoints": ["每周新问题从峰值 207,000 个 跌至近期 约 1,226 个，跌幅 99.4%。", "衰退早在 2014 年 即开始，远早于 AI 工具普及，核心原因是 社区排外文化 与 僵化的审核机制。", "2021 年 Prosus 以 18 亿美元收购 Stack Overflow 后，活动量反而加速下滑，收购前曾出现短暂增长尖峰。"], "discussion": "高度共识：社区治理失败是根本病因，AI 只是催化剂；管理层未修正排外文化，反而用 AI 进一步伤害核心用户。", "tags": ["社区治理", "AI 替代", "Stack Overflow"], "score": 381, "comments": 475, "by": "secretslol", "url": "https://data.stackexchange.com/stackoverflow/query/1953768#graph", "hnUrl": "https://news.ycombinator.com/item?id=48956949"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "Anthropic's newest ad is creeping people out", "titleTranslation": "Anthropic 的最新广告令人不安", "summary": "Anthropic 推出充满燃烧房屋、人脸监控、公墓等灰暗意象的广告，试图借承认 AI 风险来凸显自身责任感，却引发反感与嘲讽，包括 OpenAI CEO Sam Altman 的挖苦，被认为过度阴森，让伦理人设适得其反。", "keyPoints": ["广告呈现燃烧房屋、人脸识别监控、阿灵顿国家公墓等画面，旁白问题包括“AI 可信吗？”，调性极度阴郁。", "OpenAI CEO Sam Altman 在 X 上嘲讽称以为是讽刺作品，其他业内人士也批评公司“最糟企业传播”和“AI 精神病泡沫”。", "Anthropic 意图采用“承认行业危害以彰显责任”的营销套路，但公墓镜头等意象被认为对逝者不敬，引发强烈反弹。"], "discussion": "", "tags": ["AI 广告伦理", "Anthropic 品牌", "企业营销翻车"], "score": 22, "comments": 0, "by": "gnabgib", "url": "https://techcrunch.com/2026/07/14/anthropics-newest-ad-is-creeping-people-out/", "hnUrl": "https://news.ycombinator.com/item?id=48963614"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "Kimi K3: Open Frontier Intelligence", "titleTranslation": "Kimi K3：开源前沿智能", "summary": "月之暗面发布2.8万亿参数的开源混合专家模型Kimi K3，支持100万token上下文，性能在编码与知识工作评测中接近Claude Fable 5和GPT 5.6 Sol，推理定价$3/$15每百万token，完整模型权重将于2026年7月27日开放。", "keyPoints": ["首个2.8万亿参数的开源模型，激活16/896个专家，使用Delta Attention与Attention Residuals提升扩展效率。", "长程编码能力突出，可自主优化GPU内核、构建Triton类编译器、设计4mm²芯片，并在研究中重现天体物理通用关系。", "API定价$3/$15每百万token（缓存命中$0.3），与Anthropic Sonnet定价持平，推理成本成用户采用关键变量。"], "discussion": "评论普遍认可性能突破，但激烈争论$15/Mtok输出定价对开源模型过高，推理效率若不及GPT-6 Sol则实际成本优势有限；芯片自主设计案例获得最多惊叹但仍待真实验证。", "tags": ["大语言模型", "开放权重", "推理定价"], "score": 2065, "comments": 1189, "by": "vincent_s", "url": "https://www.kimi.com/blog/kimi-k3", "hnUrl": "https://news.ycombinator.com/item?id=48935342"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
