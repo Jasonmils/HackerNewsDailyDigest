@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-07-20</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-07-20 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://simonwillison.net/2026/Jul/19/claude-code-in-bun-in-rust/" target="_blank" rel="noopener">Claude Code uses Bun written in Rust now</a></h2></div><p class="title-tr">Claude Code 现在使用用 Rust 编写的 Bun</p><div class="meta">▲ 421 分 · tosh · <a href="https://news.ycombinator.com/item?id=48966569" target="_blank" rel="noopener">589 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Claude Code 内嵌了尚未正式发布的 Bun v1.4.0（Rust 版），Linux 启动提速 10%，已在数百万设备上部署且几乎无人察觉。验证了 Anthropic 对 Bun 的深度整合与 Rust 迁移的稳定性，同时也暴露出开源治理的争议。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Bun 是一个用 Zig 编写的 JavaScript 运行时（类似 Node.js），重写为 Rust 后可以利用编译时内存安全检查消除手动内存管理带来的错误——就像自动微分替代手动求导一样减少犯错。</p><ul class="kp"><li>Claude Code 已内置 <strong>Bun v1.4.0</strong>（Rust 版），该版本尚未作为正式版本发布，仅以 canary 渠道提供。</li><li>内部分析发现 <strong>563 个 .rs 文件</strong>，外加版本号 1.4.0，确凿证实使用了 Rust 重写的 Bun。</li><li>Linux 启动速度提升 <strong>10%</strong>，大规模部署后几乎无人察觉，体现了 Rust 版本在生产环境中的稳定性。</li><li>Anthropic 收购 Bun 后，以超大规模 PR（&gt;100 万行）在不到一个月内完成合并，引发对开源治理透明度和沟通方式的广泛批评。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区分歧明显：一方认可 Rust 的内存安全和确定性错误检查对 AI 编程代理的加持，另一方则批评 Anthropic 对 Bun 的整合过程缺乏透明度，并质疑为何不直接用 Rust 重写 Claude Code 本体。</p><div class="tags"><span class="tag">Rust 重写</span><span class="tag">Bun</span><span class="tag">Claude Code</span><span class="tag">AI 开发工具</span><span class="tag">开源治理</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · weakfish · 35 回复</div><p>Maybe I’m taking crazy pills, but I’m still stuck on “why the hell does a TUI need to run in terminal React by way of JavaScript”</p><p>The fact that Anthropic felt the need to buy a runtime so they could make their TUI better speaks more to the quality of engineering than anything else IMO.</p><p>If rewrites are so easy, why not rewrite CC in a native language? Would’ve been a hell of a lot cheaper.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://xcancel.com/__alpoge__/status/2079028340955197566" target="_blank" rel="noopener">Claude Fable produced a counterexample to the Jacobian Conjecture</a></h2></div><p class="title-tr">Claude Fable 产出了雅可比猜想的一个反例</p><div class="meta">▲ 50 分 · loubbrad · <a href="https://news.ycombinator.com/item?id=48973869" target="_blank" rel="noopener">8 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">85年未解的雅可比猜想被一个显式多项式反例推翻：映射 f: C³→C³ 雅可比行列式恒为 -2，但三个不同点映射到同一个点，因而不可能多项式可逆；该反例由 Claude Fable（疑为 AI Claude 实例）在世界杯决赛期间得出，仅通过一条推文公布。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 雅可比猜想是代数几何中的著名猜想：若多项式映射的雅可比行列式为非零常数，则映射多项式可逆；如今找到一个行列式为 -2 却不可逆的显式例子，证伪了该猜想。</p><ul class="kp"><li><strong>雅可比猜想</strong>自 1939 年提出，85 年后首次被显式反例推翻。</li><li>反例是映射 ((1+xy)³z + …): C³→C³，其<strong>雅可比行列式恒为 -2</strong>，却不可逆。</li><li>三个不同点 <strong>(0,0,-1/4)、(1,-3/2,13/2)、(-1,3/2,13/2)</strong> 均映射到同一像点 (-1/4,0,0)，暴露不可逆性。</li><li>成果由 <strong>Claude Fable</strong> 在世界杯决赛期间完成，仅以一条推文发布，格式有效期 7 天。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论质疑发布于短暂推文的形式缺乏严肃性，并对 AI 是否做出实质贡献存在分歧：有人认为是‘随机鹦鹉’碰到的高中微积分反例，有人视其为 AI 辅助数学发现的信号。</p><div class="tags"><span class="tag">雅可比猜想</span><span class="tag">AI 数学</span><span class="tag">Claude</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · gammarator · 1 回复</div><p>he just...he tweeted it out</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://twitter.com/Alibaba_Qwen/status/2078759124914098291" target="_blank" rel="noopener">Qwen 3.8</a></h2></div><div class="meta">▲ 812 分 · nh43215rgb · <a href="https://news.ycombinator.com/item?id=48966120" target="_blank" rel="noopener">568 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">阿里巴巴发布 Qwen 3.8（2400 亿参数），即将开放权重，预览版已登陆阿里云 Token Plan。此举明显是对 Moonshot AI 刚公布的 2800 亿参数 Kimi K3（7 月开源）的回应，超大规模开源模型竞争白热化。</p><ul class="kp"><li><strong>Qwen 3.8 拥有 2400 亿参数</strong>，即将开放权重，预览版 Qwen3.8-Max-Preview 已上线阿里云 Token Plan 与 Qoder 平台。</li><li><strong>Moonshot AI 宣布 Kimi K3（2800 亿参数）</strong> 将于 7 月 27 日开源，直接触发阿里巴巴此次快速跟进。</li><li>社区体验分裂：<strong>Qwen 3.6 27B 本地运行被赞实用</strong>，但 Qwen 3.7 Pro 被批“完全不可用”，且价格被认为偏贵。</li><li>中国大模型开源竞争<strong>正将前沿性能级别模型变为开放资源</strong>，对云 API 定价权和本地部署市场产生长远影响。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区围绕模型实际可靠性高度分歧，同时出现“技术讨论是否应掺杂政治”的冲突。</p><div class="tags"><span class="tag">大语言模型</span><span class="tag">开源模型</span><span class="tag">AI 竞争</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · adrian_b · 19 回复</div><p>I assume that this announcement has been prompted by that of Moonshot AI, which has just announced a 2.8T parameter open-weights LLM, Kimi K3, to be published on Huggingface by 27 July.</p><p>Now the response of Alibaba is that they will also publish soon a big open weights LLM, the 2.4T parameter Qwen 3.8.</p><p>I wonder if Alibaba has always planned to make this big LLM open weights, or they have chosen to do this now, to better compete with Moonshot AI.</p><p>In any case, from this competition in LLMs, we win.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://thenextweb.com/news/ai-advice-suppresses-critical-thinking-wrong-answers-study" target="_blank" rel="noopener">AI advice made people less accurate but more confident – sudy</a></h2></div><p class="title-tr">研究发现 AI 建议让人的准确率下降但信心上升</p><div class="meta">▲ 299 分 · rbanffy · <a href="https://news.ycombinator.com/item?id=48971738" target="_blank" rel="noopener">167 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">一项由三家法国和意大利大学进行的研究发现，当 AI 可用时，参与者说“我不知道”的比例从 44% 骤降至 3%，准确率从 27% 降到 9%，而信心从 30% 升至 76%。金钱激励仅温和缓解，凸显 AI 抑制认知怀疑的严重性。</p><ul class="kp"><li>AI 可用时，参与者<strong>放弃判断的比例从 44% 暴跌至 3%</strong>，准确率从 27% 降至 9%。</li><li>研究者故意使用<strong>在特定视觉细节问题上常出错的 Step 3.5 Flash 模型</strong>，以测试代理依赖的影响。</li><li>即便有金钱激励，<strong>说“我不知道”的比例仅回升至 8%</strong>，远低于无 AI 时的 44%。</li><li>研究者将这种现象称为“<strong>认知投降</strong>”，与 Wharton 早前研究一致，人们接受错误 AI 答案的比例高达 80%。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区主要分歧在于实验设计：有评论认为该研究并未测试 AI 特有属性，相当于给人提供一本有错误的教科书，不能说明 AI 带来的独特问题；另一些人则坚持真实世界已观察到类似现象，AI 正在抑制人们承认知识盲区的习惯。</p><div class="tags"><span class="tag">人机交互</span><span class="tag">AI 信任</span><span class="tag">认知偏见</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · reticulates · 22 回复</div><p>Advice and information subreddits have gone to shit because of AI usage. A large number of people seem to think that when someone asks a question, what they really want is not someone with direct knowledge, but instead someone to relay the question to ChatGPT and post the result as if it is their own hard earned knowledge and insight. I have no idea about the quality of this research but in the real world (well, real-ish, as real as Reddit can be) it is stark, people aren’t just refusing to say “I don’t know” they’re actively seeking out opportunities to pretend they know things.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://ollama.com/blog/all-aboard-open-models" target="_blank" rel="noopener">Ollama: All Aboard Open Models</a></h2></div><p class="title-tr">Ollama：开放模型，全员上车</p><div class="meta">▲ 121 分 · inferhaven · <a href="https://news.ycombinator.com/item?id=48965880" target="_blank" rel="noopener">49 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Ollama 宣布获 8800 万美元融资，由 Benchmark 等领投，并公布已有 890 万开发者、85% 的财富 500 强使用；同时推出云服务，月 token 量持续翻倍，强调本地优先的所有权、成本可控与隐私三大卖点。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Ollama 是一个让开发者在自己的电脑上快速下载、运行和调用现代大规模语言模型（如 DeepSeek、LLaMA）的工具，相当于把复杂的模型部署包装成一条命令就能启动的本地推理平台。</p><ul class="kp"><li><strong>Ollama</strong> 完成 <strong>8800 万美元</strong>融资，领投方包括 Benchmark、Theory Ventures 和 8VC，Docker 创始人也参与投资。</li><li>平台已服务 <strong>890 万开发者</strong>，<strong>85% 的财富 500 强公司</strong>在使用 Ollama。</li><li>推出 <strong>Ollama Cloud</strong>，支持 GLM、DeepSeek、Kimi 等开放模型，月 token 量平均翻倍增长。</li><li>产品原则聚焦<strong>所有权、可负担性与隐私</strong>：模型归用户所有、不按 token 计费、数据不离开自有硬件。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍批评 Ollama 是 llama.cpp 的封装层，量化质量不如 unsloth，且未支持 MoE 层的选择性 CPU 卸载等基础功能，质疑其融资规模与真正技术贡献不匹配。</p><div class="tags"><span class="tag">开源模型</span><span class="tag">LLM 推理</span><span class="tag">创业融资</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · vivzkestrel · 13 回复</div><p>- stop using ollama</p><p>- https://sleepingrobots.com/dreams/stop-using-ollama/</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://twitter.com/kimi_moonshot/status/2078855608565207130" target="_blank" rel="noopener">Moonshot AI suspends new subscriptions due to Kimi K3 demand</a></h2></div><p class="title-tr">Moonshot AI 因 Kimi K3 需求激增暂停新订阅</p><div class="meta">▲ 240 分 · serialx · <a href="https://news.ycombinator.com/item?id=48969291" target="_blank" rel="noopener">99 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Kimi K3 服务需求远超现有 GPU 容量，Moonshot AI 暂停新订阅，优先保障现有用户体验，并计划拆分为通用会员和编码专项会员以精准分配算力。</p><ul class="kp"><li><strong>Kimi K3</strong> 上线 48 小时内需求接近容量极限，暂停新订阅，现有订阅用户不受影响。</li><li>团队正在紧急<strong>扩容 GPU</strong>，将分批重开订阅，同时暂停新用户注册以保护服务质量。</li><li>未来将拆分为 <strong>Kimi Membership</strong>（Web/App/Work）和 <strong>Kimi Code Membership</strong>（编码场景），以实现更精确的算力匹配。</li><li>用户社区积极评价<strong>优先保障现有用户体验</strong>而非单纯追求增长的做法，并对比 Google 等服务的偷偷降级做法。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区一致赞赏先保现有用户的决策，但也出现负面体验反馈：有用户花 20 美元订阅后因日配额很快耗尽而未获得满意价值，提示低价套餐可能不适合重度编码场景。</p><div class="tags"><span class="tag">LLM 服务扩容</span><span class="tag">会员定价策略</span><span class="tag">AI 算力管理</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · thevinter · 5 回复</div><p>Personal anecdote: I exhausted my Claude usage yesterday so I decided to spend 20$ to try Kimi while I was at it. Logged in, paid, downloaded Kimi Code, set it to use K3 and prompted something along the lines of: &quot;Check this repository and find all the settings that can be passed as input related to hardware, I/O, thread control or networking. Produce a report&quot;.</p><p>It thought for about 12 minutes and then told me I had exhausted my daily quota. (The next day Fable did the same task in 3m)</p><p>If you want to buy a plan for K3 do NOT buy the 20$ one.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://github.com/openai/codex/pull/33972/files" target="_blank" rel="noopener">OpenAI reduces Codex Model Context Size from 372k to 272k</a></h2></div><p class="title-tr">OpenAI 将 Codex 模型上下文大小从 372k 缩减至 272k</p><div class="meta">▲ 329 分 · AmazingTurtle · <a href="https://news.ycombinator.com/item?id=48965850" target="_blank" rel="noopener">156 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OpenAI 将 Codex 的上下文窗口从 372,000 tokens 缩小到 272,000 tokens，直接减少约 27% 的“记忆”容量。这会让依赖大代码库或多轮对话的编码代理更频繁触发上下文压缩，增加细节丢失风险，也推动部分用户转向 Anthropic 等竞品。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 上下文窗口相当于模型一次能“看见”并记住的代码、对话和文件总长度，tokens 近似于“词”，缩减 100k 意味着能同时处理的文件量变小，压缩频率变高，与你关心的产品可用性和用户流失直接相关。</p><ul class="kp"><li><strong>上下文从 372k token 降到 272k</strong>，恰好卡在开发者常需要一次容纳多份长文档的临界点，大项目体验恶化。</li><li><strong>上下文压缩（compaction）</strong> 对长材料丢失细节严重，多位用户描述“在 16% 附近反复压缩，五分钟后必须等待重读”的恶性循环。</li><li><strong>超长上下文（超 300k）会降低模型质量</strong>，有用户主张分块工作、清理上下文而非一味追求窗口大小，形成另一条实践路径。</li><li><strong>Anthropic Claude 被频繁提及</strong>为替代方案，长上下文是其留住用户的核心优势之一，OpenAI 的缩减可能加速部分资深用户外流。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区核心分歧：大上下文窗口是必需品还是会让模型变笨。一方认为缩减直接破坏长任务流、压缩丢失细节；另一方认为超过 300k 模型质量下降，主动分块优于依赖大窗口。</p><div class="tags"><span class="tag">LLM 上下文窗口</span><span class="tag">AI 编码代理</span><span class="tag">OpenAI Codex</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · tekacs · 22 回复</div><p>I know a lot of people like to say that compaction makes this moot, but the level of detail you lose across compaction is wildly too much for most things that I do, unfortunately.</p><p>Perhaps if your plans don&#x27;t have as much detail, or if you&#x27;re not, for example, having a discussion with a lot of nitty-gritty then it&#x27;s fine?</p><p>The lack of long context is the main reason that I still end up using Anthropic.</p><p>The worst is when you need it to hold for example a number of papers in its head, or large and complex materials that it needs full resolution on and your context window ends up being perennially at 16%. You have about five minutes of conversation and it compacts and then you have to wait for it to read that again, get to 16%... and repeat.</p><p>372 was not perfect, but it was so much better and a godsend. It turned that 12 to 20% into more like 40%.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://workshop.cjpais.com/projects/transcribe-cpp" target="_blank" rel="noopener">Transcribe.cpp</a></h2></div><div class="meta">▲ 728 分 · sebjones · <a href="https://news.ycombinator.com/item?id=48963879" target="_blank" rel="noopener">156 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Transcribe.cpp 是一个基于 ggml 的本地语音转文本库，支持 16 个模型族共 60+ 模型，通过 Vulkan/Metal/CUDA/TinyBLAS 实现跨平台 GPU 加速。作者是 Handy 维护者，以数值验证和 WER 测试确保推理精度与参考实现一致，并提供 Python/Rust/JS/Swift 绑定，旨在解决 ASR 推理在桌面和移动端分发的痛点。</p><p class="context"><strong>🧭 联系你的知识背景</strong> ggml 类似一个轻量的张量推理引擎，专为在没有 PyTorch 的消费级设备上高效跑神经网络而设计，这里用来替代 ONNX 以获得更好的 CPU/GPU 性能和更简单的跨平台分发。</p><ul class="kp"><li><strong>60+ 模型</strong>覆盖当前主流 ASR 架构，每个模型都经过数值验证和 WER 对比，确保输出与参考实现一致。</li><li>支持 <strong>Vulkan、Metal、CUDA、TinyBLAS</strong> 多种加速后端，宣称在低功耗芯片上也能实现比实时更快的转录。</li><li>定位为 <strong>whisper.cpp 的替代品</strong>，保持接口兼容，同时扩展多语言绑定和流式/批量推理能力。</li><li>项目由 <strong>Mozilla AI 和 Modal</strong> 等赞助，作者有意长期维护，源于 Handy 应用分发的实际痛点。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区认可数值验证与跨引擎加速，但提出 IPA 音标转写未知语言的需求，并关注 C API 稳定性、持续维护资金来源，以及是否能真正实现“边说边输入”的流式体验。</p><div class="tags"><span class="tag">语音识别</span><span class="tag">本地推理</span><span class="tag">开源库</span><span class="tag">模型精度验证</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · abdullahkhalids · 9 回复</div><p>For anyone looking to build on top of this. I have tried a few different STT systems, and they accurately capture what I am saying. Unfortunately, they don&#x27;t support the reasonable workflow</p><p>I want to open an office document, for example, and start talking. And I want the software to continuously type what I am saying at the cursor with minimal latency. The continuous part is crucial. Many software will paste whatever I said after I have stopped recording, but that is not useful.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://github.com/moonshine-ai/moonshine/tree/main/micro" target="_blank" rel="noopener">Speech Recognition and TTS in less than 500kb</a></h2></div><p class="title-tr">低于500KB的语音识别与TTS</p><div class="meta">▲ 550 分 · petewarden · <a href="https://news.ycombinator.com/item?id=48911793" target="_blank" rel="noopener">83 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Moonshine Micro 在仅售 80 美分的 RP2350 微控制器上，用约 470 KB RAM、3.6 MiB Flash 同时实现语音活动检测、SpellingCNN 语音识别和神经 diphone 语音合成，整套流水线耗时约 0.7–1.0 秒，代码以 MIT 许可证开源，适合廉价嵌入式实时语音助手。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 该项目把深度学习语音模型压缩到微控制器（MCU）上运行，类似将 Transformer 塞进一个内存、算力只有几百 KB 的嵌入式设备，与你熟悉的服务器端推理不同，这里的全部技巧都在模型尺寸和内存分时复用上。</p><ul class="kp"><li><strong>仅需约 470 KB RAM</strong> 即可运行完整 VAD→STT→TTS 流水线，各模型分时复用同一块 384 KB 张量内存区。</li><li>Demo 基于 <strong>80 美分的 RP2350 微控制器</strong>，总 Flash 占用约 3.6 MiB，包含语音活动检测、拼写 CNN 语音识别和神经语音合成。</li><li>语音合成采用 <strong>神经 diphone 合成器</strong>，在 16 kHz 下典型回复需约 37 MMAC，总流水线时延约 0.7–1.0 秒。</li><li>代码以 <strong>MIT 许可证</strong> 发布，允许商用，且 VAD、STT、TTS 三个库可独立使用，依赖 TensorFlow Lite Micro。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区一致看好在微型设备上集成语音交互，但普遍质疑缺乏精度基准；多位开发者将之与 flite、nanotts 等已有方案对比，认为小尺寸 TTS 不难，难在可用的识别精度。</p><div class="tags"><span class="tag">嵌入式 AI</span><span class="tag">语音识别</span><span class="tag">TTS</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · almogo · 12 回复</div><p>Stt/tts systems always seem to me so promising, but I pretty much never use voice to interface with a computer. Sometimes instead of typing on my phone, I use a voice dictation. I would be keen to use voice to control Claude code, but I&#x27;ve always felt that the way I speak is different from the way I write good prompts.</p><p>Fishing for anecdotes here, does anyone have any good tts/stt experiences?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://old.reddit.com/r/math/comments/1uxj3cy/after_openais_cdc_proof_announcement_gpt56_used_a/" target="_blank" rel="noopener">GPT-5.6 used a prompt to close a 30-year gap in convex optimization</a></h2></div><p class="title-tr">GPT-5.6 用一段提示词填补了凸优化领域30年未解的空白</p><div class="meta">▲ 584 分 · mbustamanter · <a href="https://news.ycombinator.com/item?id=48957779" target="_blank" rel="noopener">384 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">（仅基于 Reddit 讨论，原帖未抓取）GPT-5.6 被宣称用 148 分钟证明了凸 Lipschitz 函数优化的评估次数下界为 Ω(d²)，与 30 年前已知算法复杂度匹配；但评论区指出作者预先用一年时间与 GPT-5.4/5.5 迭代，并将所有合理技术路径写入提示词，AI 并非从零独立完成。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 凸优化中的评估下界问题类似于分析 Adam 等优化器在最坏情况下的收敛速率下界：问的是“至少需要多少次函数评估（或梯度查询）才能达到给定精度”。</p><ul class="kp"><li><strong>GPT-5.6 在 148 分钟内</strong> 证明了凸优化下界 Ω(d²)，与 Nesterov 30 年前算法的复杂度上限匹配，结论本身有学术价值。</li><li>实际工作流：作者<strong>用一年时间通过 GPT-5.4/5.5 探索</strong>，并将所有合理攻击路径预先写入提示词，并非模型自发从零解决。</li><li>该猜想比 OpenAI 近期证明的<strong>循环双重覆盖猜想更小众</strong>，但仍代表凸优化复杂度领域的真实贡献。</li><li>讨论凸显当前 AI 数学辅助的<strong>“人机协作”模式</strong>，对外宣传的“分钟级”突破可能掩盖了事前大量的人类提示与实验。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论主流质疑 AI 的独立贡献，认为作者长达一年的提示准备才是关键，对外宣称的 148 分钟具有误导性；同时也有人讨论 AI 是否正吞掉数学研究中的“低垂果实”，并可能改变数学家的训练路径。</p><div class="tags"><span class="tag">凸优化复杂度</span><span class="tag">AI辅助数学证明</span><span class="tag">提示工程</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · mw67 · 14 回复</div><p>Crazy how intelligence is cheap, efficient and commonplace now.</p><p>We humans better refocusing our energy on our core values/principles, given most of our skills are becoming irrelevant</p></div></div></article>
+</div></main>
+<footer>generated 2026-07-20 04:02 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-20", "pointsLabel": "分", "commentsLabel": "评论", "title": "Claude Code uses Bun written in Rust now", "titleTranslation": "Claude Code 现在使用用 Rust 编写的 Bun", "summary": "Claude Code 内嵌了尚未正式发布的 Bun v1.4.0（Rust 版），Linux 启动提速 10%，已在数百万设备上部署且几乎无人察觉。验证了 Anthropic 对 Bun 的深度整合与 Rust 迁移的稳定性，同时也暴露出开源治理的争议。", "keyPoints": ["Claude Code 已内置 Bun v1.4.0（Rust 版），该版本尚未作为正式版本发布，仅以 canary 渠道提供。", "内部分析发现 563 个 .rs 文件，外加版本号 1.4.0，确凿证实使用了 Rust 重写的 Bun。", "Linux 启动速度提升 10%，大规模部署后几乎无人察觉，体现了 Rust 版本在生产环境中的稳定性。"], "discussion": "HN 评论区分歧明显：一方认可 Rust 的内存安全和确定性错误检查对 AI 编程代理的加持，另一方则批评 Anthropic 对 Bun 的整合过程缺乏透明度，并质疑为何不直接用 Rust 重写 Claude Code 本体。", "tags": ["Rust 重写", "Bun", "Claude Code"], "score": 421, "comments": 589, "by": "tosh", "url": "https://simonwillison.net/2026/Jul/19/claude-code-in-bun-in-rust/", "hnUrl": "https://news.ycombinator.com/item?id=48966569"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-20", "pointsLabel": "分", "commentsLabel": "评论", "title": "Claude Fable produced a counterexample to the Jacobian Conjecture", "titleTranslation": "Claude Fable 产出了雅可比猜想的一个反例", "summary": "85年未解的雅可比猜想被一个显式多项式反例推翻：映射 f: C³→C³ 雅可比行列式恒为 -2，但三个不同点映射到同一个点，因而不可能多项式可逆；该反例由 Claude Fable（疑为 AI Claude 实例）在世界杯决赛期间得出，仅通过一条推文公布。", "keyPoints": ["雅可比猜想自 1939 年提出，85 年后首次被显式反例推翻。", "反例是映射 ((1+xy)³z + …): C³→C³，其雅可比行列式恒为 -2，却不可逆。", "三个不同点 (0,0,-1/4)、(1,-3/2,13/2)、(-1,3/2,13/2) 均映射到同一像点 (-1/4,0,0)，暴露不可逆性。"], "discussion": "评论质疑发布于短暂推文的形式缺乏严肃性，并对 AI 是否做出实质贡献存在分歧：有人认为是‘随机鹦鹉’碰到的高中微积分反例，有人视其为 AI 辅助数学发现的信号。", "tags": ["雅可比猜想", "AI 数学", "Claude"], "score": 50, "comments": 8, "by": "loubbrad", "url": "https://xcancel.com/__alpoge__/status/2079028340955197566", "hnUrl": "https://news.ycombinator.com/item?id=48973869"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-20", "pointsLabel": "分", "commentsLabel": "评论", "title": "Qwen 3.8", "titleTranslation": "", "summary": "阿里巴巴发布 Qwen 3.8（2400 亿参数），即将开放权重，预览版已登陆阿里云 Token Plan。此举明显是对 Moonshot AI 刚公布的 2800 亿参数 Kimi K3（7 月开源）的回应，超大规模开源模型竞争白热化。", "keyPoints": ["Qwen 3.8 拥有 2400 亿参数，即将开放权重，预览版 Qwen3.8-Max-Preview 已上线阿里云 Token Plan 与 Qoder 平台。", "Moonshot AI 宣布 Kimi K3（2800 亿参数） 将于 7 月 27 日开源，直接触发阿里巴巴此次快速跟进。", "社区体验分裂：Qwen 3.6 27B 本地运行被赞实用，但 Qwen 3.7 Pro 被批“完全不可用”，且价格被认为偏贵。"], "discussion": "评论区围绕模型实际可靠性高度分歧，同时出现“技术讨论是否应掺杂政治”的冲突。", "tags": ["大语言模型", "开源模型", "AI 竞争"], "score": 812, "comments": 568, "by": "nh43215rgb", "url": "https://twitter.com/Alibaba_Qwen/status/2078759124914098291", "hnUrl": "https://news.ycombinator.com/item?id=48966120"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-20", "pointsLabel": "分", "commentsLabel": "评论", "title": "AI advice made people less accurate but more confident – sudy", "titleTranslation": "研究发现 AI 建议让人的准确率下降但信心上升", "summary": "一项由三家法国和意大利大学进行的研究发现，当 AI 可用时，参与者说“我不知道”的比例从 44% 骤降至 3%，准确率从 27% 降到 9%，而信心从 30% 升至 76%。金钱激励仅温和缓解，凸显 AI 抑制认知怀疑的严重性。", "keyPoints": ["AI 可用时，参与者放弃判断的比例从 44% 暴跌至 3%，准确率从 27% 降至 9%。", "研究者故意使用在特定视觉细节问题上常出错的 Step 3.5 Flash 模型，以测试代理依赖的影响。", "即便有金钱激励，说“我不知道”的比例仅回升至 8%，远低于无 AI 时的 44%。"], "discussion": "评论区主要分歧在于实验设计：有评论认为该研究并未测试 AI 特有属性，相当于给人提供一本有错误的教科书，不能说明 AI 带来的独特问题；另一些人则坚持真实世界已观察到类似现象，AI 正在抑制人们承认知识盲区的习惯。", "tags": ["人机交互", "AI 信任", "认知偏见"], "score": 299, "comments": 167, "by": "rbanffy", "url": "https://thenextweb.com/news/ai-advice-suppresses-critical-thinking-wrong-answers-study", "hnUrl": "https://news.ycombinator.com/item?id=48971738"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-20", "pointsLabel": "分", "commentsLabel": "评论", "title": "Ollama: All Aboard Open Models", "titleTranslation": "Ollama：开放模型，全员上车", "summary": "Ollama 宣布获 8800 万美元融资，由 Benchmark 等领投，并公布已有 890 万开发者、85% 的财富 500 强使用；同时推出云服务，月 token 量持续翻倍，强调本地优先的所有权、成本可控与隐私三大卖点。", "keyPoints": ["Ollama 完成 8800 万美元融资，领投方包括 Benchmark、Theory Ventures 和 8VC，Docker 创始人也参与投资。", "平台已服务 890 万开发者，85% 的财富 500 强公司在使用 Ollama。", "推出 Ollama Cloud，支持 GLM、DeepSeek、Kimi 等开放模型，月 token 量平均翻倍增长。"], "discussion": "评论区普遍批评 Ollama 是 llama.cpp 的封装层，量化质量不如 unsloth，且未支持 MoE 层的选择性 CPU 卸载等基础功能，质疑其融资规模与真正技术贡献不匹配。", "tags": ["开源模型", "LLM 推理", "创业融资"], "score": 121, "comments": 49, "by": "inferhaven", "url": "https://ollama.com/blog/all-aboard-open-models", "hnUrl": "https://news.ycombinator.com/item?id=48965880"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-20", "pointsLabel": "分", "commentsLabel": "评论", "title": "Moonshot AI suspends new subscriptions due to Kimi K3 demand", "titleTranslation": "Moonshot AI 因 Kimi K3 需求激增暂停新订阅", "summary": "Kimi K3 服务需求远超现有 GPU 容量，Moonshot AI 暂停新订阅，优先保障现有用户体验，并计划拆分为通用会员和编码专项会员以精准分配算力。", "keyPoints": ["Kimi K3 上线 48 小时内需求接近容量极限，暂停新订阅，现有订阅用户不受影响。", "团队正在紧急扩容 GPU，将分批重开订阅，同时暂停新用户注册以保护服务质量。", "未来将拆分为 Kimi Membership（Web/App/Work）和 Kimi Code Membership（编码场景），以实现更精确的算力匹配。"], "discussion": "评论区一致赞赏先保现有用户的决策，但也出现负面体验反馈：有用户花 20 美元订阅后因日配额很快耗尽而未获得满意价值，提示低价套餐可能不适合重度编码场景。", "tags": ["LLM 服务扩容", "会员定价策略", "AI 算力管理"], "score": 240, "comments": 99, "by": "serialx", "url": "https://twitter.com/kimi_moonshot/status/2078855608565207130", "hnUrl": "https://news.ycombinator.com/item?id=48969291"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-20", "pointsLabel": "分", "commentsLabel": "评论", "title": "OpenAI reduces Codex Model Context Size from 372k to 272k", "titleTranslation": "OpenAI 将 Codex 模型上下文大小从 372k 缩减至 272k", "summary": "OpenAI 将 Codex 的上下文窗口从 372,000 tokens 缩小到 272,000 tokens，直接减少约 27% 的“记忆”容量。这会让依赖大代码库或多轮对话的编码代理更频繁触发上下文压缩，增加细节丢失风险，也推动部分用户转向 Anthropic 等竞品。", "keyPoints": ["上下文从 372k token 降到 272k，恰好卡在开发者常需要一次容纳多份长文档的临界点，大项目体验恶化。", "上下文压缩（compaction） 对长材料丢失细节严重，多位用户描述“在 16% 附近反复压缩，五分钟后必须等待重读”的恶性循环。", "超长上下文（超 300k）会降低模型质量，有用户主张分块工作、清理上下文而非一味追求窗口大小，形成另一条实践路径。"], "discussion": "评论区核心分歧：大上下文窗口是必需品还是会让模型变笨。一方认为缩减直接破坏长任务流、压缩丢失细节；另一方认为超过 300k 模型质量下降，主动分块优于依赖大窗口。", "tags": ["LLM 上下文窗口", "AI 编码代理", "OpenAI Codex"], "score": 329, "comments": 156, "by": "AmazingTurtle", "url": "https://github.com/openai/codex/pull/33972/files", "hnUrl": "https://news.ycombinator.com/item?id=48965850"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-20", "pointsLabel": "分", "commentsLabel": "评论", "title": "Transcribe.cpp", "titleTranslation": "", "summary": "Transcribe.cpp 是一个基于 ggml 的本地语音转文本库，支持 16 个模型族共 60+ 模型，通过 Vulkan/Metal/CUDA/TinyBLAS 实现跨平台 GPU 加速。作者是 Handy 维护者，以数值验证和 WER 测试确保推理精度与参考实现一致，并提供 Python/Rust/JS/Swift 绑定，旨在解决 ASR 推理在桌面和移动端分发的痛点。", "keyPoints": ["60+ 模型覆盖当前主流 ASR 架构，每个模型都经过数值验证和 WER 对比，确保输出与参考实现一致。", "支持 Vulkan、Metal、CUDA、TinyBLAS 多种加速后端，宣称在低功耗芯片上也能实现比实时更快的转录。", "定位为 whisper.cpp 的替代品，保持接口兼容，同时扩展多语言绑定和流式/批量推理能力。"], "discussion": "评论区认可数值验证与跨引擎加速，但提出 IPA 音标转写未知语言的需求，并关注 C API 稳定性、持续维护资金来源，以及是否能真正实现“边说边输入”的流式体验。", "tags": ["语音识别", "本地推理", "开源库"], "score": 728, "comments": 156, "by": "sebjones", "url": "https://workshop.cjpais.com/projects/transcribe-cpp", "hnUrl": "https://news.ycombinator.com/item?id=48963879"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-20", "pointsLabel": "分", "commentsLabel": "评论", "title": "Speech Recognition and TTS in less than 500kb", "titleTranslation": "低于500KB的语音识别与TTS", "summary": "Moonshine Micro 在仅售 80 美分的 RP2350 微控制器上，用约 470 KB RAM、3.6 MiB Flash 同时实现语音活动检测、SpellingCNN 语音识别和神经 diphone 语音合成，整套流水线耗时约 0.7–1.0 秒，代码以 MIT 许可证开源，适合廉价嵌入式实时语音助手。", "keyPoints": ["仅需约 470 KB RAM 即可运行完整 VAD→STT→TTS 流水线，各模型分时复用同一块 384 KB 张量内存区。", "Demo 基于 80 美分的 RP2350 微控制器，总 Flash 占用约 3.6 MiB，包含语音活动检测、拼写 CNN 语音识别和神经语音合成。", "语音合成采用 神经 diphone 合成器，在 16 kHz 下典型回复需约 37 MMAC，总流水线时延约 0.7–1.0 秒。"], "discussion": "评论区一致看好在微型设备上集成语音交互，但普遍质疑缺乏精度基准；多位开发者将之与 flite、nanotts 等已有方案对比，认为小尺寸 TTS 不难，难在可用的识别精度。", "tags": ["嵌入式 AI", "语音识别", "TTS"], "score": 550, "comments": 83, "by": "petewarden", "url": "https://github.com/moonshine-ai/moonshine/tree/main/micro", "hnUrl": "https://news.ycombinator.com/item?id=48911793"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-20", "pointsLabel": "分", "commentsLabel": "评论", "title": "GPT-5.6 used a prompt to close a 30-year gap in convex optimization", "titleTranslation": "GPT-5.6 用一段提示词填补了凸优化领域30年未解的空白", "summary": "（仅基于 Reddit 讨论，原帖未抓取）GPT-5.6 被宣称用 148 分钟证明了凸 Lipschitz 函数优化的评估次数下界为 Ω(d²)，与 30 年前已知算法复杂度匹配；但评论区指出作者预先用一年时间与 GPT-5.4/5.5 迭代，并将所有合理技术路径写入提示词，AI 并非从零独立完成。", "keyPoints": ["GPT-5.6 在 148 分钟内 证明了凸优化下界 Ω(d²)，与 Nesterov 30 年前算法的复杂度上限匹配，结论本身有学术价值。", "实际工作流：作者用一年时间通过 GPT-5.4/5.5 探索，并将所有合理攻击路径预先写入提示词，并非模型自发从零解决。", "该猜想比 OpenAI 近期证明的循环双重覆盖猜想更小众，但仍代表凸优化复杂度领域的真实贡献。"], "discussion": "HN 评论主流质疑 AI 的独立贡献，认为作者长达一年的提示准备才是关键，对外宣称的 148 分钟具有误导性；同时也有人讨论 AI 是否正吞掉数学研究中的“低垂果实”，并可能改变数学家的训练路径。", "tags": ["凸优化复杂度", "AI辅助数学证明", "提示工程"], "score": 584, "comments": 384, "by": "mbustamanter", "url": "https://old.reddit.com/r/math/comments/1uxj3cy/after_openais_cdc_proof_announcement_gpt56_used_a/", "hnUrl": "https://news.ycombinator.com/item?id=48957779"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
