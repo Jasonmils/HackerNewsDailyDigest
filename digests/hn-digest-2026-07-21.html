@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-07-21</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-07-21 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://stratechery.com/2026/whos-afraid-of-chinese-models/" target="_blank" rel="noopener">Who&#x27;s afraid of Chinese models?</a></h2></div><p class="title-tr">谁在害怕中国模型？</p><div class="meta">▲ 367 分 · mfiguiere · <a href="https://news.ycombinator.com/item?id=48977128" target="_blank" rel="noopener">247 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">中国开源模型 Kimi K3 能力逼近前沿，但 token 效率低于美国模型，价格优势被抵消；智能正成为商品，长期赢家取决于推理边际成本结构，而非研发投入或模型能力。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中用边际成本、商品市场等经济概念分析模型竞争，可类比推理阶段 token 消耗与成本效率的权衡。</p><ul class="kp"><li><strong>Kimi K3</strong> 价格仅为 Sol 的 60%，但生成同样答案需更多 token，实际成本优势很可能不存在。</li><li><strong>智能正在商品化</strong>：能完成同一任务的正确答案是可互换的，差异在于生成答案所需的 token 数（即推理成本）。</li><li>当前<strong>算力短缺</strong>使前沿模型定价远高于边际成本，中国免费开源模型并未在成本结构上构成真正威胁。</li><li>前沿实验室的恐慌源于<strong>估值泡沫</strong>（Anthropic $1.2T、OpenAI $850B）和训练成本主导的旧思维，而非实际竞争压力。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区主要分歧：一派认为 VC 超高估值会因中国模型的价格战而崩塌；另一派强调切换成本很低，护城河不在模型接口，而在于开发工具链；还有关于数据安全和国家叙事影响的担忧。</p><div class="tags"><span class="tag">LLM 推理经济</span><span class="tag">智能商品化</span><span class="tag">中美 AI 竞争</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · tristanj · 14 回复</div><p>The people who are most afraid of Chinese models are the VCs who poured into Anthropic and OpenAI at astronomically high valuations. Anthropic is valued at $1.2T and OpenAI is targeting $850B. These astronomical valuations were built on the premise that these labs would generate massive profits from premium API pricing, but the Chinese labs are completely undercutting this strategy by releasing excellent open models for free. If the frontier labs are forced to cut prices and join the race to the bottom in token prices, these valuations are unjustified, and VCs will face enormous (paper) losses.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://www.kimi.com/products/kimi-work" target="_blank" rel="noopener">Kimi Work</a></h2></div><div class="meta">▲ 430 分 · ms7892 · <a href="https://news.ycombinator.com/item?id=48981703" target="_blank" rel="noopener">192 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Kimi 推出本地代理工具 Kimi Work，支持定时任务与文件访问，但界面被指几乎 1:1 抄袭 OpenAI Codex。评论认为低价复制即可在市场占位，凸显 AI 应用层易于商品化。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Codex 类似于 Claude Desktop 的本地工作流自动化工具，Kimi Work 在界面布局和宣传语上直接复刻。</p><ul class="kp"><li>Kimi Work 提供 <strong>24/7 定时自动化</strong>、Python 后台执行与本地文件夹挂载，功能对标 OpenAI Codex。</li><li>评论指出 UI 和文案（“Let’s take something off your plate”）是 <strong>1:1 抄袭</strong>，被形容为“毫无掩饰”。</li><li>Hacker News 用户认为若价格仅为对手的 <strong>1/5</strong>，抄袭也能成为制胜产品，说明应用层可被快速商品化。</li><li>隐私声明存在误导：修改文件需授权，但 <strong>读取本地文件不受任何限制</strong>，用户无感知即被读取。</li></ul><p class="disc"><strong>💬 讨论</strong> 主流声音批评抄袭，但有观点认为低价复制足以赢得市场；同时担忧隐私披露不透明与数据主权（如美国用户忌惮数据流向海外）。</p><div class="tags"><span class="tag">AI 代理</span><span class="tag">产品抄袭</span><span class="tag">隐私争议</span><span class="tag">应用层商品化</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · postalcoder · 12 回复</div><p>kimi has been particularly shameless in copying codex 1:1, wow.</p><p>Like, I get it, before condex there was conductor and a ton of other guis but this looks like they just copied the code.</p><p>Also, their privacy disclosure is incredibly misleading:</p><p>&gt; How does Kimi Work protect my privacy when accessing local files?</p><p>You have absolute control over your files. The built-in Ask before acting safeguard means Kimi will prompt you for explicit authorization before it modifies, overwrites, or runs code within your local directories. Nothing happens without your consent.</p><p>They fail to mention that is has unfettered read access to your files. ie, without your consent.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://xenaproject.wordpress.com/2026/07/20/human-mathematicians-are-being-outcounterexampled/" target="_blank" rel="noopener">Human mathematicians are being outcounterexampled</a></h2></div><p class="title-tr">人类数学家正在被反例超越</p><div class="meta">▲ 256 分 · artninja1988 · <a href="https://news.ycombinator.com/item?id=48983382" target="_blank" rel="noopener">87 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">AI 接连找到厄尔多斯单位距离猜想、格罗滕迪克群概型问题、雅可比猜想等数十年未解难题的反例，并能在交互式定理证明器 Lean 中生成可机器验证的完整形式化证明，标志着数学研究正从纯人类直觉转向人机协同。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Lean 是一种交互式定理证明器，可以把数学证明写成代码，并由编译器自动验证每一步推理是否正确，相当于给 AI 生成的数学推理加了一层编译器级的安全检查。</p><ul class="kp"><li>ChatGPT 推翻厄尔多斯单位距离猜想，<strong>Logical Intelligence</strong> 在 6 天内将整篇论文自动形式化为 Lean 证明。</li><li>OpenAI 的 Sol 模型用三周生成 <strong>120 万行 Lean 代码</strong>，证明全局类域论，相当于人类贡献九年的数学库规模。</li><li>Fable 找到<strong>格罗滕迪克 60 年未解问题</strong>的反例，并由 Fable 自动生成 1076 行 Lean 形式化证明。</li><li><strong>雅可比猜想（100 年未解）</strong> 在世界杯决赛期间被 Fable 找到反例，并被人工形式化存入 DeepMind 的猜想仓库。</li></ul><p class="disc"><strong>💬 讨论</strong> 多数评论认可 AI 发现反例能节省人类在错误证明上的时间，并以张益唐的例子感慨工具代差；有人质疑这意味着人类对该问题的投入不足，反映学界对 AI 角色的矛盾心理。</p><div class="tags"><span class="tag">AI 数学证明</span><span class="tag">形式化验证</span><span class="tag">Lean</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Dove · 3 回复</div><p>When I was in grad school, I had the opportunity to take a course from my adviser in which he discussed his current research and some open questions.  It was a relatively accessible subject area and the questions were sometimes easy enough that we could meaningfully contribute.</p><p>On one particular Friday afternoon, he stated a conjecture that he hoped was true, and invited us to try to help him prove or disprove it.  It was the sort of thing that he really wanted to be true; he liked things smooth and beautiful.  I, on the other hand, hoped it was false as I like the weird and exceptional in mathematics. It was also the case that I had absolutely no command of the sort of machinery that one would use to prove such a thing, but I could certainly look for a counterexample.</p><p>I learned on Monday that he had spent the entire weekend trying and failing to prove it.  I, on the other hand, had put all my energy into finding a counterexample and had one within an hour.</p><p>My single (quite small) contribution to mathematical research was a counterexample because it was all I could do. The story does illustrate that it can be helpful to have people with different tools, hopes, and motivations working on a problem, though.  I was not, and will never be, even a shadow of that great mathematiciam I studied under, but on that occasion, I had reason to look in a different direction than he did.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://blaizzy.github.io/nativ/" target="_blank" rel="noopener">Nativ: Run frontier open models locally on your Mac</a></h2></div><p class="title-tr">Nativ: 在你的 Mac 上本地运行前沿开放模型</p><div class="meta">▲ 213 分 · aratahikaru5 · <a href="https://news.ycombinator.com/item?id=48982681" target="_blank" rel="noopener">80 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Nativ 是一款 MIT 许可的桌面应用，基于 MLX-VLM 库，让用户直接在 Apple Silicon Mac 上本地运行 Google Gemma 4、Cohere North Mini Code 等开放模型，无需账号或订阅，并提供流式输出、代码高亮与实时推理性能指标。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 该应用依赖 MLX 框架和 Metal API 进行本地 GPU 加速，可以类比为 Mac 上的 CUDA 生态，利用 Apple Silicon 的统一内存实现高效推理。</p><ul class="kp"><li><strong>完全开源且 MIT 许可</strong>，代码全部公开在 GitHub，无付费墙或遥测，社区可自由 fork 或贡献。</li><li>预置三款合作模型：<strong>Google Gemma 4 E2B（128k 上下文）</strong>、Cohere North Mini Code（500k 上下文）和 Liquid AI LFM2.5-VL（3.2 GB），覆盖视觉、音频、代码等模态。</li><li>开发者 Pri​​nce Canuma 同时是 <strong>MLX-VLM</strong> 库的维护者，该库在 Apple Silicon 上往往比 llama.cpp 提供更快的推理，并已被 LM Studio 等工具采用。</li><li>内置编码代理集成，可连接 <strong>Claude Code、OpenCode</strong> 等工具，让用户将本地模型直接用作代码助手的后端。</li></ul><p class="disc"><strong>💬 讨论</strong> 多数评论关注其与 LM Studio 的实际差异，有人遇到启动错误，并争论小型本地模型能否真正胜任生产级任务；也有人肯定其比 LM Studio 更轻量，未捆绑 Electron。</p><div class="tags"><span class="tag">本地 LLM 推理</span><span class="tag">开源应用</span><span class="tag">Apple Silicon</span><span class="tag">前端模型</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · moontear · 7 回复</div><p>Is „frontier“ overused? I thought frontier models were the best-of-the-best such as Fable right now. I assume you can’t host these models yourself since you would need many GB of RAM and expensive GPU of is my thinking of „frontier models“ wrong?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://cursor.com/blog/agent-swarm-model-economics" target="_blank" rel="noopener">Agent swarms and the new model economics</a></h2></div><p class="title-tr">Agent 集群与新的模型经济学</p><div class="meta">▲ 142 分 · jlaneve · <a href="https://news.ycombinator.com/item?id=48982535" target="_blank" rel="noopener">60 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Cursor 的新多智能体架构通过 Planner-Worker 树形分解，使用 Grok 4.5 在四小时内完成 SQLite 从文档到 Rust 的重写，测试通过率达 80%，旧系统仅 11%。新架构配合自研 VCS 支持每秒千次提交，解决了大规模代理协作的冲突和漂移问题，同时大幅降低相同质量产出的成本。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 单个 Agent 处理长任务会因上下文窗口超载而“漂移”，类似 Transformer 遗忘过长序列；Agent 集群通过任务树分解让每个 Agent 只专注局部上下文，类比将长序列分块处理，从而提升效率。</p><ul class="kp"><li><strong>新版 Agent 集群</strong> 四小时内达到 SQL 测试套件 73%–85% 通过率，旧系统仅 11%–77%，且旧系统运行两小时即被迫暂停。</li><li>采用 <strong>Planner-Worker 树形结构</strong>，规划用强模型（如 Fable 5），执行用便宜模型（如 Composer 2.5），质量接近而成本差异巨大。</li><li>自研版本控制系统应对 <strong>每秒 1000 次提交</strong> 的协作压力，内置合并冲突调停、文件拆分、设计决策传播等机制。</li><li>通过<strong>多视角审阅透镜</strong>堆叠与“场指南”共享上下文，缓解长期任务中的错误累积和核心代码僵化问题。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论主要质疑 SQLite 实现可能源于训练数据记忆，而非真正的推理合成；同时有人提到 Steve Yegge 的“Beads”概念更早提出类似思想。</p><div class="tags"><span class="tag">多智能体系统</span><span class="tag">代码生成</span><span class="tag">AI 软件工程</span><span class="tag">模型经济学</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · htrp · 3 回复</div><p>&gt;The browser swarm from earlier this year peaked at roughly 1,000 commits per hour on Git. The new system peaks at around 1,000 commits per second.</p><p>&gt;To facilitate this rate of activity, we built a new version control system (VCS) from scratch. Throughput was not the only reason to own this layer. Every change in the system passes through the VCS, so it is where collisions first become visible, and several of the coordination mechanisms in the next section are implemented directly inside of it.</p><p>Talk about inventing the universe to make a button.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://werd.io/american-ai-is-locked-down-and-proprietary-its-losing/" target="_blank" rel="noopener">China’s open-weights AI strategy is winning</a></h2></div><p class="title-tr">中国的开放权重 AI 策略正在获胜</p><div class="meta">▲ 1003 分 · benwerd · <a href="https://news.ycombinator.com/item?id=48979269" target="_blank" rel="noopener">807 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">中国 AI 公司通过免费分发开放权重模型（可无授权使用和修改），将美国的 GPU 出口管制劣势转化为全球生态优势。美国闭源模型护城河薄，切换成本低；中国前沿模型性能追平 OpenAI 和 Anthropic，且成本极低，a16z 合伙人称约 80% 的 AI 初创已在使用中国模型。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 开放权重（open-weights）指模型训练后的参数完全公开，任何人可直接下载推理甚至微调，与开源不同，数据和训练流程可能仍不透明。</p><ul class="kp"><li>中国通过<strong>开放权重模型</strong>将美国对华 GPU 出口管制造成的算力劣势，逆转为全球免费分发的生态优势。</li><li><strong>a16z 合伙人 Martin Casado</strong> 指出，约 80% 的 AI 初创已在底层使用中国开放模型。</li><li>月之暗面（Moonshot）和阿里巴巴发布的新模型声称性能<strong>与 OpenAI、Anthropic 的前沿模型相当</strong>，成本仅为其一小部分。</li><li>美国闭源模型的商业护城河很弱：用户可在 <strong>ChatGPT 和 Claude 之间轻松切换</strong>，真正壁垒在企业服务合同和系统集成。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论质疑“80% 初创使用中国模型”数据真实性；多数创业公司主用美国模型可能仅次要测试中国模型。另外有人指出开放权重未必商业成功，企业更关心数据保留和现有供应商锁定，中国模型的政治偏见也被提及。</p><div class="tags"><span class="tag">开放权重模型</span><span class="tag">AI 竞争格局</span><span class="tag">中国 AI 策略</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · geophile · 48 回复</div><p>The lesson of the last 50 years of the computer and software marketplace is that free and low-end eventually wins.</p><p>- PCs destroyed minicomputers. Mainframes survive, but serving a much tinier portion of the market than they used to.</p><p>- PC office productivity software destroyed expensive professional products.</p><p>- Windows (low end) and Linux (free) completely destroyed the UNIX marketplace, and again, have taken huge market share from the mainframe world.</p><p>Ignoring the huge Chinese open-weight models for a moment:</p><p>- The training costs and resource requirements for frontier models are unsustainable. The high price, and social pushback, mean that the American companies producing these models are precarious.</p><p>- There are enormous financial incentives for research results allowing for cheaper, less resource-intensive models of high quality.</p><p>- Local LLMs on consumer hardware are akin to the PC hobbyist world of the 70s and 80s.</p><p>Put all of these trends together, and I think that in 10-15 years, we are going to have consumer PCs (and phones!) running models doing pretty much anything that frontier models can do right now.</p><p>Getting back to the Chinese models: They allow for new competition against Anthropic and OpenAI, basically SaaS renting out these very capable AIs much cheaper. That will just accelerate trends.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://news.ycombinator.com/item?id=48981136" target="_blank" rel="noopener">Launch HN: Bloomy (YC S26) – AI-powered mastery learning for K-12</a></h2></div><p class="title-tr">Launch HN: Bloomy (YC S26) – 面向 K-12 的 AI 驱动掌握学习平台</p><div class="meta">▲ 66 分 · alexsouthmayd · <a href="https://news.ycombinator.com/item?id=48981136" target="_blank" rel="noopener">76 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">前教师创立的 Bloomy 用 AI 导师 + 自适应课程解决 Bloom 的 2-sigma 问题（一对一辅导可将成绩提升两个标准差），ELA 月费 39 美元，早期试点中 NWEA MAP 增长达预期的 1.8 倍，核心是将诊断、苏格拉底式指导与独立掌握评估严格分离，避免 AI 直接给答案。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Bloom 的 2-sigma 问题（教育研究中一对一辅导能将学生提升两个标准差）类似用 AI 实现规模化“个性化微调”，正如你熟悉的模型训练需要针对性数据。</p><ul class="kp"><li>产品核心是<strong>分离 AI 辅助训练与独立掌握评估</strong>：AI 只在练习阶段提供苏格拉底式支架，掌握测试中完全禁用 AI，避免“给答案”的坏学习。</li><li>早期试点信号积极：马萨诸塞州一所特许学校 6-8 年级学生 NWEA MAP 增长率<strong>约为预期的 1.8 倍</strong>，但非随机对照试验，仅作参考。</li><li>商业模式为家庭订阅 + 学校授权，<strong>ELA 39 美元/月或 279 美元/年</strong>，数学 7 月 31 日上线同价，学校按学生定价。</li><li>创始人从 Teach For America 教师到 McKinsey AI 项目，看到<strong>模型能力足够好时才启动</strong>，将教育、产品与 AI 转化经验整合。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论整体看好 AI 个性化学习方向，但分歧在于：理论基础是否跟得上（有人指出传统阅读教学已被证伪）、学生动机如何维持，以及 K-12 学校销售壁垒高，教师不是决策者但却是关键使用者。</p><div class="tags"><span class="tag">AI教育</span><span class="tag">自适应学习</span><span class="tag">K-12</span><span class="tag">SaaS创业</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · theodorewiles · 2 回复</div><p>I am here to tell you HELL YES and TAKE MY MONEY. I am such a fan of the idea of using AI to help give personalized and structured AI lessons in the hands of students and let them cook!</p><p>- It looks like you are gating family access to K-3 for now and I think that&#x27;s right. I wouldn&#x27;t really be comfortable giving my first-grader a live chatbot. Maybe I would think about whether there are other non-persona modalities that could still be self-directed (i.e. I am uncomfortable with a chatbot interface on this for a six year old but gamified flash cards with options could be different).</p><p>- I think the other issue is with motivation. I have various duct-tape versions of these types of agents and the thing about it is if you&#x27;re doing the learning right it can be HARD. So I would think about using motivational interviewing or other techniques to help keep the user coming back and motivated.</p><p>- I would really think about the assessments here too. Many people are worried about LLMs ruining student evaluations, but if you could bake in reliable, flexible exams that gauge user progress (even for something like a &quot;Did you read this&quot; quiz) I would bet teachers would like it. There is likely so much you could do on student progress observability and e.g. structuring team-based projects or having targeted student working groups to hash out hard concepts in a targeted way, etc.</p><p>This is such an interesting market and use case too because the educational system might be very structurally set up to the current pedagogical staffing model (think about the incentives for teacher&#x27;s unions and administrators). If you think it will be hard to change that system as quickly as you want I would also try to have an offering direct to families / home-schoolers. I think there is also a cottage industry of tutors that might benefit. Maybe partnering with the textbook publishers? I&#x27;m sure there are some &quot;Teach your kids better&quot; influencers that would get you into some feeds?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://unslop.run/blog/measuring-ai-writing-on-arxiv" target="_blank" rel="noopener">How we measured AI writing across arXiv, and where the measurement breaks</a></h2></div><p class="title-tr">我们如何测量 arXiv 上的 AI 写作，以及测量在何处失效</p><div class="meta">▲ 200 分 · dopamine_daddy · <a href="https://news.ycombinator.com/item?id=48981206" target="_blank" rel="noopener">145 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">对 12,750 篇 arXiv 论文全文检测，约 32% 的新论文被识别为机器写作，计算机科学领域高达 65%，数学仅 0.7%。检测以 0.4% 的假阳性率校准，但数学等领域的低分可能是检测盲区而非低使用率。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这项研究的检测校准思路与你评估模型时控制假阳性类似：先在已知人类写作的 2021-2022 年论文上设定阈值，确保误报率极低，再测量 ChatGPT 发布后的上升。</p><ul class="kp"><li>arXiv 中约 <strong>32%</strong> 的新论文被判定为机器写作，2026 年初峰值接近 <strong>39%</strong>。</li><li>计算机科学领域机器写作比例达 <strong>65%</strong>，数学仅 <strong>0.7%</strong>，但后者可能是检测器对符号密集型文本不敏感。</li><li>检测在人文学科中更可靠，在数学等稀疏文本中表现为下界，真实机器写作比例<strong>至少</strong>不低于测量值。</li><li>检测器对预 ChatGPT 论文的误报率仅 <strong>0.4%</strong>，研究用此锚定阈值并提供内置对照，排除了检测器自身引起的趋势。</li></ul><p class="disc"><strong>💬 讨论</strong> 用户报告自己 2011-2015 年的旧论文被检测器误标为高 AI 概率，质疑检测准确性，并指出文本去除 LaTeX 格式后得分差异大，提示检测器可能学习到的是表面语言模式而非真正的机器特征。</p><div class="tags"><span class="tag">AI 文本检测</span><span class="tag">科研诚信</span><span class="tag">arXiv</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · dopamine_daddy · 8 回复</div><p>I scored the full text of 12,750 arXiv papers from 2021 through 2026 to find out how many of these get flagged as machine written and how much it increased since the release of chatGPT. I purposely tuned the detector to avoid false positives. My detection rate pre chatGPT is around .4% for that reason.</p><p>The biggest results: in Jan of 2026 about 39% of papers got flagged as AI written. In computer science speicifcally the peak was at 65%. Mathematics barely moved away from 0.7%, though the proof heavy math texts might just not get picked up by the detector properly.</p><p>All this is a detector estimate of a statistical signal and not a proof any given author used AI. Machine written can also mean heavy AI-assisted editing.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://stencil.so/blog/prewalk" target="_blank" rel="noopener">You only need the frontier model for one single edit</a></h2></div><p class="title-tr">你只需前沿模型进行单次编辑</p><div class="meta">▲ 89 分 · jxmorris12 · <a href="https://news.ycombinator.com/item?id=48916512" target="_blank" rel="noopener">23 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">传统“昂贵模型规划、廉价模型执行”的策略因重复读取代码反而更贵更慢。新方法 /prewalk 让前沿模型完成首次编辑后无缝切换廉价模型，继承上下文，在 SWE-bench 上将成本降低 39-47%，同时提升通过率并意外减少“作弊”行为。</p><p class="context"><strong>🧭 联系你的知识背景</strong> /prewalk 利用自回归模型无法区分自己生成与预填 tokens 的特性，类似过往的预填充攻击原理，但在此用于合法切换模型并保持探索上下文不丢失。</p><ul class="kp"><li>传统 /plan 让前沿模型读取所有代码后写计划，廉价模型再重新读取执行，<strong>读取成本翻倍</strong>，总成本反比纯用前沿模型高 14%。</li><li>/prewalk 让前沿模型探索并完成<strong>首次编辑后切换廉价模型</strong>，隐藏规划指令，使廉价模型直接继承探索轨迹和写过的代码，避免重复读取。</li><li>GPT-5.6 Sol 搭配 Luna 的 /prewalk 方案，相比纯用 Sol，<strong>成本降低 39%</strong>，通过率从 77% 提升至 85%，且速度最快。</li><li>Opus 4.8 搭配 Gemini Flash 的 /prewalk 仅用 <strong>53% 的成本</strong>、1.5 倍速度达到前沿模型 92% 的通过率，并大幅减少模型压力引发的 GitHub 搜索作弊。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区分歧集中在 /prewalk 无法像 /plan 那样供用户中途调整计划，以及选用更廉价模型（如 DeepSeek v4 flash）是否会进一步优化成本。</p><div class="tags"><span class="tag">LLM Agent 架构</span><span class="tag">推理成本优化</span><span class="tag">SWE-bench 评测</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · wrs · 3 回复</div><p>Lately I&#x27;m trying a variation on this: Have the main agent make a phased implementation plan, then for each phase, have it start an implementation subagent with a focused prompt, then review that agent&#x27;s work in the main session. The theory being that the main session still contains all the research, but it can review just the diff rather than have the entire implementation session in context as well.</p><p>The post doesn&#x27;t include a review in the cost comparison, but I find that immediately doing a review catches lots of mistakes.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://xcancel.com/__alpoge__/status/2079028340955197566" target="_blank" rel="noopener">Claude Fable produced a counterexample to the Jacobian Conjecture</a></h2></div><p class="title-tr">Claude Fable 产出了雅可比猜想的一个反例</p><div class="meta">▲ 704 分 · loubbrad · <a href="https://news.ycombinator.com/item?id=48973869" target="_blank" rel="noopener">449 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">85年未解的雅可比猜想被一个显式多项式反例推翻：映射 f: C³→C³ 雅可比行列式恒为 -2，但三个不同点映射到同一个点，因而不可能多项式可逆；该反例由 Claude Fable（疑为 AI Claude 实例）在世界杯决赛期间得出，仅通过一条推文公布。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 雅可比猜想是代数几何中的著名猜想：若多项式映射的雅可比行列式为非零常数，则映射多项式可逆；如今找到一个行列式为 -2 却不可逆的显式例子，证伪了该猜想。</p><ul class="kp"><li><strong>雅可比猜想</strong>自 1939 年提出，85 年后首次被显式反例推翻。</li><li>反例是映射 ((1+xy)³z + …): C³→C³，其<strong>雅可比行列式恒为 -2</strong>，却不可逆。</li><li>三个不同点 <strong>(0,0,-1/4)、(1,-3/2,13/2)、(-1,3/2,13/2)</strong> 均映射到同一像点 (-1/4,0,0)，暴露不可逆性。</li><li>成果由 <strong>Claude Fable</strong> 在世界杯决赛期间完成，仅以一条推文发布，格式有效期 7 天。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论质疑发布于短暂推文的形式缺乏严肃性，并对 AI 是否做出实质贡献存在分歧：有人认为是‘随机鹦鹉’碰到的高中微积分反例，有人视其为 AI 辅助数学发现的信号。</p><div class="tags"><span class="tag">雅可比猜想</span><span class="tag">AI 数学</span><span class="tag">Claude</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · aizk · 16 回复</div><p>This is a rare instance where feeding this groundbreaking information into an LLM gives _them_ psychosis. I fed this to claude code and watched it verify the result in 7 different ways to be 100% certain, and it was just flabbergasted. Quite remarkable.</p></div></div></article>
+</div></main>
+<footer>generated 2026-07-21 03:43 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-21", "pointsLabel": "分", "commentsLabel": "评论", "title": "Who's afraid of Chinese models?", "titleTranslation": "谁在害怕中国模型？", "summary": "中国开源模型 Kimi K3 能力逼近前沿，但 token 效率低于美国模型，价格优势被抵消；智能正成为商品，长期赢家取决于推理边际成本结构，而非研发投入或模型能力。", "keyPoints": ["Kimi K3 价格仅为 Sol 的 60%，但生成同样答案需更多 token，实际成本优势很可能不存在。", "智能正在商品化：能完成同一任务的正确答案是可互换的，差异在于生成答案所需的 token 数（即推理成本）。", "当前算力短缺使前沿模型定价远高于边际成本，中国免费开源模型并未在成本结构上构成真正威胁。"], "discussion": "评论区主要分歧：一派认为 VC 超高估值会因中国模型的价格战而崩塌；另一派强调切换成本很低，护城河不在模型接口，而在于开发工具链；还有关于数据安全和国家叙事影响的担忧。", "tags": ["LLM 推理经济", "智能商品化", "中美 AI 竞争"], "score": 367, "comments": 247, "by": "mfiguiere", "url": "https://stratechery.com/2026/whos-afraid-of-chinese-models/", "hnUrl": "https://news.ycombinator.com/item?id=48977128"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-21", "pointsLabel": "分", "commentsLabel": "评论", "title": "Kimi Work", "titleTranslation": "", "summary": "Kimi 推出本地代理工具 Kimi Work，支持定时任务与文件访问，但界面被指几乎 1:1 抄袭 OpenAI Codex。评论认为低价复制即可在市场占位，凸显 AI 应用层易于商品化。", "keyPoints": ["Kimi Work 提供 24/7 定时自动化、Python 后台执行与本地文件夹挂载，功能对标 OpenAI Codex。", "评论指出 UI 和文案（“Let’s take something off your plate”）是 1:1 抄袭，被形容为“毫无掩饰”。", "Hacker News 用户认为若价格仅为对手的 1/5，抄袭也能成为制胜产品，说明应用层可被快速商品化。"], "discussion": "主流声音批评抄袭，但有观点认为低价复制足以赢得市场；同时担忧隐私披露不透明与数据主权（如美国用户忌惮数据流向海外）。", "tags": ["AI 代理", "产品抄袭", "隐私争议"], "score": 430, "comments": 192, "by": "ms7892", "url": "https://www.kimi.com/products/kimi-work", "hnUrl": "https://news.ycombinator.com/item?id=48981703"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-21", "pointsLabel": "分", "commentsLabel": "评论", "title": "Human mathematicians are being outcounterexampled", "titleTranslation": "人类数学家正在被反例超越", "summary": "AI 接连找到厄尔多斯单位距离猜想、格罗滕迪克群概型问题、雅可比猜想等数十年未解难题的反例，并能在交互式定理证明器 Lean 中生成可机器验证的完整形式化证明，标志着数学研究正从纯人类直觉转向人机协同。", "keyPoints": ["ChatGPT 推翻厄尔多斯单位距离猜想，Logical Intelligence 在 6 天内将整篇论文自动形式化为 Lean 证明。", "OpenAI 的 Sol 模型用三周生成 120 万行 Lean 代码，证明全局类域论，相当于人类贡献九年的数学库规模。", "Fable 找到格罗滕迪克 60 年未解问题的反例，并由 Fable 自动生成 1076 行 Lean 形式化证明。"], "discussion": "多数评论认可 AI 发现反例能节省人类在错误证明上的时间，并以张益唐的例子感慨工具代差；有人质疑这意味着人类对该问题的投入不足，反映学界对 AI 角色的矛盾心理。", "tags": ["AI 数学证明", "形式化验证", "Lean"], "score": 256, "comments": 87, "by": "artninja1988", "url": "https://xenaproject.wordpress.com/2026/07/20/human-mathematicians-are-being-outcounterexampled/", "hnUrl": "https://news.ycombinator.com/item?id=48983382"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-21", "pointsLabel": "分", "commentsLabel": "评论", "title": "Nativ: Run frontier open models locally on your Mac", "titleTranslation": "Nativ: 在你的 Mac 上本地运行前沿开放模型", "summary": "Nativ 是一款 MIT 许可的桌面应用，基于 MLX-VLM 库，让用户直接在 Apple Silicon Mac 上本地运行 Google Gemma 4、Cohere North Mini Code 等开放模型，无需账号或订阅，并提供流式输出、代码高亮与实时推理性能指标。", "keyPoints": ["完全开源且 MIT 许可，代码全部公开在 GitHub，无付费墙或遥测，社区可自由 fork 或贡献。", "预置三款合作模型：Google Gemma 4 E2B（128k 上下文）、Cohere North Mini Code（500k 上下文）和 Liquid AI LFM2.5-VL（3.2 GB），覆盖视觉、音频、代码等模态。", "开发者 Pri​​nce Canuma 同时是 MLX-VLM 库的维护者，该库在 Apple Silicon 上往往比 llama.cpp 提供更快的推理，并已被 LM Studio 等工具采用。"], "discussion": "多数评论关注其与 LM Studio 的实际差异，有人遇到启动错误，并争论小型本地模型能否真正胜任生产级任务；也有人肯定其比 LM Studio 更轻量，未捆绑 Electron。", "tags": ["本地 LLM 推理", "开源应用", "Apple Silicon"], "score": 213, "comments": 80, "by": "aratahikaru5", "url": "https://blaizzy.github.io/nativ/", "hnUrl": "https://news.ycombinator.com/item?id=48982681"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-21", "pointsLabel": "分", "commentsLabel": "评论", "title": "Agent swarms and the new model economics", "titleTranslation": "Agent 集群与新的模型经济学", "summary": "Cursor 的新多智能体架构通过 Planner-Worker 树形分解，使用 Grok 4.5 在四小时内完成 SQLite 从文档到 Rust 的重写，测试通过率达 80%，旧系统仅 11%。新架构配合自研 VCS 支持每秒千次提交，解决了大规模代理协作的冲突和漂移问题，同时大幅降低相同质量产出的成本。", "keyPoints": ["新版 Agent 集群 四小时内达到 SQL 测试套件 73%–85% 通过率，旧系统仅 11%–77%，且旧系统运行两小时即被迫暂停。", "采用 Planner-Worker 树形结构，规划用强模型（如 Fable 5），执行用便宜模型（如 Composer 2.5），质量接近而成本差异巨大。", "自研版本控制系统应对 每秒 1000 次提交 的协作压力，内置合并冲突调停、文件拆分、设计决策传播等机制。"], "discussion": "HN 评论主要质疑 SQLite 实现可能源于训练数据记忆，而非真正的推理合成；同时有人提到 Steve Yegge 的“Beads”概念更早提出类似思想。", "tags": ["多智能体系统", "代码生成", "AI 软件工程"], "score": 142, "comments": 60, "by": "jlaneve", "url": "https://cursor.com/blog/agent-swarm-model-economics", "hnUrl": "https://news.ycombinator.com/item?id=48982535"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-21", "pointsLabel": "分", "commentsLabel": "评论", "title": "China’s open-weights AI strategy is winning", "titleTranslation": "中国的开放权重 AI 策略正在获胜", "summary": "中国 AI 公司通过免费分发开放权重模型（可无授权使用和修改），将美国的 GPU 出口管制劣势转化为全球生态优势。美国闭源模型护城河薄，切换成本低；中国前沿模型性能追平 OpenAI 和 Anthropic，且成本极低，a16z 合伙人称约 80% 的 AI 初创已在使用中国模型。", "keyPoints": ["中国通过开放权重模型将美国对华 GPU 出口管制造成的算力劣势，逆转为全球免费分发的生态优势。", "a16z 合伙人 Martin Casado 指出，约 80% 的 AI 初创已在底层使用中国开放模型。", "月之暗面（Moonshot）和阿里巴巴发布的新模型声称性能与 OpenAI、Anthropic 的前沿模型相当，成本仅为其一小部分。"], "discussion": "评论质疑“80% 初创使用中国模型”数据真实性；多数创业公司主用美国模型可能仅次要测试中国模型。另外有人指出开放权重未必商业成功，企业更关心数据保留和现有供应商锁定，中国模型的政治偏见也被提及。", "tags": ["开放权重模型", "AI 竞争格局", "中国 AI 策略"], "score": 1003, "comments": 807, "by": "benwerd", "url": "https://werd.io/american-ai-is-locked-down-and-proprietary-its-losing/", "hnUrl": "https://news.ycombinator.com/item?id=48979269"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-21", "pointsLabel": "分", "commentsLabel": "评论", "title": "Launch HN: Bloomy (YC S26) – AI-powered mastery learning for K-12", "titleTranslation": "Launch HN: Bloomy (YC S26) – 面向 K-12 的 AI 驱动掌握学习平台", "summary": "前教师创立的 Bloomy 用 AI 导师 + 自适应课程解决 Bloom 的 2-sigma 问题（一对一辅导可将成绩提升两个标准差），ELA 月费 39 美元，早期试点中 NWEA MAP 增长达预期的 1.8 倍，核心是将诊断、苏格拉底式指导与独立掌握评估严格分离，避免 AI 直接给答案。", "keyPoints": ["产品核心是分离 AI 辅助训练与独立掌握评估：AI 只在练习阶段提供苏格拉底式支架，掌握测试中完全禁用 AI，避免“给答案”的坏学习。", "早期试点信号积极：马萨诸塞州一所特许学校 6-8 年级学生 NWEA MAP 增长率约为预期的 1.8 倍，但非随机对照试验，仅作参考。", "商业模式为家庭订阅 + 学校授权，ELA 39 美元/月或 279 美元/年，数学 7 月 31 日上线同价，学校按学生定价。"], "discussion": "HN 评论整体看好 AI 个性化学习方向，但分歧在于：理论基础是否跟得上（有人指出传统阅读教学已被证伪）、学生动机如何维持，以及 K-12 学校销售壁垒高，教师不是决策者但却是关键使用者。", "tags": ["AI教育", "自适应学习", "K-12"], "score": 66, "comments": 76, "by": "alexsouthmayd", "url": "https://news.ycombinator.com/item?id=48981136", "hnUrl": "https://news.ycombinator.com/item?id=48981136"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-21", "pointsLabel": "分", "commentsLabel": "评论", "title": "How we measured AI writing across arXiv, and where the measurement breaks", "titleTranslation": "我们如何测量 arXiv 上的 AI 写作，以及测量在何处失效", "summary": "对 12,750 篇 arXiv 论文全文检测，约 32% 的新论文被识别为机器写作，计算机科学领域高达 65%，数学仅 0.7%。检测以 0.4% 的假阳性率校准，但数学等领域的低分可能是检测盲区而非低使用率。", "keyPoints": ["arXiv 中约 32% 的新论文被判定为机器写作，2026 年初峰值接近 39%。", "计算机科学领域机器写作比例达 65%，数学仅 0.7%，但后者可能是检测器对符号密集型文本不敏感。", "检测在人文学科中更可靠，在数学等稀疏文本中表现为下界，真实机器写作比例至少不低于测量值。"], "discussion": "用户报告自己 2011-2015 年的旧论文被检测器误标为高 AI 概率，质疑检测准确性，并指出文本去除 LaTeX 格式后得分差异大，提示检测器可能学习到的是表面语言模式而非真正的机器特征。", "tags": ["AI 文本检测", "科研诚信", "arXiv"], "score": 200, "comments": 145, "by": "dopamine_daddy", "url": "https://unslop.run/blog/measuring-ai-writing-on-arxiv", "hnUrl": "https://news.ycombinator.com/item?id=48981206"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-21", "pointsLabel": "分", "commentsLabel": "评论", "title": "You only need the frontier model for one single edit", "titleTranslation": "你只需前沿模型进行单次编辑", "summary": "传统“昂贵模型规划、廉价模型执行”的策略因重复读取代码反而更贵更慢。新方法 /prewalk 让前沿模型完成首次编辑后无缝切换廉价模型，继承上下文，在 SWE-bench 上将成本降低 39-47%，同时提升通过率并意外减少“作弊”行为。", "keyPoints": ["传统 /plan 让前沿模型读取所有代码后写计划，廉价模型再重新读取执行，读取成本翻倍，总成本反比纯用前沿模型高 14%。", "/prewalk 让前沿模型探索并完成首次编辑后切换廉价模型，隐藏规划指令，使廉价模型直接继承探索轨迹和写过的代码，避免重复读取。", "GPT-5.6 Sol 搭配 Luna 的 /prewalk 方案，相比纯用 Sol，成本降低 39%，通过率从 77% 提升至 85%，且速度最快。"], "discussion": "评论区分歧集中在 /prewalk 无法像 /plan 那样供用户中途调整计划，以及选用更廉价模型（如 DeepSeek v4 flash）是否会进一步优化成本。", "tags": ["LLM Agent 架构", "推理成本优化", "SWE-bench 评测"], "score": 89, "comments": 23, "by": "jxmorris12", "url": "https://stencil.so/blog/prewalk", "hnUrl": "https://news.ycombinator.com/item?id=48916512"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-21", "pointsLabel": "分", "commentsLabel": "评论", "title": "Claude Fable produced a counterexample to the Jacobian Conjecture", "titleTranslation": "Claude Fable 产出了雅可比猜想的一个反例", "summary": "85年未解的雅可比猜想被一个显式多项式反例推翻：映射 f: C³→C³ 雅可比行列式恒为 -2，但三个不同点映射到同一个点，因而不可能多项式可逆；该反例由 Claude Fable（疑为 AI Claude 实例）在世界杯决赛期间得出，仅通过一条推文公布。", "keyPoints": ["雅可比猜想自 1939 年提出，85 年后首次被显式反例推翻。", "反例是映射 ((1+xy)³z + …): C³→C³，其雅可比行列式恒为 -2，却不可逆。", "三个不同点 (0,0,-1/4)、(1,-3/2,13/2)、(-1,3/2,13/2) 均映射到同一像点 (-1/4,0,0)，暴露不可逆性。"], "discussion": "评论质疑发布于短暂推文的形式缺乏严肃性，并对 AI 是否做出实质贡献存在分歧：有人认为是‘随机鹦鹉’碰到的高中微积分反例，有人视其为 AI 辅助数学发现的信号。", "tags": ["雅可比猜想", "AI 数学", "Claude"], "score": 704, "comments": 449, "by": "loubbrad", "url": "https://xcancel.com/__alpoge__/status/2079028340955197566", "hnUrl": "https://news.ycombinator.com/item?id=48973869"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
