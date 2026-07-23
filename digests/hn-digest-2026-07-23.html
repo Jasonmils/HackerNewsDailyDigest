@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-07-23</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-07-23 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://chatgpt.com/share/6a5fdc7a-d6f8-83e8-bbea-8deb42cfed56" target="_blank" rel="noopener">Terence Tao&#x27;s ChatGPT conversation about the Jacobian Conjecture counterexample</a></h2></div><p class="title-tr">陶哲轩关于雅可比猜想反例的 ChatGPT 对话</p><div class="meta">▲ 674 分 · gmays · <a href="https://news.ycombinator.com/item?id=49010345" target="_blank" rel="noopener">404 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">陶哲轩分享其与 ChatGPT 的对话记录，展示了他如何通过精准提问和逐步简化，引导模型分析雅可比猜想的一个反例并挖掘其几何结构。这体现了顶级数学家将 LLM 用作高阶思维协作者而非简单工具的能力。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 雅可比猜想是代数几何中关于多项式映射可逆性的开放问题；可以类比为判断一个复杂函数是否可逆的条件，类似于检查深度模型的输出能否稳定地“逆向工程”回输入。</p><ul class="kp"><li><strong>陶哲轩</strong> 使用高度专业化的提问和渐进简化，引导 ChatGPT 拆解雅可比猜想反例，并持续推动寻找几何解释。</li><li>反例源自 <strong>Claude Fable</strong> 的早期工作，此次对话进一步探索了反例背后的结构性原因，而非蛮力搜索。</li><li>评论指出<strong>专家与 AI 的交互深度</strong>远超普通用户，领域知识决定了从模型中提取价值的极限。</li><li>AI 在对话中不仅接受引导，还表现出<strong>推回、纠正和推理</strong>能力，接近人类博士生的角色。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍震惊于陶哲轩将 AI 当作思维伙伴而非查询引擎的用法，共识是非专家难以复制这种深度，但 AI 正快速接近甚至超越人类专家的协作能力。</p><div class="tags"><span class="tag">数学研究</span><span class="tag">AI辅助发现</span><span class="tag">LLM应用</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · WarmWash · 24 回复</div><p>Math has some of the most insanely dense and impenetrable nomenclature. I can generally keep my head mostly above water or at least near the surface reading from most STEM fields, perhaps leaning on google/wikipedia a bit, but man, mathematics just so quickly decouples from all common tractable understanding it&#x27;s insane.</p><p>Sorry it&#x27;s a bit of an aside, but I imagine many other otherwise &quot;technical&quot; folks feel the same unfamiliar sense of total loss like when encountering hard mathematics.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://github.com/marcelroed/gigatoken/" target="_blank" rel="noopener">GigaToken: ~1000x faster Language model tokenization</a></h2></div><p class="title-tr">GigaToken：语言模型分词速度提升约 1000 倍</p><div class="meta">▲ 399 分 · syrusakbary · <a href="https://news.ycombinator.com/item?id=49010167" target="_blank" rel="noopener">79 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">GigaToken 将分词速度推至 GB/s 级别，在 AMD EPYC 144 核上达 24.53 GB/s，比 HuggingFace tokenizers 快 989 倍，且输出完全兼容。主要优化为 SIMD 替代正则预分词、缓存已见词映射、减少 Python 交互，对离线预训练数据准备可大幅提速。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 分词（tokenization）是将原始文本转换为模型可处理的 token ID 的步骤，在 LLM 预训练的数据准备环节是吞吐瓶颈，此工具直接加速该管道而非推理。</p><ul class="kp"><li>在 <strong>AMD EPYC 9565 144 核</strong> 上分词速度达到 <strong>24.53 GB/s</strong>，比 HuggingFace 快近千倍。</li><li>可作为 HuggingFace 或 tiktoken 的<strong>即插即用替换</strong>，输出完全匹配，API 兼容。</li><li>核心优化：用 <strong>SIMD</strong> 替代正则引擎进行预分词，缓存重复词的 token 映射，大幅减少分支和线程通信。</li><li>适用于离线预训练数据准备，能将 Common Crawl 全量文本的分词从数天缩短至<strong>约 6.5 小时</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍赞赏工程价值，但指出分词在推理总耗时中占比极小，真正受益场景是离线数据准备；也有人关心单核心效率和完美哈希表的引入。</p><div class="tags"><span class="tag">LLM 分词</span><span class="tag">SIMD 优化</span><span class="tag">预训练数据管线</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · luciana1u · 8 回复</div><p>engineering effort to make something 1000x faster that accounts for 0.1% of total runtime is the most software developer thing imaginable</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://dylancastillo.co/posts/pelicanmaxxing.html" target="_blank" rel="noopener">Are AI Labs Pelicanmaxxing?</a></h2></div><p class="title-tr">AI 实验室在专门优化鹈鹕骑自行车吗？</p><div class="meta">▲ 417 分 · dcastm · <a href="https://news.ycombinator.com/item?id=49010129" target="_blank" rel="noopener">161 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者生成1008张SVG、测试7个前沿模型，发现没有任何实验室在“鹈鹕骑自行车”这一非正式基准上比其他动物-车辆组合表现更好，组合得分仅排第42/48，无统计显著的过拟合证据。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 类似训练集泄露检测：通过对比模型在近义提示（如不同动物+不同车辆）上的表现差异，用固定效应回归分离出针对特定基准的额外提升。</p><ul class="kp"><li><strong>1008张SVG</strong>按8动物×6车辆×3次采样生成，未发现任何实验室在鹈鹕骑自行车上有显著过拟合。</li><li><strong>GLM-5.2</strong>在鹈鹕-自行车单元格有+0.35分提升，但不显著（p=0.12），是唯一接近信号的点。</li><li><strong>Gemini 3.5 Flash</strong>在自行车项上显示+0.27分且p=0.022，但不通过多重比较校正，可能是21次检验的随机假阳性。</li><li><strong>所有21张鹈鹕自行车图均朝右</strong>，但这在数据集中常见（60%图像朝右），且自行车图通常因传动系统惯例而朝右，并非记忆痕迹。</li></ul><p class="disc"><strong>💬 讨论</strong> HN评论赞赏定量分析的严谨性，并补充自行车朝右可能与真实摄影习惯（展示传动系统）有关，而非模型记忆；用户也提到检查其他提示组合可避免误判。</p><div class="tags"><span class="tag">LLM 评估</span><span class="tag">基准过拟合</span><span class="tag">SVG 生成分析</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · simonw · 11 回复</div><p>This is fantastic</p><p>I&#x27;ve been casually spot-checking other animals in other vehicles, because my absolute dream situation here is to catch an AI lab that&#x27;s demonstrably better at pelicans on bicycles than other combinations.</p><p>Catching a lab cheating specifically on my one dumb benchmark would be really funny.</p><p>Dylan&#x27;s methodology here - generating 1008 SVGs across an 8x6 combination - is significantly more robust than anything I was considering.</p><p>His conclusion:</p><p>&gt; Nothing jumped out at me. I couldn’t find a case where the pelican-bicycle images looked noticeably better than the rest of that model’s grid.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://github.com/cactus-compute/cactus-hybrid" target="_blank" rel="noopener">Show HN: Cactus Hybrid: We taught Gemma 4 to know when it&#x27;s wrong</a></h2></div><p class="title-tr">Show HN: Cactus Hybrid: 我们教会了 Gemma 4 知道自己什么时候错了</p><div class="meta">▲ 87 分 · HenryNdubuaku · <a href="https://news.ycombinator.com/item?id=49010782" target="_blank" rel="noopener">14 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Cactus 在 Gemma 4 里植入一个 68k 参数的探针层，输出 0-1 置信度，将 15-35% 的低置信度查询路由给 Gemini 3.1 Flash-Lite 即可在多数基准上追平后者，大幅降低云端调用成本。探针 AUROC 达 0.814，远超 token 熵的 0.549，且训练时未接触任何音频数据，却能在 4 个音频基准上获得 0.79-0.88 的高分。</p><p class="context"><strong>🧭 联系你的知识背景</strong> AUROC 衡量的是模型把错误回答和正确回答区分开的能力，1.0 表示完美分离，0.5 相当于随机猜测。</p><ul class="kp"><li>植入 <strong>68k 参数探针层</strong>，直接从生成过程的隐藏状态预测 p(wrong)，返回结构化置信度，不再解析文本。</li><li>仅将 <strong>15–35% 查询</strong> 路由到 Gemini 3.1 Flash-Lite，Gemma 4 E2B 即可在多个基准上匹配 Flash-Lite 水平。</li><li>在 12 个留出基准上，探针<strong>平均 AUROC 0.814</strong>，而token 熵仅 0.549；零音频训练下音频 AUROC 仍达 0.79-0.88，揭示模态无关的“自知”信号。</li><li>权重已开放在 <strong>HuggingFace</strong>，提供 Transformers、MLX、llama.cpp 等直接可用的代码，MIT 许可，Gemma 使用仍受其原条款约束。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区争议在于模型能否真正“知道错了”而不仅是不确定，同时关注该方法与 Goodfire 可解释性工作的异同，以及是否能在编码任务与本地大模型路由上发挥作用。</p><div class="tags"><span class="tag">LLM 推理</span><span class="tag">模型路由</span><span class="tag">置信度估计</span><span class="tag">开源模型</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · BugsJustFindMe · 1 回复</div><p>&gt; &quot;post-trained to know when it&#x27;s wrong&quot;</p><p>Is it also post-trained to know when it&#x27;s wrong about when it&#x27;s wrong?</p><p>&gt; &quot;Every response comes with a confidence score between 0 and 1&quot;</p><p>How confident is it in its confidence?</p><p>Please, I&#x27;m sure that what you&#x27;re doing is very neat and useful, but use other language to describe it. I beg you. You can&#x27;t know when you&#x27;re wrong. You can only know when you&#x27;re unsure or inconsistent. You can be absolutely certain and still wrong and uncertain and still correct.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://petals.dev/" target="_blank" rel="noopener">Petals: Run LLMs at home, BitTorrent-style</a></h2></div><p class="title-tr">Petals：像 BitTorrent 一样在家运行大语言模型</p><div class="meta">▲ 66 分 · snorbleck · <a href="https://news.ycombinator.com/item?id=49015735" target="_blank" rel="noopener">25 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Petals 通过分布式网络让用户在家用消费级 GPU 协作运行超大模型（最高 Llama 3.1 405B），推理速度达 6 tokens/sec（Llama 2 70B）。项目源自 2022 年 BigScience，但近期活跃度低，社区正转向单 GPU 可承载的小模型优化方案。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 类比 BitTorrent，每个人只贡献模型的一部分，共同完成一次推理，而不是整个模型放在一台机器上。</p><ul class="kp"><li>支持在家用消费级 GPU 协作运行 <strong>Llama 3.1 最高 405B</strong>、Mixtral 8×22B、Falcon 180B 等超大模型。</li><li>单批次推理速度：<strong>Llama 2 70B 达 6 tokens/sec</strong>，Falcon 180B 达 4 tokens/sec，勉强满足聊天机器人等交互应用。</li><li>项目 <strong>2022 年已发布</strong>，近期 GitHub 提交停滞，社区认为小模型量化与单 GPU 推理优化显著降低了对分布式方案的需求。</li><li>评论区推荐 <strong>AI Horde</strong> 等替代方案，专为能装进单 GPU 的小模型设计，并已成为 SillyTavern 的默认推理后端。</li></ul><p class="disc"><strong>💬 讨论</strong> 共识为概念有趣但时机过早：带宽与延迟限制体验，小模型优化和量化技术使分布式推理的紧迫性大幅降低，项目活跃度已下降。</p><div class="tags"><span class="tag">LLM 推理</span><span class="tag">分布式计算</span><span class="tag">消费级 GPU</span><span class="tag">P2P 网络</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · N_Lens · 3 回复</div><p>It&#x27;s an interesting concept but the timing is probably too early. If more people had reliable low latency gigabit or ideally 10gbit throughput, then it might start to approach feasibility. There&#x27;s other blockers too, but that springs to mind immediately.</p><p>It&#x27;s cool to imagine a planet wide neural network interconnected with fiber - the nervous system of a planetary intelligence. But perhaps mushrooms do that already (Alpha Centauri ever relevant).</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://ciphertalk.substack.com/p/nobody-knows-what-a-used-gpu-cluster" target="_blank" rel="noopener">Nobody knows what a used GPU cluster is worth</a></h2></div><p class="title-tr">没人知道二手 GPU 集群值多少钱</p><div class="meta">▲ 182 分 · rbanffy · <a href="https://news.ycombinator.com/item?id=48917135" target="_blank" rel="noopener">168 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">正文无法获取，仅基于评论：翻新后的二手 H100 交易价约为新品的 50%–70%，但高价建立在供给短缺上；新架构（如 Rubin）能效提升可能让旧 GPU 即使免费也不划算，一旦产能释放或大量被收回的 GPU 涌入，价格可能暴跌。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 你熟悉的 GPU 是训练 AI 模型的核心资产，但二手市场定价逻辑类似训练数据稀缺时模型价值被高估——一旦算力供给充分（或新架构出现），旧硬件的价值会像旧模型一样骤降。</p><ul class="kp"><li>翻新后的二手 H100 价格约为新品的 <strong>50% 到 70%</strong>，但供货短缺，部分卖家使用相同新包装图片，存在欺诈风险。</li><li>英伟达可能采用 <strong>回购合同</strong>（类似法拉利）限制大客户转售，以维持稀缺性和价格。</li><li>当前价格虚高是 <strong>供给约束假象</strong>：新架构 Rubin 的能效比会让 H100 即使免费也不划算，一旦代工厂产能爬坡，二手价格将暴跌。</li><li>业内预期将有大量 <strong>被收回的 GPU</strong> 涌入市场，短期内可能造成混乱，但也为创业和实验带来算力机会。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍认为二手 GPU 高价源于短期供给短缺，但对长期价值分歧明显：有人认为类似法拉利回购会维持价格，另一部分人坚信新架构将彻底摧毁旧硬件价值。</p><div class="tags"><span class="tag">GPU 二手市场</span><span class="tag">AI 算力</span><span class="tag">H100</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · tyfon · 7 回复</div><p>I half expect Nvidia to have buyback contacts like Ferrari with the larger customers to prevent a price crash when they all upgrade and to keep them scarce.</p><p>I hope not though, perhaps I can pick up a H100 in a few years if they get sold on the open market.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://codeberg.org/Codeberg/org/pulls/1254" target="_blank" rel="noopener">Codeberg Bans Cryptocurrency Projects</a></h2></div><p class="title-tr">Codeberg 禁止加密货币项目</p><div class="meta">▲ 151 分 · intunderflow · <a href="https://news.ycombinator.com/item?id=49015588" target="_blank" rel="noopener">177 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Codeberg 正通过社区投票推动禁止加密货币相关项目，理由是该领域与欺诈和高风险投资强关联。此举引发强烈争议，批评者认为这是一种主观道德审查，破坏代码托管平台的中立性，并设立危险先例。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Codeberg 是一个类似 GitHub 的非营利代码托管平台，此次禁令是其社区治理决策，您可将它类比为去中心化自治组织的链下投票。</p><ul class="kp"><li>Codeberg 在 Assembly 2026 提案中要求<strong>禁止加密货币项目</strong>，称其损害平台声誉，投票已在进行。</li><li><strong>Sourcehut 于 2022 年率先禁止</strong>加密货币项目，Codeberg 并非孤例，但反对者认为这依然不专业。</li><li>社区反应激烈，用户指出这是<strong>主观道德审查</strong>，担心未来可能以同样方式禁止其他技术类别。</li><li>Codeberg 董事会成员曾公开表示“<strong>平台不是中立的，而是政治的</strong>”，这加剧了开发者对托管可靠性的担忧。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区主流声音反对此举，认为这设立了危险的审查先例，但部分人指出 Sourcehut 已有类似政策，且 Codeberg 作为非营利有权决定其服务条款。</p><div class="tags"><span class="tag">代码托管平台</span><span class="tag">加密货币禁令</span><span class="tag">社区治理</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · danpalmer · 9 回复</div><p>Why? Banning abuse is fine, and disliking Cryptocurrency projects at a moral level is fine, but running a coffee hosting service and putting your moral judgements on projects like this just seems childish and unserious.</p><p>I&#x27;m also apparently banned from reading the article, despite having no previous usage of Codeberg or any history with the project, so I can&#x27;t even see their reasoning.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://hatchet.run/blog/postgres-survival-guide" target="_blank" rel="noopener">The startup&#x27;s Postgres survival guide</a></h2></div><p class="title-tr">创业公司的Postgres生存指南</p><div class="meta">▲ 332 分 · abelanger · <a href="https://news.ycombinator.com/item?id=49005787" target="_blank" rel="noopener">175 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">一份来自Hatchet的Postgres实战生存手册，覆盖从索引、查询计划到批量写入和自动清理的核心调优技巧，帮助防止数据库在增长中崩溃。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Postgres是关系型数据库，将其查询优化类比为模型推理时的计算图优化：数据库的“查询计划器”会为每条SQL选择执行路径，错误的选择会严重拖慢性能，就像模型用了低效算子。</p><ul class="kp"><li><strong>索引</strong>是避免全表扫描的关键，但过多的索引会带来写开销，复合索引需对齐ORDER BY列</li><li><strong>查询计划器</strong>依赖表统计信息选择是否使用索引，过时的统计可能导致计划器做出糟糕决策，可通过EXPLAIN ANALYZE诊断</li><li>批量写入使用<strong>SendBatch</strong>可将吞吐量提升约10倍，减少每个查询的往返开销</li><li>高写入负载下，调整<strong>自动清理（autovacuum）</strong>频率可防止死元组（dead tuples）堆积导致数据库性能退化</li></ul><p class="disc"><strong>💬 讨论</strong> 评论指出指南遗漏了备份与恢复策略这一关键生产实践，并补充了UUID v7、hash索引、GIN索引等进阶技巧，形成对原文的有力扩展。</p><div class="tags"><span class="tag">Postgres优化</span><span class="tag">数据库调优</span><span class="tag">创业基础设施</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · frollogaston · 13 回复</div><p>This advice is good, but every startup I&#x27;ve worked with has run into lower hanging fruit than this even. Less scaling problems and more just organizational. Usually what fixes that is:</p><p>1. Don&#x27;t use an ORM.</p><p>2. Use serial PKs, not meaningful fields (article mentions this).</p><p>3. Use jsonb if needed, but sparingly.</p><p>4. Make your source of truth append-only, meaning you only insert, never update or delete. You can have secondary denormalized tables that are mutated, but that&#x27;s only for performance/convenience and shouldn&#x27;t be your sot.</p><p>5. Use connection pools, but be mindful of how many connections you&#x27;re using. You probably don&#x27;t need PgBouncer unless you&#x27;ve messed something up.</p><p>6. In code, avoid explicit transactions unless there&#x27;s a clear reason you need them. Usually only need those for denormalized parts. Just take a conn from the pool, do something, commit, return conn to pool. If you&#x27;re going to keep an xact open, never do long-running stuff in the middle like RPCs. Too often I see people leave xacts open without much thought. Edit: Also don&#x27;t use SERIALIZABLE xacts almost ever.</p><p>7. Something is probably wrong if you&#x27;re using explicit locking like SELECT FOR UPDATE.</p><p>8. Don&#x27;t reinvent a type system by having a single table where each row can mean many different things depending on a &quot;type int&quot; enum col. Seems oddly specific, but for some reason someone always tries this.</p><p>9. Related to above, don&#x27;t reinvent a graph DB, typically with &quot;node&quot;/&quot;edge&quot; tables that FK into themselves or in a cycle. 99% of the time what you&#x27;re trying to do is easily solvable with regular normalized tables.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://cacm.acm.org/blogcacm/if-you-think-you-can-do-real-world-text-to-sql/" target="_blank" rel="noopener">Any text-to-SQL benchmark should address difficulties of real-world data stores</a></h2></div><p class="title-tr">任何文本转 SQL 基准测试都应解决实际数据存储的困难</p><div class="meta">▲ 42 分 · shenli3514 · <a href="https://news.ycombinator.com/item?id=49013995" target="_blank" rel="noopener">11 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">纯 LLM 直接生成 SQL 的准确率在真实陈旧数据库上为零，即使加入 RAG 与提示工程也仅提升至 10%+。评论普遍认为，问题核心在于数据质量与语义层缺失，而非模型能力本身。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可以把“语义层”类比为精心设计的特征工程：不直接给模型原始杂乱数据，而是先把业务指标、表关系和清洗逻辑组织成结构化描述，再让 LLM 使用。</p><ul class="kp"><li><strong>纯 LLM 零样本文本转 SQL 在真实数据库基准上准确率为 0%</strong>，加入 RAG 和代理逻辑后也仅到 10%+</li><li><strong>数据质量与文档缺失是 90% 的障碍</strong>，锈蚀的 schema 和模糊的业务定义比 SQL 生成本身更难解决</li><li>评论建议放弃一次性生成，改为<strong>代理循环</strong>：先探查 schema、跑少量探测查询、再迭代确认结果</li><li>多数收益由<strong>懂 SQL 的分析师</strong>获得，业务用户直接使用 LLM 生成 SQL 存在验证盲区，可能把错误结果当成正式结论</li></ul><p class="disc"><strong>💬 讨论</strong> 评论高度共识：直接文本到 SQL 是错误框架，应转向可探查和迭代的代理循环；但对业务用户能否自行验证结果存在分歧。</p><div class="tags"><span class="tag">文本转SQL</span><span class="tag">LLM 基准测试</span><span class="tag">数据工程</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · fivetenpen · 1 回复</div><p>The biggest issue with business users (who don’t know SQL) writing SQL with an LLM is that there is no one to validate that query and now that business user will treat that LLM response as canon to share in meetings, presentations, and with clients. The LLM may have forgotten a filter, used the wrong definition of revenue, or misunderstood the user’s intent by writing a query that answers their question in the most literal way.</p><p>That is the crux of the issue. No amount of semantic layers and context will help this until an LLM can read the user’s mind to remove ambiguity in the prompt.</p><p>I see most of the benefits of LLMs to be used by analysts who know SQL to work more productivly.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://blog.fiddery.com/businesses-with-ugly-ai-menu-redesigns/" target="_blank" rel="noopener">Businesses with ugly AI menu redesigns</a></h2></div><p class="title-tr">丑陋 AI 菜单重设计的商家们</p><div class="meta">▲ 202 分 · speckx · <a href="https://news.ycombinator.com/item?id=49005973" target="_blank" rel="noopener">157 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">小餐馆用 AI 生成菜单图片，图像失真、呆板且与实物不符，引发消费者厌恶与信任危机。HN 评论认为这代表了低质量信号，但真实大众是否反感尚无定论。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 生成式图像模型（如 Nano Banana、GPT-Image）虽能输出正确文字，但缺乏个性，其实物失真的“恐怖谷”效应会削弱用户信任，这与用深度模型输出时对“泛化与个性”的权衡类似。</p><ul class="kp"><li><strong>AI 生成的菜单图片</strong>出现「恐怖谷」效应：图像虽逼真但失真，与菜品实物不符，让食客降低点单意愿和信任。</li><li><strong>成本敏感的小企业</strong>被 AI 「一键生成」的低门槛吸引，但常因不了解设计价值而牺牲品牌个性。</li><li>HN 评论认为 <strong>AI 广告已成低努力、低能力的信号</strong>，相比手绘涂鸦或 Comic Sans 排版反而更损害可信度。</li><li>有评论提出<strong>用 AI 处理实拍照片</strong>（统一背景/光照）而非凭空生成，可能是兼顾效率与诚信的折中方案。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍反感 AI 替代人力设计导致的个性丧失与信任侵蚀，但对其是否真的被大众感知为「劣质」存在分歧：一方认为是旧人排斥新事物，另一方强调低努力信号已成新常态。</p><div class="tags"><span class="tag">AI 生成内容</span><span class="tag">消费者信任</span><span class="tag">品牌设计</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · simonw · 9 回复</div><p>I&#x27;m fascinated by how AI poster designs have taken over local advertising in seemingly just the last six months - presumably because ChatGPT Images and Gemini Nano Banana finally got good enough at outputting text without obvious defects in the typography.</p><p>The posters all look good - much better than their desktop publishing predecessors. And yet they also eat away at the credibility of the event or business for me.</p><p>It&#x27;s hard to trust a poster when the quality of the design has zero relation to the amount of effort that went into creating it.</p><p>But is that a widespread feeling, are the vibes bad for regular people, or is this effectively just old man shouting at clouds?</p></div></div></article>
+</div></main>
+<footer>generated 2026-07-23 03:43 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-23", "pointsLabel": "分", "commentsLabel": "评论", "title": "Terence Tao's ChatGPT conversation about the Jacobian Conjecture counterexample", "titleTranslation": "陶哲轩关于雅可比猜想反例的 ChatGPT 对话", "summary": "陶哲轩分享其与 ChatGPT 的对话记录，展示了他如何通过精准提问和逐步简化，引导模型分析雅可比猜想的一个反例并挖掘其几何结构。这体现了顶级数学家将 LLM 用作高阶思维协作者而非简单工具的能力。", "keyPoints": ["陶哲轩 使用高度专业化的提问和渐进简化，引导 ChatGPT 拆解雅可比猜想反例，并持续推动寻找几何解释。", "反例源自 Claude Fable 的早期工作，此次对话进一步探索了反例背后的结构性原因，而非蛮力搜索。", "评论指出专家与 AI 的交互深度远超普通用户，领域知识决定了从模型中提取价值的极限。"], "discussion": "评论普遍震惊于陶哲轩将 AI 当作思维伙伴而非查询引擎的用法，共识是非专家难以复制这种深度，但 AI 正快速接近甚至超越人类专家的协作能力。", "tags": ["数学研究", "AI辅助发现", "LLM应用"], "score": 674, "comments": 404, "by": "gmays", "url": "https://chatgpt.com/share/6a5fdc7a-d6f8-83e8-bbea-8deb42cfed56", "hnUrl": "https://news.ycombinator.com/item?id=49010345"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-23", "pointsLabel": "分", "commentsLabel": "评论", "title": "GigaToken: ~1000x faster Language model tokenization", "titleTranslation": "GigaToken：语言模型分词速度提升约 1000 倍", "summary": "GigaToken 将分词速度推至 GB/s 级别，在 AMD EPYC 144 核上达 24.53 GB/s，比 HuggingFace tokenizers 快 989 倍，且输出完全兼容。主要优化为 SIMD 替代正则预分词、缓存已见词映射、减少 Python 交互，对离线预训练数据准备可大幅提速。", "keyPoints": ["在 AMD EPYC 9565 144 核 上分词速度达到 24.53 GB/s，比 HuggingFace 快近千倍。", "可作为 HuggingFace 或 tiktoken 的即插即用替换，输出完全匹配，API 兼容。", "核心优化：用 SIMD 替代正则引擎进行预分词，缓存重复词的 token 映射，大幅减少分支和线程通信。"], "discussion": "评论普遍赞赏工程价值，但指出分词在推理总耗时中占比极小，真正受益场景是离线数据准备；也有人关心单核心效率和完美哈希表的引入。", "tags": ["LLM 分词", "SIMD 优化", "预训练数据管线"], "score": 399, "comments": 79, "by": "syrusakbary", "url": "https://github.com/marcelroed/gigatoken/", "hnUrl": "https://news.ycombinator.com/item?id=49010167"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-23", "pointsLabel": "分", "commentsLabel": "评论", "title": "Are AI Labs Pelicanmaxxing?", "titleTranslation": "AI 实验室在专门优化鹈鹕骑自行车吗？", "summary": "作者生成1008张SVG、测试7个前沿模型，发现没有任何实验室在“鹈鹕骑自行车”这一非正式基准上比其他动物-车辆组合表现更好，组合得分仅排第42/48，无统计显著的过拟合证据。", "keyPoints": ["1008张SVG按8动物×6车辆×3次采样生成，未发现任何实验室在鹈鹕骑自行车上有显著过拟合。", "GLM-5.2在鹈鹕-自行车单元格有+0.35分提升，但不显著（p=0.12），是唯一接近信号的点。", "Gemini 3.5 Flash在自行车项上显示+0.27分且p=0.022，但不通过多重比较校正，可能是21次检验的随机假阳性。"], "discussion": "HN评论赞赏定量分析的严谨性，并补充自行车朝右可能与真实摄影习惯（展示传动系统）有关，而非模型记忆；用户也提到检查其他提示组合可避免误判。", "tags": ["LLM 评估", "基准过拟合", "SVG 生成分析"], "score": 417, "comments": 161, "by": "dcastm", "url": "https://dylancastillo.co/posts/pelicanmaxxing.html", "hnUrl": "https://news.ycombinator.com/item?id=49010129"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-23", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Cactus Hybrid: We taught Gemma 4 to know when it's wrong", "titleTranslation": "Show HN: Cactus Hybrid: 我们教会了 Gemma 4 知道自己什么时候错了", "summary": "Cactus 在 Gemma 4 里植入一个 68k 参数的探针层，输出 0-1 置信度，将 15-35% 的低置信度查询路由给 Gemini 3.1 Flash-Lite 即可在多数基准上追平后者，大幅降低云端调用成本。探针 AUROC 达 0.814，远超 token 熵的 0.549，且训练时未接触任何音频数据，却能在 4 个音频基准上获得 0.79-0.88 的高分。", "keyPoints": ["植入 68k 参数探针层，直接从生成过程的隐藏状态预测 p(wrong)，返回结构化置信度，不再解析文本。", "仅将 15–35% 查询 路由到 Gemini 3.1 Flash-Lite，Gemma 4 E2B 即可在多个基准上匹配 Flash-Lite 水平。", "在 12 个留出基准上，探针平均 AUROC 0.814，而token 熵仅 0.549；零音频训练下音频 AUROC 仍达 0.79-0.88，揭示模态无关的“自知”信号。"], "discussion": "评论区争议在于模型能否真正“知道错了”而不仅是不确定，同时关注该方法与 Goodfire 可解释性工作的异同，以及是否能在编码任务与本地大模型路由上发挥作用。", "tags": ["LLM 推理", "模型路由", "置信度估计"], "score": 87, "comments": 14, "by": "HenryNdubuaku", "url": "https://github.com/cactus-compute/cactus-hybrid", "hnUrl": "https://news.ycombinator.com/item?id=49010782"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-23", "pointsLabel": "分", "commentsLabel": "评论", "title": "Petals: Run LLMs at home, BitTorrent-style", "titleTranslation": "Petals：像 BitTorrent 一样在家运行大语言模型", "summary": "Petals 通过分布式网络让用户在家用消费级 GPU 协作运行超大模型（最高 Llama 3.1 405B），推理速度达 6 tokens/sec（Llama 2 70B）。项目源自 2022 年 BigScience，但近期活跃度低，社区正转向单 GPU 可承载的小模型优化方案。", "keyPoints": ["支持在家用消费级 GPU 协作运行 Llama 3.1 最高 405B、Mixtral 8×22B、Falcon 180B 等超大模型。", "单批次推理速度：Llama 2 70B 达 6 tokens/sec，Falcon 180B 达 4 tokens/sec，勉强满足聊天机器人等交互应用。", "项目 2022 年已发布，近期 GitHub 提交停滞，社区认为小模型量化与单 GPU 推理优化显著降低了对分布式方案的需求。"], "discussion": "共识为概念有趣但时机过早：带宽与延迟限制体验，小模型优化和量化技术使分布式推理的紧迫性大幅降低，项目活跃度已下降。", "tags": ["LLM 推理", "分布式计算", "消费级 GPU"], "score": 66, "comments": 25, "by": "snorbleck", "url": "https://petals.dev/", "hnUrl": "https://news.ycombinator.com/item?id=49015735"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-23", "pointsLabel": "分", "commentsLabel": "评论", "title": "Nobody knows what a used GPU cluster is worth", "titleTranslation": "没人知道二手 GPU 集群值多少钱", "summary": "正文无法获取，仅基于评论：翻新后的二手 H100 交易价约为新品的 50%–70%，但高价建立在供给短缺上；新架构（如 Rubin）能效提升可能让旧 GPU 即使免费也不划算，一旦产能释放或大量被收回的 GPU 涌入，价格可能暴跌。", "keyPoints": ["翻新后的二手 H100 价格约为新品的 50% 到 70%，但供货短缺，部分卖家使用相同新包装图片，存在欺诈风险。", "英伟达可能采用 回购合同（类似法拉利）限制大客户转售，以维持稀缺性和价格。", "当前价格虚高是 供给约束假象：新架构 Rubin 的能效比会让 H100 即使免费也不划算，一旦代工厂产能爬坡，二手价格将暴跌。"], "discussion": "评论普遍认为二手 GPU 高价源于短期供给短缺，但对长期价值分歧明显：有人认为类似法拉利回购会维持价格，另一部分人坚信新架构将彻底摧毁旧硬件价值。", "tags": ["GPU 二手市场", "AI 算力", "H100"], "score": 182, "comments": 168, "by": "rbanffy", "url": "https://ciphertalk.substack.com/p/nobody-knows-what-a-used-gpu-cluster", "hnUrl": "https://news.ycombinator.com/item?id=48917135"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-23", "pointsLabel": "分", "commentsLabel": "评论", "title": "Codeberg Bans Cryptocurrency Projects", "titleTranslation": "Codeberg 禁止加密货币项目", "summary": "Codeberg 正通过社区投票推动禁止加密货币相关项目，理由是该领域与欺诈和高风险投资强关联。此举引发强烈争议，批评者认为这是一种主观道德审查，破坏代码托管平台的中立性，并设立危险先例。", "keyPoints": ["Codeberg 在 Assembly 2026 提案中要求禁止加密货币项目，称其损害平台声誉，投票已在进行。", "Sourcehut 于 2022 年率先禁止加密货币项目，Codeberg 并非孤例，但反对者认为这依然不专业。", "社区反应激烈，用户指出这是主观道德审查，担心未来可能以同样方式禁止其他技术类别。"], "discussion": "HN 评论区主流声音反对此举，认为这设立了危险的审查先例，但部分人指出 Sourcehut 已有类似政策，且 Codeberg 作为非营利有权决定其服务条款。", "tags": ["代码托管平台", "加密货币禁令", "社区治理"], "score": 151, "comments": 177, "by": "intunderflow", "url": "https://codeberg.org/Codeberg/org/pulls/1254", "hnUrl": "https://news.ycombinator.com/item?id=49015588"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-23", "pointsLabel": "分", "commentsLabel": "评论", "title": "The startup's Postgres survival guide", "titleTranslation": "创业公司的Postgres生存指南", "summary": "一份来自Hatchet的Postgres实战生存手册，覆盖从索引、查询计划到批量写入和自动清理的核心调优技巧，帮助防止数据库在增长中崩溃。", "keyPoints": ["索引是避免全表扫描的关键，但过多的索引会带来写开销，复合索引需对齐ORDER BY列", "查询计划器依赖表统计信息选择是否使用索引，过时的统计可能导致计划器做出糟糕决策，可通过EXPLAIN ANALYZE诊断", "批量写入使用SendBatch可将吞吐量提升约10倍，减少每个查询的往返开销"], "discussion": "评论指出指南遗漏了备份与恢复策略这一关键生产实践，并补充了UUID v7、hash索引、GIN索引等进阶技巧，形成对原文的有力扩展。", "tags": ["Postgres优化", "数据库调优", "创业基础设施"], "score": 332, "comments": 175, "by": "abelanger", "url": "https://hatchet.run/blog/postgres-survival-guide", "hnUrl": "https://news.ycombinator.com/item?id=49005787"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-23", "pointsLabel": "分", "commentsLabel": "评论", "title": "Any text-to-SQL benchmark should address difficulties of real-world data stores", "titleTranslation": "任何文本转 SQL 基准测试都应解决实际数据存储的困难", "summary": "纯 LLM 直接生成 SQL 的准确率在真实陈旧数据库上为零，即使加入 RAG 与提示工程也仅提升至 10%+。评论普遍认为，问题核心在于数据质量与语义层缺失，而非模型能力本身。", "keyPoints": ["纯 LLM 零样本文本转 SQL 在真实数据库基准上准确率为 0%，加入 RAG 和代理逻辑后也仅到 10%+", "数据质量与文档缺失是 90% 的障碍，锈蚀的 schema 和模糊的业务定义比 SQL 生成本身更难解决", "评论建议放弃一次性生成，改为代理循环：先探查 schema、跑少量探测查询、再迭代确认结果"], "discussion": "评论高度共识：直接文本到 SQL 是错误框架，应转向可探查和迭代的代理循环；但对业务用户能否自行验证结果存在分歧。", "tags": ["文本转SQL", "LLM 基准测试", "数据工程"], "score": 42, "comments": 11, "by": "shenli3514", "url": "https://cacm.acm.org/blogcacm/if-you-think-you-can-do-real-world-text-to-sql/", "hnUrl": "https://news.ycombinator.com/item?id=49013995"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-23", "pointsLabel": "分", "commentsLabel": "评论", "title": "Businesses with ugly AI menu redesigns", "titleTranslation": "丑陋 AI 菜单重设计的商家们", "summary": "小餐馆用 AI 生成菜单图片，图像失真、呆板且与实物不符，引发消费者厌恶与信任危机。HN 评论认为这代表了低质量信号，但真实大众是否反感尚无定论。", "keyPoints": ["AI 生成的菜单图片出现「恐怖谷」效应：图像虽逼真但失真，与菜品实物不符，让食客降低点单意愿和信任。", "成本敏感的小企业被 AI 「一键生成」的低门槛吸引，但常因不了解设计价值而牺牲品牌个性。", "HN 评论认为 AI 广告已成低努力、低能力的信号，相比手绘涂鸦或 Comic Sans 排版反而更损害可信度。"], "discussion": "评论普遍反感 AI 替代人力设计导致的个性丧失与信任侵蚀，但对其是否真的被大众感知为「劣质」存在分歧：一方认为是旧人排斥新事物，另一方强调低努力信号已成新常态。", "tags": ["AI 生成内容", "消费者信任", "品牌设计"], "score": 202, "comments": 157, "by": "speckx", "url": "https://blog.fiddery.com/businesses-with-ugly-ai-menu-redesigns/", "hnUrl": "https://news.ycombinator.com/item?id=49005973"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
