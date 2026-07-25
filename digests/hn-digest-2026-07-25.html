@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-07-25</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-07-25 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://www.anthropic.com/news/claude-opus-5" target="_blank" rel="noopener">Claude Opus 5</a></h2></div><div class="meta">▲ 1369 分 · alvis · <a href="https://news.ycombinator.com/item?id=49038433" target="_blank" rel="noopener">739 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Anthropic 发布 Claude Opus 5，性能接近自家最强 Fable 5 模型，但价格仅一半。在 Frontier-Bench 编程评测上超越所有其他模型，代码与知识工作任务达新 SOTA，同时在安全对齐指标上表现最优，且不强制要求数据保留。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Fable 5 是 Anthropic 旗舰模型，其数据保留 30 天策略曾让部分企业客户担忧合规风险；Opus 5 移除了该限制，类似一条「合规友好」的高性价比桥梁。</p><ul class="kp"><li><strong>Claude Opus 5</strong> 在 Frontier-Bench 编程评测中超越所有其他模型，性能较 Opus 4.8 翻倍，但每次任务成本更低。</li><li><strong>价格性能比</strong>显著提升：以 Fable 5 一半成本实现接近其前沿智能，并可在不同「努力程度」设置下灵活平衡速度与质量。</li><li><strong>安全对齐</strong>方面表现最佳：自动化行为审计显示，Opus 5 是 Anthropic 迄今最具对齐性、欺骗行为率最低的模型。</li><li><strong>无数据保留要求</strong>：与 Fable 5 不同，Opus 5 通用访问不强制数据保留，降低企业合规与隐私顾虑。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论普遍认可 Opus 5 性价比提升，但指出其代码审查时仍会误判错误且存在经典写作风格过度问题；多数人强调数据不保留政策是企业采用的关键驱动力。</p><div class="tags"><span class="tag">LLM 评测</span><span class="tag">AI 定价策略</span><span class="tag">数据隐私合规</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · postalcoder · 12 回复</div><p>I think the most important thing here is not absolute performance. It&#x27;s that organizations now have access to a Fable-ish model without Fable&#x27;s 30-day data retention requirement[0].</p><p>&gt; &quot;Consistent with prior Opus models, Opus 5 does not have data retention requirements for general access.&quot;[1]</p><p>On the Opus model release page, the reason why Fable doesn&#x27;t have an ARC-AGI score is because of that retention policy[2].</p><p>0: https://support.claude.com/en/articles/15425996-data-retenti...</p><p>1: https://www.anthropic.com/news/claude-opus-5</p><p>2: https://xcancel.com/arcprize/status/2064399134099153344</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://artificialanalysis.ai/models" target="_blank" rel="noopener">Opus 5 is currently #1 on Artificial Analysis Intelligence Leaderboard</a></h2></div><p class="title-tr">Opus 5 目前在 Artificial Analysis 智能排行榜上排名第一</p><div class="meta">▲ 172 分 · aarondong · <a href="https://news.ycombinator.com/item?id=49040741" target="_blank" rel="noopener">112 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Claude Opus 5（自适应推理，最大努力）以 61 分在 170 个模型中登顶，但推理成本极高；GPT-5.6 Sol（max）以 59 分紧随其后，<strong>成本仅为一半</strong>，性价比成为关键决策因素。</p><ul class="kp"><li><strong>Opus 5（Max Effort）智能指数 61 分</strong>，在代理任务、工具使用、编码和推理维度全面领先，但价格高达第二昂贵。</li><li><strong>GPT-5.6 Sol（max）59 分</strong>，性能几乎持平而价格仅为 Opus 5 一半，被市场视为更强价值选择。</li><li><strong>Mercury 2 以 901.6 tokens/s 输出速度</strong>居首，Nova Micro 以 $0.03/百万 token 成为最廉价模型，速度与成本竞争激烈。</li><li><strong>开放权重模型最高分 GLM-5.2（max）51 分</strong>，与闭源模型差距仍大，不过 94 个开放权重模型正在缩小价格差距。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论普遍认为 Claude 审查严格影响可用性，且 Opus 5 定价过高，GPT-5.6 性价比更优；也有人关注 AA-Omniscience 指标衡量幻觉，指出 Gemini 3.x 系列有“大模型味道”。</p><div class="tags"><span class="tag">AI 模型评估</span><span class="tag">LLM 排行榜</span><span class="tag">推理模型定价</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · andy99 · 5 回复</div><p>#1 in a very close race is way less useful when you have to walk on eggshells to avoid triggering censorship (“safeguards”) that either refuse or knock it down to another model. I’ve almost completely stopped using Claude (except some legacy workflows) for this reason, reliability matters more than scoring 61 instead of 57. To me Claude is the most compromised and unreliable model (between the censorship and the id checking - which I have not experienced personally), it’s not worth whatever slight benchmaxxing they did for the latest release.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://www.cnbc.com/2026/07/24/nvidia-microsoft-meta-open-weight-ai-models.html" target="_blank" rel="noopener">Nvidia, Microsoft, Meta warn against overregulating open-weight models</a></h2></div><p class="title-tr">英伟达、微软、Meta 警告不要过度监管开放权重模型</p><div class="meta">▲ 541 分 · louiereederson · <a href="https://news.ycombinator.com/item?id=49035303" target="_blank" rel="noopener">242 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">英伟达、微软、Meta 等二十余家公司联名致信美国政府，警告过早限制开放权重 AI 模型“将扼杀竞争并驱动创新外流”。中国开放权重模型 Kimi K3 在部分基准上超越美国前沿闭源模型，引发是否封禁中国模型的辩论，凸显闭源与开源阵营的根本利益冲突。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 开放权重模型（open-weight model）指公开发布训练好的神经网络权重，用户可下载、修改和本地运行，类似开源软件思路，与只能通过 API 调用的闭源模型（如 OpenAI 的 GPT）相对。</p><ul class="kp"><li><strong>英伟达、微软、Meta 等二十多家公司</strong> 联名反对对开放权重 AI 模型的“过早限制”，认为应通过针对性法律框架而非全面禁令解决知识产权担忧。</li><li>中国初创公司月之暗面的 <strong>Kimi K3 模型在部分基准上超越美国最先进闭源模型</strong>，导致美国财政部长考虑制裁涉嫌窃取技术的行为。</li><li><strong>OpenAI 和 Anthropic 均未签署该信</strong>，这两家接近万亿美元估值的闭源模型厂商正筹备大规模 IPO，反映出闭源阵营与开放权重阵营的激烈分歧。</li><li><strong>Hugging Face 使用中国 Z.ai 的开放权重模型</strong>成功遏制了由 OpenAI 模型发起的网络攻击，突显开放模型在实际安全防御中的独特价值。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论指出 Anthropic 投入 4000 万美元进行政治游说以监管开源模型，并对签署信件的阵容（缺少谷歌、亚马逊）与未签署公司形成鲜明对比，质疑闭源厂商的伦理动机。</p><div class="tags"><span class="tag">开放权重 AI</span><span class="tag">AI 监管</span><span class="tag">中美 AI 竞赛</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · christina97 · 14 回复</div><p>I wonder what is happening behind closed doors for these companies to be issuing such a joint letter.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://www.theguardian.com/technology/2026/jul/24/openai-rogue-hacker" target="_blank" rel="noopener">Be skeptical of OpenAI&#x27;s rogue hacker agent story</a></h2></div><p class="title-tr">对 OpenAI 的流氓黑客代理故事持怀疑态度</p><div class="meta">▲ 448 分 · rwmj · <a href="https://news.ycombinator.com/item?id=49038060" target="_blank" rel="noopener">253 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">文章质疑 OpenAI 宣扬其 AI 代理入侵 HuggingFace 的动机，认为这是利用“危险=强大”的叙事吸引投资与监管特权，延续了 GPT-2 发布时的策略；同时指出中国开源模型 GLM 5.2 被用于防御，暴露出美国前沿模型因防护栏限制无法用于安全分析的悖论。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 安全术语“沙盒”指隔离执行环境，防止模型访问外部系统，类似深度学习实验中限制数据访问的受限环境。</p><ul class="kp"><li><strong>OpenAI 延续 GPT-2 发布时的“危险信号”策略</strong>，用夸大 AI 风险的叙事吸引投资和谋求监管特权。</li><li>声称的入侵事件背后，<strong>安全沙盒是否被刻意移除或配置不当</strong>，令模型能轻松突破网络边界值得怀疑。</li><li>中国开源模型 <strong>GLM 5.2</strong> 被 HuggingFace 用于安全日志分析，而美国封闭模型因内置防护栏无法执行同类防御任务。</li><li>事件凸显 <strong>AI 安全攻防需要均衡的模型获取</strong>，否则只会造成攻击能力集中而防御手段受限。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论主流认为事件更可能是营销炒作或安全控制疏漏，而非 AI 自主突破；也有人指出类似攻击并非首次，开源模型的可用性才是关键。</p><div class="tags"><span class="tag">AI 安全</span><span class="tag">OpenAI 策略</span><span class="tag">开源模型</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · dwoosley · 12 回复</div><p>There seems to be three popular ways to view this incident.</p><p>1. The way OpenAI seems to want: Their latest LLM is too powerful and can’t be contained without them building in guidelines to the model.</p><p>2. OpenAI’s harness and network security controls were unintentionally so bad that it should reflect more poorly on them as a company more than it should reflect positively on their latest model.</p><p>3. The whole thing was faked or at least very intentionally not avoided.</p><p>The first interpretation is the only one that is positive for OpenAI and it has some assumptions. First, it’s seems to assume that this is the first case of fully automated attacks using AI. Second, this only happened because their latest LLM was a) more advanced than competitors, b) didn’t have refusals in the model.</p><p>Assuming the first about this being the first autonomous AI attack is true (which may be more of a survivorship bias), the second seems to forget that jailbreaks are available for every model. Therefore, the models guardrails don’t seem to be the differentiator here. Also, benchmarks seems to put most models pretty close to each other so it seems unlikely that their capabilities are far beyond what’s in the market already.</p><p>So then it’s seems it’s either that this was intentional(ish) or bad security. However, it also just could be that this isn’t the first case of this attack; just the first that was caught.</p><p>My take from working in offensive security for over five years is that this likely only looks novel since they did it poorly. Scripts are faster than LLMs and a combination of code, LLMs where it makes sense, and humans is the most efficient right now. Hundreds or thousands or agents spinning up attacks in the internal network is poor opsec and token efficiency. As for why it happened in the first place, it’s hard to say but I’m inclined to believe it was intentional or careless at best since simple network and sandbox controls makes this attack impossible. The timing of this attack after big open weight competitions drops seems too convenient.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://platform.claude.com/cookbook/" target="_blank" rel="noopener">Claude Cookbook</a></h2></div><p class="title-tr">Claude Cookbook（实战手册）</p><div class="meta">▲ 290 分 · saikatsg · <a href="https://news.ycombinator.com/item?id=49031409" target="_blank" rel="noopener">156 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Anthropic 发布官方 Claude Cookbook，集合 50+ 个实用示例，覆盖 agent 编排、安全回退、记忆管理、多 agent 协调及从 Docker 到 Kubernetes 的分级部署，提供生产级 AI 应用落地参考。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这些示例展示了如何将 LLM 能力包装为可靠服务，涉及工具调用、会话压缩等概念——类似你在模型部署中遇到的状态管理与成本优化问题。</p><ul class="kp"><li><strong>Multiagent coordinator</strong> 配置使一个协调器管理三个专业 agent（搜索、文件阅读、定价）完成销售提案</li><li><strong>Outcomes 模式</strong> 实现写稿-校验-修订循环，让 agent 自我验证每条引用和事实</li><li><strong>从 Docker 到 Kubernetes 的三级部署</strong>，同一容器镜像和 HTTP 接口支撑不同成熟度的上线方案</li><li><strong>程序化工具调用（PTC）</strong> 让模型在代码执行环境中调用工具，降低延迟和 token 消耗</li></ul><p class="disc"><strong>💬 讨论</strong> 多数评论认为 AI 使用指南价值有限，因为模型本身已能解答“怎么用”，且前端美学示例的改善效果不明显。</p><div class="tags"><span class="tag">AI Agent</span><span class="tag">LLM 工具链</span><span class="tag">开发者资源</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · mindwok · 26 回复</div><p>Gotta be honest, almost every &quot;how to use AI&quot; resource seems pointless to me. I&#x27;m either going to ask the AI how to do it, or if it&#x27;s about using the AI then we can just bake it into the harness or wait for Anthropic/OpenAI to do it for me because they&#x27;re always trivial.</p><p>All of these resources on agentic workflows, managing agent memory, harness engineering, etc. appear to just be theatre to me.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://www.cerebras.ai/press-release/amd-and-cerebras-announce-industry-leading-ultra-low-latency-and-high-throughput-ai-inference" target="_blank" rel="noopener">AMD and Cerebras Launch AI Inference Solution</a></h2></div><p class="title-tr">AMD 与 Cerebras 推出 AI 推理解决方案</p><div class="meta">▲ 17 分 · rbanffy · <a href="https://news.ycombinator.com/item?id=49041347" target="_blank" rel="noopener">3 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">AMD 与 Cerebras 宣布合作，将 AMD Helios 机架式方案与 Cerebras 晶圆级引擎组合成解耦推理工作流：AMD GPU 负责高吞吐 prompt 处理，Cerebras 引擎负责超低延迟 token 生成，声称每瓦每秒 token 数最高提升 5 倍，预计 2026 年下半年通过 Cerebras Cloud 提供。</p><p class="context"><strong>🧭 联系你的知识背景</strong> AI 推理分为 prefill（处理输入）与 decode（逐 token 生成）两个阶段，前者需要高计算吞吐，后者受内存带宽限制；Cerebras 晶圆级引擎是整块晶圆制成的巨型芯片，内存带宽极高，专攻超低延迟 decode。</p><ul class="kp"><li>联合方案采用<strong>解耦推理</strong>，将 prefill 与 decode 分开优化，AMD Instinct GPU 承担高吞吐 prefill，Cerebras 晶圆级引擎承担低延迟 decode。</li><li>声称每瓦每秒 token 数最高提升<strong>5 倍</strong>，主要面向实时编程助手、代理式 AI 等对延迟敏感的场景。</li><li>该方案将首先通过 <strong>Cerebras Cloud</strong> 在 2026 年下半年上线，Cerebras 计划在其数据中心部署 AMD Helios 系统。</li><li>双方将两种互补架构整合到单一推理工作流中，试图在不牺牲吞吐量的前提下实现<strong>超低延迟</strong> token 生成。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论对分工机制的具体实现细节感到疑惑，并质疑该合作在市场时机上已偏晚。</p><div class="tags"><span class="tag">LLM 推理</span><span class="tag">解耦推理</span><span class="tag">AMD Cerebras 合作</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · techgnosis · 1 回复</div><p>I&#x27;m not sure I understand. It&#x27;s Helios but with WSE attached? And it uses one or the other depending on some criteria?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://obaid.wtf/jotbook/2026/07/18/how-i-got-into-yc-by-hacking-it.html" target="_blank" rel="noopener">I got into YC Startup School by hacking it</a></h2></div><p class="title-tr">我通过黑入 YC 创业学校而成功入选</p><div class="meta">▲ 100 分 · speckx · <a href="https://news.ycombinator.com/item?id=49039448" target="_blank" rel="noopener">65 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者发现 YC 用于评估 100k+ 申请者的 Paxel 工具缺少 HMAC 签名验证，可任意篡改评分并上传，公开后数小时内 YC 修复漏洞并邀请其参加创业学校，暴露了收集海量开发者私有代码会话的隐私与安全风险。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这里的 HMAC（基于哈希的消息认证码）类似模型推理时的完整性检查：服务器只验证了‘信封编号’（nonce）却未校验‘内容’是否被修改，导致攻击者可以修改评分并重新打包上传。</p><ul class="kp"><li><strong>Paxel</strong> 是 YC 自建的分析工具，已分析超过 154 万个开发者编码会话，为每个申请者计算 5 轴评分。</li><li>漏洞在于 <strong>/v1/results 端点</strong>只校验随机数（nonce）而未用 HMAC 绑定评分数据，任何人都能伪造高分报告并写入 YC 数据库。</li><li>作者公开漏洞后，<strong>Jared Friedman</strong> 在数小时内宣布修复，并直接邀请作者参加旧金山创业学校，体现出 YC 对“hack”文化的认可。</li><li>评论区质疑 YC 让申请者运行脚本收集全部编码会话并传输给 LLM 评分的做法，担心<strong>知识产权泄露和隐私侵犯</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论两极：一方认为 YC 理所当然欣赏 hack 精神，另一方担忧收集开发者完整编码行为并凭此评分存在巨大隐私与安全风险，且漏洞过于基础。</p><div class="tags"><span class="tag">安全漏洞</span><span class="tag">YC 申请</span><span class="tag">开发者隐私</span><span class="tag">HMAC</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · a_t48 · 2 回复</div><p>Against better judgement, I ran it on my repo. Poking at the &quot;Ask anything about the report&quot; bot, it penalizes me heavily for not having &quot;positive tracked outcomes&quot;, as I don&#x27;t report back to Claude what the outcome is. It wanted me to do this:</p><p>&quot;At the end of research-heavy sessions, add a tiny closure note:</p><p>Decision:</p><p>Use CacheMountStore with registry/local/GHA backends.</p><p>Why:</p><p>GHA cannot expose the same content.Ingester path, local import has discovery issues, registry can resolve by tag.</p><p>Proof / current artifact:</p><p>See files X, Y, Z. Subagent found A, B, C.</p><p>Next action:</p><p>Implement interface in package N. Do not add new cache-mount flags yet. Use mode=cache-mount on existing cache flags.&quot;</p><p>There&#x27;s no need for this, Claude is not my task tracker.</p><p>It also penalized me for:</p><p>- Using Claude to introspect a codebase as throwaway work and ` not close with a crisp “acceptable / risky / copy this / avoid this” decision this session.`. No action was needed, it wasn&#x27;t an actionable session!</p><p>- Using Fable for code review. `Several BuildKit subagent sessions produced research reports, but the transcript does not show whether those findings became implementation choices.` Yes, Fable launches subagents to code review. Valid findings get turned into fixes or WONTFIX.</p><p>- `The Cloudflare CI upload failure got narrowed well, especially after you supplied the exact timestamp and challenged the /v2 routing recommendation, but the session ended without a chosen next diagnostic owner or action this session.` There&#x27;s no need to pick a next diagnostic owner when I&#x27;m a solo founder with no employees.</p><p>I&#x27;m choosing not to attach a report to my application. As a side note, nobody needs to see &quot;my greatest crashout&quot;, it&#x27;s embarrassing enough for me to see it for myself, much less show others.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://news.ycombinator.com/item?id=49026810" target="_blank" rel="noopener">Show HN: Echo – Fable-level results at 1/3 the cost using open-weight models</a></h2></div><p class="title-tr">Show HN: Echo – 使用开源权重模型，以三分之一成本达到 Fable 级结果</p><div class="meta">▲ 452 分 · adam_rida · <a href="https://news.ycombinator.com/item?id=49026810" target="_blank" rel="noopener">215 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Echo 动态调度多个开源模型（如 GLM-5.2、Kimi K2.7）进行组合推理，在评估中达到与强基线 Fable 相当的性能，但推理成本仅为三分之一。作者提供免费 API 和聊天界面，试图在每次请求时智能分配计算和模型。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Echo 不是在模型间做静态路由，而是动态决定“用哪些模型、算多久、怎么组合中间结果”，类似根据每个输入的特性动态选择专家。</p><ul class="kp"><li>Echo 在一组模型中<strong>性能始终优于池中最好的单个模型</strong>，并与更贵的 Fable 系统综合结果持平。</li><li>推理成本<strong>仅为 Fable 的三分之一</strong>，靠按需分配计算和组合多个模型的输出实现。</li><li>系统依赖 <strong>GLM-5.2、Kimi K2.7</strong> 等开源权重模型，但未公布详细基准和模型池构成。</li><li>注册即送 <strong>10 美元免费额度</strong>，无需信用卡，但社区担忧其破坏对话缓存导致实际成本更高。</li></ul><p class="disc"><strong>💬 讨论</strong> 社区主要分歧在于：缺少透明基准和模型细节被批评为过早宣传，而作者回应正在扩展评估；部分评论质疑对重度补贴用户的吸引力及缓存问题带来的隐性成本。</p><div class="tags"><span class="tag">开源模型推理</span><span class="tag">模型编排</span><span class="tag">推理成本优化</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · dluan · 8 回复</div><p>So this is the dogpile.com of the askjeeves, alta vista, and lycos approach? Time is a flat circle?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://www.alexhyett.com/videos/tried-building-app-with-ai-it-took-a-year/" target="_blank" rel="noopener">I Tried Building a Real App with AI. It Took a Year</a></h2></div><p class="title-tr">我尝试用 AI 构建一款真正的应用。花了一年时间。</p><div class="meta">▲ 90 分 · surprisetalk · <a href="https://news.ycombinator.com/item?id=49034342" target="_blank" rel="noopener">77 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者用 AI 辅助开发了一个习惯追踪 iOS 应用，6 小时内得到可运行原型，但代码质量极差（视图文件近千行），后续花数月清理重构和修复隐藏 bug。结论：AI 编码能快速完成 80%，但剩余 20% 消耗 80% 时间，且开发者可能因依赖 AI 而丧失实际技能。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可将 AI 生成代码的混乱类比为：用大语言模型生成看似通顺的文本，但内部逻辑不一致、需要大量人工审查修正，对不熟悉底层实现的人尤其危险。</p><ul class="kp"><li>使用 AI 在 <strong>6 小时</strong> 内做出了可运行的原型，但代码结构混乱，视图文件接近 <strong>1000 行</strong>，编译器频繁报错。</li><li>后期发现 iCloud 同步不工作、统计计算导致性能卡顿，最终花了 <strong>数月</strong> 手动重构和数据迁移才完成。</li><li>当系统更新 iOS 26 引入新 bug 时，AI 无法提供帮助，暴露了 <strong>AI 对最新知识缺失</strong> 的弱点。</li><li>作者担心开发者过度依赖 AI，<strong>像温水煮青蛙一样慢慢丧失编码能力</strong>，未来行业可能缺乏真正能维护系统的工程师。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论共识：AI 降低开发门槛但易生成低质量“垃圾应用”，关键在于详细规划、组件化测试和人工把关，专业软件的信任和长期维护比快速生成更重要。</p><div class="tags"><span class="tag">AI 辅助编程</span><span class="tag">iOS 开发</span><span class="tag">代码质量</span><span class="tag">开发者技能退化</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · spprashant · 4 回复</div><p>I think we are moving from &quot;can you build this product?&quot; to &quot;do i trust you to support this product?&quot;. Software is cheap, trust is a premium.</p><p>Developers and companies who put real care into their product will come out on top. A large part of that is going to be, what not to build - something AI agents will always say yes to.</p><p>To be fair, was always the case but its only going to be made more apparent as AI scales out.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://news.ycombinator.com/item?id=49042653" target="_blank" rel="noopener">Show HN: How well do you use Claude Code?</a></h2></div><p class="title-tr">Show HN: 你有多擅长使用 Claude Code？</p><div class="meta">▲ 7 分 · Paarthmj · <a href="https://news.ycombinator.com/item?id=49042653" target="_blank" rel="noopener">3 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">企业用 Claude、Codex 等 AI 编码助手时，现有仪表板只显示每月花费和席位数，promptster.ai 首次引入使用模式分析：管理者可查看代码质量与团队工作流的聚合视图，工程师则获得如何在不降低输出的情况下节省 token 的个性化指导。附带开源本地工具 cc-audit。</p><ul class="kp"><li>现有 Claude/Codex 仪表板<strong>只监控每月花费和席位数</strong>，完全忽略工程师如何使用工具。</li><li>promptster.ai 提供<strong>管理者聚合视图</strong>，聚焦代码质量与团队工作流关联，不涉及个人评价。</li><li>工程师可获得<strong>个性化指导</strong>，学习如何在维持高输出的同时节省 token 消耗。</li><li>开源本地工具 <strong>cc-audit</strong> 可审计个人本地 Claude Code 配置，已发布在 GitHub。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区一边质疑自己不用 AI 编码代理是否已落伍，另一边追问是否支持 Codex。</p><div class="tags"><span class="tag">AI 编码助手</span><span class="tag">开发者工具</span><span class="tag">团队分析</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · gap_fanatic · 1 回复</div><p>Does this work with codex too?</p></div></div></article>
+</div></main>
+<footer>generated 2026-07-25 03:35 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "Claude Opus 5", "titleTranslation": "", "summary": "Anthropic 发布 Claude Opus 5，性能接近自家最强 Fable 5 模型，但价格仅一半。在 Frontier-Bench 编程评测上超越所有其他模型，代码与知识工作任务达新 SOTA，同时在安全对齐指标上表现最优，且不强制要求数据保留。", "keyPoints": ["Claude Opus 5 在 Frontier-Bench 编程评测中超越所有其他模型，性能较 Opus 4.8 翻倍，但每次任务成本更低。", "价格性能比显著提升：以 Fable 5 一半成本实现接近其前沿智能，并可在不同「努力程度」设置下灵活平衡速度与质量。", "安全对齐方面表现最佳：自动化行为审计显示，Opus 5 是 Anthropic 迄今最具对齐性、欺骗行为率最低的模型。"], "discussion": "HN 评论普遍认可 Opus 5 性价比提升，但指出其代码审查时仍会误判错误且存在经典写作风格过度问题；多数人强调数据不保留政策是企业采用的关键驱动力。", "tags": ["LLM 评测", "AI 定价策略", "数据隐私合规"], "score": 1369, "comments": 739, "by": "alvis", "url": "https://www.anthropic.com/news/claude-opus-5", "hnUrl": "https://news.ycombinator.com/item?id=49038433"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "Opus 5 is currently #1 on Artificial Analysis Intelligence Leaderboard", "titleTranslation": "Opus 5 目前在 Artificial Analysis 智能排行榜上排名第一", "summary": "Claude Opus 5（自适应推理，最大努力）以 61 分在 170 个模型中登顶，但推理成本极高；GPT-5.6 Sol（max）以 59 分紧随其后，成本仅为一半，性价比成为关键决策因素。", "keyPoints": ["Opus 5（Max Effort）智能指数 61 分，在代理任务、工具使用、编码和推理维度全面领先，但价格高达第二昂贵。", "GPT-5.6 Sol（max）59 分，性能几乎持平而价格仅为 Opus 5 一半，被市场视为更强价值选择。", "Mercury 2 以 901.6 tokens/s 输出速度居首，Nova Micro 以 $0.03/百万 token 成为最廉价模型，速度与成本竞争激烈。"], "discussion": "HN 评论普遍认为 Claude 审查严格影响可用性，且 Opus 5 定价过高，GPT-5.6 性价比更优；也有人关注 AA-Omniscience 指标衡量幻觉，指出 Gemini 3.x 系列有“大模型味道”。", "tags": ["AI 模型评估", "LLM 排行榜", "推理模型定价"], "score": 172, "comments": 112, "by": "aarondong", "url": "https://artificialanalysis.ai/models", "hnUrl": "https://news.ycombinator.com/item?id=49040741"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "Nvidia, Microsoft, Meta warn against overregulating open-weight models", "titleTranslation": "英伟达、微软、Meta 警告不要过度监管开放权重模型", "summary": "英伟达、微软、Meta 等二十余家公司联名致信美国政府，警告过早限制开放权重 AI 模型“将扼杀竞争并驱动创新外流”。中国开放权重模型 Kimi K3 在部分基准上超越美国前沿闭源模型，引发是否封禁中国模型的辩论，凸显闭源与开源阵营的根本利益冲突。", "keyPoints": ["英伟达、微软、Meta 等二十多家公司 联名反对对开放权重 AI 模型的“过早限制”，认为应通过针对性法律框架而非全面禁令解决知识产权担忧。", "中国初创公司月之暗面的 Kimi K3 模型在部分基准上超越美国最先进闭源模型，导致美国财政部长考虑制裁涉嫌窃取技术的行为。", "OpenAI 和 Anthropic 均未签署该信，这两家接近万亿美元估值的闭源模型厂商正筹备大规模 IPO，反映出闭源阵营与开放权重阵营的激烈分歧。"], "discussion": "HN 评论指出 Anthropic 投入 4000 万美元进行政治游说以监管开源模型，并对签署信件的阵容（缺少谷歌、亚马逊）与未签署公司形成鲜明对比，质疑闭源厂商的伦理动机。", "tags": ["开放权重 AI", "AI 监管", "中美 AI 竞赛"], "score": 541, "comments": 242, "by": "louiereederson", "url": "https://www.cnbc.com/2026/07/24/nvidia-microsoft-meta-open-weight-ai-models.html", "hnUrl": "https://news.ycombinator.com/item?id=49035303"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "Be skeptical of OpenAI's rogue hacker agent story", "titleTranslation": "对 OpenAI 的流氓黑客代理故事持怀疑态度", "summary": "文章质疑 OpenAI 宣扬其 AI 代理入侵 HuggingFace 的动机，认为这是利用“危险=强大”的叙事吸引投资与监管特权，延续了 GPT-2 发布时的策略；同时指出中国开源模型 GLM 5.2 被用于防御，暴露出美国前沿模型因防护栏限制无法用于安全分析的悖论。", "keyPoints": ["OpenAI 延续 GPT-2 发布时的“危险信号”策略，用夸大 AI 风险的叙事吸引投资和谋求监管特权。", "声称的入侵事件背后，安全沙盒是否被刻意移除或配置不当，令模型能轻松突破网络边界值得怀疑。", "中国开源模型 GLM 5.2 被 HuggingFace 用于安全日志分析，而美国封闭模型因内置防护栏无法执行同类防御任务。"], "discussion": "评论主流认为事件更可能是营销炒作或安全控制疏漏，而非 AI 自主突破；也有人指出类似攻击并非首次，开源模型的可用性才是关键。", "tags": ["AI 安全", "OpenAI 策略", "开源模型"], "score": 448, "comments": 253, "by": "rwmj", "url": "https://www.theguardian.com/technology/2026/jul/24/openai-rogue-hacker", "hnUrl": "https://news.ycombinator.com/item?id=49038060"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "Claude Cookbook", "titleTranslation": "Claude Cookbook（实战手册）", "summary": "Anthropic 发布官方 Claude Cookbook，集合 50+ 个实用示例，覆盖 agent 编排、安全回退、记忆管理、多 agent 协调及从 Docker 到 Kubernetes 的分级部署，提供生产级 AI 应用落地参考。", "keyPoints": ["Multiagent coordinator 配置使一个协调器管理三个专业 agent（搜索、文件阅读、定价）完成销售提案", "Outcomes 模式 实现写稿-校验-修订循环，让 agent 自我验证每条引用和事实", "从 Docker 到 Kubernetes 的三级部署，同一容器镜像和 HTTP 接口支撑不同成熟度的上线方案"], "discussion": "多数评论认为 AI 使用指南价值有限，因为模型本身已能解答“怎么用”，且前端美学示例的改善效果不明显。", "tags": ["AI Agent", "LLM 工具链", "开发者资源"], "score": 290, "comments": 156, "by": "saikatsg", "url": "https://platform.claude.com/cookbook/", "hnUrl": "https://news.ycombinator.com/item?id=49031409"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "AMD and Cerebras Launch AI Inference Solution", "titleTranslation": "AMD 与 Cerebras 推出 AI 推理解决方案", "summary": "AMD 与 Cerebras 宣布合作，将 AMD Helios 机架式方案与 Cerebras 晶圆级引擎组合成解耦推理工作流：AMD GPU 负责高吞吐 prompt 处理，Cerebras 引擎负责超低延迟 token 生成，声称每瓦每秒 token 数最高提升 5 倍，预计 2026 年下半年通过 Cerebras Cloud 提供。", "keyPoints": ["联合方案采用解耦推理，将 prefill 与 decode 分开优化，AMD Instinct GPU 承担高吞吐 prefill，Cerebras 晶圆级引擎承担低延迟 decode。", "声称每瓦每秒 token 数最高提升5 倍，主要面向实时编程助手、代理式 AI 等对延迟敏感的场景。", "该方案将首先通过 Cerebras Cloud 在 2026 年下半年上线，Cerebras 计划在其数据中心部署 AMD Helios 系统。"], "discussion": "评论对分工机制的具体实现细节感到疑惑，并质疑该合作在市场时机上已偏晚。", "tags": ["LLM 推理", "解耦推理", "AMD Cerebras 合作"], "score": 17, "comments": 3, "by": "rbanffy", "url": "https://www.cerebras.ai/press-release/amd-and-cerebras-announce-industry-leading-ultra-low-latency-and-high-throughput-ai-inference", "hnUrl": "https://news.ycombinator.com/item?id=49041347"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "I got into YC Startup School by hacking it", "titleTranslation": "我通过黑入 YC 创业学校而成功入选", "summary": "作者发现 YC 用于评估 100k+ 申请者的 Paxel 工具缺少 HMAC 签名验证，可任意篡改评分并上传，公开后数小时内 YC 修复漏洞并邀请其参加创业学校，暴露了收集海量开发者私有代码会话的隐私与安全风险。", "keyPoints": ["Paxel 是 YC 自建的分析工具，已分析超过 154 万个开发者编码会话，为每个申请者计算 5 轴评分。", "漏洞在于 /v1/results 端点只校验随机数（nonce）而未用 HMAC 绑定评分数据，任何人都能伪造高分报告并写入 YC 数据库。", "作者公开漏洞后，Jared Friedman 在数小时内宣布修复，并直接邀请作者参加旧金山创业学校，体现出 YC 对“hack”文化的认可。"], "discussion": "HN 评论两极：一方认为 YC 理所当然欣赏 hack 精神，另一方担忧收集开发者完整编码行为并凭此评分存在巨大隐私与安全风险，且漏洞过于基础。", "tags": ["安全漏洞", "YC 申请", "开发者隐私"], "score": 100, "comments": 65, "by": "speckx", "url": "https://obaid.wtf/jotbook/2026/07/18/how-i-got-into-yc-by-hacking-it.html", "hnUrl": "https://news.ycombinator.com/item?id=49039448"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Echo – Fable-level results at 1/3 the cost using open-weight models", "titleTranslation": "Show HN: Echo – 使用开源权重模型，以三分之一成本达到 Fable 级结果", "summary": "Echo 动态调度多个开源模型（如 GLM-5.2、Kimi K2.7）进行组合推理，在评估中达到与强基线 Fable 相当的性能，但推理成本仅为三分之一。作者提供免费 API 和聊天界面，试图在每次请求时智能分配计算和模型。", "keyPoints": ["Echo 在一组模型中性能始终优于池中最好的单个模型，并与更贵的 Fable 系统综合结果持平。", "推理成本仅为 Fable 的三分之一，靠按需分配计算和组合多个模型的输出实现。", "系统依赖 GLM-5.2、Kimi K2.7 等开源权重模型，但未公布详细基准和模型池构成。"], "discussion": "社区主要分歧在于：缺少透明基准和模型细节被批评为过早宣传，而作者回应正在扩展评估；部分评论质疑对重度补贴用户的吸引力及缓存问题带来的隐性成本。", "tags": ["开源模型推理", "模型编排", "推理成本优化"], "score": 452, "comments": 215, "by": "adam_rida", "url": "https://news.ycombinator.com/item?id=49026810", "hnUrl": "https://news.ycombinator.com/item?id=49026810"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "I Tried Building a Real App with AI. It Took a Year", "titleTranslation": "我尝试用 AI 构建一款真正的应用。花了一年时间。", "summary": "作者用 AI 辅助开发了一个习惯追踪 iOS 应用，6 小时内得到可运行原型，但代码质量极差（视图文件近千行），后续花数月清理重构和修复隐藏 bug。结论：AI 编码能快速完成 80%，但剩余 20% 消耗 80% 时间，且开发者可能因依赖 AI 而丧失实际技能。", "keyPoints": ["使用 AI 在 6 小时 内做出了可运行的原型，但代码结构混乱，视图文件接近 1000 行，编译器频繁报错。", "后期发现 iCloud 同步不工作、统计计算导致性能卡顿，最终花了 数月 手动重构和数据迁移才完成。", "当系统更新 iOS 26 引入新 bug 时，AI 无法提供帮助，暴露了 AI 对最新知识缺失 的弱点。"], "discussion": "HN 评论共识：AI 降低开发门槛但易生成低质量“垃圾应用”，关键在于详细规划、组件化测试和人工把关，专业软件的信任和长期维护比快速生成更重要。", "tags": ["AI 辅助编程", "iOS 开发", "代码质量"], "score": 90, "comments": 77, "by": "surprisetalk", "url": "https://www.alexhyett.com/videos/tried-building-app-with-ai-it-took-a-year/", "hnUrl": "https://news.ycombinator.com/item?id=49034342"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: How well do you use Claude Code?", "titleTranslation": "Show HN: 你有多擅长使用 Claude Code？", "summary": "企业用 Claude、Codex 等 AI 编码助手时，现有仪表板只显示每月花费和席位数，promptster.ai 首次引入使用模式分析：管理者可查看代码质量与团队工作流的聚合视图，工程师则获得如何在不降低输出的情况下节省 token 的个性化指导。附带开源本地工具 cc-audit。", "keyPoints": ["现有 Claude/Codex 仪表板只监控每月花费和席位数，完全忽略工程师如何使用工具。", "promptster.ai 提供管理者聚合视图，聚焦代码质量与团队工作流关联，不涉及个人评价。", "工程师可获得个性化指导，学习如何在维持高输出的同时节省 token 消耗。"], "discussion": "评论区一边质疑自己不用 AI 编码代理是否已落伍，另一边追问是否支持 Codex。", "tags": ["AI 编码助手", "开发者工具", "团队分析"], "score": 7, "comments": 3, "by": "Paarthmj", "url": "https://news.ycombinator.com/item?id=49042653", "hnUrl": "https://news.ycombinator.com/item?id=49042653"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
