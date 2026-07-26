@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-07-26</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-07-26 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://blog.cloudflare.com/content-independence-day-ai-options/" target="_blank" rel="noopener">Cloudflare&#x27;s new AI traffic options for customers</a></h2></div><p class="title-tr">Cloudflare 向客户推出新的 AI 流量控制选项</p><div class="meta">▲ 60 分 · alphabetatango · <a href="https://news.ycombinator.com/item?id=49052564" target="_blank" rel="noopener">39 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Cloudflare 将 AI 爬虫分为 Search、Agent、Training 三类，并将在 2026 年 9 月 15 日起对新域名默认阻止广告页面上的 Training 和 Agent 爬虫。结合 Search 和 Training 的多用途爬虫（如 Googlebot）将因最严格规则而被连带屏蔽，这直接威胁到搜索引擎获取训练数据的渠道。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 就像你训练模型时需要决定哪些数据可用来优化参数（Training）、哪些仅用于检索并返回来源（Search），网站主现在可以按这三个目的分别控制 AI 爬虫的访问权限，核心是防止模型无偿吸收内容。</p><ul class="kp"><li>Cloudflare 将 AI 爬虫分为三类：<strong>Search</strong>（索引并返回来源）、<strong>Agent</strong>（实时代用户操作）、<strong>Training</strong>（吸收内容训练模型），网站主可分别控制。</li><li>从 <strong>2026 年 9 月 15 日</strong>起，新域名的广告页面默认阻止 Training 和 Agent 爬虫，只允许 Search 爬虫；多用途爬虫如 Googlebot 将因包含 Training 行为而被一起屏蔽。</li><li>企业版新增 <strong>BotBase</strong> 仪表盘，可查看所有已知爬虫的分类和内容使用等级（immediate/reference/full），未来还能直接阻止特定爬虫。</li><li>Cloudflare 新增 robots.txt 的 <strong>content-use</strong> 信号，让网站主声明允许用数据做什么，但目前仍依赖爬虫主动遵守。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 用户对 Cloudflare 利用其超过 20% 互联网域名的市场地位来强行推动爬虫透明化意见分裂，有人认为是积极的制衡，也有人指责其在“两头下注”，同时做 AI 产品和内容保护；对多用途爬虫（Googlebot）将被连带屏蔽的后果争议最大。</p><div class="tags"><span class="tag">AI 爬虫管理</span><span class="tag">robots.txt</span><span class="tag">平台治理</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · simonw · 3 回复</div><p>The big news here is that Googlebot will be blocked from September 15th onwards by one the &quot;block training&quot; policies, because Google use the same crawler infrastructure for their search index AND for training Gemini:</p><p>&gt; Another change that will apply on September 15 is that multi-purpose crawlers (specifically those that combine Search with Training) will be allowed/blocked according to all of their behaviors, in line with our call for transparency for website owners. Since the defaults will be enforced by the most restrictive applicable rules, multi-purpose crawlers such as Googlebot, Applebot, and BingBot will be blocked by customers who have selected to block Training (either through the new options to manage AI traffic, or through the legacy Block AI bots service).</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models" target="_blank" rel="noopener">The new rules of context engineering for Claude 5 generation models</a></h2></div><p class="title-tr">Claude 5 代模型的新上下文工程规则</p><div class="meta">▲ 196 分 · mellosouls · <a href="https://news.ycombinator.com/item?id=49051361" target="_blank" rel="noopener">132 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Anthropic 将 Claude Code 的系统提示精简超过 80% 后，编码评估结果无明显下降。新策略从给出硬性规则转向让模型自行判断，并用渐进披露和自动记忆替代冗余指令。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 上下文工程(context engineering)可以类比为一整套动态组装给模型的“上下文窗口内容”（系统提示、工具定义、记忆文件等），比单次 prompt 更宽泛。</p><ul class="kp"><li><strong>Anthropic 从 Claude Code 系统提示中移除了 80% 以上</strong>的内容，编码评测结果无显著损失</li><li>旧做法强调硬规则与示例，新做法转向让 <strong>Claude 5 模型自行判断</strong>，并通过设计工具接口隐式引导行为</li><li>采用<strong>渐进披露</strong>（progressive disclosure），将代码审查等能力拆分为技能模块，按需加载，避免一次性塞满上下文</li><li>自动记忆取代手动维护 CLAUDE.md，参考源从简单 markdown 文件扩展到 <strong>HTML artifacts、测试套件和代码级规范</strong></li></ul><p class="disc"><strong>💬 讨论</strong> HN 用户质疑减少指令是 Anthropic 增加锁定和 token 消耗的策略，并抱怨 Claude 不如 GPT 遵守指令；也有用户认为过渡提示工程本就多余。</p><div class="tags"><span class="tag">Claude</span><span class="tag">上下文工程</span><span class="tag">LLM agent</span><span class="tag">系统提示</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · mycentstoo · 19 回复</div><p>We should design a specific language to make sure that we can encode the exact requirements that we want. Something that has a limited set of keywords that are explicit. Wait a minute...</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://www.law.uchicago.edu/news/ai-strategy-statement" target="_blank" rel="noopener">Rethinking Legal Education in the AI Era</a></h2></div><p class="title-tr">在 AI 时代重新思考法学教育</p><div class="meta">▲ 21 分 · jjwiseman · <a href="https://news.ycombinator.com/item?id=49024980" target="_blank" rel="noopener">1 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">由于无法获取文章正文，仅据标题与评论总结：芝加哥大学法学院发布 AI 战略声明，拟在 1L 课程中禁止电子设备与联网考试、坚持苏格拉底教学法，同时在法律写作课中引入 AI 辅助研究与修订但保留纯人工写作环节，并增设高年级论文的口头答辩要求。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这里的核心矛盾是：法学教育如何既培养律师的严密思辨能力，又恰当地利用 AI 工具提升效率，需要在“禁用场景”与“辅助场景”之间划出可操作的边界。</p><ul class="kp"><li><strong>芝加哥大学法学院</strong>计划 1L 课程全面禁用笔记本电脑、平板和手机，并恢复课堂苏格拉底式提问与闭卷考试</li><li>法律研究与写作课程将让学生<strong>先用 AI 做研究和修改</strong>，但仍须独立完成无 AI 辅助的写作，并在课后与教师共同复盘 AI 使用过程</li><li>选修课把<strong>苏格拉底法、无设备、无联网考试</strong>设为默认规则，同时鼓励教师试验新的教学方法</li><li>所有学生必须在导师面前完成一次<strong>面对面口头答辩</strong>，针对其高级研究项目（SRP）进行讨论</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍认为该计划平衡且务实，尤其赞赏芝大法学院未停留在模糊愿景，而是给出了具体的落地实施清单。</p><div class="tags"><span class="tag">法学教育</span><span class="tag">AI 政策</span><span class="tag">教育技术</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://github.com/slvDev/esp32-ai" target="_blank" rel="noopener">Running a 28.9M parameter LLM on an $8 microcontroller</a></h2></div><p class="title-tr">在8美元微控制器上运行2890万参数大语言模型</p><div class="meta">▲ 104 分 · boveyking · <a href="https://news.ycombinator.com/item?id=49050512" target="_blank" rel="noopener">22 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">开发者将28.9M参数的语言模型运行在售价8美元的ESP32-S3芯片上，利用Google Per-Layer Embeddings将25M参数嵌入表放在闪存中，每token仅读取约450字节，推理速度约9.5 tok/s，打破了此前芯片上仅260K参数的限制。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 你可以把LLM的嵌入表理解为一个巨大的参数查找表，微控制器只有很少的快速内存，通常只能装下很小的模型；这里的技巧是把大表放在慢速但巨大的闪存里，每次只读取需要的几行。</p><ul class="kp"><li><strong>28.9M参数LLM</strong>运行在约8美元的ESP32-S3微控制器上，完全本地、无需联网。</li><li>通过<strong>Per-Layer Embeddings</strong>将25M参数存放于慢闪存，仅需取出约450字节/token，速度达9.5 tok/s。</li><li>对比此前芯片上的260K参数模型，参数量增大<strong>约100倍</strong>，展示了存储与计算解耦的可行性。</li><li>模型使用<strong>TinyStories</strong>训练，只能生成简单连贯故事，无法执行指令或回答问题。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论对$5芯片的算力惊叹，并讨论能否将同样技巧用于在CPU+闪存上运行更大模型，以及结合小规模TTS实现离线语音朗读。</p><div class="tags"><span class="tag">边缘推理</span><span class="tag">模型压缩</span><span class="tag">嵌入式AI</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · titzer · 2 回复</div><p>It&#x27;s crazy what $5 can buy you in a microcontroller these days. Have a look at these Milk-V boards:</p><p>https://milkv.io</p><p>The duo has up to 256MB of memory, and a 1TOPS@INT8 TPU. They run Linux and are $5. I bought 5!</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://tobi.knaup.me/2026-07-25-open-weight-ai-is-having-its-kubernetes-moment/" target="_blank" rel="noopener">Open-weight AI is having its Kubernetes moment</a></h2></div><p class="title-tr">开源权重 AI 正在迎来它的 Kubernetes 时刻</p><div class="meta">▲ 333 分 · tknaup · <a href="https://news.ycombinator.com/item?id=49048034" target="_blank" rel="noopener">265 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">标题将开源权重模型比作当年的 Kubernetes，暗示其正从技术选项转变为 AI 基础设施的标准化层。由于无法获取原文，信息仅来自讨论区。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Kubernetes 是一个开源容器编排平台，它不提供容器本身，而是定义了一套标准让各家容器和大规模部署可以互操作，最终成为基础设施共识；同理，“开源权重 AI 的 Kubernetes 时刻”意味着权重可能成为那个通用的、可互操作的标准化底座，而非由某一家模型供应商锁定。</p><ul class="kp"><li>标题类比：<strong>开源权重 AI</strong> 正在成为 AI 基础设施的标准化层，类似 Kubernetes 统一了容器编排。</li><li>ozgung 指出：技术上无法通过权重辨识<strong>“中国模型”</strong>，任何对特定来源模型的禁令都必须覆盖所有开源模型。</li><li>firasd 认为<strong>开源权重模型</strong>提供了推理成本的透明底线，打破了 API 服务商 tokenomics 的随意定价。</li><li>curious_cat_163 提议政府通过采购需求推动<strong>可移植、互操作的 AI 系统</strong>，避免长期绑定单一 API 供应商。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论共识是开源权重模型能提供成本透明和避免厂商锁定，但对“谁能最终主导标准化”以及监管如何落地存在分歧。</p><div class="tags"><span class="tag">开源权重模型</span><span class="tag">AI 基础设施</span><span class="tag">监管与竞争</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · firasd · 14 回复</div><p>One of the strangest things in the AI industry is &#x27;tokenomics&#x27;. It&#x27;s not very clear why using GPT-4 in early 2023 was so expensive and then six months later 20 bucks could get you a fair amount of GPT-4 inference. This pattern has continued across various labs/providers for years--there is a continuous see-saw of pricing that doesn&#x27;t seem related to anything.</p><p>So what open weight models do is at least provide a baseline of inference cost to add some sanity to the price markers. And of course predictability too--if you really want Kimi K2 instead of K3 you can still use it.</p><p>So the competitive pressure and predictability offered by open models is helpful for users</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://www.debian.org/vote/2026/vote_002" target="_blank" rel="noopener">LLM Usage in Debian: Three Proposals</a></h2></div><p class="title-tr">Debian 中的 LLM 使用：三项提案</p><div class="meta">▲ 102 分 · zdw · <a href="https://news.ycombinator.com/item?id=49050859" target="_blank" rel="noopener">94 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Debian 项目发起三项关于 LLM 使用的社区投票：提案 A 全面禁止 LLM 辅助贡献，提案 B 在满足法律、质量和披露等条件后允许，提案 C 仅请求避免使用。分歧集中在版权、质量、社区可持续性与伦理，对开源基础设施治理具有风向标意义。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Debian 是 Linux 生态中最稳定、影响最广的基础发行版之一，相当于服务器和开发的“底层 OS 平台”，其贡献政策直接决定大量软件包的代码可信度。</p><ul class="kp"><li><strong>提案 A</strong> 彻底禁止 LLM 生成或辅助的代码、文档、翻译进入 Debian，理由是版权不清、质量不可靠、社区文化受损及伦理问题。</li><li><strong>提案 B</strong> 有条件允许 LLM 贡献，要求工具合同兼容、许可证清楚、贡献者承担全部责任、显著披露使用情况，并禁止向不可信服务发送敏感信息。</li><li><strong>提案 C</strong> 仅建议贡献者避免使用 LLM，不设强制禁令，但明确反对盲目信任 LLM 输出。</li><li>提案明确指出 LLM 训料爬取行为实际上对 Debian 基础设施构成<strong>大规模持久 DoS 攻击</strong>，迫使项目启用 JS 验证机制。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区争论焦点在于“辅助”定义模糊、禁令可行性不足，但支持者引用 Gentoo 两年前的类似禁令成果，反对者则认为完全禁止不符合 Linux 内核已用 LLM 的现状。</p><div class="tags"><span class="tag">LLM 政策</span><span class="tag">开源治理</span><span class="tag">Debian</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · simonw · 6 回复</div><p>Don&#x27;t misinterpret this link as representing a final decision. It&#x27;s actually three separate proposals which will be debated and then voted on.</p><p>Proposal A is &quot;expressly forbid any contributions to Debian written with the use or assistance of large language models (LLMs) or other generative AI tools.&quot;</p><p>Proposal B is &quot;The Debian project allows AI-assisted contributions (partially or fully generated by an LLM), provided the following conditions are met [...]&quot;</p><p>Proposal C is &quot;request that all contributors to Debian avoid the use of LLMs in their Debian work&quot; without an outright ban.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://www.maxmynter.com/pages/blog/jobhunt" target="_blank" rel="noopener">Becoming a Research Engineer at a Big LLM Lab</a></h2></div><p class="title-tr">成为大型 LLM 实验室的研究工程师</p><div class="meta">▲ 24 分 · felixdoerp · <a href="https://news.ycombinator.com/item?id=49051707" target="_blank" rel="noopener">9 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者用 18 个月通过战略规划（3 个月脱产在 Recurse Center 做 Rust 开源贡献与研究）和战术执行（分批申请、人脉内推），从非计算机背景成功拿到 Mistral 研究工程师 offer，过程中接触 40 家公司、获得多个录用。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Mistral 是一家与 OpenAI 类似的欧洲前沿模型实验室，融资超 10 亿美元，竞争极为激烈。</p><ul class="kp"><li>设定具体目标：瞄准融资超 <strong>10 亿美元</strong> 的前沿模型实验室，用目标筛选机会与拒绝妥协。</li><li>交替进行战略与战术行动：先花 <strong>3 个月</strong> 在 Recurse Center 做 Rust 开源贡献和研究，再全力冲刺面试。</li><li>分批申请与内推：通过人脉和 LinkedIn/Twitter 冷推广获取内推，先面试低风险公司积累 <strong>实战经验</strong>，再面首选公司。</li><li>最终从约 <strong>40 家公司、60 次接触</strong> 中收获 Mistral 等多个 offer，关键转折是辞职后全职投入能力建设。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论普遍质疑这是幸存者偏差，作者辞职全职求职的成功路径难以复制，且未解释非科班背景为何能进入研究岗位；也有人认为文章空泛，更像个人炫耀。</p><div class="tags"><span class="tag">职业发展</span><span class="tag">求职策略</span><span class="tag">LLM 实验室</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · angarg12 · 1 回复</div><p>My last job search 2 years ago took me 9 months of grinding while working full time at Big Tech and +15 years of experience. After loops with ~30 companies I ended up with about 6 offers.</p><p>The offers were all over the shop. Some places downleveled me to mid level while others upleveled me. The comp range was about 3x between the lowest and the highest.</p><p>Also I couldn&#x27;t find much of a pattern on the processes and outcomes. No name companies rejected my application without even a phone screen. Lower tier companies offered me lower levels while famously hard to crack ones offered me higher levels. I also didn&#x27;t see much correlation on how hard interviews were.</p><p>I&#x27;m totally convinced the job market is a numbers game and there is a high degree of randomness and luck involved. Discipline and hard work help, but outcomes are far from guaranteed. Last time I almost didn&#x27;t leave my job since most offers were worse than my then current one, until I got 2 high quality offers at the end.</p><p>I have only skimmed through the article but I&#x27;m impressed OP got a job as a Research Engineer with no formal background, given that I got doors slammed even after PhD + years of relevant experience. I don&#x27;t want to diminish the accomplishment, but I would be very wary of anecdata and formulas for success. OP quit his job and focused 100% on the search, and it paid off. I know many more similar stories that didn&#x27;t pan out, and people had to rush to get lower quality jobs or, in the worst cases, got into long term unemployment.</p><p>Just my 2 cents.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://axtary.com" target="_blank" rel="noopener">Show HN: Axtary – Content Authorization for AI Agents</a></h2></div><p class="title-tr">Show HN: Axtary – AI 代理的内容授权</p><div class="meta">▲ 3 分 · Axtary · <a href="https://news.ycombinator.com/item?id=49053543" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Axtary 对 AI 代理执行的每一次动作（如提交代码、发消息）进行精确的内容授权，高风险操作需人类审批，且审批绑定到具体的 payload 哈希，有效限制被攻陷或出错的代理造成破坏。该产品瞄准安全敏感场景，有望成为代理基础设施层的关键组件。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 类似训练中通过校验和确保数据未被篡改，Axtary 对 AI 代理将要执行的动作 payload 做哈希锁定，防止审批后内容被暗中修改——这区别于传统只开放通道权限的令牌授权。</p><ul class="kp"><li><strong>Axtary</strong> 实现内容级授权，而非仅给代理一个可调用工具的宽泛令牌。</li><li>人类审批签名绑定到 <strong>payload 哈希</strong>，一旦内容变动即触发验证失败，杜绝绕过。</li><li>支持 <strong>Cedar 和 Rego</strong> 策略语言编写细粒度政策，兼容 MCP 服务器与本地代理。</li><li>提供可重现演示 `axtary run workflow github-pr-review --real --tamper`，直观验证防篡改机制。</li></ul><div class="tags"><span class="tag">AI 代理安全</span><span class="tag">内容授权</span><span class="tag">Cedar/Rego 策略</span><span class="tag">MCP</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://www.actenon.com/" target="_blank" rel="noopener">I scanned my AI agent framework for destructive/consequential actions, and wow</a></h2></div><p class="title-tr">我扫描了我的AI代理框架中是否存在破坏性/重大影响操作，结果令人震惊</p><div class="meta">▲ 5 分 · Bucko1 · <a href="https://news.ycombinator.com/item?id=49053520" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">对25个AI代理框架（23,476个文件）的静态分析发现30个真实漏洞：模型控制参数可触发写文件、执行Shell、发消息等操作且缺乏授权检查，暴露出代理工具中普遍将“输入验证”误当作“权限检查”的安全鸿沟。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可类比模型训练中的对抗样本：输入参数看似正常（格式合法），但缺少边界防护时，模型就能越过安全约束执意破坏性操作，而传统校验只做格式检查而非行为授权。</p><ul class="kp"><li><strong>30个真实漏洞</strong>分布在 crewAI、MetaGPT、Microsoft semantic-kernel 等框架中，涉及网络出口、文件写入、Shell 执行、SQL 语句等。</li><li><strong>验证≠授权</strong>：大部分工具只检查请求格式是否合法，没有确认“这个调用者此刻是否被允许执行此操作”。</li><li>扫描器首轮精确度81%，<strong>12个误报</strong>已修复并转化为回归测试，包括错把搜索客户端当成 Kubernetes 操作、遗漏模型动态控制 SQL 的路径。</li><li><strong>静态分析无法验证权限绑定若隐藏在签名对象中</strong>，运行时检查才是可靠防线；扫描器仅覆盖 @tool 等装饰器暴露的路径，自定义代理循环暂不支持。</li></ul><div class="tags"><span class="tag">AI安全</span><span class="tag">静态分析</span><span class="tag">代理框架</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://github.com/ailinone/collective-intelligence" target="_blank" rel="noopener">Collective Intelligence: The Next Frontier of AI</a></h2></div><p class="title-tr">集体智能：人工智能的下一个前沿</p><div class="meta">▲ 5 分 · alissonidalo · <a href="https://news.ycombinator.com/item?id=49053465" target="_blank" rel="noopener">1 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Ailin¹ 将 76,636 个 AI 模型协调为一个集体系统，在可验证任务上达到 97% 准确率，远超 GPT-5.5-pro 等单一前沿模型（68–82%）。通过 32 种策略实现多样性推理和完整决策溯源，而非简单路由。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这类似于用集成学习提升预测可靠性，但扩展到数万模型的实时协商，需要理解编排策略如何从分歧中产出更优结果。</p><ul class="kp"><li>Ailin¹ 协调 <strong>76,636 个 AI 模型</strong>，通过 32 种策略实现集体决策，非多模型路由或 API 网关。</li><li>在客观可验证任务上精确率达 <strong>97%</strong>，而 GPT-5.5-pro、Claude Opus 4.8 等前沿模型仅 68–82%。</li><li>系统自动发现、索引和健康检查模型，新模型发布后无需代码变更即可被吸收。</li><li>每条请求保留完整决策溯源（<strong>ailin_metadata</strong>），包括策略、模型、成本上限和异议信号。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论者提到模型聚合器容易抄袭表现最好的单一模型，损害多样性；询问 Ailin¹ 如何匿名化并聚合结果以避免这一问题。</p><div class="tags"><span class="tag">集体智能</span><span class="tag">LLM 编排</span><span class="tag">开源 AI 平台</span></div></div></article>
+</div></main>
+<footer>generated 2026-07-26 03:53 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-26", "pointsLabel": "分", "commentsLabel": "评论", "title": "Cloudflare's new AI traffic options for customers", "titleTranslation": "Cloudflare 向客户推出新的 AI 流量控制选项", "summary": "Cloudflare 将 AI 爬虫分为 Search、Agent、Training 三类，并将在 2026 年 9 月 15 日起对新域名默认阻止广告页面上的 Training 和 Agent 爬虫。结合 Search 和 Training 的多用途爬虫（如 Googlebot）将因最严格规则而被连带屏蔽，这直接威胁到搜索引擎获取训练数据的渠道。", "keyPoints": ["Cloudflare 将 AI 爬虫分为三类：Search（索引并返回来源）、Agent（实时代用户操作）、Training（吸收内容训练模型），网站主可分别控制。", "从 2026 年 9 月 15 日起，新域名的广告页面默认阻止 Training 和 Agent 爬虫，只允许 Search 爬虫；多用途爬虫如 Googlebot 将因包含 Training 行为而被一起屏蔽。", "企业版新增 BotBase 仪表盘，可查看所有已知爬虫的分类和内容使用等级（immediate/reference/full），未来还能直接阻止特定爬虫。"], "discussion": "HN 用户对 Cloudflare 利用其超过 20% 互联网域名的市场地位来强行推动爬虫透明化意见分裂，有人认为是积极的制衡，也有人指责其在“两头下注”，同时做 AI 产品和内容保护；对多用途爬虫（Googlebot）将被连带屏蔽的后果争议最大。", "tags": ["AI 爬虫管理", "robots.txt", "平台治理"], "score": 60, "comments": 39, "by": "alphabetatango", "url": "https://blog.cloudflare.com/content-independence-day-ai-options/", "hnUrl": "https://news.ycombinator.com/item?id=49052564"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-26", "pointsLabel": "分", "commentsLabel": "评论", "title": "The new rules of context engineering for Claude 5 generation models", "titleTranslation": "Claude 5 代模型的新上下文工程规则", "summary": "Anthropic 将 Claude Code 的系统提示精简超过 80% 后，编码评估结果无明显下降。新策略从给出硬性规则转向让模型自行判断，并用渐进披露和自动记忆替代冗余指令。", "keyPoints": ["Anthropic 从 Claude Code 系统提示中移除了 80% 以上的内容，编码评测结果无显著损失", "旧做法强调硬规则与示例，新做法转向让 Claude 5 模型自行判断，并通过设计工具接口隐式引导行为", "采用渐进披露（progressive disclosure），将代码审查等能力拆分为技能模块，按需加载，避免一次性塞满上下文"], "discussion": "HN 用户质疑减少指令是 Anthropic 增加锁定和 token 消耗的策略，并抱怨 Claude 不如 GPT 遵守指令；也有用户认为过渡提示工程本就多余。", "tags": ["Claude", "上下文工程", "LLM agent"], "score": 196, "comments": 132, "by": "mellosouls", "url": "https://claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models", "hnUrl": "https://news.ycombinator.com/item?id=49051361"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-26", "pointsLabel": "分", "commentsLabel": "评论", "title": "Rethinking Legal Education in the AI Era", "titleTranslation": "在 AI 时代重新思考法学教育", "summary": "由于无法获取文章正文，仅据标题与评论总结：芝加哥大学法学院发布 AI 战略声明，拟在 1L 课程中禁止电子设备与联网考试、坚持苏格拉底教学法，同时在法律写作课中引入 AI 辅助研究与修订但保留纯人工写作环节，并增设高年级论文的口头答辩要求。", "keyPoints": ["芝加哥大学法学院计划 1L 课程全面禁用笔记本电脑、平板和手机，并恢复课堂苏格拉底式提问与闭卷考试", "法律研究与写作课程将让学生先用 AI 做研究和修改，但仍须独立完成无 AI 辅助的写作，并在课后与教师共同复盘 AI 使用过程", "选修课把苏格拉底法、无设备、无联网考试设为默认规则，同时鼓励教师试验新的教学方法"], "discussion": "评论普遍认为该计划平衡且务实，尤其赞赏芝大法学院未停留在模糊愿景，而是给出了具体的落地实施清单。", "tags": ["法学教育", "AI 政策", "教育技术"], "score": 21, "comments": 1, "by": "jjwiseman", "url": "https://www.law.uchicago.edu/news/ai-strategy-statement", "hnUrl": "https://news.ycombinator.com/item?id=49024980"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-26", "pointsLabel": "分", "commentsLabel": "评论", "title": "Running a 28.9M parameter LLM on an $8 microcontroller", "titleTranslation": "在8美元微控制器上运行2890万参数大语言模型", "summary": "开发者将28.9M参数的语言模型运行在售价8美元的ESP32-S3芯片上，利用Google Per-Layer Embeddings将25M参数嵌入表放在闪存中，每token仅读取约450字节，推理速度约9.5 tok/s，打破了此前芯片上仅260K参数的限制。", "keyPoints": ["28.9M参数LLM运行在约8美元的ESP32-S3微控制器上，完全本地、无需联网。", "通过Per-Layer Embeddings将25M参数存放于慢闪存，仅需取出约450字节/token，速度达9.5 tok/s。", "对比此前芯片上的260K参数模型，参数量增大约100倍，展示了存储与计算解耦的可行性。"], "discussion": "评论对$5芯片的算力惊叹，并讨论能否将同样技巧用于在CPU+闪存上运行更大模型，以及结合小规模TTS实现离线语音朗读。", "tags": ["边缘推理", "模型压缩", "嵌入式AI"], "score": 104, "comments": 22, "by": "boveyking", "url": "https://github.com/slvDev/esp32-ai", "hnUrl": "https://news.ycombinator.com/item?id=49050512"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-26", "pointsLabel": "分", "commentsLabel": "评论", "title": "Open-weight AI is having its Kubernetes moment", "titleTranslation": "开源权重 AI 正在迎来它的 Kubernetes 时刻", "summary": "标题将开源权重模型比作当年的 Kubernetes，暗示其正从技术选项转变为 AI 基础设施的标准化层。由于无法获取原文，信息仅来自讨论区。", "keyPoints": ["标题类比：开源权重 AI 正在成为 AI 基础设施的标准化层，类似 Kubernetes 统一了容器编排。", "ozgung 指出：技术上无法通过权重辨识“中国模型”，任何对特定来源模型的禁令都必须覆盖所有开源模型。", "firasd 认为开源权重模型提供了推理成本的透明底线，打破了 API 服务商 tokenomics 的随意定价。"], "discussion": "评论共识是开源权重模型能提供成本透明和避免厂商锁定，但对“谁能最终主导标准化”以及监管如何落地存在分歧。", "tags": ["开源权重模型", "AI 基础设施", "监管与竞争"], "score": 333, "comments": 265, "by": "tknaup", "url": "https://tobi.knaup.me/2026-07-25-open-weight-ai-is-having-its-kubernetes-moment/", "hnUrl": "https://news.ycombinator.com/item?id=49048034"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-26", "pointsLabel": "分", "commentsLabel": "评论", "title": "LLM Usage in Debian: Three Proposals", "titleTranslation": "Debian 中的 LLM 使用：三项提案", "summary": "Debian 项目发起三项关于 LLM 使用的社区投票：提案 A 全面禁止 LLM 辅助贡献，提案 B 在满足法律、质量和披露等条件后允许，提案 C 仅请求避免使用。分歧集中在版权、质量、社区可持续性与伦理，对开源基础设施治理具有风向标意义。", "keyPoints": ["提案 A 彻底禁止 LLM 生成或辅助的代码、文档、翻译进入 Debian，理由是版权不清、质量不可靠、社区文化受损及伦理问题。", "提案 B 有条件允许 LLM 贡献，要求工具合同兼容、许可证清楚、贡献者承担全部责任、显著披露使用情况，并禁止向不可信服务发送敏感信息。", "提案 C 仅建议贡献者避免使用 LLM，不设强制禁令，但明确反对盲目信任 LLM 输出。"], "discussion": "评论区争论焦点在于“辅助”定义模糊、禁令可行性不足，但支持者引用 Gentoo 两年前的类似禁令成果，反对者则认为完全禁止不符合 Linux 内核已用 LLM 的现状。", "tags": ["LLM 政策", "开源治理", "Debian"], "score": 102, "comments": 94, "by": "zdw", "url": "https://www.debian.org/vote/2026/vote_002", "hnUrl": "https://news.ycombinator.com/item?id=49050859"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-26", "pointsLabel": "分", "commentsLabel": "评论", "title": "Becoming a Research Engineer at a Big LLM Lab", "titleTranslation": "成为大型 LLM 实验室的研究工程师", "summary": "作者用 18 个月通过战略规划（3 个月脱产在 Recurse Center 做 Rust 开源贡献与研究）和战术执行（分批申请、人脉内推），从非计算机背景成功拿到 Mistral 研究工程师 offer，过程中接触 40 家公司、获得多个录用。", "keyPoints": ["设定具体目标：瞄准融资超 10 亿美元 的前沿模型实验室，用目标筛选机会与拒绝妥协。", "交替进行战略与战术行动：先花 3 个月 在 Recurse Center 做 Rust 开源贡献和研究，再全力冲刺面试。", "分批申请与内推：通过人脉和 LinkedIn/Twitter 冷推广获取内推，先面试低风险公司积累 实战经验，再面首选公司。"], "discussion": "HN 评论普遍质疑这是幸存者偏差，作者辞职全职求职的成功路径难以复制，且未解释非科班背景为何能进入研究岗位；也有人认为文章空泛，更像个人炫耀。", "tags": ["职业发展", "求职策略", "LLM 实验室"], "score": 24, "comments": 9, "by": "felixdoerp", "url": "https://www.maxmynter.com/pages/blog/jobhunt", "hnUrl": "https://news.ycombinator.com/item?id=49051707"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-26", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Axtary – Content Authorization for AI Agents", "titleTranslation": "Show HN: Axtary – AI 代理的内容授权", "summary": "Axtary 对 AI 代理执行的每一次动作（如提交代码、发消息）进行精确的内容授权，高风险操作需人类审批，且审批绑定到具体的 payload 哈希，有效限制被攻陷或出错的代理造成破坏。该产品瞄准安全敏感场景，有望成为代理基础设施层的关键组件。", "keyPoints": ["Axtary 实现内容级授权，而非仅给代理一个可调用工具的宽泛令牌。", "人类审批签名绑定到 payload 哈希，一旦内容变动即触发验证失败，杜绝绕过。", "支持 Cedar 和 Rego 策略语言编写细粒度政策，兼容 MCP 服务器与本地代理。"], "discussion": "", "tags": ["AI 代理安全", "内容授权", "Cedar/Rego 策略"], "score": 3, "comments": 0, "by": "Axtary", "url": "https://axtary.com", "hnUrl": "https://news.ycombinator.com/item?id=49053543"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-26", "pointsLabel": "分", "commentsLabel": "评论", "title": "I scanned my AI agent framework for destructive/consequential actions, and wow", "titleTranslation": "我扫描了我的AI代理框架中是否存在破坏性/重大影响操作，结果令人震惊", "summary": "对25个AI代理框架（23,476个文件）的静态分析发现30个真实漏洞：模型控制参数可触发写文件、执行Shell、发消息等操作且缺乏授权检查，暴露出代理工具中普遍将“输入验证”误当作“权限检查”的安全鸿沟。", "keyPoints": ["30个真实漏洞分布在 crewAI、MetaGPT、Microsoft semantic-kernel 等框架中，涉及网络出口、文件写入、Shell 执行、SQL 语句等。", "验证≠授权：大部分工具只检查请求格式是否合法，没有确认“这个调用者此刻是否被允许执行此操作”。", "扫描器首轮精确度81%，12个误报已修复并转化为回归测试，包括错把搜索客户端当成 Kubernetes 操作、遗漏模型动态控制 SQL 的路径。"], "discussion": "", "tags": ["AI安全", "静态分析", "代理框架"], "score": 5, "comments": 0, "by": "Bucko1", "url": "https://www.actenon.com/", "hnUrl": "https://news.ycombinator.com/item?id=49053520"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-26", "pointsLabel": "分", "commentsLabel": "评论", "title": "Collective Intelligence: The Next Frontier of AI", "titleTranslation": "集体智能：人工智能的下一个前沿", "summary": "Ailin¹ 将 76,636 个 AI 模型协调为一个集体系统，在可验证任务上达到 97% 准确率，远超 GPT-5.5-pro 等单一前沿模型（68–82%）。通过 32 种策略实现多样性推理和完整决策溯源，而非简单路由。", "keyPoints": ["Ailin¹ 协调 76,636 个 AI 模型，通过 32 种策略实现集体决策，非多模型路由或 API 网关。", "在客观可验证任务上精确率达 97%，而 GPT-5.5-pro、Claude Opus 4.8 等前沿模型仅 68–82%。", "系统自动发现、索引和健康检查模型，新模型发布后无需代码变更即可被吸收。"], "discussion": "评论者提到模型聚合器容易抄袭表现最好的单一模型，损害多样性；询问 Ailin¹ 如何匿名化并聚合结果以避免这一问题。", "tags": ["集体智能", "LLM 编排", "开源 AI 平台"], "score": 5, "comments": 1, "by": "alissonidalo", "url": "https://github.com/ailinone/collective-intelligence", "hnUrl": "https://news.ycombinator.com/item?id=49053465"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
