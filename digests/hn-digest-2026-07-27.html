@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-07-27</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-07-27 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://vectoral.com/blog/token-relay-market" target="_blank" rel="noopener">The relay market powering token resellers and fraud</a></h2></div><p class="title-tr">支撑代币转售和欺诈的中继市场</p><div class="meta">▲ 168 分 · mlenhard · <a href="https://news.ycombinator.com/item?id=49058993" target="_blank" rel="noopener">99 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">一个成熟的中继黑市以官方价格 13% 转售 Anthropic、OpenAI 等模型 API 令牌，通过免费试用滥用、退款欺诈等手段获利，十大中继月访问量合计 360 万次。</p><p class="context"><strong>🧭 联系你的知识背景</strong> “relay”在此处指代理 AI 模型 API 请求的服务，将上游获取的账号令牌池化后以极低价格转卖给开发者，本质是对模型推理资源的二次售卖。</p><ul class="kp"><li>某中继将 <strong>价值 $3,333 的 Anthropic 额度</strong> 以 425 元人民币出售，折扣率达 97.8%。</li><li>产业链四层：<strong>卡商/号商</strong> 提供虚拟卡和批量账号，账号池聚合令牌并暴露统一 API，中继包装成产品卖给开发者和 SaaS 公司。</li><li>攻击手段包括免费试用规模化滥用、退款欺诈、预付卡，以及只为烧钱、无经济动机的 <strong>“拒绝钱包”</strong> 攻击。</li><li>防御建议：提高账号创建门槛、监控资金和异常模式、聚档检测账户集群、设定消耗上限，<strong>扼杀攻击者的利润空间</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论认为此类套利在广告行业已存在多年，核心问题在于订阅模式创造了套利空间，按使用量付费比订阅制更难被滥用，但企业不愿放弃经常性收入。</p><div class="tags"><span class="tag">AI API 滥用</span><span class="tag">代币转售</span><span class="tag">中继市场</span><span class="tag">欺诈</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · tancop · 6 回复</div><p>the way i see it there are 3 types of resellers. the ones using fake credit cards to rack up costs and then cancel the card are doing actual fraud. then you got mass free trial abuse which is more of a gray area and i would say its still wrong. but if you sign up for a subscription, pay for it and resell your monthly tokens thats not at all unethical, even if its breaking their terms and costing the provider money.</p><p>imagine ford starts renting out company cars at a huge discount so they can get people to buy the same model for themselves after they drive it at work. its the exact same car and costs the same amount to make, they just take a loss on it and use by anyone other than employees is banned in the contract.</p><p>some small company realizes they dont really use their cars that much so they rent them out again for 3 days a week to get some extra cash. is that fraud? it costs ford nothing because they get the same payments either way, they just lose potential profits. they are the ones who decided to set up a loss leader and take the risk of someone &quot;abusing&quot; the system so we dont need to use public resources to defend their strategy. that wastes taxpayer money to protect corporate profits, and it creates moral hazard because ford (anthropic) is not the one paying for enforcement.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://www.rickmanelius.com/p/the-new-ai-superpowers-focus-and" target="_blank" rel="noopener">The New AI Superpowers: Focus and Followthrough</a></h2></div><p class="title-tr">AI 的新超能力：专注与跟进</p><div class="meta">▲ 168 分 · mooreds · <a href="https://news.ycombinator.com/item?id=49057877" target="_blank" rel="noopener">49 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">AI将效率提升2-100倍后，人反而容易陷入横向膨胀，同时开启数十个项目导致倦怠。真正的超能力是在AI时代坚持“少做，但更好”，把精力投入到最后1%的深度打磨上，而不是制造更多半成品。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文章用“部分日食 vs 全日食”比喻最后1%的打磨：就像模型准确率从99%提升到100%，表面只差1%，实际效果却是质变，需要巨大付出。</p><ul class="kp"><li>作者借助AI同时启动了<strong>40个概念验证项目</strong>，反而陷入倦怠，发现自己在“发明忙忙碌碌的工作”。</li><li>核心转变：放弃横向扩张，转向<strong>纵向深入重要事项</strong>，引用《精要主义》“少做，但更好”原则避免AI带来的负担。</li><li>引用Garry Tan的“<strong>部分日食与全日食</strong>”比喻：最后1%的努力能带来100倍的体验差异，AI时代不应再以“够好”为由跳过去。</li><li>结论：用AI节省的时间应追求<strong>专注和彻底完成</strong>，AI本该让人更人性，而非更焦虑。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区分两派：一派认为AI让组织陷入“又一个差不多的解决方案”泥潭，缺乏真正理解；另一派用AI处理重复性基础配置，解放精力专注编码。共识是：需要管理范围，专注比多线程更重要。</p><div class="tags"><span class="tag">AI 生产力</span><span class="tag">倦怠</span><span class="tag">精要主义</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · cgearhart · 5 回复</div><p>This seems very related to a trend I’m seeing as my company goes all in on AI: everyone thinks that every problem is “a couple hours” with AI now, and they all want zero external dependencies because they can move faster alone. As a result, we’re now in an even worse “yet-another-…” age where everyone has built approximately the same (but somehow incompatible) versions of all the same beginner-level software, and (ironically) while they want no external dependencies they’re also pushing for org-level mandates to require everyone else to use their solution. Meanwhile, no one wants to do the slow/bottleneck part that cant easily be automated or scaled; they just throw an “agent” at it and call it done—but there’s nothing _there_. You can trust the agent on easy tasks and you can’t trust it on hard ones, but you can’t tell which ones are easy or hard. Improvements in foundation model tech move thresholds of the problem but can’t eliminate it.</p><p>Long story short, I think we’re in a phase where the organizational value function is lagging behind the tech. A “proof of concept” used to be correlated with “proof of work” and some amount of domain understanding, but I think now what we need is a focus on “proof of understanding” or else you’re probably just wasting tokens on a baby version of the problem. A decent proxy right now is that if you have zero external dependencies then your solution is probably a toy.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://www.law.uchicago.edu/news/ai-strategy-statement" target="_blank" rel="noopener">Rethinking legal education in the AI era</a></h2></div><p class="title-tr">在 AI 时代重新思考法学教育</p><div class="meta">▲ 142 分 · jjwiseman · <a href="https://news.ycombinator.com/item?id=49024980" target="_blank" rel="noopener">88 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">由于无法获取文章正文，仅据标题与评论总结：芝加哥大学法学院发布 AI 战略声明，拟在 1L 课程中禁止电子设备与联网考试、坚持苏格拉底教学法，同时在法律写作课中引入 AI 辅助研究与修订但保留纯人工写作环节，并增设高年级论文的口头答辩要求。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这里的核心矛盾是：法学教育如何既培养律师的严密思辨能力，又恰当地利用 AI 工具提升效率，需要在“禁用场景”与“辅助场景”之间划出可操作的边界。</p><ul class="kp"><li><strong>芝加哥大学法学院</strong>计划 1L 课程全面禁用笔记本电脑、平板和手机，并恢复课堂苏格拉底式提问与闭卷考试</li><li>法律研究与写作课程将让学生<strong>先用 AI 做研究和修改</strong>，但仍须独立完成无 AI 辅助的写作，并在课后与教师共同复盘 AI 使用过程</li><li>选修课把<strong>苏格拉底法、无设备、无联网考试</strong>设为默认规则，同时鼓励教师试验新的教学方法</li><li>所有学生必须在导师面前完成一次<strong>面对面口头答辩</strong>，针对其高级研究项目（SRP）进行讨论</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍认为该计划平衡且务实，尤其赞赏芝大法学院未停留在模糊愿景，而是给出了具体的落地实施清单。</p><div class="tags"><span class="tag">法学教育</span><span class="tag">AI 政策</span><span class="tag">教育技术</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · kozzion · 7 回复</div><p>As a CTO of an Ai first law firm I would like to add that most human lawyers are absolutely terrible. We review 100s of old contracts every week and most of them have 10-20 serious drafting errors on them. The most common ones are of the order of defining the same concept like &#x27;a working day&#x27; in various conflicting ways without every specifying when which of the conflicting definitions should be used. Lawyers still have something to add to process but for every time they catch AI out on them, the machine is usually already 10-1 ahead.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://teorth.github.io/tao-web/slides/age-of-ai-icm-2026.pdf" target="_blank" rel="noopener">Terence Tao: Mathematics in the Age of AI [pdf]</a></h2></div><p class="title-tr">人工智能时代的数学 [pdf]</p><div class="meta">▲ 112 分 · Anon84 · <a href="https://news.ycombinator.com/item?id=49056620" target="_blank" rel="noopener">48 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Terence Tao 将 AI 对数学的冲击类比于 20 世纪初的数学基础危机，提出数学界需重新审视和规范其价值观与实践方式，而非仅争论 AI 能否证明定理。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 类似 AI 产品管理中，模型能力的“能做什么”与“该做什么”是不同问题；Tao 也是把 AI 能力猜想视为有待填充变量的模板，而非直接回答能或不能。</p><ul class="kp"><li><strong>AI 能力猜想</strong>被抽象为含多个“某种”变量的模板，从弱到强的不同填充会引发完全不同的社区应对策略。</li><li>当前多数支持或反对 AI 能力的证据<strong>未在受控科学条件下收集</strong>，且受报告偏见和未披露成本等因素严重影响。</li><li>Tao 认为数学界正进入一场<strong>价值观与实践规范的危机</strong>，类比 1900–1930 年的数学基础危机，但最终会变得更坚韧。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论者分歧在于：AI 批量解决数学问题后，人类数学活动的核心目标是保持品味与理解，还是转向审查与消化 AI 输出；部分人担忧数学将走向封闭化。</p><div class="tags"><span class="tag">AI 数学</span><span class="tag">元数学</span><span class="tag">社区响应</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · megaloblasto · 3 回复</div><p>This is the thought process that I fail to see many people take (both here and other places). AI is changing many fields, ok what does that look like and how do we adapt? What can we do now that we couldn&#x27;t before? What skills should I learn to adapt to this changing world? I think this is how we move forward. If you can get past the scary aspects of AI (not talking about datacenters or billionaires, that is a different subject) then you might be able to see how exciting this can be.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://siepr.stanford.edu/publications/policy-brief/what-really-happening-jobs-separating-ai-hype-reality" target="_blank" rel="noopener">What is happening to jobs? Separating AI hype from reality</a></h2></div><p class="title-tr">就业市场正在发生什么？区分人工智能的炒作与现实</p><div class="meta">▲ 250 分 · pod_krad · <a href="https://news.ycombinator.com/item?id=49052570" target="_blank" rel="noopener">320 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">AI 对整体就业的负面影响目前微弱，高暴露岗位失业率升幅（+0.77pp）甚至略低于低暴露岗位（+0.85pp）；但 2026 年初应届生失业率升至 5.6%，初级白领需求可能正被 AI 侵蚀。生产力影响总体正面，GitHub Copilot 使编程任务速度中位数提升 56%，但收益集中于经验不足者。</p><ul class="kp"><li><strong>AI 对总体就业的冲击暂时很小</strong>，高暴露与低暴露职业的失业率上升幅度几乎无差异（0.77 vs 0.85 百分点）。</li><li><strong>新毕业生失业率在 2026 年初达到 5.6%</strong>，初级软件开发和客服岗位雇佣明显下滑，AI 可能是部分原因。</li><li><strong>GitHub Copilot 使编程任务完成速度提高 56%</strong>，但生产力增益集中在经验不足的工程师，高技能者未见提升甚至出现负效果。</li><li><strong>企业采用 AI 在 2023–2026 年加速</strong>，但分布极不均衡，总体生产率统计尚未反映出实验中的巨大增益。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区主要分歧在于 AI 到底是放大高技能者的杠杆（让 80:20 变成 99:1），还是像研究所示只拉高低技能者、拖累高手；另有多人指出 2025 年底后的编码代理工具可能已改变格局，旧数据会低估冲击。</p><div class="tags"><span class="tag">AI 与就业</span><span class="tag">生产力实证研究</span><span class="tag">技术采用与劳动力市场</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · simonw · 16 回复</div><p>A challenge with this kind of study is that coding agents (Claude Code, OpenAI Codex) only started working really well in late November, which for most people meant early January due to the December break.</p><p>General agents (OpenClaw, Anthropic Copilot, ChatGPT &quot;Work&quot;) started working even later than that.</p><p>This category of software may have a much more meaningful impact on work than the mostly-chat systems we were using from 2022-2025.</p><p>Studies that mainly focus on 2022 to end of 2025 might be missing out on a material uptick in capabilities.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://github.com/faizannraza/wattage" target="_blank" rel="noopener">Wattage: A token-spend profiler and cost-regression gate for AI agents</a></h2></div><p class="title-tr">Wattage：AI 代理的 token 消耗分析器与成本回归门禁</p><div class="meta">▲ 4 分 · faizanraza03 · <a href="https://news.ycombinator.com/item?id=49063397" target="_blank" rel="noopener">1 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Wattage 是一个离线开源工具，通过分析 OpenTelemetry 追踪数据，检测 AI 代理的 token 浪费模式并给出美元成本评估。在真实代理追踪中发现 44.7% 成本可削减，其非收敛检测器精确率与召回率均为 1.00，可集成 CI 阻止成本回归。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 你可以把 OpenTelemetry traces 理解为标准化格式的 API 调用日志链，用于追踪每次 LLM 请求的细节和成本。</p><ul class="kp"><li>内置 8 个检测器识别浪费模式，如<strong>稳定前缀提示未被缓存</strong>导致重复发送，每个发现都给出修复建议和美元定价。</li><li>非收敛检测器在 10 个合成循环测试中取得<strong>精确率 1.00、召回率 1.00</strong>，能捕捉传统精确匹配方法无法发现的循环打转。</li><li>对真实代理追踪的修复模拟显示<strong>成本可降低 44.7%</strong>，虽为小规模演示，但机制可线性扩展到生产环境。</li><li>支持 <strong>CI 集成作为成本回归门禁</strong>，当 token 效率评分低于阈值或成本增量超过设定比例时，自动阻断构建并生成差异报告。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论者认可 AI 代理成本可观测性的需求，称赞工具设计和幽默的命名，同时好奇为什么用“瓦特”而非“微焦耳”作为命名灵感。</p><div class="tags"><span class="tag">AI 代理</span><span class="tag">成本优化</span><span class="tag">开发者工具</span><span class="tag">LLM 可观测性</span><span class="tag">CI/CD</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://www.wsj.com/tech/google-discloses-94-1-billion-in-spacex-stock-marking-6-stake-91655d7c" target="_blank" rel="noopener">Google Discloses $94.1B in SpaceX Stock, Marking 6% Stake</a></h2></div><p class="title-tr">谷歌披露持有 SpaceX 股票 941 亿美元，占 6% 股权</p><div class="meta">▲ 313 分 · 1vuio0pswjnm7 · <a href="https://news.ycombinator.com/item?id=49057574" target="_blank" rel="noopener">292 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">谷歌首次公开 SpaceX 持股细节：账面价值 941 亿美元、约占 6%，源自 2015 年约 9 亿美元投资，十年回报超 100 倍。此披露凸显 Alphabet 投资组合规模庞大，已接近伯克希尔哈撒韦的水平。注意本文信息仅来自标题和 HN 讨论，未获取到原文。</p><p class="context"><strong>🧭 联系你的知识背景</strong> SpaceX 未上市，其股权价值基于私下交易估值，类似创业公司股份按最新融资轮定价，941亿是账面价值而非流动性价值。</p><ul class="kp"><li>谷歌母公司 Alphabet 披露持有 <strong>SpaceX 约 6% 股权</strong>，账面价值 <strong>941 亿美元</strong>。</li><li>该投资源自 2015 年一轮融资，谷歌出资约 <strong>9 亿美元</strong>，实现 <strong>超 100 倍回报</strong>。</li><li>Alphabet 的投资组合总规模约 <strong>3000 亿美元</strong>，包括 SpaceX 和 Anthropic（谷歌持股约 14%）。</li><li>社区认为这是<strong>史上最佳企业投资之一</strong>，但高估值下变现是挑战。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论一致肯定这是极成功的投资，但分歧在于是否应趁 100 倍回报立即套现，反映出对 SpaceX 未来估值潜力的不同判断。</p><div class="tags"><span class="tag">SpaceX</span><span class="tag">Alphabet</span><span class="tag">企业投资</span><span class="tag">股权投资</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · throwaw12 · 7 回复</div><p>100x return, I would sell immediately after this kind of gain, maybe that&#x27;s why I am not a Google</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://www.ctvnews.ca/montreal/article/quebec-scraps-ai-and-automation-projects-in-the-public-sector/" target="_blank" rel="noopener">Quebec scraps AI and automation projects in the public sector</a></h2></div><p class="title-tr">魁北克取消公共部门的人工智能与自动化项目</p><div class="meta">▲ 8 分 · cdrnsf · <a href="https://news.ycombinator.com/item?id=49063723" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">魁北克政府终止了公共部门的三个 AI 与自动化试点，包括一个原定 2026 年上线的政府网站聊天机器人。项目因技术工具不成熟、数据访问困难、内部专业能力不足而失败，专家指出根源在于数据基础设施未结构化，而非模型能力问题。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这与初创公司未整理好数据就急于应用 AI 类似，政府数字化的核心瓶颈通常是数据治理和基础设施，而不是模型本身。</p><ul class="kp"><li>聊天机器人项目因<strong>对话流畅性、复杂查询处理和延迟</strong>等挑战被直接放弃，原定 2026 年的部署计划已取消。</li><li>两个自动化流程试点因<strong>数据访问困难、安全功能受限和内部专业水平低</strong>而失败，未走向实际落地。</li><li>研究者指出政府<strong>数据尚未结构化</strong>，在基础数据设施成熟前强行推进 AI 项目必然受挫，放弃是<strong>审慎的公共资金管理</strong>。</li><li>魁北克已转而与 <strong>Cohere 和 Mistral</strong> 合作探索公共部门 AI 整合，但未给出新的时间表或可行路径。</li></ul><div class="tags"><span class="tag">政府 AI 项目</span><span class="tag">数据基础设施</span><span class="tag">公共部门数字化</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models" target="_blank" rel="noopener">The new rules of context engineering for Claude 5 generation models</a></h2></div><p class="title-tr">Claude 5 代模型的新上下文工程规则</p><div class="meta">▲ 443 分 · mellosouls · <a href="https://news.ycombinator.com/item?id=49051361" target="_blank" rel="noopener">363 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Anthropic 将 Claude Code 的系统提示精简超过 80% 后，编码评估结果无明显下降。新策略从给出硬性规则转向让模型自行判断，并用渐进披露和自动记忆替代冗余指令。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 上下文工程(context engineering)可以类比为一整套动态组装给模型的“上下文窗口内容”（系统提示、工具定义、记忆文件等），比单次 prompt 更宽泛。</p><ul class="kp"><li><strong>Anthropic 从 Claude Code 系统提示中移除了 80% 以上</strong>的内容，编码评测结果无显著损失</li><li>旧做法强调硬规则与示例，新做法转向让 <strong>Claude 5 模型自行判断</strong>，并通过设计工具接口隐式引导行为</li><li>采用<strong>渐进披露</strong>（progressive disclosure），将代码审查等能力拆分为技能模块，按需加载，避免一次性塞满上下文</li><li>自动记忆取代手动维护 CLAUDE.md，参考源从简单 markdown 文件扩展到 <strong>HTML artifacts、测试套件和代码级规范</strong></li></ul><p class="disc"><strong>💬 讨论</strong> HN 用户质疑减少指令是 Anthropic 增加锁定和 token 消耗的策略，并抱怨 Claude 不如 GPT 遵守指令；也有用户认为过渡提示工程本就多余。</p><div class="tags"><span class="tag">Claude</span><span class="tag">上下文工程</span><span class="tag">LLM agent</span><span class="tag">系统提示</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · mycentstoo · 25 回复</div><p>We should design a specific language to make sure that we can encode the exact requirements that we want. Something that has a limited set of keywords that are explicit. Wait a minute...</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://status.claude.com/incidents/zftg3gqkmv18" target="_blank" rel="noopener">Elevated Errors for Opus 5</a></h2></div><p class="title-tr">Opus 5 的错误率升高</p><div class="meta">▲ 92 分 · TimCTRL · <a href="https://news.ycombinator.com/item?id=49056194" target="_blank" rel="noopener">76 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Anthropic 的 Claude Opus 5 模型出现服务错误率上升，状态页面确认故障。HN 评论批评 Anthropic 不重置使用配额、战略失误，并讨论对 AI SaaS 过度依赖的生产力风险。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Opus 是 Anthropic 的高端模型，类似 OpenAI 的 GPT-4；状态页面相当于模型 API 的 incident 播报。</p><ul class="kp"><li><strong>Claude Opus 5</strong> 错误率升高，Anthropic 状态页面发布事故更新。</li><li>Anthropic 不给用户重置<strong>每周使用配额</strong>，被拿来与 OpenAI 对中断的处理方式对比。</li><li>评论担忧 AI 服务宕机将冲击<strong>生产力</strong>，类似关键基础设施风险。</li><li>事件被看作 Anthropic 在<strong>竞争中的战略失误</strong>，如频繁的安全降级和资源不足。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍指责 Anthropic 服务恢复后的处理不如 OpenAI，并批评其战略决策（如限制模型能力）是不可接受的战术错误。</p><div class="tags"><span class="tag">Claude</span><span class="tag">AI 服务中断</span><span class="tag">SaaS 可靠性</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · prologic · 8 回复</div><p>What happens one day when there is a significant outage of Claude or Codex and reliance on these tools as SaaS services is so great that it start to impact productivity and work? Will we just pack up our tools and go home?</p></div></div></article>
+</div></main>
+<footer>generated 2026-07-27 04:00 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-27", "pointsLabel": "分", "commentsLabel": "评论", "title": "The relay market powering token resellers and fraud", "titleTranslation": "支撑代币转售和欺诈的中继市场", "summary": "一个成熟的中继黑市以官方价格 13% 转售 Anthropic、OpenAI 等模型 API 令牌，通过免费试用滥用、退款欺诈等手段获利，十大中继月访问量合计 360 万次。", "keyPoints": ["某中继将 价值 $3,333 的 Anthropic 额度 以 425 元人民币出售，折扣率达 97.8%。", "产业链四层：卡商/号商 提供虚拟卡和批量账号，账号池聚合令牌并暴露统一 API，中继包装成产品卖给开发者和 SaaS 公司。", "攻击手段包括免费试用规模化滥用、退款欺诈、预付卡，以及只为烧钱、无经济动机的 “拒绝钱包” 攻击。"], "discussion": "HN 评论认为此类套利在广告行业已存在多年，核心问题在于订阅模式创造了套利空间，按使用量付费比订阅制更难被滥用，但企业不愿放弃经常性收入。", "tags": ["AI API 滥用", "代币转售", "中继市场"], "score": 168, "comments": 99, "by": "mlenhard", "url": "https://vectoral.com/blog/token-relay-market", "hnUrl": "https://news.ycombinator.com/item?id=49058993"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-27", "pointsLabel": "分", "commentsLabel": "评论", "title": "The New AI Superpowers: Focus and Followthrough", "titleTranslation": "AI 的新超能力：专注与跟进", "summary": "AI将效率提升2-100倍后，人反而容易陷入横向膨胀，同时开启数十个项目导致倦怠。真正的超能力是在AI时代坚持“少做，但更好”，把精力投入到最后1%的深度打磨上，而不是制造更多半成品。", "keyPoints": ["作者借助AI同时启动了40个概念验证项目，反而陷入倦怠，发现自己在“发明忙忙碌碌的工作”。", "核心转变：放弃横向扩张，转向纵向深入重要事项，引用《精要主义》“少做，但更好”原则避免AI带来的负担。", "引用Garry Tan的“部分日食与全日食”比喻：最后1%的努力能带来100倍的体验差异，AI时代不应再以“够好”为由跳过去。"], "discussion": "评论区分两派：一派认为AI让组织陷入“又一个差不多的解决方案”泥潭，缺乏真正理解；另一派用AI处理重复性基础配置，解放精力专注编码。共识是：需要管理范围，专注比多线程更重要。", "tags": ["AI 生产力", "倦怠", "精要主义"], "score": 168, "comments": 49, "by": "mooreds", "url": "https://www.rickmanelius.com/p/the-new-ai-superpowers-focus-and", "hnUrl": "https://news.ycombinator.com/item?id=49057877"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-27", "pointsLabel": "分", "commentsLabel": "评论", "title": "Rethinking legal education in the AI era", "titleTranslation": "在 AI 时代重新思考法学教育", "summary": "由于无法获取文章正文，仅据标题与评论总结：芝加哥大学法学院发布 AI 战略声明，拟在 1L 课程中禁止电子设备与联网考试、坚持苏格拉底教学法，同时在法律写作课中引入 AI 辅助研究与修订但保留纯人工写作环节，并增设高年级论文的口头答辩要求。", "keyPoints": ["芝加哥大学法学院计划 1L 课程全面禁用笔记本电脑、平板和手机，并恢复课堂苏格拉底式提问与闭卷考试", "法律研究与写作课程将让学生先用 AI 做研究和修改，但仍须独立完成无 AI 辅助的写作，并在课后与教师共同复盘 AI 使用过程", "选修课把苏格拉底法、无设备、无联网考试设为默认规则，同时鼓励教师试验新的教学方法"], "discussion": "评论普遍认为该计划平衡且务实，尤其赞赏芝大法学院未停留在模糊愿景，而是给出了具体的落地实施清单。", "tags": ["法学教育", "AI 政策", "教育技术"], "score": 142, "comments": 88, "by": "jjwiseman", "url": "https://www.law.uchicago.edu/news/ai-strategy-statement", "hnUrl": "https://news.ycombinator.com/item?id=49024980"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-27", "pointsLabel": "分", "commentsLabel": "评论", "title": "Terence Tao: Mathematics in the Age of AI [pdf]", "titleTranslation": "人工智能时代的数学 [pdf]", "summary": "Terence Tao 将 AI 对数学的冲击类比于 20 世纪初的数学基础危机，提出数学界需重新审视和规范其价值观与实践方式，而非仅争论 AI 能否证明定理。", "keyPoints": ["AI 能力猜想被抽象为含多个“某种”变量的模板，从弱到强的不同填充会引发完全不同的社区应对策略。", "当前多数支持或反对 AI 能力的证据未在受控科学条件下收集，且受报告偏见和未披露成本等因素严重影响。", "Tao 认为数学界正进入一场价值观与实践规范的危机，类比 1900–1930 年的数学基础危机，但最终会变得更坚韧。"], "discussion": "评论者分歧在于：AI 批量解决数学问题后，人类数学活动的核心目标是保持品味与理解，还是转向审查与消化 AI 输出；部分人担忧数学将走向封闭化。", "tags": ["AI 数学", "元数学", "社区响应"], "score": 112, "comments": 48, "by": "Anon84", "url": "https://teorth.github.io/tao-web/slides/age-of-ai-icm-2026.pdf", "hnUrl": "https://news.ycombinator.com/item?id=49056620"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-27", "pointsLabel": "分", "commentsLabel": "评论", "title": "What is happening to jobs? Separating AI hype from reality", "titleTranslation": "就业市场正在发生什么？区分人工智能的炒作与现实", "summary": "AI 对整体就业的负面影响目前微弱，高暴露岗位失业率升幅（+0.77pp）甚至略低于低暴露岗位（+0.85pp）；但 2026 年初应届生失业率升至 5.6%，初级白领需求可能正被 AI 侵蚀。生产力影响总体正面，GitHub Copilot 使编程任务速度中位数提升 56%，但收益集中于经验不足者。", "keyPoints": ["AI 对总体就业的冲击暂时很小，高暴露与低暴露职业的失业率上升幅度几乎无差异（0.77 vs 0.85 百分点）。", "新毕业生失业率在 2026 年初达到 5.6%，初级软件开发和客服岗位雇佣明显下滑，AI 可能是部分原因。", "GitHub Copilot 使编程任务完成速度提高 56%，但生产力增益集中在经验不足的工程师，高技能者未见提升甚至出现负效果。"], "discussion": "评论区主要分歧在于 AI 到底是放大高技能者的杠杆（让 80:20 变成 99:1），还是像研究所示只拉高低技能者、拖累高手；另有多人指出 2025 年底后的编码代理工具可能已改变格局，旧数据会低估冲击。", "tags": ["AI 与就业", "生产力实证研究", "技术采用与劳动力市场"], "score": 250, "comments": 320, "by": "pod_krad", "url": "https://siepr.stanford.edu/publications/policy-brief/what-really-happening-jobs-separating-ai-hype-reality", "hnUrl": "https://news.ycombinator.com/item?id=49052570"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-27", "pointsLabel": "分", "commentsLabel": "评论", "title": "Wattage: A token-spend profiler and cost-regression gate for AI agents", "titleTranslation": "Wattage：AI 代理的 token 消耗分析器与成本回归门禁", "summary": "Wattage 是一个离线开源工具，通过分析 OpenTelemetry 追踪数据，检测 AI 代理的 token 浪费模式并给出美元成本评估。在真实代理追踪中发现 44.7% 成本可削减，其非收敛检测器精确率与召回率均为 1.00，可集成 CI 阻止成本回归。", "keyPoints": ["内置 8 个检测器识别浪费模式，如稳定前缀提示未被缓存导致重复发送，每个发现都给出修复建议和美元定价。", "非收敛检测器在 10 个合成循环测试中取得精确率 1.00、召回率 1.00，能捕捉传统精确匹配方法无法发现的循环打转。", "对真实代理追踪的修复模拟显示成本可降低 44.7%，虽为小规模演示，但机制可线性扩展到生产环境。"], "discussion": "评论者认可 AI 代理成本可观测性的需求，称赞工具设计和幽默的命名，同时好奇为什么用“瓦特”而非“微焦耳”作为命名灵感。", "tags": ["AI 代理", "成本优化", "开发者工具"], "score": 4, "comments": 1, "by": "faizanraza03", "url": "https://github.com/faizannraza/wattage", "hnUrl": "https://news.ycombinator.com/item?id=49063397"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-27", "pointsLabel": "分", "commentsLabel": "评论", "title": "Google Discloses $94.1B in SpaceX Stock, Marking 6% Stake", "titleTranslation": "谷歌披露持有 SpaceX 股票 941 亿美元，占 6% 股权", "summary": "谷歌首次公开 SpaceX 持股细节：账面价值 941 亿美元、约占 6%，源自 2015 年约 9 亿美元投资，十年回报超 100 倍。此披露凸显 Alphabet 投资组合规模庞大，已接近伯克希尔哈撒韦的水平。注意本文信息仅来自标题和 HN 讨论，未获取到原文。", "keyPoints": ["谷歌母公司 Alphabet 披露持有 SpaceX 约 6% 股权，账面价值 941 亿美元。", "该投资源自 2015 年一轮融资，谷歌出资约 9 亿美元，实现 超 100 倍回报。", "Alphabet 的投资组合总规模约 3000 亿美元，包括 SpaceX 和 Anthropic（谷歌持股约 14%）。"], "discussion": "评论一致肯定这是极成功的投资，但分歧在于是否应趁 100 倍回报立即套现，反映出对 SpaceX 未来估值潜力的不同判断。", "tags": ["SpaceX", "Alphabet", "企业投资"], "score": 313, "comments": 292, "by": "1vuio0pswjnm7", "url": "https://www.wsj.com/tech/google-discloses-94-1-billion-in-spacex-stock-marking-6-stake-91655d7c", "hnUrl": "https://news.ycombinator.com/item?id=49057574"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-27", "pointsLabel": "分", "commentsLabel": "评论", "title": "Quebec scraps AI and automation projects in the public sector", "titleTranslation": "魁北克取消公共部门的人工智能与自动化项目", "summary": "魁北克政府终止了公共部门的三个 AI 与自动化试点，包括一个原定 2026 年上线的政府网站聊天机器人。项目因技术工具不成熟、数据访问困难、内部专业能力不足而失败，专家指出根源在于数据基础设施未结构化，而非模型能力问题。", "keyPoints": ["聊天机器人项目因对话流畅性、复杂查询处理和延迟等挑战被直接放弃，原定 2026 年的部署计划已取消。", "两个自动化流程试点因数据访问困难、安全功能受限和内部专业水平低而失败，未走向实际落地。", "研究者指出政府数据尚未结构化，在基础数据设施成熟前强行推进 AI 项目必然受挫，放弃是审慎的公共资金管理。"], "discussion": "", "tags": ["政府 AI 项目", "数据基础设施", "公共部门数字化"], "score": 8, "comments": 0, "by": "cdrnsf", "url": "https://www.ctvnews.ca/montreal/article/quebec-scraps-ai-and-automation-projects-in-the-public-sector/", "hnUrl": "https://news.ycombinator.com/item?id=49063723"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-27", "pointsLabel": "分", "commentsLabel": "评论", "title": "The new rules of context engineering for Claude 5 generation models", "titleTranslation": "Claude 5 代模型的新上下文工程规则", "summary": "Anthropic 将 Claude Code 的系统提示精简超过 80% 后，编码评估结果无明显下降。新策略从给出硬性规则转向让模型自行判断，并用渐进披露和自动记忆替代冗余指令。", "keyPoints": ["Anthropic 从 Claude Code 系统提示中移除了 80% 以上的内容，编码评测结果无显著损失", "旧做法强调硬规则与示例，新做法转向让 Claude 5 模型自行判断，并通过设计工具接口隐式引导行为", "采用渐进披露（progressive disclosure），将代码审查等能力拆分为技能模块，按需加载，避免一次性塞满上下文"], "discussion": "HN 用户质疑减少指令是 Anthropic 增加锁定和 token 消耗的策略，并抱怨 Claude 不如 GPT 遵守指令；也有用户认为过渡提示工程本就多余。", "tags": ["Claude", "上下文工程", "LLM agent"], "score": 443, "comments": 363, "by": "mellosouls", "url": "https://claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models", "hnUrl": "https://news.ycombinator.com/item?id=49051361"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-27", "pointsLabel": "分", "commentsLabel": "评论", "title": "Elevated Errors for Opus 5", "titleTranslation": "Opus 5 的错误率升高", "summary": "Anthropic 的 Claude Opus 5 模型出现服务错误率上升，状态页面确认故障。HN 评论批评 Anthropic 不重置使用配额、战略失误，并讨论对 AI SaaS 过度依赖的生产力风险。", "keyPoints": ["Claude Opus 5 错误率升高，Anthropic 状态页面发布事故更新。", "Anthropic 不给用户重置每周使用配额，被拿来与 OpenAI 对中断的处理方式对比。", "评论担忧 AI 服务宕机将冲击生产力，类似关键基础设施风险。"], "discussion": "评论区普遍指责 Anthropic 服务恢复后的处理不如 OpenAI，并批评其战略决策（如限制模型能力）是不可接受的战术错误。", "tags": ["Claude", "AI 服务中断", "SaaS 可靠性"], "score": 92, "comments": 76, "by": "TimCTRL", "url": "https://status.claude.com/incidents/zftg3gqkmv18", "hnUrl": "https://news.ycombinator.com/item?id=49056194"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
