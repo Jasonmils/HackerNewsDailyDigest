@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-07-28</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-07-28 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://www.anthropic.com/news/position-open-weights-models" target="_blank" rel="noopener">Our position on open-weights models</a></h2></div><p class="title-tr">我们对开放权重模型的立场</p><div class="meta">▲ 551 分 · surprisetalk · <a href="https://news.ycombinator.com/item?id=49076057" target="_blank" rel="noopener">784 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Anthropic CEO Dario Amodei 发文澄清公司从未主张禁止开放权重模型，但支持对华芯片出口管制、打击大规模蒸馏（利用大模型输出训练小模型）以及对所有强大模型强制安全测试。评论普遍认为其立场旨在借监管维护商业护城河。</p><ul class="kp"><li><strong>Anthropic</strong> CEO Dario Amodei 声明公司从未倡导过禁止开放权重模型，称此类模型若无危险能力是公共利益。</li><li>首要威胁是<strong>威权政权</strong>（尤其是中国）获得比美国更强的 AI，用于军事优势或深度压制；次要威胁是 AI 被滥用于网络和生物攻击。</li><li>支持三项措施：对华<strong>芯片禁运</strong>并打击走私；打击工业级<strong>蒸馏</strong>；所有足够强大的模型（无论开放或封闭）须经强制安全测试。</li><li>HN 评论广泛质疑其立场<strong>虚伪</strong>：安全测试可能成为行政壁垒，变相限制竞争对手，根本上保护 Anthropic 商业利益。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论共识认为 Anthropic 立场自相矛盾，通过安全测试和监管实质上在限制开放模型，并指责其以国家安全为由行保护主义之实。</p><div class="tags"><span class="tag">AI 政策</span><span class="tag">开放权重模型</span><span class="tag">Anthropic</span><span class="tag">AI 安全</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · cogman10 · 40 回复</div><p>&gt; Anthropic has never advocated for a ban on open-weights models.</p><p>&gt; All sufficiently capable models, open and closed, should go through mandatory safety testing.</p><p>Yeah, this is anthropic advocating for a ban on open weight models.</p><p>Who runs this test? What happens if this test is too costly or the administrator refuses to allow certain people to participate.</p><p>This is exactly how the US has banned goods in the past, by requiring a stamp and then refusing to issue it.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://matthewsaltz.com/blog/using-an-open-model-feels-surprisingly-good/" target="_blank" rel="noopener">Using an open model feels surprisingly good</a></h2></div><p class="title-tr">使用开放式模型的感觉出奇地好</p><div class="meta">▲ 38 分 · msaltz · <a href="https://news.ycombinator.com/item?id=49078583" target="_blank" rel="noopener">14 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者在 Modal 托管平台上快速部署 Kimi K3 模型，并用 opencode 工具连接自有推理端点，感受到数据掌控的自由感。评论区质疑这是 Modal 的软广，但也讨论了开放模型的实际成本和性能表现。</p><ul class="kp"><li>作者用 <strong>5 分钟</strong> 在 Modal 上启动 Kimi K3 推理端点，配合 opencode 工具完成个人项目开发。</li><li>体验被描述为类似从臃肿编辑器回到 vim 的 <strong>自由与空白感</strong>，数据仅在自己设备与自有端点间流转。</li><li>HN 网友 <strong>loufe</strong> 质疑帖子是 Modal 广告，呼吁给出成本对比，想知道自托管模型的溢价是否值得避开数据外泄。</li><li>有评论指出 <strong>DeepSeek V4 Flash</strong> 等小型开放模型在调优工具后也能胜任工作，TTFT 和吞吐优势使其具有竞争力。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区主要争论帖子是否属于 Modal 广告，同时讨论自托管开放模型的实际成本与闭源服务的性价比。</p><div class="tags"><span class="tag">开放模型</span><span class="tag">AI 推理端点</span><span class="tag">开发者工具</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · irishcoffee · 3 回复</div><p>It surprises me that this concept took as long as it did to gain traction in… hacker news. 15 years ago folks here were compiling kernels and gentoo distros. Lately it’s been “you should just pay the man, it’s cheaper than running these things yourself”</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://fermisense.com/when-machines-take-the-wheel/" target="_blank" rel="noopener">A $500 RL fine-tune of a 9B open model beat frontier models on catalog review</a></h2></div><p class="title-tr">一个花费500美元的强化学习微调9B开源模型在目录审核上击败了前沿模型</p><div class="meta">▲ 22 分 · ilreb · <a href="https://news.ycombinator.com/item?id=49078454" target="_blank" rel="noopener">5 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">用约500美元对9B开源模型做强化学习微调，在电商目录审核任务上达到最高可得分数的90.6%，远超最强前沿模型配置的76.9%；推理成本降至每千次0.50美元，对比前沿模型的34美元，一年可省数亿美元。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 目录审核任务是典型的结构化分类与属性抽取：给定商品描述、品牌和品类树，做出正确归类并提取属性，类似你熟悉的文本分类和信息抽取问题。</p><ul class="kp"><li><strong>Ramp 数据</strong>显示，AI 支出最高的四分之一公司收入在近三年翻倍增长，而零 AI 支出的公司仅增长约15%。</li><li><strong>Bridgewater</strong> 训练的内部模型在投资文档筛选上比最佳前沿模型少犯约30%的错误，推理成本大幅降低。</li><li>基于 <strong>GRPO（Group Relative Policy Optimization）</strong> 微调的 9B 模型在目录审核上相对前沿模型提升 13.5%，成本仅为前沿模型的 1/68。</li><li>该方案每年可将审核成本从约 <strong>5 亿美元</strong> 压缩到约 700 万美元，降幅达 98%。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论质疑收入增长与 AI 投入的因果关系，并认为定制模型可能过度拟合特定基准，泛化能力存疑。</p><div class="tags"><span class="tag">RL微调</span><span class="tag">开源模型</span><span class="tag">成本优势</span><span class="tag">目录审核</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · himata4113 · 1 回复</div><p>What I really started to notice is that SOTA models are really good at putting themselves out of the job.</p><p>We can see this already with GPT how luna can do 90% of what sol is used for. The only reason why china still bothers &#x27;distilling&#x27; models is accurate training data generation, something that oai and anthropic had to spend years collecting while trying to dodge legal challenges.</p><p>The more intelligent models get, the more people will offramp to cheaper solutions that get the job done. There&#x27;s no real benefit to using a sota model when the accuracy is already 99% and I think that is the biggest danger to US labs.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://github.com/humanlayer/advanced-context-engineering-for-coding-agents/blob/main/benchmarking-opus-5-on-slop-code-bench.md" target="_blank" rel="noopener">Benchmarking Opus 5 on SlopCodeBench</a></h2></div><p class="title-tr">在 SlopCodeBench 上对 Opus 5 进行基准测试</p><div class="meta">▲ 166 分 · dhorthy · <a href="https://news.ycombinator.com/item?id=49076391" target="_blank" rel="noopener">39 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Opus 5 在模拟真实软件迭代的 SlopCodeBench 上仅获 24% 严格通过率，所有模型都随需求增加而积累缺陷，该基准能有效测量模型在代码长期维护中的薄弱能力。</p><p class="context"><strong>🧭 联系你的知识背景</strong> SlopCodeBench 是一种多检查点的编程基准，逐步给出新需求，测试模型在改动代码时不破坏旧功能的能力，类似泛化评估中的分布外测试。</p><ul class="kp"><li>Opus 5 取得 <strong>24% 严格通过率</strong>（17 个检查点中通过 4 个），仅略高于 Opus 4.6 的 17%，基准仍未被突破。</li><li>所有模型在逐个检查点后都出现<strong>代码质量恶化</strong>：行数膨胀、复杂度上升，Opus 5 编写的函数数量是 Opus 4.8 的 <strong>5 倍</strong>，但并未转化为更高正确率。</li><li>SlopCodeBench 是目前<strong>极少数不饱和（unsaturated）的编程基准</strong>，即使最简单任务也无模型能在全部检查点后零缺陷。</li><li>代码重复率、依赖传播成本等<strong>确定性指标</strong>显示模型生成代码可维护性差异，但单一指标难以独立评判代码演化能力。</li></ul><p class="disc"><strong>💬 讨论</strong> 用户期待加入 Fable 模型对比，并讨论是否可通过系统提示词引导模型保持代码简洁。</p><div class="tags"><span class="tag">LLM 基准测试</span><span class="tag">代码维护</span><span class="tag">Anthropic Claude</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · ajwin · 4 回复</div><p>To what degree is this a harness/system prompt problem? Models maybe should implement new stuff with as little impact on the existing stuff as possible by default? A simple system prompt for it to always check the code after task completion for proper simplifications, abstractions and cleanups before returning to the user? Instructions to retain &quot;story like&quot; readability of the code.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://github.com/FrigadeHQ/yap" target="_blank" rel="noopener">Show HN: Yap – OSS on-device voice dictation for macOS with no model to download</a></h2></div><p class="title-tr">Show HN: Yap – 开源 macOS 本地语音听写应用，无需下载模型</p><div class="meta">▲ 30 分 · pancomplex · <a href="https://news.ycombinator.com/item?id=49073834" target="_blank" rel="noopener">4 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Yap 是一个约 4 MB、3000 行 Swift 的 macOS 菜单栏应用，利用 macOS 26 新增的 SpeechAnalyzer 和 SpeechTranscriber API 实现完全设备端语音转文字，无需下载任何模型，空闲仅 60 MB 内存。实测词错率 2.12%，比 Whisper Small 低 1.62 个百分点，速度快约 3 倍，为免下载、免付费的本地听写树立了新基线。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Whisper Small 是 OpenAI 基于 Transformer 的开源语音识别模型，常用于本地听写；Apple 新 API 内置的模型在精度与速度上均明显超越它，无需用户自行下载。</p><ul class="kp"><li><strong>Yap</strong> 完全运行在本地，无网络访问，无账号或 API 密钥要求，转录数据不出机器。</li><li>使用 <strong>macOS 26 SpeechAnalyzer</strong> 实现流式听写，首次说话前不加载任何模型，延迟极低。</li><li>在 LibriSpeech 基准上，Apple 模型词错率 <strong>2.12%</strong>，Whisper Small 为 3.74%，且速度快约 3 倍。</li><li>应用体积仅 <strong>4 MB</strong>，Swift 原生实现，非 Electron 套壳，空闲内存约 60 MB。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论质疑 Yap 与 macOS 内置听写功能的重叠，以及预设的 Homebrew Tap 地址返回 404 错误。</p><div class="tags"><span class="tag">本地语音识别</span><span class="tag">macOS 应用</span><span class="tag">开源语音转文字</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · __erik · 1 回复</div><p>This is super cool! The brew install path in the readme doesn&#x27;t seem to work</p><p>remote: Repository not found.</p><p>fatal: repository &#x27;https://github.com/frigadehq/homebrew-tap/&#x27; not found</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://www.rise-reforming.com" target="_blank" rel="noopener">Launch HN: Rise Reforming (YC S26) – Turning Waste Gases into Valuable Chemicals</a></h2></div><p class="title-tr">Launch HN: Rise Reforming (YC S26) – 将废弃气体转化为高价值化学品</p><div class="meta">▲ 62 分 · george_rose25 · <a href="https://news.ycombinator.com/item?id=49074817" target="_blank" rel="noopener">26 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Rise Reforming 开发模块化装置，将垃圾填埋场、农场及废水厂的废弃沼气转化为二甲醚和甲醇，已签署供应与承购协议，并在芝加哥废水厂开建试点。美国年产沼气可转化为逾200亿美元化学品，但当前 60% 被低效燃烧或直接放空。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 沼气中的硫、硅杂质会使催化剂中毒失效，类似训练数据中的噪声破坏模型收敛，因此吸附净化步骤（类似数据预处理）是经济可行的关键。</p><ul class="kp"><li><strong>美国年产 7800 亿立方英尺沼气</strong>，可转化为价值逾200亿美元的化学品，但 60% 被低效燃烧或直接放空。</li><li>公司以<strong>集装箱式模块化装置</strong>在沼气产生地现场转化，起点为高利润化妆品用二甲醚 (DME)，已签署绑定供应与承购协议。</li><li>化学工业<strong>集中化生产极脆弱</strong>：2021 年冬季风暴 Uri 导致美国 60% 有机化学品停产一个月，伊朗冲突亦推高甲醇价格。</li><li>核心工艺为<strong>双重整 (bi-reforming)</strong>，利用沼气中的 CO₂ 与 CH₄ 直接制合成气，省去化石原料开采与运输环节，降低碳足迹。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论着重于实际沼气成分波动对催化剂寿命的影响、模块化装置与大型集中厂的成本竞争力、电力接入和操作人工的现实难题，普遍认为技术可行但经济性是关键挑战。</p><div class="tags"><span class="tag">硬科技</span><span class="tag">清洁化学</span><span class="tag">YC Startup</span><span class="tag">沼气利用</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Johnny_Bonk · 2 回复</div><p>Congrats! I&#x27;ve worked on a similar technology converting waste syngas to 3-hydroxy-butyrate for further applications. Unfortunately in my case, we couldn&#x27;t see any valuable and scalable end products from that particular molecule but I&#x27;m excited to follow your journey. Best of luck!</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://jacob.gold/posts/residential-proxies-are-a-national-security-threat/" target="_blank" rel="noopener">Residential Proxies Are a National Security Threat</a></h2></div><p class="title-tr">住宅代理已成为国家安全威胁</p><div class="meta">▲ 10 分 · joshbetz · <a href="https://news.ycombinator.com/item?id=49078266" target="_blank" rel="noopener">3 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">美国住宅 IP 代理（通过入侵或欺骗获取真实家庭 IP）是社交媒体操纵和垃圾邮件的主要来源，因无法像机房 IP 一样被封禁而极难防御。作者警告大量感染设备可被用于窃取数据、监听、跨国舆论操控和僵尸网络，已构成国家安全威胁，并呼吁政府与 ISP 采取行动。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可以把住宅代理理解为一种通过恶意软件或 SDK 劫持正常用户网络连接的“肉鸡”网络，攻击者借此伪装成普通家庭宽带用户，从而绕过基于 IP 来源的风控策略——类似模型训练中遇到对抗样本，防御机制被绕过。</p><ul class="kp"><li><strong>42% 的 LG 智能电视应用</strong>曾被发现可暗中将电视变为代理节点，厂商已开始禁止此类应用。</li><li>住宅代理的核心威胁在于<strong>无法封禁美国住宅 IP</strong>，因为封禁将同时切断大量真实用户，使恶意流量与正常流量难以区分。</li><li>攻击者可利用受感染的设备<strong>窃取美国公民数据与身份信息</strong>，甚至录制音视频，形成大规模间谍基础设施。</li><li>作者主张<strong>ISP（如 Comcast、AT&amp;T）应检测并警告客户</strong>其设备被用作代理，但评论者担心此举可能演变成国内监控。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论者质疑“国家安全威胁”定性是否过度，认为所称行为多已违反《计算机欺诈与滥用法》，并担忧强制 ISP 监控可疑流量会侵犯公民权利。</p><div class="tags"><span class="tag">住宅代理</span><span class="tag">网络安全</span><span class="tag">国家威胁</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://nypost.com/2026/07/26/us-news/netflix-exec-goes-ballistic-after-being-fired-for-stunning-trust-exercise-confession-at-retreat-suit/" target="_blank" rel="noopener">Netflix employee fired for sharing personal details in retreat trust exercise</a></h2></div><p class="title-tr">Netflix员工在务虚会信任练习中分享个人细节后被解雇</p><div class="meta">▲ 196 分 · softwaredoug · <a href="https://news.ycombinator.com/item?id=49076923" target="_blank" rel="noopener">135 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">一位年薪110万美元的Netflix高管在公司“脆弱性-信任练习”中透露曾接受医用氯胺酮治疗抑郁症，随后公司以疑似娱乐性用药为由调查并解雇。诉讼同时揭露了领导层鼓励饮酒的文化，事件暴露了“把全部自我带到职场”背后的风险。</p><ul class="kp"><li>高管Baillie在2026年1月Netflix务虚会中透露<strong>医用氯胺酮治疗</strong>，三个月后被解雇。</li><li>其年薪<strong>110万美元</strong>，诉讼称调查方式暗示娱乐用药，且公司内部大量领导层带头饮酒。</li><li>公司组织的信任练习鼓励公开脆弱经历，但<strong>未明确信息后续如何使用与保护</strong>。</li><li>HN评论普遍认为“<strong>公司不是你的朋友</strong>”，HR保护公司，信任练习常被当作筛选或掌控员工的工具。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论一致认为职场信任练习高度危险，透露个人信息易被反噬；部分人怀疑事件未披露完整，如实际存在其他绩效问题。</p><div class="tags"><span class="tag">公司文化</span><span class="tag">信任练习</span><span class="tag">劳动法</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Johnny555 · 7 回复</div><p>Offsite retreats seem like a bad idea in general, I&#x27;ve never been to one where I felt the team or company worked together better afterwards, and I&#x27;ve seen some spectacularly bad results... like the time the facilitator tried to get to the bottom of tensions between the CTO and head of sales (the classic problem of &quot;Engineering isn&#x27;t shipping features fast enough&quot; and &quot;Sales is selling features before even consulting with engineering&quot;). The discussion quickly turned shockingly personal and within a month after the retreat both the CTO and head of sales quit. At least they called an end to the retreat early.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://up.codes/careers?utm_source=HN" target="_blank" rel="noopener">UpCodes (YC S17) is hiring remote AE&#x27;s to help make buildings cheaper</a></h2></div><p class="title-tr">UpCodes (YC S17) 正在招聘远程客户经理，以帮助降低建筑成本</p><div class="meta">▲ 1 分 · Old_Thrashbarg · <a href="https://news.ycombinator.com/item?id=49072523" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">UpCodes 是一家 YC 孵化的建筑规范合规 SaaS 公司，现招聘远程 AE（客户经理）推广其将建筑规范数字化的平台，目标是通过减少人工规范审查来降低建筑项目成本。</p><p class="context"><strong>🧭 联系你的知识背景</strong> AE 在此指 Account Executive，即 B2B 软件销售中负责与客户对接、推动成交的角色；UpCodes 将纸质建筑规范转化为可搜索、可自动检查的 SaaS，类似用 NLP 工作流替代人工审核，面向建筑行业。</p><ul class="kp"><li><strong>UpCodes</strong> 为 Y Combinator S17 批次公司，专注建筑规范自动化</li><li>招聘<strong>远程 AE</strong>，负责向建筑师、工程师等销售合规软件，降低建筑成本</li><li>平台将规范数字化、可检索化，<strong>减少人工审查时间</strong>，直接降低项目延误与错误成本</li><li>远程模式暗示<strong>分布式扩张策略</strong>，可能以较低人员成本覆盖多地区市场</li></ul><div class="tags"><span class="tag">建筑科技</span><span class="tag">SaaS 销售</span><span class="tag">YC 校友</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://usefeyn.com/blog/feynobg/" target="_blank" rel="noopener">Show HN: FeyNoBg – Automatic background removal model and training library</a></h2></div><p class="title-tr">Show HN: FeyNoBg – 自动背景去除模型与训练库</p><div class="meta">▲ 97 分 · snyy · <a href="https://news.ycombinator.com/item?id=49072462" target="_blank" rel="noopener">22 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">FeyNoBg 是一个在 8 个基准中 4 个领先（其余差距 &lt;2%）的背景去除模型，通过将 BiRefNet 第三阶段从 18 块扩展到 24 块（参数从 222M 到 263M）并用 10 个数据集 26.1K 图像平衡训练，解决了前景识别与边缘精度的 tradeoff；同时开源训练库 NoBg，统一预处理、训练与推理接口。</p><ul class="kp"><li><strong>FeyNoBg</strong> 在 DIS5K 等 4 个基准上取得最佳 S-measure，其余 4 个基准得分差距均小于 2%。</li><li>模型关键改进是将 BiRefNet 特征提取器<strong>第三阶段层数从 18 扩充到 24</strong>，增强对整体前景与边缘细节的表示能力。</li><li>训练用 <strong>10 个数据集共 26.1K 图像</strong>，涵盖迷彩、低对比度、精细结构等场景，每个来源上限 4K 张，避免单数据集过拟合。</li><li>开源的 <strong>NoBg 库</strong>在 batch size 1/2/4 下吞吐量更高、GPU 内存更少，支持一行代码训练或推理。</li></ul><p class="disc"><strong>💬 讨论</strong> 核心争论在于模型从 MIT 许可的 BiRefNet 派生却改为 cc-by-nc-4.0 商用限制许可；此外对 Adobe 的“选主体/选人”双模式的实际可用性进行了对比，以及分辨率上限的疑问。</p><div class="tags"><span class="tag">背景去除</span><span class="tag">图像抠图</span><span class="tag">开源模型</span><span class="tag">训练库</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · woadwarrior01 · 3 回复</div><p>Why extend an MIT licensed model&#x27;s weights (BiRefNet) and release it under a cc-by-nc-4.0 license?</p></div></div></article>
+</div></main>
+<footer>generated 2026-07-28 03:33 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-28", "pointsLabel": "分", "commentsLabel": "评论", "title": "Our position on open-weights models", "titleTranslation": "我们对开放权重模型的立场", "summary": "Anthropic CEO Dario Amodei 发文澄清公司从未主张禁止开放权重模型，但支持对华芯片出口管制、打击大规模蒸馏（利用大模型输出训练小模型）以及对所有强大模型强制安全测试。评论普遍认为其立场旨在借监管维护商业护城河。", "keyPoints": ["Anthropic CEO Dario Amodei 声明公司从未倡导过禁止开放权重模型，称此类模型若无危险能力是公共利益。", "首要威胁是威权政权（尤其是中国）获得比美国更强的 AI，用于军事优势或深度压制；次要威胁是 AI 被滥用于网络和生物攻击。", "支持三项措施：对华芯片禁运并打击走私；打击工业级蒸馏；所有足够强大的模型（无论开放或封闭）须经强制安全测试。"], "discussion": "评论共识认为 Anthropic 立场自相矛盾，通过安全测试和监管实质上在限制开放模型，并指责其以国家安全为由行保护主义之实。", "tags": ["AI 政策", "开放权重模型", "Anthropic"], "score": 551, "comments": 784, "by": "surprisetalk", "url": "https://www.anthropic.com/news/position-open-weights-models", "hnUrl": "https://news.ycombinator.com/item?id=49076057"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-28", "pointsLabel": "分", "commentsLabel": "评论", "title": "Using an open model feels surprisingly good", "titleTranslation": "使用开放式模型的感觉出奇地好", "summary": "作者在 Modal 托管平台上快速部署 Kimi K3 模型，并用 opencode 工具连接自有推理端点，感受到数据掌控的自由感。评论区质疑这是 Modal 的软广，但也讨论了开放模型的实际成本和性能表现。", "keyPoints": ["作者用 5 分钟 在 Modal 上启动 Kimi K3 推理端点，配合 opencode 工具完成个人项目开发。", "体验被描述为类似从臃肿编辑器回到 vim 的 自由与空白感，数据仅在自己设备与自有端点间流转。", "HN 网友 loufe 质疑帖子是 Modal 广告，呼吁给出成本对比，想知道自托管模型的溢价是否值得避开数据外泄。"], "discussion": "评论区主要争论帖子是否属于 Modal 广告，同时讨论自托管开放模型的实际成本与闭源服务的性价比。", "tags": ["开放模型", "AI 推理端点", "开发者工具"], "score": 38, "comments": 14, "by": "msaltz", "url": "https://matthewsaltz.com/blog/using-an-open-model-feels-surprisingly-good/", "hnUrl": "https://news.ycombinator.com/item?id=49078583"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-28", "pointsLabel": "分", "commentsLabel": "评论", "title": "A $500 RL fine-tune of a 9B open model beat frontier models on catalog review", "titleTranslation": "一个花费500美元的强化学习微调9B开源模型在目录审核上击败了前沿模型", "summary": "用约500美元对9B开源模型做强化学习微调，在电商目录审核任务上达到最高可得分数的90.6%，远超最强前沿模型配置的76.9%；推理成本降至每千次0.50美元，对比前沿模型的34美元，一年可省数亿美元。", "keyPoints": ["Ramp 数据显示，AI 支出最高的四分之一公司收入在近三年翻倍增长，而零 AI 支出的公司仅增长约15%。", "Bridgewater 训练的内部模型在投资文档筛选上比最佳前沿模型少犯约30%的错误，推理成本大幅降低。", "基于 GRPO（Group Relative Policy Optimization） 微调的 9B 模型在目录审核上相对前沿模型提升 13.5%，成本仅为前沿模型的 1/68。"], "discussion": "评论质疑收入增长与 AI 投入的因果关系，并认为定制模型可能过度拟合特定基准，泛化能力存疑。", "tags": ["RL微调", "开源模型", "成本优势"], "score": 22, "comments": 5, "by": "ilreb", "url": "https://fermisense.com/when-machines-take-the-wheel/", "hnUrl": "https://news.ycombinator.com/item?id=49078454"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-28", "pointsLabel": "分", "commentsLabel": "评论", "title": "Benchmarking Opus 5 on SlopCodeBench", "titleTranslation": "在 SlopCodeBench 上对 Opus 5 进行基准测试", "summary": "Opus 5 在模拟真实软件迭代的 SlopCodeBench 上仅获 24% 严格通过率，所有模型都随需求增加而积累缺陷，该基准能有效测量模型在代码长期维护中的薄弱能力。", "keyPoints": ["Opus 5 取得 24% 严格通过率（17 个检查点中通过 4 个），仅略高于 Opus 4.6 的 17%，基准仍未被突破。", "所有模型在逐个检查点后都出现代码质量恶化：行数膨胀、复杂度上升，Opus 5 编写的函数数量是 Opus 4.8 的 5 倍，但并未转化为更高正确率。", "SlopCodeBench 是目前极少数不饱和（unsaturated）的编程基准，即使最简单任务也无模型能在全部检查点后零缺陷。"], "discussion": "用户期待加入 Fable 模型对比，并讨论是否可通过系统提示词引导模型保持代码简洁。", "tags": ["LLM 基准测试", "代码维护", "Anthropic Claude"], "score": 166, "comments": 39, "by": "dhorthy", "url": "https://github.com/humanlayer/advanced-context-engineering-for-coding-agents/blob/main/benchmarking-opus-5-on-slop-code-bench.md", "hnUrl": "https://news.ycombinator.com/item?id=49076391"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-28", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Yap – OSS on-device voice dictation for macOS with no model to download", "titleTranslation": "Show HN: Yap – 开源 macOS 本地语音听写应用，无需下载模型", "summary": "Yap 是一个约 4 MB、3000 行 Swift 的 macOS 菜单栏应用，利用 macOS 26 新增的 SpeechAnalyzer 和 SpeechTranscriber API 实现完全设备端语音转文字，无需下载任何模型，空闲仅 60 MB 内存。实测词错率 2.12%，比 Whisper Small 低 1.62 个百分点，速度快约 3 倍，为免下载、免付费的本地听写树立了新基线。", "keyPoints": ["Yap 完全运行在本地，无网络访问，无账号或 API 密钥要求，转录数据不出机器。", "使用 macOS 26 SpeechAnalyzer 实现流式听写，首次说话前不加载任何模型，延迟极低。", "在 LibriSpeech 基准上，Apple 模型词错率 2.12%，Whisper Small 为 3.74%，且速度快约 3 倍。"], "discussion": "评论质疑 Yap 与 macOS 内置听写功能的重叠，以及预设的 Homebrew Tap 地址返回 404 错误。", "tags": ["本地语音识别", "macOS 应用", "开源语音转文字"], "score": 30, "comments": 4, "by": "pancomplex", "url": "https://github.com/FrigadeHQ/yap", "hnUrl": "https://news.ycombinator.com/item?id=49073834"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-28", "pointsLabel": "分", "commentsLabel": "评论", "title": "Launch HN: Rise Reforming (YC S26) – Turning Waste Gases into Valuable Chemicals", "titleTranslation": "Launch HN: Rise Reforming (YC S26) – 将废弃气体转化为高价值化学品", "summary": "Rise Reforming 开发模块化装置，将垃圾填埋场、农场及废水厂的废弃沼气转化为二甲醚和甲醇，已签署供应与承购协议，并在芝加哥废水厂开建试点。美国年产沼气可转化为逾200亿美元化学品，但当前 60% 被低效燃烧或直接放空。", "keyPoints": ["美国年产 7800 亿立方英尺沼气，可转化为价值逾200亿美元的化学品，但 60% 被低效燃烧或直接放空。", "公司以集装箱式模块化装置在沼气产生地现场转化，起点为高利润化妆品用二甲醚 (DME)，已签署绑定供应与承购协议。", "化学工业集中化生产极脆弱：2021 年冬季风暴 Uri 导致美国 60% 有机化学品停产一个月，伊朗冲突亦推高甲醇价格。"], "discussion": "评论着重于实际沼气成分波动对催化剂寿命的影响、模块化装置与大型集中厂的成本竞争力、电力接入和操作人工的现实难题，普遍认为技术可行但经济性是关键挑战。", "tags": ["硬科技", "清洁化学", "YC Startup"], "score": 62, "comments": 26, "by": "george_rose25", "url": "https://www.rise-reforming.com", "hnUrl": "https://news.ycombinator.com/item?id=49074817"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-28", "pointsLabel": "分", "commentsLabel": "评论", "title": "Residential Proxies Are a National Security Threat", "titleTranslation": "住宅代理已成为国家安全威胁", "summary": "美国住宅 IP 代理（通过入侵或欺骗获取真实家庭 IP）是社交媒体操纵和垃圾邮件的主要来源，因无法像机房 IP 一样被封禁而极难防御。作者警告大量感染设备可被用于窃取数据、监听、跨国舆论操控和僵尸网络，已构成国家安全威胁，并呼吁政府与 ISP 采取行动。", "keyPoints": ["42% 的 LG 智能电视应用曾被发现可暗中将电视变为代理节点，厂商已开始禁止此类应用。", "住宅代理的核心威胁在于无法封禁美国住宅 IP，因为封禁将同时切断大量真实用户，使恶意流量与正常流量难以区分。", "攻击者可利用受感染的设备窃取美国公民数据与身份信息，甚至录制音视频，形成大规模间谍基础设施。"], "discussion": "评论者质疑“国家安全威胁”定性是否过度，认为所称行为多已违反《计算机欺诈与滥用法》，并担忧强制 ISP 监控可疑流量会侵犯公民权利。", "tags": ["住宅代理", "网络安全", "国家威胁"], "score": 10, "comments": 3, "by": "joshbetz", "url": "https://jacob.gold/posts/residential-proxies-are-a-national-security-threat/", "hnUrl": "https://news.ycombinator.com/item?id=49078266"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-28", "pointsLabel": "分", "commentsLabel": "评论", "title": "Netflix employee fired for sharing personal details in retreat trust exercise", "titleTranslation": "Netflix员工在务虚会信任练习中分享个人细节后被解雇", "summary": "一位年薪110万美元的Netflix高管在公司“脆弱性-信任练习”中透露曾接受医用氯胺酮治疗抑郁症，随后公司以疑似娱乐性用药为由调查并解雇。诉讼同时揭露了领导层鼓励饮酒的文化，事件暴露了“把全部自我带到职场”背后的风险。", "keyPoints": ["高管Baillie在2026年1月Netflix务虚会中透露医用氯胺酮治疗，三个月后被解雇。", "其年薪110万美元，诉讼称调查方式暗示娱乐用药，且公司内部大量领导层带头饮酒。", "公司组织的信任练习鼓励公开脆弱经历，但未明确信息后续如何使用与保护。"], "discussion": "评论一致认为职场信任练习高度危险，透露个人信息易被反噬；部分人怀疑事件未披露完整，如实际存在其他绩效问题。", "tags": ["公司文化", "信任练习", "劳动法"], "score": 196, "comments": 135, "by": "softwaredoug", "url": "https://nypost.com/2026/07/26/us-news/netflix-exec-goes-ballistic-after-being-fired-for-stunning-trust-exercise-confession-at-retreat-suit/", "hnUrl": "https://news.ycombinator.com/item?id=49076923"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-28", "pointsLabel": "分", "commentsLabel": "评论", "title": "UpCodes (YC S17) is hiring remote AE's to help make buildings cheaper", "titleTranslation": "UpCodes (YC S17) 正在招聘远程客户经理，以帮助降低建筑成本", "summary": "UpCodes 是一家 YC 孵化的建筑规范合规 SaaS 公司，现招聘远程 AE（客户经理）推广其将建筑规范数字化的平台，目标是通过减少人工规范审查来降低建筑项目成本。", "keyPoints": ["UpCodes 为 Y Combinator S17 批次公司，专注建筑规范自动化", "招聘远程 AE，负责向建筑师、工程师等销售合规软件，降低建筑成本", "平台将规范数字化、可检索化，减少人工审查时间，直接降低项目延误与错误成本"], "discussion": "", "tags": ["建筑科技", "SaaS 销售", "YC 校友"], "score": 1, "comments": 0, "by": "Old_Thrashbarg", "url": "https://up.codes/careers?utm_source=HN", "hnUrl": "https://news.ycombinator.com/item?id=49072523"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-07-28", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: FeyNoBg – Automatic background removal model and training library", "titleTranslation": "Show HN: FeyNoBg – 自动背景去除模型与训练库", "summary": "FeyNoBg 是一个在 8 个基准中 4 个领先（其余差距 <2%）的背景去除模型，通过将 BiRefNet 第三阶段从 18 块扩展到 24 块（参数从 222M 到 263M）并用 10 个数据集 26.1K 图像平衡训练，解决了前景识别与边缘精度的 tradeoff；同时开源训练库 NoBg，统一预处理、训练与推理接口。", "keyPoints": ["FeyNoBg 在 DIS5K 等 4 个基准上取得最佳 S-measure，其余 4 个基准得分差距均小于 2%。", "模型关键改进是将 BiRefNet 特征提取器第三阶段层数从 18 扩充到 24，增强对整体前景与边缘细节的表示能力。", "训练用 10 个数据集共 26.1K 图像，涵盖迷彩、低对比度、精细结构等场景，每个来源上限 4K 张，避免单数据集过拟合。"], "discussion": "核心争论在于模型从 MIT 许可的 BiRefNet 派生却改为 cc-by-nc-4.0 商用限制许可；此外对 Adobe 的“选主体/选人”双模式的实际可用性进行了对比，以及分辨率上限的疑问。", "tags": ["背景去除", "图像抠图", "开源模型"], "score": 97, "comments": 22, "by": "snyy", "url": "https://usefeyn.com/blog/feynobg/", "hnUrl": "https://news.ycombinator.com/item?id=49072462"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
