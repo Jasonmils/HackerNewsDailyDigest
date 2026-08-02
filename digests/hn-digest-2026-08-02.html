@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-08-02</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-08-02 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://seed.bytedance.com/en/blog/one-take-creation-flexible-referencing-introducing-seedance-2-5" target="_blank" rel="noopener">Seedance 2.5</a></h2></div><p class="title-tr">一次生成，灵活参考：推出 Seedance 2.5</p><div class="meta">▲ 218 分 · njaremko · <a href="https://news.ycombinator.com/item?id=49138302" target="_blank" rel="noopener">103 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">字节跳动发布视频模型 Seedance 2.5，单次生成最长 30 秒并可多轮扩展，支持最多 30 张图、10 段视频、10 段音频作为参考输入，并加入时间戳级编辑控制，已在即梦 AI 和豆包 Pro 上线。</p><p class="context"><strong>🧭 联系你的知识背景</strong> HN 评论区指出 Seedance 的动作/特效优先路线契合中国电影市场的视觉奇观偏好，而西方创作者更关注保持演员表演一致性，这种需求分化解释了模型的设计重心。</p><ul class="kp"><li>单次生成最长 <strong>30 秒</strong>，多轮扩展可保持主体、环境和叙事节奏一致，输出数分钟连贯视频。</li><li>多模态参考输入可高达 <strong>30 张图像、10 个视频片段、10 个音频片段</strong>，并通过 clay render 精确控制构图和运镜。</li><li>具备 <strong>时间戳级</strong>编辑能力，支持绿幕、摄像机视角与参考编辑，面向广告和电影等专业复杂场景。</li><li>已整合进 <strong>即梦 AI 和豆包 Pro</strong>，API 即将通过 BytePlus ModelArk 提供。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区多数认可画质提升，但核心分歧在于 Seedance 偏重视觉特效和长镜头，契合中国市场，而美国创作者更重演员表演移植和对话场景；同时推理成本高与 MiniMax H3 即将开源带来的性价比优势被反复提及。</p><div class="tags"><span class="tag">视频生成</span><span class="tag">字节跳动</span><span class="tag">AI视频编辑</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · neom · 7 回复</div><p>There is a woman on twitter who makes seedance videos of her and Dario from anthropic, they&#x27;re kinda weird but generally pretty high quality: https://x.com/CuiMao/status/2058458683781365873 (full collection: https://x.com/CuiMao/status/2082740754380984373) - seeing them was the first time I&#x27;d been impressed with AI video gen.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://mitsloan.mit.edu/ideas-made-to-matter/ai-financial-advice-surprisingly-good-especially-if-you-ask-right-questions" target="_blank" rel="noopener">AI financial advice is surprisingly good, especially if you ask right questions</a></h2></div><p class="title-tr">AI 财务建议出奇地好，特别是如果你问对问题</p><div class="meta">▲ 208 分 · foxtrot8672 · <a href="https://news.ycombinator.com/item?id=49139102" target="_blank" rel="noopener">179 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">MIT Sloan 研究称，只要提问得当，AI 给出的理财建议质量惊人。但 HN 评论指出，这实质是模型基于训练数据对共识的自动补全，而非真正理解；且大众财务素养极低，一张“将收入 10% 投资 ETF”的字条就已胜过多数人收到的建议。注：未能获取正文，分析仅据标题和讨论。</p><p class="context"><strong>🧭 联系你的知识背景</strong> LLM 生成理财建议并非真正理解金融，而是基于训练语料中的共识完成提示词补齐，可类比你的时间序列模型基于历史模式外推——模型无真实意图，只是产出可能性最高的 token 序列。</p><ul class="kp"><li>AI 实际是在做<strong>自动补全</strong>，你提供的上下文和提问质量直接决定输出是否接近广泛共识，而非个性化决策。</li><li>大众<strong>财务素养极低</strong>，简单法则如“收入的 10% 定投 ETF”已胜过多数人从亲友处获得的错误建议。</li><li>若提供充足个人上下文，Claude 或 GPT 能发现<strong>人类会计师遗漏的税务问题</strong>，且订阅成本仅为专业顾问费用的千分之一。</li><li>财务规划行业<strong>模板化严重</strong>，一份要价 2000 美元的建议书 99% 是套话，AI 可能快速颠覆这一模式。</li></ul><p class="disc"><strong>💬 讨论</strong> 共识：AI 财务建议的价值主要来自大众极低的财务素养，简单规则即可胜出。分歧：有人视其为无理解的自动补全，有人则用个人数据验证其建议超越人类专家。</p><div class="tags"><span class="tag">AI 理财建议</span><span class="tag">LLM 局限性</span><span class="tag">财务素养</span><span class="tag">金融科技</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · AussieWog93 · 9 回复</div><p>People in this thread are massively underestimating the level of financial illiteracy in the general population.</p><p>We&#x27;ve had multiple people try to convince us to set up bank accounts for our kids, so that they could accumulate interest over 18 years.</p><p>More that tried to convince me to gamble on random pump and dump shitcoins.</p><p>More still that talked about &quot;investing&quot; in random collectables like Funko Pops or Pokemon cards - they&#x27;re not a bubble, Logan Paul told me so!</p><p>You could replace the AI with a piece of paper that says &quot;set aside 10% of your income and invest it in an ETF&quot; and it would outperform the financial &quot;advice&quot; that people receive on a daily basis.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://costperprompt.com/" target="_blank" rel="noopener">Show HN: CostPerPrompt – Live AI API pricing and real-workload cost calculators</a></h2></div><p class="title-tr">Show HN: CostPerPrompt – 实时AI API定价和实际工作负载成本计算器</p><div class="meta">▲ 3 分 · ahmed_hassan7 · <a href="https://news.ycombinator.com/item?id=49140340" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">该网站实时跟踪232+模型的API定价，并提供计入提示缓存（最高节省90%）与批处理折扣（约50%）的真实际成本计算器。多数忽略缓存与批处理的估算会高估或低估2-3倍。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 提示缓存是利用模型会将重复输入缓存以大幅降低输入成本，尤其对重发对话历史的聊天机器人有效；批处理则是以延迟换价格，适用于离线任务。</p><ul class="kp"><li><strong>提示缓存最多可削减90%重复输入成本</strong>，批处理再减约50%，是影响真实API账单的关键变量。</li><li>GPT-5.6 Sol 与 DeepSeek V4 Flash 的每百万token输出价格差距高达 <strong>$30 vs $0.18</strong>，体现模型定价的分化。</li><li>网站覆盖 <strong>232+模型</strong>，定价自动刷新，解决工程师在估算投产前难以获得准确成本的问题。</li></ul><div class="tags"><span class="tag">AI API定价</span><span class="tag">成本计算器</span><span class="tag">LLM推理成本</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://news.emory.edu/features/2026/07/ai-opens-new-era-cognitive-studies-wild-primates" target="_blank" rel="noopener">AI opens new era in cognitive studies of wild primates</a></h2></div><p class="title-tr">人工智能开启野生灵长类认知研究新时代</p><div class="meta">▲ 10 分 · hhs · <a href="https://news.ycombinator.com/item?id=49139232" target="_blank" rel="noopener">4 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">埃默里大学和乔治亚理工学院的研究者开发了 CapuchinAI 系统，通过面部识别（准确率 97%）和触摸屏任务自动对野生卷尾猴进行认知测试，首次实现野外可扩展的个体化认知评估。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 该系统使用 YOLO 模型在 Raspberry Pi 边缘设备上进行部署，实现野外环境下的实时面部识别与奖励分发，与实验室视觉实验形成对比。</p><ul class="kp"><li>CapuchinAI 在哥斯达黎加森林中对<strong>六只卷尾猴的面部识别准确率达 97%</strong>，后续扩展至 16 只。</li><li>系统采用<strong>树莓派和轻量电池供电</strong>，成本低廉且生态友好，可持续运行 8 小时。</li><li>整个方案已<strong>开源并附带搭建蓝图</strong>，研究者希望推广到其他野生灵长类物种的认知数据采集。</li><li>研究基于<strong>弗兰斯·德瓦尔</strong>的动物认知传统，强调在自然环境中理解个体差异对认知的影响。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论者由实验联想到外星文明可能也在对人类进行类似“摆个 iPad 在森林里”的测试，并认为模式识别将有助于解码动物交流。</p><div class="tags"><span class="tag">动物认知</span><span class="tag">边缘AI</span><span class="tag">野外行为实验</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · fhe · 1 回复</div><p>so their idea is to put an ipad in the middle of the forest, installed with games, and if played right, delievers a treat... makes me wonder if something alien civilization is not doing something like that to us.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://www.brethorsting.com/blog/2026/08/the-greenhouse-and-the-lens-two-modes-of-agentic-ai-work/" target="_blank" rel="noopener">The Greenhouse and the Lens: Two Modes of Agentic AI Work</a></h2></div><p class="title-tr">温室和透镜：两种 AI 代理工作模式</p><div class="meta">▲ 6 分 · aaronbrethorst · <a href="https://news.ycombinator.com/item?id=49139826" target="_blank" rel="noopener">3 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者将自主代理 AI（如 Claude Code）的使用分为“温室”（低成本广泛探索）和“透镜”（聚焦目标精准执行）两种模式，失败常源于模式错配，识别并切换模式才是高级技能。</p><p class="context"><strong>🧭 联系你的知识背景</strong> agentic AI 指能自主分解任务、调用工具并迭代执行的系统，类似您熟悉的模型具备调用外部工具的能力，但更强调主动完成多步目标。</p><ul class="kp"><li><strong>温室模式</strong>适合没有明确目标的探索，利用近乎零的试错成本大量生成原型再评估；<strong>透镜模式</strong>用于目标清晰的交付，严格排除与目标无关的输出。</li><li>无论哪种模式，<strong>领域专业知识</strong>（经过验证的思维模型）都是筛选出有价值结果、避免被错误输出带偏的稀缺资产。</li><li><strong>识别当前工作所需模式并主动切换</strong>的能力，比单纯掌握某一种模式的使用技巧更为关键。</li><li>作者重申观点：在 agentic 世界中，<strong>领域专业知识</strong>才是真正的护城河，比模型能力更具稀缺性和防御性。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论两极分化：一方认同模式区分的重要性；另一方尖锐批评作者“成本近乎为零”的说法脱离现实，指出每年数千美元的订阅费和大量 token 消耗对普通用户仍是沉重负担。</p><div class="tags"><span class="tag">AI 代理工作流</span><span class="tag">思维模型</span><span class="tag">产品开发</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · afry1 · 1 回复</div><p>&gt; These tools came about because the cost of trying things out has dropped to nearly zero.</p><p>What an obscenely disconnected and privileged notion. &quot;Nearly zero&quot; still currently equates to thousands of dollars of subscription expense per year that normal, workaday people can&#x27;t afford.</p><p>Not to mention the fact that even at this untenable &quot;introductory&quot; level of expense, you&#x27;re really burning hundreds of thousands of dollars of tokens to do, what was that again?</p><p>&quot;Just let the LLM run wild for a while and see what come out the other end?&quot;</p><p>&quot;Generate ten solutions to one targeted problem and throw nine of them away because this garbage technology still can&#x27;t get it right on even the 9th try?&quot;</p><p>No wonder the rich bastards of the world love this stuff so much. It encourages so much wanton, indiscriminate, pointless waste in its users.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://forum.cursor.com/t/usage-page-to-token-amount-what/167153" target="_blank" rel="noopener">Cursor removed cost information from the usage page and CSV export</a></h2></div><p class="title-tr">Cursor 从用量页和 CSV 导出中移除了费用信息</p><div class="meta">▲ 317 分 · EugeneOZ · <a href="https://news.ycombinator.com/item?id=49135257" target="_blank" rel="noopener">143 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Cursor 突然将个人及团队计划的用量页面从美元成本改为仅显示代币数量，CSV 中的成本列也被清零，导致用户无法追踪每日实际花费，引发大量付费用户强烈抗议。官方回应称这是有意设计，但很快又修复了 CSV 导出，承认改动引起了混淆。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 代币数量无法直接换算为美元，因为不同模型每千代币的单价差异巨大——这对于需要实时控制预算的用户来说完全失去了参考价值。</p><ul class="kp"><li>用量页面的<strong>美元成本</strong>被替换为代币数量，且 CSV 导出的成本字段全被设为 $0.00，引发用户愤怒。</li><li>官方解释：自服务计划（含 Teams）改为基于代币的用量报告，<strong>仅有按需超量使用会显示美元</strong>，包含在套餐内的消耗不再显示金额。</li><li>用户反馈称，这一变化破坏了<strong>每日预算管理</strong>和模型性价比评估，多名工程师表示此前依靠该页面频繁追踪花费。</li><li>Cursor 员工承认<strong>CSV 导出问题为意外 bug</strong>并已修复，但用量页面的美元成本图不会恢复，因担心用户误解包含用量为实际收费。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区几乎一边倒批评该决策“对用户充满敌意”，认为其目的就是模糊真实花费，但也有 Cursor 员工出面解释并修复了 CSV bug，试图降低批评声浪。</p><div class="tags"><span class="tag">开发者工具</span><span class="tag">AI 定价</span><span class="tag">透明度</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · tosh · 16 回复</div><p>I can only recommend to regularly measure how many tokens a harness+model combination uses for a certain task</p><p>There are huge token efficiency/bloat differences between agents while working on the same tasks, using the same model, in the same environment</p><p>Yesterday I ran 10 agentic tasks using GPT 5.6 Sol in an ubuntu 26.04 vm a couple of times with different harnesses and got vastly different token usage.</p><p>+-------------+-----------+-----------+-----------+-----------+--------+</p><p>| Harness     | API total | Input     | Cached    | Uncached  | Output |</p><p>+-------------+-----------+-----------+-----------+-----------+--------+</p><p>| smol        |   172,807 |   142,334 |     8,704 |   133,630 | 30,473 |</p><p>| Pi          |   427,211 |   392,767 |   137,216 |   255,551 | 34,444 |</p><p>| OpenCode    | 1,564,429 | 1,523,957 | 1,204,736 |   319,221 | 40,472 |</p><p>| Codex       | 3,005,744 | 2,953,154 | 2,649,344 |   303,810 | 52,590 |</p><p>| Hermes      | 3,856,611 | 3,808,231 | 3,167,232 |   640,999 | 48,380 |</p><p>| Claude Code | 5,073,137 | 5,029,969 | 4,587,008 |   442,961 | 43,168 |</p><p>+-------------+-----------+-----------+-----------+-----------+--------+</p><p>https://x.com/__tosh/status/2083593799872237680</p><p>I&#x27;m not surprised that Claude Code is not optimized for an OpenAI model but I was still quite shocked re how much of a difference the harness makes.</p><p>Disclaimer: I&#x27;m working on &#x27;smol&#x27; which is a minimalist harness but it&#x27;s really nothing special, just a minimal system prompt, no skills files, only tool is shell</p><p>Do not underestimate how much popular harnesses are spamming the context window. The context window is very important.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://github.com/huyedits/Symbio" target="_blank" rel="noopener">Show HN: Symbio self fine-tuning AI loop</a></h2></div><p class="title-tr">Show HN: Symbio 自微调 AI 循环</p><div class="meta">▲ 7 分 · huyedit · <a href="https://news.ycombinator.com/item?id=49139461" target="_blank" rel="noopener">3 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Symbio 是一个全本地运行的 AI 代理框架，能自动捕获用户纠正与工具调用错误，当某类错误累积至默认 5 次后即触发 LoRA 微调，让模型逐步适应用户偏好，支持多智能体混合(MOA)模式并在 Apple Silicon 上离线工作。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 无需额外桥接，读者已熟悉微调、LoRA 等概念，只需知道 Symbio 将这些能力封装成一个自动化的本地代理闭环。</p><ul class="kp"><li>自动从“No, actually…”等纠正短语或重复提问中捕获错误，累积至 <strong>learn.mistake_threshold (默认 5)</strong> 后自动触发 LoRA 训练。</li><li>采用 <strong>MOA（多智能体混合）模式</strong>，主控模型将子任务委派给小型 worker，worker 失败后返回主控，双方均可被微调以提升协作效率。</li><li>技能以 Markdown 笔记定义，错误日志藏在 .md.health.jsonl 侧车文件中，达到阈值后训练出 <strong>一个技能 = 一个 LoRA 适配器</strong>，可热插拔与归档。</li><li>完全本地运行，依赖 Apple Silicon 的 MLX 与 Metal 性能着色器，无需云服务或订阅；推荐 <strong>16GB 统一内存</strong>，最低要求 M 系列芯片。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论者认可将个性化学习完全本地化的思路，但指出 16GB RAM 要求可能将部分 Mac 用户挡在门外。</p><div class="tags"><span class="tag">AI 代理</span><span class="tag">LoRA 微调</span><span class="tag">Apple Silicon</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · ChulioZ · 2 回复</div><p>I place a lot of importance in my own projects that every agent session captures non-obvious learnings as rules and that skills learn from their executions. Interesting approach to bring this fully local! A bit unfortunate that the RAM requirements will lock some Macs out, but I guess that&#x27;s not easily changeable right now.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://www.twitch.tv/newsmyimaginationai" target="_blank" rel="noopener">The world first agentic AI radio</a></h2></div><p class="title-tr">全球首个智能体 AI 电台</p><div class="meta">▲ 4 分 · myimaginationai · <a href="https://news.ycombinator.com/item?id=49140554" target="_blank" rel="noopener">1 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">标题宣称这是首个 agentic AI 电台，但文章正文无法获取，评论仅有一条“Hello, world.”。现有信息不足以判断技术实现或产品形态，“agentic AI”通常指能自主执行任务的 AI 系统，此处可能指由 AI 代理实时生成或编排的广播内容。</p><p class="context"><strong>🧭 联系你的知识背景</strong> “Agentic AI”目前尚无严格统一定义，通常指能感知环境、自主规划并执行行动的 AI，比单次推理的模型更强调持续性和工具使用能力。</p><ul class="kp"><li>标题宣称 <strong>全球首个智能体 AI 电台</strong>，在 Twitch 上播出</li><li>唯一一条评论仅为 <strong>“Hello, world.”</strong>，无技术讨论或用户反馈</li><li>文章内容与实现细节均不可得，无法验证其技术方案</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区几乎无实质互动，仅发布者留下一句问候，无法形成分歧或共识。</p><div class="tags"><span class="tag">AI 产品</span><span class="tag">agentic AI</span><span class="tag">内容生成</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://www.businessinsider.com/ai-could-lower-workers-pay-job-market-impact-2026-7" target="_blank" rel="noopener">AI&#x27;s real threat to jobs isn&#x27;t job loss, it&#x27;s lower paychecks, new research says</a></h2></div><p class="title-tr">AI 对工作的真正威胁不是失业，而是工资降低，新研究指出</p><div class="meta">▲ 36 分 · theanonymousone · <a href="https://news.ycombinator.com/item?id=49138483" target="_blank" rel="noopener">12 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Apollo Global Management 白皮书分析 321 种职业后发现，2023 年 ChatGPT 爆红后，与 AI 高接触的岗位实际工资增速平均下降 6.7%，但整体就业未见明显削减。最低收入群体受冲击最大：服务业工资增速暴跌 24.3%，底部 25% 收入者下降 10.7%。结论是 AI 不会抢走工作，但可能让你加不了薪。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中“实际工资增速”指剔除通胀后的工资增长率，能更真实反映购买力变化；Anthropic Economic Index 按任务占比衡量职业对 AI 的暴露程度，类似用模型使用数据反推影响面。</p><ul class="kp"><li>高 AI 暴露职业在 <strong>2023 年后实际工资增速平均下降 6.7%</strong>，但就业无显著变化。</li><li>最低收入者受创最深：<strong>服务业工资增速下滑 24.3%</strong>，底部 25% 收入者降 10.7%，高收入者未见显著影响。</li><li>计算机程序员实际工资下降 <strong>6.1%</strong>，统计助理降 5.4%，但广播员等低 AI 暴露职业也因行业因素暴跌 52%。</li><li>估计已有 <strong>580 万美国工人</strong>身处高 AI 暴露岗位，随着企业深入采用 AI，收入不平等和政策压力将进一步加剧。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区分歧明显：有人认为工资下降主要是疫情期间技术岗位薪酬飙升后的回调，并非 AI 直接导致；也有人指出这是资本用 AI 压低工资的新叙事，而非真实的生产力效应。</p><div class="tags"><span class="tag">AI 对劳动市场影响</span><span class="tag">工资不平等</span><span class="tag">Anthropic Economic Index</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · avmich · 4 回复</div><p>If the companies find a new way to make their products cheaper to produce and their services cheaper to provide - will it lead to lower prices as well?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://watm.ddyo.dev/" target="_blank" rel="noopener">Show HN: Wage Against the Machine – MacWages Index for AI Tasks</a></h2></div><p class="title-tr">Show HN: Wage Against the Machine – AI 任务的 MacWages 指数</p><div class="meta">▲ 6 分 · danr4 · <a href="https://news.ycombinator.com/item?id=49139370" target="_blank" rel="noopener">1 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">该交互式工具对照各国平均小时工资与顶级 AI 模型（如 Claude Opus 5 Max）的任务单价，直观量化“一国工人一小时劳动能买多少次 AI 任务”，揭示 AI 替代人工的经济门槛在各国间差异显著。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这类似“巨无霸指数”的 AI 版：用你熟悉的模型按 token 计价，换算出一个发展中国家工人一小时的工资可能只够买几次最贵模型的推理，直接反映出 AI 人力替代在不同市场的成本敏感性。</p><ul class="kp"><li>以 <strong>Claude Opus 5 Max</strong> 等 16 款主流/代号模型为基础，按 Artificial Analysis 的基准估算每次任务成本。</li><li>比较范围覆盖 <strong>美国、瑞士、印度、中国</strong> 等 10 个国家，可视化展示时薪能购买的任务次数。</li><li>工具突出显示高人力成本国家（如瑞士）时薪可购任务数遥遥领先，而 <strong>印度</strong> 等国家则明显偏低，凸显 AI 对低劳动力成本地区冲击更慢。</li><li>对投资者而言，该数据暗示 <strong>AI 自动化在不同经济体的替代顺序</strong>，先替换高工资地区的手工任务，再逐渐覆盖低成本市场。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区最突出的是个人对自己国家排名靠后的切身痛感，反映出该指数很容易引发直观的经济不平等情感共鸣。</p><div class="tags"><span class="tag">AI 定价</span><span class="tag">劳动力成本</span><span class="tag">跨国比较</span><span class="tag">Show HN</span></div></div></article>
+</div></main>
+<footer>generated 2026-08-02 03:51 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "Seedance 2.5", "titleTranslation": "一次生成，灵活参考：推出 Seedance 2.5", "summary": "字节跳动发布视频模型 Seedance 2.5，单次生成最长 30 秒并可多轮扩展，支持最多 30 张图、10 段视频、10 段音频作为参考输入，并加入时间戳级编辑控制，已在即梦 AI 和豆包 Pro 上线。", "keyPoints": ["单次生成最长 30 秒，多轮扩展可保持主体、环境和叙事节奏一致，输出数分钟连贯视频。", "多模态参考输入可高达 30 张图像、10 个视频片段、10 个音频片段，并通过 clay render 精确控制构图和运镜。", "具备 时间戳级编辑能力，支持绿幕、摄像机视角与参考编辑，面向广告和电影等专业复杂场景。"], "discussion": "评论区多数认可画质提升，但核心分歧在于 Seedance 偏重视觉特效和长镜头，契合中国市场，而美国创作者更重演员表演移植和对话场景；同时推理成本高与 MiniMax H3 即将开源带来的性价比优势被反复提及。", "tags": ["视频生成", "字节跳动", "AI视频编辑"], "score": 218, "comments": 103, "by": "njaremko", "url": "https://seed.bytedance.com/en/blog/one-take-creation-flexible-referencing-introducing-seedance-2-5", "hnUrl": "https://news.ycombinator.com/item?id=49138302"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "AI financial advice is surprisingly good, especially if you ask right questions", "titleTranslation": "AI 财务建议出奇地好，特别是如果你问对问题", "summary": "MIT Sloan 研究称，只要提问得当，AI 给出的理财建议质量惊人。但 HN 评论指出，这实质是模型基于训练数据对共识的自动补全，而非真正理解；且大众财务素养极低，一张“将收入 10% 投资 ETF”的字条就已胜过多数人收到的建议。注：未能获取正文，分析仅据标题和讨论。", "keyPoints": ["AI 实际是在做自动补全，你提供的上下文和提问质量直接决定输出是否接近广泛共识，而非个性化决策。", "大众财务素养极低，简单法则如“收入的 10% 定投 ETF”已胜过多数人从亲友处获得的错误建议。", "若提供充足个人上下文，Claude 或 GPT 能发现人类会计师遗漏的税务问题，且订阅成本仅为专业顾问费用的千分之一。"], "discussion": "共识：AI 财务建议的价值主要来自大众极低的财务素养，简单规则即可胜出。分歧：有人视其为无理解的自动补全，有人则用个人数据验证其建议超越人类专家。", "tags": ["AI 理财建议", "LLM 局限性", "财务素养"], "score": 208, "comments": 179, "by": "foxtrot8672", "url": "https://mitsloan.mit.edu/ideas-made-to-matter/ai-financial-advice-surprisingly-good-especially-if-you-ask-right-questions", "hnUrl": "https://news.ycombinator.com/item?id=49139102"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: CostPerPrompt – Live AI API pricing and real-workload cost calculators", "titleTranslation": "Show HN: CostPerPrompt – 实时AI API定价和实际工作负载成本计算器", "summary": "该网站实时跟踪232+模型的API定价，并提供计入提示缓存（最高节省90%）与批处理折扣（约50%）的真实际成本计算器。多数忽略缓存与批处理的估算会高估或低估2-3倍。", "keyPoints": ["提示缓存最多可削减90%重复输入成本，批处理再减约50%，是影响真实API账单的关键变量。", "GPT-5.6 Sol 与 DeepSeek V4 Flash 的每百万token输出价格差距高达 $30 vs $0.18，体现模型定价的分化。", "网站覆盖 232+模型，定价自动刷新，解决工程师在估算投产前难以获得准确成本的问题。"], "discussion": "", "tags": ["AI API定价", "成本计算器", "LLM推理成本"], "score": 3, "comments": 0, "by": "ahmed_hassan7", "url": "https://costperprompt.com/", "hnUrl": "https://news.ycombinator.com/item?id=49140340"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "AI opens new era in cognitive studies of wild primates", "titleTranslation": "人工智能开启野生灵长类认知研究新时代", "summary": "埃默里大学和乔治亚理工学院的研究者开发了 CapuchinAI 系统，通过面部识别（准确率 97%）和触摸屏任务自动对野生卷尾猴进行认知测试，首次实现野外可扩展的个体化认知评估。", "keyPoints": ["CapuchinAI 在哥斯达黎加森林中对六只卷尾猴的面部识别准确率达 97%，后续扩展至 16 只。", "系统采用树莓派和轻量电池供电，成本低廉且生态友好，可持续运行 8 小时。", "整个方案已开源并附带搭建蓝图，研究者希望推广到其他野生灵长类物种的认知数据采集。"], "discussion": "评论者由实验联想到外星文明可能也在对人类进行类似“摆个 iPad 在森林里”的测试，并认为模式识别将有助于解码动物交流。", "tags": ["动物认知", "边缘AI", "野外行为实验"], "score": 10, "comments": 4, "by": "hhs", "url": "https://news.emory.edu/features/2026/07/ai-opens-new-era-cognitive-studies-wild-primates", "hnUrl": "https://news.ycombinator.com/item?id=49139232"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "The Greenhouse and the Lens: Two Modes of Agentic AI Work", "titleTranslation": "温室和透镜：两种 AI 代理工作模式", "summary": "作者将自主代理 AI（如 Claude Code）的使用分为“温室”（低成本广泛探索）和“透镜”（聚焦目标精准执行）两种模式，失败常源于模式错配，识别并切换模式才是高级技能。", "keyPoints": ["温室模式适合没有明确目标的探索，利用近乎零的试错成本大量生成原型再评估；透镜模式用于目标清晰的交付，严格排除与目标无关的输出。", "无论哪种模式，领域专业知识（经过验证的思维模型）都是筛选出有价值结果、避免被错误输出带偏的稀缺资产。", "识别当前工作所需模式并主动切换的能力，比单纯掌握某一种模式的使用技巧更为关键。"], "discussion": "评论两极分化：一方认同模式区分的重要性；另一方尖锐批评作者“成本近乎为零”的说法脱离现实，指出每年数千美元的订阅费和大量 token 消耗对普通用户仍是沉重负担。", "tags": ["AI 代理工作流", "思维模型", "产品开发"], "score": 6, "comments": 3, "by": "aaronbrethorst", "url": "https://www.brethorsting.com/blog/2026/08/the-greenhouse-and-the-lens-two-modes-of-agentic-ai-work/", "hnUrl": "https://news.ycombinator.com/item?id=49139826"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "Cursor removed cost information from the usage page and CSV export", "titleTranslation": "Cursor 从用量页和 CSV 导出中移除了费用信息", "summary": "Cursor 突然将个人及团队计划的用量页面从美元成本改为仅显示代币数量，CSV 中的成本列也被清零，导致用户无法追踪每日实际花费，引发大量付费用户强烈抗议。官方回应称这是有意设计，但很快又修复了 CSV 导出，承认改动引起了混淆。", "keyPoints": ["用量页面的美元成本被替换为代币数量，且 CSV 导出的成本字段全被设为 $0.00，引发用户愤怒。", "官方解释：自服务计划（含 Teams）改为基于代币的用量报告，仅有按需超量使用会显示美元，包含在套餐内的消耗不再显示金额。", "用户反馈称，这一变化破坏了每日预算管理和模型性价比评估，多名工程师表示此前依靠该页面频繁追踪花费。"], "discussion": "HN 评论区几乎一边倒批评该决策“对用户充满敌意”，认为其目的就是模糊真实花费，但也有 Cursor 员工出面解释并修复了 CSV bug，试图降低批评声浪。", "tags": ["开发者工具", "AI 定价", "透明度"], "score": 317, "comments": 143, "by": "EugeneOZ", "url": "https://forum.cursor.com/t/usage-page-to-token-amount-what/167153", "hnUrl": "https://news.ycombinator.com/item?id=49135257"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Symbio self fine-tuning AI loop", "titleTranslation": "Show HN: Symbio 自微调 AI 循环", "summary": "Symbio 是一个全本地运行的 AI 代理框架，能自动捕获用户纠正与工具调用错误，当某类错误累积至默认 5 次后即触发 LoRA 微调，让模型逐步适应用户偏好，支持多智能体混合(MOA)模式并在 Apple Silicon 上离线工作。", "keyPoints": ["自动从“No, actually…”等纠正短语或重复提问中捕获错误，累积至 learn.mistake_threshold (默认 5) 后自动触发 LoRA 训练。", "采用 MOA（多智能体混合）模式，主控模型将子任务委派给小型 worker，worker 失败后返回主控，双方均可被微调以提升协作效率。", "技能以 Markdown 笔记定义，错误日志藏在 .md.health.jsonl 侧车文件中，达到阈值后训练出 一个技能 = 一个 LoRA 适配器，可热插拔与归档。"], "discussion": "评论者认可将个性化学习完全本地化的思路，但指出 16GB RAM 要求可能将部分 Mac 用户挡在门外。", "tags": ["AI 代理", "LoRA 微调", "Apple Silicon"], "score": 7, "comments": 3, "by": "huyedit", "url": "https://github.com/huyedits/Symbio", "hnUrl": "https://news.ycombinator.com/item?id=49139461"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "The world first agentic AI radio", "titleTranslation": "全球首个智能体 AI 电台", "summary": "标题宣称这是首个 agentic AI 电台，但文章正文无法获取，评论仅有一条“Hello, world.”。现有信息不足以判断技术实现或产品形态，“agentic AI”通常指能自主执行任务的 AI 系统，此处可能指由 AI 代理实时生成或编排的广播内容。", "keyPoints": ["标题宣称 全球首个智能体 AI 电台，在 Twitch 上播出", "唯一一条评论仅为 “Hello, world.”，无技术讨论或用户反馈", "文章内容与实现细节均不可得，无法验证其技术方案"], "discussion": "评论区几乎无实质互动，仅发布者留下一句问候，无法形成分歧或共识。", "tags": ["AI 产品", "agentic AI", "内容生成"], "score": 4, "comments": 1, "by": "myimaginationai", "url": "https://www.twitch.tv/newsmyimaginationai", "hnUrl": "https://news.ycombinator.com/item?id=49140554"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "AI's real threat to jobs isn't job loss, it's lower paychecks, new research says", "titleTranslation": "AI 对工作的真正威胁不是失业，而是工资降低，新研究指出", "summary": "Apollo Global Management 白皮书分析 321 种职业后发现，2023 年 ChatGPT 爆红后，与 AI 高接触的岗位实际工资增速平均下降 6.7%，但整体就业未见明显削减。最低收入群体受冲击最大：服务业工资增速暴跌 24.3%，底部 25% 收入者下降 10.7%。结论是 AI 不会抢走工作，但可能让你加不了薪。", "keyPoints": ["高 AI 暴露职业在 2023 年后实际工资增速平均下降 6.7%，但就业无显著变化。", "最低收入者受创最深：服务业工资增速下滑 24.3%，底部 25% 收入者降 10.7%，高收入者未见显著影响。", "计算机程序员实际工资下降 6.1%，统计助理降 5.4%，但广播员等低 AI 暴露职业也因行业因素暴跌 52%。"], "discussion": "HN 评论区分歧明显：有人认为工资下降主要是疫情期间技术岗位薪酬飙升后的回调，并非 AI 直接导致；也有人指出这是资本用 AI 压低工资的新叙事，而非真实的生产力效应。", "tags": ["AI 对劳动市场影响", "工资不平等", "Anthropic Economic Index"], "score": 36, "comments": 12, "by": "theanonymousone", "url": "https://www.businessinsider.com/ai-could-lower-workers-pay-job-market-impact-2026-7", "hnUrl": "https://news.ycombinator.com/item?id=49138483"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Wage Against the Machine – MacWages Index for AI Tasks", "titleTranslation": "Show HN: Wage Against the Machine – AI 任务的 MacWages 指数", "summary": "该交互式工具对照各国平均小时工资与顶级 AI 模型（如 Claude Opus 5 Max）的任务单价，直观量化“一国工人一小时劳动能买多少次 AI 任务”，揭示 AI 替代人工的经济门槛在各国间差异显著。", "keyPoints": ["以 Claude Opus 5 Max 等 16 款主流/代号模型为基础，按 Artificial Analysis 的基准估算每次任务成本。", "比较范围覆盖 美国、瑞士、印度、中国 等 10 个国家，可视化展示时薪能购买的任务次数。", "工具突出显示高人力成本国家（如瑞士）时薪可购任务数遥遥领先，而 印度 等国家则明显偏低，凸显 AI 对低劳动力成本地区冲击更慢。"], "discussion": "评论区最突出的是个人对自己国家排名靠后的切身痛感，反映出该指数很容易引发直观的经济不平等情感共鸣。", "tags": ["AI 定价", "劳动力成本", "跨国比较"], "score": 6, "comments": 1, "by": "danr4", "url": "https://watm.ddyo.dev/", "hnUrl": "https://news.ycombinator.com/item?id=49139370"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
