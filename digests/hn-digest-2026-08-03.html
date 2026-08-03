@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-08-03</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-08-03 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://qwen.ai/blog?id=qwen3.8" target="_blank" rel="noopener">Qwen3.8-Max: A New Bar for Coding and Cowork</a></h2></div><p class="title-tr">Qwen3.8-Max：编码与协作的新标杆</p><div class="meta">▲ 111 分 · ai2027 · <a href="https://news.ycombinator.com/item?id=49150470" target="_blank" rel="noopener">41 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">阿里的 Qwen 发布旗舰模型 Qwen3.8-Max，首次开源 Max 级模型权重（下周放出）；同期宣布 Qwen3.8-27B 开放权重，被视作最佳本地模型之一的升级版；新模型引入 `reasoning_effort` 参数，可调节推理深度以控制成本。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中“开放权重”指模型训练好的参数文件直接公开下载，可以让企业或个人在自有硬件上部署，不必依赖云 API；这种模式类似开源软件的分发，但面向已训练的神经网络。</p><ul class="kp"><li>阿里首次将 <strong>Max 级模型权重</strong> 开源，Qwen3.8-Max 权重将于下周释放。</li><li><strong>Qwen3.8-27B</strong> 也将开放权重，它是 Qwen3.6-27B 的升级版，后者被公认为当前最强的本地部署模型之一。</li><li>新模型提供 <strong>reasoning_effort</strong> 参数，支持 xhigh/medium/low 三档，用户可在推理深度与成本之间做权衡。</li><li>宣传视频描绘 AI 代劳工作、人类专注爱好，但评论区质疑 <strong>阿里自身并未缩减工时或维持薪酬</strong>，显示愿景与企业实践的落差。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论普遍认为开放权重才是核心价值，而非表面上的新版本发布；同时有人对日期混乱表示困惑，并期待 27B 开源模型带来的本地部署提升。</p><div class="tags"><span class="tag">开源模型</span><span class="tag">LLM 推理控制</span><span class="tag">本地部署</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · simonw · 5 回复</div><p>&gt; Today, we are officially releasing Qwen 3.8-Max, the most capable model in the Qwen family to date. This also marks the first time we will open-source the weights of a Qwen-Max-class model — the open weights will be released next week.</p><p>I don&#x27;t understand. That&#x27;s dated today, but:</p><p>https://twitter.com/alibaba_qwen/status/2078759124914098291</p><p>&gt; Qwen3.8 is launching and going open-weight soon! [...] You don&#x27;t have to wait to test it. Just now, the Qwen3.8-Max-Preview made its debut on Alibaba’s Token Plan, Qoder, and QoderWork.</p><p>That was on July 19th. I used it to draw this pelican: https://simonwillison.net/2026/Jul/20/afraid-of-chinese-mode...</p><p>So what are they releasing today?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://mattbeton.com/blog/bitnet-6502.html" target="_blank" rel="noopener">Autoregressive Language Model on the 6502 Processor</a></h2></div><p class="title-tr">在 6502 处理器上运行自回归语言模型</p><div class="meta">▲ 71 分 · nmstoker · <a href="https://news.ycombinator.com/item?id=49122655" target="_blank" rel="noopener">7 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者将基于 Mamba 架构的语言模型塞进 1975 年 BBC Micro 的 25KB 内存中：13KB 权重（52k 参数）采用 BitNet 三值量化，9KB 推理代码，在 8 位、无乘法指令的 6502 CPU 上完成字符级生成，证明极限硬件约束会倒逼架构选择。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 你可以把 BitNet 的“三元权重{-1,0,1}”理解为权重剪枝到只有符号和零值，从而将矩阵乘法变成纯粹加减法，回避 6502 缺少乘法指令的瓶颈——类似你熟知的 Transformer 量化，但极端到 1.58 比特。</p><ul class="kp"><li><strong>BitNet 三值量化</strong>把每个权重压缩到 {-1,0,1}，将矩阵乘法简化为加减法，单次乘加从 150 周期降到 30 周期，且 4 参数/字节存储效率远胜 int8。</li><li>选中 <strong>Mamba 而非 GRU</strong> 是因为 BitNet 下 GRU 前向矩阵谱半径远超 1，训练必然发散，而 Mamba 的逐通道衰减通过构造保持在 (0,1] 防止爆炸。</li><li>16 位累加器搭配<strong>可学习右移缩放激活</strong>（hardtanh 变体）以保留动态范围，移位参数在训练前半段可变、后半段冻结，显著影响模型质量。</li><li>最终模型在 <strong>BBC Micro 实机</strong>上运行，通过 PlayUEF 将权重二进制伪装成磁带录音输入，浏览器内即可体验（jsbeeb 模拟器，耗时数分钟）。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论认为用 banked 内存分页加载权重更符合当年风格，且 6502 根本不适合 C 编译器，手写汇编有望进一步压缩和加速。</p><div class="tags"><span class="tag">LLM 推理</span><span class="tag">量化</span><span class="tag">复古计算</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · derefr · 1 回复</div><p>&gt; The model weights and inference code need to be contained within 25KB of user-space memory</p><p>Wouldn’t it be era-appropriate to allow relying on banked memory? You’d still need to hold the inference code, but you could effectively stream(ing page) the weights as you compute on them.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://localai.io/blog/why-we-write-our-own-engines/" target="_blank" rel="noopener">Why we write our own C and C++ inference engines</a></h2></div><p class="title-tr">为什么我们编写自己的C和C++推理引擎</p><div class="meta">▲ 5 分 · eatonphil · <a href="https://news.ycombinator.com/item?id=49125065" target="_blank" rel="noopener">1 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">LocalAI 自研 18 个 C/C++ 推理后端，vllm.cpp 仅 66 MiB 就能与 9.1 GiB 的 vLLM 在吞吐量上持平或略优，depth-anything.cpp 在 CPU 上比 PyTorch 快 1.31 倍且内存仅 27%，通过缓存重复计算和逐组件校验实现精确对标。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可将这种从庞大 Python 推理栈到单一 C++ 二进制的移植类比为：把大模型的训练环境裁剪成零依赖的生产部署文件，就像 Transformer 训练查错时逐层对比输出，这里逐组件比对参考张量来保证精度。</p><ul class="kp"><li><strong>vllm.cpp</strong> 二进制仅 66 MiB，与 9.1 GiB 的 vLLM 在 NVIDIA GB10 上吞吐量持平，单并发还快 4.5%。</li><li><strong>depth-anything.cpp</strong> 在 CPU 上比 PyTorch 快 1.31 倍，内存仅 27%，优化来自缓存本来每步都重新计算的嵌入向量。</li><li><strong>face-detect.cpp</strong> 与 insightface 输出余弦相似度达 1.000000，牺牲一点速度换取完全可替换的兼容性。</li><li>移植方法：先转换权重到单一 GGUF 文件，再逐组件对比参考张量确保正确，最后用 profiler 优化，避免后期才发现偏差。</li></ul><p class="disc"><strong>💬 讨论</strong> 有评论调侃“应该先写自己的博客文章”，未形成技术分歧讨论。</p><div class="tags"><span class="tag">C++推理引擎</span><span class="tag">模型移植</span><span class="tag">推理优化</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://github.com/micro/mu" target="_blank" rel="noopener">Show HN: Mu – Tools for Agents</a></h2></div><p class="title-tr">Mu - 智能体工具集</p><div class="meta">▲ 42 分 · asim · <a href="https://news.ycombinator.com/item?id=49148899" target="_blank" rel="noopener">12 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Mu 为 AI 智能体提供 67 种真实互联网工具（邮件、搜索、天气、存储等），全部通过单一 MCP 端点统一暴露，无需逐个集成第三方 API。项目自托管、开源（AGPL-3.0），直接将基础设施能力直接交付给智能体，降低集成复杂度。</p><p class="context"><strong>🧭 联系你的知识背景</strong> MCP（模型上下文协议）是一种标准化方式，让 AI 模型像调用函数一样使用外部工具；这里 Mu 把所有工具抽象成一个统一的 MCP 服务，智能体一次连接即可使用全部。</p><ul class="kp"><li><strong>67 种工具</strong>覆盖邮件、Web 搜索、RSS 新闻、天气、日历、存储等，全部通过一个 MCP 端点暴露</li><li><strong>自建真实基础设施</strong>：运行自己的邮件服务器、搜索索引、聚合器，不依赖第三方 API，避免外部依赖和限制</li><li><strong>开源 AGPL-3.0</strong>，单 Go 二进制可自托管，支持 CLI、Discord/Telegram 接入，管理员可自行配置所有工具</li><li><strong>简单集成</strong>：仅需一个 MCP 配置块，支持 Claude Desktop、Cursor 等客户端的自动授权流程</li></ul><p class="disc"><strong>💬 讨论</strong> 评论分歧明显：部分人质疑“几乎不需要同时使用这么多工具”，认为只是在复现 Claude 已有能力；也有人赞赏其一人+四智能体的贡献模式和基础设施自建的价值。</p><div class="tags"><span class="tag">AI Agent 工具</span><span class="tag">MCP</span><span class="tag">开源产品</span><span class="tag">开发者工具</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · nostrebored · 3 回复</div><p>but... why?</p><p>you almost never want these tools in any given session, and creating any of them can be done simply with Claude. looking at the PRs, it seems like that is exactly what&#x27;s happening. i guess this is my generic problem with MCP releases, who are they for and why?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://frogs.vaguespac.es/" target="_blank" rel="noopener">My personal AI benchmark: “Generate an SVG of a frog with a Habsburg jaw”</a></h2></div><p class="title-tr">我的个人 AI 基准：“画一只长着哈布斯堡下巴的青蛙的 SVG”</p><div class="meta">▲ 119 分 · thebigship · <a href="https://news.ycombinator.com/item?id=49147622" target="_blank" rel="noopener">52 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">一个社区驱动的 AI 绘图基准，要求模型生成带有夸张哈布斯堡下颌（下牙突出、上唇退缩）的青蛙 SVG。Claude Opus 5 表现最贴近要求，Gemini Flash 3.6 在皇家肖像语境下创意突出，多数模型能识别“突下颌”但无法与蛙脸结构合理融合。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这相当于用精确的 SVG 几何结构做“指令遵循”测试，与你熟悉的 NLP 基准不同，它直接考查模型输出受控矢量图形的能力，以及理解解剖学约束的深度。</p><ul class="kp"><li><strong>Claude Opus 5</strong> 生成的蛙体解剖最准确，下颌前凸且下齿覆盖上唇，被评论调侃为“frogmaxxed”。</li><li><strong>Gemini Flash 3.6</strong> 在“皇家肖像”提示变体中加入了垂眼睑等细节，表现出创意延展能力。</li><li>所有模型均采用<strong>正面视角</strong>绘制，反而回避了侧面更易凸显下颌特征的选择，引发评论区对模型构图偏好的讨论。</li><li><strong>Fable 5</strong> 单次生图就获得了高票好评，但基准的结果公开也引发评论担忧测试被未来模型“刷榜”而失真。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区主要分歧在于：正面构图的普遍性暴露了模型缺乏视角选择的常识推理，但 Opus 5 的精准执行仍被认可为突破；同时对公开基准可能被后续模型过拟合表示担忧。</p><div class="tags"><span class="tag">AI 基准测试</span><span class="tag">SVG 生成</span><span class="tag">指令遵循</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · wren6991 · 2 回复</div><p>Opus 5 clearly frogmaxxed.</p><p>gemini-3.6-flash runs 2 and 3 responded best to the royal portrait context.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://www.ycombinator.com/companies/great-question/jobs/YutDxyf-senior-demand-generation-manager" target="_blank" rel="noopener">Great Question (YC W21) Is Hiring Senior Demand Gen Manager</a></h2></div><p class="title-tr">Great Question（YC W21）正在招聘高级需求生成经理</p><div class="meta">▲ 1 分 · nedwin · <a href="https://news.ycombinator.com/item?id=49143683" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Great Question（YC W21）为其 AI 客户研究平台招聘高级需求生成经理，该岗位直接对 SQL（销售合格线索）数量负责，薪酬底薪 70% 加 30% 季度变量薪酬，按 SQL 达成结算且无上限，强调通过 AI 与自动化实现精益化规模执行。</p><p class="context"><strong>🧭 联系你的知识背景</strong> SQL（销售合格线索）指经过营销筛选、被销售团队认可为有明确购买意向的潜在客户，该角色的奖金完全与 SQL 达成量挂钩，而非一般营销点击量。</p><ul class="kp"><li>岗位拥有<strong>唯一核心指标 SQL 达成</strong>，直接构建可预测的高意向线索引擎，并对线索质量负责到底。</li><li>薪酬结构为<strong>70% 底薪 + 30% 浮动</strong>，浮动部分按季度依据 SQL 达标数额支付，且<strong>无上限</strong>。</li><li>要求候选人<strong>AI-native 实践</strong>，必须能展示 AI 如何在工作流中大幅提升产出或缩短执行时间。</li><li>通过<strong>有机搜索、AI 搜索（AEO）、内容、付费获取等</strong>多通道策略运营，而非依赖扩大团队。</li></ul><div class="tags"><span class="tag">B2B SaaS 招聘</span><span class="tag">需求生成</span><span class="tag">AI 营销自动化</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://daringfireball.net/linked/2026/08/02/cherny-claude-swift" target="_blank" rel="noopener">Boris Cherny on Trying to Get Claude Code to Rewrite the Claude App</a></h2></div><p class="title-tr">Boris Cherny 谈尝试让 Claude Code 重写 Claude 应用</p><div class="meta">▲ 34 分 · robenkleene · <a href="https://news.ycombinator.com/item?id=49149800" target="_blank" rel="noopener">9 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Anthropic 的 Claude Code 负责人让 AI 代理将自家 Electron 桌面应用像素级复刻为 Swift 原生版，运行超两周仍未完成。原文批评此举只换框架不改糟糕设计，且当前应用体验远非“相当棒”，启动需 30 秒。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Swift 是苹果原生开发语言，Electron 是用 Web 技术打包桌面应用的跨平台框架；这里核心矛盾是产品设计 vs. 技术实现，类似你熟悉的 AI 产品中模型能力 vs. 用户体验的取舍。</p><ul class="kp"><li>Cherny 让 AI 代理将 Claude 桌面应用从 <strong>Electron 重写为 Swift 原生</strong>，通过像素级截图对比验证，已连续运行超两周未结束。</li><li>原文指出问题不在框架，<strong>糟糕的应用设计</strong> 才是根本，换用原生技术无法解决非原生 UI 习惯和抽象设计缺陷。</li><li>当前 Claude Mac 应用 <strong>启动需 30 秒且响应卡顿</strong>，与 Cherny 所说的“现在体验相当棒”矛盾。</li><li>HN 评论强调 <strong>验证是 AI 代理任务中最关键但常被忽视的环节</strong>，像素对比只触及表面，缺失行为与功能验证。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识：像素级验证过于表面，真正的验证需覆盖功能与需求；也有人认为两周的电费成本可能高达数万美元，不如雇人正确实现并传授经验。</p><div class="tags"><span class="tag">AI 代理</span><span class="tag">桌面应用开发</span><span class="tag">用户体验</span><span class="tag">验证方法</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://www.coindesk.com/tech/2026/08/02/bitcoin-cold-wallet-attack-spreads-to-4-500-addresses-as-losses-near-usd89-million" target="_blank" rel="noopener">Bitcoin cold-wallet attack spreads to 4,500 addresses as losses near $89M</a></h2></div><p class="title-tr">比特币冷钱包攻击蔓延至4500个地址，损失近8900万美元</p><div class="meta">▲ 42 分 · rbanffy · <a href="https://news.ycombinator.com/item?id=49149222" target="_blank" rel="noopener">6 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">因Coldcard硬件钱包2021年3月固件使用弱软件随机数生成种子，攻击者已从4,585个地址盗走1,367 BTC（近8900万美元）。第三波攻击转向小额地址，并用更复杂的独立目标地址和P2WSH输出隐藏痕迹。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 冷钱包的熵源缺陷类似模型训练中固定随机种子：一旦算法可预测，攻击者就能离线复现所有密钥。</p><ul class="kp"><li><strong>Coldcard 2021年3月固件</strong> 用软件伪随机数替代硬件真随机数，密钥空间有限可被穷举，无需接触设备即可离线生成私钥。</li><li>三波攻击共扫走 <strong>1,367 BTC（近8900万美元）</strong>，涉及4,585个地址；第一波平均每地址近1 BTC，第三波降至约0.1 BTC，高价值地址已被扫光。</li><li>第三波改用 <strong>P2WSH输出</strong> 和独立收款地址，平均每笔交易打包6名受害者，比前两波的单地址、复用收款地址更难追踪。</li><li><strong>Galaxy Research</strong> 认为每波内部为同一操作者，但无法确定三波是否同一人，因链上数据不揭示协同关系。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论指出攻击者操作粗糙（多次扫荡、输出可关联），同时警告黑客正用AI大规模扫描加密货币代码库中的熵缺陷，更致命的漏洞可能引发数十亿美元级灾难。</p><div class="tags"><span class="tag">比特币安全</span><span class="tag">硬件钱包漏洞</span><span class="tag">密钥生成熵源</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · paulpauper · 1 回复</div><p>The bigger disaster is awaiting. hackers are now reviewing source code of everything crypto related for entropy or other misconfiguration  bugs, automated with leading AI models , which will spot errors humans missed. We&#x27;re talking wallets dating back to 2010 when btc was founded, and then for all the altcoins. Ppl don&#x27;t realize how bad this will get when exploit detection can be done at scale with LLMs. Ai can review a codebase in minutes, which would take humans days, if ever. Coldcard is a tiny wallet service. A bigger one would have losses in excess of billions. A hacker will first find the vulnerability and then exhaust the keyspace and download the blockchain to cue  up the keys and do it all at once .</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://github.com/paoloanzn/microcodex" target="_blank" rel="noopener">Show HN: MicroCodex Coding Agent – OpenAI/codex reimplemented in C++ &lt;1MB binary</a></h2></div><p class="title-tr">Show HN: MicroCodex 编码代理 – 用 C++ 重新实现的 OpenAI/codex，二进制文件小于 1MB</p><div class="meta">▲ 17 分 · paoloanzn · <a href="https://news.ycombinator.com/item?id=49147842" target="_blank" rel="noopener">8 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">MicroCodex 是一个用 C++23 重新实现的 OpenAI Codex 编码代理，编译后二进制体积不到 1MB，无需 Node.js 依赖。它提供交互式终端界面、单次提示、本地编码工具和自动上下文压缩，安装仅需一条 curl 命令。</p><p class="context"><strong>🧭 联系你的知识背景</strong> MicroCodex 是运行在终端里的 AI 编码助手，类似 OpenAI Codex CLI，但用 C++ 重写并打包成单一轻量二进制，省去了 Node.js 环境，将语言模型调用与本地文件操作融为一体。</p><ul class="kp"><li><strong>MicroCodex</strong> 是 OpenAI Codex 的 C++23 重写，二进制 &lt;1MB，去除了 Node.js 依赖，实现极致轻量化。</li><li><strong>一键安装</strong>：通过 curl 脚本自动检测平台（macOS arm64/x86、Linux x86/arm64），无需额外配置。</li><li><strong>安全模型仅为词法黑名单</strong>，会阻止 `rm -rf` 等强制删除命令，但明确声明这不是沙箱，危险操作可能仍可绕过。</li><li><strong>已知限制</strong>：暂无 MCP 协议支持，终端交互下无法复制文本，安全门仅靠关键词屏蔽。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论质疑二进制体积小的实际价值（瓶颈在系统提示管理），并担心用 C++ 跟进上游 OpenAI Codex 更新的长期维护成本。</p><div class="tags"><span class="tag">编码代理</span><span class="tag">轻量级 CLI</span><span class="tag">C++ 重构</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · fractorial · 3 回复</div><p>I’m not quite sure why the harness itself needs to be small. Isn’t the system prompt and management of system prompt the bit you want lightweight?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://www.ft.com/content/8ae9e6e4-a53c-44da-8e7d-c9d81f0df4b9" target="_blank" rel="noopener">Amazon completes $50B investment in OpenAI</a></h2></div><p class="title-tr">亚马逊完成对 OpenAI 的 500 亿美元投资</p><div class="meta">▲ 6 分 · sbulaev · <a href="https://news.ycombinator.com/item?id=49150420" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">FT 报道称亚马逊完成对 OpenAI 的 500 亿美元投资，但文章正文无法获取，细节不明；若属实，这将是 AI 领域空前的单笔投资，讨论中普遍怀疑标题真实性。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 500 亿美元的投资规模远超常规风投轮次，需从算力基建与大规模模型训练成本角度理解其潜在意义。</p><ul class="kp"><li><strong>亚马逊完成对 OpenAI 的 500 亿美元投资</strong>，FT 标题如此，但无法读取正文核实。</li><li>讨论区普遍怀疑标题真实性，认为 FT 可能出错或标题误导。</li><li>若属实，OpenAI 估值与算力资源将大幅跃升，直接冲击 <strong>AI 竞争格局</strong>。</li></ul><div class="tags"><span class="tag">AI 投资</span><span class="tag">亚马逊</span><span class="tag">OpenAI</span><span class="tag">融资</span></div></div></article>
+</div></main>
+<footer>generated 2026-08-03 03:53 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "Qwen3.8-Max: A New Bar for Coding and Cowork", "titleTranslation": "Qwen3.8-Max：编码与协作的新标杆", "summary": "阿里的 Qwen 发布旗舰模型 Qwen3.8-Max，首次开源 Max 级模型权重（下周放出）；同期宣布 Qwen3.8-27B 开放权重，被视作最佳本地模型之一的升级版；新模型引入 `reasoning_effort` 参数，可调节推理深度以控制成本。", "keyPoints": ["阿里首次将 Max 级模型权重 开源，Qwen3.8-Max 权重将于下周释放。", "Qwen3.8-27B 也将开放权重，它是 Qwen3.6-27B 的升级版，后者被公认为当前最强的本地部署模型之一。", "新模型提供 reasoning_effort 参数，支持 xhigh/medium/low 三档，用户可在推理深度与成本之间做权衡。"], "discussion": "HN 评论普遍认为开放权重才是核心价值，而非表面上的新版本发布；同时有人对日期混乱表示困惑，并期待 27B 开源模型带来的本地部署提升。", "tags": ["开源模型", "LLM 推理控制", "本地部署"], "score": 111, "comments": 41, "by": "ai2027", "url": "https://qwen.ai/blog?id=qwen3.8", "hnUrl": "https://news.ycombinator.com/item?id=49150470"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "Autoregressive Language Model on the 6502 Processor", "titleTranslation": "在 6502 处理器上运行自回归语言模型", "summary": "作者将基于 Mamba 架构的语言模型塞进 1975 年 BBC Micro 的 25KB 内存中：13KB 权重（52k 参数）采用 BitNet 三值量化，9KB 推理代码，在 8 位、无乘法指令的 6502 CPU 上完成字符级生成，证明极限硬件约束会倒逼架构选择。", "keyPoints": ["BitNet 三值量化把每个权重压缩到 {-1,0,1}，将矩阵乘法简化为加减法，单次乘加从 150 周期降到 30 周期，且 4 参数/字节存储效率远胜 int8。", "选中 Mamba 而非 GRU 是因为 BitNet 下 GRU 前向矩阵谱半径远超 1，训练必然发散，而 Mamba 的逐通道衰减通过构造保持在 (0,1] 防止爆炸。", "16 位累加器搭配可学习右移缩放激活（hardtanh 变体）以保留动态范围，移位参数在训练前半段可变、后半段冻结，显著影响模型质量。"], "discussion": "评论认为用 banked 内存分页加载权重更符合当年风格，且 6502 根本不适合 C 编译器，手写汇编有望进一步压缩和加速。", "tags": ["LLM 推理", "量化", "复古计算"], "score": 71, "comments": 7, "by": "nmstoker", "url": "https://mattbeton.com/blog/bitnet-6502.html", "hnUrl": "https://news.ycombinator.com/item?id=49122655"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "Why we write our own C and C++ inference engines", "titleTranslation": "为什么我们编写自己的C和C++推理引擎", "summary": "LocalAI 自研 18 个 C/C++ 推理后端，vllm.cpp 仅 66 MiB 就能与 9.1 GiB 的 vLLM 在吞吐量上持平或略优，depth-anything.cpp 在 CPU 上比 PyTorch 快 1.31 倍且内存仅 27%，通过缓存重复计算和逐组件校验实现精确对标。", "keyPoints": ["vllm.cpp 二进制仅 66 MiB，与 9.1 GiB 的 vLLM 在 NVIDIA GB10 上吞吐量持平，单并发还快 4.5%。", "depth-anything.cpp 在 CPU 上比 PyTorch 快 1.31 倍，内存仅 27%，优化来自缓存本来每步都重新计算的嵌入向量。", "face-detect.cpp 与 insightface 输出余弦相似度达 1.000000，牺牲一点速度换取完全可替换的兼容性。"], "discussion": "有评论调侃“应该先写自己的博客文章”，未形成技术分歧讨论。", "tags": ["C++推理引擎", "模型移植", "推理优化"], "score": 5, "comments": 1, "by": "eatonphil", "url": "https://localai.io/blog/why-we-write-our-own-engines/", "hnUrl": "https://news.ycombinator.com/item?id=49125065"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Mu – Tools for Agents", "titleTranslation": "Mu - 智能体工具集", "summary": "Mu 为 AI 智能体提供 67 种真实互联网工具（邮件、搜索、天气、存储等），全部通过单一 MCP 端点统一暴露，无需逐个集成第三方 API。项目自托管、开源（AGPL-3.0），直接将基础设施能力直接交付给智能体，降低集成复杂度。", "keyPoints": ["67 种工具覆盖邮件、Web 搜索、RSS 新闻、天气、日历、存储等，全部通过一个 MCP 端点暴露", "自建真实基础设施：运行自己的邮件服务器、搜索索引、聚合器，不依赖第三方 API，避免外部依赖和限制", "开源 AGPL-3.0，单 Go 二进制可自托管，支持 CLI、Discord/Telegram 接入，管理员可自行配置所有工具"], "discussion": "评论分歧明显：部分人质疑“几乎不需要同时使用这么多工具”，认为只是在复现 Claude 已有能力；也有人赞赏其一人+四智能体的贡献模式和基础设施自建的价值。", "tags": ["AI Agent 工具", "MCP", "开源产品"], "score": 42, "comments": 12, "by": "asim", "url": "https://github.com/micro/mu", "hnUrl": "https://news.ycombinator.com/item?id=49148899"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "My personal AI benchmark: “Generate an SVG of a frog with a Habsburg jaw”", "titleTranslation": "我的个人 AI 基准：“画一只长着哈布斯堡下巴的青蛙的 SVG”", "summary": "一个社区驱动的 AI 绘图基准，要求模型生成带有夸张哈布斯堡下颌（下牙突出、上唇退缩）的青蛙 SVG。Claude Opus 5 表现最贴近要求，Gemini Flash 3.6 在皇家肖像语境下创意突出，多数模型能识别“突下颌”但无法与蛙脸结构合理融合。", "keyPoints": ["Claude Opus 5 生成的蛙体解剖最准确，下颌前凸且下齿覆盖上唇，被评论调侃为“frogmaxxed”。", "Gemini Flash 3.6 在“皇家肖像”提示变体中加入了垂眼睑等细节，表现出创意延展能力。", "所有模型均采用正面视角绘制，反而回避了侧面更易凸显下颌特征的选择，引发评论区对模型构图偏好的讨论。"], "discussion": "评论区主要分歧在于：正面构图的普遍性暴露了模型缺乏视角选择的常识推理，但 Opus 5 的精准执行仍被认可为突破；同时对公开基准可能被后续模型过拟合表示担忧。", "tags": ["AI 基准测试", "SVG 生成", "指令遵循"], "score": 119, "comments": 52, "by": "thebigship", "url": "https://frogs.vaguespac.es/", "hnUrl": "https://news.ycombinator.com/item?id=49147622"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "Great Question (YC W21) Is Hiring Senior Demand Gen Manager", "titleTranslation": "Great Question（YC W21）正在招聘高级需求生成经理", "summary": "Great Question（YC W21）为其 AI 客户研究平台招聘高级需求生成经理，该岗位直接对 SQL（销售合格线索）数量负责，薪酬底薪 70% 加 30% 季度变量薪酬，按 SQL 达成结算且无上限，强调通过 AI 与自动化实现精益化规模执行。", "keyPoints": ["岗位拥有唯一核心指标 SQL 达成，直接构建可预测的高意向线索引擎，并对线索质量负责到底。", "薪酬结构为70% 底薪 + 30% 浮动，浮动部分按季度依据 SQL 达标数额支付，且无上限。", "要求候选人AI-native 实践，必须能展示 AI 如何在工作流中大幅提升产出或缩短执行时间。"], "discussion": "", "tags": ["B2B SaaS 招聘", "需求生成", "AI 营销自动化"], "score": 1, "comments": 0, "by": "nedwin", "url": "https://www.ycombinator.com/companies/great-question/jobs/YutDxyf-senior-demand-generation-manager", "hnUrl": "https://news.ycombinator.com/item?id=49143683"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "Boris Cherny on Trying to Get Claude Code to Rewrite the Claude App", "titleTranslation": "Boris Cherny 谈尝试让 Claude Code 重写 Claude 应用", "summary": "Anthropic 的 Claude Code 负责人让 AI 代理将自家 Electron 桌面应用像素级复刻为 Swift 原生版，运行超两周仍未完成。原文批评此举只换框架不改糟糕设计，且当前应用体验远非“相当棒”，启动需 30 秒。", "keyPoints": ["Cherny 让 AI 代理将 Claude 桌面应用从 Electron 重写为 Swift 原生，通过像素级截图对比验证，已连续运行超两周未结束。", "原文指出问题不在框架，糟糕的应用设计 才是根本，换用原生技术无法解决非原生 UI 习惯和抽象设计缺陷。", "当前 Claude Mac 应用 启动需 30 秒且响应卡顿，与 Cherny 所说的“现在体验相当棒”矛盾。"], "discussion": "评论区共识：像素级验证过于表面，真正的验证需覆盖功能与需求；也有人认为两周的电费成本可能高达数万美元，不如雇人正确实现并传授经验。", "tags": ["AI 代理", "桌面应用开发", "用户体验"], "score": 34, "comments": 9, "by": "robenkleene", "url": "https://daringfireball.net/linked/2026/08/02/cherny-claude-swift", "hnUrl": "https://news.ycombinator.com/item?id=49149800"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "Bitcoin cold-wallet attack spreads to 4,500 addresses as losses near $89M", "titleTranslation": "比特币冷钱包攻击蔓延至4500个地址，损失近8900万美元", "summary": "因Coldcard硬件钱包2021年3月固件使用弱软件随机数生成种子，攻击者已从4,585个地址盗走1,367 BTC（近8900万美元）。第三波攻击转向小额地址，并用更复杂的独立目标地址和P2WSH输出隐藏痕迹。", "keyPoints": ["Coldcard 2021年3月固件 用软件伪随机数替代硬件真随机数，密钥空间有限可被穷举，无需接触设备即可离线生成私钥。", "三波攻击共扫走 1,367 BTC（近8900万美元），涉及4,585个地址；第一波平均每地址近1 BTC，第三波降至约0.1 BTC，高价值地址已被扫光。", "第三波改用 P2WSH输出 和独立收款地址，平均每笔交易打包6名受害者，比前两波的单地址、复用收款地址更难追踪。"], "discussion": "评论指出攻击者操作粗糙（多次扫荡、输出可关联），同时警告黑客正用AI大规模扫描加密货币代码库中的熵缺陷，更致命的漏洞可能引发数十亿美元级灾难。", "tags": ["比特币安全", "硬件钱包漏洞", "密钥生成熵源"], "score": 42, "comments": 6, "by": "rbanffy", "url": "https://www.coindesk.com/tech/2026/08/02/bitcoin-cold-wallet-attack-spreads-to-4-500-addresses-as-losses-near-usd89-million", "hnUrl": "https://news.ycombinator.com/item?id=49149222"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: MicroCodex Coding Agent – OpenAI/codex reimplemented in C++ <1MB binary", "titleTranslation": "Show HN: MicroCodex 编码代理 – 用 C++ 重新实现的 OpenAI/codex，二进制文件小于 1MB", "summary": "MicroCodex 是一个用 C++23 重新实现的 OpenAI Codex 编码代理，编译后二进制体积不到 1MB，无需 Node.js 依赖。它提供交互式终端界面、单次提示、本地编码工具和自动上下文压缩，安装仅需一条 curl 命令。", "keyPoints": ["MicroCodex 是 OpenAI Codex 的 C++23 重写，二进制 <1MB，去除了 Node.js 依赖，实现极致轻量化。", "一键安装：通过 curl 脚本自动检测平台（macOS arm64/x86、Linux x86/arm64），无需额外配置。", "安全模型仅为词法黑名单，会阻止 `rm -rf` 等强制删除命令，但明确声明这不是沙箱，危险操作可能仍可绕过。"], "discussion": "HN 评论质疑二进制体积小的实际价值（瓶颈在系统提示管理），并担心用 C++ 跟进上游 OpenAI Codex 更新的长期维护成本。", "tags": ["编码代理", "轻量级 CLI", "C++ 重构"], "score": 17, "comments": 8, "by": "paoloanzn", "url": "https://github.com/paoloanzn/microcodex", "hnUrl": "https://news.ycombinator.com/item?id=49147842"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "Amazon completes $50B investment in OpenAI", "titleTranslation": "亚马逊完成对 OpenAI 的 500 亿美元投资", "summary": "FT 报道称亚马逊完成对 OpenAI 的 500 亿美元投资，但文章正文无法获取，细节不明；若属实，这将是 AI 领域空前的单笔投资，讨论中普遍怀疑标题真实性。", "keyPoints": ["亚马逊完成对 OpenAI 的 500 亿美元投资，FT 标题如此，但无法读取正文核实。", "讨论区普遍怀疑标题真实性，认为 FT 可能出错或标题误导。", "若属实，OpenAI 估值与算力资源将大幅跃升，直接冲击 AI 竞争格局。"], "discussion": "", "tags": ["AI 投资", "亚马逊", "OpenAI"], "score": 6, "comments": 0, "by": "sbulaev", "url": "https://www.ft.com/content/8ae9e6e4-a53c-44da-8e7d-c9d81f0df4b9", "hnUrl": "https://news.ycombinator.com/item?id=49150420"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
