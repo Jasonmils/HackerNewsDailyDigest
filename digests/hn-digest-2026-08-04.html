@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-08-04</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-08-04 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://www.seangoedecke.com/llms-reward-expertise/" target="_blank" rel="noopener">LLMs reward expertise</a></h2></div><p class="title-tr">LLM奖励专业知识</p><div class="meta">▲ 549 分 · MaxMussio · <a href="https://news.ycombinator.com/item?id=49161518" target="_blank" rel="noopener">242 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">领域专业知识是高效使用大语言模型的关键：陶哲轩凭数学功底在与ChatGPT的对话中精准引导模型，非专家用户则易陷入无效循环。专家能评估输出、提出替代方案，从而榨取更多价值，提示技巧次之。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 就像训练模型时需要领域专家标注数据才能提升效果，用LLM解决问题也依赖你的专业知识来判断模型输出、修正方向。</p><ul class="kp"><li><strong>陶哲轩</strong>与ChatGPT互动极简，凭数学直觉推动对话，从不盲从模型建议</li><li><strong>领域知识</strong>让你能说出‘这里可以更简单’‘我们不是已经有X吗’，从而高效引导LLM</li><li>非专家用户如<strong>krisoft的朋友</strong>，因缺乏专业词汇而陷入无休止的功能讨论，没产出代码</li><li>作者认为，模型能力越强，<strong>人类专家</strong>仍是瓶颈，因为难点在于传达想要什么</li></ul><p class="disc"><strong>💬 讨论</strong> HN评论普遍认同专业知识至关重要，有人类比LLM是用户知识的“放大镜”；也有人担心确认偏误，呼吁正式研究。</p><div class="tags"><span class="tag">LLM 交互</span><span class="tag">提示工程</span><span class="tag">领域知识</span><span class="tag">产品思维</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · postalcoder · 13 回复</div><p>Not sure I agree with this. The math guy at anthropic&#x27;s prompts are essentially:</p><p>&quot;suppose you’ve gotta resolve the $CONJECTURE, like absolutely have to, everything depends on it. think really hard, and try to come up with a bunch of ideas to try. but remember to trust yourself and not necessarily in conventional wisdom!!&quot;</p><p>https://claude.ai/share/25740bd5-aa97-4bd7-bf58-c4df3793fda7</p><p>https://xcancel.com/__alpoge__/status/2083855298239078748</p><p>Tao&#x27;s chat was for him to gain intuition, not to solve the problem from the outset.</p><p>What&#x27;s funny is that every other person gets a different conclusion about who these models reward/empower. I&#x27;ve seen people say that the generalist stands to gain the most and others say that it&#x27;s the experts. Like all of life, maybe the &quot;winner&quot; is the person who just does stuff.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://openai.com/index/ten-advances-in-mathematics/" target="_blank" rel="noopener">Ten advances in mathematics and theoretical computer science</a></h2></div><p class="title-tr">数学和理论计算机科学的十项进展</p><div class="meta">▲ 468 分 · milkshakes · <a href="https://news.ycombinator.com/item?id=49157930" target="_blank" rel="noopener">738 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">由于文章正文未能抓取，信息有限。OpenAI 发布了十项数学和理论计算机科学进展，HN 评论核心争论在于 AI 是否已在数学证明上实现指数级突破，以及它是否会威胁数学家的创造性工作。有人指出 LLM 使数学证明更可计算，但算力极限仍然无法触及真正困难的千年难题。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这些进展可能涉及用 AI 搜索、验证或反证数学猜想（如高维球堆积），尽管内容缺失，但你可类比深度学习中的架构搜索或穷举训练来理解其“暴力搜索”范式。</p><ul class="kp"><li><strong>OpenAI 公布十项数学进展</strong>，但具体突破细节未知，评论转而探讨 AI 对数学证明的实质影响。</li><li>HN 评论称“任何可计算问题终将屈服”，LLM 令<strong>数学证明变得更可计算</strong>，但依然无法解决需要天文级算力的难题。</li><li>有人引用<strong>道格拉斯·亚当斯式的讽刺</strong>：担心机器找到终极真理会让数学家像哲学家一样失业。</li><li>部分评论认为<strong>目标已经无法再被移动</strong>，AI 在数学上的影响已不可否认，必须正视其冲击。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区分歧在于：AI 在数学上的进步究竟是真正革命（加速所有可计算问题），还是仅在特定方向上有效，且反而可能颠覆数学家的职业价值。</p><div class="tags"><span class="tag">AI 数学推理</span><span class="tag">理论研究自动化</span><span class="tag">LLM 证明验证</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Chance-Device · 16 回复</div><p>Pretty cool. The impact of AI is getting undeniable, there aren’t many positions left to move the goalposts to at this stage, next they’ll have to be outside the stadium entirely.</p><p>The sooner people can be broken out of their denial about all this the better, and we can start actually taking it seriously.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://github.com/leonickson1/Swiftlet" target="_blank" rel="noopener">Show HN: Run an 80B Qwen in 4.3 GB of RAM on a Mac, and a 35B on an iPhone</a></h2></div><p class="title-tr">Show HN: 在 Mac 上使用 4.3GB 内存运行 80B Qwen 模型，并在 iPhone 上运行 35B 模型</p><div class="meta">▲ 18 分 · leonickson · <a href="https://news.ycombinator.com/item?id=49158333" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Swiftlet 利用 MoE 专家流式加载，在 Apple Silicon Mac 仅用 4.3GB RAM 跑通 80B Qwen 模型（解码速度 4.5-5 tok/s），在 iPhone 17 上首次原生运行 35B 模型（占用约 2.5GB RAM，速度 1 tok/s）。模型因每次只激活约 3B 密集参数，对话流畅但事实记忆弱。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 若你熟悉 MoE（混合专家）架构，Swiftlet 将数万个专家打包存于 SSD，常驻路由权重及共享层，按需以预读取加载专家并通过 Metal GPU 加速——相当于每次推理只叫少数专家干活，其余专家留在高速硬盘上随叫随到。</p><ul class="kp"><li><strong>80B Qwen 模型在 Mac 上仅需 4.3GB RAM</strong>，解码速度 4.5-5 tok/s；35B 模型仅需 2.6GB RAM，速度 7-11 tok/s。</li><li><strong>iPhone 17 首次原生运行 35B 模型</strong>，占用约 2.5GB RAM，完全本地推理无需服务器，速度约 1 tok/s。</li><li><strong>MoE 专家流式加载</strong>：密集权重常驻（80B 约 2.5GB），数万专家打包为固定步长 blob，用 pread 从 SSD 读取并缓存，避免 mmap 页面颠簸。</li><li><strong>实际每次推理仅激活约 3B 参数</strong>，因此模型擅长对话但事实知识相当于小模型，不适合作为知识库。</li></ul><div class="tags"><span class="tag">LLM 推理</span><span class="tag">端侧 AI</span><span class="tag">MoE</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://blog.cloudflare.com/smaller-faster-safer-models/" target="_blank" rel="noopener">Smaller, faster, safer: running Kimi and GLM at scale</a></h2></div><p class="title-tr">更小、更快、更安全：大规模运行 Kimi 和 GLM</p><div class="meta">▲ 162 分 · ascorbic · <a href="https://news.ycombinator.com/item?id=49158581" target="_blank" rel="noopener">40 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Cloudflare 通过 KV 缓存 FP8 量化、GLM 权重 INT4 压缩和共享缓存完整性检查，在不损失准确度的前提下将 Kimi K2.6 的并发上限提升一倍、吞吐达到 2192 tok/s，并使 GLM 解码速度提高最高 55%，大幅降低每 token 成本。</p><p class="context"><strong>🧭 联系你的知识背景</strong> KV 缓存是 Transformer 推理时为每个 token 存储注意力键值对的内存结构，其大小会随上下文长度线性增长，通常比模型权重更早耗尽 GPU 显存。</p><ul class="kp"><li><strong>KV 缓存 BF16→FP8 量化</strong>使 Kimi K2.6 可承载上下文从 68.6 万 token 提升至 137 万，并发 64 请求时吞吐 2192 tok/s，超越 BF16 峰值约 41%。</li><li><strong>GLM 权重 FP8→INT4 压缩</strong>将模型体积缩小 40%，解码阶段在低并发下吞吐提升 55%（60→92 tok/s），且各基准测试准确度差异不超过 0.8 个百分点。</li><li><strong>分离式 prefill 和 decode 部署</strong>允许在不同瓶颈阶段选择最优精度：prefill 继续使用 BF16/FP8 保速度，decode 使用 FP8/INT4 省内存。</li><li><strong>KV 缓存完整性校验</strong>以不到 1% 的吞吐和尾延迟代价避免多请求共享缓存时发生页错乱，默认路径零开销。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区质疑 Cloudflare 未在产品页面标明量化可能误导用户，并指出评测缺少编码类基准，可能掩盖长程任务中的误差累积。</p><div class="tags"><span class="tag">LLM 推理</span><span class="tag">模型量化</span><span class="tag">Cloudflare</span><span class="tag">KV 缓存</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · brokenodo · 7 回复</div><p>I was interested in reading this until my slop detector went off at the paragraph starting with “It&#x27;s worth being precise about where the benefit comes from, because it isn&#x27;t raw speed.”</p><p>I love AI, but I really hate reading it.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://blog.comfy.org/p/minimax-h3-day-0-support-in-comfyui" target="_blank" rel="noopener">MiniMax H3 Day-0 Support in ComfyUI: Open Weights, Native Audio, and 2K Video</a></h2></div><p class="title-tr">MiniMax H3 在 ComfyUI 的首日支持：开放权重、原生音频与 2K 视频</p><div class="meta">▲ 266 分 · vblanco · <a href="https://news.ycombinator.com/item?id=49155629" target="_blank" rel="noopener">81 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">MiniMax 发布第三代视频模型 H3，首次以开放权重放出，支持文本/图像/视频/音频混合输入，一次生成带立体声的 2K 视频。通过将调制权重替换为查找表等优化，内存占用大减 66%（全精度 123.6 GB → 42.5 GB），结合动态显存卸载，可在 RTX 3060 这类消费级 GPU 上本地运行。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 模型约 40% 的调制参数被剪枝并替换为功能等价的查找表，这类似蒸馏的思想，大幅降低显存而保持质量，让大模型在消费显卡上推理成为可能。</p><ul class="kp"><li><strong>MiniMax H3</strong> 支持文本、图片、视频、音频作为输入，一次生成带<strong>原生立体声</strong>的 2K 视频，最长 15 秒。</li><li>通过调制权重剪枝 + int8 量化 + 定制核，内存占用从 123.6 GB 降至 42.5 GB，<strong>降幅 66%</strong>，无质量损失。</li><li>结合 ComfyUI 的动态显存卸载，已在只有 12GB 显存的 <strong>RTX 3060</strong> 上成功运行 2K 视频生成。</li><li>首日即集成 <strong>ComfyUI v0.30.0</strong>，提供工作流模板，用户只需更新软件并下载权重即可开始创作。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论关注两个方向：查找表压缩方法能否推广到 LLM（假如真的无精度损失，则过于简单而匪夷所思），以及实际生成效果——人物、产品视频质量惊艳但部分镜头仍有‘AI 平滑感’，开放权重是社区巨大胜利，有用户在 4070 Ti Super 上 10 分钟生成 10 秒 480p 视频。</p><div class="tags"><span class="tag">视频生成</span><span class="tag">模型压缩</span><span class="tag">开源权重</span><span class="tag">本地推理</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · vblanco · 6 回复</div><p>Im running this on my 4070ti super (16 gb vram), and it takes 10 minutes for a 10-seconds 480p video. but the results are spectacular.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://ankursethi.com/blog/prevent-cognitive-debt-by-manually-retyping-llm-generated-code/" target="_blank" rel="noopener">Prevent cognitive debt by manually retyping LLM-generated code</a></h2></div><p class="title-tr">通过手动重新键入 LLM 生成的代码来防止认知债务</p><div class="meta">▲ 407 分 · mpweiher · <a href="https://news.ycombinator.com/item?id=49153374" target="_blank" rel="noopener">345 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者提出用 LLM 辅助生成代码但坚持手动逐行敲入，以此建立代码库的心智模型和空间记忆，避免因完全依赖 AI 而失去对软件的理解，将这种理解缺失称为“认知债务”。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可将代码的“认知债务”类比为：训练时盲目复用黑盒预测模块而不理解内部逻辑，后续维护和迭代会因缺乏底层理解而不断累积隐性风险。</p><ul class="kp"><li>将代码从 LLM 聊天输出<strong>手动键入编辑器</strong>，而非直接粘贴或让 AI 自动修改文件。</li><li>手动键入迫使开发者慢下来，<strong>更容易发现幻觉、设计缺陷</strong>，并在打字过程中重构和优化代码。</li><li>该方法牺牲部分 AI 带来的速度（从 10 倍降至约 <strong>2 倍</strong>），但换取对代码的深度理解和长期可维护性。</li><li>文章认为软件行业正在大量积累 <strong>“认知债务”</strong>，未来可能面临大规模基建失控的风险。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论两极分化：一部分人将其与早年手动抄录代码学习的经验共鸣，另一部分人质疑这种方式的效率，甚至有人讽刺这相当于放弃步行害怕忘记如何走路。</p><div class="tags"><span class="tag">开发者工作流</span><span class="tag">LLM 编程</span><span class="tag">认知债务</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · npras1 · 11 回复</div><p>Big no for retyping llm generated code by hand.</p><p>But a big yes for still typing code by hand, and not leaving it to the llm. Except it has to be the code generated by your brain.</p><p>That is what will create new neurons and new connections, which is what will keep away the cognitive decline.</p><p>And the constraint of not having to use llms will enhance creativity.</p><p>Actually, the constraints llms add to your code are more in number than the former. llms code in only the specific ways they&#x27;ve been trained on. So you won&#x27;t ever come across of other ways.</p><p>Off the top of my head.. here&#x27;s RubyQuiz.com [0] which I came across when I was learning ruby more than a decade ago. Looking at the many user-submitted solutions (you have to download the zip file!) you&#x27;ll see completely different ways the problems were solved.</p><p>Sure, many won&#x27;t be deemed efficient or standard by today&#x27;s llm or rubocop checks, but looking at their code.. and retyping them and seeing them work.. was crucial in how I was able to think in Ruby for solving coding problems.</p><p>I did the same with Go too, with the &quot;learn go with tests&quot; guide [1].</p><p>[0] - http://rubyquiz.com/</p><p>[1] - https://quii.gitbook.io/learn-go-with-tests</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://hoplite.sh" target="_blank" rel="noopener">Launch HN: Hoplite (YC S26) – Effortlessly deploy cloud coding agents</a></h2></div><p class="title-tr">发布 Hacker News: Hoplite (YC S26)——轻松部署云端编码代理</p><div class="meta">▲ 62 分 · BenceRed · <a href="https://news.ycombinator.com/item?id=49157997" target="_blank" rel="noopener">51 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Hoplite 是一个 YC 孵化的云端编码代理部署平台，将本地开发环境无缝迁移至云端，并为每个沙箱提供一个可访问的实时 URL，方便直接预览和测试新功能。定价从 99 美元/席/月起，提供 100 美元免费额度。</p><p class="context"><strong>🧭 联系你的知识背景</strong> “编码代理”可以理解为帮你写代码、测功能的 AI 助手；“沙箱”则是为这个助手准备一个隔离、可运行代码的云端临时环境。</p><ul class="kp"><li><strong>Hoplite 为每个编码代理提供可访问的实时 URL</strong>，让开发者无需本地环境即可预览和 QA 新功能。</li><li>团队从 AI 零售投资方向 pivot 而来，<strong>自建 agent harness 而非依赖 Claude Code 等方案</strong>，以获取更大灵活性和控制力。</li><li>基础设施基于 <strong>AWS、Temporal、Modal 沙箱和 Planetscale 数据库</strong>，定位代理为“Tier 0”级基础设施，强调可靠性和安全性。</li><li>定价从 <strong>99 美元/席/月</strong>起，支持 OpenAI 模型，新用户可使用优惠码免费体验。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论者主要将 Hoplite 与 Cursor、Claude Code 等现有工具对比，认为其核心差异化在于实时 URL 预览能力，但对其定价和 agent“不知道何时停止迭代”存在疑问。</p><div class="tags"><span class="tag">开发者工具</span><span class="tag">AI 编码代理</span><span class="tag">云端开发环境</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · r5Khe · 2 回复</div><p>Looks neat! I&#x27;ve been using Amp (https://ampcode.com/) for a while (Which seems to be doing something very similar), and I really appreciate this type of workflow. One thread = one VM feels like a solid model going forward.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://github.com/lyogavin/airllm" target="_blank" rel="noopener">AirLLM 70B inference with single 4GB GPU</a></h2></div><p class="title-tr">AirLLM 实现单张 4GB GPU 运行 70B 模型推理</p><div class="meta">▲ 196 分 · Anon84 · <a href="https://news.ycombinator.com/item?id=49154228" target="_blank" rel="noopener">75 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">AirLLM 通过分层加载和专家流式处理，让 70B 参数模型在 4GB 显存 GPU 上运行，DeepSeek-V3 (671B) 仅需约 12GB，而最新开源模型 Kimi K3 (2.8T) 更可在 3.72GB 显存下执行，全程无需量化、蒸馏或剪枝。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 其核心技巧是只把当前层的权重加载到 GPU，对于混合专家模型则只流式加载被实际路由到的专家，类似于推理时只按需使用部分参数，而非一次性将整个模型装入显存。</p><ul class="kp"><li><strong>无需量化、蒸馏或剪枝</strong>，即可在单张 4GB GPU 上推理 70B 模型，显存需求仅取决于单层大小。</li><li>支持 <strong>DeepSeek-V3 (671B)</strong> 仅约 12GB 显存，<strong>Kimi K3 (2.8T)</strong> 仅 3.72GB，大幅降低大模型本地运行门槛。</li><li>可选的块级量化（4-bit/8-bit）进一步压缩模型体积，推理速度提升达 <strong>3 倍</strong>，且只量化权重以避免精度损失。</li><li>通过 AutoModel.from_pretrained 一行代码兼容 HuggingFace 主流模型，切换模型无需特殊适配。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论普遍质疑实用性：Kimi K3 每 token 耗时约 292 秒，速度极慢，且类似项目泛滥，担心缺乏长期维护与真正可用性。</p><div class="tags"><span class="tag">LLM 推理</span><span class="tag">模型部署</span><span class="tag">显存优化</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · imenani · 12 回复</div><p>For anyone wondering “how slow is this?”</p><p>IIUC, Kimi K3 on RTX 6000 Ada (48GB) takes 292 s/token</p><p>https://github.com/lyogavin/airllm/releases/tag/v3.1.0</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://epoch.ai/MirrorCode" target="_blank" rel="noopener">What&#x27;s the largest software project AI can complete on its own?</a></h2></div><p class="title-tr">AI 能独立完成的最大软件项目有多大？</p><div class="meta">▲ 72 分 · yusufozkan · <a href="https://news.ycombinator.com/item?id=49157786" target="_blank" rel="noopener">78 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">MirrorCode 基准测试了 AI 在长周期编程任务上的能力：Claude Opus 4.7 仅用 14 小时、花费 251 美元，便重新实现了约 1.6 万行 Go 代码的生物信息学工具 gotree，接近完美通过 2000/2001 测试。该基准包含 25 个目标程序，涵盖 Unix 工具、密码学等领域，采用沙箱防作弊和端到端盲测评估。</p><p class="context"><strong>🧭 联系你的知识背景</strong> MirrorCode 的沙箱隔离与盲测设计类似于模型评估中防止数据泄漏的过拟合控制，旨在衡量真实泛化能力而非记忆复现。</p><ul class="kp"><li><strong>Claude Opus 4.7 在 14 小时内</strong> 重新实现了一个 1.6 万行 Go 代码的工具，成本仅 251 美元，人类工程师预估需 2–17 周。</li><li>基准任务要求 AI 在 <strong>无原代码访问、无互联网、无作弊</strong> 的沙箱中端到端复现完整程序，并通过未公开测试用例。</li><li>包含 <strong>25 个目标程序</strong>，横跨 Unix 工具、数据序列化、生物信息学、编译器静态分析、密码学和压缩等领域。</li><li>作者承认存在 <strong>数据污染风险</strong>（预训练可能见过原代码），但筛选结果显示记忆并非成绩主导因素。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论者普遍质疑‘复现已有软件’能否泛化到‘开发新软件’，并指出 AI 在无人引导时易陷入修复循环或产生无意义代码，仍需人类驾驶。</p><div class="tags"><span class="tag">AI 编码基准</span><span class="tag">长周期任务</span><span class="tag">Claude Opus</span><span class="tag">程序复现</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Jdstanhope · 3 回复</div><p>I have been using Claude to build a clone of Bash in Rust (https://github.com/jdstanhope/huck). It has been goin going on now for 81 days, 2600 commits and I have covered a good chunk of the features such that I can source by .bashrc with a number of extensions. It has been doing pretty good but it will sometimes spend hours to do few line fix and other times pushback on making big changes despite have over 3000 tests.</p><p>That being said, I am still guiding it on a regular basis and only recently let it run open ended trying fixing small to medium size bugs. The next stage will be try let it run in a loop trying to fix the 100 issues it has identified as well as getting most of the bash test suite to pass.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://qwen.ai/blog?id=qwen3.8" target="_blank" rel="noopener">Qwen3.8-Max: A New Bar for Coding and Cowork</a></h2></div><p class="title-tr">Qwen3.8-Max：编码与协作的新标杆</p><div class="meta">▲ 1057 分 · ai2027 · <a href="https://news.ycombinator.com/item?id=49150470" target="_blank" rel="noopener">571 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">阿里的 Qwen 发布旗舰模型 Qwen3.8-Max，首次开源 Max 级模型权重（下周放出）；同期宣布 Qwen3.8-27B 开放权重，被视作最佳本地模型之一的升级版；新模型引入 `reasoning_effort` 参数，可调节推理深度以控制成本。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中“开放权重”指模型训练好的参数文件直接公开下载，可以让企业或个人在自有硬件上部署，不必依赖云 API；这种模式类似开源软件的分发，但面向已训练的神经网络。</p><ul class="kp"><li>阿里首次将 <strong>Max 级模型权重</strong> 开源，Qwen3.8-Max 权重将于下周释放。</li><li><strong>Qwen3.8-27B</strong> 也将开放权重，它是 Qwen3.6-27B 的升级版，后者被公认为当前最强的本地部署模型之一。</li><li>新模型提供 <strong>reasoning_effort</strong> 参数，支持 xhigh/medium/low 三档，用户可在推理深度与成本之间做权衡。</li><li>宣传视频描绘 AI 代劳工作、人类专注爱好，但评论区质疑 <strong>阿里自身并未缩减工时或维持薪酬</strong>，显示愿景与企业实践的落差。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论普遍认为开放权重才是核心价值，而非表面上的新版本发布；同时有人对日期混乱表示困惑，并期待 27B 开源模型带来的本地部署提升。</p><div class="tags"><span class="tag">开源模型</span><span class="tag">LLM 推理控制</span><span class="tag">本地部署</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · me551ah · 20 回复</div><p>This makes me wonder if AI companies even have a MOAT in the first place.</p><p>All requests to an LLM are idempotent, for every API call you need to send it the entire conversation history so that it can process it. LLMs do not learn or remember anything, which makes it super easy for users to switch LLMs on the fly. Most popular AI frameworks, make this a one-liner change these days.</p><p>And that makes me wonder if the trillion dollar valuations for OpenAI and Claude are even justified. Cause if that is justified, then Kimi, Qwen, Deepseek etc are also valued at a trillion dollars. Or all of them are worth a lot less. One of those statements is true.</p><p>Also this makes me wonder if the next iteration of LLMs would be based on fine-tuning, where LLMs actually learn from your past behaviour so that it would grant some amount of stickiness to the product. OpenAI used to offer fine tuning runs for GPT-3.5, but they don&#x27;t seem to do that anymore.</p></div></div></article>
+</div></main>
+<footer>generated 2026-08-04 03:45 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "LLMs reward expertise", "titleTranslation": "LLM奖励专业知识", "summary": "领域专业知识是高效使用大语言模型的关键：陶哲轩凭数学功底在与ChatGPT的对话中精准引导模型，非专家用户则易陷入无效循环。专家能评估输出、提出替代方案，从而榨取更多价值，提示技巧次之。", "keyPoints": ["陶哲轩与ChatGPT互动极简，凭数学直觉推动对话，从不盲从模型建议", "领域知识让你能说出‘这里可以更简单’‘我们不是已经有X吗’，从而高效引导LLM", "非专家用户如krisoft的朋友，因缺乏专业词汇而陷入无休止的功能讨论，没产出代码"], "discussion": "HN评论普遍认同专业知识至关重要，有人类比LLM是用户知识的“放大镜”；也有人担心确认偏误，呼吁正式研究。", "tags": ["LLM 交互", "提示工程", "领域知识"], "score": 549, "comments": 242, "by": "MaxMussio", "url": "https://www.seangoedecke.com/llms-reward-expertise/", "hnUrl": "https://news.ycombinator.com/item?id=49161518"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "Ten advances in mathematics and theoretical computer science", "titleTranslation": "数学和理论计算机科学的十项进展", "summary": "由于文章正文未能抓取，信息有限。OpenAI 发布了十项数学和理论计算机科学进展，HN 评论核心争论在于 AI 是否已在数学证明上实现指数级突破，以及它是否会威胁数学家的创造性工作。有人指出 LLM 使数学证明更可计算，但算力极限仍然无法触及真正困难的千年难题。", "keyPoints": ["OpenAI 公布十项数学进展，但具体突破细节未知，评论转而探讨 AI 对数学证明的实质影响。", "HN 评论称“任何可计算问题终将屈服”，LLM 令数学证明变得更可计算，但依然无法解决需要天文级算力的难题。", "有人引用道格拉斯·亚当斯式的讽刺：担心机器找到终极真理会让数学家像哲学家一样失业。"], "discussion": "评论区分歧在于：AI 在数学上的进步究竟是真正革命（加速所有可计算问题），还是仅在特定方向上有效，且反而可能颠覆数学家的职业价值。", "tags": ["AI 数学推理", "理论研究自动化", "LLM 证明验证"], "score": 468, "comments": 738, "by": "milkshakes", "url": "https://openai.com/index/ten-advances-in-mathematics/", "hnUrl": "https://news.ycombinator.com/item?id=49157930"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Run an 80B Qwen in 4.3 GB of RAM on a Mac, and a 35B on an iPhone", "titleTranslation": "Show HN: 在 Mac 上使用 4.3GB 内存运行 80B Qwen 模型，并在 iPhone 上运行 35B 模型", "summary": "Swiftlet 利用 MoE 专家流式加载，在 Apple Silicon Mac 仅用 4.3GB RAM 跑通 80B Qwen 模型（解码速度 4.5-5 tok/s），在 iPhone 17 上首次原生运行 35B 模型（占用约 2.5GB RAM，速度 1 tok/s）。模型因每次只激活约 3B 密集参数，对话流畅但事实记忆弱。", "keyPoints": ["80B Qwen 模型在 Mac 上仅需 4.3GB RAM，解码速度 4.5-5 tok/s；35B 模型仅需 2.6GB RAM，速度 7-11 tok/s。", "iPhone 17 首次原生运行 35B 模型，占用约 2.5GB RAM，完全本地推理无需服务器，速度约 1 tok/s。", "MoE 专家流式加载：密集权重常驻（80B 约 2.5GB），数万专家打包为固定步长 blob，用 pread 从 SSD 读取并缓存，避免 mmap 页面颠簸。"], "discussion": "", "tags": ["LLM 推理", "端侧 AI", "MoE"], "score": 18, "comments": 0, "by": "leonickson", "url": "https://github.com/leonickson1/Swiftlet", "hnUrl": "https://news.ycombinator.com/item?id=49158333"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "Smaller, faster, safer: running Kimi and GLM at scale", "titleTranslation": "更小、更快、更安全：大规模运行 Kimi 和 GLM", "summary": "Cloudflare 通过 KV 缓存 FP8 量化、GLM 权重 INT4 压缩和共享缓存完整性检查，在不损失准确度的前提下将 Kimi K2.6 的并发上限提升一倍、吞吐达到 2192 tok/s，并使 GLM 解码速度提高最高 55%，大幅降低每 token 成本。", "keyPoints": ["KV 缓存 BF16→FP8 量化使 Kimi K2.6 可承载上下文从 68.6 万 token 提升至 137 万，并发 64 请求时吞吐 2192 tok/s，超越 BF16 峰值约 41%。", "GLM 权重 FP8→INT4 压缩将模型体积缩小 40%，解码阶段在低并发下吞吐提升 55%（60→92 tok/s），且各基准测试准确度差异不超过 0.8 个百分点。", "分离式 prefill 和 decode 部署允许在不同瓶颈阶段选择最优精度：prefill 继续使用 BF16/FP8 保速度，decode 使用 FP8/INT4 省内存。"], "discussion": "评论区质疑 Cloudflare 未在产品页面标明量化可能误导用户，并指出评测缺少编码类基准，可能掩盖长程任务中的误差累积。", "tags": ["LLM 推理", "模型量化", "Cloudflare"], "score": 162, "comments": 40, "by": "ascorbic", "url": "https://blog.cloudflare.com/smaller-faster-safer-models/", "hnUrl": "https://news.ycombinator.com/item?id=49158581"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "MiniMax H3 Day-0 Support in ComfyUI: Open Weights, Native Audio, and 2K Video", "titleTranslation": "MiniMax H3 在 ComfyUI 的首日支持：开放权重、原生音频与 2K 视频", "summary": "MiniMax 发布第三代视频模型 H3，首次以开放权重放出，支持文本/图像/视频/音频混合输入，一次生成带立体声的 2K 视频。通过将调制权重替换为查找表等优化，内存占用大减 66%（全精度 123.6 GB → 42.5 GB），结合动态显存卸载，可在 RTX 3060 这类消费级 GPU 上本地运行。", "keyPoints": ["MiniMax H3 支持文本、图片、视频、音频作为输入，一次生成带原生立体声的 2K 视频，最长 15 秒。", "通过调制权重剪枝 + int8 量化 + 定制核，内存占用从 123.6 GB 降至 42.5 GB，降幅 66%，无质量损失。", "结合 ComfyUI 的动态显存卸载，已在只有 12GB 显存的 RTX 3060 上成功运行 2K 视频生成。"], "discussion": "评论关注两个方向：查找表压缩方法能否推广到 LLM（假如真的无精度损失，则过于简单而匪夷所思），以及实际生成效果——人物、产品视频质量惊艳但部分镜头仍有‘AI 平滑感’，开放权重是社区巨大胜利，有用户在 4070 Ti Super 上 10 分钟生成 10 秒 480p 视频。", "tags": ["视频生成", "模型压缩", "开源权重"], "score": 266, "comments": 81, "by": "vblanco", "url": "https://blog.comfy.org/p/minimax-h3-day-0-support-in-comfyui", "hnUrl": "https://news.ycombinator.com/item?id=49155629"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "Prevent cognitive debt by manually retyping LLM-generated code", "titleTranslation": "通过手动重新键入 LLM 生成的代码来防止认知债务", "summary": "作者提出用 LLM 辅助生成代码但坚持手动逐行敲入，以此建立代码库的心智模型和空间记忆，避免因完全依赖 AI 而失去对软件的理解，将这种理解缺失称为“认知债务”。", "keyPoints": ["将代码从 LLM 聊天输出手动键入编辑器，而非直接粘贴或让 AI 自动修改文件。", "手动键入迫使开发者慢下来，更容易发现幻觉、设计缺陷，并在打字过程中重构和优化代码。", "该方法牺牲部分 AI 带来的速度（从 10 倍降至约 2 倍），但换取对代码的深度理解和长期可维护性。"], "discussion": "HN 评论两极分化：一部分人将其与早年手动抄录代码学习的经验共鸣，另一部分人质疑这种方式的效率，甚至有人讽刺这相当于放弃步行害怕忘记如何走路。", "tags": ["开发者工作流", "LLM 编程", "认知债务"], "score": 407, "comments": 345, "by": "mpweiher", "url": "https://ankursethi.com/blog/prevent-cognitive-debt-by-manually-retyping-llm-generated-code/", "hnUrl": "https://news.ycombinator.com/item?id=49153374"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "Launch HN: Hoplite (YC S26) – Effortlessly deploy cloud coding agents", "titleTranslation": "发布 Hacker News: Hoplite (YC S26)——轻松部署云端编码代理", "summary": "Hoplite 是一个 YC 孵化的云端编码代理部署平台，将本地开发环境无缝迁移至云端，并为每个沙箱提供一个可访问的实时 URL，方便直接预览和测试新功能。定价从 99 美元/席/月起，提供 100 美元免费额度。", "keyPoints": ["Hoplite 为每个编码代理提供可访问的实时 URL，让开发者无需本地环境即可预览和 QA 新功能。", "团队从 AI 零售投资方向 pivot 而来，自建 agent harness 而非依赖 Claude Code 等方案，以获取更大灵活性和控制力。", "基础设施基于 AWS、Temporal、Modal 沙箱和 Planetscale 数据库，定位代理为“Tier 0”级基础设施，强调可靠性和安全性。"], "discussion": "评论者主要将 Hoplite 与 Cursor、Claude Code 等现有工具对比，认为其核心差异化在于实时 URL 预览能力，但对其定价和 agent“不知道何时停止迭代”存在疑问。", "tags": ["开发者工具", "AI 编码代理", "云端开发环境"], "score": 62, "comments": 51, "by": "BenceRed", "url": "https://hoplite.sh", "hnUrl": "https://news.ycombinator.com/item?id=49157997"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "AirLLM 70B inference with single 4GB GPU", "titleTranslation": "AirLLM 实现单张 4GB GPU 运行 70B 模型推理", "summary": "AirLLM 通过分层加载和专家流式处理，让 70B 参数模型在 4GB 显存 GPU 上运行，DeepSeek-V3 (671B) 仅需约 12GB，而最新开源模型 Kimi K3 (2.8T) 更可在 3.72GB 显存下执行，全程无需量化、蒸馏或剪枝。", "keyPoints": ["无需量化、蒸馏或剪枝，即可在单张 4GB GPU 上推理 70B 模型，显存需求仅取决于单层大小。", "支持 DeepSeek-V3 (671B) 仅约 12GB 显存，Kimi K3 (2.8T) 仅 3.72GB，大幅降低大模型本地运行门槛。", "可选的块级量化（4-bit/8-bit）进一步压缩模型体积，推理速度提升达 3 倍，且只量化权重以避免精度损失。"], "discussion": "HN 评论普遍质疑实用性：Kimi K3 每 token 耗时约 292 秒，速度极慢，且类似项目泛滥，担心缺乏长期维护与真正可用性。", "tags": ["LLM 推理", "模型部署", "显存优化"], "score": 196, "comments": 75, "by": "Anon84", "url": "https://github.com/lyogavin/airllm", "hnUrl": "https://news.ycombinator.com/item?id=49154228"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "What's the largest software project AI can complete on its own?", "titleTranslation": "AI 能独立完成的最大软件项目有多大？", "summary": "MirrorCode 基准测试了 AI 在长周期编程任务上的能力：Claude Opus 4.7 仅用 14 小时、花费 251 美元，便重新实现了约 1.6 万行 Go 代码的生物信息学工具 gotree，接近完美通过 2000/2001 测试。该基准包含 25 个目标程序，涵盖 Unix 工具、密码学等领域，采用沙箱防作弊和端到端盲测评估。", "keyPoints": ["Claude Opus 4.7 在 14 小时内 重新实现了一个 1.6 万行 Go 代码的工具，成本仅 251 美元，人类工程师预估需 2–17 周。", "基准任务要求 AI 在 无原代码访问、无互联网、无作弊 的沙箱中端到端复现完整程序，并通过未公开测试用例。", "包含 25 个目标程序，横跨 Unix 工具、数据序列化、生物信息学、编译器静态分析、密码学和压缩等领域。"], "discussion": "评论者普遍质疑‘复现已有软件’能否泛化到‘开发新软件’，并指出 AI 在无人引导时易陷入修复循环或产生无意义代码，仍需人类驾驶。", "tags": ["AI 编码基准", "长周期任务", "Claude Opus"], "score": 72, "comments": 78, "by": "yusufozkan", "url": "https://epoch.ai/MirrorCode", "hnUrl": "https://news.ycombinator.com/item?id=49157786"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "Qwen3.8-Max: A New Bar for Coding and Cowork", "titleTranslation": "Qwen3.8-Max：编码与协作的新标杆", "summary": "阿里的 Qwen 发布旗舰模型 Qwen3.8-Max，首次开源 Max 级模型权重（下周放出）；同期宣布 Qwen3.8-27B 开放权重，被视作最佳本地模型之一的升级版；新模型引入 `reasoning_effort` 参数，可调节推理深度以控制成本。", "keyPoints": ["阿里首次将 Max 级模型权重 开源，Qwen3.8-Max 权重将于下周释放。", "Qwen3.8-27B 也将开放权重，它是 Qwen3.6-27B 的升级版，后者被公认为当前最强的本地部署模型之一。", "新模型提供 reasoning_effort 参数，支持 xhigh/medium/low 三档，用户可在推理深度与成本之间做权衡。"], "discussion": "HN 评论普遍认为开放权重才是核心价值，而非表面上的新版本发布；同时有人对日期混乱表示困惑，并期待 27B 开源模型带来的本地部署提升。", "tags": ["开源模型", "LLM 推理控制", "本地部署"], "score": 1057, "comments": 571, "by": "ai2027", "url": "https://qwen.ai/blog?id=qwen3.8", "hnUrl": "https://news.ycombinator.com/item?id=49150470"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
