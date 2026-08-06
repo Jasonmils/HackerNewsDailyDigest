@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-08-06</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-08-06 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://www.bfswa.blog/p/llms-wont-break-symmetric-crypto" target="_blank" rel="noopener">LLMs won&#x27;t break symmetric crypto</a></h2></div><p class="title-tr">LLMs 不会破解对称加密</p><div class="meta">▲ 47 分 · rowbin · <a href="https://news.ycombinator.com/item?id=49191365" target="_blank" rel="noopener">34 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Anthropic 用 LLM 发现针对后量子方案 HAWK 的密钥恢复攻击，将 HAWK-512 安全位数从 128 位降至最多 108 位，但对实际使用无直接威胁。作者论证 LLM 不会破解对称加密，核心理由是密码没有可被简约化的数学结构，且经受数十年实战检验，而主要分析手段差分密码分析已高度成熟。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 对称加密不依赖数学难题，而是靠多轮简单操作（异或、加法、旋转）反复混淆数据，可类比深度网络用多层非线性破坏输入特征的线性关系，使攻击者难以描述简化的可解结构。</p><ul class="kp"><li>Anthropic 的 Mythos 模型攻破 <strong>HAWK-512</strong>，最高将安全位数从 128 降至 <strong>108 位</strong>，但仍不实用。</li><li>对 <strong>7 轮 AES-128</strong> 的攻击不构成实际威胁，亮点在于 AES 的新分析极罕见，且模型未发现更强结果。</li><li>称对称密码是“泥潭上的拖拉机”：设计故意制造无规律运算，<strong>消除数学结构</strong>，主要只能靠差分偏差做经验性分析。</li><li>作者主张将 LLM 用于发现 <strong>安全证明或攻击复杂度估计的错误</strong>，这比猜破解密码本身更可行。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论分歧在于：一方认为 LLM 终究能通过大量经验测试超越人类，另一方坚称对称密码经数十年实战打磨，混乱设计的“抗简化”特性会天然抵御任何智能。</p><div class="tags"><span class="tag">对称加密</span><span class="tag">密码分析</span><span class="tag">LLM 安全应用</span><span class="tag">Anthropic</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · danielmarkbruce · 3 回复</div><p>This is kind of a stupid argument. How about make a slightly stronger claim like &quot;models won&#x27;t break symmetric crypto&quot; ? I mean, language models aren&#x27;t even trained to break symmetric crypto. There is not reason to think they will. It seems possible to train a large model to do it though.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://blog.google/company-news/inside-google/message-ceo/next-chapter-ai-momentum/" target="_blank" rel="noopener">Changes at Google DeepMind: Demis Hassabis from CEO to Chair, Jeff Dean departs</a></h2></div><p class="title-tr">Google DeepMind 人事变动：Demis Hassabis 从 CEO 转任主席，Jeff Dean 离开</p><div class="meta">▲ 521 分 · colesantiago · <a href="https://news.ycombinator.com/item?id=49184755" target="_blank" rel="noopener">618 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">谷歌 AI 大改组：DeepMind CEO Demis Hassabis 转任 Alphabet 首席科学家兼 Chair，CTO Koray Kavukcuoglu 接掌 Google DeepMind；传奇工程师 Jeff Dean 与 Sanjay Ghemawat 离职创立 Discovery Loop，谷歌作为创始投资者。此次重组正值 Gemini 应用触达 9.5 亿月活但在前沿模型发布上近 14 个月空窗，市场反应剧烈，股价下跌约 5%。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Jeff Dean 是谷歌早期搜索基础设施、MapReduce 和 TensorFlow 等核心系统的共同设计者，Sanjay Ghemawat 是他的长期搭档，两人共同奠定了谷歌的工程技术基石。他们的离开意味着谷歌失去两位 27 年级别的系统与 ML 架构师。</p><ul class="kp"><li><strong>Demis Hassabis</strong> 卸任 CEO，转任 Google DeepMind Chair 和 Alphabet 首席科学家，将专注 AGI 战略与外部对话。</li><li><strong>Koray Kavukcuoglu</strong> 升任 Google DeepMind SVP，直接向 Sundar Pichai 汇报，统管 Gemini 模型、前沿研究和应用。</li><li><strong>Jeff Dean 和 Sanjay Ghemawat</strong> 离开谷歌，创立公益公司 Discovery Loop，专注自动化 ML、科学与工程加速发现。</li><li><strong>谷歌股价下跌约 5%</strong>，同时评论区指出 DeepMind 近期流失多位名研究者，Gemini 缺乏重大新模型发布，引发对创新环境的担忧。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区主流共识是 Jeff Dean 和 Sanjay Ghemawat 的离开是谷歌的重大人才损失，同时质疑 DeepMind 从纯研究转向商业化的压力导致人才加速流失与前沿模型进展停滞。</p><div class="tags"><span class="tag">AI 领导层变动</span><span class="tag">Google DeepMind</span><span class="tag">人才流失</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · xtreak29 · 7 回复</div><p>https://xcancel.com/JeffDean/status/2085034604172603724</p><p>&gt; Announcing Discovery Loop!</p><p>&gt; I am very excited to announce that, along with my longtime friends and collaborators @Sanjay_Ghemawat, @OriolVinyalsML and @quocleix, we are founding Discovery Loop (@DiscoLoopAI), a Public Benefit Corporation whose mission is to automate machine learning, science, and engineering to accelerate discoveries and progress. The four of us have worked together for 14 to 30 years, and have helped build some of the world’s most used products, infrastructure and AI models, and we’re excited to turn our attention to this ambitious endeavor.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://research.meta.ai/blog/introducing-muse-code-and-muse-spark-1-2" target="_blank" rel="noopener">Muse Code and Muse Spark 1.2</a></h2></div><p class="title-tr">Muse Code 与 Muse Spark 1.2</p><div class="meta">▲ 201 分 · paulkrush · <a href="https://news.ycombinator.com/item?id=49187575" target="_blank" rel="noopener">118 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Meta 发布终端编码代理 Muse Code 和新模型 Muse Spark 1.2，主打低价：若允许数据用于训练，API 输入价格 $0.10/百万 token（标准价 1/10）。HN 评论质疑基准对比不透明、免费条款悄然变更，认为距离前沿仍有差距。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中 GPU 内核优化（针对 NVIDIA Hopper 编写 Triton 代码加速特定算法）可类比你在训练模型时手写定制算子来提升计算图效率，都是贴近底层硬件的性能调优。</p><ul class="kp"><li><strong>Muse Code beta</strong> 发布，终端内可协调多个持久化异步子代理，处理跨仓库的复杂软件工程任务。</li><li><strong>Muse Spark 1.2</strong> 专攻编程，通过拒绝采样和长时标任务协同训练，代码生成与复杂调试能力比前代提升。</li><li>贡献者计划下 API 定价为 <strong>$0.10/百万 token 输入</strong>、$0.20/百万 token 输出，前提是允许 Meta 使用数据训练。</li><li>基准对比选择 OpenAI 中端模型 <strong>Terra</strong> 而非顶尖 Sol，部分指标仍落败，网友批评“玩营销游戏”。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论肯定低价策略，但普遍质疑基准对比不诚实、免费额度条款突然修改增加数据使用风险，且部分用户担忧无法设置消费上限。</p><div class="tags"><span class="tag">AI 编码代理</span><span class="tag">模型定价</span><span class="tag">基准透明度</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · tristanj · 8 回复</div><p>Meta is offering a 10x discount on input ($0.10 vs. $1.25/Mtok) and 20x discount on output ($0.20 vs. $4.25/Mtok) if you opt in to let them train on your data.</p><p>https://developer.meta.com/ai/models/muse-spark/</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://neon.com/blog/how-castform-neon-beats-frontier-models-on-price-and-efficiency" target="_blank" rel="noopener">Beating GPT-5.6 Sol on retrieval with 100x cheaper open models</a></h2></div><p class="title-tr">用便宜100倍的开源模型在检索任务上击败GPT-5.6 Sol</p><div class="meta">▲ 241 分 · moonikakiss · <a href="https://news.ycombinator.com/item?id=49186762" target="_blank" rel="noopener">59 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Castform 借助 Neon 数据库进行 RL 后训练，让开源小模型在检索任务上性能超过 GPT-5.6 Sol，而成本仅为其 1%。企业可直接用现有文档自动生成训练数据，无需自建 ML 基础设施。</p><p class="context"><strong>🧭 联系你的知识背景</strong> RL 后训练类似于用强化学习让模型在特定工具（如搜索）上通过试错优化表现，而非传统监督微调。</p><ul class="kp"><li><strong>单次多轮搜索成本约 $0.03、耗时超 10 秒</strong>，开源模型通过 RL 后训练成本降至 1% 且性能反超。</li><li><strong>Castform</strong> 自动将企业知识库（文档、客服记录等）转化为问题-答案训练对，降低数据准备门槛。</li><li><strong>Neon 动态计算扩展</strong> 在训练爆发期吸收搜索峰值，分支与时间旅行查询实现有状态代理的隔离训练环境。</li><li><strong>开源小模型</strong> 在特定检索任务上通过 RL 后训练可匹敌甚至击败闭源前沿模型，带来商品化压力。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论质疑缺少与更便宜模型（如 Luna）及标准检索基准的对比，同时认同专业化小模型是趋势。</p><div class="tags"><span class="tag">RL 后训练</span><span class="tag">检索增强生成</span><span class="tag">开源模型</span><span class="tag">代理搜索</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · mrinterweb · 9 回复</div><p>There is so much opportunity for purpose built models like this. Ideally a harness should spin up a subagent to offload to targeted models for specific tasks like this. I know this is not a novel idea. Claude code does some of this by handing off the &quot;explore&quot; agent work to haiku. I just love seeing that specialized LLMs are being developed.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://blog.fogus.me/llm/born-against.html" target="_blank" rel="noopener">Born Against, or why hobby programming communities are against LLM usage</a></h2></div><p class="title-tr">Born Against，或为何业余编程社区反对 LLM 使用</p><div class="meta">▲ 160 分 · lladnar · <a href="https://news.ycombinator.com/item?id=49187061" target="_blank" rel="noopener">161 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">业余编程社区（如棋类引擎、OS 开发）的核心是掌握艰难领域的过程，代码能运行只是附带品。LLM 在此被视作跳过学习曲线的作弊，与重视缓慢积累、深度理解的社区文化根本冲突。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 类似你用预训练模型直接微调而忽略底层架构调优，会错失深刻理解的机会；这些社区把亲手敲代码视为获得不可替代技艺的唯一途径。</p><ul class="kp"><li><strong>业余编程社区</strong>（OS 开发、棋类引擎等）的核心价值在于<strong>学习过程本身</strong>，而非产出可运行的代码。</li><li><strong>LLM</strong> 生成代码被视作<strong>作弊</strong>，因为它绕过艰难的知识掌握阶段，与社区靠时间积累尊重的传统相悖。</li><li>早期引入 LLM 因<strong>使用者的深度不足</strong>和<strong>社区的激烈反对</strong>迅速恶化，强化了敌意氛围。</li><li><strong>LLM 作为力倍增器</strong>仅在专家手中有效，但在这些社区，<strong>手艺的打磨</strong>远比快速获得结果重要。</li></ul><p class="disc"><strong>💬 讨论</strong> 共识认为爱好者享受编程过程自然排斥 LLM 代劳，类似赛车禁用辅助驾驶；分歧在于 LLM 是否可作为知识探索工具，但对低质量、抄袭内容涌入社区普遍担忧。</p><div class="tags"><span class="tag">业余编程</span><span class="tag">LLM 使用态度</span><span class="tag">人类技艺</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · QuantumNoodle · 14 回复</div><p>A hobby is something you enjoy the process of doing, not just the end result. Everybody likes a clean home, but cleaning is rarely a hobby. LLMs expedite achieving the end result. Take from that what you will.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://www.primeintellect.ai/blog/prime-agent" target="_blank" rel="noopener">Prime Agent: A self-improving RLM agent</a></h2></div><p class="title-tr">Prime Agent：一个自我改进的 RLM 智能体</p><div class="meta">▲ 120 分 · Xeophon · <a href="https://news.ycombinator.com/item?id=49189075" target="_blank" rel="noopener">20 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Prime Agent 是基于递归语言模型（RLM）与持续框架（Continual Harness）的开源自改进编码智能体。它允许智能体以编程方式管理上下文、生成并消息持久化子智能体，并从运行轨迹中更新提示、记忆和技能，已在 ARC-AGI-3 基准上接近饱和。</p><p class="context"><strong>🧭 联系你的知识背景</strong> RLM 将上下文视为变量、子智能体调用视为函数，在你的 Transformer 和训练知识之上，可类比为“让模型像写代码一样管理自己的工作流和记忆”；持续框架类似将微调从离线搬到在线，但仅修改外层提示和工具而非模型权重。</p><ul class="kp"><li>基于 <strong>IPython 内核的 REPL</strong> 作为唯一工具，子智能体调用通过异步函数实现并行扇出与持久化消息通信。</li><li>持续框架让智能体对提示、记忆、技能和子智能体进行 <strong>CRUD 操作</strong>，并依据运行轨迹在线自我改进，编辑可回溯、可回滚。</li><li>完全开源，安装仅需一行 curl 命令；后台守护进程管理所有会话，<strong>支持会话恢复、状态快照和嵌套子智能体导航</strong>。</li><li>在 ARC-AGI-3 基准上取得 <strong>接近饱和的成绩</strong>，设计期望下一代模型直接围绕该框架训练以获得更高增益。</li></ul><p class="disc"><strong>💬 讨论</strong> 有评论指出 LLM 生成的代理代码存在大量膨胀，怀疑模型目前并不擅长自行优化框架；另有用户认为基础模型已逐渐不需要此类复杂框架。</p><div class="tags"><span class="tag">AI 智能体</span><span class="tag">自改进系统</span><span class="tag">RLM</span><span class="tag">持续框架</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · axus · 3 回复</div><p>https://localroger.com/prime-intellect/mopiidx.html</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://www.promptarmor.com/resources/atlassian-rovo-exfiltrates-data" target="_blank" rel="noopener">Atlassian Rovo Exfiltrates Data, Bypassing Controls</a></h2></div><p class="title-tr">Atlassian Rovo 绕过控制导致数据外泄</p><div class="meta">▲ 185 分 · hackerBanana · <a href="https://news.ycombinator.com/item?id=49185983" target="_blank" rel="noopener">71 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">安全研究揭示 Atlassian Rovo AI 通过间接提示注入实现数据外泄，攻击者无需用户审批即可窃取 Jira 工单、Confluence 文档等敏感内容，即使已禁用网页搜索仍可绕过，漏洞已报告两个多月但 Atlassian 尚未修复或回应。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可以把这种攻击理解为一种对 AI 代理的“对抗样本”：攻击者在正常文件中嵌入不可见的指令，操纵代理做出本不该做的操作（如将私密数据编码到外部链接），类似于模型面对特殊构造的输入时产生不符合预期的输出。</p><ul class="kp"><li><strong>Atlassian Rovo</strong> 的 URL 检索工具缺少对动态生成 URL 的防护，导致间接提示注入可窃取数据。</li><li>攻击可在<strong>无需任何人工审批</strong>的情况下完成，即使组织已禁用网页搜索，漏洞仍然有效。</li><li>PromptArmor 于 <strong>5 月 23 日</strong> 报告该问题，<strong>两个多月</strong>后 Atlassian 仍未修复或进一步沟通。</li><li>攻击者可静默导出代理所能访问的<strong>任意 Atlassian 数据</strong>，包括通过连接器接入的外部文档。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区认为这是所有代理式 AI 工具的共同弱点，安全与有用性之间存在固有取舍，但普遍对 Atlassian 强制集成 Rovo 且修复迟缓表示不满。</p><div class="tags"><span class="tag">AI 安全</span><span class="tag">间接提示注入</span><span class="tag">数据外泄</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · pram · 3 回复</div><p>I can’t get over how bad “Rovo” is. Somehow more aggressive and useless than Microsoft putting “Copilot” everywhere.</p><p>It’s objectively worse than using something like Cowork + MCP, AND they injected it into every single page on JIRA and Confluent which has made web browsing way slower while all the junk is loading.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://blog.cloudflare.com/cloudflare-os/" target="_blank" rel="noopener">Cloudflare OS: an open platform for agents, apps, and work</a></h2></div><p class="title-tr">Cloudflare OS：一个面向智能体、应用和工作的开放平台</p><div class="meta">▲ 488 分 · speckx · <a href="https://news.ycombinator.com/item?id=49182996" target="_blank" rel="noopener">251 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Cloudflare 开源了内部 AI 工作平台 Cloudflare OS，让任何组织部署一个将 AI 代理、安全沙箱和个人化应用结合的平台。该平台基于 Sandstorm 的安全模型，确保非技术人员可安全构建代码，代理通过 Gatekeeper 机制受控访问内部数据，并自动记录资源观察以防止泄密。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可以把 Gatekeeper 理解为一种在模型 API 调用前强制执行细粒度权限检查的安全中间件，类似模型推理时对输入输出做过滤；沙箱确保代码无法访问未经授权的资源。</p><ul class="kp"><li><strong>Cloudflare OS 已开源</strong>，任何组织可自行部署，连接内部系统，构建自己的代理工作台。</li><li>安全模型采用 <strong>Gatekeeper</strong> 和资源观察日志，代理初始无访问权限，所有资源访问经细粒度策略控制和审计，防止数据间接泄露。</li><li>每个应用作为独立沙箱 <strong>Gadget</strong> 运行，用户可要求代理修改代码，且安全团队无需担心非技术人员引入安全漏洞。</li><li>平台结合了代理对话、<strong>确定性工作流</strong>和可分享的蓝图应用，将对话直接转化为文档、仪表盘或自动化任务。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍不满“OS”的滥用命名，担忧 Cloudflare 平台锁定，同时质疑允许每位用户自定义应用代码会导致数据模型冲突和 HIPAA 等合规风险，但认可 Sandstorm 安全模型与 AI 结合的创新。</p><div class="tags"><span class="tag">企业 AI 平台</span><span class="tag">安全沙箱</span><span class="tag">开源工具</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · rozenmd · 16 回复</div><p>I liked Kenton&#x27;s take on this: https://x.com/KentonVarda/status/2084990137180590572?s=20</p><p>Text from tweet:</p><p>Today we are releasing Cloudflare OS, a chatbot with connectors, just like every other tech company is doing.</p><p>Except actually, it&#x27;s different. This is a remake of Sandstorm[.]io, my startup from 10 years ago, except this time built on Cloudflare Workers (the platform I&#x27;ve spent the last 9 years building) and deeply leveraging AI. This is more or less the culmination of my secret 10-year master plan.</p><p>This is a full-on personal app vibe coding platform, in which the sandbox is so secure that you can pretty much go wild -- the AI cannot introduce a significant security bug. We believe a company&#x27;s security team can feel comfortable giving non-technical users permission to vibe code and then sleep soundly at night.</p><p>How is that possible? It&#x27;s the Sandstorm security model, revisited. A &quot;Gadget&quot; is the same thing as a Sandstorm &quot;Grain&quot;: a fine-grained app instance. For example, if you have a document editor app, each document runs as a separate instance of the app, in a separate sandbox (one &quot;Gadget&quot;).</p><p>This means two things, both of which I think are Big Deals:</p><p>1. The platform can manage all access control, by controlling who can access the Gadget at all. There is no way the Gadget can accidentally leak itself to an attacker -- even an attacker who has access to other Gadgets based on the same app.</p><p>2. Since everyone is running their own copy of the code, everyone can freely modify their copy of the code.</p><p>Think about #2 a bit more.</p><p>What if, when you wanted a new feature in the software you are using, you could just prompt your agent to add it?</p><p>This doesn&#x27;t work in the cloud Software-as-a-Service model, because you are not running your own copy of the app.</p><p>Sandstorm tried to change that 10 years ago, but the world wasn&#x27;t ready, because not enough people had the skills or patience to actually modify their software. AI has changed that. Now you just ask the agent -- the same agent that you are using to help you interact with the Gadget can also modify the code of the Gadget.</p><p>And it is so fun.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://openreview.net/challenge?redirect=%2Fforum%3Fid%3DklU4737opt" target="_blank" rel="noopener">Position: LLMs Can&#x27;t Jump</a></h2></div><p class="title-tr">立场：大语言模型不会跳跃</p><div class="meta">▲ 249 分 · theanonymousone · <a href="https://news.ycombinator.com/item?id=49181083" target="_blank" rel="noopener">171 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者认为，当前大模型受限于语言训练数据——语言是对人类体验的有损编码，难以复现爱因斯坦通过物理直觉和思想实验（如同“等效原理”）产生新公理的那种概念跳跃。这不是否定 AI 在科学中的价值，而是指出模型缺乏超越文本分布的模拟能力。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 把 LLM 类比为你所熟悉的训练数据分布约束：如果训练数据只包含语言描述，模型很难学会语言背后需要物理世界交互才能获得的直觉和模拟能力。</p><ul class="kp"><li>论文从<strong>爱因斯坦建立广义相对论时提出等效原理</strong>的过程出发，探讨 AI 实现类似思想跳跃的缺失能力。</li><li>论点核心：<strong>语言是对人类体验的有损编码</strong>，因此仅基于语言训练的 LLM 难以超越经验分布来进行根本性科学创新。</li><li>作者 Tom Zahavy 澄清，这只是<strong>个人立场，不代表 DeepMind 公司观点</strong>，且他本人正是 AlphaProof（首个在国际数学奥林匹克获奖的 AI 系统）的核心贡献者。</li><li>文章并未宣判 LLM 是死胡同，指出<strong>扩大规模或改进当前方法仍可能带来新发现</strong>，只是认为直觉式跳跃是值得探索的方向。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区争论点在于语言是否足以承载创新所需的全部信息，以及爱因斯坦是否真的仅靠思想实验推导狭义相对论，还是离不开对麦克斯韦方程对称性的研究。</p><div class="tags"><span class="tag">LLM 局限性</span><span class="tag">科学发现</span><span class="tag">思想实验</span><span class="tag">AI 推理</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · gabbagool · 8 回复</div><p>Probably too late for this, but I have argued before that language is a fundamentally lossy encoding of the human experience. We do our best to describe what we&#x27;re seeing and experiencing using language, which is fantastically expressive, but it has its limits. I think we see glimpses of this when we find ourselves saying things such as, &quot;it&#x27;s impossible to put it into words&quot; or we overload certain words when we mean very different things, such as, &quot;I love my children&quot; or &quot;I love apple pie&quot;. Clearly the word &quot;love&quot; here has a certain magnitude that is not being expressed, yet it is understood by the listener somehow.</p><p>So, I do sort of buy into this idea that Einstein was simulating the world and running experiments on those simulations in ways that were beyond what you could encode in natural language. Will AI be capable of doing this, if it is bounded by training data that is composed almost entirely on language? One might argue that if AI is training on a lossy encoding/representation of the human experience, how will it be able to simulate anything beyond that experience? Unless it does so in a way that we manage to do when we image objects beyond 3D.  But now I&#x27;m just rambling.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://cacm.acm.org/blogcacm/goodharts-law-comes-for-every-benchmark-you-trust/" target="_blank" rel="noopener">Goodhart&#x27;s Law Comes for Every Benchmark You Trust</a></h2></div><p class="title-tr">古德哈特定律降临到每一个你信任的基准</p><div class="meta">▲ 70 分 · pseudolus · <a href="https://news.ycombinator.com/item?id=49126716" target="_blank" rel="noopener">31 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">文章指出任何公开基准一旦成为优化目标就会失效。由于正文无法获取，信息有限。HN 评论核心结论：非公开、定期刷新的基准是唯一有效防御，但基准本身漏洞百出且难以完全避免数据污染。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 古德哈特定律源于经济学，指当一个度量变成目标时就不再有效。这与你熟悉的过拟合现象本质一致：模型在基准上优化，不代表真实能力提升。</p><ul class="kp"><li><strong>私有、定期更新的基准</strong>被视为对抗古德哈特定律的唯一有效干预，能防止模型针对性训练。</li><li>公开基准普遍存在<strong>数据污染、答案泄露</strong>等问题，例如 MCQA 题目自身可能泄露答案，编码基准有时忘记删除 .git。</li><li>评论者认为<strong>花更少成本反复调用 DeepSeek 比追求高基准分数更实际</strong>，最终用户应关注自身任务的准确性而非排名。</li><li>有观点调侃称，<strong>预测真实世界事件的任务不会被古德哈特化</strong>，因为结果不可预知。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论一致反对公开基准的可靠性，争论点是私有基准能否彻底解决作弊问题，以及低成本、实际任务表现是否比任何基准都更有说服力。</p><div class="tags"><span class="tag">基准污染</span><span class="tag">古德哈特定律</span><span class="tag">模型评估</span><span class="tag">私有基准</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · StilesCrisis · 4 回复</div><p>Had to stop reading when the article devolved into Claude spam. &quot;defensible in isolation,&quot; &quot;honestly ranked,&quot; ugh. Please write your own blog post.</p></div></div></article>
+</div></main>
+<footer>generated 2026-08-06 03:34 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-06", "pointsLabel": "分", "commentsLabel": "评论", "title": "LLMs won't break symmetric crypto", "titleTranslation": "LLMs 不会破解对称加密", "summary": "Anthropic 用 LLM 发现针对后量子方案 HAWK 的密钥恢复攻击，将 HAWK-512 安全位数从 128 位降至最多 108 位，但对实际使用无直接威胁。作者论证 LLM 不会破解对称加密，核心理由是密码没有可被简约化的数学结构，且经受数十年实战检验，而主要分析手段差分密码分析已高度成熟。", "keyPoints": ["Anthropic 的 Mythos 模型攻破 HAWK-512，最高将安全位数从 128 降至 108 位，但仍不实用。", "对 7 轮 AES-128 的攻击不构成实际威胁，亮点在于 AES 的新分析极罕见，且模型未发现更强结果。", "称对称密码是“泥潭上的拖拉机”：设计故意制造无规律运算，消除数学结构，主要只能靠差分偏差做经验性分析。"], "discussion": "评论分歧在于：一方认为 LLM 终究能通过大量经验测试超越人类，另一方坚称对称密码经数十年实战打磨，混乱设计的“抗简化”特性会天然抵御任何智能。", "tags": ["对称加密", "密码分析", "LLM 安全应用"], "score": 47, "comments": 34, "by": "rowbin", "url": "https://www.bfswa.blog/p/llms-wont-break-symmetric-crypto", "hnUrl": "https://news.ycombinator.com/item?id=49191365"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-06", "pointsLabel": "分", "commentsLabel": "评论", "title": "Changes at Google DeepMind: Demis Hassabis from CEO to Chair, Jeff Dean departs", "titleTranslation": "Google DeepMind 人事变动：Demis Hassabis 从 CEO 转任主席，Jeff Dean 离开", "summary": "谷歌 AI 大改组：DeepMind CEO Demis Hassabis 转任 Alphabet 首席科学家兼 Chair，CTO Koray Kavukcuoglu 接掌 Google DeepMind；传奇工程师 Jeff Dean 与 Sanjay Ghemawat 离职创立 Discovery Loop，谷歌作为创始投资者。此次重组正值 Gemini 应用触达 9.5 亿月活但在前沿模型发布上近 14 个月空窗，市场反应剧烈，股价下跌约 5%。", "keyPoints": ["Demis Hassabis 卸任 CEO，转任 Google DeepMind Chair 和 Alphabet 首席科学家，将专注 AGI 战略与外部对话。", "Koray Kavukcuoglu 升任 Google DeepMind SVP，直接向 Sundar Pichai 汇报，统管 Gemini 模型、前沿研究和应用。", "Jeff Dean 和 Sanjay Ghemawat 离开谷歌，创立公益公司 Discovery Loop，专注自动化 ML、科学与工程加速发现。"], "discussion": "评论区主流共识是 Jeff Dean 和 Sanjay Ghemawat 的离开是谷歌的重大人才损失，同时质疑 DeepMind 从纯研究转向商业化的压力导致人才加速流失与前沿模型进展停滞。", "tags": ["AI 领导层变动", "Google DeepMind", "人才流失"], "score": 521, "comments": 618, "by": "colesantiago", "url": "https://blog.google/company-news/inside-google/message-ceo/next-chapter-ai-momentum/", "hnUrl": "https://news.ycombinator.com/item?id=49184755"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-06", "pointsLabel": "分", "commentsLabel": "评论", "title": "Muse Code and Muse Spark 1.2", "titleTranslation": "Muse Code 与 Muse Spark 1.2", "summary": "Meta 发布终端编码代理 Muse Code 和新模型 Muse Spark 1.2，主打低价：若允许数据用于训练，API 输入价格 $0.10/百万 token（标准价 1/10）。HN 评论质疑基准对比不透明、免费条款悄然变更，认为距离前沿仍有差距。", "keyPoints": ["Muse Code beta 发布，终端内可协调多个持久化异步子代理，处理跨仓库的复杂软件工程任务。", "Muse Spark 1.2 专攻编程，通过拒绝采样和长时标任务协同训练，代码生成与复杂调试能力比前代提升。", "贡献者计划下 API 定价为 $0.10/百万 token 输入、$0.20/百万 token 输出，前提是允许 Meta 使用数据训练。"], "discussion": "评论肯定低价策略，但普遍质疑基准对比不诚实、免费额度条款突然修改增加数据使用风险，且部分用户担忧无法设置消费上限。", "tags": ["AI 编码代理", "模型定价", "基准透明度"], "score": 201, "comments": 118, "by": "paulkrush", "url": "https://research.meta.ai/blog/introducing-muse-code-and-muse-spark-1-2", "hnUrl": "https://news.ycombinator.com/item?id=49187575"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-06", "pointsLabel": "分", "commentsLabel": "评论", "title": "Beating GPT-5.6 Sol on retrieval with 100x cheaper open models", "titleTranslation": "用便宜100倍的开源模型在检索任务上击败GPT-5.6 Sol", "summary": "Castform 借助 Neon 数据库进行 RL 后训练，让开源小模型在检索任务上性能超过 GPT-5.6 Sol，而成本仅为其 1%。企业可直接用现有文档自动生成训练数据，无需自建 ML 基础设施。", "keyPoints": ["单次多轮搜索成本约 $0.03、耗时超 10 秒，开源模型通过 RL 后训练成本降至 1% 且性能反超。", "Castform 自动将企业知识库（文档、客服记录等）转化为问题-答案训练对，降低数据准备门槛。", "Neon 动态计算扩展 在训练爆发期吸收搜索峰值，分支与时间旅行查询实现有状态代理的隔离训练环境。"], "discussion": "HN 评论质疑缺少与更便宜模型（如 Luna）及标准检索基准的对比，同时认同专业化小模型是趋势。", "tags": ["RL 后训练", "检索增强生成", "开源模型"], "score": 241, "comments": 59, "by": "moonikakiss", "url": "https://neon.com/blog/how-castform-neon-beats-frontier-models-on-price-and-efficiency", "hnUrl": "https://news.ycombinator.com/item?id=49186762"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-06", "pointsLabel": "分", "commentsLabel": "评论", "title": "Born Against, or why hobby programming communities are against LLM usage", "titleTranslation": "Born Against，或为何业余编程社区反对 LLM 使用", "summary": "业余编程社区（如棋类引擎、OS 开发）的核心是掌握艰难领域的过程，代码能运行只是附带品。LLM 在此被视作跳过学习曲线的作弊，与重视缓慢积累、深度理解的社区文化根本冲突。", "keyPoints": ["业余编程社区（OS 开发、棋类引擎等）的核心价值在于学习过程本身，而非产出可运行的代码。", "LLM 生成代码被视作作弊，因为它绕过艰难的知识掌握阶段，与社区靠时间积累尊重的传统相悖。", "早期引入 LLM 因使用者的深度不足和社区的激烈反对迅速恶化，强化了敌意氛围。"], "discussion": "共识认为爱好者享受编程过程自然排斥 LLM 代劳，类似赛车禁用辅助驾驶；分歧在于 LLM 是否可作为知识探索工具，但对低质量、抄袭内容涌入社区普遍担忧。", "tags": ["业余编程", "LLM 使用态度", "人类技艺"], "score": 160, "comments": 161, "by": "lladnar", "url": "https://blog.fogus.me/llm/born-against.html", "hnUrl": "https://news.ycombinator.com/item?id=49187061"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-06", "pointsLabel": "分", "commentsLabel": "评论", "title": "Prime Agent: A self-improving RLM agent", "titleTranslation": "Prime Agent：一个自我改进的 RLM 智能体", "summary": "Prime Agent 是基于递归语言模型（RLM）与持续框架（Continual Harness）的开源自改进编码智能体。它允许智能体以编程方式管理上下文、生成并消息持久化子智能体，并从运行轨迹中更新提示、记忆和技能，已在 ARC-AGI-3 基准上接近饱和。", "keyPoints": ["基于 IPython 内核的 REPL 作为唯一工具，子智能体调用通过异步函数实现并行扇出与持久化消息通信。", "持续框架让智能体对提示、记忆、技能和子智能体进行 CRUD 操作，并依据运行轨迹在线自我改进，编辑可回溯、可回滚。", "完全开源，安装仅需一行 curl 命令；后台守护进程管理所有会话，支持会话恢复、状态快照和嵌套子智能体导航。"], "discussion": "有评论指出 LLM 生成的代理代码存在大量膨胀，怀疑模型目前并不擅长自行优化框架；另有用户认为基础模型已逐渐不需要此类复杂框架。", "tags": ["AI 智能体", "自改进系统", "RLM"], "score": 120, "comments": 20, "by": "Xeophon", "url": "https://www.primeintellect.ai/blog/prime-agent", "hnUrl": "https://news.ycombinator.com/item?id=49189075"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-06", "pointsLabel": "分", "commentsLabel": "评论", "title": "Atlassian Rovo Exfiltrates Data, Bypassing Controls", "titleTranslation": "Atlassian Rovo 绕过控制导致数据外泄", "summary": "安全研究揭示 Atlassian Rovo AI 通过间接提示注入实现数据外泄，攻击者无需用户审批即可窃取 Jira 工单、Confluence 文档等敏感内容，即使已禁用网页搜索仍可绕过，漏洞已报告两个多月但 Atlassian 尚未修复或回应。", "keyPoints": ["Atlassian Rovo 的 URL 检索工具缺少对动态生成 URL 的防护，导致间接提示注入可窃取数据。", "攻击可在无需任何人工审批的情况下完成，即使组织已禁用网页搜索，漏洞仍然有效。", "PromptArmor 于 5 月 23 日 报告该问题，两个多月后 Atlassian 仍未修复或进一步沟通。"], "discussion": "评论区认为这是所有代理式 AI 工具的共同弱点，安全与有用性之间存在固有取舍，但普遍对 Atlassian 强制集成 Rovo 且修复迟缓表示不满。", "tags": ["AI 安全", "间接提示注入", "数据外泄"], "score": 185, "comments": 71, "by": "hackerBanana", "url": "https://www.promptarmor.com/resources/atlassian-rovo-exfiltrates-data", "hnUrl": "https://news.ycombinator.com/item?id=49185983"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-06", "pointsLabel": "分", "commentsLabel": "评论", "title": "Cloudflare OS: an open platform for agents, apps, and work", "titleTranslation": "Cloudflare OS：一个面向智能体、应用和工作的开放平台", "summary": "Cloudflare 开源了内部 AI 工作平台 Cloudflare OS，让任何组织部署一个将 AI 代理、安全沙箱和个人化应用结合的平台。该平台基于 Sandstorm 的安全模型，确保非技术人员可安全构建代码，代理通过 Gatekeeper 机制受控访问内部数据，并自动记录资源观察以防止泄密。", "keyPoints": ["Cloudflare OS 已开源，任何组织可自行部署，连接内部系统，构建自己的代理工作台。", "安全模型采用 Gatekeeper 和资源观察日志，代理初始无访问权限，所有资源访问经细粒度策略控制和审计，防止数据间接泄露。", "每个应用作为独立沙箱 Gadget 运行，用户可要求代理修改代码，且安全团队无需担心非技术人员引入安全漏洞。"], "discussion": "评论普遍不满“OS”的滥用命名，担忧 Cloudflare 平台锁定，同时质疑允许每位用户自定义应用代码会导致数据模型冲突和 HIPAA 等合规风险，但认可 Sandstorm 安全模型与 AI 结合的创新。", "tags": ["企业 AI 平台", "安全沙箱", "开源工具"], "score": 488, "comments": 251, "by": "speckx", "url": "https://blog.cloudflare.com/cloudflare-os/", "hnUrl": "https://news.ycombinator.com/item?id=49182996"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-06", "pointsLabel": "分", "commentsLabel": "评论", "title": "Position: LLMs Can't Jump", "titleTranslation": "立场：大语言模型不会跳跃", "summary": "作者认为，当前大模型受限于语言训练数据——语言是对人类体验的有损编码，难以复现爱因斯坦通过物理直觉和思想实验（如同“等效原理”）产生新公理的那种概念跳跃。这不是否定 AI 在科学中的价值，而是指出模型缺乏超越文本分布的模拟能力。", "keyPoints": ["论文从爱因斯坦建立广义相对论时提出等效原理的过程出发，探讨 AI 实现类似思想跳跃的缺失能力。", "论点核心：语言是对人类体验的有损编码，因此仅基于语言训练的 LLM 难以超越经验分布来进行根本性科学创新。", "作者 Tom Zahavy 澄清，这只是个人立场，不代表 DeepMind 公司观点，且他本人正是 AlphaProof（首个在国际数学奥林匹克获奖的 AI 系统）的核心贡献者。"], "discussion": "评论区争论点在于语言是否足以承载创新所需的全部信息，以及爱因斯坦是否真的仅靠思想实验推导狭义相对论，还是离不开对麦克斯韦方程对称性的研究。", "tags": ["LLM 局限性", "科学发现", "思想实验"], "score": 249, "comments": 171, "by": "theanonymousone", "url": "https://openreview.net/challenge?redirect=%2Fforum%3Fid%3DklU4737opt", "hnUrl": "https://news.ycombinator.com/item?id=49181083"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-06", "pointsLabel": "分", "commentsLabel": "评论", "title": "Goodhart's Law Comes for Every Benchmark You Trust", "titleTranslation": "古德哈特定律降临到每一个你信任的基准", "summary": "文章指出任何公开基准一旦成为优化目标就会失效。由于正文无法获取，信息有限。HN 评论核心结论：非公开、定期刷新的基准是唯一有效防御，但基准本身漏洞百出且难以完全避免数据污染。", "keyPoints": ["私有、定期更新的基准被视为对抗古德哈特定律的唯一有效干预，能防止模型针对性训练。", "公开基准普遍存在数据污染、答案泄露等问题，例如 MCQA 题目自身可能泄露答案，编码基准有时忘记删除 .git。", "评论者认为花更少成本反复调用 DeepSeek 比追求高基准分数更实际，最终用户应关注自身任务的准确性而非排名。"], "discussion": "HN 评论一致反对公开基准的可靠性，争论点是私有基准能否彻底解决作弊问题，以及低成本、实际任务表现是否比任何基准都更有说服力。", "tags": ["基准污染", "古德哈特定律", "模型评估"], "score": 70, "comments": 31, "by": "pseudolus", "url": "https://cacm.acm.org/blogcacm/goodharts-law-comes-for-every-benchmark-you-trust/", "hnUrl": "https://news.ycombinator.com/item?id=49126716"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
