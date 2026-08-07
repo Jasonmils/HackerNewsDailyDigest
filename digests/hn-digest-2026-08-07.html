@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-08-07</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-08-07 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://www.theregister.com/systems/2026/08/06/amd-acquires-ai-chip-startup-taalas-to-boost-inference-performance-by-etching-models-into-silicon/5284344" target="_blank" rel="noopener">AMD acquires Taalas to boost inference performance by etching models in silicon</a></h2></div><p class="title-tr">AMD 收购 Taalas，通过将模型蚀刻到硅中提升推理性能</p><div class="meta">▲ 426 分 · itvision · <a href="https://news.ycombinator.com/item?id=49201970" target="_blank" rel="noopener">332 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">AMD 收购 AI 芯片初创公司 Taalas，其技术可将特定模型直接固化到 ASIC 芯片中，演示中实现每秒 17,000 token 的推理速度。此举旨在通过专用硬件降低推理成本、建立竞争壁垒，但面临模型迭代快于芯片制造周期的核心矛盾。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 将模型“蚀刻到硅中”相当于把训练好的神经网络权重量化并硬编码到专用集成电路（ASIC）中，类似将软件模型“烧录”为只读硬件，从而大幅降低单次推理的延迟和能耗，但失去灵活性。</p><ul class="kp"><li>AMD 收购 Taalas，后者演示了<strong>每秒 17,000 token</strong> 的模型专属集成电路推理速度。</li><li>该技术将模型权重直接固化到芯片中，类似谷歌将量化模型部署在 TPU 上的实验项目，但走得更远。</li><li>核心矛盾：<strong>模型更新速度快于芯片设计周期</strong>，固化芯片可能一量产就已落后一到数代。</li><li>HN 评论指出，如果成本足够低，这种<strong>不计较模型新鲜度的高通量推理</strong>在特定场景仍有市场。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区核心分歧在于模型快速迭代与硬件固化之间的根本矛盾能否被低成本优势克服，同时有人畅想未来黑市流通固化特定模型芯片的科幻场景。</p><div class="tags"><span class="tag">AI 芯片</span><span class="tag">推理加速</span><span class="tag">ASIC</span><span class="tag">AMD 收购</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · whythismatters · 15 回复</div><p>The demo: https://chatjimmy.ai/</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://www.aleksagordic.com/blog/vllm" target="_blank" rel="noopener">Inside vLLM: Anatomy of a High-Throughput LLM Inference System (2025)</a></h2></div><p class="title-tr">深入 vLLM：高吞吐量 LLM 推理系统解剖（2025）</p><div class="meta">▲ 74 分 · sebg · <a href="https://news.ycombinator.com/item?id=49202852" target="_blank" rel="noopener">3 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">vLLM V1 引擎通过页式注意力、连续批处理与优先解码调度，将预填充与解码混合执行，单 GPU 即可实现高吞吐离线推理；文章详述了从调度、KV 缓存分配到多 GPU 扩展的全链路机制。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 页式注意力类似操作系统的虚拟内存分页，将每个请求的键值缓存划分为定长块，动态分配 GPU 显存，避免传统预分配导致的内存碎片和浪费。</p><ul class="kp"><li><strong>调度器</strong>优先处理解码请求，再为等候队列中的预填充请求按需分配 KV 缓存块，混合执行以提高 GPU 利用率。</li><li><strong>KV 缓存管理器</strong>使用空闲块链表分配 16 令牌大小的块，支持重算抢占（V1）以腾退低优先级请求，缓解显存溢出。</li><li><strong>前缀缓存</strong>可跳过已计算的部分提示，结合推测解码与分离式预填充/解码架构，进一步降低首令牌延迟。</li><li><strong>从单 GPU 到多 GPU</strong>，通过多进程执行器与分布式客户端实现异步在线服务，支持动态注入新请求。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区认为 vLLM 的价值已超越页式注意力，更在于前后端分离、连续批处理等工程落地，并对比了 nano-vllm 精简实现与 RadixAttention。</p><div class="tags"><span class="tag">LLM 推理</span><span class="tag">vLLM</span><span class="tag">系统优化</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · BinRoo · 1 回复</div><p>Love that this goes beyond paged attention. Curious how this compares with Radix Attention [1]?</p><p>[1] https://sgl-project-sglang-93.mintlify.app/concepts/radix-at...</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://herdr.dev/blog/herdr-is-joining-y-combinator/" target="_blank" rel="noopener">Herdr is joining Y Combinator. The runtime stays open</a></h2></div><p class="title-tr">Herdr 加入 Y Combinator，运行时保持开放</p><div class="meta">▲ 160 分 · collinmanderson · <a href="https://news.ycombinator.com/item?id=49201003" target="_blank" rel="noopener">108 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Herdr 是一个管理多个 CLI 编码代理的终端运行环境，在获得 2.5 万 GitHub Stars 和 34 万次下载后，以单人项目身份加入 Y Combinator F26 批次。核心运行时从 AGPL 改为 Apache 2.0 并承诺保持免费开源，未来将围绕开放核心构建商业功能。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可以把 Herdr 想象成一个运行和管理多个 AI 编程助手的终端工作台：它让不同的 AI 代理在各自的终端标签页中长时间稳定工作，而不需要你频繁切换或安装额外工具。</p><ul class="kp"><li><strong>获得 2.5 万 GitHub Stars 和 34 万次下载</strong>，以唯一开发者身份被 Y Combinator 录取。</li><li><strong>许可证从 AGPL 切换为 Apache 2.0</strong>，官方解释是为了让更多人自由使用，评论质疑 AGPL 的实际障碍。</li><li><strong>超过 500 个插件</strong>在一个月内出现，社区自发构建了多个客户端，显示出强烈的平台化潜力。</li><li><strong>YC 已投资多家同类产品</strong>，包括 Superset、cmux、Emdash 等，终端多路复用与代理编排赛道高度拥挤。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论核心分歧在于：开源在此类开发者工具中究竟是真需求还是营销手段，以及为何要从 AGPL 切换到更宽松的 Apache 协议；同时多人提醒 YC 已密集布局同赛道，竞争压力明显。</p><div class="tags"><span class="tag">开源协议</span><span class="tag">终端多路复用器</span><span class="tag">YC 投资</span><span class="tag">开发者工具</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · ahmadyan · 8 回复</div><p>Congrats to Can on the pre-seed funding. genuinely wishing you all the best.</p><p>The terminal multiplexer / multi-agent coding space is getting very crowded. YC alone has funded many competing startups in this space: herdr, Superset, cmux, Emdash, Orca, Bullet, Conductor (Conductor was in YC before pivoting from chat-&gt;coding). I’m probably missing a few, and that’s before counting companies outside YC such as Superlogical and Agentastic.dev (by yours truly).</p><p>One thing I find particularly interesting is the role of open source in this market.</p><p>A lot of these products started open source (i assume as a tactical way to gain traction and build a community). But after the early traction phase or raise funding, the incentives seem to change.</p><p>Being open source by itself is not a product differentiator in this market. The features required for string positioning (orchestration, cloud, custom agents, enterprise features, hosted infrastructure, etc.) often end up either closed source or available only through the hosted product.</p><p>That makes me wonder how much developers actually value OSS for this category. How much does it matter to you whether your IDE or coding environment is open source?</p><p>Is OSS important because you want to inspect the code, fork it, self-host it, avoid vendor lock-in, or simply because you trust open-source developer tools more? Or, for desktop software like IDEs is open source mostly a nice-to-have rather than a requirement? So I’m curious where HN lands on this</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://openai.com/index/improving-gpt-5-6-sol-in-chatgpt/" target="_blank" rel="noopener">Improving GPT‑5.6 Sol in ChatGPT, expanding GPT‑5.6 Luna access for free users</a></h2></div><p class="title-tr">改进 ChatGPT 中的 GPT‑5.6 Sol，为免费用户扩展 GPT‑5.6 Luna 访问权限</p><div class="meta">▲ 168 分 · tedsanders · <a href="https://news.ycombinator.com/item?id=49199357" target="_blank" rel="noopener">122 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OpenAI 向免费用户开放 GPT-5.6 Luna 的推理能力（“思考”切换），并将默认模型切换至 Luna。虽具体细节未知，此举标志着免费层获得此前仅付费用户可用的深度推理功能，直接影响数亿用户的产品体验，并反映 AI 聊天产品商品化压力下免费与付费界限的模糊。</p><ul class="kp"><li><strong>免费用户</strong>首次获得 GPT-5.6 Luna 的“思考”推理切换，评论认为其影响可能超越所有新付费模型与编程助手之和。</li><li>默认 ChatGPT 模型切换至 <strong>GPT-5.6 Luna</strong>，进一步缩小了免费与付费层体验差距，类似 Claude 长期对免费用户提供 Sonnet 的策略。</li><li>此次更新被部分解读为应对 <strong>AI 产品商品化</strong> 压力，免费层能力持续增强可能侵蚀付费差异化，冲击 OpenAI 的营收模型。</li><li>GPT-5.6 Sol 仅针对日常聊天优化，不改变 <strong>GPT-5.6 Pro</strong> 在工作和代码场景的能力。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论分歧在于此举是主动普惠、效率提升后的自然红利，还是被 AI 聊天产品商品化压力倒逼的防守动作；多数认同免费推理能力的开放比单纯发布新模型影响更广。</p><div class="tags"><span class="tag">AI 产品策略</span><span class="tag">大模型推理</span><span class="tag">免费商业模式</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · ElijahLynn · 8 回复</div><p>I can&#x27;t wait to never see a reasoning button ever again. Why do I have to reason about what reasoning level to use?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://provenmetal.com" target="_blank" rel="noopener">Launch HN: ProvenMetal (YC S26) delivers circuit boards in days instead of weeks</a></h2></div><p class="title-tr">Launch HN: ProvenMetal (YC S26) 在数天内而非数周内交付电路板</p><div class="meta">▲ 187 分 · willcarkner · <a href="https://news.ycombinator.com/item?id=49198464" target="_blank" rel="noopener">133 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">ProvenMetal 通过自动化报价、设计审查与元件采购等前端流程，将美国本土 PCB 组装周期压缩至 5 天，并利用 KiCAD/Altium 插件提前订购长交期零件以解决核心瓶颈。美国 PCB 产能占比已从 2000 年的 30% 跌至 4%，该公司 6 周内以 11 个订单实现 7 万美元收入。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可类比硬件产品中的“供应链自动化”：核心痛点是元件采购和多方沟通延误，组装本身反而不是瓶颈，该公司等于在前端建了一个 AI 驱动的供应链协调层。</p><ul class="kp"><li>美国 PCB 制造全球份额从 2000 年的 <strong>30% 跌至 4%</strong>，极度依赖中国供应。</li><li>最大瓶颈不是组装速度，而是 <strong>元件采购和前端沟通</strong>，长交期芯片常导致数周延误。</li><li>通过 <strong>KiCAD 与 Altium 插件</strong> 在设计阶段提前抓取物料清单，自动采购长交期零件并建议替代料。</li><li>面向国防和无人机等对本土制造有强制要求的客户，<strong>11 个订单收入 7 万美元</strong>，采用透明加价模式。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍认为中国 PCB 价格极低且交期也很快，质疑本土方案的成本竞争力，并建议提供 Net 90 信用额度缓解硬件初创的现金流压力。</p><div class="tags"><span class="tag">PCB 制造</span><span class="tag">硬件供应链</span><span class="tag">YC 创业公司</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · ac29 · 7 回复</div><p>Any idea what pricing will be like? The fact that you call out Drone and Defense industries on your page suggests to me this is extremely expensive.</p><p>I recently priced out getting a PCB done in China and its insanely cheap. My design isnt complicated, a few ICs, a few connectors, an a dozen or so passives. PCB manufacturing, parts, and soldering/assembly is on the order of $10-20 total per board and that is with zero volume discounts. The parts alone would cost that much in the US, and I suspect the sort of companies that you contract out to also aren&#x27;t really interested in tiny orders so they would probably quote huge setup fees (looks like your average order so far is ~$7000).</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://scalex.dev/blog/ai-agent-permissions-stats/" target="_blank" rel="noopener">Humans missed 1 in 3 threats approving AI agent commands across 40k game runs</a></h2></div><p class="title-tr">在 4 万次游戏运行中，人类错过了三分之一审批 AI 智能体命令中的威胁</p><div class="meta">▲ 260 分 · Wirbelwind · <a href="https://news.ycombinator.com/item?id=49195468" target="_blank" rel="noopener">194 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">一个模拟 AI 编码代理的网页游戏统计显示：玩家平均漏掉约 33% 的威胁命令，其中 `npm run` 类伪装攻击被误批率高达 52.5%，远高于明显的破坏性命令（11.7%）。暴露了人在回路模式因审批疲劳而失效的固有问题。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 类似模型对对抗性输入脆弱，人类审批者在面对大量无害命令时也会因疲劳而忽略恶意载荷；这里的「人在回路中」安全模式要求用户实时审核 AI 代理调用的每条系统命令，但攻击者可通过 `npm run build` 这样看似正常的脚本绑定恶意行为，绕过审查。</p><ul class="kp"><li>平均玩家错过 <strong>33%</strong> 的威胁命令（66.3% 正确率），32.9% 的游戏会话因错误审批而最终得分为负。</li><li>`npm run analyze` 被 <strong>64.7%</strong> 玩家错误批准，三个 `npm run` 威胁整体误批率达 52.5%，显示出对常见命令名的盲目信任。</li><li>明显破坏性命令（如 `rm -rf /`）错过率仅 <strong>11.7%</strong>，而凭据窃取或代码执行类威胁错过率高达 33-35%，表明隐蔽攻击更难察觉。</li><li>43-59% 的玩家过度拒绝了无害操作（如 `npm config set registry`），过度封锁同样会降低效率，加剧审批疲劳。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论普遍认为测试设计（时间压力、无真实后果）使数据意义有限，但更深共识是“不断弹窗让用户批准”的安全模型注定失效，与历史上反复失败的权限提示同理。</p><div class="tags"><span class="tag">AI 代理安全</span><span class="tag">HITL 人机协同</span><span class="tag">命令审批</span><span class="tag">npm 供应链攻击</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · continuational · 19 回复</div><p>It&#x27;s kinda funny there is still software coming out whose security model is &quot;constantly ask the user for permission, and hope they never make a mistake&quot;.</p><p>It&#x27;s been tried so many times before, and it never worked.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://github.com/CopilotKit/channels-sdk" target="_blank" rel="noopener">Show HN: The Channels SDK – Bring Any Agent to Any Channel (Slack, MS Teams)</a></h2></div><p class="title-tr">Show HN: Channels SDK – 将任意 AI 代理带入任意沟通渠道（Slack、MS Teams）</p><div class="meta">▲ 91 分 · davidmckayv · <a href="https://news.ycombinator.com/item?id=49198583" target="_blank" rel="noopener">20 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">CopilotKit 发布 Channels SDK（MIT 协议），通过 AG-UI 协议将任意代理框架（LangGraph、CrewAI 等）接入 Slack 与 Microsoft Teams，并生成原生交互 UI，保留代理自身的模型与工具链。</p><p class="context"><strong>🧭 联系你的知识背景</strong> AG-UI 是一种定义代理与前端 UI 如何通信的协议，类似你熟悉的 API 接口规范，使得不同框架的代理都能在聊天工具里渲染按钮、卡片等原生组件。</p><ul class="kp"><li>一个 <strong>`npx copilotkit@latest channels setup`</strong> 命令即可引导代理自动完成 Slack/Teams 配置，无需手动处理平台凭证。</li><li>SDK 将每个平台的 Webhook 和 UI 组件（如 Slack Block Kit）<strong>统一抽象为虚拟 DOM</strong>，代理可使用一套 JSX 输出跨平台原生消息。</li><li>代理的模型、工具和业务逻辑<strong>全部运行在用户自己的基础设施</strong>中，CopilotKit Intelligence 仅管理平台连接与消息传递。</li><li>开源范围仅限客户端 SDK，<strong>Intelligence 后端可自托管但源码未开放</strong>，引起社区对“真开源”定义的争议。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区分歧集中在许可证边界：SDK 本身为 MIT，但核心连接管理服务是闭源的，此外也有人担忧聊天机器人会污染 Slack 工作区。</p><div class="tags"><span class="tag">AI 代理</span><span class="tag">Slack 集成</span><span class="tag">AG-UI 协议</span><span class="tag">开源协议</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · opwizardx · 2 回复</div><p>Is it like a proprietary wrapper for Vercel’s Chat SDK (https://github.com/vercel/chat)?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://artificialanalysis.ai/?intelligence=agentic-index" target="_blank" rel="noopener">Qwen3.8 Max now ranked as the best overall model by agentic index</a></h2></div><p class="title-tr">Qwen3.8 Max 在 agentic 指数中被评为最佳综合模型</p><div class="meta">▲ 454 分 · apitman · <a href="https://news.ycombinator.com/item?id=49200652" target="_blank" rel="noopener">289 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Qwen3.8 Max 在 Artificial Analysis 的 Agentic Index 中以 55.4 分首次超越 Opus Max（55.3 分），随后分数反覆引发争议。中国模型在智能体任务能力上已实质性追平甚至反超西方最前沿模型，Qwen 在诊断故障和日志统计分析上表现突出。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Agentic Index 衡量模型在真实工作流程中自主使用工具、执行长期任务的综合能力，相当于把模型当作一个能独立交付文档、排查故障的“数字员工”来评估，与你熟悉的Transformer评测不同，它更关注端到端的生产力而非单点基准分数。</p><ul class="kp"><li><strong>Qwen3.8 Max 在 Agentic Index 上获 55.4 分</strong>，以 0.1 分优势成为首个登顶的中国模型，随后页面分数出现 55.4→58.4→59.2 的动态变化。</li><li><strong>Opus Max 的 Intelligence Index 仍排第一</strong>，但评论区普遍质疑 Opus 性价比：有用户 25 分钟烧掉 $260 却未进入实际实现。</li><li><strong>Qwen 的 27B 小模型即将发布</strong>，若继承同尺度 3.6 版的本地运行优势，可能让本地永久运行 agent 成为默认选项。</li></ul><p class="disc"><strong>💬 讨论</strong> 争议焦点在基准分数的瞬时跳变是否可信，以及按分钟计费的高价模型（Opus）是否真的比 Qwen 等中国模型更胜任实际工作，多数评论倾向认为差距已极小。</p><div class="tags"><span class="tag">AI 模型评测</span><span class="tag">Agentic AI</span><span class="tag">基准可信度</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · onomojo · 13 回复</div><p>Any benchmark showing Opus 5 as the best just loses credibility for me. Anyone who&#x27;s actually used Opus 5 daily knows what I&#x27;m talking about.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://www.sawyerhood.com/blog/an-agentic-ide-that-builds-itself" target="_blank" rel="noopener">An Agentic IDE That Builds Itself</a></h2></div><p class="title-tr">一款自构建的智能 IDE</p><div class="meta">▲ 12 分 · sawyerjhood · <a href="https://news.ycombinator.com/item?id=49203790" target="_blank" rel="noopener">1 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">bb 是一个 MIT 许可的开源智能编排器，允许开发者完全定制自己的 IDE。它支持任意编码代理（如 Codex、Claude Code），用户可通过对话要求 bb 为自己构建新功能，实现了真正的“代码属于你”。</p><p class="context"><strong>🧭 联系你的知识背景</strong> bb 可以理解为一个可编程的 IDE 工作台，用户像搭积木一样用插件组合出所需功能，而非依赖固定功能的 SaaS。</p><ul class="kp"><li><strong>bb</strong> 采用 MIT 协议开源，可与 Codex、Claude Code 等任何支持 ACP 的编码代理协作。</li><li>用户通过对话即可让 bb <strong>自行扩展</strong>，例如内置任务管理、自动化代码审查、Markdown 编辑器甚至数字音频工作站。</li><li>与固定功能 SaaS 不同，每个 bb 实例都因用户定制而<strong>独一无二</strong>，彻底改变了开发者拥有工具的方式。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论者尝试为硬件项目构建 ECAD 插件，并思考这一可定制思路能否扩展到 GTM 等其他领域，显示出对通用插件的兴趣。</p><div class="tags"><span class="tag">开源 IDE</span><span class="tag">智能代理编排</span><span class="tag">开发者工具</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://blog.google/company-news/inside-google/message-ceo/next-chapter-ai-momentum/" target="_blank" rel="noopener">Changes at Google DeepMind: Demis Hassabis from CEO to Chair, Jeff Dean departs</a></h2></div><p class="title-tr">Google DeepMind 人事变动：Demis Hassabis 从 CEO 转任主席，Jeff Dean 离开</p><div class="meta">▲ 827 分 · colesantiago · <a href="https://news.ycombinator.com/item?id=49184755" target="_blank" rel="noopener">887 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">谷歌 AI 大改组：DeepMind CEO Demis Hassabis 转任 Alphabet 首席科学家兼 Chair，CTO Koray Kavukcuoglu 接掌 Google DeepMind；传奇工程师 Jeff Dean 与 Sanjay Ghemawat 离职创立 Discovery Loop，谷歌作为创始投资者。此次重组正值 Gemini 应用触达 9.5 亿月活但在前沿模型发布上近 14 个月空窗，市场反应剧烈，股价下跌约 5%。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Jeff Dean 是谷歌早期搜索基础设施、MapReduce 和 TensorFlow 等核心系统的共同设计者，Sanjay Ghemawat 是他的长期搭档，两人共同奠定了谷歌的工程技术基石。他们的离开意味着谷歌失去两位 27 年级别的系统与 ML 架构师。</p><ul class="kp"><li><strong>Demis Hassabis</strong> 卸任 CEO，转任 Google DeepMind Chair 和 Alphabet 首席科学家，将专注 AGI 战略与外部对话。</li><li><strong>Koray Kavukcuoglu</strong> 升任 Google DeepMind SVP，直接向 Sundar Pichai 汇报，统管 Gemini 模型、前沿研究和应用。</li><li><strong>Jeff Dean 和 Sanjay Ghemawat</strong> 离开谷歌，创立公益公司 Discovery Loop，专注自动化 ML、科学与工程加速发现。</li><li><strong>谷歌股价下跌约 5%</strong>，同时评论区指出 DeepMind 近期流失多位名研究者，Gemini 缺乏重大新模型发布，引发对创新环境的担忧。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区主流共识是 Jeff Dean 和 Sanjay Ghemawat 的离开是谷歌的重大人才损失，同时质疑 DeepMind 从纯研究转向商业化的压力导致人才加速流失与前沿模型进展停滞。</p><div class="tags"><span class="tag">AI 领导层变动</span><span class="tag">Google DeepMind</span><span class="tag">人才流失</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · GodelNumbering · 18 回复</div><p>So, in last several months, all the prominent names Google lost: Demis Hassabis (technically still with google but these things are usually presented with a spin), Jeff Dean, Sanjay Ghemawat, Oriol Vinyals, Quoc Le, Noam Shazeer, John Jumper, Jonas Adler, Alexander Pritzel, David Silver, Denny Zhou, Fernando Pereira, Alex Turner</p><p>And all the prominent names Google gained: NULL</p><p>Combined with no gemini frontier GA release in about 14 months. You have to have created an environment pretty hostile to innovation for this to happen</p></div></div></article>
+</div></main>
+<footer>generated 2026-08-07 03:14 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "AMD acquires Taalas to boost inference performance by etching models in silicon", "titleTranslation": "AMD 收购 Taalas，通过将模型蚀刻到硅中提升推理性能", "summary": "AMD 收购 AI 芯片初创公司 Taalas，其技术可将特定模型直接固化到 ASIC 芯片中，演示中实现每秒 17,000 token 的推理速度。此举旨在通过专用硬件降低推理成本、建立竞争壁垒，但面临模型迭代快于芯片制造周期的核心矛盾。", "keyPoints": ["AMD 收购 Taalas，后者演示了每秒 17,000 token 的模型专属集成电路推理速度。", "该技术将模型权重直接固化到芯片中，类似谷歌将量化模型部署在 TPU 上的实验项目，但走得更远。", "核心矛盾：模型更新速度快于芯片设计周期，固化芯片可能一量产就已落后一到数代。"], "discussion": "HN 评论区核心分歧在于模型快速迭代与硬件固化之间的根本矛盾能否被低成本优势克服，同时有人畅想未来黑市流通固化特定模型芯片的科幻场景。", "tags": ["AI 芯片", "推理加速", "ASIC"], "score": 426, "comments": 332, "by": "itvision", "url": "https://www.theregister.com/systems/2026/08/06/amd-acquires-ai-chip-startup-taalas-to-boost-inference-performance-by-etching-models-into-silicon/5284344", "hnUrl": "https://news.ycombinator.com/item?id=49201970"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "Inside vLLM: Anatomy of a High-Throughput LLM Inference System (2025)", "titleTranslation": "深入 vLLM：高吞吐量 LLM 推理系统解剖（2025）", "summary": "vLLM V1 引擎通过页式注意力、连续批处理与优先解码调度，将预填充与解码混合执行，单 GPU 即可实现高吞吐离线推理；文章详述了从调度、KV 缓存分配到多 GPU 扩展的全链路机制。", "keyPoints": ["调度器优先处理解码请求，再为等候队列中的预填充请求按需分配 KV 缓存块，混合执行以提高 GPU 利用率。", "KV 缓存管理器使用空闲块链表分配 16 令牌大小的块，支持重算抢占（V1）以腾退低优先级请求，缓解显存溢出。", "前缀缓存可跳过已计算的部分提示，结合推测解码与分离式预填充/解码架构，进一步降低首令牌延迟。"], "discussion": "评论区认为 vLLM 的价值已超越页式注意力，更在于前后端分离、连续批处理等工程落地，并对比了 nano-vllm 精简实现与 RadixAttention。", "tags": ["LLM 推理", "vLLM", "系统优化"], "score": 74, "comments": 3, "by": "sebg", "url": "https://www.aleksagordic.com/blog/vllm", "hnUrl": "https://news.ycombinator.com/item?id=49202852"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "Herdr is joining Y Combinator. The runtime stays open", "titleTranslation": "Herdr 加入 Y Combinator，运行时保持开放", "summary": "Herdr 是一个管理多个 CLI 编码代理的终端运行环境，在获得 2.5 万 GitHub Stars 和 34 万次下载后，以单人项目身份加入 Y Combinator F26 批次。核心运行时从 AGPL 改为 Apache 2.0 并承诺保持免费开源，未来将围绕开放核心构建商业功能。", "keyPoints": ["获得 2.5 万 GitHub Stars 和 34 万次下载，以唯一开发者身份被 Y Combinator 录取。", "许可证从 AGPL 切换为 Apache 2.0，官方解释是为了让更多人自由使用，评论质疑 AGPL 的实际障碍。", "超过 500 个插件在一个月内出现，社区自发构建了多个客户端，显示出强烈的平台化潜力。"], "discussion": "评论核心分歧在于：开源在此类开发者工具中究竟是真需求还是营销手段，以及为何要从 AGPL 切换到更宽松的 Apache 协议；同时多人提醒 YC 已密集布局同赛道，竞争压力明显。", "tags": ["开源协议", "终端多路复用器", "YC 投资"], "score": 160, "comments": 108, "by": "collinmanderson", "url": "https://herdr.dev/blog/herdr-is-joining-y-combinator/", "hnUrl": "https://news.ycombinator.com/item?id=49201003"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "Improving GPT‑5.6 Sol in ChatGPT, expanding GPT‑5.6 Luna access for free users", "titleTranslation": "改进 ChatGPT 中的 GPT‑5.6 Sol，为免费用户扩展 GPT‑5.6 Luna 访问权限", "summary": "OpenAI 向免费用户开放 GPT-5.6 Luna 的推理能力（“思考”切换），并将默认模型切换至 Luna。虽具体细节未知，此举标志着免费层获得此前仅付费用户可用的深度推理功能，直接影响数亿用户的产品体验，并反映 AI 聊天产品商品化压力下免费与付费界限的模糊。", "keyPoints": ["免费用户首次获得 GPT-5.6 Luna 的“思考”推理切换，评论认为其影响可能超越所有新付费模型与编程助手之和。", "默认 ChatGPT 模型切换至 GPT-5.6 Luna，进一步缩小了免费与付费层体验差距，类似 Claude 长期对免费用户提供 Sonnet 的策略。", "此次更新被部分解读为应对 AI 产品商品化 压力，免费层能力持续增强可能侵蚀付费差异化，冲击 OpenAI 的营收模型。"], "discussion": "评论分歧在于此举是主动普惠、效率提升后的自然红利，还是被 AI 聊天产品商品化压力倒逼的防守动作；多数认同免费推理能力的开放比单纯发布新模型影响更广。", "tags": ["AI 产品策略", "大模型推理", "免费商业模式"], "score": 168, "comments": 122, "by": "tedsanders", "url": "https://openai.com/index/improving-gpt-5-6-sol-in-chatgpt/", "hnUrl": "https://news.ycombinator.com/item?id=49199357"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "Launch HN: ProvenMetal (YC S26) delivers circuit boards in days instead of weeks", "titleTranslation": "Launch HN: ProvenMetal (YC S26) 在数天内而非数周内交付电路板", "summary": "ProvenMetal 通过自动化报价、设计审查与元件采购等前端流程，将美国本土 PCB 组装周期压缩至 5 天，并利用 KiCAD/Altium 插件提前订购长交期零件以解决核心瓶颈。美国 PCB 产能占比已从 2000 年的 30% 跌至 4%，该公司 6 周内以 11 个订单实现 7 万美元收入。", "keyPoints": ["美国 PCB 制造全球份额从 2000 年的 30% 跌至 4%，极度依赖中国供应。", "最大瓶颈不是组装速度，而是 元件采购和前端沟通，长交期芯片常导致数周延误。", "通过 KiCAD 与 Altium 插件 在设计阶段提前抓取物料清单，自动采购长交期零件并建议替代料。"], "discussion": "评论区普遍认为中国 PCB 价格极低且交期也很快，质疑本土方案的成本竞争力，并建议提供 Net 90 信用额度缓解硬件初创的现金流压力。", "tags": ["PCB 制造", "硬件供应链", "YC 创业公司"], "score": 187, "comments": 133, "by": "willcarkner", "url": "https://provenmetal.com", "hnUrl": "https://news.ycombinator.com/item?id=49198464"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "Humans missed 1 in 3 threats approving AI agent commands across 40k game runs", "titleTranslation": "在 4 万次游戏运行中，人类错过了三分之一审批 AI 智能体命令中的威胁", "summary": "一个模拟 AI 编码代理的网页游戏统计显示：玩家平均漏掉约 33% 的威胁命令，其中 `npm run` 类伪装攻击被误批率高达 52.5%，远高于明显的破坏性命令（11.7%）。暴露了人在回路模式因审批疲劳而失效的固有问题。", "keyPoints": ["平均玩家错过 33% 的威胁命令（66.3% 正确率），32.9% 的游戏会话因错误审批而最终得分为负。", "`npm run analyze` 被 64.7% 玩家错误批准，三个 `npm run` 威胁整体误批率达 52.5%，显示出对常见命令名的盲目信任。", "明显破坏性命令（如 `rm -rf /`）错过率仅 11.7%，而凭据窃取或代码执行类威胁错过率高达 33-35%，表明隐蔽攻击更难察觉。"], "discussion": "HN 评论普遍认为测试设计（时间压力、无真实后果）使数据意义有限，但更深共识是“不断弹窗让用户批准”的安全模型注定失效，与历史上反复失败的权限提示同理。", "tags": ["AI 代理安全", "HITL 人机协同", "命令审批"], "score": 260, "comments": 194, "by": "Wirbelwind", "url": "https://scalex.dev/blog/ai-agent-permissions-stats/", "hnUrl": "https://news.ycombinator.com/item?id=49195468"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: The Channels SDK – Bring Any Agent to Any Channel (Slack, MS Teams)", "titleTranslation": "Show HN: Channels SDK – 将任意 AI 代理带入任意沟通渠道（Slack、MS Teams）", "summary": "CopilotKit 发布 Channels SDK（MIT 协议），通过 AG-UI 协议将任意代理框架（LangGraph、CrewAI 等）接入 Slack 与 Microsoft Teams，并生成原生交互 UI，保留代理自身的模型与工具链。", "keyPoints": ["一个 `npx copilotkit@latest channels setup` 命令即可引导代理自动完成 Slack/Teams 配置，无需手动处理平台凭证。", "SDK 将每个平台的 Webhook 和 UI 组件（如 Slack Block Kit）统一抽象为虚拟 DOM，代理可使用一套 JSX 输出跨平台原生消息。", "代理的模型、工具和业务逻辑全部运行在用户自己的基础设施中，CopilotKit Intelligence 仅管理平台连接与消息传递。"], "discussion": "评论区分歧集中在许可证边界：SDK 本身为 MIT，但核心连接管理服务是闭源的，此外也有人担忧聊天机器人会污染 Slack 工作区。", "tags": ["AI 代理", "Slack 集成", "AG-UI 协议"], "score": 91, "comments": 20, "by": "davidmckayv", "url": "https://github.com/CopilotKit/channels-sdk", "hnUrl": "https://news.ycombinator.com/item?id=49198583"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "Qwen3.8 Max now ranked as the best overall model by agentic index", "titleTranslation": "Qwen3.8 Max 在 agentic 指数中被评为最佳综合模型", "summary": "Qwen3.8 Max 在 Artificial Analysis 的 Agentic Index 中以 55.4 分首次超越 Opus Max（55.3 分），随后分数反覆引发争议。中国模型在智能体任务能力上已实质性追平甚至反超西方最前沿模型，Qwen 在诊断故障和日志统计分析上表现突出。", "keyPoints": ["Qwen3.8 Max 在 Agentic Index 上获 55.4 分，以 0.1 分优势成为首个登顶的中国模型，随后页面分数出现 55.4→58.4→59.2 的动态变化。", "Opus Max 的 Intelligence Index 仍排第一，但评论区普遍质疑 Opus 性价比：有用户 25 分钟烧掉 $260 却未进入实际实现。", "Qwen 的 27B 小模型即将发布，若继承同尺度 3.6 版的本地运行优势，可能让本地永久运行 agent 成为默认选项。"], "discussion": "争议焦点在基准分数的瞬时跳变是否可信，以及按分钟计费的高价模型（Opus）是否真的比 Qwen 等中国模型更胜任实际工作，多数评论倾向认为差距已极小。", "tags": ["AI 模型评测", "Agentic AI", "基准可信度"], "score": 454, "comments": 289, "by": "apitman", "url": "https://artificialanalysis.ai/?intelligence=agentic-index", "hnUrl": "https://news.ycombinator.com/item?id=49200652"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "An Agentic IDE That Builds Itself", "titleTranslation": "一款自构建的智能 IDE", "summary": "bb 是一个 MIT 许可的开源智能编排器，允许开发者完全定制自己的 IDE。它支持任意编码代理（如 Codex、Claude Code），用户可通过对话要求 bb 为自己构建新功能，实现了真正的“代码属于你”。", "keyPoints": ["bb 采用 MIT 协议开源，可与 Codex、Claude Code 等任何支持 ACP 的编码代理协作。", "用户通过对话即可让 bb 自行扩展，例如内置任务管理、自动化代码审查、Markdown 编辑器甚至数字音频工作站。", "与固定功能 SaaS 不同，每个 bb 实例都因用户定制而独一无二，彻底改变了开发者拥有工具的方式。"], "discussion": "评论者尝试为硬件项目构建 ECAD 插件，并思考这一可定制思路能否扩展到 GTM 等其他领域，显示出对通用插件的兴趣。", "tags": ["开源 IDE", "智能代理编排", "开发者工具"], "score": 12, "comments": 1, "by": "sawyerjhood", "url": "https://www.sawyerhood.com/blog/an-agentic-ide-that-builds-itself", "hnUrl": "https://news.ycombinator.com/item?id=49203790"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "Changes at Google DeepMind: Demis Hassabis from CEO to Chair, Jeff Dean departs", "titleTranslation": "Google DeepMind 人事变动：Demis Hassabis 从 CEO 转任主席，Jeff Dean 离开", "summary": "谷歌 AI 大改组：DeepMind CEO Demis Hassabis 转任 Alphabet 首席科学家兼 Chair，CTO Koray Kavukcuoglu 接掌 Google DeepMind；传奇工程师 Jeff Dean 与 Sanjay Ghemawat 离职创立 Discovery Loop，谷歌作为创始投资者。此次重组正值 Gemini 应用触达 9.5 亿月活但在前沿模型发布上近 14 个月空窗，市场反应剧烈，股价下跌约 5%。", "keyPoints": ["Demis Hassabis 卸任 CEO，转任 Google DeepMind Chair 和 Alphabet 首席科学家，将专注 AGI 战略与外部对话。", "Koray Kavukcuoglu 升任 Google DeepMind SVP，直接向 Sundar Pichai 汇报，统管 Gemini 模型、前沿研究和应用。", "Jeff Dean 和 Sanjay Ghemawat 离开谷歌，创立公益公司 Discovery Loop，专注自动化 ML、科学与工程加速发现。"], "discussion": "评论区主流共识是 Jeff Dean 和 Sanjay Ghemawat 的离开是谷歌的重大人才损失，同时质疑 DeepMind 从纯研究转向商业化的压力导致人才加速流失与前沿模型进展停滞。", "tags": ["AI 领导层变动", "Google DeepMind", "人才流失"], "score": 827, "comments": 887, "by": "colesantiago", "url": "https://blog.google/company-news/inside-google/message-ceo/next-chapter-ai-momentum/", "hnUrl": "https://news.ycombinator.com/item?id=49184755"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
