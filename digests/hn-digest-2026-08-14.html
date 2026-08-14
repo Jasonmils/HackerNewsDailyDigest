@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-08-14</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-08-14 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-3-7-flash/" target="_blank" rel="noopener">Gemini 3.7 Flash</a></h2></div><div class="meta">▲ 638 分 · thisisauserid · <a href="https://news.ycombinator.com/item?id=49289112" target="_blank" rel="noopener">366 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">谷歌发布 Gemini 3.7 Flash，距 3.6 Flash 仅三周，编码与智能体能力大幅提升：FrontierCode Main 43.6%、DeepSWE 65.3%，价格仅为 3.6 Flash 原价一半（输入 $0.75/百万 token，输出 $3.75），但 2026 年底后翻倍。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Flash 系列是谷歌的低成本、低延迟模型线，类似在资源有限时用更小模型换吞吐和成本；文中 Elo 分数是竞技排名指标，可看作网页开发质量的横向对比基准。</p><ul class="kp"><li><strong>Gemini 3.7 Flash 发布</strong>，距 3.6 Flash 仅三周，主打编码和智能体任务。</li><li>编码基准大幅提升：<strong>FrontierCode Main 43.6%</strong>、DeepSWE 65.3%，均优于 3.6 Flash。</li><li>优惠定价<strong>输入 $0.75/百万 token、输出 $3.75/百万 token</strong>，2026 年底后翻倍。</li><li>已接入 <strong>Gemini Spark</strong>，面向 Google AI Pro/Ultra 订阅者提供 24/7 个人代理。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区关注定价策略和为何高频发布 Flash 而非 Pro，并比较 GPT-5.6 Luna 的更低价格与更高 DeepSWE 成绩。</p><div class="tags"><span class="tag">Gemini 模型</span><span class="tag">模型定价</span><span class="tag">编码基准</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · jjcm · 15 回复</div><p>Here&#x27;s a image-&gt;html test. Gemini has always swung above its weight class for vision work, so I&#x27;m always eager to try it with this.</p><p>Original images: https://image.non.io/neonRamenDesigns.webp</p><p>Gemini 3.7 build: https://html.non.io/neonRamenGemini3.7</p><p>Opus 5 build for comparison: https://html.non.io/neonRamen</p><p>Opus is still best in class for this, but it&#x27;s worth noting how well Gemini 3.7 does vs a more comparable LLM price wise, which is Grok 4.6: https://html.non.io/neonRamenGrok4.6 . I thought Gemini would blow Grok out of the water (it generally has in the past), but Grok has really caught up.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://www.cerebras.ai/blog/accelerating-gpt-5-6-sol-ultrafast-with-openai" target="_blank" rel="noopener">Accelerating GPT-5.6 Sol Ultrafast</a></h2></div><p class="title-tr">加速 GPT-5.6 Sol Ultrafast</p><div class="meta">▲ 444 分 · pr337h4m · <a href="https://news.ycombinator.com/item?id=49289844" target="_blank" rel="noopener">188 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Cerebras 与 OpenAI 推出 Ultrafast Mode，GPT-5.6 Sol 最高输出 750 token/秒。在 Humanity&#x27;s Last Exam 上 11 小时 11 分钟跑完 2500 题，比 Claude Fable 5 快近 7 倍，声称无质量下降；但定价和性能等同性未披露。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Cerebras 的晶圆级芯片把 44GB SRAM 直接放在计算单元旁，避免 GPU 推理时权重从内存反复搬运的带宽瓶颈——这类似于让模型权重常驻在离计算更近的地方，从而大幅降低延迟。</p><ul class="kp"><li><strong>Cerebras 与 OpenAI 推出 Ultrafast Mode</strong>，GPT-5.6 Sol 输出速度达 750 token/秒，先向部分客户限量开放。</li><li>在 <strong>Humanity&#x27;s Last Exam</strong> 基准上，Ultrafast 用 11 小时 11 分钟答完 2500 题，比 Claude Fable 5 快近 7 倍。</li><li><strong>Cerebras 晶圆级芯片 44GB SRAM</strong> 让权重常驻片上，绕过 GPU 推理时内存带宽瓶颈。</li><li>未披露定价，也未明确<strong>与常规 GPT-5.6 Sol 性能完全等价</strong>，评论区持观望态度。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区认可推理速度被低估，但分歧在于 Cerebras/OpenAI 未明确说明性能完全等同且无定价信息，导致观望。</p><div class="tags"><span class="tag">LLM 推理加速</span><span class="tag">Cerebras</span><span class="tag">OpenAI API</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · iamcoder18 · 8 回复</div><p>I&#x27;ve been waiting so long for something amazing to come out of the OpenAI and Cerebras collaboration.</p><p>&gt; In our evaluations, GPT-5.6 Sol on Ultrafast mode answered all 2,500 HLE questions in 11 hours and 11 minutes. Claude Fable 5 needed 78 hours and 27 minutes, more than three days of continuous compute, to arrive at the same conclusions. In other words, Ultrafast worked through the frontier of human knowledge in a single working day, achieving comparable accuracy nearly 7× faster.</p><p>This is actually insane.</p><p>Hopefully the release ultrafast of Terra and Luna too.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://deepseek.com/harness/en/" target="_blank" rel="noopener">DeepSeek Harness developer preview</a></h2></div><p class="title-tr">DeepSeek Harness 开发者预览版</p><div class="meta">▲ 567 分 · bjin · <a href="https://news.ycombinator.com/item?id=49285244" target="_blank" rel="noopener">248 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">DeepSeek 发布开源 Harness 开发者预览版，源码开放；模型、工具、沙箱、UI 等全部为可替换插件，并用 append-only 日志记录每次运行，可恢复、分叉、重放。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Agent harness 是连接模型与工具/环境的运行时框架，可类比训练评估时的封装层，但多了插件生命周期管理和会话可追溯。</p><ul class="kp"><li><strong>DeepSeek Harness</strong> 以开发者预览发布，源码按 MIT 许可公开。</li><li><strong>所有能力（模型、工具、沙箱、UI、调度等）</strong> 都是可替换插件，无需改核心源码。</li><li><strong>每次运行用 append-only 日志记录模型所见全部内容</strong>，支持 resume、fork、search、replay。</li><li>作者明确这是<strong>早期预览</strong>，核心插件和 API 将继续演进，兼容性可能随时被破坏。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论普遍认可可追踪日志是 killer feature，但对“一切皆插件”可能带来插件碎片化、维护负担和产品定位不清存在较大分歧。</p><div class="tags"><span class="tag">AI Agent 框架</span><span class="tag">开源协议</span><span class="tag">插件架构</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · syntaxing · 13 回复</div><p>Is there a reason why so many of these agent harness are written in node.js?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://docs.mistral.ai/models/ocr-4-1" target="_blank" rel="noopener">Mistral OCR 4.1</a></h2></div><div class="meta">▲ 258 分 · spelk · <a href="https://news.ycombinator.com/item?id=49288889" target="_blank" rel="noopener">103 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Mistral 发布 OCR 4.1 公共预览版，新增段落级边界框提取、结构块标签与块级置信度评分，定价 3.5 欧元/千页（注释页 4.38 欧元）。HN 评论普遍认为定价偏高，有开发者称自建 GPU 管道成本可低至 0.05–0.1 美元/千页。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这则新闻的背景是把专用 OCR 服务放在通用视觉语言模型与自建 GPU 管道的成本/能力竞速中，适合用推理成本与产品定价框架判断。</p><ul class="kp"><li><strong>Mistral OCR 4.1 公测</strong>，新增段落级边界框、结构块标签与块级置信度评分。</li><li>定价 <strong>3.5 欧元/千页</strong>，注释页 4.38 欧元/千页，被评论质疑性价比低。</li><li>有开发者称自建 GPU 管道成本仅 <strong>0.05–0.1 美元/千页</strong>，且约 0.8 秒/页。</li><li>评论认为通用视觉语言模型在复杂文档上更强，但可能静默审查；专用 OCR 不审查却会<strong>幻觉</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区核心分歧是专用 OCR 的高定价是否被通用视觉语言模型和自建 GPU 管道的成本/能力优势所侵蚀，同时担忧 AI 静默审查与幻觉。</p><div class="tags"><span class="tag">OCR 服务</span><span class="tag">视觉语言模型</span><span class="tag">模型定价</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · king_crimson · 9 回复</div><p>At this point I lost all hope for Europe playing any significant role in the AI race. If that’s a good or a bad thing I don’t know, but it seems to me like that’s the reality.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://cdn.openai.com/pdf/how-organizations-use-chatgpt.pdf" target="_blank" rel="noopener">How Organizations Use AI: Evidence from ChatGPT [pdf]</a></h2></div><p class="title-tr">组织如何使用 AI：来自 ChatGPT 的证据 [pdf]</p><div class="meta">▲ 71 分 · malshe · <a href="https://news.ycombinator.com/item?id=49290768" target="_blank" rel="noopener">46 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OpenAI 将 ChatGPT Enterprise 账户与岗位、任务和财务数据匹配，覆盖超 1500 家组织、1700 万条消息，发现九个月内输出 token 增长约 7 倍，但采用集中在规模大、R&amp;D 和 SG&amp;A 投入更高的公司；企业内部使用广泛却不均衡，写作、沟通和信息综合最常见。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 本文区分“企业采用”与“采用后的使用强度”，类似产品获客与用户激活/深度使用；SG&amp;A 指销售、一般与行政费用，代表企业在组织能力和无形资本上的投入，而非模型能力。</p><ul class="kp"><li><strong>ChatGPT Enterprise 输出 token 九个月增长约 7 倍</strong>，其中约半数来自存量客户使用加深。</li><li><strong>采用者集中在更大、更贵、R&amp;D 与 SG&amp;A 投入更高的美国上市公司</strong>，早期扩散偏向已有组织能力的企业。</li><li><strong>使用覆盖多岗位与层级</strong>，但营销/传播和早期职业员工的使用强度显著更高。</li><li><strong>最常见任务是写作、沟通和信息综合</strong>，而非单一垂直流程，显示通用技术扩散模式。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区批评论文统计方法有风险、未衡量可测 ROI，也有人认为大公司采用率高可能源于个人/企业账户隔离政策，而非真实生产力差异。</p><div class="tags"><span class="tag">企业AI采用</span><span class="tag">ChatGPT Enterprise</span><span class="tag">生成式AI经济影响</span><span class="tag">通用技术扩散</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · jcims · 4 回复</div><p>I didn&#x27;t scour the text but one thing I didn&#x27;t see as an explanatory consideration in the paper is that the larger companies they talk about having larger adoption are also much more likely to have reasonably robust controls (and consequences) that prevent mixing personal/corporate use of AI tooling.  That&#x27;s my world.</p><p>On the other hand my girlfriend is a teacher and for the past year ChatGPT has allowed her to augment her lesson plans with slides/games/etc that have had a very positive effect on student engagement.  She also uses it to help with analysis of testing data against her lesson plans and state standards to find places to shore things up as the year progresses.  She runs the english language learning department in her school and also uses it to help ensure that there is representation in her materials for the huge mix of cultural backgrounds of her students.</p><p>It&#x27;s truly helped her immensely and it&#x27;s all been on her personal account.  The district has no program or budget to guide or support teachers and admin on using these tools in education.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://declaude.org/watermarking/" target="_blank" rel="noopener">How AI text watermarking works</a></h2></div><p class="title-tr">AI 文本水印的工作原理</p><div class="meta">▲ 86 分 · padolsey · <a href="https://news.ycombinator.com/item?id=49292932" target="_blank" rel="noopener">59 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">AI 文本水印不修改可见内容，而是模型生成时用密钥对候选词做轻微加权；Google 已用于 Gemini，Anthropic 从 2026 年 8 月起对 Claude 模型加水印。只有密钥持有者能检测，但深度重写可使检测准确率从接近确定降至随机水平。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这相当于在语言模型 softmax 采样阶段，用密钥给候选 token 概率分布加一个可逆的微小偏差，检测时再用同一密钥统计偏差是否显著。</p><ul class="kp"><li><strong>Google 2024 年起水印 Gemini 文本</strong>，Anthropic 2026 年 8 月起对 Claude 模型级加水印。</li><li>水印通过密钥给候选词着色并轻微加权，<strong>只有密钥持有者能统计检测</strong>，文本可读性不变。</li><li>深度重写/重组可擦除水印：开源方案中存活窗口约 <strong>0.5%</strong>，检测准确率从几乎确定降至随机。</li><li>检测是概率性统计测试，<strong>不等于 AI 检测器</strong>；短文、代码或事实列表水印弱。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍认为水印可被深度重写或本地模型绕过，且开放权重模型无法强制；争议在于它是否更多用于防止模型训练污染而非可靠检测。</p><div class="tags"><span class="tag">AI 文本水印</span><span class="tag">LLM 可检测性</span><span class="tag">内容溯源与合规</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · throwatdem12311 · 2 回复</div><p>New job idea: have a human reword/summarize and manually input/transcribe AI output to remove the watermarking.  They use “tools” like dictionaries and thesaurus’ in order to sufficiently change the text so that it doesn’t fit within AI distribution anymore.  Humans that can write significantly “organic” text will be able to make lucrative careers out of it.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://www.codewithbullet.com" target="_blank" rel="noopener">Launch HN: Bullet (YC S26) – A Faster Coding Agent</a></h2></div><p class="title-tr">Launch HN: Bullet (YC S26) – 一个更快的编码代理</p><div class="meta">▲ 85 分 · adi1 · <a href="https://news.ycombinator.com/item?id=49283063" target="_blank" rel="noopener">56 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Bullet 是 YC S26 孵化的编码代理，声称在 SWE-bench Verified 上以 95.8% 通过率、平均 119 秒/任务，比基线快 35–67%。核心卖点是减少代理往返：模型路由、定向搜索、并行工具调用；但 HN 评论质疑基准接近饱和，速度优势难以证明真实能力。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 你熟悉的评估基准饱和问题同样出现在 SWE-bench Verified（用 GitHub 真实问题测试编码代理），95% 左右的高分让速度提升难以与能力差异区分。</p><ul class="kp"><li><strong>Bullet 在 SWE-bench Verified 上拿到 95.8% (479/500)</strong>，平均 119 秒/任务，比基线快 35–67%。</li><li>方法核心是<strong>减少代理往返</strong>：独立工具调用并行，依赖步骤串行；内部数据称轮次减 16%、成本降 27%。</li><li>HN 评论者指出<strong>基准已饱和</strong>：Fable 5 相对 Opus 无提升，95% 高分使得“更快”无法证明真实能力。</li><li>产品目前<strong>免费私测</strong>，支持 macOS 和 Linux，定位为 Claude Code / Codex 的更快替代品。</li></ul><p class="disc"><strong>💬 讨论</strong> 核心分歧是基准饱和导致速度主张不可信，且有人认为其优化只是提示词策略而非机制差异；仍有人肯定 Linux 支持和实际体验。</p><div class="tags"><span class="tag">AI 编码代理</span><span class="tag">SWE-bench 基准</span><span class="tag">开发者工具</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · seizethecheese · 2 回复</div><p>This is a promising direction! Unfortunately, I think the benchmark result here is essentially meaningless.</p><p>I recently discovered this same lesson the hard way. I was trying to get a multi-agent system I was building to improve upon GPQA  Diamond scores (system here: http://pellmell.ai). No matter how hard I tried, I could not get any lift. When Fable 5 dropped, it also did not improve upon Opus, and I realized my mistake. The benchmark was saturated!</p><p>Now, looking at the result here, I see a similar pattern. Fable is not better than Opus, and the score is ~95%.   Notably, this post omits which subagent is being used. Why? An intellectually honest way to tell if this thing really works would be to run that agent and report its score and cost as well.</p><p>Going back to my GPQA Diamond lesson, you can see here how a saturated leaderboard behaves https://artificialanalysis.ai/evaluations/gpqa-diamond.  Fable gets 92.6% for $0.22 per task while several models score higher for $0.01. I could easily publish a router that “enhances Fable on GPQA Diamond” showing improved score for lower cost, just by implementing a router that picks the model at random!</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://jdagostino.github.io/ai-pt1-box-o-scraps/index.html" target="_blank" rel="noopener">AI At Home Part 1: A Box Of Scraps</a></h2></div><p class="title-tr">居家 AI 第一部分：一箱废件</p><div class="meta">▲ 94 分 · timmmmmmay · <a href="https://news.ycombinator.com/item?id=49288293" target="_blank" rel="noopener">47 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者用四张二手 AMD V620 数据中心卡（每张 32GB 显存，共 128GB）加上 2017 年 X299 旧主板和 i9 10900X 拼出本地推理服务器，能跑 DeepSeek V4 Flash 但速度慢。文章展示了在 GPU 短缺下用低成本电子废料摆脱云 AI 依赖的可行路径与硬件改造代价。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 对不熟悉系统硬件的读者：这相当于不调用云端推理 API，而是在本地用多张二手 GPU 扩大显存跑大模型，真正卡点是让主板识别四张卡并解决无风扇数据中心卡的散热。</p><ul class="kp"><li>四张二手 <strong>AMD V620</strong> 数据中心卡各带 32GB 显存，合计 128GB，因 AMD 软件生态差所以价格便宜。</li><li>整机基于 <strong>2017 年 X299 旧平台</strong>，搭配 i9 10900X 和 1600W 电源，需要大功率和强力风扇。</li><li>能运行 Gemma4 与 <strong>DeepSeek V4 Flash</strong>，但 Flash 速度慢，下一章专门解决 AMD 卡提速。</li><li>作者打印 <strong>3D 打印风扇罩</strong>并用 Arduino 做温控，解决四张无风扇卡的散热与噪音问题。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是服务器风扇噪音大得惊人，同时对“废件”标准表示调侃，还有人提到用 DGX Spark 等设备实现类似去云化本地 AI。</p><div class="tags"><span class="tag">LLM 推理</span><span class="tag">本地 AI</span><span class="tag">二手 GPU</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · fabiensanglard · 4 回复</div><p>Quite courageous to go with AMD. I am very curious to see Chapter 2 and how he solves the software stability that used to plague AMD AI applications.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://www.netlify.com/blog/one-prompt-11-models-very-different-results/" target="_blank" rel="noopener">Choosing an AI model: one prompt, 11 models, different results</a></h2></div><p class="title-tr">选择 AI 模型：一个提示词，11 个模型，不同结果</p><div class="meta">▲ 179 分 · toddmorey · <a href="https://news.ycombinator.com/item?id=49285327" target="_blank" rel="noopener">73 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Netlify 用一个提示词在 11 个模型上生成咖啡店网站，发现推理成本差异超 200 倍：DeepSeek V4 Flash 平均 2.4 信用点，Claude Opus 5 平均 519 且单次最高 1055，但视觉质量与成本不成正比。选模型需按任务和预算权衡。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 本文中的 Netlify 是网站托管平台，其 Agent Runners 是内置 AI 编码代理；‘信用点’是平台计费单位，可类比模型推理成本。</p><ul class="kp"><li><strong>Claude Opus 5 平均消耗 519 信用点</strong>，单次最高 1055，设计细节多但成本波动大。</li><li><strong>DeepSeek V4 Flash 平均仅 2.4 信用点</strong>，成本最低，适合简单静态站生成。</li><li><strong>GPT 5.6 Terra 平均 39 信用点</strong>，提供不同视觉语言，性价比较突出。</li><li>测试每个模型仅跑 3 次，<strong>样本量太小</strong>，不足以可靠比较模型优劣。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论普遍质疑简单提示词一次性评估的实用性和小样本统计效力，认为应针对真实任务做多次运行。</p><div class="tags"><span class="tag">LLM 推理成本</span><span class="tag">模型评估</span><span class="tag">AI 编码代理</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Systemerror7A69 · 10 回复</div><p>Am I wrong or are these evaluations, while interesting, not really meaningful for anyone doing serious development work?</p><p>I&#x27;m asking because I personally only use AI with specific and detailed instructions, building my projects piece-by-piece.</p><p>I mostly don&#x27;t look at the low level code and some of it I don&#x27;t understand as much as I&#x27;d like, but I very much give much more technical instructions than a simple, two sentence prompt.</p><p>So, it seems to me this &quot;oneshot from a simple prompt&quot; eval is fairly meaningless when it comes to model evaluation itself, as it is in no way representative of real world application.</p><p>This would be more something for &quot;vibe coders&quot;, people with little to no programming background wanting a website?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://www.seangoedecke.com/text-ai-watermarks/" target="_blank" rel="noopener">Text AI watermarks will always be trivial to remove</a></h2></div><p class="title-tr">文本 AI 水印将永远容易被移除</p><div class="meta">▲ 99 分 · pseudolus · <a href="https://news.ycombinator.com/item?id=49287153" target="_blank" rel="noopener">103 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">欧盟 AI 法案要求 AI 输出可被检测，但 SynthID 采样水印可通过改写去除，Unicode 同形字水印可替换为标准字符抹掉；C2PA 签名不适用于纯文本，强制文本水印难以真正阻止规避。</p><p class="context"><strong>🧭 联系你的知识背景</strong> SynthID 类似在模型已有的 top-k 采样中加一个隐藏打分函数，检测时只统计该分数，不必重跑模型。</p><ul class="kp"><li><strong>欧盟 AI 法案第 50 条</strong>要求 AI 输出可被检测为人工生成，新系统 2026 年 8 月起执行。</li><li><strong>SynthID</strong> 通过改变 token 采样给文本留统计指纹，检测便宜，但改写后水印即消失。</li><li>作者观察到 <strong>OpenAI 与 Anthropic</strong> 用特殊 Unicode 空格等同形字做水印；替换成标准字符即可去除。</li><li><strong>C2PA 内容凭证</strong>只能签名文件，无法覆盖 ChatGPT 这类纯文本输出，不能替代文本水印。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区核心分歧是水印能否防住刻意规避：一方认为目标是有后果的长文档且仍有统计可检测性，另一方认为像 Cookie 法律一样只增加摩擦。</p><div class="tags"><span class="tag">AI 水印</span><span class="tag">欧盟 AI 监管</span><span class="tag">内容来源</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · firefoxd · 5 回复</div><p>I feel like this is going to end up being like cookie laws. It sounds good, I don&#x27;t know how any one benefits from it.</p><p>Currently I can recognize AI text because I read thousands of ai generated text. I know that 110% of yahoo finance news is generated. I don&#x27;t want to read an AI generated personal blog, but if I do what&#x27;s the problem really? Other than the companies distinguishing AI text for getting better training data, how do people benefit from watermarked text exactly?</p></div></div></article>
+</div></main>
+<footer>generated 2026-08-14 02:45 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "Gemini 3.7 Flash", "titleTranslation": "", "summary": "谷歌发布 Gemini 3.7 Flash，距 3.6 Flash 仅三周，编码与智能体能力大幅提升：FrontierCode Main 43.6%、DeepSWE 65.3%，价格仅为 3.6 Flash 原价一半（输入 $0.75/百万 token，输出 $3.75），但 2026 年底后翻倍。", "keyPoints": ["Gemini 3.7 Flash 发布，距 3.6 Flash 仅三周，主打编码和智能体任务。", "编码基准大幅提升：FrontierCode Main 43.6%、DeepSWE 65.3%，均优于 3.6 Flash。", "优惠定价输入 $0.75/百万 token、输出 $3.75/百万 token，2026 年底后翻倍。"], "discussion": "评论区关注定价策略和为何高频发布 Flash 而非 Pro，并比较 GPT-5.6 Luna 的更低价格与更高 DeepSWE 成绩。", "tags": ["Gemini 模型", "模型定价", "编码基准"], "score": 638, "comments": 366, "by": "thisisauserid", "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-3-7-flash/", "hnUrl": "https://news.ycombinator.com/item?id=49289112"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "Accelerating GPT-5.6 Sol Ultrafast", "titleTranslation": "加速 GPT-5.6 Sol Ultrafast", "summary": "Cerebras 与 OpenAI 推出 Ultrafast Mode，GPT-5.6 Sol 最高输出 750 token/秒。在 Humanity's Last Exam 上 11 小时 11 分钟跑完 2500 题，比 Claude Fable 5 快近 7 倍，声称无质量下降；但定价和性能等同性未披露。", "keyPoints": ["Cerebras 与 OpenAI 推出 Ultrafast Mode，GPT-5.6 Sol 输出速度达 750 token/秒，先向部分客户限量开放。", "在 Humanity's Last Exam 基准上，Ultrafast 用 11 小时 11 分钟答完 2500 题，比 Claude Fable 5 快近 7 倍。", "Cerebras 晶圆级芯片 44GB SRAM 让权重常驻片上，绕过 GPU 推理时内存带宽瓶颈。"], "discussion": "评论区认可推理速度被低估，但分歧在于 Cerebras/OpenAI 未明确说明性能完全等同且无定价信息，导致观望。", "tags": ["LLM 推理加速", "Cerebras", "OpenAI API"], "score": 444, "comments": 188, "by": "pr337h4m", "url": "https://www.cerebras.ai/blog/accelerating-gpt-5-6-sol-ultrafast-with-openai", "hnUrl": "https://news.ycombinator.com/item?id=49289844"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "DeepSeek Harness developer preview", "titleTranslation": "DeepSeek Harness 开发者预览版", "summary": "DeepSeek 发布开源 Harness 开发者预览版，源码开放；模型、工具、沙箱、UI 等全部为可替换插件，并用 append-only 日志记录每次运行，可恢复、分叉、重放。", "keyPoints": ["DeepSeek Harness 以开发者预览发布，源码按 MIT 许可公开。", "所有能力（模型、工具、沙箱、UI、调度等） 都是可替换插件，无需改核心源码。", "每次运行用 append-only 日志记录模型所见全部内容，支持 resume、fork、search、replay。"], "discussion": "HN 评论普遍认可可追踪日志是 killer feature，但对“一切皆插件”可能带来插件碎片化、维护负担和产品定位不清存在较大分歧。", "tags": ["AI Agent 框架", "开源协议", "插件架构"], "score": 567, "comments": 248, "by": "bjin", "url": "https://deepseek.com/harness/en/", "hnUrl": "https://news.ycombinator.com/item?id=49285244"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "Mistral OCR 4.1", "titleTranslation": "", "summary": "Mistral 发布 OCR 4.1 公共预览版，新增段落级边界框提取、结构块标签与块级置信度评分，定价 3.5 欧元/千页（注释页 4.38 欧元）。HN 评论普遍认为定价偏高，有开发者称自建 GPU 管道成本可低至 0.05–0.1 美元/千页。", "keyPoints": ["Mistral OCR 4.1 公测，新增段落级边界框、结构块标签与块级置信度评分。", "定价 3.5 欧元/千页，注释页 4.38 欧元/千页，被评论质疑性价比低。", "有开发者称自建 GPU 管道成本仅 0.05–0.1 美元/千页，且约 0.8 秒/页。"], "discussion": "评论区核心分歧是专用 OCR 的高定价是否被通用视觉语言模型和自建 GPU 管道的成本/能力优势所侵蚀，同时担忧 AI 静默审查与幻觉。", "tags": ["OCR 服务", "视觉语言模型", "模型定价"], "score": 258, "comments": 103, "by": "spelk", "url": "https://docs.mistral.ai/models/ocr-4-1", "hnUrl": "https://news.ycombinator.com/item?id=49288889"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "How Organizations Use AI: Evidence from ChatGPT [pdf]", "titleTranslation": "组织如何使用 AI：来自 ChatGPT 的证据 [pdf]", "summary": "OpenAI 将 ChatGPT Enterprise 账户与岗位、任务和财务数据匹配，覆盖超 1500 家组织、1700 万条消息，发现九个月内输出 token 增长约 7 倍，但采用集中在规模大、R&D 和 SG&A 投入更高的公司；企业内部使用广泛却不均衡，写作、沟通和信息综合最常见。", "keyPoints": ["ChatGPT Enterprise 输出 token 九个月增长约 7 倍，其中约半数来自存量客户使用加深。", "采用者集中在更大、更贵、R&D 与 SG&A 投入更高的美国上市公司，早期扩散偏向已有组织能力的企业。", "使用覆盖多岗位与层级，但营销/传播和早期职业员工的使用强度显著更高。"], "discussion": "评论区批评论文统计方法有风险、未衡量可测 ROI，也有人认为大公司采用率高可能源于个人/企业账户隔离政策，而非真实生产力差异。", "tags": ["企业AI采用", "ChatGPT Enterprise", "生成式AI经济影响"], "score": 71, "comments": 46, "by": "malshe", "url": "https://cdn.openai.com/pdf/how-organizations-use-chatgpt.pdf", "hnUrl": "https://news.ycombinator.com/item?id=49290768"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "How AI text watermarking works", "titleTranslation": "AI 文本水印的工作原理", "summary": "AI 文本水印不修改可见内容，而是模型生成时用密钥对候选词做轻微加权；Google 已用于 Gemini，Anthropic 从 2026 年 8 月起对 Claude 模型加水印。只有密钥持有者能检测，但深度重写可使检测准确率从接近确定降至随机水平。", "keyPoints": ["Google 2024 年起水印 Gemini 文本，Anthropic 2026 年 8 月起对 Claude 模型级加水印。", "水印通过密钥给候选词着色并轻微加权，只有密钥持有者能统计检测，文本可读性不变。", "深度重写/重组可擦除水印：开源方案中存活窗口约 0.5%，检测准确率从几乎确定降至随机。"], "discussion": "评论区普遍认为水印可被深度重写或本地模型绕过，且开放权重模型无法强制；争议在于它是否更多用于防止模型训练污染而非可靠检测。", "tags": ["AI 文本水印", "LLM 可检测性", "内容溯源与合规"], "score": 86, "comments": 59, "by": "padolsey", "url": "https://declaude.org/watermarking/", "hnUrl": "https://news.ycombinator.com/item?id=49292932"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "Launch HN: Bullet (YC S26) – A Faster Coding Agent", "titleTranslation": "Launch HN: Bullet (YC S26) – 一个更快的编码代理", "summary": "Bullet 是 YC S26 孵化的编码代理，声称在 SWE-bench Verified 上以 95.8% 通过率、平均 119 秒/任务，比基线快 35–67%。核心卖点是减少代理往返：模型路由、定向搜索、并行工具调用；但 HN 评论质疑基准接近饱和，速度优势难以证明真实能力。", "keyPoints": ["Bullet 在 SWE-bench Verified 上拿到 95.8% (479/500)，平均 119 秒/任务，比基线快 35–67%。", "方法核心是减少代理往返：独立工具调用并行，依赖步骤串行；内部数据称轮次减 16%、成本降 27%。", "HN 评论者指出基准已饱和：Fable 5 相对 Opus 无提升，95% 高分使得“更快”无法证明真实能力。"], "discussion": "核心分歧是基准饱和导致速度主张不可信，且有人认为其优化只是提示词策略而非机制差异；仍有人肯定 Linux 支持和实际体验。", "tags": ["AI 编码代理", "SWE-bench 基准", "开发者工具"], "score": 85, "comments": 56, "by": "adi1", "url": "https://www.codewithbullet.com", "hnUrl": "https://news.ycombinator.com/item?id=49283063"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "AI At Home Part 1: A Box Of Scraps", "titleTranslation": "居家 AI 第一部分：一箱废件", "summary": "作者用四张二手 AMD V620 数据中心卡（每张 32GB 显存，共 128GB）加上 2017 年 X299 旧主板和 i9 10900X 拼出本地推理服务器，能跑 DeepSeek V4 Flash 但速度慢。文章展示了在 GPU 短缺下用低成本电子废料摆脱云 AI 依赖的可行路径与硬件改造代价。", "keyPoints": ["四张二手 AMD V620 数据中心卡各带 32GB 显存，合计 128GB，因 AMD 软件生态差所以价格便宜。", "整机基于 2017 年 X299 旧平台，搭配 i9 10900X 和 1600W 电源，需要大功率和强力风扇。", "能运行 Gemma4 与 DeepSeek V4 Flash，但 Flash 速度慢，下一章专门解决 AMD 卡提速。"], "discussion": "评论区共识是服务器风扇噪音大得惊人，同时对“废件”标准表示调侃，还有人提到用 DGX Spark 等设备实现类似去云化本地 AI。", "tags": ["LLM 推理", "本地 AI", "二手 GPU"], "score": 94, "comments": 47, "by": "timmmmmmay", "url": "https://jdagostino.github.io/ai-pt1-box-o-scraps/index.html", "hnUrl": "https://news.ycombinator.com/item?id=49288293"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "Choosing an AI model: one prompt, 11 models, different results", "titleTranslation": "选择 AI 模型：一个提示词，11 个模型，不同结果", "summary": "Netlify 用一个提示词在 11 个模型上生成咖啡店网站，发现推理成本差异超 200 倍：DeepSeek V4 Flash 平均 2.4 信用点，Claude Opus 5 平均 519 且单次最高 1055，但视觉质量与成本不成正比。选模型需按任务和预算权衡。", "keyPoints": ["Claude Opus 5 平均消耗 519 信用点，单次最高 1055，设计细节多但成本波动大。", "DeepSeek V4 Flash 平均仅 2.4 信用点，成本最低，适合简单静态站生成。", "GPT 5.6 Terra 平均 39 信用点，提供不同视觉语言，性价比较突出。"], "discussion": "HN 评论普遍质疑简单提示词一次性评估的实用性和小样本统计效力，认为应针对真实任务做多次运行。", "tags": ["LLM 推理成本", "模型评估", "AI 编码代理"], "score": 179, "comments": 73, "by": "toddmorey", "url": "https://www.netlify.com/blog/one-prompt-11-models-very-different-results/", "hnUrl": "https://news.ycombinator.com/item?id=49285327"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "Text AI watermarks will always be trivial to remove", "titleTranslation": "文本 AI 水印将永远容易被移除", "summary": "欧盟 AI 法案要求 AI 输出可被检测，但 SynthID 采样水印可通过改写去除，Unicode 同形字水印可替换为标准字符抹掉；C2PA 签名不适用于纯文本，强制文本水印难以真正阻止规避。", "keyPoints": ["欧盟 AI 法案第 50 条要求 AI 输出可被检测为人工生成，新系统 2026 年 8 月起执行。", "SynthID 通过改变 token 采样给文本留统计指纹，检测便宜，但改写后水印即消失。", "作者观察到 OpenAI 与 Anthropic 用特殊 Unicode 空格等同形字做水印；替换成标准字符即可去除。"], "discussion": "评论区核心分歧是水印能否防住刻意规避：一方认为目标是有后果的长文档且仍有统计可检测性，另一方认为像 Cookie 法律一样只增加摩擦。", "tags": ["AI 水印", "欧盟 AI 监管", "内容来源"], "score": 99, "comments": 103, "by": "pseudolus", "url": "https://www.seangoedecke.com/text-ai-watermarks/", "hnUrl": "https://news.ycombinator.com/item?id=49287153"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
