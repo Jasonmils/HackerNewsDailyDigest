@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-08-15</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-08-15 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://huggingface.co/Qwen/Qwen3.8-27B-FP8" target="_blank" rel="noopener">Qwen 3.8 27B</a></h2></div><div class="meta">▲ 907 分 · erdaltoprak · <a href="https://news.ycombinator.com/item?id=49299605" target="_blank" rel="noopener">592 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Qwen 发布 <strong>Qwen3.8-27B</strong>，一款 27B 稠密开源多模态模型，提供 FP8 量化权重；在终端编程、长程智能体和视觉任务上显著超越前代 Qwen3.6-27B，例如 Terminal Bench 2.1 从 63.4 升至 73.0。HN 实测能力突出，但 32K 上下文占 2.5GB 显存，本地部署成本高。</p><p class="context"><strong>🧭 联系你的知识背景</strong> FP8 量化与你在训练中用的半精度类似，把权重压缩到 8 位浮点以省显存，但会带来精度损失；这里用细粒度量化缓解损失，直接决定 27B 模型能否在消费级显卡上落地。</p><ul class="kp"><li><strong>Qwen3.8-27B</strong> 是开源多模态稠密模型，编程、智能体、视觉基准全面超越 Qwen3.6-27B。</li><li><strong>FP8 量化版</strong> 采用 128 块大小细粒度量化，官方称性能接近原始模型，利于本地部署。</li><li>上下文原生 <strong>262,144 tokens</strong>，可扩展至 100 万，适合长文档和小时级视频理解。</li><li>HN 实测 <strong>32K 上下文占 2.5GB 显存</strong>，32GB 显卡难容 128K 上下文，实用门槛高。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论认可其复杂推理能力（继 Gemma 4 后第二个通过私测的本地模型），但普遍指出显存占用过高、长上下文不实用，部分用户期待 35B MoE 版本。</p><div class="tags"><span class="tag">开源多模态模型</span><span class="tag">本地推理</span><span class="tag">模型量化</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · simonw · 11 回复</div><p>Absolutely the best pelican I&#x27;ve seen from a model that runs on my laptop: https://tools.simonwillison.net/markdown-svg-renderer#url=ht...</p><p>Bicycle is the right shape. Pelican beak is excellent. Nice background. Most importantly, the pelican has one leg on each side of the bicycle - that&#x27;s very rare.</p><p>(No chain on this bicycle though - in the reasoning trace it says &quot;already chainstay... skip chain detail; maybe a small chainring.&quot;)</p><p>I ran that on an M5 Max MacBook Pro using LM Studio and their 17GB GGUF: https://lmstudio.ai/models/qwen3.8</p><p>It took 21 minutes(!) and used 22,276 reasoning tokens to produce 3,223 tokens of output.</p><p>(For the &quot;they&#x27;re training on your benchmark now&quot; crowd, all of that cheating didn&#x27;t prevent it from spending 20 minutes thinking about the task first! You can see the reasoning trace in the link I shared.)</p><p>For comparison, here&#x27;s one I got from qwen3.8-2.4t-a95b on OpenRouter, which is pleasingly animated: https://tools.simonwillison.net/markdown-svg-renderer#url=ht...</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://mun-logadan.github.io/why-does-opus-5-feel-worse/" target="_blank" rel="noopener">Why does Opus 5 feel worse to work with?</a></h2></div><p class="title-tr">为什么 Opus 5 用起来感觉更差？</p><div class="meta">▲ 786 分 · numeri · <a href="https://news.ycombinator.com/item?id=49296740" target="_blank" rel="noopener">724 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Opus 5 基准能力更强，但真实编码中因倾向擅自假设而非主动澄清，体验像降级；作者推测这是基准测试和自改进压力筛选出“大胆猜”的模型所致。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这类似训练时只优化封闭测试集指标，模型学会在分布外场景硬猜答案，而不是像产品场景那样先问清楚需求。</p><ul class="kp"><li><strong>Opus 5 基准能力更强</strong>，但真实使用中因擅自假设而非主动澄清，需要用户“保姆式”监督。</li><li>作者推测：<strong>基准测试和自改进压力</strong>筛选出在歧义下大胆假设的模型，惩罚会提问的模型。</li><li>评论区用户实测：Opus 5 生成的<strong>注释与代码比例接近 3:1</strong>，清理注释花掉一天 token 额度。</li><li>有用户转向 <strong>OpenAI Sol/Codex</strong>，称其沟通简洁、不无故派生子代理烧算力。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍认同 Opus 5 沟通冗长且越权，但有人指出 Fable 更严重，并担忧模型优化目标已从人类转向代理间协作。</p><div class="tags"><span class="tag">AI 编程助手</span><span class="tag">LLM 对齐</span><span class="tag">模型评估</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · barrkel · 58 回复</div><p>The single biggest annoyance with Opus 5 is that it writes too elliptically.</p><p>Sentences that orbit a point, then jump to it like it&#x27;s a revealed insight.</p><p>Unnecessarily abstract phraseology. Constantly using inanimate nouns as the subjects in sentences in order to unlock variety in verb choice, especially when it helps construct a sentence where the real action can &#x27;land&#x27; like a surprise at the end.</p><p>It is definitely more capable, and yes, I&#x27;ve found it can make unwarranted decisions, but actually I&#x27;ve found Fable worse for that, particularly if it&#x27;s off in a subagent somewhere out of sight.</p><p>And comments are out of control. I have a subsystem in my hobby app that I wrote over a couple of weekends with Opus + Fable. After ~30 or so commits it apparently started instructing subagents to copy the &quot;existing verbose comment style of the codebase&quot; - a verbose style it initiated. A review of the code showed it was approaching 3:1 comments to code ratio. I spent a day&#x27;s worth of tokens (5x) rephrasing and eliminating comments.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://blog.google/security/how-google-is-making-private-ai-practical-with-homomorphic-encryption/" target="_blank" rel="noopener">Google is making private AI practical with homomorphic encryption</a></h2></div><p class="title-tr">Google 正通过同态加密让隐私 AI 变得实用</p><div class="meta">▲ 280 分 · u1hcw9nx · <a href="https://news.ycombinator.com/item?id=49300314" target="_blank" rel="noopener">169 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Google 发布 HEIR（同态加密中间表示）开源编译器，可将预训练 AI 模型转换为在加密输入上推理，已展示推荐、欺诈检测、入侵检测、热词检测四类应用；瞄准医疗、金融等强监管行业，但未披露具体计算开销。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 同态加密可理解为让模型在加密后的输入上直接推理、输出仍是密文，服务方始终看不到原始数据。</p><ul class="kp"><li><strong>HEIR（同态加密中间表示）开源编译器</strong>可将预训练 AI 模型转换为同态加密推理，降低使用门槛。</li><li>同态加密允许服务器<strong>直接对密文进行计算</strong>，纯密码学安全，无需依赖硬件可信环境。</li><li>已展示<strong>推荐、信用卡欺诈检测、网络入侵检测、热词检测</strong>四类加密推理应用。</li><li>已与 <strong>Belfort、Niobium、Cornami、Optalysys</strong> 等硬件加速器公司合作，以降低推理延迟。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区核心分歧：一方认为同态加密推理仍有约千倍资源开销、难以商用；另一方认为本地硬件运行更私密，并质疑 Google 自身隐私记录。</p><div class="tags"><span class="tag">同态加密</span><span class="tag">隐私保护推理</span><span class="tag">开源编译器</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · sabretooth1405 · 11 回复</div><p>My master&#x27;s thesis is on a topic in this field (Privacy Preserving ML) and from my understanding HE and other techniques have very high overheads(~10^3) on inference tasks and thus aren&#x27;t very commercially viable.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://www.ft.com/content/47dd5308-dd17-404a-a615-61046defd697" target="_blank" rel="noopener">Jane Street suffers $15B hit after meltdown at Situational Awareness</a></h2></div><p class="title-tr">Jane Street 在 Situational Awareness 崩盘后遭受 150 亿美元损失</p><div class="meta">▲ 89 分 · bobstax · <a href="https://news.ycombinator.com/item?id=49305927" target="_blank" rel="noopener">46 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">信息有限，仅据标题与评论：Jane Street 在 7 月市场动荡中亏损 150 亿美元，市场动荡包括 AI 对冲基金 Situational Awareness 崩盘；但其今年净交易收入已超 400 亿美元，扣除亏损仍高于 2025 全年。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Situational Awareness 是一家 AI 主题对冲基金，Jane Street 是量化做市商；这是市场交易风控事件，不是 AI 模型技术问题。</p><ul class="kp"><li><strong>Jane Street 7 月亏损 150 亿美元</strong>，发生在包括 SA 崩盘在内的市场动荡中。</li><li><strong>今年净交易收入超 400 亿美元</strong>，扣除亏损后仍高于 2025 全年。</li><li><strong>年内仍赚约 250 亿美元</strong>，被评论称为史上最赚钱交易公司之一。</li><li><strong>HN 标题存在因果误导</strong>：原文为“7 月市场动荡”，SA 崩盘只是其中一部分。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区核心分歧是 HN 标题是否夸大了 Jane Street 亏损与 Situational Awareness 的直接因果；同时调侃其扣除亏损后仍大赚。</p><div class="tags"><span class="tag">量化交易</span><span class="tag">对冲基金</span><span class="tag">市场风险</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · lz400 · 4 回复</div><p>It&#x27;s all so sketchy. Jane Street were investors in SA but presumably were much more sophisticated and savvy than Leopold. When SA got in trouble, 3 firms got into a bid war for the assets at fire sale prices: Citadel, Jane Street and a third I forgot. Citadel outbid the other 2, but it&#x27;s all weird, like Jane Street wanted in on the popular boy&#x27;s book that they knew was going to tank and just were waiting around in the water like sharks.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://www.byhand.ai/" target="_blank" rel="noopener">AI by Hand</a></h2></div><p class="title-tr">AI by Hand（手工推导 AI）</p><div class="meta">▲ 204 分 · sans_souse · <a href="https://news.ycombinator.com/item?id=49300568" target="_blank" rel="noopener">17 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Tom Yeh 教授运营的 AI by Hand 已积累超 73,000 名 Substack 订阅者，主打在数学与算法层面手工拆解模型可解释性。但站点需 JavaScript，订阅前可见内容有限。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 你已熟悉 Transformer 训练，可把它看作把注意力、反向传播等拆成手算步骤、补数学直觉的教学材料。</p><ul class="kp"><li><strong>Tom Yeh 教授</strong>运营 AI by Hand，专注在数学与算法层面拆解模型可解释性。</li><li>Substack 订阅者已超 <strong>73,000</strong>，证明手工推导教学有明确受众。</li><li>免费文章加直播研讨，完整研究库需付费订阅才能访问。</li><li>网站依赖 JavaScript，订阅前内容展示有限，入口体验被指不佳。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论共识是订阅前内容展示太少、用户体验差；多位用户转向推荐 llm-from-scratch 和 ml-by-hand 等从零实现资源。</p><div class="tags"><span class="tag">AI 教育</span><span class="tag">模型可解释性</span><span class="tag">订阅制内容</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · zhainya · 2 回复</div><p>I&#x27;m not sure what this is.  Click past the subscribe page to get a bunch of links to descriptions of articles I could read if I was a subscriber?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://www.mixedbread.com/blog/toast-1" target="_blank" rel="noopener">Introducing Toast 1</a></h2></div><p class="title-tr">推出 Toast 1</p><div class="meta">▲ 178 分 · mplappert · <a href="https://news.ycombinator.com/item?id=49299746" target="_blank" rel="noopener">58 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Mixedbread 发布专用搜索代理 Toast 1，声称搜索质量匹配前沿模型但便宜 10 倍、快 12 倍。在 OfficeQA 基准上，GPT-5.6 Sol 加 Toast 1 达 70% 正确率、成本 $1.15/任务，远超前最佳 60%/$4。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 搜索代理可理解为把多轮查询分解和证据筛选交给一个专门小模型，类似你用轻量模型做特征筛选，把大模型上下文留给最终推理。</p><ul class="kp"><li><strong>Toast 1 宣称便宜 10 倍、快 12 倍</strong>，同时匹配或超越 Claude Opus 5 和 GPT-5.6 Sol 的搜索质量。</li><li>在 <strong>OfficeQA Pro V2</strong> 上，GPT-5.6 Sol + Toast 1 达 70% 正确率、$1.15/任务，此前最佳为 60% 正确率、$4/任务。</li><li>在 Harvey LAB 法务基准中，Token 用量从 80.6M 降至 <strong>23M</strong>，成本降超 60%，轮次减半。</li><li>定价 <strong>$0.30/百万输入 token</strong>，标准查询约 $0.023、中位延迟 8 秒；支持任意搜索后端。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论认可专门搜索代理思路，但质疑封闭权重、未解释 Mixedbread Search，以及与 Perplexity、Gemini、自建 RAG 的差异。</p><div class="tags"><span class="tag">专用搜索代理</span><span class="tag">检索增强生成</span><span class="tag">LLM 推理成本</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · trjordan · 5 回复</div><p>I deeply love this idea of specialized LLMs for search. It&#x27;s also extremely confusing to me how rough Google&#x27;s entrance here is.</p><p>When I, a human, need an answer to anything moderately complex, it&#x27;s unlikely that I get it on the first (pre-AI) round of google searching. Simple stuff, sure, but more likely I&#x27;ll need to go 2-5 rounds. Maybe click a few links. Double-check my assumptions.</p><p>An LLM that can do that quickly seems like a slam dunk. I wonder what other problems benefit from that 10x-100x increase in context + 2-5 rounds with the LLM.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://github.com/lajosdeme/mole" target="_blank" rel="noopener">Show HN: Mole – Deep research agent for your terminal</a></h2></div><p class="title-tr">Show HN: Mole——终端深度研究代理</p><div class="meta">▲ 46 分 · lajosdeme · <a href="https://news.ycombinator.com/item?id=49303046" target="_blank" rel="noopener">8 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Mole 是一个终端深度研究代理，强制执行预算（测得超支 0%），每条声明附可验证引用，本地 CSV/文件夹分析只返回聚合结果、原始数据不离开机器。它支持多数 LLM，并通过 MCP 协议供编码代理驱动。</p><p class="context"><strong>🧭 联系你的知识背景</strong> MCP（模型上下文协议）是一种让 Claude Code 等外部编码代理调用工具的标准接口，类似 OpenAI 兼容 API 作为不同模型服务的统一接入层。</p><ul class="kp"><li><strong>预算超支 0%</strong>：每次模型调用先预留、后结算，数据库带非负约束，确保 --usd 0.50 严格停住。</li><li><strong>每条声明带来源引用</strong>：引用必须逐字出现在来源页面，否则声明被丢弃，不支持的先标记而非隐藏。</li><li><strong>本地数据不离开机器</strong>：CSV/文件夹分析只允许聚合结果（计数、均值、至少 5 条记录的桶）回传，模型看不到原始行。</li><li><strong>支持多 LLM 与 MCP 工具模式</strong>：兼容 OpenAI 端点/本地模型，订阅制编码代理可通过 mole-mcp 用自己的模型推理。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区有人质疑功能与代码量不匹配，并追问预算机制对 LLM 单次请求超预期与缓存如何处理；另有用户指出项目名与多个现有 Mole 工具冲突。</p><div class="tags"><span class="tag">深度研究代理</span><span class="tag">本地数据隐私</span><span class="tag">MCP</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · basedpolymer · 3 回复</div><p>https://github.com/tw93/Mole I see a certain conflict of interest.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://claude.com/blog/maximizing-the-value-of-your-claude-code-sessions" target="_blank" rel="noopener">Maximizing the value of your Claude Code sessions</a></h2></div><p class="title-tr">最大化你的 Claude Code 会话价值</p><div class="meta">▲ 130 分 · twapi · <a href="https://news.ycombinator.com/item?id=49300800" target="_blank" rel="noopener">90 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Anthropic 发布指南解析 Claude Code 会话 token 成本：输出价格约为输入 5 倍，缓存读取仅 0.1 倍；但中途切换模型或 effort 会破坏缓存导致全价重算。建议会话开始设定参数，并用 /clear、@-mention、/compact 控制上下文。</p><p class="context"><strong>🧭 联系你的知识背景</strong> prompt caching 类似在 Transformer 推理时缓存注意力计算的前缀状态，复用可大幅降低输入成本，但前缀必须逐 token 匹配才能命中。</p><ul class="kp"><li><strong>输出 token 价格约为输入 5 倍</strong>，思考 token 受 /effort 等级控制。</li><li><strong>中途切换模型或 effort 会破坏缓存</strong>，导致整个会话重新全价预填充。</li><li><strong>缓存读取仅 0.1 倍输入价</strong>，但前缀必须从头完全匹配。</li><li><strong>会话开始时设置模型和 effort</strong>，并用 /clear、@-mention 文件、/compact 控制上下文。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍认为缓存机制脆弱且成本惩罚隐蔽，有人推荐 /handoff 替代 /compact，也有人批评 Anthropic 把优化责任推给用户。</p><div class="tags"><span class="tag">Claude Code</span><span class="tag">LLM 推理成本</span><span class="tag">开发者工具</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · BeetleB · 4 回复</div><p>&gt; @-mention files instead of naming them. The file gets attached to your message directly, which saves a Read call, or a search if Claude has to go find it.</p><p>I&#x27;ve heard it argued that this is an antipattern. If the file is large, it will read the whole file. With Read or something similar, it can do a targeted search and read only the relevant portion.</p><p>Is this still not the case?</p><p>Also, since they mention /context: Can anyone explain why /context takes so long to run? It usually takes several seconds, and I&#x27;ve had cases of it taking over a minute.</p><p>And why don&#x27;t they just show the basics in a status line somewhere? Just a plain: &quot;120K/200K tokens&quot; I hate having to type /context just to get this. And I shouldn&#x27;t need to install an extension.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://z.ai/blog/glm-5.3" target="_blank" rel="noopener">GLM-5.3: Frontier coding with emergent cyber capabilities</a></h2></div><p class="title-tr">GLM-5.3：前沿编码与涌现的网络能力</p><div class="meta">▲ 1030 分 · pella · <a href="https://news.ycombinator.com/item?id=49294997" target="_blank" rel="noopener">515 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">信息有限（正文未能抓取），基于标题与评论：GLM-5.3 以约 Kimi K3 三分之一参数量达到相近编码/代理能力，仅靠后训练扩展；并能执行漏洞挖掘与利用，引发公开安全能力利弊讨论。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这里的 0-day、RCE、内核漏洞利用可类比为：模型在对抗性或未修复的真实软件上自动发现并利用安全漏洞，而不只是生成常规代码。</p><ul class="kp"><li><strong>GLM-5.3 仅靠后训练扩展</strong>，以约 Kimi K3 三分之一参数量达到相近编码/代理水平</li><li>HN 用户称其在红队场景中执行了 WordPress 插件 <strong>0-day 漏洞利用、RCE、内核漏洞适配</strong></li><li>Z.AI 推出 <strong>cvd.z.ai</strong> 大规模扫描开源软件并披露漏洞，多处于保密期</li><li>用户从 <strong>$18 订阅</strong>升至 $80 计划，认为首次有模型能无缝完成安全研究</li></ul><p class="disc"><strong>💬 讨论</strong> 共识是参数与成本门槛快速下降、逼近闭源前沿；分歧在于公开此类网络能力是安全进步还是风险。</p><div class="tags"><span class="tag">LLM 编码</span><span class="tag">AI 安全</span><span class="tag">后训练扩展</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · aliljet · 16 回复</div><p>This is absolutely still shy of Sol and Fable, but only just by a hair. Ridiculous results. There&#x27;s still not a compelling economic reason to drop OpenAI courtesy of the ludicrous reset addiction that&#x27;s taken place, but it feels like we&#x27;re on the precipice.</p><p>How are you all toying with running this kind of thing in a mega quantized way locally? Two weeks out from released weights, but this is still just GLM 5.2 with post-training magic.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://softwaredoug.com/blog/2026/08/10/hypothetical-classifications" target="_blank" rel="noopener">Don&#x27;t classify, hallucinate</a></h2></div><p class="title-tr">不要分类，去幻觉</p><div class="meta">▲ 217 分 · softwaredoug · <a href="https://news.ycombinator.com/item?id=49249523" target="_blank" rel="noopener">86 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者提出用便宜小模型先“幻觉”出假分类，再用 MiniLM 嵌入的点积相似度映射回真实分类词表，避免每次向 LLM 传输数百个合法类别。在 Wayfair 家具查询上可得到正确类别，成本显著低于结构化输出。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 本文把分类问题转化为生成-检索：小模型生成任意文本，再用你熟悉的嵌入相似度检索到固定分类表，避免了结构化输出中传输大 schema 的开销。</p><ul class="kp"><li><strong>假分类生成</strong>：不传合法分类列表，让便宜小模型凭空生成分类。</li><li><strong>MiniLM 嵌入</strong>：计算真实与生成分类的向量相似度，映射回合法词表。</li><li>Wayfair 查询“brown coffee table”正确映射至 <strong>Coffee Tables</strong> 类别。</li><li>该方法<strong>免去每次传输数百个类别 schema</strong>，降低大规模分类成本。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区核心质疑是作者未做 A/B 对比验证，且直接嵌入查询与真实类别计算相似度可能更简单，为何要先让模型生成假分类。</p><div class="tags"><span class="tag">LLM 分类</span><span class="tag">嵌入检索</span><span class="tag">推理成本优化</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Sharlin · 10 回复</div><p>I can’t believe programming is now at the stage where advice like &quot;first have the computer give you totally wrong answers, then just find a function that maps the wrong answers to the correct ones!&quot; is a thing.</p></div></div></article>
+</div></main>
+<footer>generated 2026-08-15 01:49 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-15", "pointsLabel": "分", "commentsLabel": "评论", "title": "Qwen 3.8 27B", "titleTranslation": "", "summary": "Qwen 发布 Qwen3.8-27B，一款 27B 稠密开源多模态模型，提供 FP8 量化权重；在终端编程、长程智能体和视觉任务上显著超越前代 Qwen3.6-27B，例如 Terminal Bench 2.1 从 63.4 升至 73.0。HN 实测能力突出，但 32K 上下文占 2.5GB 显存，本地部署成本高。", "keyPoints": ["Qwen3.8-27B 是开源多模态稠密模型，编程、智能体、视觉基准全面超越 Qwen3.6-27B。", "FP8 量化版 采用 128 块大小细粒度量化，官方称性能接近原始模型，利于本地部署。", "上下文原生 262,144 tokens，可扩展至 100 万，适合长文档和小时级视频理解。"], "discussion": "HN 评论认可其复杂推理能力（继 Gemma 4 后第二个通过私测的本地模型），但普遍指出显存占用过高、长上下文不实用，部分用户期待 35B MoE 版本。", "tags": ["开源多模态模型", "本地推理", "模型量化"], "score": 907, "comments": 592, "by": "erdaltoprak", "url": "https://huggingface.co/Qwen/Qwen3.8-27B-FP8", "hnUrl": "https://news.ycombinator.com/item?id=49299605"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-15", "pointsLabel": "分", "commentsLabel": "评论", "title": "Why does Opus 5 feel worse to work with?", "titleTranslation": "为什么 Opus 5 用起来感觉更差？", "summary": "Opus 5 基准能力更强，但真实编码中因倾向擅自假设而非主动澄清，体验像降级；作者推测这是基准测试和自改进压力筛选出“大胆猜”的模型所致。", "keyPoints": ["Opus 5 基准能力更强，但真实使用中因擅自假设而非主动澄清，需要用户“保姆式”监督。", "作者推测：基准测试和自改进压力筛选出在歧义下大胆假设的模型，惩罚会提问的模型。", "评论区用户实测：Opus 5 生成的注释与代码比例接近 3:1，清理注释花掉一天 token 额度。"], "discussion": "评论区普遍认同 Opus 5 沟通冗长且越权，但有人指出 Fable 更严重，并担忧模型优化目标已从人类转向代理间协作。", "tags": ["AI 编程助手", "LLM 对齐", "模型评估"], "score": 786, "comments": 724, "by": "numeri", "url": "https://mun-logadan.github.io/why-does-opus-5-feel-worse/", "hnUrl": "https://news.ycombinator.com/item?id=49296740"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-15", "pointsLabel": "分", "commentsLabel": "评论", "title": "Google is making private AI practical with homomorphic encryption", "titleTranslation": "Google 正通过同态加密让隐私 AI 变得实用", "summary": "Google 发布 HEIR（同态加密中间表示）开源编译器，可将预训练 AI 模型转换为在加密输入上推理，已展示推荐、欺诈检测、入侵检测、热词检测四类应用；瞄准医疗、金融等强监管行业，但未披露具体计算开销。", "keyPoints": ["HEIR（同态加密中间表示）开源编译器可将预训练 AI 模型转换为同态加密推理，降低使用门槛。", "同态加密允许服务器直接对密文进行计算，纯密码学安全，无需依赖硬件可信环境。", "已展示推荐、信用卡欺诈检测、网络入侵检测、热词检测四类加密推理应用。"], "discussion": "评论区核心分歧：一方认为同态加密推理仍有约千倍资源开销、难以商用；另一方认为本地硬件运行更私密，并质疑 Google 自身隐私记录。", "tags": ["同态加密", "隐私保护推理", "开源编译器"], "score": 280, "comments": 169, "by": "u1hcw9nx", "url": "https://blog.google/security/how-google-is-making-private-ai-practical-with-homomorphic-encryption/", "hnUrl": "https://news.ycombinator.com/item?id=49300314"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-15", "pointsLabel": "分", "commentsLabel": "评论", "title": "Jane Street suffers $15B hit after meltdown at Situational Awareness", "titleTranslation": "Jane Street 在 Situational Awareness 崩盘后遭受 150 亿美元损失", "summary": "信息有限，仅据标题与评论：Jane Street 在 7 月市场动荡中亏损 150 亿美元，市场动荡包括 AI 对冲基金 Situational Awareness 崩盘；但其今年净交易收入已超 400 亿美元，扣除亏损仍高于 2025 全年。", "keyPoints": ["Jane Street 7 月亏损 150 亿美元，发生在包括 SA 崩盘在内的市场动荡中。", "今年净交易收入超 400 亿美元，扣除亏损后仍高于 2025 全年。", "年内仍赚约 250 亿美元，被评论称为史上最赚钱交易公司之一。"], "discussion": "评论区核心分歧是 HN 标题是否夸大了 Jane Street 亏损与 Situational Awareness 的直接因果；同时调侃其扣除亏损后仍大赚。", "tags": ["量化交易", "对冲基金", "市场风险"], "score": 89, "comments": 46, "by": "bobstax", "url": "https://www.ft.com/content/47dd5308-dd17-404a-a615-61046defd697", "hnUrl": "https://news.ycombinator.com/item?id=49305927"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-15", "pointsLabel": "分", "commentsLabel": "评论", "title": "AI by Hand", "titleTranslation": "AI by Hand（手工推导 AI）", "summary": "Tom Yeh 教授运营的 AI by Hand 已积累超 73,000 名 Substack 订阅者，主打在数学与算法层面手工拆解模型可解释性。但站点需 JavaScript，订阅前可见内容有限。", "keyPoints": ["Tom Yeh 教授运营 AI by Hand，专注在数学与算法层面拆解模型可解释性。", "Substack 订阅者已超 73,000，证明手工推导教学有明确受众。", "免费文章加直播研讨，完整研究库需付费订阅才能访问。"], "discussion": "评论共识是订阅前内容展示太少、用户体验差；多位用户转向推荐 llm-from-scratch 和 ml-by-hand 等从零实现资源。", "tags": ["AI 教育", "模型可解释性", "订阅制内容"], "score": 204, "comments": 17, "by": "sans_souse", "url": "https://www.byhand.ai/", "hnUrl": "https://news.ycombinator.com/item?id=49300568"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-15", "pointsLabel": "分", "commentsLabel": "评论", "title": "Introducing Toast 1", "titleTranslation": "推出 Toast 1", "summary": "Mixedbread 发布专用搜索代理 Toast 1，声称搜索质量匹配前沿模型但便宜 10 倍、快 12 倍。在 OfficeQA 基准上，GPT-5.6 Sol 加 Toast 1 达 70% 正确率、成本 $1.15/任务，远超前最佳 60%/$4。", "keyPoints": ["Toast 1 宣称便宜 10 倍、快 12 倍，同时匹配或超越 Claude Opus 5 和 GPT-5.6 Sol 的搜索质量。", "在 OfficeQA Pro V2 上，GPT-5.6 Sol + Toast 1 达 70% 正确率、$1.15/任务，此前最佳为 60% 正确率、$4/任务。", "在 Harvey LAB 法务基准中，Token 用量从 80.6M 降至 23M，成本降超 60%，轮次减半。"], "discussion": "评论认可专门搜索代理思路，但质疑封闭权重、未解释 Mixedbread Search，以及与 Perplexity、Gemini、自建 RAG 的差异。", "tags": ["专用搜索代理", "检索增强生成", "LLM 推理成本"], "score": 178, "comments": 58, "by": "mplappert", "url": "https://www.mixedbread.com/blog/toast-1", "hnUrl": "https://news.ycombinator.com/item?id=49299746"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-15", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Mole – Deep research agent for your terminal", "titleTranslation": "Show HN: Mole——终端深度研究代理", "summary": "Mole 是一个终端深度研究代理，强制执行预算（测得超支 0%），每条声明附可验证引用，本地 CSV/文件夹分析只返回聚合结果、原始数据不离开机器。它支持多数 LLM，并通过 MCP 协议供编码代理驱动。", "keyPoints": ["预算超支 0%：每次模型调用先预留、后结算，数据库带非负约束，确保 --usd 0.50 严格停住。", "每条声明带来源引用：引用必须逐字出现在来源页面，否则声明被丢弃，不支持的先标记而非隐藏。", "本地数据不离开机器：CSV/文件夹分析只允许聚合结果（计数、均值、至少 5 条记录的桶）回传，模型看不到原始行。"], "discussion": "评论区有人质疑功能与代码量不匹配，并追问预算机制对 LLM 单次请求超预期与缓存如何处理；另有用户指出项目名与多个现有 Mole 工具冲突。", "tags": ["深度研究代理", "本地数据隐私", "MCP"], "score": 46, "comments": 8, "by": "lajosdeme", "url": "https://github.com/lajosdeme/mole", "hnUrl": "https://news.ycombinator.com/item?id=49303046"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-15", "pointsLabel": "分", "commentsLabel": "评论", "title": "Maximizing the value of your Claude Code sessions", "titleTranslation": "最大化你的 Claude Code 会话价值", "summary": "Anthropic 发布指南解析 Claude Code 会话 token 成本：输出价格约为输入 5 倍，缓存读取仅 0.1 倍；但中途切换模型或 effort 会破坏缓存导致全价重算。建议会话开始设定参数，并用 /clear、@-mention、/compact 控制上下文。", "keyPoints": ["输出 token 价格约为输入 5 倍，思考 token 受 /effort 等级控制。", "中途切换模型或 effort 会破坏缓存，导致整个会话重新全价预填充。", "缓存读取仅 0.1 倍输入价，但前缀必须从头完全匹配。"], "discussion": "评论区普遍认为缓存机制脆弱且成本惩罚隐蔽，有人推荐 /handoff 替代 /compact，也有人批评 Anthropic 把优化责任推给用户。", "tags": ["Claude Code", "LLM 推理成本", "开发者工具"], "score": 130, "comments": 90, "by": "twapi", "url": "https://claude.com/blog/maximizing-the-value-of-your-claude-code-sessions", "hnUrl": "https://news.ycombinator.com/item?id=49300800"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-15", "pointsLabel": "分", "commentsLabel": "评论", "title": "GLM-5.3: Frontier coding with emergent cyber capabilities", "titleTranslation": "GLM-5.3：前沿编码与涌现的网络能力", "summary": "信息有限（正文未能抓取），基于标题与评论：GLM-5.3 以约 Kimi K3 三分之一参数量达到相近编码/代理能力，仅靠后训练扩展；并能执行漏洞挖掘与利用，引发公开安全能力利弊讨论。", "keyPoints": ["GLM-5.3 仅靠后训练扩展，以约 Kimi K3 三分之一参数量达到相近编码/代理水平", "HN 用户称其在红队场景中执行了 WordPress 插件 0-day 漏洞利用、RCE、内核漏洞适配", "Z.AI 推出 cvd.z.ai 大规模扫描开源软件并披露漏洞，多处于保密期"], "discussion": "共识是参数与成本门槛快速下降、逼近闭源前沿；分歧在于公开此类网络能力是安全进步还是风险。", "tags": ["LLM 编码", "AI 安全", "后训练扩展"], "score": 1030, "comments": 515, "by": "pella", "url": "https://z.ai/blog/glm-5.3", "hnUrl": "https://news.ycombinator.com/item?id=49294997"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-15", "pointsLabel": "分", "commentsLabel": "评论", "title": "Don't classify, hallucinate", "titleTranslation": "不要分类，去幻觉", "summary": "作者提出用便宜小模型先“幻觉”出假分类，再用 MiniLM 嵌入的点积相似度映射回真实分类词表，避免每次向 LLM 传输数百个合法类别。在 Wayfair 家具查询上可得到正确类别，成本显著低于结构化输出。", "keyPoints": ["假分类生成：不传合法分类列表，让便宜小模型凭空生成分类。", "MiniLM 嵌入：计算真实与生成分类的向量相似度，映射回合法词表。", "Wayfair 查询“brown coffee table”正确映射至 Coffee Tables 类别。"], "discussion": "评论区核心质疑是作者未做 A/B 对比验证，且直接嵌入查询与真实类别计算相似度可能更简单，为何要先让模型生成假分类。", "tags": ["LLM 分类", "嵌入检索", "推理成本优化"], "score": 217, "comments": 86, "by": "softwaredoug", "url": "https://softwaredoug.com/blog/2026/08/10/hypothetical-classifications", "hnUrl": "https://news.ycombinator.com/item?id=49249523"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
