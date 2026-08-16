@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-08-16</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-08-16 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://www.science.org/content/blog-post/so-how-ai-drug-discovery-doing-really" target="_blank" rel="noopener">AI in drug discovery – what it is, where we stand and the path forward</a></h2></div><p class="title-tr">药物发现中的 AI——它是什么、现状如何、未来路径</p><div class="meta">▲ 89 分 · AnodicElegy · <a href="https://news.ycombinator.com/item?id=49313367" target="_blank" rel="noopener">45 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Derek Lowe 评述 Nature 综述指出，AI 药物发现迄今未交出真正意义上的新药，主要价值是加速已有流程；缺乏可比数据和可测试性是评估其进展的核心障碍。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 药物发现中，AI 生成的候选分子可类比模型输出的候选序列，但真正的瓶颈在后续湿实验和临床验证——文章据此判断 AI 尚未带来新药。</p><ul class="kp"><li><strong>Derek Lowe</strong> 评述指出，AI 药物发现尚未产生真正的新药，主要价值是加速已有流程。</li><li>结构生物学家称 AI 将<strong>PDB/CIF 蛋白质结构文件处理</strong>从 1–2 小时压缩到快速提示，但未带来新颖发现。</li><li>评论认为核心障碍是<strong>缺乏可比数据和可测试性</strong>，导致 AI 药物发现进展难以可靠评估。</li><li>患者用 <strong>crohns.ai</strong> 构建护理方案而非研发新药，说明 AI 在照护端的落地价值可能未被基准测试覆盖。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 共识偏冷静：AI 在药物研发中更像提效工具而非突破引擎，但患者端应用或许已被低估。</p><div class="tags"><span class="tag">AI 药物发现</span><span class="tag">AlphaFold</span><span class="tag">临床试验数据</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Xenoamorphous · 9 回复</div><p>Need one for hair loss ASAP.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://sankalp.bearblog.dev/autoresearch/" target="_blank" rel="noopener">Auto-research with codex: How I achieved a 232x Faster Kernel</a></h2></div><p class="title-tr">用 Codex 自动研究：我如何在 GPU Mode 的 qr_v2 问题中实现比基线快 232 倍的内核</p><div class="meta">▲ 395 分 · tosh · <a href="https://news.ycombinator.com/item?id=49309549" target="_blank" rel="noopener">86 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者在 GPU Mode 自动研究竞赛中用 Codex 代理循环优化批量 Householder QR 分解 CUDA 内核，14 天提交 1500 次，达到比基线快 232 倍、排名第 12/183。核心是让 LLM 在验证器和分析器反馈下自动迭代性能优化。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可以把 GPU 内核优化加 LLM 自动迭代类比为用代理反复做模型推理优化和超参数搜索：你不必深究 CUDA 或矩阵分解数学，重点是代理循环如何在明确验证标准下自动爬山。</p><ul class="kp"><li><strong>232 倍加速</strong>：作者用 Codex 代理优化 CUDA QR 分解内核，14 天 1500 次提交，排第 12/183。</li><li><strong>分块 Householder 算法</strong>：将串行计算限制在窄面板，尾块转为矩阵乘法以利用 Tensor Core。</li><li><strong>过拟合警告</strong>：前 10 名中 8 个方案只对比赛输入有效，换其他矩阵形状会崩溃。</li><li><strong>LLM 性能循环</strong>：给定验证器和剖析器，代理能自动完成剖析、实现、验证、再优化的闭环。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区共识是 LLM 适合有明确验证器的性能优化循环，但自动生成的方案容易过拟合特定输入，通用性和可维护性明显不足。</p><div class="tags"><span class="tag">LLM 自动研究</span><span class="tag">GPU 内核优化</span><span class="tag">性能基准</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Almondsetat · 11 回复</div><p>In the last couple of days I wanted to try out the new definitive DeepSeek v4 releases. I gave it the repository of a semi-abandoned video compression codec and I told it to perform the usual benchmark -&gt; profile -&gt; verify -&gt; research -&gt; improve loop. I specifically chose this codec because the authors include a verifier for the bitstream to make sure you don&#x27;t break stuff if you want to try your own implementation. I gave the agents access to the compiler&#x27;s profiler and also Intel&#x27;s VTune, which has fantastic output. In a couple of hours the LLM generated SSE and AVX implementations of the compression and decompression algorithms that almost doubled performance with a single core. Then I asked it to create a CUDA implementation using NVIDIA&#x27;s NSIGHT profiler as a guide and it also started doing some good work.</p><p>Personally, I believe that LLMs should be treated like an advanced version of Prolog or linear programming: you give the constraints, you have a way of verifying correctness, and you give it a clear goal. If the LLM can verify itself and course-correct you can basically leave it on autopilot</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://davidepiffer.com/p/ai-isnt-outthinking-mathematicians" target="_blank" rel="noopener">AI has access to a vastly larger working memory than the human brain</a></h2></div><p class="title-tr">AI 拥有远比人脑更大的可用工作记忆</p><div class="meta">▲ 412 分 · rzk · <a href="https://news.ycombinator.com/item?id=49312845" target="_blank" rel="noopener">371 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">文章认为 AI 在数学上表现更强，主要不是推理更聪明，而是上下文窗口充当了几乎无限的外部符号工作区，绕开人类工作记忆容量瓶颈。心理学研究表明工作记忆独立于智商预测数学表现，而数学又最适合被显式符号化，因此该优势被进一步放大。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 上下文窗口对读者而言是推理时可见的 token 序列，本文把它类比为草稿纸或外部工作记忆，而不是模型训练参数或内部隐藏状态。</p><ul class="kp"><li><strong>工作记忆容量</strong>是制约人类数学推理的关键，研究显示其独立于智商预测数学表现。</li><li>AI 的 <strong>上下文窗口</strong>可同时保存问题、中间方程和废弃分支，形成巨大外部符号工作区。</li><li><strong>数学</strong>因可高度符号化、歧义低，最大化 AI 的记忆优势；长推理链可突破人类容量。</li><li><strong>非形式推理</strong>中瓶颈是缺失信息与概念歧义，单纯扩大记忆帮助有限。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论较认同 AI 的优势来自记忆、不知疲倦和可复用负面结果/中间痕迹，而非神秘推理突破，并指出这与人类数学家的发表激励形成对比。</p><div class="tags"><span class="tag">LLM 上下文窗口</span><span class="tag">工作记忆瓶颈</span><span class="tag">数学推理</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · hibikir · 24 回复</div><p>I suspect that a lot about what we call being very intelligent is ultimately out-remembering people around us. I think of all the times in my software career when I did something that others considered very high performance, it either came down to either having more energy than others at tackling a problem they thought was more trouble than it was worth, or just bringing back random knowledge from previous jobs or self study, and being able to apply it to the problem at hand.</p><p>I don&#x27;t think I&#x27;ve had a truly original idea in my life. Combine A + B, when it&#x27;s rare for people to know A and B at the same time. So from that perspective, what LLMs are doing is basically the same thing. Sometimes I am faster than the LLM because my context might be better organized, but it typically needs just a hint from me to steer itself correctly. It claims something is a memory leak, but smelling a rat, I suggest it to double check the garbage collection statistics too, at which point it&#x27;s clear it&#x27;s no leak, but a tuning error, at which point the LLM is better at tuning than me, because it has more energy than I do.</p><p>Maybe there&#x27;s true brilliance out there, when something doesn&#x27;t come out of combining data and building hypothesis until you get really lucky. My experience is not comprehensive. But I look around me, and it sure seems I&#x27;ve not been lucky enough to see it. Even the shiniest people I&#x27;ve worked with, which most of the audience here would recognize, have never shown me that they can go past this.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://allen.bargi.org/notes/working-with-ai-feels-like-leadership/" target="_blank" rel="noopener">Working with AI feels more like leadership than coding</a></h2></div><p class="title-tr">与 AI 协作更像领导而非写代码</p><div class="meta">▲ 270 分 · allenb · <a href="https://news.ycombinator.com/item?id=49309451" target="_blank" rel="noopener">174 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者把 AI 编程类比为领导：同一请求会产生不同结果，因此上下文、意图和反馈比精确指令更有价值。评论区出现 6 万行 AI 代码却延期三个月的反面案例，也出现停止招聘开发者的信号。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这与你熟悉的模型采样行为一致：AI 输出非确定，协作方式更像是通过上下文、示例和反馈来约束生成质量，而不是编译器的确定性执行。</p><ul class="kp"><li><strong>非确定性</strong>：同样请求可能产生不同答案，把 AI 当编译器会失败，需反馈和上下文约束。</li><li><strong>共享上下文比单个 prompt 更重要</strong>：示例、纠正和可复用指令能减少误解，随时间对齐意图。</li><li><strong>6 万行 AI 生成代码</strong>在 3 周内产出，却导致项目延期 3 个月，负责人让初级工程师背锅。</li><li>有评论称<strong>已停止招聘开发者</strong>，即使公司增长也不扩张，引发入门岗就业担忧。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区核心分歧是这应叫“管理”而非“领导”，以及是否仍算“编程”；共识是足够的上下文与反馈能提升 AI 产出质量。</p><div class="tags"><span class="tag">AI 编程协作</span><span class="tag">工程管理</span><span class="tag">非确定性模型</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · miyoji · 17 回复</div><p>The word is &quot;management&quot;, not &quot;leadership&quot;. This comes across as a LinkedIn post filled with vague notions and weak writing.</p><p>The conclusion also completely contradicts a previous point, which is that managing an LLM is not like managing a human. So the skills are, in contradiction to that LLM-ism of a conclusion, new. The author isn&#x27;t using their people management skills, they&#x27;re using new LLM-management skills. They think the two are similar, but didn&#x27;t bother breaking down how they&#x27;re the same vs where they contrast. It&#x27;s just a lazy observation expanded out to a short essay that says nothing interesting.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://github.com/TraceCohenTech/ai-seo-playbook" target="_blank" rel="noopener">The complete AI SEO playbook: from zero to 4.6M impressions in 3 months</a></h2></div><p class="title-tr">AI SEO 完整实战手册：3 个月从零到 460 万次曝光</p><div class="meta">▲ 4 分 · t_cohen · <a href="https://news.ycombinator.com/item?id=49315620" target="_blank" rel="noopener">1 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Trace Cohen 开源其 AI SEO 方法：用多模型流水线和 Google Search Console 反馈闭环，3 个月将网站月曝光从 60.4 万提升到 462 万；仓库含 14 个诊断脚本、9 道质量闸门和自动化运维配置。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可类比机器学习训练循环：Google Search Console 数据相当于评估信号，多模型生成流水线是推理器，质量闸门是规则化后处理，查询缺口挖掘则像主动挑选高价值训练样本。</p><ul class="kp"><li><strong>月曝光量从 60.4 万增至 462 万</strong>，3 个月完成；日点击峰值 854，平均排名从 12+ 升至 7.5。</li><li>核心是 <strong>Google Search Console 反馈闭环</strong>：每周自动报告驱动标题重写、关键词蚕食合并、过期页面刷新和孤儿页面补链。</li><li><strong>9 道发布质量闸门</strong>、模板短语黑名单与反 AI 检测规则，用于过滤批量生成痕迹，降低被谷歌判为规模化内容滥用的风险。</li><li>仓库提供 <strong>14 个诊断脚本</strong>、5 种内容格式轮换和 Next.js/Vercel 构建成本控制方案，需自行接入 Google Search Console API。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论批评这套方法是工业化 SEO 套利而非真正的内容建设，会加速互联网内容劣化，并调侃操作者是风投。</p><div class="tags"><span class="tag">AI SEO</span><span class="tag">内容生成流水线</span><span class="tag">Google Search Console</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://www.ycombinator.com/companies/voltair/jobs/sSOD2Ox-flight-test-engineer" target="_blank" rel="noopener">Voltair (YC W26) Is Hiring a Test Flight Engineer</a></h2></div><p class="title-tr">Voltair（YC W26）招聘飞行测试工程师</p><div class="meta">▲ 1 分 · wweissbluth · <a href="https://news.ycombinator.com/item?id=49313047" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Voltair是YC W26孵化的无人机地球观测公司，主攻电力公用事业巡检，计划用约5000个地面站覆盖美国大陆，无人机可沿电线充电实现无限航程。现招聘第7名全职飞行测试工程师，薪酬$120-$180加0.5%-1.5%股权，要求无人机硬件与飞控经验。</p><p class="context"><strong>🧭 联系你的知识背景</strong> FAA Part 107是美国商用无人机操作执照；Voltair的“地面站+电线充电”可类比为把物理世界数据采集做成自动化的巡检网络，类似你熟悉的推理服务但部署在野外硬件上。</p><ul class="kp"><li><strong>Voltair</strong>是YC W26孵化的无人机地球观测公司，目标是仅用约<strong>5000个地面站</strong>覆盖美国大陆。</li><li>无人机<strong>沿电线充电</strong>实现无限航程，首个市场是电力公用事业，已服务多家并筹备大型部署。</li><li>招聘<strong>飞行测试工程师</strong>，作为第7名全职员工，薪酬$120-$180外加0.5%-1.5%股权，需1年以上经验。</li><li>要求具备<strong>ArduPilot/PX4飞控固件</strong>与无人机制造经验，持有FAA Part 107执照者优先，每2个月出差约1周。</li></ul><div class="tags"><span class="tag">无人机巡检</span><span class="tag">电力公用事业</span><span class="tag">创业招聘</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://printytron.com" target="_blank" rel="noopener">Printytron – Describe a part, get a printable STL</a></h2></div><p class="title-tr">Printytron——描述一个零件，获得可打印的 STL</p><div class="meta">▲ 72 分 · statenjason · <a href="https://news.ycombinator.com/item?id=49310829" target="_blank" rel="noopener">31 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">仅基于标题和 HN 讨论（正文未能抓取）：Printytron 让用户用自然语言描述零件，直接生成可打印的 STL 文件；评论显示它能在 2-3 条消息内生成带孔垫片和 17×17 MURA 掩模，但差异化与可编辑性存疑。</p><p class="context"><strong>🧭 联系你的知识背景</strong> STL 是 3D 打印通用的网格文件格式；这类工具相当于把自然语言 prompt 直接编译成可制造的几何体，类似你熟悉的 LLM 产品化路径，只是输出从文本换成 CAD 文件。</p><ul class="kp"><li><strong>Printytron</strong> 用文字描述生成可打印 STL 文件，降低 CAD 上手门槛。</li><li>用户用 <strong>2 条消息</strong>生成带孔垫片、用 3 条消息生成 17×17 MURA（改进型均匀冗余阵列）掩模，简单件出图快。</li><li>评论区质疑：相对 <strong>OpenSCAD + Claude/Gemini</strong> 或本地 nurb.dev，差异化与生成后继续编辑能力不明。</li><li>创作者称流量较平时高 <strong>10 到 20 倍</strong>，但产品信息有限，仍处早期验证阶段。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍认可易用性和无需登录的快速试用，但核心分歧在于它相对 OpenSCAD 结合大模型或本地 nurb.dev 是否有持久差异化，以及生成后能否继续编辑。</p><div class="tags"><span class="tag">文本转 CAD</span><span class="tag">3D 打印</span><span class="tag">AI 应用</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · anthonj · 3 回复</div><p>Refused to design a dragon dildo :(</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://huggingface.co/Qwen/Qwen3.8-27B-FP8" target="_blank" rel="noopener">Qwen 3.8 27B</a></h2></div><div class="meta">▲ 1357 分 · erdaltoprak · <a href="https://news.ycombinator.com/item?id=49299605" target="_blank" rel="noopener">772 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Qwen 发布 <strong>Qwen3.8-27B</strong>，一款 27B 稠密开源多模态模型，提供 FP8 量化权重；在终端编程、长程智能体和视觉任务上显著超越前代 Qwen3.6-27B，例如 Terminal Bench 2.1 从 63.4 升至 73.0。HN 实测能力突出，但 32K 上下文占 2.5GB 显存，本地部署成本高。</p><p class="context"><strong>🧭 联系你的知识背景</strong> FP8 量化与你在训练中用的半精度类似，把权重压缩到 8 位浮点以省显存，但会带来精度损失；这里用细粒度量化缓解损失，直接决定 27B 模型能否在消费级显卡上落地。</p><ul class="kp"><li><strong>Qwen3.8-27B</strong> 是开源多模态稠密模型，编程、智能体、视觉基准全面超越 Qwen3.6-27B。</li><li><strong>FP8 量化版</strong> 采用 128 块大小细粒度量化，官方称性能接近原始模型，利于本地部署。</li><li>上下文原生 <strong>262,144 tokens</strong>，可扩展至 100 万，适合长文档和小时级视频理解。</li><li>HN 实测 <strong>32K 上下文占 2.5GB 显存</strong>，32GB 显卡难容 128K 上下文，实用门槛高。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论认可其复杂推理能力（继 Gemma 4 后第二个通过私测的本地模型），但普遍指出显存占用过高、长上下文不实用，部分用户期待 35B MoE 版本。</p><div class="tags"><span class="tag">开源多模态模型</span><span class="tag">本地推理</span><span class="tag">模型量化</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · simonw · 18 回复</div><p>Absolutely the best pelican I&#x27;ve seen from a model that runs on my laptop: https://tools.simonwillison.net/markdown-svg-renderer#url=ht...</p><p>Bicycle is the right shape. Pelican beak is excellent. Nice background. Most importantly, the pelican has one leg on each side of the bicycle - that&#x27;s very rare.</p><p>(No chain on this bicycle though - in the reasoning trace it says &quot;already chainstay... skip chain detail; maybe a small chainring.&quot;)</p><p>I ran that on an M5 Max MacBook Pro using LM Studio and their 17GB GGUF: https://lmstudio.ai/models/qwen3.8</p><p>It took 21 minutes(!) and used 22,276 reasoning tokens to produce 3,223 tokens of output.</p><p>(For the &quot;they&#x27;re training on your benchmark now&quot; crowd, all of that cheating didn&#x27;t prevent it from spending 20 minutes thinking about the task first! You can see the reasoning trace in the link I shared.)</p><p>For comparison, here&#x27;s one I got from qwen3.8-2.4t-a95b on OpenRouter, which is pleasingly animated: https://tools.simonwillison.net/markdown-svg-renderer#url=ht...</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://chenxiachan.github.io/thoughtdag/" target="_blank" rel="noopener">Show HN: ThoughtDAG – An editable context graph for LLM conversations</a></h2></div><p class="title-tr">Show HN: ThoughtDAG – 一个可编辑的 LLM 对话上下文图</p><div class="meta">▲ 112 分 · chatchan · <a href="https://news.ycombinator.com/item?id=49307700" target="_blank" rel="noopener">52 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">ThoughtDAG 把 LLM 对话历史变成可见、可编辑、可检查的图结构，让用户精确控制哪些上下文进入下一次请求。演示中删除一条边减少 47 tokens，同一提示词重新生成后不再混入无关晚餐建议，验证上下文可复现。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可把它理解为把 Transformer 的 token 级输入序列显式建模成可裁剪的依赖图，删除一条边就是移除一段历史 token，直接改变模型实际看到的上下文。</p><ul class="kp"><li>ThoughtDAG 将对话历史表现为<strong>可见可编辑的有向无环图</strong>，用户可手动挑选哪些历史分支进入下一次模型请求。</li><li>演示删除一条边后减少 <strong>47 tokens</strong>，同一提示词重新生成结果不再包含无关晚餐建议，体现上下文可复现。</li><li>HN 评论指出当前实现存在<strong>远程命令执行漏洞</strong>：服务绑定所有网络接口且命令拼接，攻击者可在你的电脑执行任意命令。</li><li>用户希望工具能<strong>高亮有毒历史片段</strong>并集成到现有编辑器；修改上下文也可能使 prefill 阶段的缓存失效、推理变慢。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍认可上下文图思路，但指出当前独立应用存在严重安全漏洞，建议修复后再试用，并希望与现有编辑器或工作流更深度集成。</p><div class="tags"><span class="tag">LLM 上下文管理</span><span class="tag">命令注入漏洞</span><span class="tag">开发者工具</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · embedding-shape · 4 回复</div><p>This seems like a really interesting idea and something I&#x27;ve basically been doing myself manually so far, with a DESIGN.md document with &quot;one concept/decision per line, built in a tree&quot; basically, where all decisions that needs to be remembered gets noted down for future reference.</p><p>Not a fan of ThoughtDAG being a complete separate application rather than built into the tools I use every day, like my text editor or other planning tool. But neat that you&#x27;ve seemingly integrated a bunch of LLM providers, including letting us use local models, sufficiently sweet :)</p><p>Some security &quot;nitpicks&quot;: I&#x27;m fairly sure you have a critical security issue in the &quot;execSync(`pdftoppm -png -r ${dpi} ...`)&quot; call you do, which I don&#x27;t think would have been a issue if the local web server you start listened to 127.0.0.1 or some other local IP, but instead it seems the server binds to 0.0.0.0, meaning all network interfaces. Put together, anyone who runs this application effectively gives anyone else a free shell to your computer :)</p><p>Tiny nitpicks about the AppImage specifically, seems it&#x27;s missing publisher details/signing (not a huge deal, just something you might want to look into) and also it&#x27;s using &quot;--no-sandbox&quot;, don&#x27;t think you need that, let it be sandboxed instead, and the remote vulnerability above might also become less of an issue :)</p><p>I&#x27;ll hold off a bit to play around with it, because of the issue above, but I&#x27;m curious to see if it does provide something more than what I manage with my ASCII Markdown tree of decisions. Maybe there is potential for ThoughtDAG in the future to be better integrated with other tools, and end up mostly being the management/viewer of things, so I can continue using vim and codex as today, but they can read/write via ThoughtDAG perhaps, or some other approach.</p><p>Regardless, thanks for sharing it and good luck! :)</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="http://www.stephen-cresswell.com/2026/08/15/Yadda-3.0.0-BDD-in-the-Age-of-AI-Agents.html" target="_blank" rel="noopener">Yadda 3.0.0: BDD in the Age of AI Agents</a></h2></div><p class="title-tr">Yadda 3.0.0：AI 智能体时代的行为驱动开发（BDD）</p><div class="meta">▲ 56 分 · scresswell · <a href="https://news.ycombinator.com/item?id=49310495" target="_blank" rel="noopener">27 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Yadda 3.0.0 发布，定位为 Node-only 的 JavaScript 行为驱动开发库。作者称大部分现代化工作由 Claude Code（Opus 4.8）在约一天内完成，并认为编码瓶颈正转向人类协调多个 AI 代理；可执行规格对代理驱动开发比文档更有价值。</p><p class="context"><strong>🧭 联系你的知识背景</strong> BDD（行为驱动开发）是把自然语言需求写成可执行测试，可类比你用评估集验证模型行为；本文主角 Yadda 是 JavaScript 侧的这类库。</p><ul class="kp"><li><strong>Yadda 3.0.0 发布</strong>，改为 Node-only 并加入 TypeScript 定义，移除浏览器打包与过时集成。</li><li><strong>Claude Code（Opus 4.8）完成大部分代码</strong>，从开工到发布约一天，作者靠分阶段与测试约束控制质量。</li><li>瓶颈从编码转向<strong>人类协调多个并行 agent</strong>；并行执行已可行，编排工具成了下一层关键。</li><li><strong>可执行规格变成 agent 契约</strong>，能验证系统是否真的做某件事，比 wiki 或需求文档更强。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是 BDD/可执行规格在 AI 辅助开发中有价值；但有人质疑自然语言抽象成本高，非技术同事实际很少读或写这些规格。</p><div class="tags"><span class="tag">行为驱动开发</span><span class="tag">AI 编程代理</span><span class="tag">软件测试</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · wesselbindt · 3 回复</div><p>So, I get the idea of having a layer of abstraction between your tests and the system under test. You decouple _what_ is being done from _how_ it is done, which leads to robust, easily maintained, and even more re-usable test suites. I&#x27;ve seen it in action, it&#x27;s a great idea, I&#x27;ve reaped the benefits myself. Great stuff.</p><p>What I&#x27;ve never really understood is why some people choose natural language for the abstraction. It just seems like such an odd and expensive choice. Most of the layers of abstraction we add in our codebase are written in the programming language of choice itself, they&#x27;re functions, classes, what have you. But for this one specific flavor of abstraction, folks reach for natural language.</p><p>The one potential benefit I could think of for this over a more standard DSL is that non-technical colleagues would be able to read or even write these specs. But in practice I&#x27;ve only seen this pan out once in my life, and that was with a more traditional DSL rather than natural language.</p><p>Is there a hidden benefit I&#x27;m overlooking?</p></div></div></article>
+</div></main>
+<footer>generated 2026-08-16 01:57 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-16", "pointsLabel": "分", "commentsLabel": "评论", "title": "AI in drug discovery – what it is, where we stand and the path forward", "titleTranslation": "药物发现中的 AI——它是什么、现状如何、未来路径", "summary": "Derek Lowe 评述 Nature 综述指出，AI 药物发现迄今未交出真正意义上的新药，主要价值是加速已有流程；缺乏可比数据和可测试性是评估其进展的核心障碍。", "keyPoints": ["Derek Lowe 评述指出，AI 药物发现尚未产生真正的新药，主要价值是加速已有流程。", "结构生物学家称 AI 将PDB/CIF 蛋白质结构文件处理从 1–2 小时压缩到快速提示，但未带来新颖发现。", "评论认为核心障碍是缺乏可比数据和可测试性，导致 AI 药物发现进展难以可靠评估。"], "discussion": "HN 共识偏冷静：AI 在药物研发中更像提效工具而非突破引擎，但患者端应用或许已被低估。", "tags": ["AI 药物发现", "AlphaFold", "临床试验数据"], "score": 89, "comments": 45, "by": "AnodicElegy", "url": "https://www.science.org/content/blog-post/so-how-ai-drug-discovery-doing-really", "hnUrl": "https://news.ycombinator.com/item?id=49313367"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-16", "pointsLabel": "分", "commentsLabel": "评论", "title": "Auto-research with codex: How I achieved a 232x Faster Kernel", "titleTranslation": "用 Codex 自动研究：我如何在 GPU Mode 的 qr_v2 问题中实现比基线快 232 倍的内核", "summary": "作者在 GPU Mode 自动研究竞赛中用 Codex 代理循环优化批量 Householder QR 分解 CUDA 内核，14 天提交 1500 次，达到比基线快 232 倍、排名第 12/183。核心是让 LLM 在验证器和分析器反馈下自动迭代性能优化。", "keyPoints": ["232 倍加速：作者用 Codex 代理优化 CUDA QR 分解内核，14 天 1500 次提交，排第 12/183。", "分块 Householder 算法：将串行计算限制在窄面板，尾块转为矩阵乘法以利用 Tensor Core。", "过拟合警告：前 10 名中 8 个方案只对比赛输入有效，换其他矩阵形状会崩溃。"], "discussion": "HN 评论区共识是 LLM 适合有明确验证器的性能优化循环，但自动生成的方案容易过拟合特定输入，通用性和可维护性明显不足。", "tags": ["LLM 自动研究", "GPU 内核优化", "性能基准"], "score": 395, "comments": 86, "by": "tosh", "url": "https://sankalp.bearblog.dev/autoresearch/", "hnUrl": "https://news.ycombinator.com/item?id=49309549"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-16", "pointsLabel": "分", "commentsLabel": "评论", "title": "AI has access to a vastly larger working memory than the human brain", "titleTranslation": "AI 拥有远比人脑更大的可用工作记忆", "summary": "文章认为 AI 在数学上表现更强，主要不是推理更聪明，而是上下文窗口充当了几乎无限的外部符号工作区，绕开人类工作记忆容量瓶颈。心理学研究表明工作记忆独立于智商预测数学表现，而数学又最适合被显式符号化，因此该优势被进一步放大。", "keyPoints": ["工作记忆容量是制约人类数学推理的关键，研究显示其独立于智商预测数学表现。", "AI 的 上下文窗口可同时保存问题、中间方程和废弃分支，形成巨大外部符号工作区。", "数学因可高度符号化、歧义低，最大化 AI 的记忆优势；长推理链可突破人类容量。"], "discussion": "HN 评论较认同 AI 的优势来自记忆、不知疲倦和可复用负面结果/中间痕迹，而非神秘推理突破，并指出这与人类数学家的发表激励形成对比。", "tags": ["LLM 上下文窗口", "工作记忆瓶颈", "数学推理"], "score": 412, "comments": 371, "by": "rzk", "url": "https://davidepiffer.com/p/ai-isnt-outthinking-mathematicians", "hnUrl": "https://news.ycombinator.com/item?id=49312845"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-16", "pointsLabel": "分", "commentsLabel": "评论", "title": "Working with AI feels more like leadership than coding", "titleTranslation": "与 AI 协作更像领导而非写代码", "summary": "作者把 AI 编程类比为领导：同一请求会产生不同结果，因此上下文、意图和反馈比精确指令更有价值。评论区出现 6 万行 AI 代码却延期三个月的反面案例，也出现停止招聘开发者的信号。", "keyPoints": ["非确定性：同样请求可能产生不同答案，把 AI 当编译器会失败，需反馈和上下文约束。", "共享上下文比单个 prompt 更重要：示例、纠正和可复用指令能减少误解，随时间对齐意图。", "6 万行 AI 生成代码在 3 周内产出，却导致项目延期 3 个月，负责人让初级工程师背锅。"], "discussion": "评论区核心分歧是这应叫“管理”而非“领导”，以及是否仍算“编程”；共识是足够的上下文与反馈能提升 AI 产出质量。", "tags": ["AI 编程协作", "工程管理", "非确定性模型"], "score": 270, "comments": 174, "by": "allenb", "url": "https://allen.bargi.org/notes/working-with-ai-feels-like-leadership/", "hnUrl": "https://news.ycombinator.com/item?id=49309451"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-16", "pointsLabel": "分", "commentsLabel": "评论", "title": "The complete AI SEO playbook: from zero to 4.6M impressions in 3 months", "titleTranslation": "AI SEO 完整实战手册：3 个月从零到 460 万次曝光", "summary": "Trace Cohen 开源其 AI SEO 方法：用多模型流水线和 Google Search Console 反馈闭环，3 个月将网站月曝光从 60.4 万提升到 462 万；仓库含 14 个诊断脚本、9 道质量闸门和自动化运维配置。", "keyPoints": ["月曝光量从 60.4 万增至 462 万，3 个月完成；日点击峰值 854，平均排名从 12+ 升至 7.5。", "核心是 Google Search Console 反馈闭环：每周自动报告驱动标题重写、关键词蚕食合并、过期页面刷新和孤儿页面补链。", "9 道发布质量闸门、模板短语黑名单与反 AI 检测规则，用于过滤批量生成痕迹，降低被谷歌判为规模化内容滥用的风险。"], "discussion": "HN 评论批评这套方法是工业化 SEO 套利而非真正的内容建设，会加速互联网内容劣化，并调侃操作者是风投。", "tags": ["AI SEO", "内容生成流水线", "Google Search Console"], "score": 4, "comments": 1, "by": "t_cohen", "url": "https://github.com/TraceCohenTech/ai-seo-playbook", "hnUrl": "https://news.ycombinator.com/item?id=49315620"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-16", "pointsLabel": "分", "commentsLabel": "评论", "title": "Voltair (YC W26) Is Hiring a Test Flight Engineer", "titleTranslation": "Voltair（YC W26）招聘飞行测试工程师", "summary": "Voltair是YC W26孵化的无人机地球观测公司，主攻电力公用事业巡检，计划用约5000个地面站覆盖美国大陆，无人机可沿电线充电实现无限航程。现招聘第7名全职飞行测试工程师，薪酬$120-$180加0.5%-1.5%股权，要求无人机硬件与飞控经验。", "keyPoints": ["Voltair是YC W26孵化的无人机地球观测公司，目标是仅用约5000个地面站覆盖美国大陆。", "无人机沿电线充电实现无限航程，首个市场是电力公用事业，已服务多家并筹备大型部署。", "招聘飞行测试工程师，作为第7名全职员工，薪酬$120-$180外加0.5%-1.5%股权，需1年以上经验。"], "discussion": "", "tags": ["无人机巡检", "电力公用事业", "创业招聘"], "score": 1, "comments": 0, "by": "wweissbluth", "url": "https://www.ycombinator.com/companies/voltair/jobs/sSOD2Ox-flight-test-engineer", "hnUrl": "https://news.ycombinator.com/item?id=49313047"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-16", "pointsLabel": "分", "commentsLabel": "评论", "title": "Printytron – Describe a part, get a printable STL", "titleTranslation": "Printytron——描述一个零件，获得可打印的 STL", "summary": "仅基于标题和 HN 讨论（正文未能抓取）：Printytron 让用户用自然语言描述零件，直接生成可打印的 STL 文件；评论显示它能在 2-3 条消息内生成带孔垫片和 17×17 MURA 掩模，但差异化与可编辑性存疑。", "keyPoints": ["Printytron 用文字描述生成可打印 STL 文件，降低 CAD 上手门槛。", "用户用 2 条消息生成带孔垫片、用 3 条消息生成 17×17 MURA（改进型均匀冗余阵列）掩模，简单件出图快。", "评论区质疑：相对 OpenSCAD + Claude/Gemini 或本地 nurb.dev，差异化与生成后继续编辑能力不明。"], "discussion": "评论普遍认可易用性和无需登录的快速试用，但核心分歧在于它相对 OpenSCAD 结合大模型或本地 nurb.dev 是否有持久差异化，以及生成后能否继续编辑。", "tags": ["文本转 CAD", "3D 打印", "AI 应用"], "score": 72, "comments": 31, "by": "statenjason", "url": "https://printytron.com", "hnUrl": "https://news.ycombinator.com/item?id=49310829"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-16", "pointsLabel": "分", "commentsLabel": "评论", "title": "Qwen 3.8 27B", "titleTranslation": "", "summary": "Qwen 发布 Qwen3.8-27B，一款 27B 稠密开源多模态模型，提供 FP8 量化权重；在终端编程、长程智能体和视觉任务上显著超越前代 Qwen3.6-27B，例如 Terminal Bench 2.1 从 63.4 升至 73.0。HN 实测能力突出，但 32K 上下文占 2.5GB 显存，本地部署成本高。", "keyPoints": ["Qwen3.8-27B 是开源多模态稠密模型，编程、智能体、视觉基准全面超越 Qwen3.6-27B。", "FP8 量化版 采用 128 块大小细粒度量化，官方称性能接近原始模型，利于本地部署。", "上下文原生 262,144 tokens，可扩展至 100 万，适合长文档和小时级视频理解。"], "discussion": "HN 评论认可其复杂推理能力（继 Gemma 4 后第二个通过私测的本地模型），但普遍指出显存占用过高、长上下文不实用，部分用户期待 35B MoE 版本。", "tags": ["开源多模态模型", "本地推理", "模型量化"], "score": 1357, "comments": 772, "by": "erdaltoprak", "url": "https://huggingface.co/Qwen/Qwen3.8-27B-FP8", "hnUrl": "https://news.ycombinator.com/item?id=49299605"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-16", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: ThoughtDAG – An editable context graph for LLM conversations", "titleTranslation": "Show HN: ThoughtDAG – 一个可编辑的 LLM 对话上下文图", "summary": "ThoughtDAG 把 LLM 对话历史变成可见、可编辑、可检查的图结构，让用户精确控制哪些上下文进入下一次请求。演示中删除一条边减少 47 tokens，同一提示词重新生成后不再混入无关晚餐建议，验证上下文可复现。", "keyPoints": ["ThoughtDAG 将对话历史表现为可见可编辑的有向无环图，用户可手动挑选哪些历史分支进入下一次模型请求。", "演示删除一条边后减少 47 tokens，同一提示词重新生成结果不再包含无关晚餐建议，体现上下文可复现。", "HN 评论指出当前实现存在远程命令执行漏洞：服务绑定所有网络接口且命令拼接，攻击者可在你的电脑执行任意命令。"], "discussion": "评论区普遍认可上下文图思路，但指出当前独立应用存在严重安全漏洞，建议修复后再试用，并希望与现有编辑器或工作流更深度集成。", "tags": ["LLM 上下文管理", "命令注入漏洞", "开发者工具"], "score": 112, "comments": 52, "by": "chatchan", "url": "https://chenxiachan.github.io/thoughtdag/", "hnUrl": "https://news.ycombinator.com/item?id=49307700"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-16", "pointsLabel": "分", "commentsLabel": "评论", "title": "Yadda 3.0.0: BDD in the Age of AI Agents", "titleTranslation": "Yadda 3.0.0：AI 智能体时代的行为驱动开发（BDD）", "summary": "Yadda 3.0.0 发布，定位为 Node-only 的 JavaScript 行为驱动开发库。作者称大部分现代化工作由 Claude Code（Opus 4.8）在约一天内完成，并认为编码瓶颈正转向人类协调多个 AI 代理；可执行规格对代理驱动开发比文档更有价值。", "keyPoints": ["Yadda 3.0.0 发布，改为 Node-only 并加入 TypeScript 定义，移除浏览器打包与过时集成。", "Claude Code（Opus 4.8）完成大部分代码，从开工到发布约一天，作者靠分阶段与测试约束控制质量。", "瓶颈从编码转向人类协调多个并行 agent；并行执行已可行，编排工具成了下一层关键。"], "discussion": "评论区共识是 BDD/可执行规格在 AI 辅助开发中有价值；但有人质疑自然语言抽象成本高，非技术同事实际很少读或写这些规格。", "tags": ["行为驱动开发", "AI 编程代理", "软件测试"], "score": 56, "comments": 27, "by": "scresswell", "url": "http://www.stephen-cresswell.com/2026/08/15/Yadda-3.0.0-BDD-in-the-Age-of-AI-Agents.html", "hnUrl": "https://news.ycombinator.com/item?id=49310495"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
