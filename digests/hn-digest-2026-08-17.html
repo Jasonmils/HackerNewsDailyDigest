@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-08-17</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-08-17 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://simonwillison.net/2026/Aug/16/qwen-38-27b/" target="_blank" rel="noopener">Qwen 3.8 27B is excellent, but it defaults to overthinking things</a></h2></div><p class="title-tr">Qwen 3.8 27B 很出色，但默认会过度思考</p><div class="meta">▲ 43 分 · bilsbie · <a href="https://news.ycombinator.com/item?id=49324985" target="_blank" rel="noopener">16 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">阿里 Qwen 发布 Apache 2 许可的 27B 视觉模型，17GB 量化版可在本地运行；但默认 xhigh 推理强度会为简单任务生成大量思维 token，作者建议先用低推理或关闭推理。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这里的“过度思考”是指模型在正式回答前先输出大量推理 token，等于用更多前向计算换质量；这和你熟悉的序列模型推理成本与质量的权衡直接相关。</p><ul class="kp"><li><strong>Qwen 3.8 27B</strong> 以 Apache 2 协议开源，27B 参数支持视觉输入，本地 17GB 量化文件即可运行。</li><li>默认 <strong>xhigh 推理强度</strong>导致严重过度思考：画一个圆也会规划成带动画的“几何研究”，作者建议从 low 或关闭推理开始。</li><li>在<strong>目标检测 bounding boxes</strong>、构建标注工具和编码 agent 循环上表现可用，但无推理时生成 SVG 约需 137 秒。</li><li>开启 <strong>Multi-Token Prediction</strong> 多令牌预测后，在 DGX Spark 上比默认方案快约 72%。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是默认过度思考会严重影响可用性，尤其是速度；但可通过 llama.cpp 的推理预算参数控制，也有人质疑 27B 规模不足以保持稳定。</p><div class="tags"><span class="tag">开源权重模型</span><span class="tag">LLM 推理</span><span class="tag">本地部署</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · andy99 · 3 回复</div><p>The big problem with overthinking on a dense model is obviously the speed hit you take. Going from Qwen 35BA3B to 27B for me is about 7-8x slower (should be ~9x?). This makes me a lot less patient for useless thinking tokens.</p><p>I’d want to compare this to the new Muse 30B model which is super terse and has a whole different way of thinking (no “Wait,”) and in my experiments was way more token efficient to the point that the absolute tok / s didn’t really matter.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://platform.claude.com/docs/en/release-notes/system-prompts" target="_blank" rel="noopener">Claude: System Prompts</a></h2></div><p class="title-tr">Claude：系统提示词</p><div class="meta">▲ 544 分 · tosh · <a href="https://news.ycombinator.com/item?id=49319556" target="_blank" rel="noopener">228 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Anthropic 公开了 Claude 网页版和移动应用使用的系统提示词，并按模型列出各版本更新差异；这些提示词会注入日期等实时信息并约束回复风格，但不适用于 API。页面省略工具定义和 Claude Code 提示词仍引发讨论。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 系统提示词可理解为每次推理前注入的官方固定指令，不同于模型参数；您熟悉推理流程，可将其看作 Anthropic 维护的 prompt 前缀。</p><ul class="kp"><li>Anthropic 公开 <strong>Claude 网页/移动端系统提示词</strong>历史版本，按模型展示差异并加粗更新。</li><li>页面声明这些提示词<strong>不适用于 Claude API</strong>，且未公开工具定义和 Claude Code 系统提示词。</li><li>评论发现 <strong>Claude Fable 5 和 Mythos 5</strong> 曾于 2026 年 6 月因美国出口管制被暂停访问。</li><li>开发者指出提示词<strong>过长</strong>，而新模型默认回复仍偏啰嗦，需额外指令控制。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论认可公开提示词带来的透明度，但批评省略工具定义和 Claude Code 提示词，并有人怀疑 HN 压制 AI 负面新闻。</p><div class="tags"><span class="tag">系统提示词</span><span class="tag">AI 透明度</span><span class="tag">模型行为控制</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · quaintdev · 19 回复</div><p>Offtopic. I have a concern that this forum is removing stories that have negative connotation on AI.</p><p>Few days back, I posted an article[1] that was about how AI threatens natural resources for billions. This was from United Nations and it was flagged. I did not think much about it until I saw two other stories [2] &amp; [3] today that were doing fairly good on front page but they suddenly disappeared. They are not even on 2nd or 3rd page. I have seen this happening at other times as well but did not document it. Just thought you all should know about this.</p><p>I was going to create Tell HN thread but I thought the same would happen with it too. I am pretty sure this thread is not going anywhere so I&#x27;m posting my concern here.</p><p>[1]: https://news.ycombinator.com/item?id=49290062</p><p>[2]: https://news.ycombinator.com/item?id=49318906</p><p>[3]: https://news.ycombinator.com/item?id=49319582</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://vectoral.com/blog/who-are-the-token-brokers" target="_blank" rel="noopener">The AI Credit Resale Economy</a></h2></div><p class="title-tr">AI 额度转售经济</p><div class="meta">▲ 226 分 · mlenhard · <a href="https://news.ycombinator.com/item?id=49320611" target="_blank" rel="noopener">89 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者调查发现 AI 推理额度灰市已商业化：中间商收购初创公司未用额度再转售，有卖家声称日供应 10 万美元额度，各渠道挂单合计估计达数千万额度；高折扣多指向盗刷、盗号或批量注册，平台可能很快收紧。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这里的 credits 是调用大模型 API 的预付费配额，类似云资源券，不是模型权重或训练数据；灰市转售相当于绕过官方计费体系的二手算力市场。</p><ul class="kp"><li><strong>AI Credits 等公开市场</strong> 已将额度转售做成标准化生意。</li><li>一名卖家声称日供应 <strong>10 万美元</strong> 额度；作者估算各渠道挂单合计达数千万额度。</li><li>折扣自称高达 40% 甚至 98%，但 <strong>高折扣多来自盗刷信用卡、偷窃 API 密钥或批量注册试用账户</strong>。</li><li>交易常通过 <strong>代理转发</strong> 而非直接给密钥，买家无法验证模型真伪，并面临流量篡改与数据外泄风险。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍认定高折扣转售不是真实闲置额度，而是盗窃或模型降级；还有人指出买家需把数据交给无信誉第三方，安全风险很高。</p><div class="tags"><span class="tag">AI 推理额度</span><span class="tag">灰市转售</span><span class="tag">API 安全</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · vb-8448 · 6 回复</div><p>Wait a sec, I have to trust a third party with basically no reputation, did I get it right?</p><p>It&#x27;s basically asking for being hacked and/or sending you private data to random email addresses! Neither at a 99% discount I&#x27;d do it.</p><p>I understand if someone, for any reason, cannot access a specific model ... But nowadays, there are so many alternatives that even this doesn&#x27;t make sense any more.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://w4g1.dev/blog/models-are-getting-dumber-on-purpose" target="_blank" rel="noopener">Models Are Getting Dumber on Purpose</a></h2></div><p class="title-tr">模型正被故意变笨</p><div class="meta">▲ 270 分 · hruvhwe · <a href="https://news.ycombinator.com/item?id=49322695" target="_blank" rel="noopener">153 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">模型正用事实记忆换取推理能力：GLM-5.2 以约 400 亿活跃参数在 AIME 2026 拿到 99.2%，而小模型事实问答幻觉率达 80-82%。这预示未来本地小型推理模型配合外部检索，可能减少幻觉但牺牲独立知识。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中“活跃参数”指每次前向实际参与计算的稀疏子网络，并非总参数；作者把未激活的专家层视作事实存储，类似于把参数容量当作可压缩的记忆库。</p><ul class="kp"><li><strong>GLM-5.2 在 AIME 2026 数学基准达 99.2%</strong>，活跃参数仅约 400 亿，远低于 GPT-4 的约 2800 亿活跃参数。</li><li><strong>SimpleQA 事实基准最高仅 53%</strong>，小模型幻觉率 80-82%，说明模型在知识存储上被刻意压缩。</li><li><strong>推理程序压缩率高且不会过时</strong>，而事实会持续过期，因此未来知识应由外部检索或工具在运行时提供。</li><li><strong>20-40B 本地可跑模型</strong>配合可编辑知识库，可能把错误事实从权重黑盒变成可定位、可修复的数据 bug。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区质疑文章数据过时，并将幻觉简单归因于权重错误，同时争论推理与事实能否真正分离；也有用户期待可插拔领域知识库。</p><div class="tags"><span class="tag">LLM 推理</span><span class="tag">模型压缩</span><span class="tag">外部知识检索</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · kennywinker · 24 回复</div><p>Ideally what I&#x27;d like to see is pluggable knowledge bases.</p><p>So if I&#x27;m e.g. coding a SwiftUI app for navigation, I&#x27;d take 9B of basic coding and reasoning, add 10B of swift/swiftUI, add 5B of GIS/geography knowledge and another 5B of frontend app design knowledge. My model doesn&#x27;t need to know a single line of python.</p><p>Then when I want to research electronics components, I grab a 15B model of agentic research techniques, and add in 10B of electronics knowledge, etc.</p><p>I don&#x27;t want general purpose models. They try to be everything to everyone. I want to click together a model that is laser-focused on what I am doing, and I want to run it locally</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://math-ai-org.github.io/mathcode/" target="_blank" rel="noopener">MathCode, Mathematical Coding Agent</a></h2></div><p class="title-tr">MathCode，数学编码代理</p><div class="meta">▲ 62 分 · homarp · <a href="https://news.ycombinator.com/item?id=49322330" target="_blank" rel="noopener">19 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">MathCode 是终端 AI 编程助手，将自然语言数学问题转为 Lean 4 定理并尝试形式化证明；其持久化语言服务器把编译检查从约 30 秒降至预热后约 0.4 秒，并可生成 Obsidian 知识图谱。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Lean 4 是一种交互式定理证明器，可将数学证明写成机器可检查的代码；MathCode 自动把自然语言问题翻译成这种代码，类似用编译器验证数学推导正确性。</p><ul class="kp"><li><strong>MathCode</strong> 将自然语言数学问题自动转化为 Lean 4 定理并尝试形式化证明。</li><li>持久化 Lean 语言服务器将编译检查从约 30 秒降到预热后 <strong>0.4 秒</strong>。</li><li>已证定理自动命名并存储，形成可复用的<strong>定理库</strong>，供后续证明和规划器导入。</li><li>生成 <strong>Obsidian 知识图谱</strong>，可视化定理与引理之间的依赖关系。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论关注许可证缺失、自然语言形式化的准确性风险，以及该项目是否是 AUTOLEAN 的封装。</p><div class="tags"><span class="tag">形式化证明</span><span class="tag">AI 数学代理</span><span class="tag">开源许可证</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · owlbite · 2 回复</div><p>Interesting, but I don&#x27;t see any licensing terms, which means I can&#x27;t touch it in a commercial setting.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://www.reuters.com/business/nvidia-scales-back-250-billion-openai-data-center-guarantee-wsj-reports-2026-08-14/" target="_blank" rel="noopener">Nvidia dramatically reduces amount of OpenAI infra financing it may guarantee</a></h2></div><p class="title-tr">Nvidia 大幅减少其可能为 OpenAI 基础设施融资担保的金额</p><div class="meta">▲ 102 分 · root-parent · <a href="https://news.ycombinator.com/item?id=49323686" target="_blank" rel="noopener">30 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">正文未能抓取，以下仅基于标题与 HN 评论：Nvidia 据报大幅下调其可能为 OpenAI 数据中心项目提供的融资担保金额，具体数字未确认；讨论中整体园区建设成本或达 5000 亿美元，凸显 AI 资本开支的杠杆与循环融资风险。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可以把“融资担保”理解为 Nvidia 不仅卖 GPU，还为买家的贷款提供兜底；削减担保意味着它少承担下游违约风险，但也可能暴露这轮数据中心扩张对金融杠杆的依赖。</p><ul class="kp"><li><strong>Nvidia 大幅削减</strong>对 OpenAI 基础设施融资的担保金额，但该交易此前从未正式签署。</li><li>讨论中整个园区建设成本可能高达 <strong>5000 亿美元</strong>，超过国际空间站的累计费用。</li><li>有评论认为这暴露了 <strong>循环融资与“假利润”</strong> 问题，风险或由养老金和主权财富基金承担。</li><li>另一观点认为 Nvidia 在把 <strong>GPU 变成可担保资产</strong>，即使担保亏损，卖硬件的高毛利仍可能盈利。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是该交易未真正签署，分歧在于这仅是噪音还是 AI 资本开支持续依赖循环融资并积累风险的信号。</p><div class="tags"><span class="tag">AI 数据中心融资</span><span class="tag">Nvidia</span><span class="tag">循环融资风险</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · u1hcw9nx · 2 回复</div><p>I would like to see the numbers.</p><p>If Nvidia sells hardware for $100B with 75% cross margin, and provides $50 billion in backstop for that same hardware, it would be still be nicely profitable deal ($25B) if the backstop capacity would be a total write-off recovering $0.  Reselling that capacity in some large discount below already low backstop price would increase the profits.</p><p>It&#x27;s all those pension funds, sovereign wealth  funds and Softbank getting into that $500 billion deal that will be hurt.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://www.bloomberg.com/news/articles/2026-08-16/stripe-nears-deal-to-buy-ai-firm-openrouter-for-over-7-billion" target="_blank" rel="noopener">Stripe Clinches over $7B Deal to Buy AI Firm OpenRouter</a></h2></div><p class="title-tr">Stripe 敲定超 70 亿美元交易，收购 AI 公司 OpenRouter</p><div class="meta">▲ 199 分 · zacharyozer · <a href="https://news.ycombinator.com/item?id=49323381" target="_blank" rel="noopener">145 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Stripe 据报道以超 70 亿美元收购 AI 模型路由平台 OpenRouter，后者数月前估值约 13 亿美元；正文未能获取，信息来自标题与 HN 评论，交易被解读为 Stripe 切入 AI 计费与 token 分发基础设施。</p><p class="context"><strong>🧭 联系你的知识背景</strong> OpenRouter 可理解为 AI 模型调用的「一站式网关」：把多家大模型统一成一个接口，类似你在深度学习项目中切换不同模型；Stripe 则是支付清算的中间层，这次是把这种中间人模式延伸到按 token 计费的 AI 用量。</p><ul class="kp"><li><strong>Stripe 以超 70 亿美元收购 OpenRouter</strong>，后者数月前估值约 13 亿美元，回报巨大。</li><li>OpenAI 本周刚把支付服务从 Stripe 转向 Adyen；OpenRouter 掌握大量 AI 支付量，是 Stripe 的防守动作。</li><li><strong>OpenRouter 是模型 API 聚合器</strong>，可统一路由和计费多家大模型；Stripe 可将其变成按 token 订阅的计费基础设施。</li><li>HN 评论认为 OpenRouter 有切换成本和成本优化系统，但部分用户担忧收购导致服务退化。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区多数认为这是 Stripe 从支付清算扩展到 AI token 计费的进攻性防守，但也有人担心收购后 OpenRouter 服务质量和开放性下降。</p><div class="tags"><span class="tag">AI 并购</span><span class="tag">模型路由</span><span class="tag">支付基础设施</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Gecko4072 · 15 回复</div><p>How can a middle man for api calls be worth so much? Their market share can’t be very large right? For comparison, $7B is more than market cap of Lyft, Dolby, and Alaska Airlines. What is happening?</p><p>https://stockanalysis.com/list/mid-cap-stocks/</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://www.cst.cam.ac.uk/news/red-queen-hypothesis-new-way-forward-self-improving-ai" target="_blank" rel="noopener">Red queen hypothesis – a new way forward for self-improving AI</a></h2></div><p class="title-tr">红皇后假说——自我改进 AI 的新前进方向</p><div class="meta">▲ 11 分 · hardlianotion · <a href="https://news.ycombinator.com/item?id=49323136" target="_blank" rel="noopener">1 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">剑桥大学提出用红皇后假说（物种须不断进化才能维持相对优势）作为自我改进 AI 的新框架；文章正文未能获取，细节有限。评论认为该逻辑可推广至科技行业，初创公司本质是对在位者的反定位。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 红皇后假说可类比模型训练中的分布漂移：当数据分布或对手策略变化时，静态模型会失效，自我改进 AI 必须持续适应才能保持表现。</p><ul class="kp"><li><strong>剑桥大学</strong>提出用红皇后假说作为自我改进 AI 的新方向。</li><li>红皇后假说指物种必须<strong>不断进化</strong>才能维持相对竞争优势。</li><li>评论认为该原理适用于科技行业：<strong>初创公司</strong>本质是对在位者的反定位。</li><li>文章正文未能获取，<strong>具体方法、实验或证据</strong>尚不明确。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区仅一条评论，认为红皇后假说可推广至整个科技行业，初创公司本质上是对在位者的反定位。</p><div class="tags"><span class="tag">自我改进 AI</span><span class="tag">红皇后假说</span><span class="tag">创业竞争</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://tasklet.ai/careers/head-of-design-engineering" target="_blank" rel="noopener">Tasklet (YC P26) Is Hiring a Head of Design Engineering</a></h2></div><p class="title-tr">Tasklet（YC P26）招聘设计工程主管</p><div class="meta">▲ 1 分 · mayop100 · <a href="https://news.ycombinator.com/item?id=49319892" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">AI agent 初创公司 Tasklet（YC P26）招聘设计工程主管，薪资 300k–450k 美元、股权 0.35%–0.70%。角色要求一人包办从产品设计到生产代码，核心难点是让代理跨工具执行时可理解、可信、可控。</p><p class="context"><strong>🧭 联系你的知识背景</strong> YC（Y Combinator）是知名创业孵化器，P26 表示其最新批次；IC（individual contributor，独立贡献者）角色指亲自写代码而不管理团队，呼应你对早期产品与工程配置的判断。</p><ul class="kp"><li><strong>Tasklet（YC P26）</strong> 招聘设计工程主管，要求从产品设计到生产代码全程一人完成。</li><li>薪资 <strong>300k–450k 美元</strong>，股权 0.35%–0.70%，IC 角色不设管理职责。</li><li>产品让企业用自然语言描述结果，由 AI agent 跨工具执行，设计难点是<strong>信任和可控性</strong>。</li><li>岗位在旧金山现场办公，要求<strong>大量使用 AI</strong> 进行设计、实现与测试。</li></ul><div class="tags"><span class="tag">AI agent 创业公司</span><span class="tag">设计工程招聘</span><span class="tag">人机交互模式</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://continuum-app.xyz/" target="_blank" rel="noopener">Show HN: Continuum – Financial simulations for DIY multimillionaires</a></h2></div><p class="title-tr">Show HN: Continuum – 面向 DIY 高净值人士的财务模拟</p><div class="meta">▲ 3 分 · charleswcho · <a href="https://news.ycombinator.com/item?id=49325445" target="_blank" rel="noopener">4 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Charles 推出面向资产 100 万至 1500 万美元用户的财务规划应用 Continuum，用确定性代码引擎模拟工作、购房与生活事件，替代 1% 管理费的人工顾问；免费版免账户，并有 14 天 Pro 试用，现招募 10 名设计伙伴。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 原文的 AUM fees 指按资产管理规模收费，即顾问每年从客户资产中抽成 1%；Continuum 试图用确定性代码引擎替代这类高成本人工服务。</p><ul class="kp"><li><strong>Charles</strong> 单人开发 Continuum，目标客户为资产 100 万至 1500 万美元的用户，替代高收费人工顾问。</li><li>产品包含 AI 语音引导、情景与 mural（可视化面板）创建、4 个模块；核心模拟引擎为<strong>确定性代码</strong>，大语言模型不参与计算。</li><li>最大技术挑战是防止 mural 生成产生<strong>幻觉</strong>；创始人正在招募 10 名设计伙伴，首年 5 折并给 VIP 支持。</li><li>免费版<strong>无需账户</strong>，提供 14 天 Pro 试用；HN 评论批评定价模糊，文案疑为模型生成未审校。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论者质疑定价口径模糊，并暗示网站文案可能是大模型直接生成、未经人工校对。</p><div class="tags"><span class="tag">个人理财 SaaS</span><span class="tag">AI 产品化</span><span class="tag">单人创业</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · hankbond · 1 回复</div><p>&gt; Honest pricing.</p><p>compared to what exactly?  did you even proof the website copy or just take what the model spit out wholesale?</p></div></div></article>
+</div></main>
+<footer>generated 2026-08-17 01:55 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "Qwen 3.8 27B is excellent, but it defaults to overthinking things", "titleTranslation": "Qwen 3.8 27B 很出色，但默认会过度思考", "summary": "阿里 Qwen 发布 Apache 2 许可的 27B 视觉模型，17GB 量化版可在本地运行；但默认 xhigh 推理强度会为简单任务生成大量思维 token，作者建议先用低推理或关闭推理。", "keyPoints": ["Qwen 3.8 27B 以 Apache 2 协议开源，27B 参数支持视觉输入，本地 17GB 量化文件即可运行。", "默认 xhigh 推理强度导致严重过度思考：画一个圆也会规划成带动画的“几何研究”，作者建议从 low 或关闭推理开始。", "在目标检测 bounding boxes、构建标注工具和编码 agent 循环上表现可用，但无推理时生成 SVG 约需 137 秒。"], "discussion": "评论区共识是默认过度思考会严重影响可用性，尤其是速度；但可通过 llama.cpp 的推理预算参数控制，也有人质疑 27B 规模不足以保持稳定。", "tags": ["开源权重模型", "LLM 推理", "本地部署"], "score": 43, "comments": 16, "by": "bilsbie", "url": "https://simonwillison.net/2026/Aug/16/qwen-38-27b/", "hnUrl": "https://news.ycombinator.com/item?id=49324985"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "Claude: System Prompts", "titleTranslation": "Claude：系统提示词", "summary": "Anthropic 公开了 Claude 网页版和移动应用使用的系统提示词，并按模型列出各版本更新差异；这些提示词会注入日期等实时信息并约束回复风格，但不适用于 API。页面省略工具定义和 Claude Code 提示词仍引发讨论。", "keyPoints": ["Anthropic 公开 Claude 网页/移动端系统提示词历史版本，按模型展示差异并加粗更新。", "页面声明这些提示词不适用于 Claude API，且未公开工具定义和 Claude Code 系统提示词。", "评论发现 Claude Fable 5 和 Mythos 5 曾于 2026 年 6 月因美国出口管制被暂停访问。"], "discussion": "评论认可公开提示词带来的透明度，但批评省略工具定义和 Claude Code 提示词，并有人怀疑 HN 压制 AI 负面新闻。", "tags": ["系统提示词", "AI 透明度", "模型行为控制"], "score": 544, "comments": 228, "by": "tosh", "url": "https://platform.claude.com/docs/en/release-notes/system-prompts", "hnUrl": "https://news.ycombinator.com/item?id=49319556"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "The AI Credit Resale Economy", "titleTranslation": "AI 额度转售经济", "summary": "作者调查发现 AI 推理额度灰市已商业化：中间商收购初创公司未用额度再转售，有卖家声称日供应 10 万美元额度，各渠道挂单合计估计达数千万额度；高折扣多指向盗刷、盗号或批量注册，平台可能很快收紧。", "keyPoints": ["AI Credits 等公开市场 已将额度转售做成标准化生意。", "一名卖家声称日供应 10 万美元 额度；作者估算各渠道挂单合计达数千万额度。", "折扣自称高达 40% 甚至 98%，但 高折扣多来自盗刷信用卡、偷窃 API 密钥或批量注册试用账户。"], "discussion": "评论普遍认定高折扣转售不是真实闲置额度，而是盗窃或模型降级；还有人指出买家需把数据交给无信誉第三方，安全风险很高。", "tags": ["AI 推理额度", "灰市转售", "API 安全"], "score": 226, "comments": 89, "by": "mlenhard", "url": "https://vectoral.com/blog/who-are-the-token-brokers", "hnUrl": "https://news.ycombinator.com/item?id=49320611"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "Models Are Getting Dumber on Purpose", "titleTranslation": "模型正被故意变笨", "summary": "模型正用事实记忆换取推理能力：GLM-5.2 以约 400 亿活跃参数在 AIME 2026 拿到 99.2%，而小模型事实问答幻觉率达 80-82%。这预示未来本地小型推理模型配合外部检索，可能减少幻觉但牺牲独立知识。", "keyPoints": ["GLM-5.2 在 AIME 2026 数学基准达 99.2%，活跃参数仅约 400 亿，远低于 GPT-4 的约 2800 亿活跃参数。", "SimpleQA 事实基准最高仅 53%，小模型幻觉率 80-82%，说明模型在知识存储上被刻意压缩。", "推理程序压缩率高且不会过时，而事实会持续过期，因此未来知识应由外部检索或工具在运行时提供。"], "discussion": "评论区质疑文章数据过时，并将幻觉简单归因于权重错误，同时争论推理与事实能否真正分离；也有用户期待可插拔领域知识库。", "tags": ["LLM 推理", "模型压缩", "外部知识检索"], "score": 270, "comments": 153, "by": "hruvhwe", "url": "https://w4g1.dev/blog/models-are-getting-dumber-on-purpose", "hnUrl": "https://news.ycombinator.com/item?id=49322695"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "MathCode, Mathematical Coding Agent", "titleTranslation": "MathCode，数学编码代理", "summary": "MathCode 是终端 AI 编程助手，将自然语言数学问题转为 Lean 4 定理并尝试形式化证明；其持久化语言服务器把编译检查从约 30 秒降至预热后约 0.4 秒，并可生成 Obsidian 知识图谱。", "keyPoints": ["MathCode 将自然语言数学问题自动转化为 Lean 4 定理并尝试形式化证明。", "持久化 Lean 语言服务器将编译检查从约 30 秒降到预热后 0.4 秒。", "已证定理自动命名并存储，形成可复用的定理库，供后续证明和规划器导入。"], "discussion": "HN 评论关注许可证缺失、自然语言形式化的准确性风险，以及该项目是否是 AUTOLEAN 的封装。", "tags": ["形式化证明", "AI 数学代理", "开源许可证"], "score": 62, "comments": 19, "by": "homarp", "url": "https://math-ai-org.github.io/mathcode/", "hnUrl": "https://news.ycombinator.com/item?id=49322330"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "Nvidia dramatically reduces amount of OpenAI infra financing it may guarantee", "titleTranslation": "Nvidia 大幅减少其可能为 OpenAI 基础设施融资担保的金额", "summary": "正文未能抓取，以下仅基于标题与 HN 评论：Nvidia 据报大幅下调其可能为 OpenAI 数据中心项目提供的融资担保金额，具体数字未确认；讨论中整体园区建设成本或达 5000 亿美元，凸显 AI 资本开支的杠杆与循环融资风险。", "keyPoints": ["Nvidia 大幅削减对 OpenAI 基础设施融资的担保金额，但该交易此前从未正式签署。", "讨论中整个园区建设成本可能高达 5000 亿美元，超过国际空间站的累计费用。", "有评论认为这暴露了 循环融资与“假利润” 问题，风险或由养老金和主权财富基金承担。"], "discussion": "评论区共识是该交易未真正签署，分歧在于这仅是噪音还是 AI 资本开支持续依赖循环融资并积累风险的信号。", "tags": ["AI 数据中心融资", "Nvidia", "循环融资风险"], "score": 102, "comments": 30, "by": "root-parent", "url": "https://www.reuters.com/business/nvidia-scales-back-250-billion-openai-data-center-guarantee-wsj-reports-2026-08-14/", "hnUrl": "https://news.ycombinator.com/item?id=49323686"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "Stripe Clinches over $7B Deal to Buy AI Firm OpenRouter", "titleTranslation": "Stripe 敲定超 70 亿美元交易，收购 AI 公司 OpenRouter", "summary": "Stripe 据报道以超 70 亿美元收购 AI 模型路由平台 OpenRouter，后者数月前估值约 13 亿美元；正文未能获取，信息来自标题与 HN 评论，交易被解读为 Stripe 切入 AI 计费与 token 分发基础设施。", "keyPoints": ["Stripe 以超 70 亿美元收购 OpenRouter，后者数月前估值约 13 亿美元，回报巨大。", "OpenAI 本周刚把支付服务从 Stripe 转向 Adyen；OpenRouter 掌握大量 AI 支付量，是 Stripe 的防守动作。", "OpenRouter 是模型 API 聚合器，可统一路由和计费多家大模型；Stripe 可将其变成按 token 订阅的计费基础设施。"], "discussion": "HN 评论区多数认为这是 Stripe 从支付清算扩展到 AI token 计费的进攻性防守，但也有人担心收购后 OpenRouter 服务质量和开放性下降。", "tags": ["AI 并购", "模型路由", "支付基础设施"], "score": 199, "comments": 145, "by": "zacharyozer", "url": "https://www.bloomberg.com/news/articles/2026-08-16/stripe-nears-deal-to-buy-ai-firm-openrouter-for-over-7-billion", "hnUrl": "https://news.ycombinator.com/item?id=49323381"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "Red queen hypothesis – a new way forward for self-improving AI", "titleTranslation": "红皇后假说——自我改进 AI 的新前进方向", "summary": "剑桥大学提出用红皇后假说（物种须不断进化才能维持相对优势）作为自我改进 AI 的新框架；文章正文未能获取，细节有限。评论认为该逻辑可推广至科技行业，初创公司本质是对在位者的反定位。", "keyPoints": ["剑桥大学提出用红皇后假说作为自我改进 AI 的新方向。", "红皇后假说指物种必须不断进化才能维持相对竞争优势。", "评论认为该原理适用于科技行业：初创公司本质是对在位者的反定位。"], "discussion": "评论区仅一条评论，认为红皇后假说可推广至整个科技行业，初创公司本质上是对在位者的反定位。", "tags": ["自我改进 AI", "红皇后假说", "创业竞争"], "score": 11, "comments": 1, "by": "hardlianotion", "url": "https://www.cst.cam.ac.uk/news/red-queen-hypothesis-new-way-forward-self-improving-ai", "hnUrl": "https://news.ycombinator.com/item?id=49323136"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "Tasklet (YC P26) Is Hiring a Head of Design Engineering", "titleTranslation": "Tasklet（YC P26）招聘设计工程主管", "summary": "AI agent 初创公司 Tasklet（YC P26）招聘设计工程主管，薪资 300k–450k 美元、股权 0.35%–0.70%。角色要求一人包办从产品设计到生产代码，核心难点是让代理跨工具执行时可理解、可信、可控。", "keyPoints": ["Tasklet（YC P26） 招聘设计工程主管，要求从产品设计到生产代码全程一人完成。", "薪资 300k–450k 美元，股权 0.35%–0.70%，IC 角色不设管理职责。", "产品让企业用自然语言描述结果，由 AI agent 跨工具执行，设计难点是信任和可控性。"], "discussion": "", "tags": ["AI agent 创业公司", "设计工程招聘", "人机交互模式"], "score": 1, "comments": 0, "by": "mayop100", "url": "https://tasklet.ai/careers/head-of-design-engineering", "hnUrl": "https://news.ycombinator.com/item?id=49319892"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Continuum – Financial simulations for DIY multimillionaires", "titleTranslation": "Show HN: Continuum – 面向 DIY 高净值人士的财务模拟", "summary": "Charles 推出面向资产 100 万至 1500 万美元用户的财务规划应用 Continuum，用确定性代码引擎模拟工作、购房与生活事件，替代 1% 管理费的人工顾问；免费版免账户，并有 14 天 Pro 试用，现招募 10 名设计伙伴。", "keyPoints": ["Charles 单人开发 Continuum，目标客户为资产 100 万至 1500 万美元的用户，替代高收费人工顾问。", "产品包含 AI 语音引导、情景与 mural（可视化面板）创建、4 个模块；核心模拟引擎为确定性代码，大语言模型不参与计算。", "最大技术挑战是防止 mural 生成产生幻觉；创始人正在招募 10 名设计伙伴，首年 5 折并给 VIP 支持。"], "discussion": "HN 评论者质疑定价口径模糊，并暗示网站文案可能是大模型直接生成、未经人工校对。", "tags": ["个人理财 SaaS", "AI 产品化", "单人创业"], "score": 3, "comments": 4, "by": "charleswcho", "url": "https://continuum-app.xyz/", "hnUrl": "https://news.ycombinator.com/item?id=49325445"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
