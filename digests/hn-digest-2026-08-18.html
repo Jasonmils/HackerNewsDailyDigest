@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-08-18</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-08-18 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://openrouter.ai/openai/gpt-5.6-sol" target="_blank" rel="noopener">GPT-5.6 Sol Pricing Cut by 50%</a></h2></div><p class="title-tr">GPT-5.6 Sol 价格下调 50%</p><div class="meta">▲ 115 分 · Topfi · <a href="https://news.ycombinator.com/item?id=49337602" target="_blank" rel="noopener">53 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OpenAI 旗舰模型 GPT-5.6 Sol 在 OpenRouter 上降价 50%，输入/输出价格降至每百万 token 2.50/15 美元，上下文窗口 1M，主打复杂推理、编程和智能体工作流。旗舰模型大幅降价值得关注。</p><p class="context"><strong>🧭 联系你的知识背景</strong> OpenRouter 是聚合多家模型提供商的 API 网关，类似推理服务的路由/中间层，会按价格、延迟和可用性自动切换上游，因此同一模型会出现多行价格和可用性数据。</p><ul class="kp"><li><strong>GPT-5.6 Sol</strong> 输入价从 $5.00 降至 $2.50，输出价从 $30.00 降至 $15.00，每百万 token 降幅 50%。</li><li>该旗舰模型面向复杂推理、编程和智能体工作流，上下文窗口 <strong>1M token</strong>，2026年7月9日发布。</li><li>OpenRouter 上该模型 P50 吞吐 <strong>38 token/s</strong>，延迟 <strong>3.00s</strong>，3天可用性 99.81%。</li><li>评论区有用户认为 <strong>Grok 4.6</strong> 每百万输出约 $6，使 Sol 降价后仍面临低价替代竞争。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区分歧明显：有人实测后认为 Sol 5.6 能力足以替代 Claude 订阅，另一些人则认为这只是 OpenRouter 利用 OpenAI flex 折扣或回退 Azure 的噱头，或 Stripe 收购后的数据/市场策略。</p><div class="tags"><span class="tag">LLM 定价</span><span class="tag">AI 编程</span><span class="tag">OpenRouter</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · CompoundEyes · 5 回复</div><p>I used over a billion tokens per day of gpt-5.6 sol xhigh starting last Wednesday through Sunday before reaching my reset limit. The $200 pro plan is still the best deal.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://www.wiz.io/blog/red-agent-snowflake-copilot-cicd-bug" target="_blank" rel="noopener">AI-Generated GitHub Copilot “Autofix” Allowed Compromise of Snowflake&#x27;s Jira</a></h2></div><p class="title-tr">AI 生成的 GitHub Copilot “Autofix” 致 Snowflake 的 Jira 被攻破</p><div class="meta">▲ 317 分 · galnagli · <a href="https://news.ycombinator.com/item?id=49331423" target="_blank" rel="noopener">125 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Wiz 的自主 AI 代理发现 Snowflake 公共仓库的 GitHub Actions 脚本注入漏洞，该漏洞由 Copilot Autofix 合入的变更引入，上线仅 5 天即被利用，可读取 Snowflake 内部 Jira 敏感数据。Snowflake 当天修复并轮换凭证。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 该漏洞类似模型对对抗性输入的脆弱：攻击者通过 issue 标题注入恶意命令，利用工作流对输入的安全假设被破坏。</p><ul class="kp"><li><strong>Wiz Red Agent</strong> 发现并利用 Snowflake 仓库的 GitHub Actions 注入漏洞，全程无需人工干预，漏洞仅上线 5 天。</li><li>漏洞由 <strong>Copilot Autofix 合入的 PR #1218</strong> 引入，用直接字符串插值替换了原本安全的 jq 解析模式。</li><li>攻击者通过构造 <strong>issue 标题</strong> 执行任意命令，窃取 Jira 令牌，可读取 Snowflake 内部工程和安全合规项目。</li><li>Snowflake <strong>当天修复并轮换凭证</strong>，审计日志确认 5 天暴露期内无第三方访问。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区主要质疑“AI 生成”归因是否准确，并指出 AI 降低代码变更成本却未降低审查成本，应引入静态分析工具如 zizmor。</p><div class="tags"><span class="tag">AI 安全代理</span><span class="tag">GitHub Actions 注入</span><span class="tag">AI 辅助开发安全</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · inahga · 8 回复</div><p>I probably would have made the same mistake. It is negligent to write GitHub Actions without using static analysis.</p><p>Use zizmor in CI https://github.com/zizmorcore/zizmor</p><p>error[template-injection]: code injection via template expansion</p><p>--&gt; .github/workflows/jira_issue.yml:24:29</p><p>|</p><p>22 |         run: |</p><p>|         --- this run block</p><p>23 |           # Escape special characters in title and body</p><p>24 |           TITLE=$(echo &#x27;${{ github.event.issue.title }}&#x27; | sed &#x27;s/&quot;/\\&quot;/g&#x27; | sed &quot;s/&#x27;/\\\&#x27;/g&quot;)</p><p>|                             ^^^^^^^^^^^^^^^^^^^^^^^^ may expand into attacker-controllable code</p><p>|</p><p>= note: audit confidence → High</p><p>= note: this finding has an auto-fix</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://www.rickmanelius.com/p/aidr-ai-didnt-read" target="_blank" rel="noopener">AI;DR (AI; Didn&#x27;t Read)</a></h2></div><p class="title-tr">AI;DR（AI；没读）</p><div class="meta">▲ 591 分 · mooreds · <a href="https://news.ycombinator.com/item?id=49336573" target="_blank" rel="noopener">369 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者提出“AI;DR（AI；没读）”策略：发送者若不愿审校编辑 AI 输出，接收者就不必阅读。针对 2026 年工作沟通、社交媒体与邮件中未经过滤的 AI 文本泛滥，强调署名内容应保留人的判断与风格。</p><ul class="kp"><li>作者提出 <strong>AI;DR 政策</strong>：发送者不审校编辑，接收者就不阅读。</li><li>作者坦言收到未编辑的 AI 输出时会出现 <strong>生理反感</strong>，如耸肩、眼跳。</li><li>文章认可 <strong>客户支持</strong> 等场景可接受 100% AI 生成，但人际沟通不行。</li><li>结论：署名内容若充满 AI 腔，读者不如直接去问 <strong>Claude</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍反感未编辑的 AI 内容，认为其冗长、行话多、虚假自信且缺乏细节；有人建议直接分享生成提示词，因为提示词才是信息核心。</p><div class="tags"><span class="tag">AI 生成内容</span><span class="tag">人机协作</span><span class="tag">沟通规范</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · gortok · 28 回复</div><p>The part that astonishes me is that in the year of our common era two thousand twenty-six that it&#x27;s not universally offensive and reviling to post an AI-generated response to another person.</p><p>If I&#x27;m reading something on the internet, I&#x27;m either reading it to learn, or I&#x27;m reading it to be persuaded.  If I wanted the LLM to teach me (thank you, no), I would ask an LLM.  I&#x27;m reading your website/newsletter/email because I want to hear from you.. If you can&#x27;t be bothered to put your time into writing it and teaching me what you think, why should I be bothered to read it?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://blog.roboflow.com/openai-gpt-5-6/" target="_blank" rel="noopener">GPT 5.6 Sol is the best &quot;vision&quot; model OpenAI ever released</a></h2></div><p class="title-tr">GPT 5.6 Sol 是 OpenAI 迄今发布的最强“视觉”模型</p><div class="meta">▲ 302 分 · plurby · <a href="https://news.ycombinator.com/item?id=49329575" target="_blank" rel="noopener">152 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Roboflow 基准显示，GPT-5.6 Sol 目标检测 mAP@50 从 13.8 跃升至 46.2，计数从 64.9% 升至 73.0%，但 OCR 与文本抽取小幅回落。Gemini 3.5 Flash 仍在检测/计数上领先且成本仅约三分之一。</p><p class="context"><strong>🧭 联系你的知识背景</strong> VLM（视觉语言模型）评测覆盖检测、计数、OCR 与信息抽取；mAP@50 是目标检测精度指标，可类比分类任务中准确率与召回率的综合度量。</p><ul class="kp"><li><strong>GPT-5.6 Sol 检测 mAP@50 从 13.8 跃升至 46.2</strong>，目标检测从明显短板变为可用能力。</li><li><strong>Gemini 3.5 Flash 仍领跑检测与计数</strong>，每张图像约 0.8 美分，性价比高于 Sol。</li><li><strong>Sol 在 OCR 与文本抽取上小幅回落</strong>：OCR 90.7 对 91.2，文本抽取 82.5 对 87.6。</li><li><strong>高分辨率大图下 Sol 稳定性下降</strong>，约 2000×2000 像素以上建议缩放或裁切后再调用。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区主流观点认为 Gemini 3.5 Flash 在实际检测/计数中性价比远高于 Sol，药丸计数等示例甚至可用传统方法解决；也有用户认可 Sol 的界面结构与视觉理解能力。</p><div class="tags"><span class="tag">视觉语言模型</span><span class="tag">目标检测基准</span><span class="tag">模型性价比</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · HarHarVeryFunny · 5 回复</div><p>The summary &quot;There are still clear limits. Gemini 3.5 Flash remains a better practical choice [than GPT 5.6 Sol] for high-volume detection and counting in our benchmark, especially at its price.&quot; seems rather understated !</p><p>GPT 5.6 Sol was outperformed on all benchmarks by Gemini 3.5 Flash, apart from a single exception (OCR) where Fable was the winner.</p><p>Gemini 3.5 Flash not only outperformed GPT 5.6 Sol, but did so at 1/3 of the cost.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://www.librarian.net/notoai/" target="_blank" rel="noopener">How to disable or avoid intrusive AI</a></h2></div><p class="title-tr">如何禁用或避开侵入式 AI</p><div class="meta">▲ 256 分 · ColinWright · <a href="https://news.ycombinator.com/item?id=49331220" target="_blank" rel="noopener">155 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">这份指南整理了 Adobe、Android/Gemini、Apple Intelligence、Chrome/Edge/Firefox、Windows Copilot、Slack、Zoom、Yahoo Mail 等产品中关闭 AI 功能的具体路径，并提供 DuckDuckGo 无 AI 版等替代方案。核心价值是把分散的开关变成可复现操作清单，回应厂商强推 AI 带来的用户反弹。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 本文不涉及模型训练或推理质量，对象是厂商嵌入消费软件的生成式助手和云端 AI 功能；你可从 AI 产品集成与用户控制权的角度理解，相当于产品层把默认功能强加进现有工作流。</p><ul class="kp"><li><strong>Adobe Acrobat/Reader</strong> 需在 Preferences 或菜单中关闭 Generative AI，并重启应用。</li><li><strong>Android/Gemini</strong> 可按应用关闭，包括 Messages、Gemini Apps activity、电源键手势。</li><li><strong>Firefox 148+</strong> 提供 AI Controls，可一键 Block AI Enhancements；DuckDuckGo 有无 AI 版。</li><li><strong>Windows 11 Copilot</strong> 可从开始菜单卸载，或在 Taskbar、Notepad、Office 等分别关闭。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论的共识是改用 Linux、LibreOffice、VSCodium、LibreWolf 等替代软件；主要分歧在于禁用 AI 可能导致 CarPlay 这类基础功能失效，以及厂商为何强推无人想要且成本高昂的功能。</p><div class="tags"><span class="tag">AI 产品集成</span><span class="tag">用户控制</span><span class="tag">替代软件</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · dinkleberg · 15 回复</div><p>I recently discovered that you need to have Siri enabled for Apple CarPlay. I expect we&#x27;re going to see a lot of this where when you disable the AI functionality the devs won&#x27;t have put in fallback states and you&#x27;ll be effectively locked out. With CarPlay for instance there is no reason that I shouldn&#x27;t be able to listen to my music or use the map without Siri. But things like responding to texts does rely on Siri, so just gate that piece. It is rather unfortunate.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://www.fast.ai/posts/2026-08-18-returning-to-AI/" target="_blank" rel="noopener">My friends all hate AI; I just joined an AI startup</a></h2></div><p class="title-tr">我的朋友们都讨厌 AI；我刚加入了一家 AI 初创公司</p><div class="meta">▲ 25 分 · eamag · <a href="https://news.ycombinator.com/item?id=49338139" target="_blank" rel="noopener">72 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">fast.ai 联合创始人 Rachel Thomas 在公众反 AI 情绪中重返 AI，加入由 fast.ai 发展而来的 Answer.AI，做教育产品 SolveIt。该工具刻意让 AI 输出可编辑、人类保持主导，反对一键代答，并指出主流大厂不是唯一路径。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可把 SolveIt 理解为一种反“过度助手”的交互设计：它不直接生成终稿，而是保留问题理解、计划、执行和回顾的人工判断，类似你熟悉的 AI 产品中，把模型输出当可质疑草稿而非成品。</p><ul class="kp"><li><strong>Rachel Thomas</strong> 在离开 AI 领域攻读微生物免疫学硕士后，重新加入由 fast.ai 发展而来的 Answer.AI。</li><li>新产品 <strong>SolveIt</strong> 源自波利亚《怎样解题》，设计成让用户直接编辑 AI 回复、分阶段保留判断，而不是追求“过于好用”的聊天机器人。</li><li>她列举反面案例：<strong>洛杉矶联合学区</strong>在一款 AI 教育产品上浪费 300 万美元，创始人后来因欺诈和身份盗窃被起诉。</li><li>她认为 <strong>OpenAI、Anthropic、Google、xAI 不拥有 AI</strong>；开源保护、小公司生态和人类协作设计会决定 AI 的最终形态。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区分裂：一方认为 AI 被无节制塞进生活，制造低质内容；另一方认为许多批评者没有接触过前沿模型，且 AI 基础设施客户确实有真实提效场景。</p><div class="tags"><span class="tag">AI 教育产品</span><span class="tag">人机协作设计</span><span class="tag">开源 AI 生态</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · japhyr · 7 回复</div><p>Of course everyone hates AI. For most people, it&#x27;s actively making their lives worse, not better.</p><p>AI is a really effective technology when used with restraint, in appropriate places. But it&#x27;s rarely being used with restraint, and it&#x27;s being inserted just about everywhere.</p><p>If you&#x27;re trying to work in AI on a product related to education, you&#x27;ve got a really high bar to clear to prove that you&#x27;re actually helping students learn better, and teachers teach better.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://speko.ai/" target="_blank" rel="noopener">Launch HN: Speko (YC S26) – OpenRouter for Voice AI</a></h2></div><p class="title-tr">Launch HN: Speko (YC S26) – 语音 AI 的 OpenRouter</p><div class="meta">▲ 91 分 · abdik · <a href="https://news.ycombinator.com/item?id=49332751" target="_blank" rel="noopener">51 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Speko（YC S26）推出语音 AI 路由平台，对语音转文字、大语言模型和文字转语音三个环节的供应商模型，按语言和准确率/成本公开基准测试后自动选型；API 兼容 OpenAI，外部用量周均增长约 25%。卖点是把一次性人工选型变成持续动态优化。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 它的「网关」可理解为统一推理端点，把多家语音模型供应商封装成单一 API，并根据基准分数自动路由——类似用验证集动态挑选最优 checkpoint，只是发生在每次生产调用前。</p><ul class="kp"><li><strong>Speko (YC S26)</strong> 发布语音 AI 路由平台，自动在语音转文字、大语言模型和文字转语音供应商中按语言与成本选型。</li><li>公开基准显示 <strong>Universal-3.5 Pro</strong> 英语语音转文字词错率 2.0%、成本 $0.0075/分钟，明显优于 Nova-3 的 9.8%。</li><li><strong>网关以 MIT 协议开源</strong>，可作本地 sidecar（边车）用 Go 二进制运行，自带密钥（BYOK）模式免费且不访问云端。</li><li>自 6 月底批量启动以来，外部用量<strong>周均增长约 25%</strong>，客户包括地产管理、医疗和西班牙语团队。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区主要关注其与 LiveKit Gateway、Vapi 的差异化，以及能否提供实时对话轮流说话（turn-taking）的一站式体验；也有人认为未来语音模型会走向本地化。</p><div class="tags"><span class="tag">语音 AI 路由</span><span class="tag">模型基准测试</span><span class="tag">开源网关</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · maho · 4 回复</div><p>Which model best allows me to transcribe speech that uses a lot of domain-specific terms? For example, when I say &quot;Claude Code&quot;, it often gets transcribed as &quot;Cloud Code&quot;, and I have to go back and edit or do a second pass with a traditional LLM (which can introduce additional errors).</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://responsiblestatecraft.org/israel-influence-chatgpt/" target="_blank" rel="noopener">Israel creates fake think tank in likely attempt to dupe AI chatbots</a></h2></div><p class="title-tr">以色列创建虚假智库，疑似试图欺骗 AI 聊天机器人</p><div class="meta">▲ 69 分 · DeepLogin · <a href="https://news.ycombinator.com/item?id=49337392" target="_blank" rel="noopener">14 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">以色列政府广告局通过 Piro 公司创建虚假智库“汉诺威公共政策研究所”，已发布100多篇看似学术中立的以巴报告，疑似为了影响 ChatGPT、Gemini 等聊天机器人。抽检12篇报告有11篇被 GPTZero 判为 AI 生成。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这属于大语言模型数据投毒/语料库操纵：用带引用、中立语气的内容进入检索或训练语料，让模型对特定问题给出偏向性答案；与你熟悉的训练数据分布影响模型输出一致。</p><ul class="kp"><li><strong>虚假智库“汉诺威公共政策研究所”</strong>由以色列政府广告局委托 Piro 创建，并非真实研究机构。</li><li>该所已发布 <strong>100 多篇</strong>以巴主题报告，用脚注、目录和中性语气伪装学术可信度。</li><li>Piro 获 <strong>90 万美元</strong>合同，其服务称“AI 故事优化”，目标是让大语言模型判为可信并引用。</li><li>抽检 12 篇报告，<strong>11 篇被 GPTZero 判为 AI 写</strong>；这属于针对聊天机器人的语料投毒。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区存在分歧：一方认为以色列高层公开言论已足够极端，操纵聊天机器人显得多余；另一方抱怨报道只盯以色列，却忽视卡塔尔、伊朗、土耳其更大规模类似操作。</p><div class="tags"><span class="tag">LLM 数据投毒</span><span class="tag">政治宣传</span><span class="tag">AI 影响力运营</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · nervai · 2 回复</div><p>@dang seriously? why is this not relevant?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://engineering.myhoai.com/posts/a-simple-fix-for-llm-tail-latency/" target="_blank" rel="noopener">A simple fix for LLM tail latency</a></h2></div><p class="title-tr">一个修复 LLM 尾部延迟的简单方案</p><div class="meta">▲ 38 分 · oskrim · <a href="https://news.ycombinator.com/item?id=49295179" target="_blank" rel="noopener">15 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">语音代理 HOAi 对比付费优先级层级与标准层级请求发送两次，后者 p99 首 token 延迟从 4.2 秒降至 1.2 秒，完整响应最差从 9.8 秒降至 3.5 秒，成本相同且中位数持平。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 尾部延迟可类比为推理服务中少数请求因排队或资源争用而异常缓慢，双发请求用冗余换取更低最坏延迟。</p><ul class="kp"><li><strong>标准层级请求发送两次</strong>使 p99 首 token 延迟从 4.2 秒降至 1.2 秒。</li><li>完整响应最差延迟从 <strong>9.8 秒降至 3.5 秒</strong>，优于付费优先级层级且成本相同。</li><li>评论建议不必每请求双发，可<strong>仅在超时后发备份请求</strong>，避免成本翻倍。</li><li>语音代理 25 轮通话约有 <strong>22% 概率遭遇长时间静音</strong>，尾部延迟直接伤害留存。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识认可双发降低尾部延迟，但主要分歧在成本：多数建议仅在超时后发备份请求，而非每个请求都发两次。</p><div class="tags"><span class="tag">LLM 推理</span><span class="tag">尾部延迟优化</span><span class="tag">成本效益</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · nine_k · 1 回复</div><p>Sending two identical parallel requests is the classic approach. But, logically speaking, it should also double the cost.</p><p>I would send a second request if the first request fails to return the first token within, say, 1 second. Then there&#x27;s a chance the first request is stalling, which is an infrequent event.</p><p>I wonder if higher-availability tiers of LLM providers do a similar thing internally.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://artificialanalysis.ai/models/qwen3-8-27b" target="_blank" rel="noopener">Qwen3.8 27B scores 52 on Artificial Analysis</a></h2></div><p class="title-tr">Qwen3.8 27B 在 Artificial Analysis 上得分 52</p><div class="meta">▲ 307 分 · anana_ · <a href="https://news.ycombinator.com/item?id=49334544" target="_blank" rel="noopener">134 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">阿里巴巴 27B 开放权重模型 Qwen3.8 27B 在 Artificial Analysis Intelligence Index 得 52，远高于同类小型模型中位数 9，并追平大型 DeepSeek V4 Flash 0731；以本地可运行规模逼近前沿水平。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 评论区提到的 Q4/Q8 是权重量化精度，类似推理时降低数值精度，Q8 比 Q4 保留更多信息、绕路更少。</p><ul class="kp"><li><strong>Qwen3.8 27B</strong> 的 Intelligence Index 得 <strong>52</strong>，远高于 4B–40B 开放权重模型中位数 9。</li><li><strong>27B 参数</strong>的成绩超过所有 40B–150B 中型模型，并追平大型模型 <strong>DeepSeek V4 Flash 0731</strong>。</li><li>支持<strong>文本和图像输入</strong>、256k token 上下文，采用 <strong>Apache 2.0 许可</strong>，权重可下载自托管。</li><li>评论实测称模型推理“执着且不轻易放弃”；<strong>Q8 量化</strong>比 Q4 更少犯错、收敛更快。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是 27B 小模型展现接近 2026 年初前沿能力，冲击超大数据中心投资逻辑；但实际体验显著受量化设置影响。</p><div class="tags"><span class="tag">开放权重模型</span><span class="tag">LLM 基准评测</span><span class="tag">AI 基础设施投资</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · anana_ · 6 回复</div><p>For more context, this puts it on par with models like GLM 5.2 and GPT 5.6 Luna, which are far larger</p></div></div></article>
+</div></main>
+<footer>generated 2026-08-18 01:50 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-18", "pointsLabel": "分", "commentsLabel": "评论", "title": "GPT-5.6 Sol Pricing Cut by 50%", "titleTranslation": "GPT-5.6 Sol 价格下调 50%", "summary": "OpenAI 旗舰模型 GPT-5.6 Sol 在 OpenRouter 上降价 50%，输入/输出价格降至每百万 token 2.50/15 美元，上下文窗口 1M，主打复杂推理、编程和智能体工作流。旗舰模型大幅降价值得关注。", "keyPoints": ["GPT-5.6 Sol 输入价从 $5.00 降至 $2.50，输出价从 $30.00 降至 $15.00，每百万 token 降幅 50%。", "该旗舰模型面向复杂推理、编程和智能体工作流，上下文窗口 1M token，2026年7月9日发布。", "OpenRouter 上该模型 P50 吞吐 38 token/s，延迟 3.00s，3天可用性 99.81%。"], "discussion": "评论区分歧明显：有人实测后认为 Sol 5.6 能力足以替代 Claude 订阅，另一些人则认为这只是 OpenRouter 利用 OpenAI flex 折扣或回退 Azure 的噱头，或 Stripe 收购后的数据/市场策略。", "tags": ["LLM 定价", "AI 编程", "OpenRouter"], "score": 115, "comments": 53, "by": "Topfi", "url": "https://openrouter.ai/openai/gpt-5.6-sol", "hnUrl": "https://news.ycombinator.com/item?id=49337602"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-18", "pointsLabel": "分", "commentsLabel": "评论", "title": "AI-Generated GitHub Copilot “Autofix” Allowed Compromise of Snowflake's Jira", "titleTranslation": "AI 生成的 GitHub Copilot “Autofix” 致 Snowflake 的 Jira 被攻破", "summary": "Wiz 的自主 AI 代理发现 Snowflake 公共仓库的 GitHub Actions 脚本注入漏洞，该漏洞由 Copilot Autofix 合入的变更引入，上线仅 5 天即被利用，可读取 Snowflake 内部 Jira 敏感数据。Snowflake 当天修复并轮换凭证。", "keyPoints": ["Wiz Red Agent 发现并利用 Snowflake 仓库的 GitHub Actions 注入漏洞，全程无需人工干预，漏洞仅上线 5 天。", "漏洞由 Copilot Autofix 合入的 PR #1218 引入，用直接字符串插值替换了原本安全的 jq 解析模式。", "攻击者通过构造 issue 标题 执行任意命令，窃取 Jira 令牌，可读取 Snowflake 内部工程和安全合规项目。"], "discussion": "评论区主要质疑“AI 生成”归因是否准确，并指出 AI 降低代码变更成本却未降低审查成本，应引入静态分析工具如 zizmor。", "tags": ["AI 安全代理", "GitHub Actions 注入", "AI 辅助开发安全"], "score": 317, "comments": 125, "by": "galnagli", "url": "https://www.wiz.io/blog/red-agent-snowflake-copilot-cicd-bug", "hnUrl": "https://news.ycombinator.com/item?id=49331423"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-18", "pointsLabel": "分", "commentsLabel": "评论", "title": "AI;DR (AI; Didn't Read)", "titleTranslation": "AI;DR（AI；没读）", "summary": "作者提出“AI;DR（AI；没读）”策略：发送者若不愿审校编辑 AI 输出，接收者就不必阅读。针对 2026 年工作沟通、社交媒体与邮件中未经过滤的 AI 文本泛滥，强调署名内容应保留人的判断与风格。", "keyPoints": ["作者提出 AI;DR 政策：发送者不审校编辑，接收者就不阅读。", "作者坦言收到未编辑的 AI 输出时会出现 生理反感，如耸肩、眼跳。", "文章认可 客户支持 等场景可接受 100% AI 生成，但人际沟通不行。"], "discussion": "评论区普遍反感未编辑的 AI 内容，认为其冗长、行话多、虚假自信且缺乏细节；有人建议直接分享生成提示词，因为提示词才是信息核心。", "tags": ["AI 生成内容", "人机协作", "沟通规范"], "score": 591, "comments": 369, "by": "mooreds", "url": "https://www.rickmanelius.com/p/aidr-ai-didnt-read", "hnUrl": "https://news.ycombinator.com/item?id=49336573"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-18", "pointsLabel": "分", "commentsLabel": "评论", "title": "GPT 5.6 Sol is the best \"vision\" model OpenAI ever released", "titleTranslation": "GPT 5.6 Sol 是 OpenAI 迄今发布的最强“视觉”模型", "summary": "Roboflow 基准显示，GPT-5.6 Sol 目标检测 mAP@50 从 13.8 跃升至 46.2，计数从 64.9% 升至 73.0%，但 OCR 与文本抽取小幅回落。Gemini 3.5 Flash 仍在检测/计数上领先且成本仅约三分之一。", "keyPoints": ["GPT-5.6 Sol 检测 mAP@50 从 13.8 跃升至 46.2，目标检测从明显短板变为可用能力。", "Gemini 3.5 Flash 仍领跑检测与计数，每张图像约 0.8 美分，性价比高于 Sol。", "Sol 在 OCR 与文本抽取上小幅回落：OCR 90.7 对 91.2，文本抽取 82.5 对 87.6。"], "discussion": "评论区主流观点认为 Gemini 3.5 Flash 在实际检测/计数中性价比远高于 Sol，药丸计数等示例甚至可用传统方法解决；也有用户认可 Sol 的界面结构与视觉理解能力。", "tags": ["视觉语言模型", "目标检测基准", "模型性价比"], "score": 302, "comments": 152, "by": "plurby", "url": "https://blog.roboflow.com/openai-gpt-5-6/", "hnUrl": "https://news.ycombinator.com/item?id=49329575"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-18", "pointsLabel": "分", "commentsLabel": "评论", "title": "How to disable or avoid intrusive AI", "titleTranslation": "如何禁用或避开侵入式 AI", "summary": "这份指南整理了 Adobe、Android/Gemini、Apple Intelligence、Chrome/Edge/Firefox、Windows Copilot、Slack、Zoom、Yahoo Mail 等产品中关闭 AI 功能的具体路径，并提供 DuckDuckGo 无 AI 版等替代方案。核心价值是把分散的开关变成可复现操作清单，回应厂商强推 AI 带来的用户反弹。", "keyPoints": ["Adobe Acrobat/Reader 需在 Preferences 或菜单中关闭 Generative AI，并重启应用。", "Android/Gemini 可按应用关闭，包括 Messages、Gemini Apps activity、电源键手势。", "Firefox 148+ 提供 AI Controls，可一键 Block AI Enhancements；DuckDuckGo 有无 AI 版。"], "discussion": "HN 评论的共识是改用 Linux、LibreOffice、VSCodium、LibreWolf 等替代软件；主要分歧在于禁用 AI 可能导致 CarPlay 这类基础功能失效，以及厂商为何强推无人想要且成本高昂的功能。", "tags": ["AI 产品集成", "用户控制", "替代软件"], "score": 256, "comments": 155, "by": "ColinWright", "url": "https://www.librarian.net/notoai/", "hnUrl": "https://news.ycombinator.com/item?id=49331220"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-18", "pointsLabel": "分", "commentsLabel": "评论", "title": "My friends all hate AI; I just joined an AI startup", "titleTranslation": "我的朋友们都讨厌 AI；我刚加入了一家 AI 初创公司", "summary": "fast.ai 联合创始人 Rachel Thomas 在公众反 AI 情绪中重返 AI，加入由 fast.ai 发展而来的 Answer.AI，做教育产品 SolveIt。该工具刻意让 AI 输出可编辑、人类保持主导，反对一键代答，并指出主流大厂不是唯一路径。", "keyPoints": ["Rachel Thomas 在离开 AI 领域攻读微生物免疫学硕士后，重新加入由 fast.ai 发展而来的 Answer.AI。", "新产品 SolveIt 源自波利亚《怎样解题》，设计成让用户直接编辑 AI 回复、分阶段保留判断，而不是追求“过于好用”的聊天机器人。", "她列举反面案例：洛杉矶联合学区在一款 AI 教育产品上浪费 300 万美元，创始人后来因欺诈和身份盗窃被起诉。"], "discussion": "HN 评论区分裂：一方认为 AI 被无节制塞进生活，制造低质内容；另一方认为许多批评者没有接触过前沿模型，且 AI 基础设施客户确实有真实提效场景。", "tags": ["AI 教育产品", "人机协作设计", "开源 AI 生态"], "score": 25, "comments": 72, "by": "eamag", "url": "https://www.fast.ai/posts/2026-08-18-returning-to-AI/", "hnUrl": "https://news.ycombinator.com/item?id=49338139"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-18", "pointsLabel": "分", "commentsLabel": "评论", "title": "Launch HN: Speko (YC S26) – OpenRouter for Voice AI", "titleTranslation": "Launch HN: Speko (YC S26) – 语音 AI 的 OpenRouter", "summary": "Speko（YC S26）推出语音 AI 路由平台，对语音转文字、大语言模型和文字转语音三个环节的供应商模型，按语言和准确率/成本公开基准测试后自动选型；API 兼容 OpenAI，外部用量周均增长约 25%。卖点是把一次性人工选型变成持续动态优化。", "keyPoints": ["Speko (YC S26) 发布语音 AI 路由平台，自动在语音转文字、大语言模型和文字转语音供应商中按语言与成本选型。", "公开基准显示 Universal-3.5 Pro 英语语音转文字词错率 2.0%、成本 $0.0075/分钟，明显优于 Nova-3 的 9.8%。", "网关以 MIT 协议开源，可作本地 sidecar（边车）用 Go 二进制运行，自带密钥（BYOK）模式免费且不访问云端。"], "discussion": "评论区主要关注其与 LiveKit Gateway、Vapi 的差异化，以及能否提供实时对话轮流说话（turn-taking）的一站式体验；也有人认为未来语音模型会走向本地化。", "tags": ["语音 AI 路由", "模型基准测试", "开源网关"], "score": 91, "comments": 51, "by": "abdik", "url": "https://speko.ai/", "hnUrl": "https://news.ycombinator.com/item?id=49332751"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-18", "pointsLabel": "分", "commentsLabel": "评论", "title": "Israel creates fake think tank in likely attempt to dupe AI chatbots", "titleTranslation": "以色列创建虚假智库，疑似试图欺骗 AI 聊天机器人", "summary": "以色列政府广告局通过 Piro 公司创建虚假智库“汉诺威公共政策研究所”，已发布100多篇看似学术中立的以巴报告，疑似为了影响 ChatGPT、Gemini 等聊天机器人。抽检12篇报告有11篇被 GPTZero 判为 AI 生成。", "keyPoints": ["虚假智库“汉诺威公共政策研究所”由以色列政府广告局委托 Piro 创建，并非真实研究机构。", "该所已发布 100 多篇以巴主题报告，用脚注、目录和中性语气伪装学术可信度。", "Piro 获 90 万美元合同，其服务称“AI 故事优化”，目标是让大语言模型判为可信并引用。"], "discussion": "评论区存在分歧：一方认为以色列高层公开言论已足够极端，操纵聊天机器人显得多余；另一方抱怨报道只盯以色列，却忽视卡塔尔、伊朗、土耳其更大规模类似操作。", "tags": ["LLM 数据投毒", "政治宣传", "AI 影响力运营"], "score": 69, "comments": 14, "by": "DeepLogin", "url": "https://responsiblestatecraft.org/israel-influence-chatgpt/", "hnUrl": "https://news.ycombinator.com/item?id=49337392"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-18", "pointsLabel": "分", "commentsLabel": "评论", "title": "A simple fix for LLM tail latency", "titleTranslation": "一个修复 LLM 尾部延迟的简单方案", "summary": "语音代理 HOAi 对比付费优先级层级与标准层级请求发送两次，后者 p99 首 token 延迟从 4.2 秒降至 1.2 秒，完整响应最差从 9.8 秒降至 3.5 秒，成本相同且中位数持平。", "keyPoints": ["标准层级请求发送两次使 p99 首 token 延迟从 4.2 秒降至 1.2 秒。", "完整响应最差延迟从 9.8 秒降至 3.5 秒，优于付费优先级层级且成本相同。", "评论建议不必每请求双发，可仅在超时后发备份请求，避免成本翻倍。"], "discussion": "评论区共识认可双发降低尾部延迟，但主要分歧在成本：多数建议仅在超时后发备份请求，而非每个请求都发两次。", "tags": ["LLM 推理", "尾部延迟优化", "成本效益"], "score": 38, "comments": 15, "by": "oskrim", "url": "https://engineering.myhoai.com/posts/a-simple-fix-for-llm-tail-latency/", "hnUrl": "https://news.ycombinator.com/item?id=49295179"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-18", "pointsLabel": "分", "commentsLabel": "评论", "title": "Qwen3.8 27B scores 52 on Artificial Analysis", "titleTranslation": "Qwen3.8 27B 在 Artificial Analysis 上得分 52", "summary": "阿里巴巴 27B 开放权重模型 Qwen3.8 27B 在 Artificial Analysis Intelligence Index 得 52，远高于同类小型模型中位数 9，并追平大型 DeepSeek V4 Flash 0731；以本地可运行规模逼近前沿水平。", "keyPoints": ["Qwen3.8 27B 的 Intelligence Index 得 52，远高于 4B–40B 开放权重模型中位数 9。", "27B 参数的成绩超过所有 40B–150B 中型模型，并追平大型模型 DeepSeek V4 Flash 0731。", "支持文本和图像输入、256k token 上下文，采用 Apache 2.0 许可，权重可下载自托管。"], "discussion": "评论区共识是 27B 小模型展现接近 2026 年初前沿能力，冲击超大数据中心投资逻辑；但实际体验显著受量化设置影响。", "tags": ["开放权重模型", "LLM 基准评测", "AI 基础设施投资"], "score": 307, "comments": 134, "by": "anana_", "url": "https://artificialanalysis.ai/models/qwen3-8-27b", "hnUrl": "https://news.ycombinator.com/item?id=49334544"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
