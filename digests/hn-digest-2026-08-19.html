@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-08-19</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-08-19 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://www.cerebras.ai/cs4" target="_blank" rel="noopener">Cerebras CS4</a></h2></div><div class="meta">▲ 34 分 · sunils34 · <a href="https://news.ycombinator.com/item?id=49354949" target="_blank" rel="noopener">17 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Cerebras 发布 CS-4 机架级推理系统，宣称推理速度比 GPU 快 30 倍，每瓦吞吐比上代 CS-3 高 10 倍，在超 10 万亿参数模型上实现 1000+ tokens/s；模块化供电与冷却设计把部署时间从数天缩至数小时，直指超大规模推理的成本与交互性。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 晶圆级引擎可理解为把整片晶圆做成单个超大处理器，类似把多张 GPU 的算力集成到一块硅片上，减少芯片间通信延迟；这里关键变化是供电和散热被重构以换取更高的推理吞吐和交互性，但可能带来软件适配与部署上的风险。</p><ul class="kp"><li><strong>CS-4 推理速度宣称比 GPU 快 30 倍</strong>，每瓦吞吐量比上代 CS-3 高 10 倍。</li><li><strong>在超 10 万亿参数模型上每秒生成 1000+ tokens</strong>，晶圆间互连延迟降至 2 微秒，保持交互式解码。</li><li><strong>电源模块距处理器仅 0.5 毫米</strong>，约为传统 GPU 板的百分之一，降低板级损耗并提升运行频率。</li><li><strong>Nexus 架构分离基础设施与计算模块</strong>，PowerRack 可先部署并验收，计算背包滑入即用，部署时间从数天缩至数小时。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍惊叹 1000 tokens/s 的超大模型推理速度，但质疑广告选用的开放权重模型过旧、未披露功耗数据，以及 Cerebras 仅做推理不做训练可能限制长期市场地位。</p><div class="tags"><span class="tag">AI 推理硬件</span><span class="tag">晶圆级引擎</span><span class="tag">推理成本</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · 4k0hz · 3 回复</div><p>&gt; Introducing the all new Cerebras CS-4, a revolutionary rack-scale solution that delivers upto 30x faster inference compared to GPUs, enhanced economics, and a simple path todeploy [sic] hyperscale capacity.</p><p>Did nobody proofread this?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://modelmap.cc" target="_blank" rel="noopener">Show HN: Interactive, animated architecture of any HuggingFace models</a></h2></div><p class="title-tr">Show HN：任意 HuggingFace 模型的交互式动画架构图</p><div class="meta">▲ 30 分 · lizhaoliu · <a href="https://news.ycombinator.com/item?id=49354664" target="_blank" rel="noopener">4 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">该工具可从 HuggingFace 模型配置生成交互式动画架构图，并附带服务成本估算；因正文无法获取，信息仅来自标题与评论。核心价值是把模型内部结构变成可浏览的产品界面，而不只是静态示意图。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 它把您熟悉的 Transformer 计算图转成前端可交互架构图，并延伸到推理服务成本，重点在开发者体验而非新模型技术。</p><ul class="kp"><li><strong>modelmap.cc</strong> 将任意 HuggingFace 模型架构变为交互式动画，能直观浏览内部结构。</li><li>工具还估算模型的<strong>服务成本</strong>，这一功能在评论区被特别提及。</li><li>有用户用它调试 <strong>LoRA（低秩适配）和微调</strong>，定位到模型修改场景。</li><li>评论区有人追问是否支持<strong>张量形状和逐层参数数量</strong>，暂无作者确认。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论总体正面，认为工具直观有用；主要期待集中在补充张量形状、逐层参数数量等更细粒度的架构信息。</p><div class="tags"><span class="tag">模型可视化</span><span class="tag">开发者工具</span><span class="tag">推理成本估算</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://linear.app/data" target="_blank" rel="noopener">AI usage patterns in software teams</a></h2></div><p class="title-tr">软件团队中的 AI 使用模式</p><div class="meta">▲ 42 分 · giuliomagnifico · <a href="https://news.ycombinator.com/item?id=49353432" target="_blank" rel="noopener">19 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Linear 基于客户数据发现，2026 年上半年各部门 AI 功能活跃用户比例至少翻倍，AI 已生成近一半 issue；新增 AI 工作叠加而非替代，规划时间未变，执行层变化快于决策层。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Linear 是产品团队的 issue 追踪与项目管理工具（类似 Jira），本文数据来自其客户工作流埋点，可视作对开发者协作行为的产品分析。</p><ul class="kp"><li><strong>各部门 AI 采用率六个月内翻倍以上</strong>：产品 12%→34%，工程 12%→30%，市场 5%→18%。</li><li><strong>AI 代理已生成近一半 issue</strong>：两年前几乎为零，2026 年 8 月周创建量逼近人工与集成总和。</li><li><strong>非工程师也开始提交代码</strong>：产品经理关联代码合并请求比例 3%→10%，设计师 1%→8%。</li><li><strong>规划时间未变、执行已变</strong>：客户请求/文档投入持平，AI 聊天和代理任务叠加在原有工作之上。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区质疑统计的是易于追踪的指标而非真实产出，并指出 AI 决策多发生在 Linear 外，数据代表性存疑。</p><div class="tags"><span class="tag">AI 采用模式</span><span class="tag">开发者工作流</span><span class="tag">数据归因</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · jdw64 · 2 回复</div><p>These days, my work has become: generate code for 20 minutes, then spend an hour reading it.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://konstantintkachuk.com/writing/depin-is-dead-long-live-infrastructure-as-a-service/" target="_blank" rel="noopener">Why crypto&#x27;s best infrastructure companies stopped looking like crypto?</a></h2></div><p class="title-tr">为什么加密领域最好的基础设施公司不再像加密公司了？</p><div class="meta">▲ 10 分 · Reaktornano · <a href="https://news.ycombinator.com/item?id=49354778" target="_blank" rel="noopener">1 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">DePIN（去中心化物理基础设施网络）正在重演云和电信的剧本：裸资源商品化，利润流向出售成合同服务的玩家。证据包括 Storj 破产重组、Aethir 自报 1.278 亿美元收入，而链上收入仅约 7200 万美元，赢家正转向链下美元企业合同。</p><p class="context"><strong>🧭 联系你的知识背景</strong> DePIN 是让普通人众包硬件、带宽或存储来构建服务网络的模式，类似物理资源版的 Airbnb 或 Uber 供给网络；文章的判断是这种网络正从卖裸资源转向卖带保障的服务。</p><ul class="kp"><li><strong>AWS 占亚马逊 18% 收入、57% 营业利润</strong>，说明底层资源商品化后，利润会向上层有合同保障的服务迁移。</li><li><strong>Storj 于 2026 年 7 月申请美国破产法第 11 章破产重组</strong>，但自称核心业务稳健，反映老 DePIN 模型正在被剥离代币成分。</li><li><strong>DePIN 全年链上收入约 7200 万美元</strong>，而单个项目自报数字可能高出数倍，大量收入在链下用美元结算，数据口径极不透明。</li><li>赢家卖美元订阅（如 <strong>GEODNET</strong>、Aethir），输家卖链上裸容量（Akash 收入下滑），价值向有服务保障的上层迁移。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论者预测到 2027 年底，DePIN 需求侧大部分收入将通过企业合同在链下结算，链上仪表盘只能跟踪少数份额。</p><div class="tags"><span class="tag">DePIN</span><span class="tag">基础设施商业化</span><span class="tag">链下收入</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://cursor.com/changelog/origin-code-hosting" target="_blank" rel="noopener">Cursor launches Origin, GitHub alternative</a></h2></div><p class="title-tr">Cursor 推出 Origin，GitHub 替代品</p><div class="meta">▲ 470 分 · tomasreimers · <a href="https://news.ycombinator.com/item?id=49334209" target="_blank" rel="noopener">362 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Cursor 推出代码托管服务 Origin，支持仓库、PR、代码浏览和 GitHub 同步，早期 beta 今日面向所有付费计划用户开放。这意味着 AI 编程工具正向上游抢占代码托管与协作入口，直接进入 GitHub 的核心地盘。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 对你来说，代码托管可理解为“代码存储 + 协作评审层”：Cursor 原先只是编辑器里的 AI 助手，现在把产品边界上移到开发者每天提交、评审、合并代码的主入口。</p><ul class="kp"><li><strong>Origin 今日向所有付费计划用户开放早期 beta</strong>，企业组织管理员可选择退出。</li><li>支持仓库、PR、代码浏览，<strong>GitHub 仓库可双向实时同步</strong>，但推送仍以 GitHub 为源头。</li><li>每个仓库内可让 <strong>Agent</strong> 回答问题、修改代码、更新 PR 或推送分支，并已接入 Vercel、Depot、Buildkite。</li><li>这是 Cursor 从 AI 助手向<strong>代码托管与协作平台</strong>扩张，直接挑战 GitHub 的开发者入口。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区主要分歧在于是否该接受 AI 厂商运营的中心化托管，不少用户倾向 Radicle、Forgejo 或 GitLab 等去中心化/开源方案，并担心‘Origin’与 git 默认远程名冲突。</p><div class="tags"><span class="tag">代码托管</span><span class="tag">AI 编码工具</span><span class="tag">开发者工作流</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · tomasreimers · 28 回复</div><p>Hi all, my name is Tomas. I am one of the developers on Origin, and I was one of the founders of Graphite (https://graphite.com).</p><p>Happy to answer any questions about Origin or source control in general!</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://artificialanalysis.ai/models/glm-5-3" target="_blank" rel="noopener">GLM-5.3 Artificial Analysis Benchmarks</a></h2></div><p class="title-tr">GLM-5.3 Artificial Analysis 基准测试</p><div class="meta">▲ 78 分 · apitman · <a href="https://news.ycombinator.com/item?id=49353407" target="_blank" rel="noopener">37 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">GLM-5.3 (max) 在 Artificial Analysis 智能指数上得 60 分，远高于同类中位数 35；输入/输出定价分别为 $1.40 和 $4.40/百万 token，低于中位数。但评测中生成 1.7 亿 tokens（中位数 7200 万），冗长输出削弱了成本优势。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可将 Intelligence Index 理解为多任务综合评测集，token 使用则直接对应推理成本。</p><ul class="kp"><li><strong>GLM-5.3 (max) 得 60 分</strong>，远高于同类模型中位数 35，能力突出。</li><li>价格为 <strong>$1.40/百万输入 token、$4.40/百万输出 token</strong>，低于同级中位数。</li><li>评测中生成 <strong>1.7 亿 tokens</strong>，约为中位数的 2.4 倍，冗长推高总成本。</li><li>输出速度 <strong>74 tokens/秒</strong>，与中位数持平；首 token 延迟 2.05 秒优于中位数。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论普遍认可模型能力，但关注其<strong>冗长输出</strong>抵消价格优势，并对部分基准可靠性提出质疑。</p><div class="tags"><span class="tag">LLM 基准测试</span><span class="tag">模型定价</span><span class="tag">token 效率</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Zaheer · 6 回复</div><p>Is it worth using these models if I have a claude code subscription already? The appeal of lower cost is nice but I haven&#x27;t gotten over the switching cost yet.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://machine0.io" target="_blank" rel="noopener">Launch HN: machine0 (YC S26) – Persistent CPU and GPU VMs from the CLI</a></h2></div><p class="title-tr">Launch HN: machine0 (YC S26) – 从命令行管理持久 CPU 和 GPU 虚拟机</p><div class="meta">▲ 61 分 · bwm · <a href="https://news.ycombinator.com/item?id=49348136" target="_blank" rel="noopener">37 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">machine0 提供按分钟计费的持久云虚拟机：CPU 起步价 0.013 美元/小时，最高 60 vCPU / 240 GB 内存，GPU 最高 8×H200。它面向长时运行、可挂起与快照的 AI agent 计算，而非临时任务。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 把“持久云虚拟机”理解为可暂停计费、带独立 IP 的远程电脑，比本地跑 agent 更隔离，也像 GPU 云实例但按分钟租用。</p><ul class="kp"><li><strong>machine0 提供持久云虚拟机</strong>，按分钟计费，CPU 起步 0.013 美元/小时，最高 60 vCPU / 240 GB 内存。</li><li><strong>GPU 配置最高 8×H200</strong>，单卡 H100 约 4.85 美元/小时；VM 可挂起、快照并停止计费。</li><li><strong>面向长时 AI agent 工作负载</strong>：编码代理常跑 6–8 小时，训练和强化学习跑数天，需独立计算环境。</li><li><strong>已有客户一次运行数百台机器</strong>，也有产品把每个用户会话放进一个独立 VM 来构建服务。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论多质疑其相对容器和 AWS/Hetzner/fly.io 的真实差异，并追问挂起是否保留进程内存、凭据轮换和 NixOS 版本维护等关键细节。</p><div class="tags"><span class="tag">AI agent 基础设施</span><span class="tag">GPU 云</span><span class="tag">按需虚拟机</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · atechboy · 1 回复</div><p>&gt; People run a pilot agent that scopes work and delegates it to sub-agents, each on its own VM: shape a project with the pilot, and the workers implement it and open PRs. One customer runs hundreds of machines at once, spun up and torn down from the CLI.</p><p>Are people spawning VMs for every tool call? If so, would love to understand why so, and why containers are not a good fit?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://www.onethousandmeans.com/p/norway-should-buy-openai" target="_blank" rel="noopener">Norway should buy OpenAI</a></h2></div><p class="title-tr">挪威应该收购 OpenAI</p><div class="meta">▲ 214 分 · alexeigannon · <a href="https://news.ycombinator.com/item?id=49351330" target="_blank" rel="noopener">228 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">文章提议挪威政府全球养老基金动用约 8000 亿美元收购 OpenAI，将其从私人营利公司转为国际公共管理，以应对 AI 权力集中。HN 评论普遍认为该收购缺乏商业现实性，股东不会按当前估值出售，且 OpenAI 后续仍需巨额算力投入。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这涉及主权财富基金的控股收购逻辑；关键误区是 OpenAI 的 8000 亿美元只是最近一轮融资估值，并不等于控制权或实际成交价格。</p><ul class="kp"><li>作者提议<strong>挪威政府全球养老基金</strong>清仓约 40% 资产，以 8000 亿美元收购 OpenAI。</li><li>其论点是把 OpenAI 从营利公司重新转为<strong>公共管理</strong>，避免 AI 权力与财富过度集中。</li><li>评论指出<strong>8000 亿美元估值</strong>只是融资参考价，现有股东不会在这个价格卖出控制权。</li><li>商业上 OpenAI 或缺乏长期护城河，后续仍需<strong>巨额算力资本开支</strong>，挪威未必愿意持续投入。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论共识是收购不现实且风险极高，主权基金不应重仓单一投机资产；少数人认为 AI 所有权公共化值得讨论，但执行路径不成立。</p><div class="tags"><span class="tag">AI 治理</span><span class="tag">主权财富基金</span><span class="tag">企业估值</span><span class="tag">OpenAI</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · nater5000 · 8 回复</div><p>This is a very &quot;funny&quot; post:</p><p>- OpenAI can easily not become anything of significance in the future, even if the OP&#x27;s prediction of the future becomes reality. I&#x27;d argue that being bought by a government and controlled within the ethical confines of that government would be a great way for OpenAI to quickly fall behind its peers who aren&#x27;t subject to such regulations (which is the entire point of this post in the first place).</p><p>- Norway may be a great country ran by a great government, but that doesn&#x27;t mean they would be a great leader of some AI revolution. Not only is the bar for being a competent government not particularly high on the world scale, but the skills of a competent government don&#x27;t necessarily translate to the skills of an AI revolution Sherpa. I don&#x27;t see why the OP feels Norway wouldn&#x27;t use an advanced AI to simply enrich itself while leaving other countries to fend for themselves. It&#x27;s not like Norway&#x27;s fund is designed to serve the rest of the world as it is, nor is it the case that Norwegians would allow their government to serve other countries at the cost of their own well being.</p><p>- Those at OpenAI would either (a) never entertain this offer or (b) would sell to Norway if this exact thesis wasn&#x27;t true (i.e., they&#x27;d be happy to sell if they thought OpenAI was going to become worthless anyway). Using the logic that the Norwegian Government Pension Fund Global can just buy OpenAI because it has more money than a given valuation for OpenAI is embarrassing. It lacks any understanding of how businesses and investments work, let alone how investments in these specific businesses work. I mean, the OP starts this post off explaining how they think OpenAI can effectively rule the world once their expectations for their technology is realized. Why would they sell their ticket to unlimited wealth for a relatively small offer?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://cdn.kuber.studio/chat/hp-laser-1008a-driver" target="_blank" rel="noopener">Claude Code Teaching macOS to Natively Print to the HP Laser 1008a</a></h2></div><p class="title-tr">Claude Code 教 macOS 原生打印到 HP Laser 1008a</p><div class="meta">▲ 111 分 · amrrs · <a href="https://news.ycombinator.com/item?id=49352806" target="_blank" rel="noopener">74 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者借 Claude Code 用约 4 小时让官方从不支持 Mac 的 HP Laser 1008a 打印机可用：反向工程打印机光栅页面描述语言，在 Linux 容器中运行 HP 官方驱动再桥接。虽非真正原生驱动，却展示出 LLM 把底层适配门槛大幅降低。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这一方案可类比为给 macOS 增加一个适配层：它不直接理解打印机硬件指令，而是通过 Linux 容器运行 HP 官方驱动做翻译，再把结果桥接给 macOS。</p><ul class="kp"><li><strong>Claude Code 只花约 4 小时</strong>让官方不支持的 HP Laser 1008a 在 macOS 上打印。</li><li>方案并非原生驱动，而是<strong>反向工程打印机光栅语言</strong>后在 Linux 容器中运行 HP 官方驱动并桥接。</li><li>评论指出需 <strong>root 权限启动器</strong>且运行用户目录代码，安全性被削弱。</li><li>已有现成方案如 <strong>printervention.app</strong>（基于 WebUSB 的隔离 Linux 虚拟机）可更简单实现类似功能。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论共识是这并非真正原生驱动，只是把 HP 官方 Linux 驱动跑在容器里再桥接，但认可 AI 显著降低了这类适配工作的门槛；分歧在于是否有必要重复造轮子，因为已有更简单方案。</p><div class="tags"><span class="tag">AI 辅助编程</span><span class="tag">打印机驱动</span><span class="tag">逆向工程</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · ryandrake · 6 回复</div><p>I was able to (through heavy Claude use) successfully reverse engineer a golf cart motor controller that is programmable over USB, but only was supported by a Windows application. Claude walked me through using ILSpy on the .NET assembly, using Wireshark to capture the protocol over USB, and to completely map out all of the functionality in the Windows application. The output was a portable C library and CLI program which, so far, has worked well.</p><p>I consider myself kind of an AI detractor but even I&#x27;ll admit that the tool allowed me to do something it would have taken weeks-to-months to learn to do the hard way.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://support.claude.com/en/articles/15910845-claude-code-may-august-2026-weekly-limits-promotion" target="_blank" rel="noopener">Claude Code May–August 2026 weekly limits promotion</a></h2></div><p class="title-tr">Claude Code 2026年5月至8月每周限额促销</p><div class="meta">▲ 260 分 · tyre · <a href="https://news.ycombinator.com/item?id=49348751" target="_blank" rel="noopener">229 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Anthropic 将 Claude Code 每周使用限额提高 50%，促销延长至 2026 年 8 月 31 日，适用于付费计划但排除免费和按量企业席位。重度用户对限额敏感，促销反复引发对产品稳定性和竞争压力的关注。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Claude Code 是 Anthropic 的终端/IDE AI 编程助手，使用限额类似推理算力配额，直接决定重度用户能否连续使用。</p><ul class="kp"><li><strong>促销延长至 2026 年 8 月 31 日</strong>，每周使用限额提高 50%，适用于 Pro/Max/Team 及传统企业席位。</li><li><strong>免费计划和按用量计费的企业席位不包含</strong>，5 小时使用限额不受影响。</li><li>HN 用户抱怨 <strong>Opus 模型近期质量下滑和停电</strong>，部分重度用户已转向 OpenAI Codex。</li><li><strong>Anthropic 计划将提升后的限额永久化</strong>，但政策反复让用户对订阅价值感到不安。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区核心分歧在于 Anthropic 的高 token 消耗策略与 OpenAI 的效率优先策略哪个更可持续，同时用户对限额不确定性和近期质量下滑普遍不满。</p><div class="tags"><span class="tag">AI 编程助手</span><span class="tag">使用限额</span><span class="tag">Anthropic</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · lubujackson · 14 回复</div><p>I think the difference between the Anthropic token maximization approach (vibe code all the things!) and OpenAI&#x27;s focus on efficiency, terseness and token reduction are going to be the defining features of who wins the long-term race.</p><p>My money is on the more efficient solution. Even if Anthropic can win some benchmarks by using 3x tokens over 3x time, it is a terrible base to build toward the future. Users are no longer willing to wait exponentially long for linear improvements. And as we see from some of the Chinese models, they can quickly distill frontier models with the tax of being slower and more token-guzzling, while retaining most of the quality. The real differentiators are becoming speed and efficiency, which translate to cost and user velocity more than incremental capability improvements.</p><p>It&#x27;s great that frontier models can solve complex math equations, but bread and butter LLM usage (where the money is made) has already shifted from &quot;I need the best always&quot; to &quot;what solves my day-to-day problems quickly and consistently&quot;. Fable usage as a percentage is flat-lining. We are already at the point where output quality is negligible. What wins going forward is cost, speed, consistency and the compounding effects of &quot;softer&quot; improvements to the harness.</p></div></div></article>
+</div></main>
+<footer>generated 2026-08-19 01:54 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "Cerebras CS4", "titleTranslation": "", "summary": "Cerebras 发布 CS-4 机架级推理系统，宣称推理速度比 GPU 快 30 倍，每瓦吞吐比上代 CS-3 高 10 倍，在超 10 万亿参数模型上实现 1000+ tokens/s；模块化供电与冷却设计把部署时间从数天缩至数小时，直指超大规模推理的成本与交互性。", "keyPoints": ["CS-4 推理速度宣称比 GPU 快 30 倍，每瓦吞吐量比上代 CS-3 高 10 倍。", "在超 10 万亿参数模型上每秒生成 1000+ tokens，晶圆间互连延迟降至 2 微秒，保持交互式解码。", "电源模块距处理器仅 0.5 毫米，约为传统 GPU 板的百分之一，降低板级损耗并提升运行频率。"], "discussion": "评论普遍惊叹 1000 tokens/s 的超大模型推理速度，但质疑广告选用的开放权重模型过旧、未披露功耗数据，以及 Cerebras 仅做推理不做训练可能限制长期市场地位。", "tags": ["AI 推理硬件", "晶圆级引擎", "推理成本"], "score": 34, "comments": 17, "by": "sunils34", "url": "https://www.cerebras.ai/cs4", "hnUrl": "https://news.ycombinator.com/item?id=49354949"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Interactive, animated architecture of any HuggingFace models", "titleTranslation": "Show HN：任意 HuggingFace 模型的交互式动画架构图", "summary": "该工具可从 HuggingFace 模型配置生成交互式动画架构图，并附带服务成本估算；因正文无法获取，信息仅来自标题与评论。核心价值是把模型内部结构变成可浏览的产品界面，而不只是静态示意图。", "keyPoints": ["modelmap.cc 将任意 HuggingFace 模型架构变为交互式动画，能直观浏览内部结构。", "工具还估算模型的服务成本，这一功能在评论区被特别提及。", "有用户用它调试 LoRA（低秩适配）和微调，定位到模型修改场景。"], "discussion": "评论总体正面，认为工具直观有用；主要期待集中在补充张量形状、逐层参数数量等更细粒度的架构信息。", "tags": ["模型可视化", "开发者工具", "推理成本估算"], "score": 30, "comments": 4, "by": "lizhaoliu", "url": "https://modelmap.cc", "hnUrl": "https://news.ycombinator.com/item?id=49354664"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "AI usage patterns in software teams", "titleTranslation": "软件团队中的 AI 使用模式", "summary": "Linear 基于客户数据发现，2026 年上半年各部门 AI 功能活跃用户比例至少翻倍，AI 已生成近一半 issue；新增 AI 工作叠加而非替代，规划时间未变，执行层变化快于决策层。", "keyPoints": ["各部门 AI 采用率六个月内翻倍以上：产品 12%→34%，工程 12%→30%，市场 5%→18%。", "AI 代理已生成近一半 issue：两年前几乎为零，2026 年 8 月周创建量逼近人工与集成总和。", "非工程师也开始提交代码：产品经理关联代码合并请求比例 3%→10%，设计师 1%→8%。"], "discussion": "评论区质疑统计的是易于追踪的指标而非真实产出，并指出 AI 决策多发生在 Linear 外，数据代表性存疑。", "tags": ["AI 采用模式", "开发者工作流", "数据归因"], "score": 42, "comments": 19, "by": "giuliomagnifico", "url": "https://linear.app/data", "hnUrl": "https://news.ycombinator.com/item?id=49353432"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "Why crypto's best infrastructure companies stopped looking like crypto?", "titleTranslation": "为什么加密领域最好的基础设施公司不再像加密公司了？", "summary": "DePIN（去中心化物理基础设施网络）正在重演云和电信的剧本：裸资源商品化，利润流向出售成合同服务的玩家。证据包括 Storj 破产重组、Aethir 自报 1.278 亿美元收入，而链上收入仅约 7200 万美元，赢家正转向链下美元企业合同。", "keyPoints": ["AWS 占亚马逊 18% 收入、57% 营业利润，说明底层资源商品化后，利润会向上层有合同保障的服务迁移。", "Storj 于 2026 年 7 月申请美国破产法第 11 章破产重组，但自称核心业务稳健，反映老 DePIN 模型正在被剥离代币成分。", "DePIN 全年链上收入约 7200 万美元，而单个项目自报数字可能高出数倍，大量收入在链下用美元结算，数据口径极不透明。"], "discussion": "评论者预测到 2027 年底，DePIN 需求侧大部分收入将通过企业合同在链下结算，链上仪表盘只能跟踪少数份额。", "tags": ["DePIN", "基础设施商业化", "链下收入"], "score": 10, "comments": 1, "by": "Reaktornano", "url": "https://konstantintkachuk.com/writing/depin-is-dead-long-live-infrastructure-as-a-service/", "hnUrl": "https://news.ycombinator.com/item?id=49354778"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "Cursor launches Origin, GitHub alternative", "titleTranslation": "Cursor 推出 Origin，GitHub 替代品", "summary": "Cursor 推出代码托管服务 Origin，支持仓库、PR、代码浏览和 GitHub 同步，早期 beta 今日面向所有付费计划用户开放。这意味着 AI 编程工具正向上游抢占代码托管与协作入口，直接进入 GitHub 的核心地盘。", "keyPoints": ["Origin 今日向所有付费计划用户开放早期 beta，企业组织管理员可选择退出。", "支持仓库、PR、代码浏览，GitHub 仓库可双向实时同步，但推送仍以 GitHub 为源头。", "每个仓库内可让 Agent 回答问题、修改代码、更新 PR 或推送分支，并已接入 Vercel、Depot、Buildkite。"], "discussion": "评论区主要分歧在于是否该接受 AI 厂商运营的中心化托管，不少用户倾向 Radicle、Forgejo 或 GitLab 等去中心化/开源方案，并担心‘Origin’与 git 默认远程名冲突。", "tags": ["代码托管", "AI 编码工具", "开发者工作流"], "score": 470, "comments": 362, "by": "tomasreimers", "url": "https://cursor.com/changelog/origin-code-hosting", "hnUrl": "https://news.ycombinator.com/item?id=49334209"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "GLM-5.3 Artificial Analysis Benchmarks", "titleTranslation": "GLM-5.3 Artificial Analysis 基准测试", "summary": "GLM-5.3 (max) 在 Artificial Analysis 智能指数上得 60 分，远高于同类中位数 35；输入/输出定价分别为 $1.40 和 $4.40/百万 token，低于中位数。但评测中生成 1.7 亿 tokens（中位数 7200 万），冗长输出削弱了成本优势。", "keyPoints": ["GLM-5.3 (max) 得 60 分，远高于同类模型中位数 35，能力突出。", "价格为 $1.40/百万输入 token、$4.40/百万输出 token，低于同级中位数。", "评测中生成 1.7 亿 tokens，约为中位数的 2.4 倍，冗长推高总成本。"], "discussion": "HN 评论普遍认可模型能力，但关注其冗长输出抵消价格优势，并对部分基准可靠性提出质疑。", "tags": ["LLM 基准测试", "模型定价", "token 效率"], "score": 78, "comments": 37, "by": "apitman", "url": "https://artificialanalysis.ai/models/glm-5-3", "hnUrl": "https://news.ycombinator.com/item?id=49353407"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "Launch HN: machine0 (YC S26) – Persistent CPU and GPU VMs from the CLI", "titleTranslation": "Launch HN: machine0 (YC S26) – 从命令行管理持久 CPU 和 GPU 虚拟机", "summary": "machine0 提供按分钟计费的持久云虚拟机：CPU 起步价 0.013 美元/小时，最高 60 vCPU / 240 GB 内存，GPU 最高 8×H200。它面向长时运行、可挂起与快照的 AI agent 计算，而非临时任务。", "keyPoints": ["machine0 提供持久云虚拟机，按分钟计费，CPU 起步 0.013 美元/小时，最高 60 vCPU / 240 GB 内存。", "GPU 配置最高 8×H200，单卡 H100 约 4.85 美元/小时；VM 可挂起、快照并停止计费。", "面向长时 AI agent 工作负载：编码代理常跑 6–8 小时，训练和强化学习跑数天，需独立计算环境。"], "discussion": "评论多质疑其相对容器和 AWS/Hetzner/fly.io 的真实差异，并追问挂起是否保留进程内存、凭据轮换和 NixOS 版本维护等关键细节。", "tags": ["AI agent 基础设施", "GPU 云", "按需虚拟机"], "score": 61, "comments": 37, "by": "bwm", "url": "https://machine0.io", "hnUrl": "https://news.ycombinator.com/item?id=49348136"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "Norway should buy OpenAI", "titleTranslation": "挪威应该收购 OpenAI", "summary": "文章提议挪威政府全球养老基金动用约 8000 亿美元收购 OpenAI，将其从私人营利公司转为国际公共管理，以应对 AI 权力集中。HN 评论普遍认为该收购缺乏商业现实性，股东不会按当前估值出售，且 OpenAI 后续仍需巨额算力投入。", "keyPoints": ["作者提议挪威政府全球养老基金清仓约 40% 资产，以 8000 亿美元收购 OpenAI。", "其论点是把 OpenAI 从营利公司重新转为公共管理，避免 AI 权力与财富过度集中。", "评论指出8000 亿美元估值只是融资参考价，现有股东不会在这个价格卖出控制权。"], "discussion": "HN 评论共识是收购不现实且风险极高，主权基金不应重仓单一投机资产；少数人认为 AI 所有权公共化值得讨论，但执行路径不成立。", "tags": ["AI 治理", "主权财富基金", "企业估值"], "score": 214, "comments": 228, "by": "alexeigannon", "url": "https://www.onethousandmeans.com/p/norway-should-buy-openai", "hnUrl": "https://news.ycombinator.com/item?id=49351330"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "Claude Code Teaching macOS to Natively Print to the HP Laser 1008a", "titleTranslation": "Claude Code 教 macOS 原生打印到 HP Laser 1008a", "summary": "作者借 Claude Code 用约 4 小时让官方从不支持 Mac 的 HP Laser 1008a 打印机可用：反向工程打印机光栅页面描述语言，在 Linux 容器中运行 HP 官方驱动再桥接。虽非真正原生驱动，却展示出 LLM 把底层适配门槛大幅降低。", "keyPoints": ["Claude Code 只花约 4 小时让官方不支持的 HP Laser 1008a 在 macOS 上打印。", "方案并非原生驱动，而是反向工程打印机光栅语言后在 Linux 容器中运行 HP 官方驱动并桥接。", "评论指出需 root 权限启动器且运行用户目录代码，安全性被削弱。"], "discussion": "评论共识是这并非真正原生驱动，只是把 HP 官方 Linux 驱动跑在容器里再桥接，但认可 AI 显著降低了这类适配工作的门槛；分歧在于是否有必要重复造轮子，因为已有更简单方案。", "tags": ["AI 辅助编程", "打印机驱动", "逆向工程"], "score": 111, "comments": 74, "by": "amrrs", "url": "https://cdn.kuber.studio/chat/hp-laser-1008a-driver", "hnUrl": "https://news.ycombinator.com/item?id=49352806"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "Claude Code May–August 2026 weekly limits promotion", "titleTranslation": "Claude Code 2026年5月至8月每周限额促销", "summary": "Anthropic 将 Claude Code 每周使用限额提高 50%，促销延长至 2026 年 8 月 31 日，适用于付费计划但排除免费和按量企业席位。重度用户对限额敏感，促销反复引发对产品稳定性和竞争压力的关注。", "keyPoints": ["促销延长至 2026 年 8 月 31 日，每周使用限额提高 50%，适用于 Pro/Max/Team 及传统企业席位。", "免费计划和按用量计费的企业席位不包含，5 小时使用限额不受影响。", "HN 用户抱怨 Opus 模型近期质量下滑和停电，部分重度用户已转向 OpenAI Codex。"], "discussion": "评论区核心分歧在于 Anthropic 的高 token 消耗策略与 OpenAI 的效率优先策略哪个更可持续，同时用户对限额不确定性和近期质量下滑普遍不满。", "tags": ["AI 编程助手", "使用限额", "Anthropic"], "score": 260, "comments": 229, "by": "tyre", "url": "https://support.claude.com/en/articles/15910845-claude-code-may-august-2026-weekly-limits-promotion", "hnUrl": "https://news.ycombinator.com/item?id=49348751"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
