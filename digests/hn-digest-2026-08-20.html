@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-08-20</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-08-20 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://openrouter.ai/blog/announcements/openrouter-is-joining-stripe/" target="_blank" rel="noopener">OpenRouter is joining Stripe</a></h2></div><p class="title-tr">OpenRouter 加入 Stripe</p><div class="meta">▲ 635 分 · rvz · <a href="https://news.ycombinator.com/item?id=49364559" target="_blank" rel="noopener">340 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OpenRouter 宣布加入 Stripe，继续独立运营；平台每天处理超 10 万亿 tokens、服务 1000 万开发者，年推理量增长 10 倍。此次收购将 AI 模型路由与支付/计费基础设施结合，瞄准 AI 代理经济的按量计费需求。</p><p class="context"><strong>🧭 联系你的知识背景</strong> OpenRouter 是聚合多家大语言模型的统一接口平台，开发者只对接一个 API 即可调用不同模型，类似支付网关聚合多个支付渠道。</p><ul class="kp"><li><strong>OpenRouter 宣布加入 Stripe</strong>，交易预计数周内完成，产品、路线图不变。</li><li>平台每天处理 <strong>10+ 万亿 tokens</strong>、400+ 模型，服务 1000 万开发者，年推理量增长至少 10 倍。</li><li>Stripe 收购意在补全 <strong>AI 推理计量与计费基础设施</strong>，抓住代理经济中按量计费的需求。</li><li>OpenRouter 保持<strong>中立路由</strong>：决策只基于用户利益，不偏袒任何模型或提供商。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区认可其产品能力和商业模式，但对收购存在分歧：一方担忧企业整合损害消费者，另一方认为 Stripe 可借此补全 AI 代理计费基础设施。</p><div class="tags"><span class="tag">AI 模型路由</span><span class="tag">Stripe 收购</span><span class="tag">推理计费</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · apexalpha · 4 回复</div><p>Great product, been using it for a while.</p><p>Turns out even a proxy can be worth $8bn with the right business model behind it.</p><p>Users get an array of providers competing behind a single API, meaning they have to compete on price and quality not vendor lock-in. This encourages users to join OpenRouter over specific model vendors.</p><p>Providers get easy access to revenue (and data) and new customers with little to no ad spending, encouraging them onto the platform too.</p><p>And that&#x27;s all you need. Win win.</p><p>Well done and congratulations.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://unsloth.ai/docs/basics/dynamic-3.0-ggufs" target="_blank" rel="noopener">Unsloth Dynamic 3.0 GGUFs</a></h2></div><p class="title-tr">Unsloth 动态 3.0 GGUF 量化模型</p><div class="meta">▲ 186 分 · jonesy827 · <a href="https://news.ycombinator.com/item?id=49365443" target="_blank" rel="noopener">70 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Unsloth 发布 Dynamic v3.0 量化，对 Qwen3.8-27B 的新 GGUFs 在相同体积下 top-1% 准确率比所有竞品高 10% 以上，5 天下载超 510 万次。新方法采用纯后训练量化，并用 300 条未见过的题目检测过拟合。</p><p class="context"><strong>🧭 联系你的知识背景</strong> GGUF 是本地推理引擎 llama.cpp 生态常用的模型文件格式，量化通过把权重从 16 位浮点压缩到低比特整数来减小体积；本文的核心是让这种压缩尽量不损失模型能力。</p><ul class="kp"><li><strong>Unsloth Dynamic v3.0</strong> 对 Qwen3.8-27B 的新量化，同体积 top-1% 准确率比所有竞品高 10% 以上。</li><li><strong>5 天 510 万次下载</strong>，体现开源本地模型社区对新量化的快速采用。</li><li><strong>UD-IQ1_S 仅 6.2GB</strong>，约为原模型体积的 11%，仍保留约 72% top-1% 准确率。</li><li>新评测 <strong>Divergence-300 @32</strong> 使用 300 条未见过的编程、数学和多语言提示，检查 32 个 token 轨迹是否与 BF16 一致，以控制过拟合。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论质疑低 KL 散度不等于真实编码能力，要求加入多步编程基准；同时抱怨同名 GGUF 文件在版本更新后没有改名，难以区分新旧版本。</p><div class="tags"><span class="tag">模型量化</span><span class="tag">GGUF</span><span class="tag">本地推理</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · xlayn · 4 回复</div><p>Hey Unsloth, your gguf are the first ones I look for when I want to download a gguf model.</p><p>Today I was trying in fact to see, what&#x27;s the smallest Qwen3.8-27B that I could run and get good results, say restricting it to 16GB of ram.. so I went, pick up the Qwen3.8-27B-UD-IQ2_XXS.gguf and them BAM, error on MTP... now I understand why after reading your announcement.</p><p>Beyond the space saving, why removing the MTP? improves speed exactly for the group that could benefit from it.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://arxiv.org/abs/2007.13664" target="_blank" rel="noopener">Universality of Gradient Descent Neural Network Training</a></h2></div><p class="title-tr">梯度下降神经网络训练的普适性</p><div class="meta">▲ 7 分 · E-Reverance · <a href="https://news.ycombinator.com/item?id=49368828" target="_blank" rel="noopener">1 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">该论文证明一个存在性结果：若任意算法能为分类任务找到好权重，则可构造该网络的扩展，使纯梯度下降训练复现这些权重和前向输出。该构造不用于实际计算，但为元学习提供理论方向。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这篇是理论存在性证明，不是实用训练方法；可把它理解为在已知优化框架下，梯度下降能模拟任意训练算法的能力边界。</p><ul class="kp"><li><strong>普适性定理</strong>：若任意算法能为分类任务找到好权重，则存在扩展网络可由梯度下降训练复现这些权重。</li><li>该构造是<strong>存在性证明</strong>，不用于实际计算，但为元学习方法提供理论方向。</li><li>论文回答是否总能重新设计网络使<strong>梯度下降训练良好</strong>：结论为是，通过构造网络扩展。</li><li>核心启示是网络设计选择对可优化性至关重要，结构扩展可补偿训练算法的局限。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论延伸出能否构造闭式预训练数据集，使目标数据集训练更高效，关注理论向实用训练方法的转化。</p><div class="tags"><span class="tag">梯度下降优化</span><span class="tag">元学习</span><span class="tag">机器学习理论</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://arxiv.org/abs/2608.16753" target="_blank" rel="noopener">Mathematics in the age of AI</a></h2></div><p class="title-tr">AI 时代的数学</p><div class="meta">▲ 120 分 · jonbaer · <a href="https://news.ycombinator.com/item?id=49362728" target="_blank" rel="noopener">125 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">本文基于 2026 年国际数学家大会公开讲座，假设 AI 将具备研究级数学能力，把焦点从能力辩论转向数学研究的目标与价值观，并以问题解决为案例。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可类比模型评估中“指标高不等于解决真实用户问题”：本文追问的是数学研究评价与人类理解的价值层，而非 AI 能力本身。</p><ul class="kp"><li>本文源自 <strong>2026 年国际数学家大会</strong> 公开讲座，讨论数学界如何回应 AI 工具。</li><li>文章假设具备 <strong>研究级数学能力</strong> 的 AI 终将出现，不纠缠于当下能力边界。</li><li>核心转向数学研究的 <strong>目标与价值观</strong>，而非仅看证明是否能被验证。</li><li>以“问题解决”成分为案例，审视 <strong>人类讲解与理解</strong> 在研究评价中的位置。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论围绕“人类理解是否仍应是发表门槛”分裂：一方引陶的规则要求可讲解性，另一方认为 AI 更强后理解可不必要，多数欣赏务实折中。</p><div class="tags"><span class="tag">AI 数学证明</span><span class="tag">科研评价体系</span><span class="tag">人机协作</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · sonicrocketman · 12 回复</div><p>Tao&#x27;s Rule of Thumb (which applies very well to software):</p><p>&gt; My own suggested rule of thumb: if the authors cannot convincingly demonstrate that they are able to give a clear, expert-level talk on their results, one that is correct and properly attributed, then the result should not be published. A proof that no human can properly explain should be viewed as incomplete, even if it has been formally verified.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://fx.sh" target="_blank" rel="noopener">fx :Tiny, open, native coding agent.</a></h2></div><p class="title-tr">fx：微小、开源、原生编码智能体</p><div class="meta">▲ 177 分 · handfuloflight · <a href="https://news.ycombinator.com/item?id=49353339" target="_blank" rel="noopener">87 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">fx 是用 Zig 编写的编码代理命令行工具，二进制仅 6.39 MB、冷启动 10 微秒，主打极低 token 开销和资源受限嵌入；模型无关，支持本地与云端推理，交互接近 Unix shell 而非重终端 IDE。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可将 6.39 MB 二进制和 10 微秒冷启动类比为模型推理服务的低延迟与低内存占用：Zig 是一种注重编译产物体积和启动速度的系统编程语言，让 fx 能在沙箱中批量部署。</p><ul class="kp"><li><strong>6.39 MB 二进制、10 微秒冷启动</strong>，目标是在资源受限环境和沙箱中即时安装与嵌入。</li><li>用 <strong>Zig</strong> 编写，极简系统提示与工具集，节省 token 成本并降低首 token 延迟（TTFT）。</li><li>采用 <strong>Apache-2.0 开源协议</strong>，模型无关；演示默认模型为 <strong>GLM-5.2</strong>，支持本地和云端推理。</li><li>提供 <strong>WebAssembly</strong> 构建，可进一步缩小体积，并可替换网络栈，适合程序化调用。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区核心分歧在于：这项目究竟只是用 Zig 重写了一遍常见编码代理框架，还是真有差异化的轻量/嵌入优势；同时对“agent”与“harness”术语混用有明确不满。</p><div class="tags"><span class="tag">编码代理</span><span class="tag">Zig 系统编程</span><span class="tag">CLI 工具</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · SmashDan · 10 回复</div><p>I&#x27;m not in the tech industry. Could someone explain why there are so many new coding agents, and why they&#x27;re commonly upvoted on HackerNews? It seems like there&#x27;s a new one in the top 10 every other day.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://ornith.ai/ornith_1_5.html" target="_blank" rel="noopener">Ornith-1.5: From Self-Scaffolding to Self-Improvement</a></h2></div><p class="title-tr">Ornith-1.5：从自我脚手架到自我改进</p><div class="meta">▲ 169 分 · CommonGuy · <a href="https://news.ycombinator.com/item?id=49362401" target="_blank" rel="noopener">58 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Ornith-1.5 发布，用端到端自我改进循环（模型自生成任务、脚手架和解决方案并强化学习）取得开源领先成绩：397B 版在 Terminal-Bench 2.1 得 86.1、DeepSWE 56.0，与 Claude Opus 4.8 相当；9B 版可部署手机，成绩超更大模型。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中的“自我脚手架”可理解为模型自己生成解题框架和任务，把课程学习与强化学习闭环，而不是依赖人工标注的固定训练集，这与读者熟悉的主动学习和训练循环直接相关。</p><ul class="kp"><li><strong>Ornith-1.5-397B</strong> 在 Terminal-Bench 2.1 得 86.1、DeepSWE 56.0，与 Claude Opus 4.8 接近，超 GLM-5.2 和 DeepSeek-V4-Flash。</li><li>核心是<strong>端到端自我改进循环</strong>：模型生成任务、脚手架和 rollout，用有效性、前沿难度、新颖性三种奖励联合优化。</li><li><strong>9B dense 版</strong>可部署 iPhone/Android，基准成绩超过 Gemma 4-31B 和 Qwen 3.6-35B，显示小模型边缘部署潜力。</li><li>社区评论区担心<strong>官方基准与实际体验可能脱节</strong>，有人实测 9B 模型弱于官方对比的 Qwen，另有人询问 397B 本地部署硬件门槛。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区既有人期待本地部署表现，也有人反映 Ornith-1.0-9B 实测弱于官方对比的 Qwen，对基准可信度存疑，并关注 397B 的硬件成本。</p><div class="tags"><span class="tag">开源 LLM</span><span class="tag">自改进训练</span><span class="tag">模型基准</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · montroser · 9 回复</div><p>Hoping this is real.  It&#x27;s too bad to see the signals from Qwen that they will not be releasing a 35B-A3B for the 3.8 lineup.  The MoE architecture makes a huge difference for being able to run these local models on reasonable consumer hardware.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://jeremymorrell.dev/blog/extensible-software-in-the-age-of-llms/" target="_blank" rel="noopener">Extensible Software in the age of LLMs</a></h2></div><p class="title-tr">LLM 时代的可扩展软件</p><div class="meta">▲ 106 分 · coloneltcb · <a href="https://news.ycombinator.com/item?id=49363668" target="_blank" rel="noopener">49 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者主张网络软件应从静态核心走向用户可安全扩展的平台：LLM 大幅降低写扩展的成本，沙箱原语降低部署与安全门槛；并以 Salesforce 自 2007 年的多租户可编程平台为先例，点名 Cloudflare Dynamic Workers 适合该模式。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中的“沙箱”可类比为让用户生成的代码在受控边界内运行，类似推理时对输出施加约束；“多租户平台”则是把同一套软件服务安全地隔成多个客户空间，各自运行自定义逻辑。</p><ul class="kp"><li><strong>作者提出“可扩展网络软件”新机会</strong>，认为 LLM 降低了扩展开发成本，沙箱原语降低部署与安全门槛。</li><li><strong>Salesforce 自 2007 年起</strong>已是多租户可编程平台，证明网络端用户级可扩展性长期可行。</li><li><strong>Pi 等 LLM 原生软件</strong>通过稳定 hooks 让用户用自然语言生成 TypeScript 扩展并分享，避免核心功能膨胀。</li><li><strong>安全挑战是最大障碍</strong>：用户代码可能泄露密钥、外流数据、造成拒绝服务或挖矿，需要严格隔离。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍认可可扩展方向，但质疑“为一个人做的软件”为何必须跑在网页/云端，并批评文章带有 Cloudflare 推广色彩；也有人认为仅靠沙箱不足以保证数据访问控制安全。</p><div class="tags"><span class="tag">LLM 原生软件</span><span class="tag">可扩展平台</span><span class="tag">沙箱安全</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · qsera · 4 回复</div><p>I see a different future. A future where software developers are approached by clients with requirements in the form of an LLM generated program. They do it because they are at a point where LLM fails to make new changes without breaking existing stuff.</p><p>Maybe it won&#x27;t be a program, but just some LLM context as some data dump.</p><p>This program or context will take up the role of a PM. Developers will refer to the program, or ask context for clarifications and the developer will build the actual program with or without the help from LLMs.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://openai.com/index/pacing-model-development-cyber-capabilities/" target="_blank" rel="noopener">Pacing model development in an era of cyber-critical capabilities</a></h2></div><p class="title-tr">在网络关键能力时代为模型开发调节节奏</p><div class="meta">▲ 130 分 · j4mie · <a href="https://news.ycombinator.com/item?id=49350031" target="_blank" rel="noopener">168 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OpenAI 主张放缓具备网络攻击/防御关键能力的前沿模型开发，但正文未能获取，信息仅来自标题和讨论。评论引述网络攻防基准 CyberBench 分数：开放权重模型 GLM 5.2 得 77%，接近 Sol 的 88%，却未见灾难性滥用。</p><p class="context"><strong>🧭 联系你的知识背景</strong> “网络关键能力”可类比模型鲁棒性中的对抗样本：模型正常时可靠，但在恶意引导下可执行漏洞利用、渗透等攻击；CyberBench 是衡量这种能力的基准。</p><ul class="kp"><li><strong>OpenAI 主张放缓前沿模型开发</strong>，理由是模型能力已接近网络攻防危险阈值。</li><li><strong>开放权重模型 GLM 5.2 在 CyberBench 得 77%</strong>，接近 Sol 的 88%；能力相近却未引发现实灾难性滥用。</li><li><strong>Sam Altman 称未发布模型出现“各种程度的不对齐”</strong>，OpenAI 暂停强化学习训练两周以加固研究环境。</li><li><strong>社区质疑监管紧迫性</strong>：仅靠科幻叙事和未验证声明不足以证明需要立刻收紧限制。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区分裂：一方视其为安全警钟，另一方以开放权重模型能力接近却未引发灾难为由，质疑 OpenAI 的警报缺乏实证。</p><div class="tags"><span class="tag">AI 安全</span><span class="tag">网络攻击能力</span><span class="tag">模型监管</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · bottlepalm · 20 回复</div><p>I don’t get how this is not the top post on HN. This should be like alarm bells going off, canary in the coal mine type of stuff. We’re hitting the frontier of the frontier where we can’t go further because it’s literally getting dangerous to go further.</p><p>And meanwhile somehow this lack of concern mirrors the real world where normal people are more concerned about data centers than terminators.</p><p>This isn’t like niche, tin foil hat stuff either. People have been writing, singing, making blockbuster movies about every aspect of what’s going on right now, edit: for decades.</p><p>We all know, but somehow we don’t, OpenAI autonomously hacking into another company should have counted for something, but I guess not. Anyone else feel like they’re taking crazy pills? I could make a comedy about everything going down, and the unshakable complacency of people</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://github.com/anthropics/claude-code/issues/6235" target="_blank" rel="noopener">Feature Request: Support AGENTS.md</a></h2></div><p class="title-tr">功能请求：支持 AGENTS.md</p><div class="meta">▲ 134 分 · fg137 · <a href="https://news.ycombinator.com/item?id=49367350" target="_blank" rel="noopener">77 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">开发者请求 Claude Code 支持开放标准 AGENTS.md，但 Anthropic 仍维持自家 CLAUDE.md，社区批评这会强化平台锁定并充当免费广告。此 issue 反映 AI 编码工具在互操作性与生态封闭之间的张力。</p><p class="context"><strong>🧭 联系你的知识背景</strong> AGENTS.md 和 CLAUDE.md 都是给 AI 编码代理读取的仓库级 Markdown 上下文文件，类似你训练模型时注入的系统提示，帮助模型理解代码库；前者是开放标准，后者是 Anthropic 专有。</p><ul class="kp"><li>开发者请求 Claude Code 支持 <strong>AGENTS.md</strong>，与 Codex、Amp、Cursor 等工具的开放标准对齐。</li><li>Anthropic 仍坚持 <strong>CLAUDE.md</strong>，被社区视为借开发者仓库做免费广告和生态锁定。</li><li>HN 评论类比 <strong>Reddit 和 Twitter 封杀第三方客户端</strong>，警告封闭策略的长期衰退风险。</li><li>有用户通过 <strong>BUN_OPTIONS</strong> 注入脚本或 symlink 让 Claude Code 间接识别 AGENTS.md。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论普遍批评 Anthropic 坚持 CLAUDE.md 属于平台封闭，类比 Reddit/Twitter 衰落；少数人则认为可用脚本绕过或指出 OpenAI Codex 已领先。</p><div class="tags"><span class="tag">AI 编码代理</span><span class="tag">开放标准</span><span class="tag">平台锁定</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · OleksandrC · 3 回复</div><p>The obvious reason is that they would prefer to have CLAUDE.md files in every repo (even if it&#x27;s just a symlink to AGENTS.md). It serves as a free advertisement for them. Same reason as for auto-adding attribution text in commit messages, etc. It&#x27;s the &quot;Sent from my iPhone&quot; of our time.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://github.com/BrightbeamAI/chap" target="_blank" rel="noopener">Collaborative Human Agent Protocol (CHAP)</a></h2></div><p class="title-tr">人类与智能体协作协议（CHAP）</p><div class="meta">▲ 19 分 · arsalanshahid · <a href="https://news.ycombinator.com/item?id=49367836" target="_blank" rel="noopener">3 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">CHAP 定义人类与 AI 代理协作的审计协议，用内容哈希链记录每次人工编辑、批准或拒绝，使散落在日志、聊天和工单中的决策可统一查询、回放与验证；提供 TypeScript/Python 双实现及 MCP、A2A 传输。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可将 CHAP 审计链类比为比特币交易的哈希链，但记录的不是账本，而是人类对 AI 输出的每次修改与审批，解决决策记录分散的问题。</p><ul class="kp"><li><strong>CHAP</strong> 用内容哈希链记录人类对 AI 代理输出的每次编辑、批准或拒绝，支持数月后回放查询。</li><li><strong>intent_preserved</strong> 字段区分“细化”与“替代”覆盖，指向检索偏差或策略模糊等不同失败模式。</li><li>双参考实现覆盖 <strong>39 个方法处理器</strong>，通过 <strong>23 个测试向量</strong>的合规测试，可用 TypeScript 或 Python。</li><li>支持 <strong>MCP 和 A2A 服务器传输</strong>，可对接 Claude Desktop、Cursor 及 LangGraph 等框架。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区以调侃为主，认为 LLM 项目 README 普遍冗长，并有人指出 <strong>CHAP 名称已被其他项目占用</strong>。</p><div class="tags"><span class="tag">人机协作协议</span><span class="tag">AI 代理审计</span><span class="tag">开发者工具</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · m4ck_ · 1 回复</div><p>CHAP&#x27;s already taken though.</p></div></div></article>
+</div></main>
+<footer>generated 2026-08-20 01:52 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-20", "pointsLabel": "分", "commentsLabel": "评论", "title": "OpenRouter is joining Stripe", "titleTranslation": "OpenRouter 加入 Stripe", "summary": "OpenRouter 宣布加入 Stripe，继续独立运营；平台每天处理超 10 万亿 tokens、服务 1000 万开发者，年推理量增长 10 倍。此次收购将 AI 模型路由与支付/计费基础设施结合，瞄准 AI 代理经济的按量计费需求。", "keyPoints": ["OpenRouter 宣布加入 Stripe，交易预计数周内完成，产品、路线图不变。", "平台每天处理 10+ 万亿 tokens、400+ 模型，服务 1000 万开发者，年推理量增长至少 10 倍。", "Stripe 收购意在补全 AI 推理计量与计费基础设施，抓住代理经济中按量计费的需求。"], "discussion": "HN 评论区认可其产品能力和商业模式，但对收购存在分歧：一方担忧企业整合损害消费者，另一方认为 Stripe 可借此补全 AI 代理计费基础设施。", "tags": ["AI 模型路由", "Stripe 收购", "推理计费"], "score": 635, "comments": 340, "by": "rvz", "url": "https://openrouter.ai/blog/announcements/openrouter-is-joining-stripe/", "hnUrl": "https://news.ycombinator.com/item?id=49364559"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-20", "pointsLabel": "分", "commentsLabel": "评论", "title": "Unsloth Dynamic 3.0 GGUFs", "titleTranslation": "Unsloth 动态 3.0 GGUF 量化模型", "summary": "Unsloth 发布 Dynamic v3.0 量化，对 Qwen3.8-27B 的新 GGUFs 在相同体积下 top-1% 准确率比所有竞品高 10% 以上，5 天下载超 510 万次。新方法采用纯后训练量化，并用 300 条未见过的题目检测过拟合。", "keyPoints": ["Unsloth Dynamic v3.0 对 Qwen3.8-27B 的新量化，同体积 top-1% 准确率比所有竞品高 10% 以上。", "5 天 510 万次下载，体现开源本地模型社区对新量化的快速采用。", "UD-IQ1_S 仅 6.2GB，约为原模型体积的 11%，仍保留约 72% top-1% 准确率。"], "discussion": "HN 评论质疑低 KL 散度不等于真实编码能力，要求加入多步编程基准；同时抱怨同名 GGUF 文件在版本更新后没有改名，难以区分新旧版本。", "tags": ["模型量化", "GGUF", "本地推理"], "score": 186, "comments": 70, "by": "jonesy827", "url": "https://unsloth.ai/docs/basics/dynamic-3.0-ggufs", "hnUrl": "https://news.ycombinator.com/item?id=49365443"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-20", "pointsLabel": "分", "commentsLabel": "评论", "title": "Universality of Gradient Descent Neural Network Training", "titleTranslation": "梯度下降神经网络训练的普适性", "summary": "该论文证明一个存在性结果：若任意算法能为分类任务找到好权重，则可构造该网络的扩展，使纯梯度下降训练复现这些权重和前向输出。该构造不用于实际计算，但为元学习提供理论方向。", "keyPoints": ["普适性定理：若任意算法能为分类任务找到好权重，则存在扩展网络可由梯度下降训练复现这些权重。", "该构造是存在性证明，不用于实际计算，但为元学习方法提供理论方向。", "论文回答是否总能重新设计网络使梯度下降训练良好：结论为是，通过构造网络扩展。"], "discussion": "HN 评论延伸出能否构造闭式预训练数据集，使目标数据集训练更高效，关注理论向实用训练方法的转化。", "tags": ["梯度下降优化", "元学习", "机器学习理论"], "score": 7, "comments": 1, "by": "E-Reverance", "url": "https://arxiv.org/abs/2007.13664", "hnUrl": "https://news.ycombinator.com/item?id=49368828"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-20", "pointsLabel": "分", "commentsLabel": "评论", "title": "Mathematics in the age of AI", "titleTranslation": "AI 时代的数学", "summary": "本文基于 2026 年国际数学家大会公开讲座，假设 AI 将具备研究级数学能力，把焦点从能力辩论转向数学研究的目标与价值观，并以问题解决为案例。", "keyPoints": ["本文源自 2026 年国际数学家大会 公开讲座，讨论数学界如何回应 AI 工具。", "文章假设具备 研究级数学能力 的 AI 终将出现，不纠缠于当下能力边界。", "核心转向数学研究的 目标与价值观，而非仅看证明是否能被验证。"], "discussion": "HN 评论围绕“人类理解是否仍应是发表门槛”分裂：一方引陶的规则要求可讲解性，另一方认为 AI 更强后理解可不必要，多数欣赏务实折中。", "tags": ["AI 数学证明", "科研评价体系", "人机协作"], "score": 120, "comments": 125, "by": "jonbaer", "url": "https://arxiv.org/abs/2608.16753", "hnUrl": "https://news.ycombinator.com/item?id=49362728"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-20", "pointsLabel": "分", "commentsLabel": "评论", "title": "fx :Tiny, open, native coding agent.", "titleTranslation": "fx：微小、开源、原生编码智能体", "summary": "fx 是用 Zig 编写的编码代理命令行工具，二进制仅 6.39 MB、冷启动 10 微秒，主打极低 token 开销和资源受限嵌入；模型无关，支持本地与云端推理，交互接近 Unix shell 而非重终端 IDE。", "keyPoints": ["6.39 MB 二进制、10 微秒冷启动，目标是在资源受限环境和沙箱中即时安装与嵌入。", "用 Zig 编写，极简系统提示与工具集，节省 token 成本并降低首 token 延迟（TTFT）。", "采用 Apache-2.0 开源协议，模型无关；演示默认模型为 GLM-5.2，支持本地和云端推理。"], "discussion": "评论区核心分歧在于：这项目究竟只是用 Zig 重写了一遍常见编码代理框架，还是真有差异化的轻量/嵌入优势；同时对“agent”与“harness”术语混用有明确不满。", "tags": ["编码代理", "Zig 系统编程", "CLI 工具"], "score": 177, "comments": 87, "by": "handfuloflight", "url": "https://fx.sh", "hnUrl": "https://news.ycombinator.com/item?id=49353339"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-20", "pointsLabel": "分", "commentsLabel": "评论", "title": "Ornith-1.5: From Self-Scaffolding to Self-Improvement", "titleTranslation": "Ornith-1.5：从自我脚手架到自我改进", "summary": "Ornith-1.5 发布，用端到端自我改进循环（模型自生成任务、脚手架和解决方案并强化学习）取得开源领先成绩：397B 版在 Terminal-Bench 2.1 得 86.1、DeepSWE 56.0，与 Claude Opus 4.8 相当；9B 版可部署手机，成绩超更大模型。", "keyPoints": ["Ornith-1.5-397B 在 Terminal-Bench 2.1 得 86.1、DeepSWE 56.0，与 Claude Opus 4.8 接近，超 GLM-5.2 和 DeepSeek-V4-Flash。", "核心是端到端自我改进循环：模型生成任务、脚手架和 rollout，用有效性、前沿难度、新颖性三种奖励联合优化。", "9B dense 版可部署 iPhone/Android，基准成绩超过 Gemma 4-31B 和 Qwen 3.6-35B，显示小模型边缘部署潜力。"], "discussion": "评论区既有人期待本地部署表现，也有人反映 Ornith-1.0-9B 实测弱于官方对比的 Qwen，对基准可信度存疑，并关注 397B 的硬件成本。", "tags": ["开源 LLM", "自改进训练", "模型基准"], "score": 169, "comments": 58, "by": "CommonGuy", "url": "https://ornith.ai/ornith_1_5.html", "hnUrl": "https://news.ycombinator.com/item?id=49362401"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-20", "pointsLabel": "分", "commentsLabel": "评论", "title": "Extensible Software in the age of LLMs", "titleTranslation": "LLM 时代的可扩展软件", "summary": "作者主张网络软件应从静态核心走向用户可安全扩展的平台：LLM 大幅降低写扩展的成本，沙箱原语降低部署与安全门槛；并以 Salesforce 自 2007 年的多租户可编程平台为先例，点名 Cloudflare Dynamic Workers 适合该模式。", "keyPoints": ["作者提出“可扩展网络软件”新机会，认为 LLM 降低了扩展开发成本，沙箱原语降低部署与安全门槛。", "Salesforce 自 2007 年起已是多租户可编程平台，证明网络端用户级可扩展性长期可行。", "Pi 等 LLM 原生软件通过稳定 hooks 让用户用自然语言生成 TypeScript 扩展并分享，避免核心功能膨胀。"], "discussion": "评论区普遍认可可扩展方向，但质疑“为一个人做的软件”为何必须跑在网页/云端，并批评文章带有 Cloudflare 推广色彩；也有人认为仅靠沙箱不足以保证数据访问控制安全。", "tags": ["LLM 原生软件", "可扩展平台", "沙箱安全"], "score": 106, "comments": 49, "by": "coloneltcb", "url": "https://jeremymorrell.dev/blog/extensible-software-in-the-age-of-llms/", "hnUrl": "https://news.ycombinator.com/item?id=49363668"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-20", "pointsLabel": "分", "commentsLabel": "评论", "title": "Pacing model development in an era of cyber-critical capabilities", "titleTranslation": "在网络关键能力时代为模型开发调节节奏", "summary": "OpenAI 主张放缓具备网络攻击/防御关键能力的前沿模型开发，但正文未能获取，信息仅来自标题和讨论。评论引述网络攻防基准 CyberBench 分数：开放权重模型 GLM 5.2 得 77%，接近 Sol 的 88%，却未见灾难性滥用。", "keyPoints": ["OpenAI 主张放缓前沿模型开发，理由是模型能力已接近网络攻防危险阈值。", "开放权重模型 GLM 5.2 在 CyberBench 得 77%，接近 Sol 的 88%；能力相近却未引发现实灾难性滥用。", "Sam Altman 称未发布模型出现“各种程度的不对齐”，OpenAI 暂停强化学习训练两周以加固研究环境。"], "discussion": "评论区分裂：一方视其为安全警钟，另一方以开放权重模型能力接近却未引发灾难为由，质疑 OpenAI 的警报缺乏实证。", "tags": ["AI 安全", "网络攻击能力", "模型监管"], "score": 130, "comments": 168, "by": "j4mie", "url": "https://openai.com/index/pacing-model-development-cyber-capabilities/", "hnUrl": "https://news.ycombinator.com/item?id=49350031"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-20", "pointsLabel": "分", "commentsLabel": "评论", "title": "Feature Request: Support AGENTS.md", "titleTranslation": "功能请求：支持 AGENTS.md", "summary": "开发者请求 Claude Code 支持开放标准 AGENTS.md，但 Anthropic 仍维持自家 CLAUDE.md，社区批评这会强化平台锁定并充当免费广告。此 issue 反映 AI 编码工具在互操作性与生态封闭之间的张力。", "keyPoints": ["开发者请求 Claude Code 支持 AGENTS.md，与 Codex、Amp、Cursor 等工具的开放标准对齐。", "Anthropic 仍坚持 CLAUDE.md，被社区视为借开发者仓库做免费广告和生态锁定。", "HN 评论类比 Reddit 和 Twitter 封杀第三方客户端，警告封闭策略的长期衰退风险。"], "discussion": "HN 评论普遍批评 Anthropic 坚持 CLAUDE.md 属于平台封闭，类比 Reddit/Twitter 衰落；少数人则认为可用脚本绕过或指出 OpenAI Codex 已领先。", "tags": ["AI 编码代理", "开放标准", "平台锁定"], "score": 134, "comments": 77, "by": "fg137", "url": "https://github.com/anthropics/claude-code/issues/6235", "hnUrl": "https://news.ycombinator.com/item?id=49367350"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-20", "pointsLabel": "分", "commentsLabel": "评论", "title": "Collaborative Human Agent Protocol (CHAP)", "titleTranslation": "人类与智能体协作协议（CHAP）", "summary": "CHAP 定义人类与 AI 代理协作的审计协议，用内容哈希链记录每次人工编辑、批准或拒绝，使散落在日志、聊天和工单中的决策可统一查询、回放与验证；提供 TypeScript/Python 双实现及 MCP、A2A 传输。", "keyPoints": ["CHAP 用内容哈希链记录人类对 AI 代理输出的每次编辑、批准或拒绝，支持数月后回放查询。", "intent_preserved 字段区分“细化”与“替代”覆盖，指向检索偏差或策略模糊等不同失败模式。", "双参考实现覆盖 39 个方法处理器，通过 23 个测试向量的合规测试，可用 TypeScript 或 Python。"], "discussion": "评论区以调侃为主，认为 LLM 项目 README 普遍冗长，并有人指出 CHAP 名称已被其他项目占用。", "tags": ["人机协作协议", "AI 代理审计", "开发者工具"], "score": 19, "comments": 3, "by": "arsalanshahid", "url": "https://github.com/BrightbeamAI/chap", "hnUrl": "https://news.ycombinator.com/item?id=49367836"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
