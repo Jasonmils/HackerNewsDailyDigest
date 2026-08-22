@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-08-22</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-08-22 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://ozbrain.com" target="_blank" rel="noopener">Show HN: OzBrain, a shared brain for knowledge between agents and your team</a></h2></div><p class="title-tr">Show HN: OzBrain，一个供智能体与团队共享知识的大脑</p><div class="meta">▲ 36 分 · dariusmonsef · <a href="https://news.ycombinator.com/item?id=49394827" target="_blank" rel="noopener">12 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OzBrain 上线云端共享知识库，让 Claude、ChatGPT、Cursor 等智能体通过连接器读写同一来源，避免知识在工具间复制漂移。免费版可存 50 篇文章，Pro/Max 为 20/99 美元/月；调研中 75 位创始人 26 位自建系统、32 位感到手动传文件痛点。</p><p class="context"><strong>🧭 联系你的知识背景</strong> MCP（模型上下文协议）可类比为 AI 助手的“USB 接口”，让不同聊天应用接入同一个外部知识库；本文的 OzBrain 即通过它被 Claude、ChatGPT 等读写。</p><ul class="kp"><li>OzBrain 定位为<strong>智能体与团队共享的知识库层</strong>，让 Claude、ChatGPT、Cursor 读写同一来源。</li><li><strong>免费版 50 篇文章</strong>，Pro 20 美元/月 300 篇，Max 99 美元/月 600 篇，读写和连接数不限。</li><li><strong>75 位创始人中 26 位自建知识系统</strong>，32 位受困于手动传文件，验证了需求。</li><li><strong>维护闭环仍处 alpha 阶段</strong>，未在客户数据上运行，产品强调智能体维护知识而非用户手动更新。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论对需求真实性有一定认可，但核心分歧在 OzBrain 与 Obsidian 本地文件方案的差异是否足够清晰，以及 LLM 在长文本总结中的准确率退化风险。</p><div class="tags"><span class="tag">智能体知识管理</span><span class="tag">模型上下文协议</span><span class="tag">开发者工具</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · gavinboston · 2 回复</div><p>Do you have a solution for degradation in accuracy when compiling larger amounts of llm-produced text?</p><p>I am also building LLM knowledge/memory systems and I&#x27;ve been surprised how bad LLMs are, even SOTA models, at summarizing non-trivial input batches of text. They get things wrong, distort the underlying meaning or data, etc.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://api-docs.deepseek.com/guides/vision/" target="_blank" rel="noopener">DeepSeek-v4-flash-vision-exp</a></h2></div><div class="meta">▲ 465 分 · dares2573 · <a href="https://news.ycombinator.com/item?id=49386163" target="_blank" rel="noopener">143 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">DeepSeek 发布实验性视觉模型，支持图像理解，图片缩放后折算为最多 384 token，单图最高 64 MiB（Files API），提供 OpenAI、Anthropic、Responses 三种接口。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 图像不是直接像文本分词，而是按分辨率缩放后统一折算 token 计费，这类似你对模型推理成本的理解。</p><ul class="kp"><li><strong>DeepSeek-v4-flash-vision-exp</strong> 支持 JPEG/PNG/GIF/WebP，采用 OpenAI 兼容接口与三种传图方式。</li><li>每张图自动缩放后<strong>最多 384 tokens</strong>，2000×2000 和 5000×5000 图片计费相同。</li><li><strong>单图限制：内联或 URL 32 MiB，Files API 64 MiB</strong>，单请求最多 600 张图。</li><li>同时支持 <strong>OpenAI、Anthropic、Responses 三种 API</strong> 调用路径。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍欢迎 DeepSeek 补齐视觉，但时钟读数错误引发对精度的质疑；也有人关心为何保留纯文本版和是否有在线测试入口。</p><div class="tags"><span class="tag">多模态模型</span><span class="tag">图像理解</span><span class="tag">API 计费</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · leumon · 10 回复</div><p>It fails the simple clock test for me which Qwen3.8 27B got (nearly) right.</p><p>given an image of a clock https://files.catbox.moe/kgwa5e.png</p><p>I asked it &quot;what time does the clock show?&quot; (both on reasoning: high)</p><p>DS answered: The clock shows *5:10* (and 45 seconds).</p><p>Here is the breakdown:</p><p>*   *Hour hand (red, shortest):* Pointing at the *5*.</p><p>*   *Minute hand (green, longest):* Pointing at the *2*, which represents 10 minutes.</p><p>*   *Second hand (blue, medium):* Pointing at the *9*, which represents 45 seconds.</p><p>Qwen answered: The clock shows *8:10* (with the red second hand on the 5, i.e. *8:10:25*).</p><p>- *Hour hand* (short, blue) → 8</p><p>- *Minute hand* (long, green) → 2 (10 minutes)</p><p>- *Second hand* (thin, red) → 5 (25 seconds)</p><p>Correct answer is 08:09:25.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://www.economist.com/graphic-detail/2026/08/18/does-ai-stop-children-from-learning" target="_blank" rel="noopener">AI boosted homework scores, then exam scores dropped: study</a></h2></div><p class="title-tr">AI 提高了作业成绩，随后考试成绩下降：研究</p><div class="meta">▲ 232 分 · dash2 · <a href="https://news.ycombinator.com/item?id=49357530" target="_blank" rel="noopener">290 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">研究追踪中国 27,000 名中学生，约 80% 用 Doubao 和 DeepSeek。六个月后 AI 组作业分数升 18%、用时从 64 分钟降到 45 分钟，但考试成绩比未用 AI 组低 20%——AI 替代练习损害真实学习。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这一“作业分高、考试分低”模式类似模型在训练集上过拟合、在测试集泛化变差——学生把 AI 当成了捷径特征，替代了真实练习。</p><ul class="kp"><li>研究追踪 <strong>27,000 名</strong>中国 12-18 岁学生，约 80% 使用 Doubao 和 DeepSeek，20% 为对照。</li><li>六个月后 AI 组作业分数平均上升 <strong>18%</strong>，完成时间从 64 分钟降至 45 分钟。</li><li>但 AI 组考试成绩比未用 AI 的同学低 <strong>20%</strong>，作业高分反而更可能考试差。</li><li>评论认为 AI 是放大器：<strong>会学习的人用它增强，偷懒的人用它代做作业</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是 AI 放大了学生是否真正学习的差异，并暴露作业分预测考试成绩的评估失效；分歧在于应改革评估体系还是改变学习引导方式。</p><div class="tags"><span class="tag">AI 教育</span><span class="tag">教育评估</span><span class="tag">AI 辅助学习</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · GPerson · 8 回复</div><p>The kids who used AI and studied for a similar amount of time as the non-AI high performers apparently had similar (slightly higher) performance. The kids who used AI and did poorly used the AI to do the homework for them (this is what the article says).</p><p>I believe AI is basically an amplifier of bad and good. I’m cynical about the world and assume it will be used more for bad than good, but I don’t doubt some of the best people in every field will be using AI to amplify their work in good ways.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://nari-labs.com/blog/qwen3-tts-speed-cost-frontier/" target="_blank" rel="noopener">How we made a text-to-speech model respond in sub-50 ms</a></h2></div><p class="title-tr">我们如何让文本转语音模型在低于 50 毫秒内响应</p><div class="meta">▲ 106 分 · toebee · <a href="https://news.ycombinator.com/item?id=49389952" target="_blank" rel="noopener">28 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Nari Labs 开源 Qwen3-TTS 实现，在单块 H100 上以 10 RPS 达到 p95 首音频延迟低于 50 毫秒，成本约每百万字符 2 美元，远低于 ElevenLabs 的 100 美元和 Cartesia 的 49 美元。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文章中的 GPU 调度、CUDA graph 和流式播放缓冲问题，可用模型训练中延迟与吞吐的权衡来理解，但这里多了音频播放不能中断的硬约束。</p><ul class="kp"><li><strong>Nari Labs 的 Qwen3-TTS 实现</strong>在单块 H100 上实现 10 RPS 下 p95 首音频延迟低于 50ms，并已开源。</li><li>成本约<strong>每百万字符 2 美元</strong>，而 ElevenLabs V3 为 100 美元，Cartesia Sonic 3.5 为 49 美元。</li><li>调优后只有 <strong>Nari 实现</strong>在 10 RPS 保持亚 50ms，VoxServe 在 1 RPS 达 49.3ms 但 6 RPS 恶化至 363ms。</li><li>优化核心是<strong>统一调度 Talker、Code Predictor、Codec 三模块</strong>，按流式播放截止时间优先处理而非固定顺序。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论认可低首音频延迟重要，但争议在于是否值得用 H100 成本换取，并希望移动端运行；另有观点认为若上游 LLM 推理仍慢，单优化 TTS 不够。</p><div class="tags"><span class="tag">实时 TTS</span><span class="tag">GPU 推理优化</span><span class="tag">开源语音模型</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · toebee · 3 回复</div><p>time-to-first-audio (TTFA) is critical for realtime voice applications. open source implementations (e.g. vLLM-Omni, SGLang-Omni) are often too slow for production and can have issues with realtime playback if you push for lower latency. we wanted to fix that.</p><p>we optimized qwen3-tts, a popular OSS TTS model, to achieve 34 ms p95 TTFA at 10 requests per second on 1 x H100. we open source the implementation and benchmark, as well as a breakdown of how it was done.</p><p>github: https://github.com/nari-labs/nari-qwen3-tts</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://github.com/adnanakil/nobuzz/blob/main/README.md" target="_blank" rel="noopener">Claudette: Make Claude stop talking like a BuzzFeed article</a></h2></div><p class="title-tr">Claudette：让 Claude 别再像 BuzzFeed 文章那样说话</p><div class="meta">▲ 203 分 · aakil · <a href="https://news.ycombinator.com/item?id=49388752" target="_blank" rel="noopener">144 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">一个 Claude Code 技能 /debuzz 把 Claude 的上一条回复交给 Google Antigravity CLI 调用 Gemini 重写，去掉感叹号、三段式反转等 BuzzFeed 式文风，输出普通英文；提供面向工程师、管理者、高管三种模式。核心价值是绕过提示词的不可靠，但需额外消耗 Gemini token。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Antigravity CLI 是 Google 的命令行工具，可无头调用 Gemini；这里相当于把主模型输出接到另一个模型做后编辑，类似用一个重写模型降低主模型的风格噪声。</p><ul class="kp"><li><strong>/debuzz</strong> 将 Claude 上一条回复交给 Google Antigravity CLI 调用 Gemini，按普通英文重写，代码路径和代码块保留</li><li>提供 <strong>colleague/manager/director 三种模式</strong>，分别面向工程师、技术管理者、高管，长度和信息密度逐级降低</li><li>作者认为仅靠提示词无法根治 Claude 的过度表演式文风，所以用<strong>第二个模型后处理</strong>并原文输出翻译，避免 Claude 自我润色回潮</li><li>评论区共识是 Claude 文风令人反感；有人用<strong>限制字数到 7 词/10 词等提示词</strong>更有效，但双 token 成本是主要阻碍</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区广泛认同问题存在，但方案分歧：限制字数提示词更省、第二模型后处理更可靠但多花 token，另有人期待官方提供语气控制。</p><div class="tags"><span class="tag">Claude Code</span><span class="tag">LLM 输出风格</span><span class="tag">开发工具</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · datakan · 9 回复</div><p>Has Anthropic said anything about how or why Claude writes the way it does? So many people hate it, seems like they need to do some damage control there.</p><p>I haven&#x27;t had the same problems others have but I&#x27;m also not a heavy user of it.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://www.lambda-symbolics.com/autolith" target="_blank" rel="noopener">Autolith: A programming agent with a live runtime</a></h2></div><p class="title-tr">Autolith：一个配备实时运行时的编程代理</p><div class="meta">▲ 23 分 · vismit2000 · <a href="https://news.ycombinator.com/item?id=49376197" target="_blank" rel="noopener">2 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Autolith 是终端编程代理，直接在仓库内读写文件、执行命令与测试，并内嵌 SBCL（Steel Bank Common Lisp）运行时供检查与扩展。它直接对接 ChatGPT Codex 订阅服务，支持会话持久化、记忆、议程与崩溃恢复；模型生成代码以用户权限执行，非安全沙箱。</p><p class="context"><strong>🧭 联系你的知识背景</strong> SBCL（Steel Bank Common Lisp，一种 Common Lisp 实现）在这里可类比为模型推理时在线替换部分逻辑：Autolith 让代理在运行中修改自己的函数和类定义并立即生效，无需重启。</p><ul class="kp"><li><strong>Autolith</strong> 是终端编程代理，直接在仓库内读写文件、执行命令和测试，工具结果可见。</li><li>内嵌 <strong>SBCL（Steel Bank Common Lisp）运行时</strong>，代理可检查、测试、扩展，并热更新运行中代码无需重启。</li><li>直接对接 <strong>ChatGPT Codex 订阅服务</strong>，不捆绑 Codex CLI；代理与工具在同一进程内运行。</li><li>官方警告：模型生成代码以<strong>用户权限执行</strong>，进程边界只保可靠性，不是安全沙箱。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论者将这一思路与 Smalltalk/Erlang 的 actor/object 邮箱模型类比，并已有开发者开始在 Elixir 或 Jolt 中复刻类似功能。</p><div class="tags"><span class="tag">终端编程代理</span><span class="tag">Common Lisp 运行时</span><span class="tag">开发者工具</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://cymerys.com/w/im-becoming-ai-blind" target="_blank" rel="noopener">I&#x27;m becoming AI-blind</a></h2></div><p class="title-tr">我正变得对 AI 视而不见</p><div class="meta">▲ 268 分 · rcymerys · <a href="https://news.ycombinator.com/item?id=49386699" target="_blank" rel="noopener">280 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者发现自己在阅读低质量 AI 生成文档时出现类似广告盲区的自动忽略，导致反复沟通和效率下降。这暴露了 AI 文本「形式正确但信息密度低」的问题，值得关注的是辅助写作正在反向消耗生产力。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中借用广告业的「banner blindness」（用户对横幅广告的自动忽略）类比大脑对低质量 AI 文本的过滤，类似你熟悉的模型对低信息密度输入难以形成有效注意力。</p><ul class="kp"><li>作者称这种现象为 <strong>AI 盲区</strong>：大脑会像忽略横幅广告一样自动过滤低质量 AI 文档，导致沟通成本上升。</li><li>低质量 AI 文本常见特征是 <strong>信息密度低但措辞华丽</strong>，例如把企业软件的权限配置界面吹成「发明了火」。</li><li>评论区多人确认：阅读此类文本就像 <strong>给无意义的语言强行赋予含义</strong>，会快速耗尽注意力。</li><li>有评论指出 AI 文本 <strong>信息密度均匀</strong>，适合高速略读；但复杂主题反而缺少关键解释组件。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是许多人对 AI 生成文本产生「读不进去」的认知排斥；分歧在于有人认为其均匀信息密度反而便于速度阅读。</p><div class="tags"><span class="tag">AI 生成文本</span><span class="tag">认知负担</span><span class="tag">信息密度</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · causal · 27 回复</div><p>There&#x27;s some psychological mechanism by which my brain immediately recognizes AI generated text and just short-circuits to &quot;there is no information here&quot;.</p><p>And when I force myself to read AI-generated text I realize I&#x27;m making my brain do creative work to impart meaning to the words. It is exhausting because my brain is literally trying to do a just-in-time rewrite of the text into something valuable.</p><p>Something is deeply wrong with AI generated output, and I say this as someone who is typically very impressed by AI.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://blog.jakesaunders.dev/building-an-almost-fully-self-hosted-sandboxed-agentic-software-factory/" target="_blank" rel="noopener">Building an (almost) fully self-hosted, sandboxed, agentic software factory</a></h2></div><p class="title-tr">构建一个（几乎）完全自托管、沙盒化、智能体式软件工厂</p><div class="meta">▲ 86 分 · jakelsaunders94 · <a href="https://news.ycombinator.com/item?id=49390463" target="_blank" rel="noopener">50 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者用自托管工具链（Forgejo、Coolify、Hermes）让 LLM 从一条提示自动完成建仓库、写代码与测试、跑持续集成、部署 Postgres 和 HTTPS，全程无人工干预；除每月 £20 的 Codex 订阅外无云账单。HN 争议集中在验证是否可靠，以及这并不算完全自托管。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 本文涉及自托管平台即服务、沙盒和持续集成等后端概念；可类比把模型训练的自动评估流水线搬到软件交付，但重点从生成转向验证与隔离。</p><ul class="kp"><li><strong>单条 prompt 自动完成</strong>建仓库、写代码与测试、跑持续集成、部署 Postgres 和 HTTPS，全程无额外干预。</li><li><strong>工具链为 Forgejo、Coolify、Hermes、Firecrawl</strong>，唯一外部依赖是 Codex，每月 £20。</li><li><strong>隔离靠独立服务器、Tailscale 内网与 DNS-01 证书</strong>，无公网入口；但代理仍可删除仓库、泄露密钥。</li><li>代理仍可<strong>删除仓库/数据库、泄露密钥或访问内网</strong>，失败模式只是重建服务器并轮换密钥。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论聚焦“生成代码容易，验证难”：测试可能只是代理自我验证假设，且有人指出无 GPU 不算完全自托管，剩余 10% 的关键 bug 仍需人类理解代码。</p><div class="tags"><span class="tag">AI 编码代理</span><span class="tag">自托管基础设施</span><span class="tag">沙盒安全</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · ashu1461 · 9 回复</div><p>In such systems, producing code is the easy part, verification is hard. Verification via test cases just feels like the same agent validating its own assumptions.</p><p>Wondering what the actual verification loop looks like once you start taking these systems to production.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://www.reuters.com/technology/openai-cuts-developer-pricing-frontier-gpt-56-sol-model-by-more-than-20-2026-08-21/" target="_blank" rel="noopener">OpenAI cuts developer pricing for frontier GPT-5.6 Sol model by more than 20%</a></h2></div><p class="title-tr">OpenAI 将前沿 GPT-5.6 Sol 模型的开发者定价下调超过 20%</p><div class="meta">▲ 10 分 · joshuawright11 · <a href="https://news.ycombinator.com/item?id=49395638" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OpenAI 将前沿模型 GPT-5.6 Sol 的开发者 API 定价下调超过 20%。正文未能获取，信息仅来自标题和讨论；此举可能意在降低推理成本门槛、扩大开发者采用，并回应竞争对手模型的价格压力。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这里的开发者定价指调用 API 时的每 token 费用，与你熟悉的推理成本直接相关；降价会降低把模型集成进产品的前期成本。</p><ul class="kp"><li><strong>OpenAI</strong> 将前沿模型 <strong>GPT-5.6 Sol</strong> 的开发者定价下调<strong>超过 20%</strong>。</li><li>降价面向<strong>开发者 API</strong>，直接降低将模型集成进产品的推理成本。</li><li>正文不可获取，具体生效时间、适用范围和是否包含默认或批量折扣未证实。</li><li>可能反映<strong>推理成本优化</strong>或对竞争模型价格压力的回应，而非模型能力更新。</li></ul><div class="tags"><span class="tag">AI 模型定价</span><span class="tag">开发者 API</span><span class="tag">OpenAI</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://notactuallytreyanastasio.github.io/shoehorn/" target="_blank" rel="noopener">Show HN: Shoehorn – Quantize any model down to run on your machine</a></h2></div><p class="title-tr">Show HN: Shoehorn – 将任意模型量化到能在你的机器上运行</p><div class="meta">▲ 80 分 · rhgraysonii · <a href="https://news.ycombinator.com/item?id=49346135" target="_blank" rel="noopener">17 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Shoehorn 以机器实际可用内存为硬约束，先扣除推理本身开销，再求解每个张量的混合精度分配；示例中 519.2 MiB 权重预算被用到 99.998%，仅剩 13 KB 冗余。本地 GUI 可按硬件预算推荐 Hugging Face 模型，支持 Mac、Linux、Windows。</p><p class="context"><strong>🧭 联系你的知识背景</strong> per-tensor mixed-precision（对每个权重张量单独选量化精度，而非全模型统一档位）是你熟悉的量化概念的工程化延伸；这里的难点是把硬件显存当成硬约束做分配求解。</p><ul class="kp"><li><strong>Shoehorn</strong> 从实际可用内存倒推权重预算，而不是套用预设量化档位。</li><li>示例中 519.2 MiB 模型权重用满 <strong>519.2 MiB 预算</strong>，利用率 99.998%，仅剩 13 KB 冗余。</li><li>本地 GUI 会扫描 <strong>Hugging Face</strong> 高下载量模型，按硬件预算推荐并排序。</li><li>依赖 <strong>llama.cpp</strong> 作为推理后端，支持 Mac、Linux、Windows。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区总体认可命名与思路，但疑问集中在训练后量化开销、与 llmfit/airllm 的差异，以及有人实际启动仍内存不足。</p><div class="tags"><span class="tag">LLM 量化</span><span class="tag">本地推理</span><span class="tag">开发者工具</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · hmokiguess · 1 回复</div><p>Reminds me of https://github.com/AlexsJones/llmfit</p></div></div></article>
+</div></main>
+<footer>generated 2026-08-22 01:50 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-22", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: OzBrain, a shared brain for knowledge between agents and your team", "titleTranslation": "Show HN: OzBrain，一个供智能体与团队共享知识的大脑", "summary": "OzBrain 上线云端共享知识库，让 Claude、ChatGPT、Cursor 等智能体通过连接器读写同一来源，避免知识在工具间复制漂移。免费版可存 50 篇文章，Pro/Max 为 20/99 美元/月；调研中 75 位创始人 26 位自建系统、32 位感到手动传文件痛点。", "keyPoints": ["OzBrain 定位为智能体与团队共享的知识库层，让 Claude、ChatGPT、Cursor 读写同一来源。", "免费版 50 篇文章，Pro 20 美元/月 300 篇，Max 99 美元/月 600 篇，读写和连接数不限。", "75 位创始人中 26 位自建知识系统，32 位受困于手动传文件，验证了需求。"], "discussion": "评论对需求真实性有一定认可，但核心分歧在 OzBrain 与 Obsidian 本地文件方案的差异是否足够清晰，以及 LLM 在长文本总结中的准确率退化风险。", "tags": ["智能体知识管理", "模型上下文协议", "开发者工具"], "score": 36, "comments": 12, "by": "dariusmonsef", "url": "https://ozbrain.com", "hnUrl": "https://news.ycombinator.com/item?id=49394827"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-22", "pointsLabel": "分", "commentsLabel": "评论", "title": "DeepSeek-v4-flash-vision-exp", "titleTranslation": "", "summary": "DeepSeek 发布实验性视觉模型，支持图像理解，图片缩放后折算为最多 384 token，单图最高 64 MiB（Files API），提供 OpenAI、Anthropic、Responses 三种接口。", "keyPoints": ["DeepSeek-v4-flash-vision-exp 支持 JPEG/PNG/GIF/WebP，采用 OpenAI 兼容接口与三种传图方式。", "每张图自动缩放后最多 384 tokens，2000×2000 和 5000×5000 图片计费相同。", "单图限制：内联或 URL 32 MiB，Files API 64 MiB，单请求最多 600 张图。"], "discussion": "评论区普遍欢迎 DeepSeek 补齐视觉，但时钟读数错误引发对精度的质疑；也有人关心为何保留纯文本版和是否有在线测试入口。", "tags": ["多模态模型", "图像理解", "API 计费"], "score": 465, "comments": 143, "by": "dares2573", "url": "https://api-docs.deepseek.com/guides/vision/", "hnUrl": "https://news.ycombinator.com/item?id=49386163"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-22", "pointsLabel": "分", "commentsLabel": "评论", "title": "AI boosted homework scores, then exam scores dropped: study", "titleTranslation": "AI 提高了作业成绩，随后考试成绩下降：研究", "summary": "研究追踪中国 27,000 名中学生，约 80% 用 Doubao 和 DeepSeek。六个月后 AI 组作业分数升 18%、用时从 64 分钟降到 45 分钟，但考试成绩比未用 AI 组低 20%——AI 替代练习损害真实学习。", "keyPoints": ["研究追踪 27,000 名中国 12-18 岁学生，约 80% 使用 Doubao 和 DeepSeek，20% 为对照。", "六个月后 AI 组作业分数平均上升 18%，完成时间从 64 分钟降至 45 分钟。", "但 AI 组考试成绩比未用 AI 的同学低 20%，作业高分反而更可能考试差。"], "discussion": "评论区共识是 AI 放大了学生是否真正学习的差异，并暴露作业分预测考试成绩的评估失效；分歧在于应改革评估体系还是改变学习引导方式。", "tags": ["AI 教育", "教育评估", "AI 辅助学习"], "score": 232, "comments": 290, "by": "dash2", "url": "https://www.economist.com/graphic-detail/2026/08/18/does-ai-stop-children-from-learning", "hnUrl": "https://news.ycombinator.com/item?id=49357530"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-22", "pointsLabel": "分", "commentsLabel": "评论", "title": "How we made a text-to-speech model respond in sub-50 ms", "titleTranslation": "我们如何让文本转语音模型在低于 50 毫秒内响应", "summary": "Nari Labs 开源 Qwen3-TTS 实现，在单块 H100 上以 10 RPS 达到 p95 首音频延迟低于 50 毫秒，成本约每百万字符 2 美元，远低于 ElevenLabs 的 100 美元和 Cartesia 的 49 美元。", "keyPoints": ["Nari Labs 的 Qwen3-TTS 实现在单块 H100 上实现 10 RPS 下 p95 首音频延迟低于 50ms，并已开源。", "成本约每百万字符 2 美元，而 ElevenLabs V3 为 100 美元，Cartesia Sonic 3.5 为 49 美元。", "调优后只有 Nari 实现在 10 RPS 保持亚 50ms，VoxServe 在 1 RPS 达 49.3ms 但 6 RPS 恶化至 363ms。"], "discussion": "HN 评论认可低首音频延迟重要，但争议在于是否值得用 H100 成本换取，并希望移动端运行；另有观点认为若上游 LLM 推理仍慢，单优化 TTS 不够。", "tags": ["实时 TTS", "GPU 推理优化", "开源语音模型"], "score": 106, "comments": 28, "by": "toebee", "url": "https://nari-labs.com/blog/qwen3-tts-speed-cost-frontier/", "hnUrl": "https://news.ycombinator.com/item?id=49389952"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-22", "pointsLabel": "分", "commentsLabel": "评论", "title": "Claudette: Make Claude stop talking like a BuzzFeed article", "titleTranslation": "Claudette：让 Claude 别再像 BuzzFeed 文章那样说话", "summary": "一个 Claude Code 技能 /debuzz 把 Claude 的上一条回复交给 Google Antigravity CLI 调用 Gemini 重写，去掉感叹号、三段式反转等 BuzzFeed 式文风，输出普通英文；提供面向工程师、管理者、高管三种模式。核心价值是绕过提示词的不可靠，但需额外消耗 Gemini token。", "keyPoints": ["/debuzz 将 Claude 上一条回复交给 Google Antigravity CLI 调用 Gemini，按普通英文重写，代码路径和代码块保留", "提供 colleague/manager/director 三种模式，分别面向工程师、技术管理者、高管，长度和信息密度逐级降低", "作者认为仅靠提示词无法根治 Claude 的过度表演式文风，所以用第二个模型后处理并原文输出翻译，避免 Claude 自我润色回潮"], "discussion": "评论区广泛认同问题存在，但方案分歧：限制字数提示词更省、第二模型后处理更可靠但多花 token，另有人期待官方提供语气控制。", "tags": ["Claude Code", "LLM 输出风格", "开发工具"], "score": 203, "comments": 144, "by": "aakil", "url": "https://github.com/adnanakil/nobuzz/blob/main/README.md", "hnUrl": "https://news.ycombinator.com/item?id=49388752"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-22", "pointsLabel": "分", "commentsLabel": "评论", "title": "Autolith: A programming agent with a live runtime", "titleTranslation": "Autolith：一个配备实时运行时的编程代理", "summary": "Autolith 是终端编程代理，直接在仓库内读写文件、执行命令与测试，并内嵌 SBCL（Steel Bank Common Lisp）运行时供检查与扩展。它直接对接 ChatGPT Codex 订阅服务，支持会话持久化、记忆、议程与崩溃恢复；模型生成代码以用户权限执行，非安全沙箱。", "keyPoints": ["Autolith 是终端编程代理，直接在仓库内读写文件、执行命令和测试，工具结果可见。", "内嵌 SBCL（Steel Bank Common Lisp）运行时，代理可检查、测试、扩展，并热更新运行中代码无需重启。", "直接对接 ChatGPT Codex 订阅服务，不捆绑 Codex CLI；代理与工具在同一进程内运行。"], "discussion": "评论者将这一思路与 Smalltalk/Erlang 的 actor/object 邮箱模型类比，并已有开发者开始在 Elixir 或 Jolt 中复刻类似功能。", "tags": ["终端编程代理", "Common Lisp 运行时", "开发者工具"], "score": 23, "comments": 2, "by": "vismit2000", "url": "https://www.lambda-symbolics.com/autolith", "hnUrl": "https://news.ycombinator.com/item?id=49376197"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-22", "pointsLabel": "分", "commentsLabel": "评论", "title": "I'm becoming AI-blind", "titleTranslation": "我正变得对 AI 视而不见", "summary": "作者发现自己在阅读低质量 AI 生成文档时出现类似广告盲区的自动忽略，导致反复沟通和效率下降。这暴露了 AI 文本「形式正确但信息密度低」的问题，值得关注的是辅助写作正在反向消耗生产力。", "keyPoints": ["作者称这种现象为 AI 盲区：大脑会像忽略横幅广告一样自动过滤低质量 AI 文档，导致沟通成本上升。", "低质量 AI 文本常见特征是 信息密度低但措辞华丽，例如把企业软件的权限配置界面吹成「发明了火」。", "评论区多人确认：阅读此类文本就像 给无意义的语言强行赋予含义，会快速耗尽注意力。"], "discussion": "评论区共识是许多人对 AI 生成文本产生「读不进去」的认知排斥；分歧在于有人认为其均匀信息密度反而便于速度阅读。", "tags": ["AI 生成文本", "认知负担", "信息密度"], "score": 268, "comments": 280, "by": "rcymerys", "url": "https://cymerys.com/w/im-becoming-ai-blind", "hnUrl": "https://news.ycombinator.com/item?id=49386699"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-22", "pointsLabel": "分", "commentsLabel": "评论", "title": "Building an (almost) fully self-hosted, sandboxed, agentic software factory", "titleTranslation": "构建一个（几乎）完全自托管、沙盒化、智能体式软件工厂", "summary": "作者用自托管工具链（Forgejo、Coolify、Hermes）让 LLM 从一条提示自动完成建仓库、写代码与测试、跑持续集成、部署 Postgres 和 HTTPS，全程无人工干预；除每月 £20 的 Codex 订阅外无云账单。HN 争议集中在验证是否可靠，以及这并不算完全自托管。", "keyPoints": ["单条 prompt 自动完成建仓库、写代码与测试、跑持续集成、部署 Postgres 和 HTTPS，全程无额外干预。", "工具链为 Forgejo、Coolify、Hermes、Firecrawl，唯一外部依赖是 Codex，每月 £20。", "隔离靠独立服务器、Tailscale 内网与 DNS-01 证书，无公网入口；但代理仍可删除仓库、泄露密钥。"], "discussion": "HN 评论聚焦“生成代码容易，验证难”：测试可能只是代理自我验证假设，且有人指出无 GPU 不算完全自托管，剩余 10% 的关键 bug 仍需人类理解代码。", "tags": ["AI 编码代理", "自托管基础设施", "沙盒安全"], "score": 86, "comments": 50, "by": "jakelsaunders94", "url": "https://blog.jakesaunders.dev/building-an-almost-fully-self-hosted-sandboxed-agentic-software-factory/", "hnUrl": "https://news.ycombinator.com/item?id=49390463"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-22", "pointsLabel": "分", "commentsLabel": "评论", "title": "OpenAI cuts developer pricing for frontier GPT-5.6 Sol model by more than 20%", "titleTranslation": "OpenAI 将前沿 GPT-5.6 Sol 模型的开发者定价下调超过 20%", "summary": "OpenAI 将前沿模型 GPT-5.6 Sol 的开发者 API 定价下调超过 20%。正文未能获取，信息仅来自标题和讨论；此举可能意在降低推理成本门槛、扩大开发者采用，并回应竞争对手模型的价格压力。", "keyPoints": ["OpenAI 将前沿模型 GPT-5.6 Sol 的开发者定价下调超过 20%。", "降价面向开发者 API，直接降低将模型集成进产品的推理成本。", "正文不可获取，具体生效时间、适用范围和是否包含默认或批量折扣未证实。"], "discussion": "", "tags": ["AI 模型定价", "开发者 API", "OpenAI"], "score": 10, "comments": 0, "by": "joshuawright11", "url": "https://www.reuters.com/technology/openai-cuts-developer-pricing-frontier-gpt-56-sol-model-by-more-than-20-2026-08-21/", "hnUrl": "https://news.ycombinator.com/item?id=49395638"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-22", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Shoehorn – Quantize any model down to run on your machine", "titleTranslation": "Show HN: Shoehorn – 将任意模型量化到能在你的机器上运行", "summary": "Shoehorn 以机器实际可用内存为硬约束，先扣除推理本身开销，再求解每个张量的混合精度分配；示例中 519.2 MiB 权重预算被用到 99.998%，仅剩 13 KB 冗余。本地 GUI 可按硬件预算推荐 Hugging Face 模型，支持 Mac、Linux、Windows。", "keyPoints": ["Shoehorn 从实际可用内存倒推权重预算，而不是套用预设量化档位。", "示例中 519.2 MiB 模型权重用满 519.2 MiB 预算，利用率 99.998%，仅剩 13 KB 冗余。", "本地 GUI 会扫描 Hugging Face 高下载量模型，按硬件预算推荐并排序。"], "discussion": "评论区总体认可命名与思路，但疑问集中在训练后量化开销、与 llmfit/airllm 的差异，以及有人实际启动仍内存不足。", "tags": ["LLM 量化", "本地推理", "开发者工具"], "score": 80, "comments": 17, "by": "rhgraysonii", "url": "https://notactuallytreyanastasio.github.io/shoehorn/", "hnUrl": "https://news.ycombinator.com/item?id=49346135"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
