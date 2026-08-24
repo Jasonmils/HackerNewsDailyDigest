@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-08-24</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-08-24 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://www.ft.com/content/5ee49718-c258-4f01-aa32-7e5b76ae5245" target="_blank" rel="noopener">Anthropic&#x27;s best AI model struggles to attract users as cheaper tools thrive</a></h2></div><p class="title-tr">Anthropic 最强 AI 模型难以吸引用户，更便宜工具趁势增长</p><div class="meta">▲ 226 分 · naves · <a href="https://news.ycombinator.com/item?id=49411102" target="_blank" rel="noopener">192 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">文章正文未能获取，信息有限；据标题与 HN 评论，Anthropic 旗舰模型 Fable 性能领先，但因高价、配额限制与政策反复，用户留存不足，更便宜的工具正在抢占市场。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Fable 和 Opus 是 Anthropic 的模型产品代号，可类比 OpenAI 的 GPT 分层；核心矛盾是顶级模型推理成本与订阅定价的产品化权衡。</p><ul class="kp"><li><strong>Fable 被置于 200 美元套餐且用量受限</strong>，用户抱怨政策反复，感觉像在讨价还价。</li><li><strong>Opus 4.8 仍是多数用户首选</strong>，Opus 5 被指表现更差，削弱升级动力。</li><li>评论称竞品模型 <strong>Sol 性能约为 Fable 的 70%-90%</strong>，更便宜且无繁琐限制。</li><li>有观点认为 Anthropic 把实验思维用于商业化，导致<strong>模型商品化趋势下用户流失</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识：Anthropic 模型能力仍强，但定价与用量政策令用户失望，用户倾向留在旧模型或转向更便宜替代品。</p><div class="tags"><span class="tag">AI 商业化</span><span class="tag">大模型定价</span><span class="tag">模型竞争</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · a1371 · 8 回复</div><p>Where Anthropic f&#x27;ed up was treating their monetization the way they treat model training. Turns out that success in experimentation is not transferrable.</p><p>They have tried to find the highest that the market pays for sota models; however, on the consumer side, this is just too confusing and unsettling:</p><p>&quot;You can only use Fable for a week as a part of your plan&quot;</p><p>&quot;Be ready! You have to start paying per token!&quot;</p><p>&quot;Nevermind! we extended it for a couple more weeks&quot;</p><p>&quot;Wait, now it&#x27;s up to half your usage&quot;</p><p>&quot;Ok, now its...&quot;</p><p>Most people want to not care. We want our AI like electricity -- Kind of just there no matter how easy/hard is for the supply. You don&#x27;t want your electricity company to be on the brink of cutting you off any second.</p><p>That&#x27;s Anthropic. You don&#x27;t feel they want to give you a dependable service for an, albeit premium, price. It&#x27;s a constant bargaining game. That forces people to look beyond the walled garden. There, they find models that are fine... and without the shenanigans.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://fabiensanglard.net/agent.md/index.html" target="_blank" rel="noopener">My agent.md to improve LLM-assisted code quality</a></h2></div><p class="title-tr">我的 agent.md：提升 LLM 辅助代码质量</p><div class="meta">▲ 166 分 · ibobev · <a href="https://news.ycombinator.com/item?id=49410932" target="_blank" rel="noopener">81 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者把反复向 LLM 提出的代码规范写入 agent.md，让编码工具在每次会话自动注入提示，代码质量接近手工水平；但模型仍会幻觉，且上下文变长会出现“注意力稀释”，需靠短会话和重新加载规则缓解。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可以把 agent.md 理解为每次会话自动注入的“系统提示/项目规范”，类似训练模型时固定的元指令，用来约束生成风格并缓解长上下文注意力稀释。</p><ul class="kp"><li>在项目根放置 <strong>agent.md</strong>，编码工具会在每次会话开始时把它注入提示，用于统一代码风格与架构规则。</li><li>规则包括禁止魔数、用<strong>枚举替代布尔参数</strong>、提前返回减少缩进、严格分层，以及提交信息七条格式规则。</li><li>作者强调这不是魔法：<strong>LLM 仍会幻觉</strong>，必须继续读代码验证，但现在主要关注架构而非风格。</li><li>随上下文变长会出现“中间丢失”（<strong>Lost in the Middle</strong>）导致的注意力稀释，需按特性开新会话或显式让工具重新加载 agent.md。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论共识不一：部分人认为许多规则应交给 lint 工具，函数名“少于 30 字符”会产生难读的缩写，且“块注释解释 what”与代码重复；也有人肯定最小化无关改动和收敛规则。</p><div class="tags"><span class="tag">LLM 代码生成</span><span class="tag">agent.md</span><span class="tag">开发者工作流</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · OptionOfT · 10 回复</div><p>A bunch of these should be enforce with linting, that way people who still hand-craft code get the same kind of feedback, e.g. Always use {}, even on a one-line &quot;if&quot; statement. &amp; Keep function names short. Less than 30 characters.</p><p>Then this one really is a pattern that creates a lot of churn:</p><p>- Add a small, to the point, comment to explain what the block does and why. Use examples when possible. Propose ASCII drawings to explain complete systems.</p><p>The what _is_ the code.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://github.com/AlpinDale/gpt2.cmake" target="_blank" rel="noopener">Implementation of GPT-2 in pure CMake</a></h2></div><p class="title-tr">纯 CMake 实现 GPT-2</p><div class="meta">▲ 34 分 · porridgeraisin · <a href="https://news.ycombinator.com/item?id=49412909" target="_blank" rel="noopener">10 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">开发者用 CMake 构建工具脚本直接运行 GPT-2 推理，采用 Q16.16 固定点整数算术，而非常规 Python/C++ 推理栈。HN 评论判定其极慢且无实际产品价值，更像技术行为艺术。</p><p class="context"><strong>🧭 联系你的知识背景</strong> CMake 是开发者用来描述软件编译和构建流程的工具，本身不是执行神经网络推理的运行时；这里相当于把构建工具当计算平台用，类似用 Excel 公式跑 Transformer。</p><ul class="kp"><li><strong>纯 CMake 实现 GPT-2</strong>，用构建脚本执行推理，不依赖 Python 或 C++ 推理代码。</li><li>采用 <strong>Q16.16 固定点整数算术</strong>，用整数近似小数来执行模型计算。</li><li>需下载 Hugging Face 上 openai-community/gpt2 的 <strong>模型、词表和字节对编码（BPE）合并文件</strong>后运行。</li><li>项目使用 <strong>BSD 3-Clause 许可</strong>，属于极小众的技术实验。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区共识是这属于荒诞的技术行为艺术：CMake 单核解释执行使其慢到几乎无法运转，有人无法理解为何要做，也有人称其为“恶心（褒义）”的创造。</p><div class="tags"><span class="tag">CMake</span><span class="tag">GPT-2 推理</span><span class="tag">固定点算术</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · ahartmetz · 1 回复</div><p>FWIW, this is most likely not even fast enough to laugh at how slow it is - for that, you need to see something happening in less than an hour or so.</p><p>It can only use one core at a time, but that is not the worst thing: CMake is interpreted and stringly typed, so every number will have to be converted string -&gt; number and usually back on every use.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://www.jepeake.com/ai-chip-architectures" target="_blank" rel="noopener">AI Chip Architectures</a></h2></div><p class="title-tr">AI 芯片架构</p><div class="meta">▲ 48 分 · Finbarr · <a href="https://news.ycombinator.com/item?id=49405657" target="_blank" rel="noopener">12 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">综述 AI 芯片架构竞争：NVIDIA GPU 主导，AMD 跟随，谷歌 TPU、亚马逊 Trainium、Cerebras 晶圆级引擎已实际部署。核心难点是矩阵乘法算力与内存带宽失衡，文章解析 GPU 张量核心从同步到异步、计算与访存解耦的演进。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 你可以把这些芯片理解为专门优化 Transformer 中矩阵乘法执行的硬件，本质是在解决你在推理优化时遇到的数据搬运与计算效率平衡问题。</p><ul class="kp"><li><strong>NVIDIA GPU 占主导</strong>，AMD 跟随，OpenAI 与 Meta 各承诺 6 吉瓦算力规模。</li><li><strong>谷歌 TPU 训练 Gemini</strong>，并将为 Anthropic 提供最多 100 万颗芯片；Anthropic 还用超百万颗 Trainium 芯片跑 Claude。</li><li>核心瓶颈是<strong>内存墙</strong>：算力增速远超内存带宽，芯片设计围绕如何更快地把数据送到计算单元展开。</li><li>NVIDIA GPU 的 <strong>Tensor Core（张量核心）</strong> 从同步执行演进为异步、描述符驱动，减少线程等待，提高注意力内核效率。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区既有对模拟/神经形态计算能否实现数量级能效提升的期待，也有对原文排版与可读性的批评。</p><div class="tags"><span class="tag">AI 芯片架构</span><span class="tag">GPU 张量核心</span><span class="tag">推理性能优化</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · pure_magic · 3 回复</div><p>This text is most likely AI-generated. Borderline unreadable.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://arxiv.org/abs/2608.20186" target="_blank" rel="noopener">Decoding silent reading from non-invasive EEG</a></h2></div><p class="title-tr">用非侵入性脑电图（EEG）解码默读</p><div class="meta">▲ 32 分 · root-parent · <a href="https://news.ycombinator.com/item?id=49412176" target="_blank" rel="noopener">12 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">论文用 49 小时、24 万次词汇的 19 通道干电极脑电图数据，训练 CLIP 风格对比模型，将默读脑电窗口与大语言模型词嵌入对齐；词级 top-10 检索可靠高于随机，且随数据量对数线性扩展未饱和，说明非侵入脑电图可恢复开放词汇默读信息，瓶颈在数据而非方法。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 方法可类比 CLIP 式跨模态对齐：把脑电图滑动窗口当作一类“模态”，与大语言模型的词嵌入拉近，再按词分组做检索评估。</p><ul class="kp"><li><strong>24 万次词汇、49 小时单参与者</strong> 19 通道干电极脑电图，是可扩展默读代理任务的关键规模。</li><li>训练 <strong>CLIP 风格对比模型</strong>对齐脑电图窗口与大语言模型词嵌入，词级 top-10 检索可靠高于随机。</li><li>解码能力随数据量<strong>对数线性扩展、未见饱和</strong>，移除枕叶/后颞电极使词级增益降约三分之一。</li><li>控制分析排除上下文与位置先验，确认<strong>开放词汇词级信息可被恢复</strong>，且瓶颈在数据而非方法。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区主要担忧“读心”被武器化，呼吁思想隐私权；也有观点认为 19 通道电极在社交层面已相当侵入，显示伦理接受度落后于技术进展。</p><div class="tags"><span class="tag">脑机接口</span><span class="tag">神经解码</span><span class="tag">隐私伦理</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · dustfinger · 3 回复</div><p>It would be nice to add a &quot;right to private thought&quot; to the Bill of Rights and the Canadian Charter of Rights and Freedoms, as well as something similar to other countries&#x27; rights and freedoms laws wherever possible.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://omegion.dev/2026/08/ai-and-infrastructure-engineering/" target="_blank" rel="noopener">AI and Infrastructure Engineering</a></h2></div><p class="title-tr">AI 与基础设施工程</p><div class="meta">▲ 43 分 · 0megion · <a href="https://news.ycombinator.com/item?id=49411024" target="_blank" rel="noopener">11 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者以每天用 Claude 生成 Terraform 模块和 Helm 图表为例，认为 AI 替代的是基础设施工程中“查文档、写样板配置”这一层，而非架构决策；但他也坦承底层基本功在退化，并怀疑“给方向”这层未来是否也会被 AI 接管。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中的 Terraform 是用代码声明云资源的工具、Helm 是 Kubernetes 应用打包模板、Kubernetes 是容器调度平台；它们都是把手工运维抽象成可复用配置，作者认为 AI 只是把这种抽象再上移一层。</p><ul class="kp"><li><strong>Claude 每天帮作者写 Terraform 模块和 Helm 图表</strong>，替代的是查变更日志和写样板代码，不替代架构判断。</li><li>作者承认<strong>底层基本功在退化</strong>：四年前手写四层嵌套循环，现在从零写要慢慢想，SSH 调试也变慢。</li><li><strong>Kubernetes 没有取代基础设施工程师</strong>，而是把工作从管机器上移到管工作负载，AI 可能再上移一层。</li><li>评论区共识：<strong>AI 输出总会有缺陷</strong>，使用者仍需理解下一层；也有人认为那种四层嵌套循环本就不该写。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍认为作者经历有代表性，但争议在于：有经验的工程师用 AI 提效，AI 原生者可能缺乏下层知识；也有人指出 AI 不是真正的抽象层，仍需理解下一层才能负责。</p><div class="tags"><span class="tag">AI 辅助编程</span><span class="tag">基础设施即代码</span><span class="tag">工程师技能退化</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · cassianoleal · 2 回复</div><p>&gt; Four years ago I hand-wrote a nested for loop - four levels deep, tagging subnets across regions and availability zones in another AWS account - and it took me about an hour to get the syntax right</p><p>I do believe this kind of engineer requires AI. I also hope I don&#x27;t have to work in the same teams as them. Seasoning teaches you to make changes in other parts of the codebase rather than do this kind of data mangling on local variables, which is incredibly hard to troubleshoot and very brittle - not to mention it&#x27;s a nightmare to read back and understand.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://insufferable.dev/posts/vibe-tax/" target="_blank" rel="noopener">The Vibe Tax</a></h2></div><p class="title-tr">氛围税</p><div class="meta">▲ 105 分 · allisdust · <a href="https://news.ycombinator.com/item?id=49411199" target="_blank" rel="noopener">82 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者以虚构案例称，AI 编程代理在 12 小时内烧光一周 token 额度，生成数十亿 token 的无用测试却没写出应用代码；他认为这是大量氛围程序员养成的一次生成偏好，反过来推高普通开发者的使用成本。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中的“氛围编程”指用户不审查代码、只靠提示让代理端到端交付，这类使用行为会通过偏好反馈塑造模型倾向，类似你熟悉的偏好优化对模型输出偏好的影响。</p><ul class="kp"><li>作者虚构案例：代理 <strong>12 小时烧光一周 token 额度</strong>，只生成无数哈希命名测试目录，应用代码为零。</li><li>他将此归因于氛围程序员偏好“一键生成不出错”，使模型消耗 <strong>10 倍 token</strong> 做过量测试。</li><li>评论者给出反例：<strong>126k 行应用代码 + 240k 行回归测试</strong>在严格工作流下可稳定管理。</li><li>不少工程师要求代理做<strong>结对编程而非端到端从零生成</strong>，并点名 Anthropic 过度优化“零输入交全部任务”。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区主流分歧：一派认为用严格工作流把代理当初级工程师可支撑大型项目；另一派批评模型正被优化成全自动交付，挤压人工审查和结对编程。</p><div class="tags"><span class="tag">AI 编程代理</span><span class="tag">LLM 推理成本</span><span class="tag">开发者工具</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · ad_fontes · 9 回复</div><p>I feel like I&#x27;m living in a parallel universe when I read these types of posts.</p><p>My agents have never created code that is straight-up garbage and I have never flushed a week&#x27;s worth of tokens down the toilet. I just can&#x27;t identify with all the constant complaints about AI-assisted coding.</p><p>And my biggest project isn&#x27;t some hello world app. It&#x27;s a self-hosted, privacy-focused personal financial management application that I intend to open source. It&#x27;s about 126k LOC against 240k LOC of regression tests and 30k LOC of CI/CD pipeline. I&#x27;m doing 24x7 mutation testing on a dedicated box against the accounting engine and temporal systems. I even have specialized agents doing audits against Regulation Z (US banking law) criteria so the app models the required behavior of banks.</p><p>Most of my complaints about everything are nits, like the overly verbose and dense way LLMs communicate with me. Or their predisposition to add, add, and add more stuff when proper engineering practices are more often about subtraction (but I&#x27;ve built mitigation guardrails against a lot of that).</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://surya.website/rling-qwen-to-paint-with-code" target="_blank" rel="noopener">Training AI to Paint with Code</a></h2></div><p class="title-tr">训练 AI 用代码作画</p><div class="meta">▲ 18 分 · Tiberium · <a href="https://news.ycombinator.com/item?id=49411800" target="_blank" rel="noopener">1 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者用强化学习训练语言模型写可编辑的 JavaScript 代码来生成图像，让用户能直接改代码而非反复调提示词。核心问题是美学不可验证，于是手工设计奖励函数、581 张参考池和提示词；移除 400 行 API 文档后才停止幻觉 API。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中的 GRPO（Group Relative Policy Optimization）是一种基于组内相对比较的强化学习算法，类似策略优化算法但用同组样本互评产生奖励信号。</p><ul class="kp"><li><strong>训练循环</strong>将模型生成的 JavaScript 渲染成 PNG，再由评判模型比较后产生奖励信号，用 GRPO 更新。</li><li>参考池含 <strong>581 张手工评级图像</strong>，全部来自模型输出，因为难以获得足够人工示例。</li><li>移除 <strong>400 行 API 文档</strong>后改用 8 种画笔方法的严格允许列表，模型才停止幻觉 API。</li><li>作者认为创意任务 RL 的核心是<strong>设计可泛化的奖励函数</strong>，太松或太紧都会失败。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区对将类似方法扩展到 Logo 等图形语言感兴趣，猜测能否产生有趣设计。</p><div class="tags"><span class="tag">强化学习</span><span class="tag">代码生成图像</span><span class="tag">提示词优化</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://www.xda-developers.com/qwen-3-8-27b-reverse-engineering-job-frontier-model/" target="_blank" rel="noopener">I gave Qwen 3.8 27B a reverse-engineering job and it finished in 30 minutes</a></h2></div><p class="title-tr">我给 Qwen 3.8 27B 一个逆向工程任务，它 30 分钟完成</p><div class="meta">▲ 315 分 · raybb · <a href="https://news.ycombinator.com/item?id=49407507" target="_blank" rel="noopener">139 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">本地 27B 模型 Qwen 3.8 在 30 分钟内完成商业应用的授权检查绕过，通过静态分析恢复厂商隐藏公钥并自我纠正错误，证明消费级硬件上的本地模型已具备此前仅云端前沿模型才有的逆向能力。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 软件授权检查与逆向工程对不熟悉安全的读者类似黑盒模型分析：模型不运行应用，只从二进制代码反推验证流程和隐藏密钥，并找到绕过路径。</p><ul class="kp"><li><strong>Qwen 3.8 27B</strong> 在 30 分钟内完成商业应用授权绕过，恢复厂商隐藏的公钥。</li><li>模型全程采用<strong>静态分析</strong>且未执行应用，并自行纠正首次错误直到哈希校验字节级一致。</li><li>该离线模型仅需约 <strong>17 GB 显存</strong>即可运行，证明本地小模型已进入威胁模型考量。</li><li>授权方案虽全面，但关键验证都在<strong>本地代码</strong>内，可被修改；所用加密密钥也偏弱。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论认可模型自纠错能力，但有人质疑这类可明确验证的任务并不算最难，且本地模型无限制能力引发防御与滥用的双刃剑争论。</p><div class="tags"><span class="tag">本地 LLM</span><span class="tag">软件逆向工程</span><span class="tag">AI 威胁建模</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · VulgarExigency · 7 回复</div><p>&gt; The first attempt at recovering the key was wrong in a very specific way; it produced a working key and the signature check passed, but a hash the binary computes as an integrity check didn&#x27;t match. In my experience, most models would have called it done and left it at that, but Qwen 3.8 27B didn&#x27;t do that. Instead, it highlighted the mismatch, went back to the drawing board, and kept going until the value matched byte for byte.</p><p>This seems to be a pattern in the more recently released models that I think accounts for an increase in the quality of their work. They are very persistent in verifying that their work is actually correct, so even if they&#x27;re not as &quot;smart&quot; as bigger models that get it right the first time, they have the ability to follow through to ensure that the work is actually done.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://en.andros.dev/blog/09a21bdd/i-turned-unix-talk-from-1983-into-the-interface-for-my-ai/" target="_blank" rel="noopener">I turned Unix talk from 1983 into the interface for my AI</a></h2></div><p class="title-tr">我把 1983 年的 Unix talk 变成了我的 AI 界面</p><div class="meta">▲ 18 分 · ibobev · <a href="https://news.ycombinator.com/item?id=49410936" target="_blank" rel="noopener">8 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者用 1983 年的 Unix talk 命令作为 LLM 交互前端：通过伪终端桥接，让字符级传输与模型 token 流式输出相匹配，AI 以类人方式逐字回复。技术上精巧但定位为玩具，未涉及产品化。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Unix talk、PTY（伪终端）和 utmp 是早期终端通信与登录记录机制，对比你熟悉的流式 API：这里用伪终端把字符流接入模型调用。</p><ul class="kp"><li>作者将 <strong>1983 年的 Unix talk</strong> 改造成 LLM 对话界面，字符级传输与 token 流式输出天然匹配。</li><li>桥接脚本运行在 <strong>PTY（伪终端）</strong> 中，读人类输入并按回车发送给模型，流式响应逐字注入。</li><li>AI 容器在 <strong>utmp</strong> 注册终端，让 talkd 认为它是在线用户；否则会提示未登录。</li><li>作者定位为<strong>玩具实验</strong>，使用非商业、禁止演绎许可，无意产品化。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区多为怀旧共鸣，认为复古协议与 LLM 结合有趣，但未深入讨论实用性或商业化。</p><div class="tags"><span class="tag">Unix talk</span><span class="tag">LLM 流式接口</span><span class="tag">复古终端协议</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · JoshTriplett · 2 回复</div><p>I remember using talk back when first learning Linux in college. I enjoyed the character-by-character aspect of it.</p></div></div></article>
+</div></main>
+<footer>generated 2026-08-24 01:58 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-24", "pointsLabel": "分", "commentsLabel": "评论", "title": "Anthropic's best AI model struggles to attract users as cheaper tools thrive", "titleTranslation": "Anthropic 最强 AI 模型难以吸引用户，更便宜工具趁势增长", "summary": "文章正文未能获取，信息有限；据标题与 HN 评论，Anthropic 旗舰模型 Fable 性能领先，但因高价、配额限制与政策反复，用户留存不足，更便宜的工具正在抢占市场。", "keyPoints": ["Fable 被置于 200 美元套餐且用量受限，用户抱怨政策反复，感觉像在讨价还价。", "Opus 4.8 仍是多数用户首选，Opus 5 被指表现更差，削弱升级动力。", "评论称竞品模型 Sol 性能约为 Fable 的 70%-90%，更便宜且无繁琐限制。"], "discussion": "评论区共识：Anthropic 模型能力仍强，但定价与用量政策令用户失望，用户倾向留在旧模型或转向更便宜替代品。", "tags": ["AI 商业化", "大模型定价", "模型竞争"], "score": 226, "comments": 192, "by": "naves", "url": "https://www.ft.com/content/5ee49718-c258-4f01-aa32-7e5b76ae5245", "hnUrl": "https://news.ycombinator.com/item?id=49411102"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-24", "pointsLabel": "分", "commentsLabel": "评论", "title": "My agent.md to improve LLM-assisted code quality", "titleTranslation": "我的 agent.md：提升 LLM 辅助代码质量", "summary": "作者把反复向 LLM 提出的代码规范写入 agent.md，让编码工具在每次会话自动注入提示，代码质量接近手工水平；但模型仍会幻觉，且上下文变长会出现“注意力稀释”，需靠短会话和重新加载规则缓解。", "keyPoints": ["在项目根放置 agent.md，编码工具会在每次会话开始时把它注入提示，用于统一代码风格与架构规则。", "规则包括禁止魔数、用枚举替代布尔参数、提前返回减少缩进、严格分层，以及提交信息七条格式规则。", "作者强调这不是魔法：LLM 仍会幻觉，必须继续读代码验证，但现在主要关注架构而非风格。"], "discussion": "HN 评论共识不一：部分人认为许多规则应交给 lint 工具，函数名“少于 30 字符”会产生难读的缩写，且“块注释解释 what”与代码重复；也有人肯定最小化无关改动和收敛规则。", "tags": ["LLM 代码生成", "agent.md", "开发者工作流"], "score": 166, "comments": 81, "by": "ibobev", "url": "https://fabiensanglard.net/agent.md/index.html", "hnUrl": "https://news.ycombinator.com/item?id=49410932"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-24", "pointsLabel": "分", "commentsLabel": "评论", "title": "Implementation of GPT-2 in pure CMake", "titleTranslation": "纯 CMake 实现 GPT-2", "summary": "开发者用 CMake 构建工具脚本直接运行 GPT-2 推理，采用 Q16.16 固定点整数算术，而非常规 Python/C++ 推理栈。HN 评论判定其极慢且无实际产品价值，更像技术行为艺术。", "keyPoints": ["纯 CMake 实现 GPT-2，用构建脚本执行推理，不依赖 Python 或 C++ 推理代码。", "采用 Q16.16 固定点整数算术，用整数近似小数来执行模型计算。", "需下载 Hugging Face 上 openai-community/gpt2 的 模型、词表和字节对编码（BPE）合并文件后运行。"], "discussion": "HN 评论区共识是这属于荒诞的技术行为艺术：CMake 单核解释执行使其慢到几乎无法运转，有人无法理解为何要做，也有人称其为“恶心（褒义）”的创造。", "tags": ["CMake", "GPT-2 推理", "固定点算术"], "score": 34, "comments": 10, "by": "porridgeraisin", "url": "https://github.com/AlpinDale/gpt2.cmake", "hnUrl": "https://news.ycombinator.com/item?id=49412909"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-24", "pointsLabel": "分", "commentsLabel": "评论", "title": "AI Chip Architectures", "titleTranslation": "AI 芯片架构", "summary": "综述 AI 芯片架构竞争：NVIDIA GPU 主导，AMD 跟随，谷歌 TPU、亚马逊 Trainium、Cerebras 晶圆级引擎已实际部署。核心难点是矩阵乘法算力与内存带宽失衡，文章解析 GPU 张量核心从同步到异步、计算与访存解耦的演进。", "keyPoints": ["NVIDIA GPU 占主导，AMD 跟随，OpenAI 与 Meta 各承诺 6 吉瓦算力规模。", "谷歌 TPU 训练 Gemini，并将为 Anthropic 提供最多 100 万颗芯片；Anthropic 还用超百万颗 Trainium 芯片跑 Claude。", "核心瓶颈是内存墙：算力增速远超内存带宽，芯片设计围绕如何更快地把数据送到计算单元展开。"], "discussion": "评论区既有对模拟/神经形态计算能否实现数量级能效提升的期待，也有对原文排版与可读性的批评。", "tags": ["AI 芯片架构", "GPU 张量核心", "推理性能优化"], "score": 48, "comments": 12, "by": "Finbarr", "url": "https://www.jepeake.com/ai-chip-architectures", "hnUrl": "https://news.ycombinator.com/item?id=49405657"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-24", "pointsLabel": "分", "commentsLabel": "评论", "title": "Decoding silent reading from non-invasive EEG", "titleTranslation": "用非侵入性脑电图（EEG）解码默读", "summary": "论文用 49 小时、24 万次词汇的 19 通道干电极脑电图数据，训练 CLIP 风格对比模型，将默读脑电窗口与大语言模型词嵌入对齐；词级 top-10 检索可靠高于随机，且随数据量对数线性扩展未饱和，说明非侵入脑电图可恢复开放词汇默读信息，瓶颈在数据而非方法。", "keyPoints": ["24 万次词汇、49 小时单参与者 19 通道干电极脑电图，是可扩展默读代理任务的关键规模。", "训练 CLIP 风格对比模型对齐脑电图窗口与大语言模型词嵌入，词级 top-10 检索可靠高于随机。", "解码能力随数据量对数线性扩展、未见饱和，移除枕叶/后颞电极使词级增益降约三分之一。"], "discussion": "评论区主要担忧“读心”被武器化，呼吁思想隐私权；也有观点认为 19 通道电极在社交层面已相当侵入，显示伦理接受度落后于技术进展。", "tags": ["脑机接口", "神经解码", "隐私伦理"], "score": 32, "comments": 12, "by": "root-parent", "url": "https://arxiv.org/abs/2608.20186", "hnUrl": "https://news.ycombinator.com/item?id=49412176"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-24", "pointsLabel": "分", "commentsLabel": "评论", "title": "AI and Infrastructure Engineering", "titleTranslation": "AI 与基础设施工程", "summary": "作者以每天用 Claude 生成 Terraform 模块和 Helm 图表为例，认为 AI 替代的是基础设施工程中“查文档、写样板配置”这一层，而非架构决策；但他也坦承底层基本功在退化，并怀疑“给方向”这层未来是否也会被 AI 接管。", "keyPoints": ["Claude 每天帮作者写 Terraform 模块和 Helm 图表，替代的是查变更日志和写样板代码，不替代架构判断。", "作者承认底层基本功在退化：四年前手写四层嵌套循环，现在从零写要慢慢想，SSH 调试也变慢。", "Kubernetes 没有取代基础设施工程师，而是把工作从管机器上移到管工作负载，AI 可能再上移一层。"], "discussion": "评论区普遍认为作者经历有代表性，但争议在于：有经验的工程师用 AI 提效，AI 原生者可能缺乏下层知识；也有人指出 AI 不是真正的抽象层，仍需理解下一层才能负责。", "tags": ["AI 辅助编程", "基础设施即代码", "工程师技能退化"], "score": 43, "comments": 11, "by": "0megion", "url": "https://omegion.dev/2026/08/ai-and-infrastructure-engineering/", "hnUrl": "https://news.ycombinator.com/item?id=49411024"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-24", "pointsLabel": "分", "commentsLabel": "评论", "title": "The Vibe Tax", "titleTranslation": "氛围税", "summary": "作者以虚构案例称，AI 编程代理在 12 小时内烧光一周 token 额度，生成数十亿 token 的无用测试却没写出应用代码；他认为这是大量氛围程序员养成的一次生成偏好，反过来推高普通开发者的使用成本。", "keyPoints": ["作者虚构案例：代理 12 小时烧光一周 token 额度，只生成无数哈希命名测试目录，应用代码为零。", "他将此归因于氛围程序员偏好“一键生成不出错”，使模型消耗 10 倍 token 做过量测试。", "评论者给出反例：126k 行应用代码 + 240k 行回归测试在严格工作流下可稳定管理。"], "discussion": "评论区主流分歧：一派认为用严格工作流把代理当初级工程师可支撑大型项目；另一派批评模型正被优化成全自动交付，挤压人工审查和结对编程。", "tags": ["AI 编程代理", "LLM 推理成本", "开发者工具"], "score": 105, "comments": 82, "by": "allisdust", "url": "https://insufferable.dev/posts/vibe-tax/", "hnUrl": "https://news.ycombinator.com/item?id=49411199"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-24", "pointsLabel": "分", "commentsLabel": "评论", "title": "Training AI to Paint with Code", "titleTranslation": "训练 AI 用代码作画", "summary": "作者用强化学习训练语言模型写可编辑的 JavaScript 代码来生成图像，让用户能直接改代码而非反复调提示词。核心问题是美学不可验证，于是手工设计奖励函数、581 张参考池和提示词；移除 400 行 API 文档后才停止幻觉 API。", "keyPoints": ["训练循环将模型生成的 JavaScript 渲染成 PNG，再由评判模型比较后产生奖励信号，用 GRPO 更新。", "参考池含 581 张手工评级图像，全部来自模型输出，因为难以获得足够人工示例。", "移除 400 行 API 文档后改用 8 种画笔方法的严格允许列表，模型才停止幻觉 API。"], "discussion": "评论区对将类似方法扩展到 Logo 等图形语言感兴趣，猜测能否产生有趣设计。", "tags": ["强化学习", "代码生成图像", "提示词优化"], "score": 18, "comments": 1, "by": "Tiberium", "url": "https://surya.website/rling-qwen-to-paint-with-code", "hnUrl": "https://news.ycombinator.com/item?id=49411800"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-24", "pointsLabel": "分", "commentsLabel": "评论", "title": "I gave Qwen 3.8 27B a reverse-engineering job and it finished in 30 minutes", "titleTranslation": "我给 Qwen 3.8 27B 一个逆向工程任务，它 30 分钟完成", "summary": "本地 27B 模型 Qwen 3.8 在 30 分钟内完成商业应用的授权检查绕过，通过静态分析恢复厂商隐藏公钥并自我纠正错误，证明消费级硬件上的本地模型已具备此前仅云端前沿模型才有的逆向能力。", "keyPoints": ["Qwen 3.8 27B 在 30 分钟内完成商业应用授权绕过，恢复厂商隐藏的公钥。", "模型全程采用静态分析且未执行应用，并自行纠正首次错误直到哈希校验字节级一致。", "该离线模型仅需约 17 GB 显存即可运行，证明本地小模型已进入威胁模型考量。"], "discussion": "HN 评论认可模型自纠错能力，但有人质疑这类可明确验证的任务并不算最难，且本地模型无限制能力引发防御与滥用的双刃剑争论。", "tags": ["本地 LLM", "软件逆向工程", "AI 威胁建模"], "score": 315, "comments": 139, "by": "raybb", "url": "https://www.xda-developers.com/qwen-3-8-27b-reverse-engineering-job-frontier-model/", "hnUrl": "https://news.ycombinator.com/item?id=49407507"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-24", "pointsLabel": "分", "commentsLabel": "评论", "title": "I turned Unix talk from 1983 into the interface for my AI", "titleTranslation": "我把 1983 年的 Unix talk 变成了我的 AI 界面", "summary": "作者用 1983 年的 Unix talk 命令作为 LLM 交互前端：通过伪终端桥接，让字符级传输与模型 token 流式输出相匹配，AI 以类人方式逐字回复。技术上精巧但定位为玩具，未涉及产品化。", "keyPoints": ["作者将 1983 年的 Unix talk 改造成 LLM 对话界面，字符级传输与 token 流式输出天然匹配。", "桥接脚本运行在 PTY（伪终端） 中，读人类输入并按回车发送给模型，流式响应逐字注入。", "AI 容器在 utmp 注册终端，让 talkd 认为它是在线用户；否则会提示未登录。"], "discussion": "HN 评论区多为怀旧共鸣，认为复古协议与 LLM 结合有趣，但未深入讨论实用性或商业化。", "tags": ["Unix talk", "LLM 流式接口", "复古终端协议"], "score": 18, "comments": 8, "by": "ibobev", "url": "https://en.andros.dev/blog/09a21bdd/i-turned-unix-talk-from-1983-into-the-interface-for-my-ai/", "hnUrl": "https://news.ycombinator.com/item?id=49410936"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
