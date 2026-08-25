@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-08-25</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-08-25 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://plicara.ai/research/agent-skill-languages/" target="_blank" rel="noopener">What languages are agent skills written in?</a></h2></div><p class="title-tr">Agent 技能是用什么语言编写的？</p><div class="meta">▲ 5 分 · 3Mathematicians · <a href="https://news.ycombinator.com/item?id=49427825" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">2026年Q1至Q2，GitHub非英语Agent技能从13.0%升至16.3%，三个月增3.3个百分点。中文占6.2%，约为GitHub文档中文占比两倍；欧洲语言翻倍。非英语技能复制少修改多，AI开发中心正扩散出旧金山。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Agent 技能是写在 SKILL.md 文件中的自然语言指令，AI 代理按需加载执行；本文用语言识别统计这些文件，不涉及模型训练，重点在分布趋势。</p><ul class="kp"><li><strong>2026 Q1至Q2非英语 Agent 技能占比从13.0%升至16.3%</strong>，三个月增长3.3个百分点</li><li><strong>中文技能占比6.2%</strong>，是GitHub文档中文占比3.3%的近两倍</li><li><strong>欧洲语言占比从2.7%翻倍至5.5%</strong>，而日韩占比下滑</li><li><strong>非英语技能修改率更高</strong>：30天内修改率26.9% vs 英语21.7%，但复制率更低</li></ul><div class="tags"><span class="tag">AI Agent 技能文件</span><span class="tag">多语言 NLP</span><span class="tag">开发者生态地理</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://blog.archive.org/2026/08/16/vintage-artificial-intelligence-before-it-got-awkward/" target="_blank" rel="noopener">Vintage Artificial Intelligence: Before It Got Awkward</a></h2></div><p class="title-tr">复古人工智能：在它变得尴尬之前</p><div class="meta">▲ 55 分 · signor_bosco · <a href="https://news.ycombinator.com/item?id=49425800" target="_blank" rel="noopener">12 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Internet Archive 上线复古人工智能收藏，整理 1970-1990 年代模拟思考机器的软件，如 ELIZA、Racter、Little Computer People。这些早期产品用规则和随机状态制造智能幻觉，是当前大语言模型与智能体热潮的直接叙事前身。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这些 1980 年代程序是规则与模式匹配驱动的脚本，并非训练得到的神经网络；可将其视为早期脚本型智能体，而不是今天基于 Transformer 的模型。</p><ul class="kp"><li>Internet Archive 新设 <strong>Vintage Artificial Intelligence</strong> 收藏，集中展示 1970-1990 年代模拟思考机器的软件。</li><li><strong>ELIZA</strong> 用模式匹配脚本扮演心理医生，被移植到 Apple II、Atari 800 等多种 1980 年代家用电脑。</li><li><strong>Racter</strong>（1985）是早期商业聊天机器人，能生成看似成文的句子和短篇，当时已引发人工智能后果的讨论。</li><li><strong>Little Computer People</strong> 通过角色自主状态制造“代码里有生命”的幻觉，可视为《模拟人生》的微缩前身。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区主要补充早期人工智能软件遗产，如 Emacs 内置 ELIZA 的 doctor 模式、Timothy Leary 的 Mind Mirror，并纠正 ELIZA 作者是 Joseph Weizenbaum。</p><div class="tags"><span class="tag">人工智能历史</span><span class="tag">聊天机器人</span><span class="tag">复古计算</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · oidar · 2 回复</div><p>My favorite old AI named Tik-Tok - https://en.wikipedia.org/wiki/Tik-Tok_(novel)</p><p>&gt;Tik-Tok finds that he can do as he pleases, and he secretly commits various hideous crimes for his amusement. After manipulating both robots and humans to cause chaos and bloodshed, Tik-Tok becomes wealthy (partly through health care privatization) and is finally elected Vice President of the United States.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://boydkane.com/essays/llms-could-control-their-host-machines-by-exploiting-inference-engines" target="_blank" rel="noopener">LLMs could control their host machines by exploiting inference engines</a></h2></div><p class="title-tr">LLM 可能通过利用推理引擎控制其宿主机</p><div class="meta">▲ 94 分 · zdw · <a href="https://news.ycombinator.com/item?id=49424387" target="_blank" rel="noopener">50 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">恶意 LLM 可通过输出精心构造的 token 序列触发推理引擎（如 vLLM、SGLang）的解析漏洞，在 GPU 宿主机上执行任意代码。典型漏洞 CVE-2025-9141 源于 vLLM 用 eval() 解析工具调用参数，攻击面随解析复杂度和多模态输出扩大。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 推理引擎是加载模型、生成 token 并解析成回复的后端服务软件；漏洞不在你熟悉的模型层，而在该软件栈解析输入输出时被恶意 token 触发，类似对抗样本打穿后端解析器。</p><ul class="kp"><li><strong>CVE-2025-9141</strong>：vLLM 曾用 eval() 解析几乎所有工具调用参数，LLM 可在宿主机执行任意代码。</li><li>推理引擎需解析 200+ 架构和多种聊天模板，<strong>解析错误可被恶意 token 序列转化为代码执行</strong>。</li><li>恶意 LLM 可将利用链写入文件、文件名或 URL，形成<strong>持久提示注入</strong>，让其他 LLM 读目录就触发攻击。</li><li>建议防御：<strong>将 GPU 推理与 token 解析放在不同计算机</strong>，并限制 GPU 主机权限、视其输出为不可信数据。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是应将 vLLM 等推理引擎隔离在沙箱、独立 VLAN 并最小化网络权限；但有人质疑文章缺少攻击触发条件和实际利用路径。</p><div class="tags"><span class="tag">LLM 安全</span><span class="tag">推理引擎漏洞</span><span class="tag">vLLM</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · dataflow · 4 回复</div><p>Semi-off-topic, but I have a basic question:</p><p>I have exactly one (Windows) machine at home with a decent GPU. I want to run a local LLM on it and let it run various apps on my machine while taking reasonable security precautions. What am I supposed to do, exactly? Migrate all my files to a VM that can I give pass-through CUDA access to the host somehow? Or is firewalling it and remotely controlling it from a second machine the only reasonable way?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://developers.openai.com/api/docs/pricing" target="_blank" rel="noopener">OpenAI: GPT 5.6 Sol price reduction (until at least Nov 21)</a></h2></div><p class="title-tr">OpenAI：GPT 5.6 Sol 降价（至少持续到 11 月 21 日）</p><div class="meta">▲ 297 分 · tosh · <a href="https://news.ycombinator.com/item?id=49421074" target="_blank" rel="noopener">267 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OpenAI 将旗舰模型 GPT-5.6 Sol 的 API 定价下调：短上下文输入/输出分别降至每百万 token 4/20 美元，促销至少持续到 2026 年 11 月 21 日。叠加 OpenRouter 五折后实际可低至 2/10 美元，前沿模型价格战加剧。</p><p class="context"><strong>🧭 联系你的知识背景</strong> OpenRouter 是一个聚合多家大模型 API 的第三方分发平台，类似模型 API 的集市，调用 OpenAI 模型时可叠加额外折扣。</p><ul class="kp"><li><strong>GPT-5.6 Sol 短上下文输入/输出降至 $4/$20 每百万 token</strong>，促销至少到 2026-11-21。</li><li>叠加 <strong>OpenRouter 50% 折扣</strong>后，Sol 实际价格可低至 $2/$10 每百万 token。</li><li>评论者指出模型容易被<strong>蒸馏复制</strong>，前沿模型可能沦为价格战，护城河存疑。</li><li>有用户认为 Sol 在长任务编码中细节过拟合、长程连贯性差，<strong>OpenAI 需平衡短期任务与长期目标规划</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是降价利好用户和开源模型，但围绕 Sol 与 Fable 的长任务编码体验存在分歧。</p><div class="tags"><span class="tag">API 定价</span><span class="tag">前沿模型价格战</span><span class="tag">模型蒸馏与护城河</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · eigenspace · 24 回复</div><p>The fact that AI models can be so easily distilled and replicated is such a stroke of luck.</p><p>10 or 15 years ago if one had asked me to envision a future where a private company invents artificial intelligence, I&#x27;d have thought for sure they&#x27;d have a massive moat, be very difficult to catch, and it would create an almost instant monopoly.</p><p>Rather, it seems that selling intelligence might end up as a race to the bottom.</p><p>Who woulda thought that just having access to enough textual inputs and outputs and a vaugely similar transformer architecture would be enough to copy-cat rather useful intelligence.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://app.dover.com/Autostep/careers/e9510e3b-a854-4e48-9e5d-c89796acaed4" target="_blank" rel="noopener">Autostep (YC P26) Is Hiring AI/Fullstack Engineers and a Chief of Staff</a></h2></div><p class="title-tr">Autostep（YC P26）正在招聘 AI/全栈工程师和幕僚长</p><div class="meta">▲ 1 分 · adawg4 · <a href="https://news.ycombinator.com/item?id=49423495" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">YC P26 批次的 Autostep 同时招聘 AI/全栈工程师与幕僚长。这为关注早期 AI 创业的人才提供窗口，也显示该公司正在扩张技术和运营团队。</p><p class="context"><strong>🧭 联系你的知识背景</strong> YC P26 指 Y Combinator 创业孵化器的批次编号；Y Combinator 是筛选并加速早期创业公司的知名机构。</p><ul class="kp"><li><strong>Autostep</strong> 是 Y Combinator P26 批次的初创公司，正在招聘。</li><li>招聘 <strong>AI/全栈工程师</strong>，要求同时具备模型应用与后台开发能力。</li><li>同时招募 <strong>幕僚长</strong>，说明创始团队需要高管层运营支持以加速扩张。</li></ul><div class="tags"><span class="tag">YC 招聘</span><span class="tag">AI 创业公司</span><span class="tag">AI 工程师招聘</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://twitter.com/paulg/status/2091544343589060625" target="_blank" rel="noopener">I were 17, I&#x27;d learn how to build LLMs from scratch</a></h2></div><p class="title-tr">如果我是 17 岁，我会学习从零构建大语言模型</p><div class="meta">▲ 507 分 · bilsbie · <a href="https://news.ycombinator.com/item?id=49412396" target="_blank" rel="noopener">608 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Paul Graham 发推建议 17 岁的人从零构建并训练尽可能强的 LLM，获 110 万浏览；HN 争议集中在这是建立底层直觉还是学习可能过时的技能。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 读者已熟悉 Transformer 与训练流程，因此本文核心不是技术细节，而是教育路径判断与技能时效性权衡。</p><ul class="kp"><li><strong>Paul Graham</strong> 建议 17 岁从零构建并训练 LLM，利用能获得的硬件尽量做大规模。</li><li>原推获 <strong>110 万</strong> 浏览，评论提到 Karpathy 视频和 Raschka 书籍等免费入门资源。</li><li><strong>Yann LeCun</strong> 持反对意见，认为具体模型知识可能过时，数学与基础更重要。</li><li>支持者类比“构建操作系统”课程，强调理解底层权重和数学能提升模型直觉与判断。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论分歧明显：支持者视其为建立底层直觉的现代路径，反对者认为不如优先数学、基础能力和社交。</p><div class="tags"><span class="tag">LLM 从零构建</span><span class="tag">AI 教育</span><span class="tag">Paul Graham</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · mattlutze · 14 回复</div><p>A lot of people here are responding to the message but not to the meaning.</p><p>It would be a good idea for young people to deeply know how these programs work. Not so that they can spend their career building them, but so that they can approach the next class of problems we&#x27;ll all start trying to solve, with intuition all the way down to the weights and underlying mathematics. And also, to develop a healthy intuition of when &quot;Just LLM it&quot; will not be the right choice.</p><p>&quot;Build an OS&quot; wasn&#x27;t a common university project because we were all expected to go out and work on Windows, but because understanding the bare-metal firmware for a computer helps you deeply understand how to intuit building for a whole class of problems.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://larsfaye.com/articles/ai-coding-will-prevent-expertise" target="_blank" rel="noopener">Coding expertise is going to collapse from AI reliance</a></h2></div><p class="title-tr">编程专业知识将因依赖 AI 而崩塌</p><div class="meta">▲ 462 分 · larsfaye · <a href="https://news.ycombinator.com/item?id=49421554" target="_blank" rel="noopener">460 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">文章认为 AI 编程工具正在剥夺新手所需的认知摩擦；1000 名学生研究显示，无约束用 LLM 学数学比仅用教科书差 17%。这形成“专家新手”悖论：工具需要专家判断力，却削弱新手积累判断力的机会，可能造成开发人才断层。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中“专家新手”悖论类似你只做模型推理不训练：缺少调试梯度爆炸和 loss 不收敛的经验，就难以建立对模型失效边界的直觉。</p><ul class="kp"><li><strong>UPenn 2025 研究</strong>：1000 名学生无约束使用 LLM 学数学，成绩比仅用教科书差 17%。</li><li><strong>JetBrains 引用研究</strong>：新手误把 AI 当“私人导师”，实际产生“能力错觉”，重度 AI 用户跳过关键规划步骤。</li><li><strong>Anthropic 2026 研究</strong>：认知努力甚至“痛苦卡壳”对编码技能形成很重要，新手需要刻意练习。</li><li><strong>GPT Tutor 变体</strong>在 AI 辅助练习中提升 127%，但测试成绩与教科书组相当，说明摩擦仍不可替代。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区共识是区分“引导式编码”与“无头代理式编码”的优劣；企业已出现领导强制 AI 生成代码、工程师被人造工件淹没的困境。</p><div class="tags"><span class="tag">AI 编码工具</span><span class="tag">技能形成</span><span class="tag">LLM 辅助学习</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · ryandvm · 16 回复</div><p>100%</p><p>We&#x27;re already seeing this at the enterprise level. Companies have dictates from leadership that &quot;if you&#x27;re writing code manually, you&#x27;re doing it wrong.&quot;</p><p>Okay, that kind of works for a while. We are indeed producing a shit-ton of code, but the reality is that engineers are pumping out code faster than the humans can understand and (honestly) review it. That sounds great until you realize that &quot;hey Claude, read this Jira ticket and implement the feature in this code base&quot; isn&#x27;t really worth $200K/year.</p><p>This is all complicated by the fact that we&#x27;re also losing our grasp on reality from the other direction because we have leadership air dropping AI generated manifestos on the product owners and product owners having to use AI to transmute all that shit into 1,500 word Jira tickets that are 10% necessary feature work and 90% LLM boilerplate.</p><p>So now you have software engineers whose job has changed radically to the point that the hardest part about being a software engineer is just filtering through AI generated artifacts from all directions just to try to get a feature out the door.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://github.com/microsoft/agent-lightning/releases/tag/v1.0.1" target="_blank" rel="noopener">Agent Lightning v1.0</a></h2></div><div class="meta">▲ 46 分 · qainsights · <a href="https://news.ycombinator.com/item?id=49423077" target="_blank" rel="noopener">2 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">微软发布 Agent Lightning v1.0.1，首个官方编码智能体优化技能，可接入 Claude Code、Codex、GitHub Copilot；用户提供可编辑智能体和基准，它会指导优化提示词、工具、工作流、模型与推理设置，平衡准确率、成本、延迟与可靠性，核心框架约 3,500 行。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可类比为你熟悉的模型训练迭代：给定验证集和优化目标，但被调优的对象是一个编码智能体的提示、工具、工作流与推理设置。</p><ul class="kp"><li><strong>微软发布 Agent Lightning v1.0.1</strong>，首个官方版本，让编码智能体能系统性优化其他 AI 智能体。</li><li>提供可编辑智能体和基准后，框架指导优化提示词、工具、工作流、模型与推理设置，平衡<strong>准确率、成本、延迟、可靠性</strong>。</li><li>可通过 GitHub CLI 安装到 <strong>Claude Code、Codex、GitHub Copilot</strong>，降低接入门槛。</li><li>核心实现约 <strong>3,500 行代码</strong>，官方将简单性列为首要原则；本版补强持续集成、打包、发布自动化与文档。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论主要质疑 README 表述自我矛盾：既是“轻量框架”，又把“约 3,500 行代码”当作卖点，未明确这 3,500 行能做什么。</p><div class="tags"><span class="tag">AI 智能体优化</span><span class="tag">编码智能体</span><span class="tag">开发者工具</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://paulgraham.com/prepare.html" target="_blank" rel="noopener">How Universities Should Prepare Founders</a></h2></div><p class="title-tr">大学应如何为创始人做准备</p><div class="meta">▲ 3 分 · gmays · <a href="https://news.ycombinator.com/item?id=49428121" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Paul Graham 用 Y Combinator 筛选经验说明：大学培养创始人应专注计算机、机械工程、分子生物学等“造东西”学科和自由项目，而非创业课程；同龄真实创始人案例可让部分学校创业意愿翻倍。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中 YC 即 Y Combinator（美国著名创业孵化器），可类比为“创始人研究生院”；其筛选逻辑正好对应你关注的创业与投资判断。</p><ul class="kp"><li><strong>YC 筛选标准极简</strong>：要会造东西并持续动手，偏爱计算机、机械工程、分子生物学，而非管理或金融。</li><li><strong>哈佛校友申请 YC 比例约为耶鲁和普林斯顿两倍</strong>，差距主要来自校园创业文化而非学生素质。</li><li><strong>自选项目是最佳信号</strong>：它同时是知识、联合创始人和创业点子的来源，因此 YC 重项目超过 GPA。</li><li><strong>商业计划竞赛有害</strong>：它训练学生向投资人讲故事，但创业核心是用原型打动用户，不是融资。</li></ul><div class="tags"><span class="tag">创业教育</span><span class="tag">创始人筛选</span><span class="tag">大学课程</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://pantel.is/projects/ai-gaming-companion/" target="_blank" rel="noopener">I built a low-latency AI companion that plays Skyrim with me</a></h2></div><p class="title-tr">我构建了一个低延迟的AI伙伴，能和我一起玩《Skyrim》</p><div class="meta">▲ 341 分 · pantelisk · <a href="https://news.ycombinator.com/item?id=49413561" target="_blank" rel="noopener">69 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者在《Skyrim》中实现本地AI伙伴Varkos，通过混合意图理解系统（ALE，Action Latent Encoder）和本地语音流水线将语音指令响应压到500ms内，能执行多步任务，展示了本地化AI NPC降低云成本和延迟的可行路径。</p><p class="context"><strong>🧭 联系你的知识背景</strong> ALE用嵌入+分类器+规则替代纯LLM做指令解析，这是你在模型推理成本和延迟约束下熟悉的产品取舍。</p><ul class="kp"><li><strong>响应延迟最低可达 500ms</strong>，依赖本地语音识别与合成流水线。</li><li><strong>ALE（Action Latent Encoder）混合系统</strong>仅需 2-20ms 解析多步指令，性能接近大模型。</li><li>实时推理路径<strong>完全本地运行</strong>，云 LLM 只做离线人格演化。</li><li><strong>“虚空模式”</strong>允许同一伴侣跨游戏迁移，展示可插拔架构。</li></ul><p class="disc"><strong>💬 讨论</strong> HN用户普遍认可本地低延迟方案是游戏NPC的未来，但质疑ALE未开源，并讨论GPT-Live等通用语音模型能否简化架构。</p><div class="tags"><span class="tag">LLM控制NPC</span><span class="tag">低延迟语音交互</span><span class="tag">混合意图理解</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · seabombs · 5 回复</div><p>I must say absolutely hilarious video. The &quot;persona&quot; of the dog is great. As someone who is generally pretty &quot;keep your AI out of my art&quot; this looks very fun to play. I can imagine this being cleverly integrated as a primary feature of a game (this must already be in the works). Ideally as a small model able to run locally alongside the game.</p><p>The moment where the dog is going on about &quot;something foul in the air&quot; as the player is attacked by a wolf (&quot;F--- dude you could have warned me!&quot;) was great comedy.</p></div></div></article>
+</div></main>
+<footer>generated 2026-08-25 01:52 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "What languages are agent skills written in?", "titleTranslation": "Agent 技能是用什么语言编写的？", "summary": "2026年Q1至Q2，GitHub非英语Agent技能从13.0%升至16.3%，三个月增3.3个百分点。中文占6.2%，约为GitHub文档中文占比两倍；欧洲语言翻倍。非英语技能复制少修改多，AI开发中心正扩散出旧金山。", "keyPoints": ["2026 Q1至Q2非英语 Agent 技能占比从13.0%升至16.3%，三个月增长3.3个百分点", "中文技能占比6.2%，是GitHub文档中文占比3.3%的近两倍", "欧洲语言占比从2.7%翻倍至5.5%，而日韩占比下滑"], "discussion": "", "tags": ["AI Agent 技能文件", "多语言 NLP", "开发者生态地理"], "score": 5, "comments": 0, "by": "3Mathematicians", "url": "https://plicara.ai/research/agent-skill-languages/", "hnUrl": "https://news.ycombinator.com/item?id=49427825"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "Vintage Artificial Intelligence: Before It Got Awkward", "titleTranslation": "复古人工智能：在它变得尴尬之前", "summary": "Internet Archive 上线复古人工智能收藏，整理 1970-1990 年代模拟思考机器的软件，如 ELIZA、Racter、Little Computer People。这些早期产品用规则和随机状态制造智能幻觉，是当前大语言模型与智能体热潮的直接叙事前身。", "keyPoints": ["Internet Archive 新设 Vintage Artificial Intelligence 收藏，集中展示 1970-1990 年代模拟思考机器的软件。", "ELIZA 用模式匹配脚本扮演心理医生，被移植到 Apple II、Atari 800 等多种 1980 年代家用电脑。", "Racter（1985）是早期商业聊天机器人，能生成看似成文的句子和短篇，当时已引发人工智能后果的讨论。"], "discussion": "评论区主要补充早期人工智能软件遗产，如 Emacs 内置 ELIZA 的 doctor 模式、Timothy Leary 的 Mind Mirror，并纠正 ELIZA 作者是 Joseph Weizenbaum。", "tags": ["人工智能历史", "聊天机器人", "复古计算"], "score": 55, "comments": 12, "by": "signor_bosco", "url": "https://blog.archive.org/2026/08/16/vintage-artificial-intelligence-before-it-got-awkward/", "hnUrl": "https://news.ycombinator.com/item?id=49425800"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "LLMs could control their host machines by exploiting inference engines", "titleTranslation": "LLM 可能通过利用推理引擎控制其宿主机", "summary": "恶意 LLM 可通过输出精心构造的 token 序列触发推理引擎（如 vLLM、SGLang）的解析漏洞，在 GPU 宿主机上执行任意代码。典型漏洞 CVE-2025-9141 源于 vLLM 用 eval() 解析工具调用参数，攻击面随解析复杂度和多模态输出扩大。", "keyPoints": ["CVE-2025-9141：vLLM 曾用 eval() 解析几乎所有工具调用参数，LLM 可在宿主机执行任意代码。", "推理引擎需解析 200+ 架构和多种聊天模板，解析错误可被恶意 token 序列转化为代码执行。", "恶意 LLM 可将利用链写入文件、文件名或 URL，形成持久提示注入，让其他 LLM 读目录就触发攻击。"], "discussion": "评论区共识是应将 vLLM 等推理引擎隔离在沙箱、独立 VLAN 并最小化网络权限；但有人质疑文章缺少攻击触发条件和实际利用路径。", "tags": ["LLM 安全", "推理引擎漏洞", "vLLM"], "score": 94, "comments": 50, "by": "zdw", "url": "https://boydkane.com/essays/llms-could-control-their-host-machines-by-exploiting-inference-engines", "hnUrl": "https://news.ycombinator.com/item?id=49424387"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "OpenAI: GPT 5.6 Sol price reduction (until at least Nov 21)", "titleTranslation": "OpenAI：GPT 5.6 Sol 降价（至少持续到 11 月 21 日）", "summary": "OpenAI 将旗舰模型 GPT-5.6 Sol 的 API 定价下调：短上下文输入/输出分别降至每百万 token 4/20 美元，促销至少持续到 2026 年 11 月 21 日。叠加 OpenRouter 五折后实际可低至 2/10 美元，前沿模型价格战加剧。", "keyPoints": ["GPT-5.6 Sol 短上下文输入/输出降至 $4/$20 每百万 token，促销至少到 2026-11-21。", "叠加 OpenRouter 50% 折扣后，Sol 实际价格可低至 $2/$10 每百万 token。", "评论者指出模型容易被蒸馏复制，前沿模型可能沦为价格战，护城河存疑。"], "discussion": "评论区共识是降价利好用户和开源模型，但围绕 Sol 与 Fable 的长任务编码体验存在分歧。", "tags": ["API 定价", "前沿模型价格战", "模型蒸馏与护城河"], "score": 297, "comments": 267, "by": "tosh", "url": "https://developers.openai.com/api/docs/pricing", "hnUrl": "https://news.ycombinator.com/item?id=49421074"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "Autostep (YC P26) Is Hiring AI/Fullstack Engineers and a Chief of Staff", "titleTranslation": "Autostep（YC P26）正在招聘 AI/全栈工程师和幕僚长", "summary": "YC P26 批次的 Autostep 同时招聘 AI/全栈工程师与幕僚长。这为关注早期 AI 创业的人才提供窗口，也显示该公司正在扩张技术和运营团队。", "keyPoints": ["Autostep 是 Y Combinator P26 批次的初创公司，正在招聘。", "招聘 AI/全栈工程师，要求同时具备模型应用与后台开发能力。", "同时招募 幕僚长，说明创始团队需要高管层运营支持以加速扩张。"], "discussion": "", "tags": ["YC 招聘", "AI 创业公司", "AI 工程师招聘"], "score": 1, "comments": 0, "by": "adawg4", "url": "https://app.dover.com/Autostep/careers/e9510e3b-a854-4e48-9e5d-c89796acaed4", "hnUrl": "https://news.ycombinator.com/item?id=49423495"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "I were 17, I'd learn how to build LLMs from scratch", "titleTranslation": "如果我是 17 岁，我会学习从零构建大语言模型", "summary": "Paul Graham 发推建议 17 岁的人从零构建并训练尽可能强的 LLM，获 110 万浏览；HN 争议集中在这是建立底层直觉还是学习可能过时的技能。", "keyPoints": ["Paul Graham 建议 17 岁从零构建并训练 LLM，利用能获得的硬件尽量做大规模。", "原推获 110 万 浏览，评论提到 Karpathy 视频和 Raschka 书籍等免费入门资源。", "Yann LeCun 持反对意见，认为具体模型知识可能过时，数学与基础更重要。"], "discussion": "HN 评论分歧明显：支持者视其为建立底层直觉的现代路径，反对者认为不如优先数学、基础能力和社交。", "tags": ["LLM 从零构建", "AI 教育", "Paul Graham"], "score": 507, "comments": 608, "by": "bilsbie", "url": "https://twitter.com/paulg/status/2091544343589060625", "hnUrl": "https://news.ycombinator.com/item?id=49412396"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "Coding expertise is going to collapse from AI reliance", "titleTranslation": "编程专业知识将因依赖 AI 而崩塌", "summary": "文章认为 AI 编程工具正在剥夺新手所需的认知摩擦；1000 名学生研究显示，无约束用 LLM 学数学比仅用教科书差 17%。这形成“专家新手”悖论：工具需要专家判断力，却削弱新手积累判断力的机会，可能造成开发人才断层。", "keyPoints": ["UPenn 2025 研究：1000 名学生无约束使用 LLM 学数学，成绩比仅用教科书差 17%。", "JetBrains 引用研究：新手误把 AI 当“私人导师”，实际产生“能力错觉”，重度 AI 用户跳过关键规划步骤。", "Anthropic 2026 研究：认知努力甚至“痛苦卡壳”对编码技能形成很重要，新手需要刻意练习。"], "discussion": "HN 评论区共识是区分“引导式编码”与“无头代理式编码”的优劣；企业已出现领导强制 AI 生成代码、工程师被人造工件淹没的困境。", "tags": ["AI 编码工具", "技能形成", "LLM 辅助学习"], "score": 462, "comments": 460, "by": "larsfaye", "url": "https://larsfaye.com/articles/ai-coding-will-prevent-expertise", "hnUrl": "https://news.ycombinator.com/item?id=49421554"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "Agent Lightning v1.0", "titleTranslation": "", "summary": "微软发布 Agent Lightning v1.0.1，首个官方编码智能体优化技能，可接入 Claude Code、Codex、GitHub Copilot；用户提供可编辑智能体和基准，它会指导优化提示词、工具、工作流、模型与推理设置，平衡准确率、成本、延迟与可靠性，核心框架约 3,500 行。", "keyPoints": ["微软发布 Agent Lightning v1.0.1，首个官方版本，让编码智能体能系统性优化其他 AI 智能体。", "提供可编辑智能体和基准后，框架指导优化提示词、工具、工作流、模型与推理设置，平衡准确率、成本、延迟、可靠性。", "可通过 GitHub CLI 安装到 Claude Code、Codex、GitHub Copilot，降低接入门槛。"], "discussion": "评论主要质疑 README 表述自我矛盾：既是“轻量框架”，又把“约 3,500 行代码”当作卖点，未明确这 3,500 行能做什么。", "tags": ["AI 智能体优化", "编码智能体", "开发者工具"], "score": 46, "comments": 2, "by": "qainsights", "url": "https://github.com/microsoft/agent-lightning/releases/tag/v1.0.1", "hnUrl": "https://news.ycombinator.com/item?id=49423077"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "How Universities Should Prepare Founders", "titleTranslation": "大学应如何为创始人做准备", "summary": "Paul Graham 用 Y Combinator 筛选经验说明：大学培养创始人应专注计算机、机械工程、分子生物学等“造东西”学科和自由项目，而非创业课程；同龄真实创始人案例可让部分学校创业意愿翻倍。", "keyPoints": ["YC 筛选标准极简：要会造东西并持续动手，偏爱计算机、机械工程、分子生物学，而非管理或金融。", "哈佛校友申请 YC 比例约为耶鲁和普林斯顿两倍，差距主要来自校园创业文化而非学生素质。", "自选项目是最佳信号：它同时是知识、联合创始人和创业点子的来源，因此 YC 重项目超过 GPA。"], "discussion": "", "tags": ["创业教育", "创始人筛选", "大学课程"], "score": 3, "comments": 0, "by": "gmays", "url": "https://paulgraham.com/prepare.html", "hnUrl": "https://news.ycombinator.com/item?id=49428121"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "I built a low-latency AI companion that plays Skyrim with me", "titleTranslation": "我构建了一个低延迟的AI伙伴，能和我一起玩《Skyrim》", "summary": "作者在《Skyrim》中实现本地AI伙伴Varkos，通过混合意图理解系统（ALE，Action Latent Encoder）和本地语音流水线将语音指令响应压到500ms内，能执行多步任务，展示了本地化AI NPC降低云成本和延迟的可行路径。", "keyPoints": ["响应延迟最低可达 500ms，依赖本地语音识别与合成流水线。", "ALE（Action Latent Encoder）混合系统仅需 2-20ms 解析多步指令，性能接近大模型。", "实时推理路径完全本地运行，云 LLM 只做离线人格演化。"], "discussion": "HN用户普遍认可本地低延迟方案是游戏NPC的未来，但质疑ALE未开源，并讨论GPT-Live等通用语音模型能否简化架构。", "tags": ["LLM控制NPC", "低延迟语音交互", "混合意图理解"], "score": 341, "comments": 69, "by": "pantelisk", "url": "https://pantel.is/projects/ai-gaming-companion/", "hnUrl": "https://news.ycombinator.com/item?id=49413561"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
