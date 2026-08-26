@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-08-26</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-08-26 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://www.apple.com/newsroom/2026/08/apple-introduces-m6-and-m5-ultra-for-a-big-leap-in-performance-and-ai-compute/" target="_blank" rel="noopener">Apple introduces M6 and M5 Ultra</a></h2></div><p class="title-tr">Apple 推出 M6 和 M5 Ultra</p><div class="meta">▲ 963 分 · interpol_p · <a href="https://news.ycombinator.com/item?id=49433292" target="_blank" rel="noopener">902 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">苹果发布 M6 与 M5 Ultra：M6 是首颗 2 纳米芯片，配 12 核 CPU/GPU 和双 16 核神经引擎；M5 Ultra 采用四 die 架构，最高 80 核 GPU、512GB 统一内存、1.2TB/s 带宽，可本地运行数百亿参数大模型。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 统一内存带宽和容量可理解为 GPU/CPU 共享的巨大显存池，1.2TB/s 与 512GB 直接决定本地 LLM 可加载参数量和生成速度。</p><ul class="kp"><li><strong>M6 是苹果首颗 2 纳米芯片</strong>，12 核 CPU/GPU，双 16 核神经引擎，AI 峰值算力较前代提升约 2 倍。</li><li><strong>M5 Ultra 首次采用四 die 架构</strong>，最高 80 核 GPU、512GB 统一内存、1.2TB/s 带宽，比 M3 Ultra 高 50%。</li><li><strong>新 Mac mini 与 Mac Studio 主打本地大模型</strong>，数百亿参数 LLM 可在设备上运行，开发者可用 Core ML/Metal 在本地微调。</li><li><strong>HN 评论称顶配 M5 Ultra 512GB 版本预估超 2.4 万美元</strong>，但仍有用户愿为本地 AI 性能买单。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍认可 Apple 硬件性能领先，但围绕 macOS 封闭生态、顶配高定价，以及是否应跳过此代等 M7 存在分歧。</p><div class="tags"><span class="tag">Apple Silicon</span><span class="tag">端侧 LLM 推理</span><span class="tag">2 纳米制程</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · alluro2 · 25 回复</div><p>I was blown away by M1 Pro, and used it for 4 years before it became a little sluggish, and replacing it with an Asus S16 running on Ryzen AI 9 HX 370 (an excellent laptop). One of the main reasons was missing my old Linux setup.</p><p>I&#x27;ve briefly tested M5 Pro in an Apple store and was surprised by how quick it felt and did anything. A tangible and significant difference, and I really feel it would be good getting it, or M6.</p><p>However - before, MacOS was a big factor driving me towards Apple - now, it would be hard for me to give up my Linux setup and all the stuff I love about it, even for such performance...Linux progressed really nicely, while MacOS deteriorated at the same rate, and it&#x27;s changing the balance and the decision for me.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://newsletter.semianalysis.com/p/openai-jalapeno-better-than-nvidia" target="_blank" rel="noopener">OpenAI Jalapeño: Better than Nvidia Blackwell</a></h2></div><p class="title-tr">OpenAI Jalapeño：优于 Nvidia Blackwell</p><div class="meta">▲ 331 分 · bmulholland · <a href="https://news.ycombinator.com/item?id=49434378" target="_blank" rel="noopener">226 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OpenAI 在 Hot Chips 公布自研推理芯片 Jalapeño，与 Broadcom 合作 16 个月完成流片。其每瓦特 token 吞吐在多个开源模型上超越 Nvidia Blackwell，单用户 DeepSeek R1 达 700+ token/s，B0 步进预计再提升 25%。定制推理芯片开始威胁 Nvidia 的推理主导地位。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 本文核心指标 perf/W 相当于模型推理的能效（每瓦特电力产出的 token 数），而 HBM4 是下一代高带宽内存，可理解为给推理芯片更宽的数据管道；这是理解性能对比的关键。</p><ul class="kp"><li><strong>Jalapeño 与 Broadcom 合作 16 个月完成流片</strong>，A0 步进即超越 Nvidia、AMD、Google 芯片。</li><li>Jalapeño 采用 <strong>HBM4</strong>，每瓦特 token 吞吐在多种模型上超过 Blackwell，单用户 DeepSeek R1 达 700+ token/s。</li><li>架构不拆解 prefill 和 decode，B0 步进已投片，预计 <strong>再提升 25% perf/W</strong>。</li><li>真正可比对象是 <strong>Vera Rubin</strong> 而非 Blackwell；当前成本与 Rubin 接近，但未用 speculative decoding。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍认为推理芯片竞争将推动 token 价格继续下降，同时讨论是否应将模型权重直接固化进芯片以换取速度和成本优势。</p><div class="tags"><span class="tag">LLM 推理芯片</span><span class="tag">AI 硬件能效</span><span class="tag">OpenAI 自研芯片</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · fraboniface · 9 回复</div><p>I hadn&#x27;t seen the token/Joules comparison with human speech before. Humans are still 22x more efficient, which is not that far considering the rate of progress in this area.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://github.com/ThinkOffApp/CarWatch" target="_blank" rel="noopener">Show HN: I made a Raspberry with Qwen my local car AI</a></h2></div><p class="title-tr">Show HN：我用树莓派和 Qwen 做了本地车载 AI</p><div class="meta">▲ 104 分 · petruspennanen · <a href="https://news.ycombinator.com/item?id=49435675" target="_blank" rel="noopener">23 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">项目在树莓派 5（16GB）上量化运行 Qwen3.6-35B-A3B，生成约 3.5 tok/s，离线回答车辆手册问题并接入聊天室代理；但 OBD 诊断读取尚未在真车验证。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 把你在深度学习里熟悉的模型压缩/量化用于端侧推理，但难点从训练指标转向车载供电、开机自启、网络隧道和汽车诊断接口这些系统集成。</p><ul class="kp"><li><strong>Qwen3.6-35B-A3B</strong> 量化到 14.3GB，在树莓派 5 上以约 3.5 tok/s 生成，离线运行。</li><li>系统用<strong>车主手册 RAG</strong> 回答并给出页码，不能感知的状态会明确说不知道，避免幻觉事实。</li><li><strong>OBD（车载诊断接口）读取</strong>仅用协议仿真网关测试，真实车辆验证仍未完成。</li><li>项目可自更新并通过隧道远程可达，但评论区质疑其对<strong>厂商云服务</strong>远程控制的真实性和安全性。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区主要分歧在于项目是否“真实/实用”：有人质疑对厂商云服务的控制、OBD 未经真车验证和 LLM 对车型年款细节不可靠，也有人称赞其技术野心。</p><div class="tags"><span class="tag">端侧推理</span><span class="tag">车载 AI</span><span class="tag">树莓派</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · ehnto · 3 回复</div><p>Fair warning, I have found local models and frontier models to be very bad at the specifics when it comes to cars.</p><p>Small differences like month and year model can impact oil capacity, oil weight and things like that, the details that matter quite a bit.</p><p>I found frontier models couldn&#x27;t get things like what engine was in a 1994 Nissan Skyline, one of the more infamous and talked about cars on internet forums for decades, with dedicated fan databases that would have been scraped.</p><p>Questions like &quot;what air filter do I need for my 1994 Suzuki Swift?&quot; are hit and miss.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://www.ycombinator.com/companies/clara-2/jobs/8snci6k-founding-full-stack-growth-engineer" target="_blank" rel="noopener">Clara (YC P26) is hiring a growth engineer to bring AI doctors to market</a></h2></div><p class="title-tr">Clara (YC P26) 招聘增长工程师，将 AI 医生推向市场</p><div class="meta">▲ 1 分 · gfavvas · <a href="https://news.ycombinator.com/item?id=49437566" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Clara 是一家由人类医生监督的 AI 初级保健初创公司，正在招聘增长工程师，年薪 $130K-$210K 加 0.10%-0.40% 股权，负责从获客到留存的完整漏斗。公司已融资 $12M pre-seed，创始人曾将 Circle Medical 做到年收入超 1 亿美元。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 如果你熟悉训练模型时对数据隐私和评估指标的严格约束，那么这里的 HIPAA（美国医疗隐私法）合规要求就是同类约束在医疗产品获客漏斗中的体现。</p><ul class="kp"><li><strong>Clara</strong> 是 YC 支持的 AI 医疗实践，每个医疗决策由人类医生审核，目标增加 10 亿年健康寿命。</li><li>招聘增长工程师，年薪 <strong>$130K-$210K</strong>，股权 0.10%-0.40%，要求 3 年以上全栈经验。</li><li>公司已融资 <strong>$12M pre-seed</strong>，创始人曾将 Circle Medical 做到年收入超 $100M。</li><li>技术栈包括 <strong>Amplitude</strong>、Customer.io、React 19、Python/Django，覆盖获客、实验、留存的端到端增长。</li></ul><div class="tags"><span class="tag">AI 医疗</span><span class="tag">招聘</span><span class="tag">增长工程</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://surya.website/rling-qwen-to-paint-with-code" target="_blank" rel="noopener">Training AI to Paint with Code</a></h2></div><p class="title-tr">训练 AI 用代码作画</p><div class="meta">▲ 195 分 · Tiberium · <a href="https://news.ycombinator.com/item?id=49411800" target="_blank" rel="noopener">22 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者用强化学习训练语言模型写可编辑的 JavaScript 代码来生成图像，让用户能直接改代码而非反复调提示词。核心问题是美学不可验证，于是手工设计奖励函数、581 张参考池和提示词；移除 400 行 API 文档后才停止幻觉 API。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中的 GRPO（Group Relative Policy Optimization）是一种基于组内相对比较的强化学习算法，类似策略优化算法但用同组样本互评产生奖励信号。</p><ul class="kp"><li><strong>训练循环</strong>将模型生成的 JavaScript 渲染成 PNG，再由评判模型比较后产生奖励信号，用 GRPO 更新。</li><li>参考池含 <strong>581 张手工评级图像</strong>，全部来自模型输出，因为难以获得足够人工示例。</li><li>移除 <strong>400 行 API 文档</strong>后改用 8 种画笔方法的严格允许列表，模型才停止幻觉 API。</li><li>作者认为创意任务 RL 的核心是<strong>设计可泛化的奖励函数</strong>，太松或太紧都会失败。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区对将类似方法扩展到 Logo 等图形语言感兴趣，猜测能否产生有趣设计。</p><div class="tags"><span class="tag">强化学习</span><span class="tag">代码生成图像</span><span class="tag">提示词优化</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · kickingkeys · 1 回复</div><p>Thank you for sharing this! did not expect to find my work on HN randomly haha</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://modelscope.cn/models/Qwen/Qwen3.8-Flash-Next" target="_blank" rel="noopener">Qwen 3.8-Flash-Next releasing tomorrow (125B a6B)</a></h2></div><p class="title-tr">Qwen 3.8-Flash-Next 明日发布（总参数 125B，激活参数 6B）</p><div class="meta">▲ 310 分 · garo-pro · <a href="https://news.ycombinator.com/item?id=49432317" target="_blank" rel="noopener">139 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">正文未能获取，信息有限。从标题与评论看，Qwen 3.8-Flash-Next 是总参数 125B、激活参数 6B 的 MoE（混合专家）模型，明日发布；HN 用户关注其能否在 128GB 内存的本地设备上以可用速度运行。</p><p class="context"><strong>🧭 联系你的知识背景</strong> MoE（混合专家）模型总参数大但每次只激活少数专家，125B 总参数仅需 6B 激活，可降低推理计算量，类似用稀疏激活换取容量和速度的平衡。</p><ul class="kp"><li><strong>Qwen 3.8-Flash-Next</strong> 总参数 125B、激活参数 6B，明日发布。</li><li>MoE 架构使其有望在 <strong>128GB Strix Halo/GB10</strong> 等本地设备上以接近可用速度运行。</li><li>OpenRouter 用户反映 <strong>Qwen 模型</strong> 容量不足且不稳定，需在代码中维护提供商黑白名单。</li><li><strong>FreeToken</strong> 推理引擎可优化 MoE 在 CPU/RAM 与 GPU/VRAM 间的任务分配，降低本地运行门槛。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区共识是期待 125B MoE 模型本地运行，但有人抱怨 OpenRouter 上 Qwen 模型可用性差，也有人关注其与 DeepSeek v4 Flash 的对比。</p><div class="tags"><span class="tag">MoE 模型</span><span class="tag">本地推理</span><span class="tag">开源 LLM</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · ddtaylor · 5 回复</div><p>I enjoy the Qwen models a lot, but building things on top of them with OpenRouter has been painful.</p><p>OpenRouter does a lot of great work and I really enjoy being able to use different models so easily. I like when a provider is phasing out an older model that still works for my needs and the price is much lower. It seems like such a good win-win.</p><p>However, the problem is that many Qwen models have almost no capacity or is so flaky you literally have to just litter your code with a blacklist/whitelist of providers. OpenRouter has some attempts to solve this, but they don&#x27;t work. In fact, OpenRouter has a lot of really cool stuff that is documented, but if you read the code it&#x27;s not yet implemented or isn&#x27;t actually there yet, which is a shame.</p><p>I tried to get in contact with them at OpenRouter about this and I was interested in working with them in the past, but it&#x27;s difficult to get in touch with the right people and they are growing very fast. I expect being acquired by Stripe will accelerate those problems in some ways. I have no doubt they will resolve all of these issues eventually and scaling that much that quickly is really hard, so kudos to them, but the road has been pretty lame and taken some wind out of my sails.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://blog.coredump.cx/p/how-much-of-hn-is-ai" target="_blank" rel="noopener">How much of HN is AI?</a></h2></div><p class="title-tr">HN 上有多少内容是 AI？</p><div class="meta">▲ 248 分 · surprisetalk · <a href="https://news.ycombinator.com/item?id=49435728" target="_blank" rel="noopener">297 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者在 2026 年 2 月和 6 月对 Hacker News 首页进行抽样，发现 AI 相关或疑似 AI 生成的故事占比从约 40% 升至 50%–60%；部分高赞文章被 Pangram 检测为疑似机器生成，引发社区对内容同质化的争论。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Pangram 是一个基于写作风格相似度判断文本是否由 LLM 生成的检测器；它利用的“默认风格一致性”与你熟悉的模型生成行为相似。</p><ul class="kp"><li><strong>40% 升至 50%–60%</strong>：Hacker News 首页 AI 相关内容占比在 2026 年上半年明显上升。</li><li>使用 <strong>Pangram</strong> 检测疑似 LLM 生成文章，发现部分高赞文章存在机器生成特征。</li><li>有评论认为分类过宽，把 <strong>Waymo 自动驾驶模型</strong> 等算作 AI 并不代表 LLM 垄断。</li><li>社区出现分流：部分用户转向 <strong>Lobsters</strong>，认为 Hacker News 的 AI 内容过多。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区核心分歧是 AI 占 Hacker News 一半左右是否合理，以及作者用检测器分类是否过于宽泛；也有人认为这是近二十年最重要的技术，占比并不异常。</p><div class="tags"><span class="tag">Hacker News</span><span class="tag">AI 生成内容检测</span><span class="tag">平台内容趋势</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · mgl · 20 回复</div><p>Democratization of access has its victims.</p><p>I miss the old newsgroups. I wish we could land again in that weird, colorful oceans of geeky individuals with their quirks and interesting nerdy takes.</p><p>15 years ago, HN was about bootstrapping and early YC stars.</p><p>10 years ago, HN was in full VC-enterprise sauce.</p><p>5 years ago, it was crypto and NFTs, and how I switch jobs every quarter.</p><p>Now it is a blurry view into the future through the black mirror of AI.</p><p>How could we jump back into the cozy past again?</p><p>I do not have a clear answer, but what seems to work for you are small groups of friends and friends of friends hanging out on WhatsApp or Discord, discussing geeky news together in the context of their backgrounds. But these are very curated and very closed groups, still operating on the social media platforms of behemoths.</p><p>Would now be the right time to restart self-hosted message boards or Mattermost/Campfire instances?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://twitter.com/paulg/status/2091544343589060625" target="_blank" rel="noopener">I were 17, I&#x27;d learn how to build LLMs from scratch</a></h2></div><p class="title-tr">如果我是 17 岁，我会学习从零构建大语言模型</p><div class="meta">▲ 592 分 · bilsbie · <a href="https://news.ycombinator.com/item?id=49412396" target="_blank" rel="noopener">673 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Paul Graham 发推建议 17 岁的人从零构建并训练尽可能强的 LLM，获 110 万浏览；HN 争议集中在这是建立底层直觉还是学习可能过时的技能。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 读者已熟悉 Transformer 与训练流程，因此本文核心不是技术细节，而是教育路径判断与技能时效性权衡。</p><ul class="kp"><li><strong>Paul Graham</strong> 建议 17 岁从零构建并训练 LLM，利用能获得的硬件尽量做大规模。</li><li>原推获 <strong>110 万</strong> 浏览，评论提到 Karpathy 视频和 Raschka 书籍等免费入门资源。</li><li><strong>Yann LeCun</strong> 持反对意见，认为具体模型知识可能过时，数学与基础更重要。</li><li>支持者类比“构建操作系统”课程，强调理解底层权重和数学能提升模型直觉与判断。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论分歧明显：支持者视其为建立底层直觉的现代路径，反对者认为不如优先数学、基础能力和社交。</p><div class="tags"><span class="tag">LLM 从零构建</span><span class="tag">AI 教育</span><span class="tag">Paul Graham</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · chris_va · 14 回复</div><p>I am kind of amazed how negative the comments are here, especially on HN.</p><p>Learning to hack something together in high school using the latest technology (vacuum tubes, radios, microprocessors, web/javascript) has been a common theme in the tech world for generations. With LLMs and online tutorials, this isn&#x27;t even a difficult suggestion. Do people think learning new tech is somehow wasted effort?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://www.wsj.com/tech/ai/openais-head-of-data-centers-has-left-company-6d24fd83" target="_blank" rel="noopener">OpenAI&#x27;s Head of Data Centers Has Left the Company</a></h2></div><p class="title-tr">OpenAI 数据中心负责人已离职</p><div class="meta">▲ 38 分 · root-parent · <a href="https://news.ycombinator.com/item?id=49439489" target="_blank" rel="noopener">14 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">信息有限：OpenAI 数据中心负责人离职，评论区称其任期约一年。该岗位负责支撑大模型训练与推理的物理算力，其空缺正值公司多名高管出走、市场质疑资金与 IPO 前景之际。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 数据中心负责人不负责模型算法，而是管理支撑训练与推理的机房、服务器和电力；对熟悉深度学习的读者来说，这相当于模型训练所依赖的物理基础设施层。</p><ul class="kp"><li><strong>OpenAI 数据中心负责人</strong>离职，评论区称其任期仅约一年。</li><li>多位<strong>高管近期离开 OpenAI</strong>，引发外界对其内部稳定性与资金储备的猜测。</li><li>评论将 OpenAI 与 Anthropic 类比为 <strong>Twitter 与 Facebook</strong>，担忧管理层动荡拖累执行。</li><li>数据中心负责人的空缺可能影响 OpenAI 的<strong>算力扩张节奏</strong>，进而波及其模型训练能力。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是高管频繁离职值得警惕，但分歧在于这是资金或治理危机信号，还是仅暴露类似 Twitter 对比 Facebook 时的执行风险。</p><div class="tags"><span class="tag">OpenAI</span><span class="tag">AI 基础设施</span><span class="tag">高管离职</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · evanwolf · 1 回复</div><p>Four years to vest anywhere, what&#x27;s the math to leave so early?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://zenodo.org/records/19882078" target="_blank" rel="noopener">Cross-vendor byte-identical inference for a 72B LLM (AMD MI300X vs. Nvidia H100)</a></h2></div><p class="title-tr">跨厂商字节级一致的 72B 大语言模型推理（AMD MI300X 对比 Nvidia H100）</p><div class="meta">▲ 5 分 · ashsyngh · <a href="https://news.ycombinator.com/item?id=49440102" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">该协议让 72B 级模型推理输出字节级一致，并绑定可离线验证的签名收据；AMD MI300X 与 Nvidia H100 单 GPU 输出哈希逐字节相同，验证约 80 微秒/次，11,000 次推理零失败。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这里的“字节级一致”不是模型效果评测，而是把推理变成可复现、可审计的计算；“签名收据”类似比特币交易签名，但应用于证明 AI 输出确实由某模型产生。</p><ul class="kp"><li><strong>字节级一致性</strong>：同模型在 AMD MI300X 与 Nvidia H100 单 GPU 上输出哈希完全一致，跨 51 个以上 token 的连续生成仍逐字节匹配。</li><li><strong>签名收据</strong>：采用 CBOR 格式与 Ed25519 签名，Go、Python、Rust 三语言实现跨语言字节一致，AMD 产生的收据可由 x86 NVIDIA 硬件验证。</li><li><strong>验证成本</strong>：单核约 <strong>80 微秒/收据</strong>，11,000 次顺序热模型推理无一次字节一致性失败。</li><li><strong>实际边界</strong>：双 GPU 张量并行下，因 <strong>NVIDIA 集合通信库 NCCL 与 AMD 的 RCCL</strong> 通信拓扑不同，输出可预测地不同，但各自保持确定性。</li></ul><div class="tags"><span class="tag">LLM 推理</span><span class="tag">可验证 AI</span><span class="tag">确定性计算</span></div></div></article>
+</div></main>
+<footer>generated 2026-08-26 01:58 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-26", "pointsLabel": "分", "commentsLabel": "评论", "title": "Apple introduces M6 and M5 Ultra", "titleTranslation": "Apple 推出 M6 和 M5 Ultra", "summary": "苹果发布 M6 与 M5 Ultra：M6 是首颗 2 纳米芯片，配 12 核 CPU/GPU 和双 16 核神经引擎；M5 Ultra 采用四 die 架构，最高 80 核 GPU、512GB 统一内存、1.2TB/s 带宽，可本地运行数百亿参数大模型。", "keyPoints": ["M6 是苹果首颗 2 纳米芯片，12 核 CPU/GPU，双 16 核神经引擎，AI 峰值算力较前代提升约 2 倍。", "M5 Ultra 首次采用四 die 架构，最高 80 核 GPU、512GB 统一内存、1.2TB/s 带宽，比 M3 Ultra 高 50%。", "新 Mac mini 与 Mac Studio 主打本地大模型，数百亿参数 LLM 可在设备上运行，开发者可用 Core ML/Metal 在本地微调。"], "discussion": "评论普遍认可 Apple 硬件性能领先，但围绕 macOS 封闭生态、顶配高定价，以及是否应跳过此代等 M7 存在分歧。", "tags": ["Apple Silicon", "端侧 LLM 推理", "2 纳米制程"], "score": 963, "comments": 902, "by": "interpol_p", "url": "https://www.apple.com/newsroom/2026/08/apple-introduces-m6-and-m5-ultra-for-a-big-leap-in-performance-and-ai-compute/", "hnUrl": "https://news.ycombinator.com/item?id=49433292"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-26", "pointsLabel": "分", "commentsLabel": "评论", "title": "OpenAI Jalapeño: Better than Nvidia Blackwell", "titleTranslation": "OpenAI Jalapeño：优于 Nvidia Blackwell", "summary": "OpenAI 在 Hot Chips 公布自研推理芯片 Jalapeño，与 Broadcom 合作 16 个月完成流片。其每瓦特 token 吞吐在多个开源模型上超越 Nvidia Blackwell，单用户 DeepSeek R1 达 700+ token/s，B0 步进预计再提升 25%。定制推理芯片开始威胁 Nvidia 的推理主导地位。", "keyPoints": ["Jalapeño 与 Broadcom 合作 16 个月完成流片，A0 步进即超越 Nvidia、AMD、Google 芯片。", "Jalapeño 采用 HBM4，每瓦特 token 吞吐在多种模型上超过 Blackwell，单用户 DeepSeek R1 达 700+ token/s。", "架构不拆解 prefill 和 decode，B0 步进已投片，预计 再提升 25% perf/W。"], "discussion": "评论区普遍认为推理芯片竞争将推动 token 价格继续下降，同时讨论是否应将模型权重直接固化进芯片以换取速度和成本优势。", "tags": ["LLM 推理芯片", "AI 硬件能效", "OpenAI 自研芯片"], "score": 331, "comments": 226, "by": "bmulholland", "url": "https://newsletter.semianalysis.com/p/openai-jalapeno-better-than-nvidia", "hnUrl": "https://news.ycombinator.com/item?id=49434378"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-26", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: I made a Raspberry with Qwen my local car AI", "titleTranslation": "Show HN：我用树莓派和 Qwen 做了本地车载 AI", "summary": "项目在树莓派 5（16GB）上量化运行 Qwen3.6-35B-A3B，生成约 3.5 tok/s，离线回答车辆手册问题并接入聊天室代理；但 OBD 诊断读取尚未在真车验证。", "keyPoints": ["Qwen3.6-35B-A3B 量化到 14.3GB，在树莓派 5 上以约 3.5 tok/s 生成，离线运行。", "系统用车主手册 RAG 回答并给出页码，不能感知的状态会明确说不知道，避免幻觉事实。", "OBD（车载诊断接口）读取仅用协议仿真网关测试，真实车辆验证仍未完成。"], "discussion": "评论区主要分歧在于项目是否“真实/实用”：有人质疑对厂商云服务的控制、OBD 未经真车验证和 LLM 对车型年款细节不可靠，也有人称赞其技术野心。", "tags": ["端侧推理", "车载 AI", "树莓派"], "score": 104, "comments": 23, "by": "petruspennanen", "url": "https://github.com/ThinkOffApp/CarWatch", "hnUrl": "https://news.ycombinator.com/item?id=49435675"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-26", "pointsLabel": "分", "commentsLabel": "评论", "title": "Clara (YC P26) is hiring a growth engineer to bring AI doctors to market", "titleTranslation": "Clara (YC P26) 招聘增长工程师，将 AI 医生推向市场", "summary": "Clara 是一家由人类医生监督的 AI 初级保健初创公司，正在招聘增长工程师，年薪 $130K-$210K 加 0.10%-0.40% 股权，负责从获客到留存的完整漏斗。公司已融资 $12M pre-seed，创始人曾将 Circle Medical 做到年收入超 1 亿美元。", "keyPoints": ["Clara 是 YC 支持的 AI 医疗实践，每个医疗决策由人类医生审核，目标增加 10 亿年健康寿命。", "招聘增长工程师，年薪 $130K-$210K，股权 0.10%-0.40%，要求 3 年以上全栈经验。", "公司已融资 $12M pre-seed，创始人曾将 Circle Medical 做到年收入超 $100M。"], "discussion": "", "tags": ["AI 医疗", "招聘", "增长工程"], "score": 1, "comments": 0, "by": "gfavvas", "url": "https://www.ycombinator.com/companies/clara-2/jobs/8snci6k-founding-full-stack-growth-engineer", "hnUrl": "https://news.ycombinator.com/item?id=49437566"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-26", "pointsLabel": "分", "commentsLabel": "评论", "title": "Training AI to Paint with Code", "titleTranslation": "训练 AI 用代码作画", "summary": "作者用强化学习训练语言模型写可编辑的 JavaScript 代码来生成图像，让用户能直接改代码而非反复调提示词。核心问题是美学不可验证，于是手工设计奖励函数、581 张参考池和提示词；移除 400 行 API 文档后才停止幻觉 API。", "keyPoints": ["训练循环将模型生成的 JavaScript 渲染成 PNG，再由评判模型比较后产生奖励信号，用 GRPO 更新。", "参考池含 581 张手工评级图像，全部来自模型输出，因为难以获得足够人工示例。", "移除 400 行 API 文档后改用 8 种画笔方法的严格允许列表，模型才停止幻觉 API。"], "discussion": "评论区对将类似方法扩展到 Logo 等图形语言感兴趣，猜测能否产生有趣设计。", "tags": ["强化学习", "代码生成图像", "提示词优化"], "score": 195, "comments": 22, "by": "Tiberium", "url": "https://surya.website/rling-qwen-to-paint-with-code", "hnUrl": "https://news.ycombinator.com/item?id=49411800"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-26", "pointsLabel": "分", "commentsLabel": "评论", "title": "Qwen 3.8-Flash-Next releasing tomorrow (125B a6B)", "titleTranslation": "Qwen 3.8-Flash-Next 明日发布（总参数 125B，激活参数 6B）", "summary": "正文未能获取，信息有限。从标题与评论看，Qwen 3.8-Flash-Next 是总参数 125B、激活参数 6B 的 MoE（混合专家）模型，明日发布；HN 用户关注其能否在 128GB 内存的本地设备上以可用速度运行。", "keyPoints": ["Qwen 3.8-Flash-Next 总参数 125B、激活参数 6B，明日发布。", "MoE 架构使其有望在 128GB Strix Halo/GB10 等本地设备上以接近可用速度运行。", "OpenRouter 用户反映 Qwen 模型 容量不足且不稳定，需在代码中维护提供商黑白名单。"], "discussion": "HN 评论区共识是期待 125B MoE 模型本地运行，但有人抱怨 OpenRouter 上 Qwen 模型可用性差，也有人关注其与 DeepSeek v4 Flash 的对比。", "tags": ["MoE 模型", "本地推理", "开源 LLM"], "score": 310, "comments": 139, "by": "garo-pro", "url": "https://modelscope.cn/models/Qwen/Qwen3.8-Flash-Next", "hnUrl": "https://news.ycombinator.com/item?id=49432317"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-26", "pointsLabel": "分", "commentsLabel": "评论", "title": "How much of HN is AI?", "titleTranslation": "HN 上有多少内容是 AI？", "summary": "作者在 2026 年 2 月和 6 月对 Hacker News 首页进行抽样，发现 AI 相关或疑似 AI 生成的故事占比从约 40% 升至 50%–60%；部分高赞文章被 Pangram 检测为疑似机器生成，引发社区对内容同质化的争论。", "keyPoints": ["40% 升至 50%–60%：Hacker News 首页 AI 相关内容占比在 2026 年上半年明显上升。", "使用 Pangram 检测疑似 LLM 生成文章，发现部分高赞文章存在机器生成特征。", "有评论认为分类过宽，把 Waymo 自动驾驶模型 等算作 AI 并不代表 LLM 垄断。"], "discussion": "评论区核心分歧是 AI 占 Hacker News 一半左右是否合理，以及作者用检测器分类是否过于宽泛；也有人认为这是近二十年最重要的技术，占比并不异常。", "tags": ["Hacker News", "AI 生成内容检测", "平台内容趋势"], "score": 248, "comments": 297, "by": "surprisetalk", "url": "https://blog.coredump.cx/p/how-much-of-hn-is-ai", "hnUrl": "https://news.ycombinator.com/item?id=49435728"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-26", "pointsLabel": "分", "commentsLabel": "评论", "title": "I were 17, I'd learn how to build LLMs from scratch", "titleTranslation": "如果我是 17 岁，我会学习从零构建大语言模型", "summary": "Paul Graham 发推建议 17 岁的人从零构建并训练尽可能强的 LLM，获 110 万浏览；HN 争议集中在这是建立底层直觉还是学习可能过时的技能。", "keyPoints": ["Paul Graham 建议 17 岁从零构建并训练 LLM，利用能获得的硬件尽量做大规模。", "原推获 110 万 浏览，评论提到 Karpathy 视频和 Raschka 书籍等免费入门资源。", "Yann LeCun 持反对意见，认为具体模型知识可能过时，数学与基础更重要。"], "discussion": "HN 评论分歧明显：支持者视其为建立底层直觉的现代路径，反对者认为不如优先数学、基础能力和社交。", "tags": ["LLM 从零构建", "AI 教育", "Paul Graham"], "score": 592, "comments": 673, "by": "bilsbie", "url": "https://twitter.com/paulg/status/2091544343589060625", "hnUrl": "https://news.ycombinator.com/item?id=49412396"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-26", "pointsLabel": "分", "commentsLabel": "评论", "title": "OpenAI's Head of Data Centers Has Left the Company", "titleTranslation": "OpenAI 数据中心负责人已离职", "summary": "信息有限：OpenAI 数据中心负责人离职，评论区称其任期约一年。该岗位负责支撑大模型训练与推理的物理算力，其空缺正值公司多名高管出走、市场质疑资金与 IPO 前景之际。", "keyPoints": ["OpenAI 数据中心负责人离职，评论区称其任期仅约一年。", "多位高管近期离开 OpenAI，引发外界对其内部稳定性与资金储备的猜测。", "评论将 OpenAI 与 Anthropic 类比为 Twitter 与 Facebook，担忧管理层动荡拖累执行。"], "discussion": "评论区共识是高管频繁离职值得警惕，但分歧在于这是资金或治理危机信号，还是仅暴露类似 Twitter 对比 Facebook 时的执行风险。", "tags": ["OpenAI", "AI 基础设施", "高管离职"], "score": 38, "comments": 14, "by": "root-parent", "url": "https://www.wsj.com/tech/ai/openais-head-of-data-centers-has-left-company-6d24fd83", "hnUrl": "https://news.ycombinator.com/item?id=49439489"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-26", "pointsLabel": "分", "commentsLabel": "评论", "title": "Cross-vendor byte-identical inference for a 72B LLM (AMD MI300X vs. Nvidia H100)", "titleTranslation": "跨厂商字节级一致的 72B 大语言模型推理（AMD MI300X 对比 Nvidia H100）", "summary": "该协议让 72B 级模型推理输出字节级一致，并绑定可离线验证的签名收据；AMD MI300X 与 Nvidia H100 单 GPU 输出哈希逐字节相同，验证约 80 微秒/次，11,000 次推理零失败。", "keyPoints": ["字节级一致性：同模型在 AMD MI300X 与 Nvidia H100 单 GPU 上输出哈希完全一致，跨 51 个以上 token 的连续生成仍逐字节匹配。", "签名收据：采用 CBOR 格式与 Ed25519 签名，Go、Python、Rust 三语言实现跨语言字节一致，AMD 产生的收据可由 x86 NVIDIA 硬件验证。", "验证成本：单核约 80 微秒/收据，11,000 次顺序热模型推理无一次字节一致性失败。"], "discussion": "", "tags": ["LLM 推理", "可验证 AI", "确定性计算"], "score": 5, "comments": 0, "by": "ashsyngh", "url": "https://zenodo.org/records/19882078", "hnUrl": "https://news.ycombinator.com/item?id=49440102"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
