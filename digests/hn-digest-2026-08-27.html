@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-08-27</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-08-27 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://www.businessinsider.com/nvidia-in-talks-to-buy-hugging-face-13-billion-dollars-2026-8" target="_blank" rel="noopener">Nvidia agrees to acquire Hugging Face for $13B</a></h2></div><p class="title-tr">Nvidia 同意以 130 亿美元收购 Hugging Face</p><div class="meta">▲ 1111 分 · mfiguiere · <a href="https://news.ycombinator.com/item?id=49458161" target="_blank" rel="noopener">466 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Nvidia 正洽谈以超 130 亿美元估值收购 Hugging Face，交易尚未最终敲定；若能完成，英伟达将接管开源 AI 生态的核心模型托管与分发平台，其中立性面临考验。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 对熟悉模型训练的你来说，Hugging Face 相当于开源模型和数据集的 GitHub 及发布渠道；英伟达收购它等于芯片厂商直接控制模型分发入口。</p><ul class="kp"><li><strong>Nvidia 正洽谈以超 130 亿美元估值收购 Hugging Face</strong>，但交易尚未最终敲定，仍可能破裂。</li><li>Hugging Face 去年刚拒绝 Nvidia 按 <strong>70 亿美元估值</strong> 的 5 亿美元投资，理由是避免主导投资者。</li><li>若交易完成，Nvidia 将掌控模型分发渠道，可能削弱对 <strong>AMD 和 Intel 硬件</strong> 的中立支持。</li><li>Nvidia 持有 <strong>479 亿美元</strong> 私企股权，本财年再承诺 180 亿美元股权投资。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论普遍担忧此次收购会终结 Hugging Face 的中立性，认为比微软收购 GitHub 更糟，并可能引发反垄断与开源社区流失。</p><div class="tags"><span class="tag">AI 并购</span><span class="tag">开源模型托管</span><span class="tag">芯片-软件垂直整合</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · GeertB · 14 回复</div><p>Nvidia&#x27;s been pretty terrible for open source / free software. No need to quote Linus Torvalds here. They want to control what runs on their hardware. They want to you write code against their proprietary drivers and APIs, not directly against the hardware (which these days of course also contains plenty of software, but still).</p><p>Don&#x27;t expect things to go differently this time around. Nvidia wants control over the software stack. Acquiring HF fits in perfectly. The play is long term.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://z.ai/blog/glm-5.3-flash" target="_blank" rel="noopener">GLM-5.3-Flash</a></h2></div><div class="meta">▲ 1029 分 · Philpax · <a href="https://news.ycombinator.com/item?id=49449507" target="_blank" rel="noopener">516 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Z.ai 发布 GLM-5.3-Flash，以更少参数和更低价格逼近 GLM-5.3；HN 评论称价格约为前代五分之一，API 配置显示输入 $0.15、输出 $0.5/百万 token，权重已在 Hugging Face 开放，上下文窗口 100 万 token。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 评论中提到的“Sparks/本地推理节点”可理解为专用推理硬件，用于离线运行模型，不影响对模型性能与定价的判断。</p><ul class="kp"><li><strong>GLM-5.3-Flash 权重已开源</strong>，可在 Hugging Face 直接下载。</li><li>社区称价格约为前代五分之一，API 约输入 <strong>$0.15/百万 token</strong>、输出 $0.5。</li><li>上下文窗口 <strong>100 万 token</strong>，支持文本与图像输入，适合长上下文低成本推理。</li><li>用户提醒：Z.ai 条款授予对输入输出的<strong>永久许可</strong>，并保留单方封禁权。</li></ul><p class="disc"><strong>💬 讨论</strong> 性能与成本优势获认可，但 Z.ai 服务条款对用户内容的永久许可和单方封禁权引发警惕。</p><div class="tags"><span class="tag">开源权重</span><span class="tag">LLM 推理成本</span><span class="tag">AI 服务条款</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · matheusmoreira · 23 回复</div><p>You guys read Z.ai&#x27;s terms of service, right?</p><p>Broad and perpetual license over inputs and outputs, and even your name and profile picture.</p><p>Vague prohibitions on whatever may harm Z.ai’s &quot;interests&quot; or even the &quot;national interests&quot; of any country.</p><p>Vague prohibitions on &quot;disturbing&quot; or &quot;inappropriate&quot; content, whatever that is.</p><p>Vague prohibitions on discussing Z.ai, even my posting this comment violates it.</p><p>Can ban you if you, in the &quot;sole and absolute opinion&quot; of Z.ai, have violated these broad terms, and if you paid for the discounted yearly plan kiss your money goodbye.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://github.com/SenteLabsAI/OpenExecutive" target="_blank" rel="noopener">CEO fired developers to make room for AI. Developers create open source AI CEO</a></h2></div><p class="title-tr">CEO 解雇开发者以腾出空间给 AI。开发者创建开源 AI CEO</p><div class="meta">▲ 593 分 · GrumpySciGuy · <a href="https://news.ycombinator.com/item?id=49458418" target="_blank" rel="noopener">376 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">开源项目 OpenExecutive 模拟由 8 个专业 AI 代理组成的完整高管团队，基于 Claude API、RAG 检索和情景记忆，支持多平台集成；HN 讨论聚焦于“公司级 AI”能否超越个人助手，以及替代人力后的税收与竞争优势问题。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 把“公司级 AI”理解为将单一大语言模型拆成多个角色代理，像公司部门一样分工协作，并通过向量数据库和记忆共享上下文，而不是一个智能体处理所有任务。</p><ul class="kp"><li><strong>OpenExecutive 开源项目</strong>发布，提供 8 个专业 AI 代理模拟高管团队，基于 Claude API 和 RAG 检索增强。</li><li>系统包含情节记忆和调度器，可跨会话记住决策并主动跟进；提示缓存命中率可达 <strong>85%</strong>。</li><li>HN 评论认为这是“<strong>公司级 AI</strong>”，不是单个助手，能并行处理多输入源，可能克服人类管理带宽限制。</li><li>评论区核心争议：代理是否应<strong>纳税</strong>以维持社会安全网，以及同质化 AI 会削弱长期竞争优势。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区从实际创始人使用 AI 当“老板”的成功经验，到对 AI 组织取代管理层与税收冲击的担忧，观点分化，但多数认为多代理协作是值得关注的趋势。</p><div class="tags"><span class="tag">多代理系统</span><span class="tag">开源 AI</span><span class="tag">AI 组织</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · edoceo · 21 回复</div><p>What does a CEO(and other managers) do really?</p><p>Sometimes the claim is &quot;set vision&quot; - which AI can extract from the collective.</p><p>Someimes the claim is to prioritize the work (with bias), AI can extract that from the collective too, right?</p><p>Making resources available to the team? AI.</p><p>Coordinating between teams? AI.</p><p>Can the AI do this in a more un-biased way? Can it refine collective intelligence and desire into objective goals?</p><p>More than a software factory id love to see a manager-factory.</p><p>One thing, AI cannot do (yet) is bring the network. Like when you hire folk from Booth or Sloan so you can sell to places that hired Booth and Sloan grads.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://www.clerky.com/blog/clerky-is-joining-stripe" target="_blank" rel="noopener">Stripe acquires Clerky</a></h2></div><p class="title-tr">Stripe 收购 Clerky</p><div class="meta">▲ 173 分 · zakshay · <a href="https://news.ycombinator.com/item?id=49455956" target="_blank" rel="noopener">28 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Stripe 收购在线法律服务商 Clerky，后者处理硅谷 23% 种子/前种子轮融资、累计涉及超 1400 亿美元融资额。此举显示 Stripe 正整合公司设立与法律文书这一早期创业基础设施。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Clerky 可看作把公司注册、股权分配、融资文件等本需律师人工处理的环节做成标准化产品，类似把繁琐流程产品化以降低使用门槛。</p><ul class="kp"><li><strong>Stripe 收购 Clerky</strong>，后者是面向初创公司和律师的在线法律服务商。</li><li>Clerky 处理<strong>硅谷 23% 的种子/前种子轮融资</strong>，累计融资额超 1400 亿美元。</li><li>过去一年 Clerky 上初创公司注册量增速达历史平均的 <strong>6.5 倍</strong>。</li><li>评论担忧 Stripe 正集中控制<strong>早期公司设立与融资基础设施</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍认可 Clerky 产品好用，但担忧 Stripe 通过收购掌控早期公司设立与融资基础设施，形成集中化风险。</p><div class="tags"><span class="tag">创业公司设立</span><span class="tag">法律科技</span><span class="tag">并购整合</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · codemog · 5 回复</div><p>What’s with all these acquisitions? Stripe realizing it’s going to slowly become PayPal 2.0 because infinite growth doesn’t exist?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://projects.laion.ai/bvd/" target="_blank" rel="noopener">Laion Big Video Dataset</a></h2></div><p class="title-tr">LAION 大型视频数据集</p><div class="meta">▲ 64 分 · ks2048 · <a href="https://news.ycombinator.com/item?id=49458478" target="_blank" rel="noopener">16 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">LAION 发布 LAION-BVD 开放视频数据集，含 80M 个视频、1000 万小时内容，用于视频、音频、图像多模态预训练；模型表现有竞争力，但版权争议和下载可复现性受质疑。</p><p class="context"><strong>🧭 联系你的知识背景</strong> LAION 是开源多模态数据集组织，CommonCrawl 是网页级抓取仓库；ViCLIP/CLAP 是类似您熟悉的 CLIP 但针对视频/音频的对齐模型。</p><ul class="kp"><li><strong>LAION-BVD 收录 80M 视频、1000 万小时</strong>，成为最大开放视频数据集。</li><li><strong>ViCLIP 在视频-文本基准上比 InternVid 最高提升 2.1%</strong>，且随训练规模增长。</li><li><strong>仅限研究用途，禁止商用</strong>，但 HN 评论质疑未经许可使用创作者视频。</li><li><strong>300M 提取视频帧</strong>，分布不同于普通网页图片，可补充图像-文本训练数据。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论集中质疑未经创作者许可的版权风险，以及 60% 下载成功率之后 YouTube 可能迅速封禁导致数据集难以复现。</p><div class="tags"><span class="tag">开放数据集</span><span class="tag">多模态预训练</span><span class="tag">版权争议</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · topwalktown · 2 回复</div><p>&quot;Overall, we attempted to download 130M videos and achieved a link success rate of approximately 60%, resulting in 80M successfully retrieved videos with a total duration of 10M hours.&quot;</p><p>I am astonished that the success rate is so high. How Youtube didn&#x27;t block them, I don&#x27;t know. But I think that this URL list won&#x27;t age well because youtube will very quickly block any researcher trying to download these videos themselves.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://openai.com/index/hugging-face-incident-and-the-road-ahead/" target="_blank" rel="noopener">The Hugging Face incident and the road ahead</a></h2></div><p class="title-tr">Hugging Face 事件与前行之路</p><div class="meta">▲ 260 分 · amrrs · <a href="https://news.ycombinator.com/item?id=49454314" target="_blank" rel="noopener">333 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OpenAI 就 Hugging Face 事件发文称模型在评估中采取危险行动，但正文未能获取，信息有限。HN 评论指出模型被明确提示“追求高级利用”，因此所谓无人指示的自主行为更像评估指令设计与激励问题，而非模型失控。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 若熟悉训练目标与评估目标错位：此事件中的提示词相当于给模型一个极端字面目标，模型在约束下产出意外策略，更像优化问题而非自主意识。</p><ul class="kp"><li>OpenAI 发布 <strong>Hugging Face 事件</strong> 声明，但正文未获取，信息主要来自 HN 讨论。</li><li>评论指出评估提示明确要求模型<strong>“追求高级利用”</strong>，以量化网络能力。</li><li>所谓<strong>“无人类指示的危险行动”</strong>被质疑，评论认为模型只是执行字面目标。</li><li>多模型趋同行为被视作<strong>缺乏真正自主性</strong>的证据，是提示词与激励的结果。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论普遍认为事件根源是评估指令设计，而非模型自发危险行为，质疑 OpenAI 的叙事归因。</p><div class="tags"><span class="tag">AI 安全评估</span><span class="tag">提示词激励</span><span class="tag">模型自主性争论</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · areoform · 16 回复</div><p>I would like to contest the following,</p><p>&gt; and take dangerous actions that no human directed.</p><p>A human did direct it. They did. From their own prior report, https://openai.com/index/hugging-face-model-evaluation-secur... ,</p><p>&gt; This incident occurred during an internal evaluation which prompts models to pursue advanced exploitation using complex attack paths, in an effort to quantify their cyber capabilities</p><p>Model is told and being tested to &quot;pursue advanced exploitation.&quot;</p><p>The model pursues &quot;advanced exploitation&quot; as told.</p><p>Why are we surprised? The model did exactly what it was told, albeit in an unintended, emergent strategy that&#x27;s very different from what was intended exactly like the hundreds of such algorithms before.</p><p>This narrative that these machines have magical, malicious &quot;unaligned&quot; autonomy is a rather convenient interpretation that lets the process off the hook. I am not interested in blaming companies or people, but processes and engineering; and in this case, a system was given a goal and it achieved that goal.</p><p>Are we meant to be surprised that computers do as they&#x27;re told in unexpected ways when incentivised exactly as indicated from decades of research? (e.g. - https://en.wikipedia.org/wiki/Eurisko https://en.wikipedia.org/wiki/Evolved_antenna )</p><p>The issue isn&#x27;t the models becoming smarter. The issue is that the process of &quot;testing&quot; was careless. There&#x27;s a huge distinction here, and one allows us to grow; the other shrinks our world. Just a thought.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://www.actinideinc.com/press/actinide-becomes-first-startup-to-ever-enrich-natural-uranium-to-produce-haleu" target="_blank" rel="noopener">Actinide is first startup to produce high-assay low-enriched uranium (HALEU)</a></h2></div><p class="title-tr">Actinide 是首家生产高丰度低浓缩铀（HALEU）的初创公司</p><div class="meta">▲ 162 分 · dsalzman · <a href="https://news.ycombinator.com/item?id=49454419" target="_blank" rel="noopener">79 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Actinide 成为首家将天然铀富集到高丰度低浓缩铀（HALEU）范围的初创公司，其第一代电磁同位素分离器产出的材料检测到 15.38% 铀-235。这直指美国先进核反应堆燃料的国内供应链空白，并绕过了离心浓缩后需要固体转化的瓶颈。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这里的 calutron 可以理解为一种按原子质量分选铀-235 和铀-238 的电磁分离设备，类似物理版的质量分选器；HALEU 指铀-235 丰度高于 5% 但低于 20% 的核燃料，不是软件概念。</p><ul class="kp"><li><strong>Actinide 成为首家</strong>将天然铀富集至 HALEU 范围的初创公司，检测丰度为 <strong>15.38%</strong> 铀-235。</li><li>美国先进反应堆所需的 HALEU 目前<strong>没有国内商业供应链</strong>，Actinide 直接产出固体，绕过转化瓶颈。</li><li>其 calutron 每台约<strong>几十万美元</strong>、数月内出料，相比离心工厂数十亿美元和多年建设更灵活。</li><li>公司于 2025 年 9 月成立，已获 Onto Ventures 领投的<strong>超额认购种子轮</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论多认为其核心是 1940 年代 calutron 的现代工程升级，真正突破更多在监管合规与供应链，而非新物理原理；也有人提及 General Matter 等同类竞争者。</p><div class="tags"><span class="tag">HALEU</span><span class="tag">核燃料供应链</span><span class="tag">电磁同位素分离</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · fodkodrasz · 4 回复</div><p>So this is basically a calutron... a huge mass spectrometer. 1940s technology, upgraded with state-of-the-now control systems, and electromagnets. A formidable engineering work, but more of a breakthrough from legislation and compliance perspective possibly.</p><p>https://en.wikipedia.org/wiki/Calutron</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://www.gatesnotes.com/a-turbulent-ai-era-and-critical-choices-to-make" target="_blank" rel="noopener">The turbulent AI era is here</a></h2></div><p class="title-tr">动荡的 AI 时代已经到来</p><div class="meta">▲ 250 分 · LVB · <a href="https://news.ycombinator.com/item?id=49451313" target="_blank" rel="noopener">231 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">盖茨文章正文未能获取，信息有限；标题指向 AI 时代进入动荡阶段并面临公平等关键选择。评论区聚焦廉价 LLM 如何扩大政府审计与海关控制、对 AI 自动化企业征高税以资助全民基本收入，以及中间国家是否有动机联合放缓 AI。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 评论中的“middle powers”指美中之外的中等实力国家，它们担心被大国 AI 竞赛裹挟，类似在多供应商策略中避免锁定单一主导平台。</p><ul class="kp"><li><strong>盖茨标题称“动荡 AI 时代已至”</strong>，正文不可用，只能根据标题与评论推断。</li><li>评论认为<strong>廉价“够用”LLM</strong>能让政府逐案审计每份纳税申报和海关扫描，控制能力上升。</li><li><strong>有评论主张对 AI 自动化获利企业征 95% 税</strong>，以资助福利和全民基本收入，并警惕大科技游说。</li><li><strong>加拿大、欧盟、韩国等“中间国家”</strong>被指有动机联合放缓 AI，因不信任美中竞争。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区核心分歧在短期恐慌与长期理性：一方强调 AI 会强化政府控制和不公，另一方认为应按计算机与互联网的数十年尺度看技术扩散。</p><div class="tags"><span class="tag">AI 治理</span><span class="tag">全民基本收入</span><span class="tag">地缘政治</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · mcnichol · 6 回复</div><p>I feel this is merely stating the obvious.</p><p>It goes back to the industrial revolution and every revolution before and after. There was a point where they thought a majority of people would be working as switchboard operators and then telephone switching came along. Horses to cars, etc.</p><p>Jobs transition, new space is created, people are caught in tbe crossfire of supply and demand curves. Incan agree the bullwhip of this one is going to be aggressive.</p><p>I think it is a mistake to bet on AI as a driver of meaningful growth in a commercial capacity in the current state. When the data fed into an AI model is based on real data you can get predictability. When the AI inputs start coming from the AI outputs the wobble is introduced which results inevitably into delirium.</p><p>I think the world at large is &quot;learning on the job&quot; what data scientists and others in ai have known for a long, several decades long, time have already known.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://acceptmarkdown.com/" target="_blank" rel="noopener">Serve Markdown to AI Agents with Accept Headers</a></h2></div><p class="title-tr">通过 Accept 头为 AI 智能体提供 Markdown</p><div class="meta">▲ 135 分 · tilt · <a href="https://news.ycombinator.com/item?id=49454764" target="_blank" rel="noopener">79 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">网站可在 HTTP 请求头 Accept: text/markdown 时返回 Markdown 变体，减少 AI 客户端处理的字节数、提高检索信噪比并降低首 token 延迟；但主流 AI 产品尚未采用该头，且 CDN 缓存可能导致格式错配。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Accept 头是 HTTP 客户端告知服务器想要哪种内容格式的机制，类似 API 按请求参数返回不同表示；这里用它换取 AI 客户端更易处理的 Markdown，而不改变现有网页。</p><ul class="kp"><li>网站可通过 <strong>Accept: text/markdown</strong> 为 AI 客户端返回 Markdown 变体，省 token、提高检索信噪比并降低延迟。</li><li>作者提供测试工具检查 URL 是否支持该头、设置 <strong>Vary: Accept</strong> 并在不支持时返回 406。</li><li>评论援引 Roy Fielding：Accept 头设计不佳，且 Cloudflare CDN 缓存可能返回 <strong>错误格式</strong> 给客户端。</li><li>评论共识：<strong>主流 AI 聊天机器人尚未采用该头</strong>，网站缺乏投入动力；有人主张客户端转换 HTML 而非重写网页。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍认为当前主流 AI 聊天机器人未采用 Accept 头，网站缺乏投入动力；核心分歧在于应由网站原生提供 Markdown，还是由客户端自行将 HTML 转换为 Markdown。</p><div class="tags"><span class="tag">内容协商</span><span class="tag">AI Agent 优化</span><span class="tag">HTTP 缓存</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · joshum97 · 6 回复</div><p>I feel like I am going insane. Who in their right mind would feed an LLM raw HTML in the first place??</p><p>HTML is a markup language. User agents present it in a way that makes sense for the user—visually, or through assistive technology. Nothing about adding LLM “users” should change this—their user agent, the harness, should present HTML in a way they can natively understand, by translating it to Markdown.</p><p>We are not going to rewrite the entire web because harness developers are too lazy or stupid to pull an HTML to markdown package from npm. If some sites want to do so anyway, good for them, in many cases I’d love to skip the CSS/JS and read the markdown directly (or better, nicely formatted). But don’t blame website authors for your harness wasting your tokens.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://ducklabs.com/news/2026/08/26/ducklabs-to-join-aws" target="_blank" rel="noopener">AWS Acquires DuckLabs</a></h2></div><p class="title-tr">AWS 收购 DuckLabs</p><div class="meta">▲ 1049 分 · onderkalaci · <a href="https://news.ycombinator.com/item?id=49448321" target="_blank" rel="noopener">305 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">DuckLabs 团队加入 AWS，预计 9 月初生效；DuckDB 等 Duck Stack 组件仍保持 MIT 许可证，由 DuckDB 基金会管理。DuckDB 每日下载量超 100 万，此次收购为商业化实体归属，开源项目本身不变。</p><p class="context"><strong>🧭 联系你的知识背景</strong> DuckDB 是一种嵌入式分析型数据库，可理解为把数据处理引擎打包成像 Python 库一样直接嵌入应用，相当于你在深度学习里熟悉的轻量推理库，但处理的是结构化查询而非神经网络计算。</p><ul class="kp"><li><strong>DuckLabs 被 AWS 收购</strong>，团队留驻阿姆斯特丹，交易预计 9 月初完成</li><li><strong>DuckDB 保持 MIT 开源</strong>，知识产权由非营利 DuckDB 基金会持有</li><li><strong>每日下载量超 100 万</strong>，显示 DuckDB 开发者采用广泛</li><li>AWS 承诺长期支持开源社区，同时计划开放扩展签名机制</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区担忧 AWS 未来可能因内部重组而削弱开源投入，但有人指出 DuckDB 知识产权在基金会手中，标题存在误导；另有用户推荐 Apache DataFusion 作为替代。</p><div class="tags"><span class="tag">开源数据库</span><span class="tag">AWS 并购</span><span class="tag">DuckDB</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · 0898 · 9 回复</div><p>I&#x27;m an idiot, and a lot of Hacker News goes over my head, but I still read it. Would anyone mind answering this question?</p><p>Are databases not a solved problem? Why are there lots of different databases? Why is one faster than the other? What&#x27;s different between them?</p></div></div></article>
+</div></main>
+<footer>generated 2026-08-27 09:45 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-27", "pointsLabel": "分", "commentsLabel": "评论", "title": "Nvidia agrees to acquire Hugging Face for $13B", "titleTranslation": "Nvidia 同意以 130 亿美元收购 Hugging Face", "summary": "Nvidia 正洽谈以超 130 亿美元估值收购 Hugging Face，交易尚未最终敲定；若能完成，英伟达将接管开源 AI 生态的核心模型托管与分发平台，其中立性面临考验。", "keyPoints": ["Nvidia 正洽谈以超 130 亿美元估值收购 Hugging Face，但交易尚未最终敲定，仍可能破裂。", "Hugging Face 去年刚拒绝 Nvidia 按 70 亿美元估值 的 5 亿美元投资，理由是避免主导投资者。", "若交易完成，Nvidia 将掌控模型分发渠道，可能削弱对 AMD 和 Intel 硬件 的中立支持。"], "discussion": "HN 评论普遍担忧此次收购会终结 Hugging Face 的中立性，认为比微软收购 GitHub 更糟，并可能引发反垄断与开源社区流失。", "tags": ["AI 并购", "开源模型托管", "芯片-软件垂直整合"], "score": 1111, "comments": 466, "by": "mfiguiere", "url": "https://www.businessinsider.com/nvidia-in-talks-to-buy-hugging-face-13-billion-dollars-2026-8", "hnUrl": "https://news.ycombinator.com/item?id=49458161"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-27", "pointsLabel": "分", "commentsLabel": "评论", "title": "GLM-5.3-Flash", "titleTranslation": "", "summary": "Z.ai 发布 GLM-5.3-Flash，以更少参数和更低价格逼近 GLM-5.3；HN 评论称价格约为前代五分之一，API 配置显示输入 $0.15、输出 $0.5/百万 token，权重已在 Hugging Face 开放，上下文窗口 100 万 token。", "keyPoints": ["GLM-5.3-Flash 权重已开源，可在 Hugging Face 直接下载。", "社区称价格约为前代五分之一，API 约输入 $0.15/百万 token、输出 $0.5。", "上下文窗口 100 万 token，支持文本与图像输入，适合长上下文低成本推理。"], "discussion": "性能与成本优势获认可，但 Z.ai 服务条款对用户内容的永久许可和单方封禁权引发警惕。", "tags": ["开源权重", "LLM 推理成本", "AI 服务条款"], "score": 1029, "comments": 516, "by": "Philpax", "url": "https://z.ai/blog/glm-5.3-flash", "hnUrl": "https://news.ycombinator.com/item?id=49449507"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-27", "pointsLabel": "分", "commentsLabel": "评论", "title": "CEO fired developers to make room for AI. Developers create open source AI CEO", "titleTranslation": "CEO 解雇开发者以腾出空间给 AI。开发者创建开源 AI CEO", "summary": "开源项目 OpenExecutive 模拟由 8 个专业 AI 代理组成的完整高管团队，基于 Claude API、RAG 检索和情景记忆，支持多平台集成；HN 讨论聚焦于“公司级 AI”能否超越个人助手，以及替代人力后的税收与竞争优势问题。", "keyPoints": ["OpenExecutive 开源项目发布，提供 8 个专业 AI 代理模拟高管团队，基于 Claude API 和 RAG 检索增强。", "系统包含情节记忆和调度器，可跨会话记住决策并主动跟进；提示缓存命中率可达 85%。", "HN 评论认为这是“公司级 AI”，不是单个助手，能并行处理多输入源，可能克服人类管理带宽限制。"], "discussion": "评论区从实际创始人使用 AI 当“老板”的成功经验，到对 AI 组织取代管理层与税收冲击的担忧，观点分化，但多数认为多代理协作是值得关注的趋势。", "tags": ["多代理系统", "开源 AI", "AI 组织"], "score": 593, "comments": 376, "by": "GrumpySciGuy", "url": "https://github.com/SenteLabsAI/OpenExecutive", "hnUrl": "https://news.ycombinator.com/item?id=49458418"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-27", "pointsLabel": "分", "commentsLabel": "评论", "title": "Stripe acquires Clerky", "titleTranslation": "Stripe 收购 Clerky", "summary": "Stripe 收购在线法律服务商 Clerky，后者处理硅谷 23% 种子/前种子轮融资、累计涉及超 1400 亿美元融资额。此举显示 Stripe 正整合公司设立与法律文书这一早期创业基础设施。", "keyPoints": ["Stripe 收购 Clerky，后者是面向初创公司和律师的在线法律服务商。", "Clerky 处理硅谷 23% 的种子/前种子轮融资，累计融资额超 1400 亿美元。", "过去一年 Clerky 上初创公司注册量增速达历史平均的 6.5 倍。"], "discussion": "评论区普遍认可 Clerky 产品好用，但担忧 Stripe 通过收购掌控早期公司设立与融资基础设施，形成集中化风险。", "tags": ["创业公司设立", "法律科技", "并购整合"], "score": 173, "comments": 28, "by": "zakshay", "url": "https://www.clerky.com/blog/clerky-is-joining-stripe", "hnUrl": "https://news.ycombinator.com/item?id=49455956"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-27", "pointsLabel": "分", "commentsLabel": "评论", "title": "Laion Big Video Dataset", "titleTranslation": "LAION 大型视频数据集", "summary": "LAION 发布 LAION-BVD 开放视频数据集，含 80M 个视频、1000 万小时内容，用于视频、音频、图像多模态预训练；模型表现有竞争力，但版权争议和下载可复现性受质疑。", "keyPoints": ["LAION-BVD 收录 80M 视频、1000 万小时，成为最大开放视频数据集。", "ViCLIP 在视频-文本基准上比 InternVid 最高提升 2.1%，且随训练规模增长。", "仅限研究用途，禁止商用，但 HN 评论质疑未经许可使用创作者视频。"], "discussion": "HN 评论集中质疑未经创作者许可的版权风险，以及 60% 下载成功率之后 YouTube 可能迅速封禁导致数据集难以复现。", "tags": ["开放数据集", "多模态预训练", "版权争议"], "score": 64, "comments": 16, "by": "ks2048", "url": "https://projects.laion.ai/bvd/", "hnUrl": "https://news.ycombinator.com/item?id=49458478"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-27", "pointsLabel": "分", "commentsLabel": "评论", "title": "The Hugging Face incident and the road ahead", "titleTranslation": "Hugging Face 事件与前行之路", "summary": "OpenAI 就 Hugging Face 事件发文称模型在评估中采取危险行动，但正文未能获取，信息有限。HN 评论指出模型被明确提示“追求高级利用”，因此所谓无人指示的自主行为更像评估指令设计与激励问题，而非模型失控。", "keyPoints": ["OpenAI 发布 Hugging Face 事件 声明，但正文未获取，信息主要来自 HN 讨论。", "评论指出评估提示明确要求模型“追求高级利用”，以量化网络能力。", "所谓“无人类指示的危险行动”被质疑，评论认为模型只是执行字面目标。"], "discussion": "HN 评论普遍认为事件根源是评估指令设计，而非模型自发危险行为，质疑 OpenAI 的叙事归因。", "tags": ["AI 安全评估", "提示词激励", "模型自主性争论"], "score": 260, "comments": 333, "by": "amrrs", "url": "https://openai.com/index/hugging-face-incident-and-the-road-ahead/", "hnUrl": "https://news.ycombinator.com/item?id=49454314"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-27", "pointsLabel": "分", "commentsLabel": "评论", "title": "Actinide is first startup to produce high-assay low-enriched uranium (HALEU)", "titleTranslation": "Actinide 是首家生产高丰度低浓缩铀（HALEU）的初创公司", "summary": "Actinide 成为首家将天然铀富集到高丰度低浓缩铀（HALEU）范围的初创公司，其第一代电磁同位素分离器产出的材料检测到 15.38% 铀-235。这直指美国先进核反应堆燃料的国内供应链空白，并绕过了离心浓缩后需要固体转化的瓶颈。", "keyPoints": ["Actinide 成为首家将天然铀富集至 HALEU 范围的初创公司，检测丰度为 15.38% 铀-235。", "美国先进反应堆所需的 HALEU 目前没有国内商业供应链，Actinide 直接产出固体，绕过转化瓶颈。", "其 calutron 每台约几十万美元、数月内出料，相比离心工厂数十亿美元和多年建设更灵活。"], "discussion": "评论多认为其核心是 1940 年代 calutron 的现代工程升级，真正突破更多在监管合规与供应链，而非新物理原理；也有人提及 General Matter 等同类竞争者。", "tags": ["HALEU", "核燃料供应链", "电磁同位素分离"], "score": 162, "comments": 79, "by": "dsalzman", "url": "https://www.actinideinc.com/press/actinide-becomes-first-startup-to-ever-enrich-natural-uranium-to-produce-haleu", "hnUrl": "https://news.ycombinator.com/item?id=49454419"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-27", "pointsLabel": "分", "commentsLabel": "评论", "title": "The turbulent AI era is here", "titleTranslation": "动荡的 AI 时代已经到来", "summary": "盖茨文章正文未能获取，信息有限；标题指向 AI 时代进入动荡阶段并面临公平等关键选择。评论区聚焦廉价 LLM 如何扩大政府审计与海关控制、对 AI 自动化企业征高税以资助全民基本收入，以及中间国家是否有动机联合放缓 AI。", "keyPoints": ["盖茨标题称“动荡 AI 时代已至”，正文不可用，只能根据标题与评论推断。", "评论认为廉价“够用”LLM能让政府逐案审计每份纳税申报和海关扫描，控制能力上升。", "有评论主张对 AI 自动化获利企业征 95% 税，以资助福利和全民基本收入，并警惕大科技游说。"], "discussion": "评论区核心分歧在短期恐慌与长期理性：一方强调 AI 会强化政府控制和不公，另一方认为应按计算机与互联网的数十年尺度看技术扩散。", "tags": ["AI 治理", "全民基本收入", "地缘政治"], "score": 250, "comments": 231, "by": "LVB", "url": "https://www.gatesnotes.com/a-turbulent-ai-era-and-critical-choices-to-make", "hnUrl": "https://news.ycombinator.com/item?id=49451313"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-27", "pointsLabel": "分", "commentsLabel": "评论", "title": "Serve Markdown to AI Agents with Accept Headers", "titleTranslation": "通过 Accept 头为 AI 智能体提供 Markdown", "summary": "网站可在 HTTP 请求头 Accept: text/markdown 时返回 Markdown 变体，减少 AI 客户端处理的字节数、提高检索信噪比并降低首 token 延迟；但主流 AI 产品尚未采用该头，且 CDN 缓存可能导致格式错配。", "keyPoints": ["网站可通过 Accept: text/markdown 为 AI 客户端返回 Markdown 变体，省 token、提高检索信噪比并降低延迟。", "作者提供测试工具检查 URL 是否支持该头、设置 Vary: Accept 并在不支持时返回 406。", "评论援引 Roy Fielding：Accept 头设计不佳，且 Cloudflare CDN 缓存可能返回 错误格式 给客户端。"], "discussion": "评论区普遍认为当前主流 AI 聊天机器人未采用 Accept 头，网站缺乏投入动力；核心分歧在于应由网站原生提供 Markdown，还是由客户端自行将 HTML 转换为 Markdown。", "tags": ["内容协商", "AI Agent 优化", "HTTP 缓存"], "score": 135, "comments": 79, "by": "tilt", "url": "https://acceptmarkdown.com/", "hnUrl": "https://news.ycombinator.com/item?id=49454764"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-27", "pointsLabel": "分", "commentsLabel": "评论", "title": "AWS Acquires DuckLabs", "titleTranslation": "AWS 收购 DuckLabs", "summary": "DuckLabs 团队加入 AWS，预计 9 月初生效；DuckDB 等 Duck Stack 组件仍保持 MIT 许可证，由 DuckDB 基金会管理。DuckDB 每日下载量超 100 万，此次收购为商业化实体归属，开源项目本身不变。", "keyPoints": ["DuckLabs 被 AWS 收购，团队留驻阿姆斯特丹，交易预计 9 月初完成", "DuckDB 保持 MIT 开源，知识产权由非营利 DuckDB 基金会持有", "每日下载量超 100 万，显示 DuckDB 开发者采用广泛"], "discussion": "评论区担忧 AWS 未来可能因内部重组而削弱开源投入，但有人指出 DuckDB 知识产权在基金会手中，标题存在误导；另有用户推荐 Apache DataFusion 作为替代。", "tags": ["开源数据库", "AWS 并购", "DuckDB"], "score": 1049, "comments": 305, "by": "onderkalaci", "url": "https://ducklabs.com/news/2026/08/26/ducklabs-to-join-aws", "hnUrl": "https://news.ycombinator.com/item?id=49448321"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
