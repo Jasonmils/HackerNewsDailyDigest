@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-08-28</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-08-28 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://calv.info/small-models-have-arrived" target="_blank" rel="noopener">Small Models Have Arrived</a></h2></div><p class="title-tr">小模型已经到来</p><div class="meta">▲ 668 分 · tosh · <a href="https://news.ycombinator.com/item?id=49466917" target="_blank" rel="noopener">300 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者实测 gpt-5.6-luna 约 100 tokens/秒，个性化新闻站点平均成本约 0.10 美元，而此前 Sonnet 级约需 1 美元；他认为 token 成本是消费者 AI 公司稀少的关键，快、便宜、够用的小模型需求将起飞。</p><ul class="kp"><li>作者实测 gpt-5.6-luna 完成个性化新闻站点 eval 平均成本仅 <strong>0.10 美元</strong>，此前 Sonnet 级约需 1 美元</li><li>消费者 AI 公司稀少的主因是 <strong>token 成本</strong>，每次请求都有推理开销，推高资本需求</li><li>Peter 将工作分为 IQ 180 型与快速推进型，后者占 <strong>95%</strong>，支撑快、便宜、够用模型需求</li><li><strong>GLM 5.3</strong> 也进入 Pareto 前沿，为小模型提供新选择</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍认为小模型早已足够实用，但消费者 AI 公司稀少并非单纯 token 成本，更多源于产品需求定位与前沿实验室的平台挤压。</p><div class="tags"><span class="tag">小模型</span><span class="tag">推理成本</span><span class="tag">AI 应用商业化</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · NitpickLawyer · 17 回复</div><p>&gt; But I also think the demand for &quot;fast/cheap/good-enough&quot; models is just about to take off.</p><p>There&#x27;s a sort of &quot;revelation&quot; I had in ~early &#x27;24 when I used a 7B local model with a library called Guidance (initially out of MS, then the team moved) to create a flow where the model would receive pseudocode for tests, first write the tests, and once I approved then started writing code until the tests passed. This was before &quot;thinking&quot; models, and yet using that library I was able to &quot;guide&quot; the model in the required &quot;prompt / instruct&quot; context such that it was working towards completion, and I saw the first things like we see now in the thinking traces &quot;oh, test x doesn&#x27;t pass because blah, I need to...&quot; and so on.</p><p>Anyway, the revelation was &quot;even if the models never improve, I&#x27;ll have years of fun finding out all the ways I can use these things&quot;. And, obviously, the models improved a lot since then. But I think that revelation can still be applied, as a sort of &quot;truism&quot;. We have, right now, access to things that 10-20 years ago would be considered magic. We are still finding ways of cobbling together systems with glue, duct tape and prayers and find new things they can do.</p><p>I think the &quot;good-enough&quot; stage has come not just for API models (cheap, fast, etc) but for local as well. Even if slower, even if clunkier, but they are good enough for a set of ever increasing tasks, and what&#x27;s more it&#x27;s incredibly fun to work with them.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-5-transcribe/" target="_blank" rel="noopener">Gemini-3.5-Transcribe</a></h2></div><div class="meta">▲ 304 分 · k9294 · <a href="https://news.ycombinator.com/item?id=49468818" target="_blank" rel="noopener">98 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">谷歌发布语音转文本模型 Gemini 3.5 Transcribe，流式词错率 4.0%、非流式 2.6%，延迟较前代 Chirp 3 改善 70%，支持 85 种语言和最多三说话人分离，已通过 Live API 和 Interactions API 向开发者开放。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 词错率（WER）是语音识别中的错误率指标，类似分类任务错误率；延迟与准确率的权衡类似于模型推理速度与精度，开发者需按实时性要求选型。</p><ul class="kp"><li><strong>流式词错率 4.0%、非流式 2.6%</strong>，较前代 Chirp 3 精度显著提高，噪声环境下也能准确识别邮编和订单号。</li><li><strong>延迟改善 70%</strong>，实时流式 API 支持亚秒级双向交互，适合语音代理、实时字幕和通话分析。</li><li><strong>支持 85 种语言、自定义词汇和最多三说话人分离</strong>，能自动清理填充词和自纠正，理解用户真实意图。</li><li><strong>功能调用仅在 Gemini macOS 应用内可用</strong>，转录模型本身不能直接调用其他 Gemini 模型执行任务。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论者认可精度提升，但指出模型会简化或删减用户原话、实时延迟不如 Soniox，部分开发者更倾向本地模型如 Voxtral Mini 3b，并批评 API 付款体验和隐私缺失。</p><div class="tags"><span class="tag">语音识别模型</span><span class="tag">实时流式 API</span><span class="tag">词错率基准</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Lucasoato · 12 回复</div><p>I’ve tested at least 20 STT models in a benchmark I’ve set up with German, Italian and English voices from meetings in my company.</p><p>The voices contained very industry specific words, the languages changed from one sentence to another, sometimes words in a language were mentioned while a discussion was in another.</p><p>The only local model that satisfies me is Voxtral Mini 3b, the only paid API that is slightly better is eleven labs. Yes, Voxtral might not reach the best score in the benchmarks, but to me, it just solves a problem. It might not be the best in terms of speed... but that’s not a problem for me.</p><p>Happy to test this new model from Google but I’m not sure I’d go with that instead of something that can run so easily in my machine.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://blog.google/innovation-and-ai/technology/developers-tools/build-with-gemini-omni-1-1-flash/" target="_blank" rel="noopener">Gemini Omni 1.1 Flash</a></h2></div><div class="meta">▲ 262 分 · saretup · <a href="https://news.ycombinator.com/item?id=49467922" target="_blank" rel="noopener">195 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">谷歌发布生成视频模型 Gemini Omni 1.1 Flash，新增场景扩展（可分析前10秒、总长40秒）、首尾帧控制、360p草稿比720p快60%且成本仅1/3、4K输出，并支持最多引用3秒视频保持一致，已上线 Gemini API 与 AI Studio。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可把“首尾帧指定”理解为将起止帧作为条件输入，让模型生成中间连续视频，类似你熟悉的序列条件生成任务，只不过条件从文本换成了视觉帧。</p><ul class="kp"><li><strong>场景扩展</strong>可分析最多10秒前文，以10秒增量续写至总长40秒，改善视觉与叙事一致性。</li><li><strong>360p草稿</strong>生成比720p快60%、成本仅三分之一，用于快速原型和故事板迭代。</li><li><strong>首尾帧控制</strong>与最多3秒视频参考，可指定镜头运动与角色一致性，输出可升频至4K。</li><li>通过 <strong>Gemini API 和 Google AI Studio</strong> 提供，企业可用 Agent Platform API，已向 Plus/Pro/Ultra 用户开放。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论分歧在于生成视频的实用价值：有人质疑其“如何丰富生活”，有人指出谷歌坚持视频生成或为世界模型，而最实际的需求——与已有音频同步——仍缺失。</p><div class="tags"><span class="tag">生成视频</span><span class="tag">Gemini API</span><span class="tag">AI 创意工具</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · simonw · 11 回复</div><p>Interesting that OpenAI abandoned Sora entirely but Google are continuing to invest heavily in their own video generation.</p><p>Maybe because they see video generation as key to developing &quot;world models&quot;?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://www.terminal-bench-science.ai/announcement" target="_blank" rel="noopener">Terminal-Bench-Science: Evaluating AI agents on scientific research workflows</a></h2></div><p class="title-tr">Terminal-Bench-Science：评估 AI 智能体在科研工作流上的表现</p><div class="meta">▲ 96 分 · matt_d · <a href="https://news.ycombinator.com/item?id=49472820" target="_blank" rel="noopener">29 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">斯坦福团队发布 Terminal-Bench-Science 0.1，含 70 个由科研人员贡献的真实工作流任务；最强模型 Claude Opus 5 解决率仅 30%，较软件工程基准低超 10 个百分点，显示 AI 做科研助理仍差距巨大。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 它把模型评估从单题得分升级为执行完整实验流程，因此解决率大幅下降，更贴近真实科研生产力。</p><ul class="kp"><li><strong>Terminal-Bench-Science 0.1</strong> 发布 70 个来自生命、物理、地球、数学和工程科学的科研工作流任务。</li><li>最强模型 <strong>Claude Opus 5</strong> 解决率仅 30.0%，比软件工程基准 Terminal-Bench 3.0 低逾 10 个百分点。</li><li>从 920 个提案中仅 <strong>70 个任务</strong>通过评审，要求科学有效、可验证、能挑战前沿智能体。</li><li>成本-解决率前沿上，<strong>GPT-5.6 Sol</strong> 以 $4.2k 匹配 Claude Fable 5 的 $14.2k；Claude Opus 5 总成本 $7.0k。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区认可评估真实工作流的方向，但担忧后续模型针对公开任务过拟合、分数虚涨，并质疑是否正确检验了智能体对指令的忠实度。</p><div class="tags"><span class="tag">AI 智能体评测</span><span class="tag">科研自动化</span><span class="tag">基准测试</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · johnnyApplePRNG · 3 回复</div><p>Not surprised to see Claude significantly higher in scientific intelligence than Sol.</p><p>You can tell that Claude really does grasp a wide array of highly specific scientific and mathematical nuances... where&#x27;s codex is just basically for coding and that&#x27;s it.</p><p>That&#x27;s the feel I get from the both of them anyways and I&#x27;ve used both on the 20x plan for the past week at length.</p><p>Don&#x27;t get me wrong, codex is great at finding bugs and building games. It&#x27;s great.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://louisabraham.github.io/load-bearing/" target="_blank" rel="noopener">Show HN: The load-bearing vocabulary of Claude</a></h2></div><p class="title-tr">Show HN：Claude 的承重词汇</p><div class="meta">▲ 547 分 · Labo333 · <a href="https://news.ycombinator.com/item?id=49461817" target="_blank" rel="noopener">261 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">正文未能获取，信息有限。该页面统计 Claude 输出中反复出现的“承重词汇”——即承担语义或结构功能的模板化表达。作者称数据每日通过 GitHub Actions 更新，并计划扩展到每天 1000 个拉取请求（PR）。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 对熟悉语言模型训练的人而言，这类高频词汇可视为模型在训练分布或系统提示诱导下学到的风格捷径，可能反映数据污染或过拟合。</p><ul class="kp"><li>作者构建了每日更新的 <strong>Claude 承重词汇</strong> 数据集，并计划扩展到每天 1000 个拉取请求。</li><li>用户通过提示词要求禁用“load-bearing”等隐喻，Claude 回复称其<strong>系统提示会主动标记</strong>此类措辞。</li><li>多位用户抱怨 Claude 输出风格生硬、行话密集，有人因此取消 <strong>Anthropic 订阅</strong>。</li><li>讨论担忧 AI 生成内容进入训练数据，形成<strong>风格污染</strong>并让模型输出更不可读。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是 Claude 已形成可识别的模板化行话，令人反感；争议在于是否因训练数据中 AI 内容比例上升导致正反馈恶化。</p><div class="tags"><span class="tag">LLM 输出风格</span><span class="tag">训练数据污染</span><span class="tag">Claude/Anthropic</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · nater5000 · 8 回复</div><p>I was pleasantly surprised when I attempted to scroll down and realized everything the author wanted to present fit on-screen. It&#x27;s almost ironic that this site is able to make such an obvious, compelling presentation without being overly verbose or complicated (something which LLMs have a hard time doing). I wouldn&#x27;t read TOO deeply into what is being presented, but the author has done a good job to not inject their own bias into the presentation which works well.</p><p>I suspect, as we continue forward, humans will slowly start to adopt the language of LLMs, or at least certain language quirks that come from interacting with LLMs. Something I&#x27;ve noticed in my own writing is that I now present lists of examples in a consistent way: &quot;... such as &lt;example 1&gt;, &lt;example 2&gt;, etc., ...&quot;. I started to notice I was using this pattern quite a bit somewhat recently, but I took a quick look at some of my social media posts and realized it&#x27;s been occurring for a while. I had realized that I grown accustomed to this kind of language because, especially early on, LLMs would focus too much on the specific examples I&#x27;d provide when, really, I was just trying to give them a sense of what I was looking for. I just picked up that providing two examples then adding the &quot;etc.&quot; worked to get the LLM to not focus so much on the specific examples and to understand that they need to consider more than what I explicitly presented. Of course, now I write like that in my social media comments, in Slack with my colleagues, etc. :&gt;</p><p>I&#x27;d be interested to see if anyone can identify trends like this, since I think the human-language component of the adoption of LLMs is probably being somewhat neglected despite probably being surely dramatically affected.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://github.com/experientiallabs/experiential" target="_blank" rel="noopener">Show HN: We built open OpenRouter that turns usage into a better model</a></h2></div><p class="title-tr">Show HN: 我们构建了开源版 OpenRouter，把使用数据转化为更好的模型</p><div class="meta">▲ 183 分 · SilenN · <a href="https://news.ycombinator.com/item?id=49471407" target="_blank" rel="noopener">36 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Experiential 发布开源模型网关/路由器，统一接入托管、自带密钥（BYOK）和本地模型，BYOK 请求延迟增加不到 1 毫秒、托管密钥不到 2 毫秒，零 token 加价。它把调用轨迹模拟训练成最近邻分类器，为每个请求选最优模型。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这相当于在多个大模型 API 前加一层调度器，把读者熟悉的模型评估产品化为实时路由；BYOK 指用户自带各厂商 API 密钥。</p><ul class="kp"><li><strong>开源且零 token 加价</strong>，对比 OpenRouter 等约 10% 加价</li><li>BYOK 请求额外延迟 <strong>不到 1 毫秒</strong>，使用官方密钥也不到 2 毫秒</li><li>用 <strong>真实调用轨迹</strong> 构建模拟，训练最近邻分类器为每次请求选择最优模型</li><li><strong>1000+ 模型</strong> 每日由代码代理通过拉取请求自动刷新</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区主要质疑模型切换会损失缓存 token 折扣、OpenRouter 命名易混淆，以及公司商业模式不明确。</p><div class="tags"><span class="tag">LLM 推理</span><span class="tag">模型路由</span><span class="tag">开源网关</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Areibman · 3 回复</div><p>Could you say more about how caching works? One major advantage of sticking with a single model is saving money on cached input tokens. I&#x27;d imagine if you swap between a bunch of models, you may improve performance but cost would would balloon out of control</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://www.gatesnotes.com/a-turbulent-ai-era-and-critical-choices-to-make" target="_blank" rel="noopener">The turbulent AI era is here</a></h2></div><p class="title-tr">动荡的 AI 时代已经到来</p><div class="meta">▲ 312 分 · nanna · <a href="https://news.ycombinator.com/item?id=49447057" target="_blank" rel="noopener">561 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">盖茨将当前 AI 时代定性为“动荡”，提出其要么成为最大平等工具、要么成为最严重不公来源。因正文未能获取，本摘要仅基于标题与评论，信息有限。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文章涉及 AI 对就业、财富分配和地缘政治的影响，与你熟悉的 AI 产品商业化讨论不同，更偏宏观政策与社会后果。</p><ul class="kp"><li><strong>盖茨</strong>将 AI 时代定性为“动荡”，并称其要么成为最大平等工具，要么成为最严重不公来源。</li><li>HN 评论批评这一<strong>二元框架</strong>过于简化，现实更可能落在中间，且财富和权力会更向超级富豪集中。</li><li>有评论引用<strong>盖茨九年前在 Reddit AMA</strong> 的发言，当时他将“计算机能像人类一样阅读和理解信息”视为里程碑。</li><li>评论警告<strong>大规模失业</strong>可能引发社会动荡，并质疑文章只关注软件工程师，忽视数据中心建设等技术工种需求。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论核心分歧在于：盖茨的二元论断被批为“高级标题党”，多数人认为 AI 更可能加剧不平等、同时也会惠及普通人和小企业，而非走向两个极端。</p><div class="tags"><span class="tag">AI 社会影响</span><span class="tag">就业冲击</span><span class="tag">比尔·盖茨</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · phn · 14 回复</div><p>If all jobs are taken away for the sake of robot driven productivity, who will consume the products and services being offered that result in profit?!</p><p>(EDIT: I am not against AI at all, just trying to understand where this all leads)</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://m-reschreiter.at/en/blog/how-i-cut-80-percent-context-overhead-dynamic-tools" target="_blank" rel="noopener">I Cut 80%+ of Context Overhead in My Coding Agent</a></h2></div><p class="title-tr">我把我编程代理的上下文开销削减了 80% 以上</p><div class="meta">▲ 7 分 · asm3r96 · <a href="https://news.ycombinator.com/item?id=49476278" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者声称通过动态工具将编程代理的上下文开销降低 80% 以上，但正文未能获取，信息仅来自标题。该方向对减少 LLM 推理成本与延迟有参考意义。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 上下文开销可理解为每次调用 LLM 时输入 token 带来的成本与延迟；动态工具类似按需加载 API，只传入当前任务需要的函数定义，而非全量工具集。</p><ul class="kp"><li>作者声称将编程代理的<strong>上下文开销削减 80% 以上</strong>，但正文无法获取核实。</li><li>优化方向与 <strong>dynamic tools（动态工具）</strong> 相关，可能只传当前任务需要的工具定义。</li><li>对 LLM 编程代理，这指向<strong>降低推理成本与响应延迟</strong>的实用路径。</li><li>由于信息仅来自标题和讨论，具体实现、基线和适用边界<strong>尚不清楚</strong>。</li></ul><div class="tags"><span class="tag">LLM 上下文优化</span><span class="tag">AI 编程工具</span><span class="tag">推理成本</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://www.businessinsider.com/nvidia-in-talks-to-buy-hugging-face-13-billion-dollars-2026-8" target="_blank" rel="noopener">Nvidia agrees to acquire Hugging Face for $13B</a></h2></div><p class="title-tr">Nvidia 同意以 130 亿美元收购 Hugging Face</p><div class="meta">▲ 1902 分 · mfiguiere · <a href="https://news.ycombinator.com/item?id=49458161" target="_blank" rel="noopener">881 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Nvidia 正洽谈以超 130 亿美元估值收购 Hugging Face，交易尚未最终敲定；若能完成，英伟达将接管开源 AI 生态的核心模型托管与分发平台，其中立性面临考验。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 对熟悉模型训练的你来说，Hugging Face 相当于开源模型和数据集的 GitHub 及发布渠道；英伟达收购它等于芯片厂商直接控制模型分发入口。</p><ul class="kp"><li><strong>Nvidia 正洽谈以超 130 亿美元估值收购 Hugging Face</strong>，但交易尚未最终敲定，仍可能破裂。</li><li>Hugging Face 去年刚拒绝 Nvidia 按 <strong>70 亿美元估值</strong> 的 5 亿美元投资，理由是避免主导投资者。</li><li>若交易完成，Nvidia 将掌控模型分发渠道，可能削弱对 <strong>AMD 和 Intel 硬件</strong> 的中立支持。</li><li>Nvidia 持有 <strong>479 亿美元</strong> 私企股权，本财年再承诺 180 亿美元股权投资。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论普遍担忧此次收购会终结 Hugging Face 的中立性，认为比微软收购 GitHub 更糟，并可能引发反垄断与开源社区流失。</p><div class="tags"><span class="tag">AI 并购</span><span class="tag">开源模型托管</span><span class="tag">芯片-软件垂直整合</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Gigachad · 13 回复</div><p>What is the business model of hugging face? My understanding was they were basically just a file hosting platform.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://www.anthropic.com/news/model-hardware-standard-research-preview" target="_blank" rel="noopener">Previewing the Model Hardware Standard</a></h2></div><p class="title-tr">预览 Model Hardware Standard</p><div class="meta">▲ 120 分 · surprisetalk · <a href="https://news.ycombinator.com/item?id=49468834" target="_blank" rel="noopener">47 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Anthropic 预览 Model Hardware Standard：用统一驱动让 AI agent 操作多台物理设备，集成时间从数周降到数小时。QuEra 测试中激光锁定恢复成功率达 99.3%。标准尚未公开，计划安全评估后开源。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可把 Model Hardware Standard 理解为给物理设备定义的统一 API 层，让 AI agent 像调用软件接口一样读写和控制硬件。</p><ul class="kp"><li><strong>Anthropic 发布 Model Hardware Standard</strong>，将实验室硬件集成时间从数周缩短到数小时。</li><li><strong>QuEra 的 AI 控制器</strong>恢复量子激光锁定成功率达 <strong>99.3%</strong>，无需人工干预。</li><li>早期合作方包括 <strong>Genentech、CMU、HHMI Janelia</strong>，覆盖蛋白检测、显微镜和剂量实验。</li><li>标准尚未公开，需申请访问，Anthropic 计划在安全评估后<strong>开源</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论主要质疑 MHS 是否只是重复 USB 人机接口设备等现有协议，以及标准未公开、需申请访问是否合理。</p><div class="tags"><span class="tag">AI agent</span><span class="tag">硬件互操作标准</span><span class="tag">实验室自动化</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · jauntywundrkind · 5 回复</div><p>MCP was a bucket of Not Invented Here nonsense, that ignored years of protocol design. It was incredibly jank and hard to run at any scale, for years and years.</p><p>They finally looked at how other protocols do things, and made something that behaves in recent versions. But it&#x27;s hard as heck to take this company at all seriously. The don&#x27;t really care about ecosystems (AGENTS.md), they don&#x27;t seem to know think or care much about protocols until they have to (MCP&#x27;s incredibly long redemption ark). The vibes are all off.</p><p>Maybe they avoid laying their own pitfalls this time. Maybe it&#x27;s better. It&#x27;d be nice to start seeing some kind of cause to trust this company as vaguely capable computer-using people. But so far that hasn&#x27;t been the case.</p></div></div></article>
+</div></main>
+<footer>generated 2026-08-28 11:22 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-28", "pointsLabel": "分", "commentsLabel": "评论", "title": "Small Models Have Arrived", "titleTranslation": "小模型已经到来", "summary": "作者实测 gpt-5.6-luna 约 100 tokens/秒，个性化新闻站点平均成本约 0.10 美元，而此前 Sonnet 级约需 1 美元；他认为 token 成本是消费者 AI 公司稀少的关键，快、便宜、够用的小模型需求将起飞。", "keyPoints": ["作者实测 gpt-5.6-luna 完成个性化新闻站点 eval 平均成本仅 0.10 美元，此前 Sonnet 级约需 1 美元", "消费者 AI 公司稀少的主因是 token 成本，每次请求都有推理开销，推高资本需求", "Peter 将工作分为 IQ 180 型与快速推进型，后者占 95%，支撑快、便宜、够用模型需求"], "discussion": "评论区普遍认为小模型早已足够实用，但消费者 AI 公司稀少并非单纯 token 成本，更多源于产品需求定位与前沿实验室的平台挤压。", "tags": ["小模型", "推理成本", "AI 应用商业化"], "score": 668, "comments": 300, "by": "tosh", "url": "https://calv.info/small-models-have-arrived", "hnUrl": "https://news.ycombinator.com/item?id=49466917"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-28", "pointsLabel": "分", "commentsLabel": "评论", "title": "Gemini-3.5-Transcribe", "titleTranslation": "", "summary": "谷歌发布语音转文本模型 Gemini 3.5 Transcribe，流式词错率 4.0%、非流式 2.6%，延迟较前代 Chirp 3 改善 70%，支持 85 种语言和最多三说话人分离，已通过 Live API 和 Interactions API 向开发者开放。", "keyPoints": ["流式词错率 4.0%、非流式 2.6%，较前代 Chirp 3 精度显著提高，噪声环境下也能准确识别邮编和订单号。", "延迟改善 70%，实时流式 API 支持亚秒级双向交互，适合语音代理、实时字幕和通话分析。", "支持 85 种语言、自定义词汇和最多三说话人分离，能自动清理填充词和自纠正，理解用户真实意图。"], "discussion": "评论者认可精度提升，但指出模型会简化或删减用户原话、实时延迟不如 Soniox，部分开发者更倾向本地模型如 Voxtral Mini 3b，并批评 API 付款体验和隐私缺失。", "tags": ["语音识别模型", "实时流式 API", "词错率基准"], "score": 304, "comments": 98, "by": "k9294", "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-5-transcribe/", "hnUrl": "https://news.ycombinator.com/item?id=49468818"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-28", "pointsLabel": "分", "commentsLabel": "评论", "title": "Gemini Omni 1.1 Flash", "titleTranslation": "", "summary": "谷歌发布生成视频模型 Gemini Omni 1.1 Flash，新增场景扩展（可分析前10秒、总长40秒）、首尾帧控制、360p草稿比720p快60%且成本仅1/3、4K输出，并支持最多引用3秒视频保持一致，已上线 Gemini API 与 AI Studio。", "keyPoints": ["场景扩展可分析最多10秒前文，以10秒增量续写至总长40秒，改善视觉与叙事一致性。", "360p草稿生成比720p快60%、成本仅三分之一，用于快速原型和故事板迭代。", "首尾帧控制与最多3秒视频参考，可指定镜头运动与角色一致性，输出可升频至4K。"], "discussion": "评论分歧在于生成视频的实用价值：有人质疑其“如何丰富生活”，有人指出谷歌坚持视频生成或为世界模型，而最实际的需求——与已有音频同步——仍缺失。", "tags": ["生成视频", "Gemini API", "AI 创意工具"], "score": 262, "comments": 195, "by": "saretup", "url": "https://blog.google/innovation-and-ai/technology/developers-tools/build-with-gemini-omni-1-1-flash/", "hnUrl": "https://news.ycombinator.com/item?id=49467922"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-28", "pointsLabel": "分", "commentsLabel": "评论", "title": "Terminal-Bench-Science: Evaluating AI agents on scientific research workflows", "titleTranslation": "Terminal-Bench-Science：评估 AI 智能体在科研工作流上的表现", "summary": "斯坦福团队发布 Terminal-Bench-Science 0.1，含 70 个由科研人员贡献的真实工作流任务；最强模型 Claude Opus 5 解决率仅 30%，较软件工程基准低超 10 个百分点，显示 AI 做科研助理仍差距巨大。", "keyPoints": ["Terminal-Bench-Science 0.1 发布 70 个来自生命、物理、地球、数学和工程科学的科研工作流任务。", "最强模型 Claude Opus 5 解决率仅 30.0%，比软件工程基准 Terminal-Bench 3.0 低逾 10 个百分点。", "从 920 个提案中仅 70 个任务通过评审，要求科学有效、可验证、能挑战前沿智能体。"], "discussion": "评论区认可评估真实工作流的方向，但担忧后续模型针对公开任务过拟合、分数虚涨，并质疑是否正确检验了智能体对指令的忠实度。", "tags": ["AI 智能体评测", "科研自动化", "基准测试"], "score": 96, "comments": 29, "by": "matt_d", "url": "https://www.terminal-bench-science.ai/announcement", "hnUrl": "https://news.ycombinator.com/item?id=49472820"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-28", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: The load-bearing vocabulary of Claude", "titleTranslation": "Show HN：Claude 的承重词汇", "summary": "正文未能获取，信息有限。该页面统计 Claude 输出中反复出现的“承重词汇”——即承担语义或结构功能的模板化表达。作者称数据每日通过 GitHub Actions 更新，并计划扩展到每天 1000 个拉取请求（PR）。", "keyPoints": ["作者构建了每日更新的 Claude 承重词汇 数据集，并计划扩展到每天 1000 个拉取请求。", "用户通过提示词要求禁用“load-bearing”等隐喻，Claude 回复称其系统提示会主动标记此类措辞。", "多位用户抱怨 Claude 输出风格生硬、行话密集，有人因此取消 Anthropic 订阅。"], "discussion": "评论区共识是 Claude 已形成可识别的模板化行话，令人反感；争议在于是否因训练数据中 AI 内容比例上升导致正反馈恶化。", "tags": ["LLM 输出风格", "训练数据污染", "Claude/Anthropic"], "score": 547, "comments": 261, "by": "Labo333", "url": "https://louisabraham.github.io/load-bearing/", "hnUrl": "https://news.ycombinator.com/item?id=49461817"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-28", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: We built open OpenRouter that turns usage into a better model", "titleTranslation": "Show HN: 我们构建了开源版 OpenRouter，把使用数据转化为更好的模型", "summary": "Experiential 发布开源模型网关/路由器，统一接入托管、自带密钥（BYOK）和本地模型，BYOK 请求延迟增加不到 1 毫秒、托管密钥不到 2 毫秒，零 token 加价。它把调用轨迹模拟训练成最近邻分类器，为每个请求选最优模型。", "keyPoints": ["开源且零 token 加价，对比 OpenRouter 等约 10% 加价", "BYOK 请求额外延迟 不到 1 毫秒，使用官方密钥也不到 2 毫秒", "用 真实调用轨迹 构建模拟，训练最近邻分类器为每次请求选择最优模型"], "discussion": "评论区主要质疑模型切换会损失缓存 token 折扣、OpenRouter 命名易混淆，以及公司商业模式不明确。", "tags": ["LLM 推理", "模型路由", "开源网关"], "score": 183, "comments": 36, "by": "SilenN", "url": "https://github.com/experientiallabs/experiential", "hnUrl": "https://news.ycombinator.com/item?id=49471407"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-28", "pointsLabel": "分", "commentsLabel": "评论", "title": "The turbulent AI era is here", "titleTranslation": "动荡的 AI 时代已经到来", "summary": "盖茨将当前 AI 时代定性为“动荡”，提出其要么成为最大平等工具、要么成为最严重不公来源。因正文未能获取，本摘要仅基于标题与评论，信息有限。", "keyPoints": ["盖茨将 AI 时代定性为“动荡”，并称其要么成为最大平等工具，要么成为最严重不公来源。", "HN 评论批评这一二元框架过于简化，现实更可能落在中间，且财富和权力会更向超级富豪集中。", "有评论引用盖茨九年前在 Reddit AMA 的发言，当时他将“计算机能像人类一样阅读和理解信息”视为里程碑。"], "discussion": "评论核心分歧在于：盖茨的二元论断被批为“高级标题党”，多数人认为 AI 更可能加剧不平等、同时也会惠及普通人和小企业，而非走向两个极端。", "tags": ["AI 社会影响", "就业冲击", "比尔·盖茨"], "score": 312, "comments": 561, "by": "nanna", "url": "https://www.gatesnotes.com/a-turbulent-ai-era-and-critical-choices-to-make", "hnUrl": "https://news.ycombinator.com/item?id=49447057"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-28", "pointsLabel": "分", "commentsLabel": "评论", "title": "I Cut 80%+ of Context Overhead in My Coding Agent", "titleTranslation": "我把我编程代理的上下文开销削减了 80% 以上", "summary": "作者声称通过动态工具将编程代理的上下文开销降低 80% 以上，但正文未能获取，信息仅来自标题。该方向对减少 LLM 推理成本与延迟有参考意义。", "keyPoints": ["作者声称将编程代理的上下文开销削减 80% 以上，但正文无法获取核实。", "优化方向与 dynamic tools（动态工具） 相关，可能只传当前任务需要的工具定义。", "对 LLM 编程代理，这指向降低推理成本与响应延迟的实用路径。"], "discussion": "", "tags": ["LLM 上下文优化", "AI 编程工具", "推理成本"], "score": 7, "comments": 0, "by": "asm3r96", "url": "https://m-reschreiter.at/en/blog/how-i-cut-80-percent-context-overhead-dynamic-tools", "hnUrl": "https://news.ycombinator.com/item?id=49476278"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-28", "pointsLabel": "分", "commentsLabel": "评论", "title": "Nvidia agrees to acquire Hugging Face for $13B", "titleTranslation": "Nvidia 同意以 130 亿美元收购 Hugging Face", "summary": "Nvidia 正洽谈以超 130 亿美元估值收购 Hugging Face，交易尚未最终敲定；若能完成，英伟达将接管开源 AI 生态的核心模型托管与分发平台，其中立性面临考验。", "keyPoints": ["Nvidia 正洽谈以超 130 亿美元估值收购 Hugging Face，但交易尚未最终敲定，仍可能破裂。", "Hugging Face 去年刚拒绝 Nvidia 按 70 亿美元估值 的 5 亿美元投资，理由是避免主导投资者。", "若交易完成，Nvidia 将掌控模型分发渠道，可能削弱对 AMD 和 Intel 硬件 的中立支持。"], "discussion": "HN 评论普遍担忧此次收购会终结 Hugging Face 的中立性，认为比微软收购 GitHub 更糟，并可能引发反垄断与开源社区流失。", "tags": ["AI 并购", "开源模型托管", "芯片-软件垂直整合"], "score": 1902, "comments": 881, "by": "mfiguiere", "url": "https://www.businessinsider.com/nvidia-in-talks-to-buy-hugging-face-13-billion-dollars-2026-8", "hnUrl": "https://news.ycombinator.com/item?id=49458161"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-28", "pointsLabel": "分", "commentsLabel": "评论", "title": "Previewing the Model Hardware Standard", "titleTranslation": "预览 Model Hardware Standard", "summary": "Anthropic 预览 Model Hardware Standard：用统一驱动让 AI agent 操作多台物理设备，集成时间从数周降到数小时。QuEra 测试中激光锁定恢复成功率达 99.3%。标准尚未公开，计划安全评估后开源。", "keyPoints": ["Anthropic 发布 Model Hardware Standard，将实验室硬件集成时间从数周缩短到数小时。", "QuEra 的 AI 控制器恢复量子激光锁定成功率达 99.3%，无需人工干预。", "早期合作方包括 Genentech、CMU、HHMI Janelia，覆盖蛋白检测、显微镜和剂量实验。"], "discussion": "评论主要质疑 MHS 是否只是重复 USB 人机接口设备等现有协议，以及标准未公开、需申请访问是否合理。", "tags": ["AI agent", "硬件互操作标准", "实验室自动化"], "score": 120, "comments": 47, "by": "surprisetalk", "url": "https://www.anthropic.com/news/model-hardware-standard-research-preview", "hnUrl": "https://news.ycombinator.com/item?id=49468834"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
