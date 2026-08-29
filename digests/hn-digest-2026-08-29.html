@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-08-29</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-08-29 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://openai.com/index/our-decision-on-cursor-following-its-acquisition-by-spacex/" target="_blank" rel="noopener">Our decision on Cursor following its acquisition by SpaceX</a></h2></div><p class="title-tr">我们对 Cursor 被 SpaceX 收购后的决定</p><div class="meta">▲ 408 分 · meetpateltech · <a href="https://news.ycombinator.com/item?id=49486172" target="_blank" rel="noopener">173 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OpenAI 宣布对 Cursor 的决定（正文不可读，信息有限）。评论普遍认为，在 Cursor 被 SpaceX 收购、马斯克承认蒸馏 OpenAI 模型后，OpenAI 将切断 Cursor 对其模型 API 的访问，类似 Anthropic 已对 xAI 的禁令。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 模型蒸馏是用大模型输出训练较小模型，可能绕过 API 许可；这相当于你熟悉的迁移/蒸馏训练，但触发的是服务条款与竞争锁定。</p><ul class="kp"><li><strong>OpenAI</strong> 对 Cursor 宣布决定，正文不可读，信息有限。</li><li>Cursor 被 <strong>SpaceX</strong> 收购，成为马斯克关联生态，与 xAI 模型存在利益冲突。</li><li><strong>Anthropic</strong> 早前已以服务条款违规为由禁止 xAI，OpenAI 可能跟进。</li><li>用户担心失去 <strong>多模型切换</strong>：Sol、Fable、Claude、Grok 等第三方模型访问受限。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是 Cursor 转售多家模型 API 的模式在巨头竞争下难以为继；分歧在于用户看重的多模型切换价值是否仍能保留。</p><div class="tags"><span class="tag">AI 编程工具</span><span class="tag">模型 API 许可</span><span class="tag">竞争策略</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · rgbrenner · 9 回复</div><p>Anthropic already banned xAI for very similar ToS violations earlier this year: https://x.com/kyliebytes/status/2009686466746822731?s=46</p><p>So this is OpenAI following suit after Musk admitted to distilling their models.</p><p>This was bound to happen once Cursor decided to sell itself to a competing model provider.</p><p>It&#x27;ll be interesting to see if Anthropic applies their ban to Cursor, or if that datacenter deal they signed with Musk changes anything.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://pwning.systems/posts/llm-memory-program-analysis/" target="_blank" rel="noopener">I accidentally turned LLM memory into program analysis</a></h2></div><p class="title-tr">我意外地把 LLM 记忆变成了程序分析</p><div class="meta">▲ 104 分 · matt_d · <a href="https://news.ycombinator.com/item?id=49485416" target="_blank" rel="noopener">20 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者在漏洞研究中发现 LLM 会继续相信已被推翻的结论，于是构建了 Lemmalog：用 Datalog 存储事实和推导规则，让结论依赖可追踪、可自动失效，并将 LLM 定位为模糊解析前端。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可以把 Datalog 理解为一种用“如果…则…”规则从事实推导新事实的数据库查询语言，类似你熟悉的向量检索，但它硬性维护依赖关系，解决“相似但不一定为真”的问题。</p><ul class="kp"><li><strong>Lemmalog</strong> 将 LLM 的非结构化输入转为 Datalog 事实，再由规则引擎推导结论，而非让模型反复重建状态。</li><li><strong>事实撤回</strong> 能自动使依赖被推翻观察的结论失效，避免旧错误污染当前调查状态。</li><li><strong>时间区间</strong> 记录“过去认为”与“现在为真”，支持回溯历史决策而不混淆矛盾事实。</li><li>作者把系统比作<strong>编译器前端</strong>：LLM 是概率性解析器，Datalog 是确定性中间表示和分析引擎。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍认同 LLM 只应位于请求理解和结果解释两端、中间用机械推理，但有人提醒这类似 Cyc 的经典符号 AI 路线，需警惕复杂度膨胀。</p><div class="tags"><span class="tag">LLM 记忆管理</span><span class="tag">Datalog 推理</span><span class="tag">漏洞研究工具</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · sim04ful · 2 回复</div><p>I reached a similar conclusion: LLMs should only really sit at the terminals of request fulfilment.</p><p>1. User request understanding: natural language -&gt; a more rigorous representation, in my case Datalog.</p><p>2. Result interpretation: facts and derived facts -&gt; natural language.</p><p>Between those terminals, the work should be mechanical reasoning over some ontology or formal knowledge structure.</p><p>That connects to another principle I&#x27;ve been thinking about, which I call Weathering: useful reasoning should change the shape of the system. If an LLM has already had to infer a relation, mapping, rule, or abstraction, repeated use should wear that inference into the system so that the next similar request doesn&#x27;t require discovering it again from scratch.</p><p>With continued use, a weathering-capable system should therefore require less and less probabilistic intelligence for recurring work. Put another way, there should be a declining marginal cost of cognition since the products of intelligence harden into structure that can subsequently be reused and evaluated mechanically.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://github.com/stemdeckapp/stemdeck" target="_blank" rel="noopener">StemDeck, a free, open-source and local AI stem separator</a></h2></div><p class="title-tr">StemDeck：免费、开源、本地运行的 AI 音频分轨工具</p><div class="meta">▲ 69 分 · thclpr · <a href="https://news.ycombinator.com/item?id=49486081" target="_blank" rel="noopener">13 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">StemDeck 是一款免费开源桌面应用，基于 Meta 的 Demucs htdemucs_6s 模型，可在本地将歌曲分离为人声、鼓、贝斯、吉他、钢琴、其他共 6 轨，无需账户、不上传音频，首次运行下载约 170 MB 模型。定位个人练习与学习，商业产品在分离质量与移动端体验上仍更强。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 与您熟悉的 Transformer 语言模型不同，Demucs 是 Meta 开源的音频源分离神经网络，直接在波形/频谱上预测各声部的掩码；对 StemDeck 来说，本地推理意味着隐私与零订阅成本，但受限于用户自己的 CPU/GPU 硬件。</p><ul class="kp"><li><strong>StemDeck 免费开源</strong>，基于 Demucs htdemucs_6s 模型，可将音频分离为 6 个独立音轨。</li><li><strong>完全本地运行</strong>，无需账户、不上传音频，首次启动仅下载约 170 MB 模型，隐私优势明显。</li><li><strong>内置 DAW 风格混音器</strong>，支持静音、独奏、音量、循环区间、导出分轨或混音，以及 BPM/调性分析。</li><li><strong>作者明确不与商业产品竞争</strong>，自认质量、移动端、批处理能力不及 Moises/LALAL.AI，工具定位为个人练习。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍认可其易用性与本地隐私价值，但有人指出该工具只是 htdemucs 的封装而非新模型，另有大量评论纠结于 StemDeck/Steam Deck/Stream Deck 的命名混淆。</p><div class="tags"><span class="tag">音频源分离</span><span class="tag">开源软件</span><span class="tag">本地 AI 推理</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · thclpr · 4 回复</div><p>I built StemDeck, a free and open source desktop application that separates songs into vocals, drums, bass, guitar, piano, and other stems.</p><p>It started as a small project for my kid, who was learning bass and drums. Finding suitable backing tracks was surprisingly inconvenient. Most tools required an account, uploaded the audio to a remote server, imposed usage limits, or required a subscription. I wanted something simple that could process music locally.</p><p>StemDeck now includes:</p><p>- Local six-stem separation using Demucs</p><p>- NVIDIA CUDA, Apple Silicon MPS, and CPU processing</p><p>- Native releases for Windows, macOS, and Linux</p><p>- Local file support for MP3, WAV, FLAC, M4A, MP4, OGG, and Opus</p><p>- YouTube and SoundCloud imports</p><p>- Direct search for YouTube songs, playlists, and SoundCloud tracks</p><p>- Search-result previews before processing</p><p>- Playlist imports and a persistent, reorderable job queue</p><p>- A browser-based multitrack mixer with volume, mute, solo, and VU meters</p><p>- Waveform navigation, zooming, and loop regions</p><p>- Playback-speed and pitch-transposition controls</p><p>- Automatic BPM, key, scale, LUFS, and peak analysis</p><p>- A generated click track that follows the song</p><p>- Custom mix, loop-region, individual-stem, ZIP, and video exports</p><p>- A persistent local library with folders and search</p><p>- A mobile-friendly interface accessible over the local network through a QR code</p><p>- Docker and Unraid support</p><p>- An in-app updater and nine interface languages</p><p>The backend uses Python, FastAPI, Demucs, FFmpeg, yt-dlp, librosa, and Web Audio. The desktop shell is built with Tauri. Processing happens on the user’s machine, and audio is never uploaded to a StemDeck service.</p><p>There are no accounts, advertisements, subscriptions, credits, quotas, or telemetry. StemDeck is licensed under Apache 2.0, and I intend to keep it free and open source.</p><p>It is still alpha software. Separation quality depends on the source material, CPU processing can be slow, and there are undoubtedly edge cases I have not encountered. Feedback, bug reports, architectural criticism, and contributions are all welcome.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://huggingface.co/zai-org/GLM-5.3" target="_blank" rel="noopener">GLM-5.3 is now open-weight</a></h2></div><p class="title-tr">GLM-5.3 现已开放权重</p><div class="meta">▲ 662 分 · jeudesprits · <a href="https://news.ycombinator.com/item?id=49479878" target="_blank" rel="noopener">222 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">GLM-5.3 开放权重发布，沿用 GLM-5.2 基础模型，仅靠后训练显著提升；官方称其是编码最强的开放权重模型，Z.ai Code Bench 较上代提升 50%，并拿下 Terminal Bench 3.0 与 Agents&#x27; Last Exam 等开源领先成绩。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中“网络能力/漏洞利用”指在受控安全环境里让模型自动发现和利用漏洞，可理解为把安全攻防任务当成新基准测试。</p><ul class="kp"><li><strong>GLM-5.3 开放权重发布</strong>，与 GLM-5.2 共用基础模型，所有提升均来自后训练</li><li>编码能力显著增强：Z.ai Code Bench 较 GLM-5.2 提升 <strong>50%</strong>，Terminal Bench 3.0 从 4.6 跃至 28.3</li><li>漏洞利用基准 ExploitBench 达 <strong>54.4</strong>，较 GLM-5.2 的 24.4 翻倍以上</li><li>支持 vLLM、SGLang、Transformers 等部署，并新增 <strong>reasoning_effort</strong> 三档控制思考预算</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍认可它是开放权重里的“甜点级”模型，编码/智能体能力接近顶级闭源且部署更便宜；分歧在于它缺少视觉输入，部分人更看好带视觉的 Flash 版。</p><div class="tags"><span class="tag">开放权重模型</span><span class="tag">LLM 编码基准</span><span class="tag">AI 智能体安全</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · revolvingthrow · 9 回复</div><p>GLM 5.3 is probably the sweet spot open weights model if you want to go beyond deepseek flash or the new glm flash. I used it with pi and had a fairly good time, especially since it’s less touchy about cyber and whatnot than the US guys. It’s slightly behind Kimi in ability but it’s a lot easier to run it, I’d expect prices (and speed!) from third parties to be noticeably better.</p><p>Assuming you’re willing to drop a fat stack of cash on the upcoming Mac m5 ultra with 512 gb unified memory, you can even run it locally, quantized to 4 bit. Whether it’s even slightly reasonable, well, my wife would probably skin me alive but maybe yours is more understanding.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://arxiv.org/abs/2608.23691" target="_blank" rel="noopener">Autonomous Mathematical Discovery in an Open-World Multi-Agent Environment</a></h2></div><p class="title-tr">开放世界多智能体环境中的自主数学发现</p><div class="meta">▲ 96 分 · stephenchung · <a href="https://news.ycombinator.com/item?id=49481455" target="_blank" rel="noopener">23 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">在 Station 开放多智能体环境中，不同模型家族的 AI 智能体无中央协调地自主研究，在 12 个 AlphaEvolve 构造问题上获得 5 项相对既有文献为新结果，包括 11 维 604 点 kissing 构型新纪录与有限域 Kakeya 集新无限族，并产出可解释的定理与分析。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可把 Station 视为没有固定脚本的多模型协作实验场——多个 AI 模型像研究组一样自己选题、做实验、共享文献，而不像传统单模型跑预设流程；文中 Kakeya、kissing 构型、Book Ramsey 数都是具体数学组合/几何构造问题。</p><ul class="kp"><li><strong>Station</strong> 是一个无中央协调、无脚本管线的开放世界多智能体环境，不同模型家族共享研究目标。</li><li>在 12 个 AlphaEvolve 构造问题中，5 个问题获得相对既有文献的新结果，包括 <strong>11 维 604 点 kissing 构型</strong>新纪录。</li><li>智能体不仅输出数值构造，还给出定理与解释，并发现 <strong>Book Ramsey 数</strong>的新无限族。</li><li>已开源全部智能体对话、证明和验证代码，形成<strong>可审计的透明研究记录</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区分歧在于是否该把 AI 研究行为拟人化为“思考/假期”，另有人将其“放假”机制类比为给研究团队注入新视角打破僵局。</p><div class="tags"><span class="tag">多智能体系统</span><span class="tag">数学自动发现</span><span class="tag">AI 科研</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · robotresearcher · 2 回复</div><p>I have two thoughts simultaneously about the anthropomorphisation of these systems:</p><p>1. we should do it less, because it distorts our ability to think about them properly. Calling these processes &#x27;thinking&#x27;, &#x27;holidays&#x27;, etc invites the reader to bring along ideas and expectations that aren&#x27;t justified by what&#x27;s happening in the system.</p><p>2. it&#x27;s good to keep doing it, because repeated use reduces the specialness or magic that people seem to reserve for our own behavior (&quot;It&#x27;s not really intelligent/thinking/reasoning/creative&quot;) without any justification for that position beyond feelings.</p><p>I&#x27;m leaning towards the second.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://www.ycombinator.com/companies/attimet/jobs/6btZFDg-member-of-technical-staff-engineering" target="_blank" rel="noopener">Attimet (YC F24) Is Hiring Members of Technical Staff – Engineering and Research</a></h2></div><p class="title-tr">Attimet (YC F24) 招聘技术团队成员——工程与研究</p><div class="meta">▲ 1 分 · kbanothu · <a href="https://news.ycombinator.com/item?id=49481423" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">YC F24 创业公司 Attimet 招聘工程与研究岗位，薪资 $125K–$350K、股权 0.10%–2.00%，旧金山现场。创始团队来自 Optiver、DRW、Argo AI，计划先构建 Prime Radiant 研究加速器，再应用于金融市场。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Optiver、DRW 是自营交易/做市公司，靠低延迟与量化模型捕捉市场微观波动；Attimet 想将 LLM 代理引入这类高频研究迭代，而非传统深度学习训练流程。</p><ul class="kp"><li><strong>薪资 $125K–$350K、股权 0.10%–2.00%</strong>，旧金山现场，接受应届毕业生。</li><li>创始团队来自 <strong>Optiver、DRW、Argo AI</strong>，拥有量化交易与自动驾驶背景。</li><li>路线图：先构建 <strong>Prime Radiant</strong> 研究加速器，再应用于金融市场，目标管理全球资产。</li><li><strong>不做 LeetCode 式面试</strong>，流程为创始人对话、技术深潜、团队工作环节。</li></ul><div class="tags"><span class="tag">LLM 代理</span><span class="tag">量化交易</span><span class="tag">YC 招聘</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://groverlab.org/hnbfpr/2026-08-26-ai-counterfeit-cosmetics.html" target="_blank" rel="noopener">Identifying fake cosmetics using AI</a></h2></div><p class="title-tr">用人工智能识别假冒化妆品</p><div class="meta">▲ 48 分 · wgrover · <a href="https://news.ycombinator.com/item?id=49484925" target="_blank" rel="noopener">19 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">研究者用 Gemini 3.6 Flash 对 3 盒 Rhode Peptide Lip Tint 测试：模型能发现成分拼写、批次号、监管信息不一致等造假线索，但也会把反光、正当包装细节误判为错误；HN 评论指出其把真品也判为假，未能可靠区分真伪。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这相当于用现成的多模态 Transformer 做零样本跨图像一致性检测：模型没有在真假化妆品上训练，只是比对多张照片中的文字和排版，因此容易出现召回高但误报也高的问题。</p><ul class="kp"><li><strong>约三分之二</strong>在 eBay、TikTok Shop、Vinted 销售的品牌美妆和护肤品是假货，且可能含有重金属和细菌。</li><li>Gemini 3.6 Flash 正确识别出 A/B 假货：如 <strong>Diisostearyl Malate 被 OCR 误拼为 Diisosteary! Malate</strong>、批次号 112505 常见于假货。</li><li>模型出现多处假阳性：把<strong>灯光反光</strong>当成印刷错误，并误判外盒压印边框、容量排版等正品特征为可疑。</li><li>HN 评论指出 Gemini <strong>把所有包裹都判为假</strong>，意味着在真假判别任务中没有提供有效区分。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区核心分歧：模型连正品都判假是否还能叫有用；另有人担心造假者会用同类 AI 反向消除文本错误，使检测无法规模化。</p><div class="tags"><span class="tag">AI 打假</span><span class="tag">多模态模型</span><span class="tag">消费品安全</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · hn_throwaway_99 · 3 回复</div><p>&gt; In conclusion, I’m pretty negative about AI in general, but this experience made me cautiously optimistic about the role the technology could play in protecting consumers from counterfeit products.</p><p>Whaaaattt? How could the author go through such detail and discover that Gemini completely failed in the assigned task (calling all the products fakes when some were and some weren&#x27;t means that it provided zero correct assistance in this discrimination task) and then conclude &quot;AI could play a helpful role&quot;??? Does the author also conclude that stopped clocks could play a helpful role telling time because the are correct twice a day?</p><p>Apparently AI isn&#x27;t the only thing that hallucinates.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://terminalbytes.com/run-qwen-3-8-27b-locally/" target="_blank" rel="noopener">Run Qwen3.8 27B locally: real numbers from my Mac Studio</a></h2></div><p class="title-tr">在本地运行 Qwen3.8 27B：我的 Mac Studio 实测数据</p><div class="meta">▲ 102 分 · speckx · <a href="https://news.ycombinator.com/item?id=49479951" target="_blank" rel="noopener">81 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者在 Mac Studio M3 Ultra 上实测 Qwen3.8 27B：生成速度 14 tokens/s，是前代 Qwen3.6 的一半，但回答 token 减少约三分之二，实际完成时间接近；1-bit 量化版 6.7GB、27 tokens/s 但无法做工具调用，Q4 量化需 32GB 内存。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 本文的量化相当于把 27B 模型权重压缩成不同精度以省内存，和你在训练中见过的精度-速度/效果权衡类似；苹果统一内存则决定本地能装下多大模型。</p><ul class="kp"><li><strong>Qwen3.8 27B 生成速度仅 14 tokens/s</strong>，是前代 Qwen3.6 同机 28.6 tokens/s 的一半。</li><li><strong>回答消耗约 1000 tokens</strong>，是前代三分之一，实际完成时间与 3.6 接近。</li><li><strong>1-bit 量化版 6.7GB 可达 27 tokens/s</strong>，但无法稳定给出最终答案，不适合工具调用。</li><li><strong>Q4 量化需 32GB 内存</strong>，16GB 只能跑 Q2；苹果统一内存方案比自组内存更便宜。</li></ul><p class="disc"><strong>💬 讨论</strong> 多名评论质疑 Qwen3.8 与 3.6 架构和参数一致却速度减半，认为是作者配置或 GGUF 文件问题；但也有用户报告类似慢速。</p><div class="tags"><span class="tag">LLM 推理</span><span class="tag">模型量化</span><span class="tag">本地部署</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Atreiden · 3 回复</div><p>I&#x27;m encountering the same behavior. I&#x27;ve tried 4-8bit quants and get 14-17 tok/s with one run that achieved 19. I&#x27;m eagerly awaiting dflash2 support in Unsloth or LM Studio, as allegedly that should increase throughput to around 30tok/s, which is the baseline for what I consider at least somewhat interactive.</p><p>Jealous of the folks with 5090s running ninfer and getting &gt;100tok/s. At those speeds it&#x27;s a true frontier replacement IMO.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://www.nytimes.com/2026/08/27/technology/anthropic-government-blacklisting-ruling.html" target="_blank" rel="noopener">Judge rules Trump administration’s blacklisting of Anthropic was illegal</a></h2></div><p class="title-tr">法官裁定特朗普政府将 Anthropic 列入黑名单的行为非法</p><div class="meta">▲ 568 分 · jbegley · <a href="https://news.ycombinator.com/item?id=49473522" target="_blank" rel="noopener">413 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">联邦法官裁定特朗普政府将 AI 公司 Anthropic 列入黑名单的决定非法，理由是证据薄弱且属报复性言论；政府行政记录仅四页备忘录，并撤回了关于后门访问的风险评估。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 对关注 AI 产品与政府合同的人而言，此案展示了行政权以国家安全为由限制特定公司时，法院如何审查证据和动机，类似大客户无理封杀你的产品但理由站不住脚。</p><ul class="kp"><li>法官裁定特朗普政府对 <strong>Anthropic</strong> 的拉黑非法，因证据薄弱且属报复性言论。</li><li>政府行政记录仅 <strong>四页备忘录</strong>，并撤回关于后门访问的风险评估。</li><li>评论指出法律程序 <strong>太慢</strong>，无法及时阻止政府行动造成的损失。</li><li>此案可能震慑其他公司，使它们 <strong>不敢</strong> 在政府压力下坚持立场。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍认可法院认定报复性言论非法，但担忧法律救济滞后，无法有效约束行政权力，对已屈服的公司缺乏补救。</p><div class="tags"><span class="tag">AI 政府采购</span><span class="tag">国家安全审查</span><span class="tag">法律诉讼</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · firefoxd · 16 回复</div><p>The law is too slow. It&#x27;s like a horse carriage in the age of twitter. Why can&#x27;t they expedite for special cases? Not even defending Antropic or any company. Just that if a tweet can cause damage in seconds, the law shouldn&#x27;t be too far behind.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://www.businessinsider.com/nvidia-in-talks-to-buy-hugging-face-13-billion-dollars-2026-8" target="_blank" rel="noopener">Nvidia agrees to acquire Hugging Face for $13B</a></h2></div><p class="title-tr">Nvidia 同意以 130 亿美元收购 Hugging Face</p><div class="meta">▲ 1953 分 · mfiguiere · <a href="https://news.ycombinator.com/item?id=49458161" target="_blank" rel="noopener">898 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Nvidia 正洽谈以超 130 亿美元估值收购 Hugging Face，交易尚未最终敲定；若能完成，英伟达将接管开源 AI 生态的核心模型托管与分发平台，其中立性面临考验。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 对熟悉模型训练的你来说，Hugging Face 相当于开源模型和数据集的 GitHub 及发布渠道；英伟达收购它等于芯片厂商直接控制模型分发入口。</p><ul class="kp"><li><strong>Nvidia 正洽谈以超 130 亿美元估值收购 Hugging Face</strong>，但交易尚未最终敲定，仍可能破裂。</li><li>Hugging Face 去年刚拒绝 Nvidia 按 <strong>70 亿美元估值</strong> 的 5 亿美元投资，理由是避免主导投资者。</li><li>若交易完成，Nvidia 将掌控模型分发渠道，可能削弱对 <strong>AMD 和 Intel 硬件</strong> 的中立支持。</li><li>Nvidia 持有 <strong>479 亿美元</strong> 私企股权，本财年再承诺 180 亿美元股权投资。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论普遍担忧此次收购会终结 Hugging Face 的中立性，认为比微软收购 GitHub 更糟，并可能引发反垄断与开源社区流失。</p><div class="tags"><span class="tag">AI 并购</span><span class="tag">开源模型托管</span><span class="tag">芯片-软件垂直整合</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Gigachad · 13 回复</div><p>What is the business model of hugging face? My understanding was they were basically just a file hosting platform.</p></div></div></article>
+</div></main>
+<footer>generated 2026-08-29 07:02 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-29", "pointsLabel": "分", "commentsLabel": "评论", "title": "Our decision on Cursor following its acquisition by SpaceX", "titleTranslation": "我们对 Cursor 被 SpaceX 收购后的决定", "summary": "OpenAI 宣布对 Cursor 的决定（正文不可读，信息有限）。评论普遍认为，在 Cursor 被 SpaceX 收购、马斯克承认蒸馏 OpenAI 模型后，OpenAI 将切断 Cursor 对其模型 API 的访问，类似 Anthropic 已对 xAI 的禁令。", "keyPoints": ["OpenAI 对 Cursor 宣布决定，正文不可读，信息有限。", "Cursor 被 SpaceX 收购，成为马斯克关联生态，与 xAI 模型存在利益冲突。", "Anthropic 早前已以服务条款违规为由禁止 xAI，OpenAI 可能跟进。"], "discussion": "评论区共识是 Cursor 转售多家模型 API 的模式在巨头竞争下难以为继；分歧在于用户看重的多模型切换价值是否仍能保留。", "tags": ["AI 编程工具", "模型 API 许可", "竞争策略"], "score": 408, "comments": 173, "by": "meetpateltech", "url": "https://openai.com/index/our-decision-on-cursor-following-its-acquisition-by-spacex/", "hnUrl": "https://news.ycombinator.com/item?id=49486172"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-29", "pointsLabel": "分", "commentsLabel": "评论", "title": "I accidentally turned LLM memory into program analysis", "titleTranslation": "我意外地把 LLM 记忆变成了程序分析", "summary": "作者在漏洞研究中发现 LLM 会继续相信已被推翻的结论，于是构建了 Lemmalog：用 Datalog 存储事实和推导规则，让结论依赖可追踪、可自动失效，并将 LLM 定位为模糊解析前端。", "keyPoints": ["Lemmalog 将 LLM 的非结构化输入转为 Datalog 事实，再由规则引擎推导结论，而非让模型反复重建状态。", "事实撤回 能自动使依赖被推翻观察的结论失效，避免旧错误污染当前调查状态。", "时间区间 记录“过去认为”与“现在为真”，支持回溯历史决策而不混淆矛盾事实。"], "discussion": "评论区普遍认同 LLM 只应位于请求理解和结果解释两端、中间用机械推理，但有人提醒这类似 Cyc 的经典符号 AI 路线，需警惕复杂度膨胀。", "tags": ["LLM 记忆管理", "Datalog 推理", "漏洞研究工具"], "score": 104, "comments": 20, "by": "matt_d", "url": "https://pwning.systems/posts/llm-memory-program-analysis/", "hnUrl": "https://news.ycombinator.com/item?id=49485416"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-29", "pointsLabel": "分", "commentsLabel": "评论", "title": "StemDeck, a free, open-source and local AI stem separator", "titleTranslation": "StemDeck：免费、开源、本地运行的 AI 音频分轨工具", "summary": "StemDeck 是一款免费开源桌面应用，基于 Meta 的 Demucs htdemucs_6s 模型，可在本地将歌曲分离为人声、鼓、贝斯、吉他、钢琴、其他共 6 轨，无需账户、不上传音频，首次运行下载约 170 MB 模型。定位个人练习与学习，商业产品在分离质量与移动端体验上仍更强。", "keyPoints": ["StemDeck 免费开源，基于 Demucs htdemucs_6s 模型，可将音频分离为 6 个独立音轨。", "完全本地运行，无需账户、不上传音频，首次启动仅下载约 170 MB 模型，隐私优势明显。", "内置 DAW 风格混音器，支持静音、独奏、音量、循环区间、导出分轨或混音，以及 BPM/调性分析。"], "discussion": "评论普遍认可其易用性与本地隐私价值，但有人指出该工具只是 htdemucs 的封装而非新模型，另有大量评论纠结于 StemDeck/Steam Deck/Stream Deck 的命名混淆。", "tags": ["音频源分离", "开源软件", "本地 AI 推理"], "score": 69, "comments": 13, "by": "thclpr", "url": "https://github.com/stemdeckapp/stemdeck", "hnUrl": "https://news.ycombinator.com/item?id=49486081"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-29", "pointsLabel": "分", "commentsLabel": "评论", "title": "GLM-5.3 is now open-weight", "titleTranslation": "GLM-5.3 现已开放权重", "summary": "GLM-5.3 开放权重发布，沿用 GLM-5.2 基础模型，仅靠后训练显著提升；官方称其是编码最强的开放权重模型，Z.ai Code Bench 较上代提升 50%，并拿下 Terminal Bench 3.0 与 Agents' Last Exam 等开源领先成绩。", "keyPoints": ["GLM-5.3 开放权重发布，与 GLM-5.2 共用基础模型，所有提升均来自后训练", "编码能力显著增强：Z.ai Code Bench 较 GLM-5.2 提升 50%，Terminal Bench 3.0 从 4.6 跃至 28.3", "漏洞利用基准 ExploitBench 达 54.4，较 GLM-5.2 的 24.4 翻倍以上"], "discussion": "评论区普遍认可它是开放权重里的“甜点级”模型，编码/智能体能力接近顶级闭源且部署更便宜；分歧在于它缺少视觉输入，部分人更看好带视觉的 Flash 版。", "tags": ["开放权重模型", "LLM 编码基准", "AI 智能体安全"], "score": 662, "comments": 222, "by": "jeudesprits", "url": "https://huggingface.co/zai-org/GLM-5.3", "hnUrl": "https://news.ycombinator.com/item?id=49479878"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-29", "pointsLabel": "分", "commentsLabel": "评论", "title": "Autonomous Mathematical Discovery in an Open-World Multi-Agent Environment", "titleTranslation": "开放世界多智能体环境中的自主数学发现", "summary": "在 Station 开放多智能体环境中，不同模型家族的 AI 智能体无中央协调地自主研究，在 12 个 AlphaEvolve 构造问题上获得 5 项相对既有文献为新结果，包括 11 维 604 点 kissing 构型新纪录与有限域 Kakeya 集新无限族，并产出可解释的定理与分析。", "keyPoints": ["Station 是一个无中央协调、无脚本管线的开放世界多智能体环境，不同模型家族共享研究目标。", "在 12 个 AlphaEvolve 构造问题中，5 个问题获得相对既有文献的新结果，包括 11 维 604 点 kissing 构型新纪录。", "智能体不仅输出数值构造，还给出定理与解释，并发现 Book Ramsey 数的新无限族。"], "discussion": "评论区分歧在于是否该把 AI 研究行为拟人化为“思考/假期”，另有人将其“放假”机制类比为给研究团队注入新视角打破僵局。", "tags": ["多智能体系统", "数学自动发现", "AI 科研"], "score": 96, "comments": 23, "by": "stephenchung", "url": "https://arxiv.org/abs/2608.23691", "hnUrl": "https://news.ycombinator.com/item?id=49481455"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-29", "pointsLabel": "分", "commentsLabel": "评论", "title": "Attimet (YC F24) Is Hiring Members of Technical Staff – Engineering and Research", "titleTranslation": "Attimet (YC F24) 招聘技术团队成员——工程与研究", "summary": "YC F24 创业公司 Attimet 招聘工程与研究岗位，薪资 $125K–$350K、股权 0.10%–2.00%，旧金山现场。创始团队来自 Optiver、DRW、Argo AI，计划先构建 Prime Radiant 研究加速器，再应用于金融市场。", "keyPoints": ["薪资 $125K–$350K、股权 0.10%–2.00%，旧金山现场，接受应届毕业生。", "创始团队来自 Optiver、DRW、Argo AI，拥有量化交易与自动驾驶背景。", "路线图：先构建 Prime Radiant 研究加速器，再应用于金融市场，目标管理全球资产。"], "discussion": "", "tags": ["LLM 代理", "量化交易", "YC 招聘"], "score": 1, "comments": 0, "by": "kbanothu", "url": "https://www.ycombinator.com/companies/attimet/jobs/6btZFDg-member-of-technical-staff-engineering", "hnUrl": "https://news.ycombinator.com/item?id=49481423"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-29", "pointsLabel": "分", "commentsLabel": "评论", "title": "Identifying fake cosmetics using AI", "titleTranslation": "用人工智能识别假冒化妆品", "summary": "研究者用 Gemini 3.6 Flash 对 3 盒 Rhode Peptide Lip Tint 测试：模型能发现成分拼写、批次号、监管信息不一致等造假线索，但也会把反光、正当包装细节误判为错误；HN 评论指出其把真品也判为假，未能可靠区分真伪。", "keyPoints": ["约三分之二在 eBay、TikTok Shop、Vinted 销售的品牌美妆和护肤品是假货，且可能含有重金属和细菌。", "Gemini 3.6 Flash 正确识别出 A/B 假货：如 Diisostearyl Malate 被 OCR 误拼为 Diisosteary! Malate、批次号 112505 常见于假货。", "模型出现多处假阳性：把灯光反光当成印刷错误，并误判外盒压印边框、容量排版等正品特征为可疑。"], "discussion": "评论区核心分歧：模型连正品都判假是否还能叫有用；另有人担心造假者会用同类 AI 反向消除文本错误，使检测无法规模化。", "tags": ["AI 打假", "多模态模型", "消费品安全"], "score": 48, "comments": 19, "by": "wgrover", "url": "https://groverlab.org/hnbfpr/2026-08-26-ai-counterfeit-cosmetics.html", "hnUrl": "https://news.ycombinator.com/item?id=49484925"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-29", "pointsLabel": "分", "commentsLabel": "评论", "title": "Run Qwen3.8 27B locally: real numbers from my Mac Studio", "titleTranslation": "在本地运行 Qwen3.8 27B：我的 Mac Studio 实测数据", "summary": "作者在 Mac Studio M3 Ultra 上实测 Qwen3.8 27B：生成速度 14 tokens/s，是前代 Qwen3.6 的一半，但回答 token 减少约三分之二，实际完成时间接近；1-bit 量化版 6.7GB、27 tokens/s 但无法做工具调用，Q4 量化需 32GB 内存。", "keyPoints": ["Qwen3.8 27B 生成速度仅 14 tokens/s，是前代 Qwen3.6 同机 28.6 tokens/s 的一半。", "回答消耗约 1000 tokens，是前代三分之一，实际完成时间与 3.6 接近。", "1-bit 量化版 6.7GB 可达 27 tokens/s，但无法稳定给出最终答案，不适合工具调用。"], "discussion": "多名评论质疑 Qwen3.8 与 3.6 架构和参数一致却速度减半，认为是作者配置或 GGUF 文件问题；但也有用户报告类似慢速。", "tags": ["LLM 推理", "模型量化", "本地部署"], "score": 102, "comments": 81, "by": "speckx", "url": "https://terminalbytes.com/run-qwen-3-8-27b-locally/", "hnUrl": "https://news.ycombinator.com/item?id=49479951"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-29", "pointsLabel": "分", "commentsLabel": "评论", "title": "Judge rules Trump administration’s blacklisting of Anthropic was illegal", "titleTranslation": "法官裁定特朗普政府将 Anthropic 列入黑名单的行为非法", "summary": "联邦法官裁定特朗普政府将 AI 公司 Anthropic 列入黑名单的决定非法，理由是证据薄弱且属报复性言论；政府行政记录仅四页备忘录，并撤回了关于后门访问的风险评估。", "keyPoints": ["法官裁定特朗普政府对 Anthropic 的拉黑非法，因证据薄弱且属报复性言论。", "政府行政记录仅 四页备忘录，并撤回关于后门访问的风险评估。", "评论指出法律程序 太慢，无法及时阻止政府行动造成的损失。"], "discussion": "评论区普遍认可法院认定报复性言论非法，但担忧法律救济滞后，无法有效约束行政权力，对已屈服的公司缺乏补救。", "tags": ["AI 政府采购", "国家安全审查", "法律诉讼"], "score": 568, "comments": 413, "by": "jbegley", "url": "https://www.nytimes.com/2026/08/27/technology/anthropic-government-blacklisting-ruling.html", "hnUrl": "https://news.ycombinator.com/item?id=49473522"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-08-29", "pointsLabel": "分", "commentsLabel": "评论", "title": "Nvidia agrees to acquire Hugging Face for $13B", "titleTranslation": "Nvidia 同意以 130 亿美元收购 Hugging Face", "summary": "Nvidia 正洽谈以超 130 亿美元估值收购 Hugging Face，交易尚未最终敲定；若能完成，英伟达将接管开源 AI 生态的核心模型托管与分发平台，其中立性面临考验。", "keyPoints": ["Nvidia 正洽谈以超 130 亿美元估值收购 Hugging Face，但交易尚未最终敲定，仍可能破裂。", "Hugging Face 去年刚拒绝 Nvidia 按 70 亿美元估值 的 5 亿美元投资，理由是避免主导投资者。", "若交易完成，Nvidia 将掌控模型分发渠道，可能削弱对 AMD 和 Intel 硬件 的中立支持。"], "discussion": "HN 评论普遍担忧此次收购会终结 Hugging Face 的中立性，认为比微软收购 GitHub 更糟，并可能引发反垄断与开源社区流失。", "tags": ["AI 并购", "开源模型托管", "芯片-软件垂直整合"], "score": 1953, "comments": 898, "by": "mfiguiere", "url": "https://www.businessinsider.com/nvidia-in-talks-to-buy-hugging-face-13-billion-dollars-2026-8", "hnUrl": "https://news.ycombinator.com/item?id=49458161"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
