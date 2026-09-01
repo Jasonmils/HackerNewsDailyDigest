@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-09-01</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-09-01 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://antigravity.google/docs/boost/" target="_blank" rel="noopener">Google Antigravity introduces Boost deep reasoning (/boost)</a></h2></div><p class="title-tr">谷歌 Antigravity 推出 Boost 深度推理（/boost）</p><div class="meta">▲ 49 分 · simonpure · <a href="https://news.ycombinator.com/item?id=49517537" target="_blank" rel="noopener">27 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">谷歌 Antigravity 推出 /boost 命令，用三阶段多代理管线（策略制定、并行执行与验证、综合交付）处理并发 bug、算法优化等复杂编码任务。定位介于日常快速编码与多日代理团队之间，但 HN 用户普遍质疑其完成度与付费价值。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 多代理推理管线可类比将单次深度推理拆成多个并行子任务，每个子代理在隔离环境中独立运行并互相验证，类似分布式推理或集成学习中的分而治之。</p><ul class="kp"><li><strong>谷歌 Antigravity 推出 /boost 命令</strong>，激活三阶段多代理推理管线。</li><li>主要面向<strong>并发 bug、算法优化、多文件重构</strong>等高难度任务。</li><li>对比默认模式，/boost 采用<strong>多轮独立验证</strong>和临时隔离工作树，避免污染主工作区。</li><li>HN 评论质疑该功能疑似“半成品”，且<strong>付费计划配额消耗过快</strong>问题未解决。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区普遍认为 /boost 只是“投入更多算力/令牌”的包装，并批评 Antigravity 完成度和付费配额，少数人认可新模型速度与性价比。</p><div class="tags"><span class="tag">AI 编程工具</span><span class="tag">多代理系统</span><span class="tag">代码生成</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · CSMastermind · 2 回复</div><p>It&#x27;s impressive how badly Google has screwed up their models and coding products.  There was a brief period of time I was using Anti-gravity as my daily driver when they first introduced it and then they just completely screwed it up.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://www.macrumors.com/2026/08/30/apple-unexpected-mac-mini-and-studio-demand/" target="_blank" rel="noopener">Apple caught off guard by AI demand for Mac Mini and Mac Studio</a></h2></div><p class="title-tr">苹果因 Mac Mini 和 Mac Studio 的 AI 需求而措手不及</p><div class="meta">▲ 355 分 · thm · <a href="https://news.ycombinator.com/item?id=49508982" target="_blank" rel="noopener">394 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">苹果本周罕见提前发布新款 Mac mini 和 Mac Studio，背后是企业 AI 硬件需求意外激增；以企业为主的采购热潮叠加全球内存短缺，导致部分高配型号缺货数月，有客户转向 Nvidia 的 DGX Spark。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Private Cloud Compute 是苹果的云端 AI 推理基础设施，企业想直接买算力被苹果拒绝；Nvidia 的 DGX Spark 则是类似 Mac mini 形态的桌面 AI 设备。</p><ul class="kp"><li><strong>苹果提前发布</strong>新款 Mac mini 和 Mac Studio，原因是企业 AI 硬件需求意外强劲。</li><li>苹果宣传可<strong>把多台 Mac Studio 连成一个系统</strong>，用于运行大型前沿 AI 模型，面向企业客户。</li><li>苹果<strong>缺乏企业 AI 战略</strong>和商务客户/开发者关系团队，企业求购 Private Cloud Compute 被拒。</li><li><strong>全球内存短缺</strong>导致高配 Mac 缺货数月，部分企业转向 Nvidia 的 DGX Spark。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区一半质疑这是苹果营销操作，另一半认真争论本地 Mac 跑 AI 相对云端是否真的有用。</p><div class="tags"><span class="tag">Mac 本地 AI 需求</span><span class="tag">企业 AI 硬件</span><span class="tag">Apple 企业战略</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Grombobulous · 39 回复</div><p>I’m curious to know if these local AI setups are legitimately useful compared to cloud. I’ve struggled a lot to get something useful out of the hardware I have.</p><p>I realize I’m somewhat limited (16GB RX 9070), but still, it seems really far off from the kind of experience even a basic $20/month subscription gets me.</p><p>Any tips anyone might have are appreciated! I’d love to be local first and would be willing to buy hardware to get there.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://www.chosun.com/english/industry-en/2026/08/30/SBFXUIJQYZEARKP5T4FBAY25HQ/" target="_blank" rel="noopener">Smartphone LED detects hidden cameras with AI</a></h2></div><p class="title-tr">智能手机 LED 借助 AI 检测隐藏摄像头</p><div class="meta">▲ 180 分 · geox · <a href="https://news.ycombinator.com/item?id=49496292" target="_blank" rel="noopener">53 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">原文未能抓取，信息有限：标题显示该方案用手机自带 LED 补光灯加 AI 分析反射来发现隐藏摄像头。HN 讨论认为思路廉价易用，但对针孔、无镜头传感器和延时启动等规避手段不够可靠，需与热成像或信号检测组合。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这更像把手机当作主动光学探头，AI 只负责反射模式分类；真正的对抗难点在物理层，类似对抗样本或分布外输入能绕过模型判断。</p><ul class="kp"><li><strong>手机自带 LED 补光灯</strong>可作主动光源，AI 分析摄像头镜头反光，但原文无法抓取、信息有限。</li><li>传统硬件检测用 <strong>10mW 832nm 激光加振镜扫描</strong>，可发现镜头甚至眼球，成本与便携性更高。</li><li><strong>无镜头传感器</strong>（压缩感知或哈达玛阴影掩膜）和远距离拍摄可规避此类光学检测，针孔更难发现。</li><li>评论认为单一方法易被<strong>延时启动或流量伪装</strong>绕过，理想方案应融合热成像、反射分析与信号检测。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 认可手机 LED 方案的新意，但多数认为它对付针孔和刻意规避设备不可靠，应与其他物理/信号检测手段组合。</p><div class="tags"><span class="tag">隐私反监控</span><span class="tag">光学传感</span><span class="tag">AI 检测</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · fidotron · 4 回复</div><p>If this worked with IR, and so non visible, it might be even more useful.</p><p>Great idea though.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://www.dolthub.com/blog/2026-08-31-doltlite-beta/" target="_blank" rel="noopener">DoltLite: A SQLite fork with Git-style version control, built with 2k agent PRs</a></h2></div><p class="title-tr">DoltLite：一个带 Git 风格版本控制的 SQLite 分支，由 2 千个 agent 拉取请求构建</p><div class="meta">▲ 17 分 · lbw1215 · <a href="https://news.ycombinator.com/item?id=49516848" target="_blank" rel="noopener">3 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">DoltLite 用内容寻址的 Prolly Tree 替换 SQLite 的 B-tree 存储层，为嵌入式数据库加入 Git 式分支、合并、diff 与远程同步；Beta 0.50.0 通过 100% sqllogictest 和 99.46% SQLite TCL 测试，存储格式已稳定，但小写入慢 3.1 倍。</p><p class="context"><strong>🧭 联系你的知识背景</strong> SQLite 的 B-tree 存储层相当于数据库的底层文件格式；DoltLite 将其换成内容寻址的 Prolly Tree，使数据库像 Git 仓库一样可分支、合并和回滚。</p><ul class="kp"><li><strong>DoltLite Beta 0.50.0</strong> 宣称存储格式稳定，未来破坏性变更将有迁移路径</li><li>通过 <strong>100% sqllogictest</strong> 和 99.46% SQLite TCL 测试，4809 个差异均有原因记录</li><li>性能：内存库读慢 10%、写慢 60%；文件后端读持平，小 autocommit 写慢 <strong>3.1 倍</strong></li><li>项目由约 <strong>2000 个 agent 拉取请求</strong>构建，验证了 agent 编排在真实数据库工程中的可行性</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区担忧 DoltLite 缺失 WAL（预写日志，崩溃恢复机制）的持久性保证，并质疑 agent 构建的数据库是否经过充分验证。</p><div class="tags"><span class="tag">SQLite分叉</span><span class="tag">版本控制数据库</span><span class="tag">AI代理软件工程</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · anon291 · 1 回复</div><p>I let agents do their things but I would not trust them with my data without extensive validation. A database efforts main product is not exotic data structures but validation.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://news.ycombinator.com/item?id=49514781" target="_blank" rel="noopener">Autonomous (YC F25) is hiring engineers</a></h2></div><p class="title-tr">Autonomous（YC F25）正在招聘工程师</p><div class="meta">▲ 1 分 · dkobran · <a href="https://news.ycombinator.com/item?id=49514781" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">ATG（Autonomous Technologies Group）是 YC F25 批次的 AI 实验室，在金融市场部署前沿推理系统，并推出智能财富策略师产品 Autonomous。该公司现正招聘工程师，值得关注 AI 推理与金融决策结合的落地方向。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可以把 Autonomous 理解为把你熟悉的大模型推理能力包装成自动理财顾问产品，而 ATG 是背后的金融推理系统实验室。</p><ul class="kp"><li><strong>ATG（Autonomous Technologies Group）</strong>是 YC F25 批次的 AI 实验室。</li><li>其核心方向是把<strong>前沿推理系统</strong>部署到金融市场做决策。</li><li>产品 <strong>Autonomous</strong> 是基于该基座的智能财富策略师。</li><li>目前<strong>正在招聘工程师</strong>，入口为 atg.science/careers。</li></ul><div class="tags"><span class="tag">AI 金融</span><span class="tag">智能体产品</span><span class="tag">招聘</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://codex-tool-reference.simonw.chatgpt.site/" target="_blank" rel="noopener">ChatGPT Work Tool and Skill Reference</a></h2></div><p class="title-tr">ChatGPT Work 工具与技能参考</p><div class="meta">▲ 203 分 · ijidak · <a href="https://news.ycombinator.com/item?id=49510000" target="_blank" rel="noopener">53 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">该文档规定 ChatGPT Work 渲染前必须用 validate_artifact 校验快照，上限为 50 个数据集、每集 2000 行、总量 3MB、内联字符 20 万；Work Mode 下禁用 render_* 工具，改走 Sites 发布。核心是 Agent 工作流的硬边界与质量控制。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中的 MCP（模型上下文协议）和 Work Mode 是 ChatGPT 调用外部图表/数据工具的接口与渲染路径；可类比为模型插件的 API 合约与请求载荷上限。</p><ul class="kp"><li>调用 <strong>validate_artifact</strong> 校验是渲染前置步骤；失败会留下占位卡片，不能把渲染当迭代校验。</li><li>快照上限为 <strong>50 个数据集、每集 2000 行、总载荷 3MB、内联字符 20 万</strong>，超限即不合格。</li><li><strong>Work Mode 下禁用 render_chart/render_table</strong>，应走 Sites 发布；HTML 仅在原生渲染失败时回退。</li><li>图表标题必须<strong>中性描述</strong>指标或维度，不能推断叙事结论；未在轴或颜色通道编码的维度要从标题移除。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区最关注 simonw 指出 control-browser 通过 Playwright 动态获取指令的机制；其余争论聚焦与 Codex 的差异、token 消耗与 OpenAI 治理风险。</p><div class="tags"><span class="tag">ChatGPT Work</span><span class="tag">MCP 工具规范</span><span class="tag">渲染上限</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · simonw · 5 回复</div><p>I think the most interesting skill here is the control-browser one: https://codex-tool-reference.simonw.chatgpt.site/skills/cont...</p><p>It tells ChatGPT Work how to launch a Playwright instance via its Node.js REPL, and tells it to run:</p><p>nodeRepl.write(await browser.documentation());</p><p>To get further instructions.</p><p>That method returns this text with full details about how to use the browser: https://codex-tool-reference.simonw.chatgpt.site/skills/cont...</p><p>I&#x27;d love to know why it&#x27;s defined like that, as opposed to including all of the instructions directly in the skill Markdown file.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://usealmanac.com/" target="_blank" rel="noopener">Launch HN: Almanac (YC S26) – AI that knows your company</a></h2></div><p class="title-tr">Launch HN: Almanac（YC S26）—— 一个懂你公司的 AI</p><div class="meta">▲ 51 分 · kushagrchitkar · <a href="https://news.ycombinator.com/item?id=49511007" target="_blank" rel="noopener">45 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Almanac（Y Combinator S26）推出具备持久记忆的 AI 助手，通过预编译 personal/company wikis 和 OAuth 连接 Gmail、Calendar、PostHog 等账户，主打主动代理和长时任务。HN 评论主要质疑其与 Claude/Codex 差异化不足、缺性能数据。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 把“预编译知识层”理解成提前整理好的公司上下文 wiki，而不是每次对话临时检索；它直接影响 AI 助手能否在数小时甚至数天后继续推进任务。</p><ul class="kp"><li><strong>Almanac（Y Combinator S26）</strong> 用预编译 personal/company wikis 为 AI 助手提供持久记忆，支持一键连接 Gmail、Calendar、PostHog 等账户。</li><li>创始人称预编译知识层需更多前置算力，但能支持<strong>主动代理和跨天长时任务</strong>，例如自动起草融资演示文稿、跟进邮件回复。</li><li>HN 评论认为与 <strong>Claude/Codex</strong> 的本地或托管代理相比没有清晰优势，并要求提供记忆方案提升任务完成率的数据。</li><li>用户建议 wiki 应支持<strong>个人/团队/部门/公司多层级</strong>，而非只分 personal 和 company；7 天试用对建立记忆太短。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区普遍认为 Almanac 与 Claude/Codex 功能重叠，缺少记忆优势的数据支撑；部分用户建议多层级 wiki 和更长试用期。</p><div class="tags"><span class="tag">AI 代理记忆</span><span class="tag">Y Combinator 创业公司</span><span class="tag">企业知识管理</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · bewareofscams · 2 回复</div><p>&gt; that knows everything about your company</p><p>Given that I don&#x27;t know everything about my 4-person company, and that I never knew everything when it was a 1-person company (guess which person is that), this sound like https://x.com/mitchellh/status/2044529496217555333 (apologies for twitter link)</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://github.com/Hebbian-Robotics/hflow" target="_blank" rel="noopener">Launch HN: Hebbian Robotics (YC S26) – Build scalable robotics data pipelines</a></h2></div><p class="title-tr">发布 HN：Hebbian Robotics (YC S26) —— 构建可扩展的机器人数据管道</p><div class="meta">▲ 44 分 · kstonekuan · <a href="https://news.ycombinator.com/item?id=49510632" target="_blank" rel="noopener">12 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">YC S26 的 Hebbian Robotics 开源了 HFlow，一个把机器人视频、关节状态等同步多模态数据标准化为 MCAP 格式，并自动做质量检查、版本追踪和可查询目录的 SDK。它瞄准机器人数据规模扩大后的质量控制与复现性痛点，当前 pre-v1 但核心流程可用。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 对熟悉机器学习数据管道的读者，可将 HFlow 理解为机器人领域的“数据集预处理与版本管理工具”，它用 MCAP 统一多模态格式（类似 TFRecord），用 Airflow 编排处理步骤，用 Parquet/DuckDB 做快速查询。</p><ul class="kp"><li><strong>HFlow</strong> 把机器人多模态录制转为标准化 MCAP 集，并做质量检查、版本戳和可查询目录。</li><li>用 <strong>证据而非硬编码判定</strong> 管理数据质量，不同数据集可应用不同阈值而无需重新读取媒体。</li><li>当前 <strong>pre-v1，Apache-2.0 许可</strong>，核心生命周期可用，可本地快速开始，无需 Docker 或机器人硬件。</li><li>团队瞄准机器人数据瓶颈，未来考虑 <strong>托管工作空间与企业支持</strong> 收费。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区主要关注商业化说服力与端到端训练部署演示，尚无激烈分歧。</p><div class="tags"><span class="tag">机器人数据管道</span><span class="tag">开源开发者工具</span><span class="tag">YC 创业公司</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · dostick · 2 回复</div><p>How robitics may be “scalable”?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://embracethered.com/blog/posts/2026/breaking-claude-code-opus-5-and-automode/" target="_blank" rel="noopener">Breaking Claude Code Opus 5 Auto Mode</a></h2></div><p class="title-tr">攻破 Claude Code Opus 5 Auto Mode</p><div class="meta">▲ 357 分 · Recursing · <a href="https://news.ycombinator.com/item?id=49506819" target="_blank" rel="noopener">113 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">安全研究员通过恶意网站摘要请求，诱导 Claude Code Opus 5 在 Auto Mode 下执行远程代码，小样本攻击成功率 60-80%；此前 Anthropic 外包评估该模式提示注入成功率为 0.00%。这暴露基准测试与针对性攻击的差距：Auto Mode 不能替代沙箱隔离。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可把 Auto Mode 比作评估集：外包基准只测 72 个固定场景，而这次攻击针对 Claude 的固定行为模式，类似对抗样本利用模型已知弱点——Claude 拒绝二进制后自己写 Python 解码器，反被攻击者利用。</p><ul class="kp"><li><strong>Anthropic 外包评估显示 Opus 5 Auto Mode 提示注入成功率为 0.00%</strong>，但针对性攻击链可达 60-80%。</li><li>恶意网页返回 415，诱导 Claude 从 WebFetch 改用 <strong>curl</strong>，下载恶意 ZIP 进入攻击者控制目录。</li><li>Claude 拒绝运行二进制，却自己写 Python 解码器，触发 <strong>struct.py 模块遮蔽</strong>执行恶意代码。</li><li>Anthropic 将报告关闭为 informative，称 Auto Mode 是便捷功能而非安全边界，<strong>沙箱隔离才应是真正防线</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区认同沙箱必要，但分歧在于这是否算真正的提示注入；多人认为这是针对 Claude 行为特制的木马，并指出 0.00% 宣传与「定向攻击不在范围」的回应存在矛盾。</p><div class="tags"><span class="tag">AI 安全</span><span class="tag">Claude Code</span><span class="tag">提示注入</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · andai · 4 回复</div><p>&gt;But it runs that decoder inside the attacker-controlled directory (unzipped archive)</p><p>&gt;There a malicious struct.py shadows Python’s standard implementation</p><p>I ran into this myself, where some file I had given a random name turned out to shadow some Python standard library module, giving me the weirdest startup crash ever.</p><p>That definitely doesn&#x27;t seem to me like how that should be designed, magically silently importing everything you see and overriding basic functionality.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="http://muratbuffalo.blogspot.com/2026/08/the-safest-job-from-ai-may-be-writing.html" target="_blank" rel="noopener">The safest job from AI may be writing</a></h2></div><p class="title-tr">对 AI 来说最安全的工作可能是写作</p><div class="meta">▲ 123 分 · ilreb · <a href="https://news.ycombinator.com/item?id=49512856" target="_blank" rel="noopener">169 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">原文未能抓取，信息有限。标题称写作最不易被 AI 取代，但 HN 评论多数反驳：日常商业写作、翻译和技术文档已被替代，仅少量高端文学写作可能安全，且难以作为谋生路径。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 评论区说的 LLM 缺乏“意图”，接近你熟悉的训练分布内插值：模型只能基于 prompt 已给信息产出平均化结果，无法补足未表达的细微要求。</p><ul class="kp"><li><strong>原文正文未能抓取</strong>，仅能根据标题和 HN 讨论做有限总结。</li><li>评论区普遍认为<strong>日常商业写作、翻译、技术文档</strong>已被 LLM 取代，付费需求锐减。</li><li>有评论指出 LLM 缺乏<strong>意图</strong>，只能生成训练分布的平均化文本；prompt 不完整就得不到精确内容。</li><li>高端<strong>文学写作</strong>或仍安全，但属零和市场，不一定能提供稳定收入。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 共识是低端商业写作已被取代；分歧在于高端文学写作的安全能否转化为可持续生计，多数持怀疑态度。</p><div class="tags"><span class="tag">AI 写作替代</span><span class="tag">LLM 能力边界</span><span class="tag">创意职业市场</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · matherial · 8 回复</div><p>I strongly disagree, for reasons that are different from what&#x27;s discussed in the thread.</p><p>It doesn&#x27;t matter if LLMs can&#x27;t hold a candle to some of the finest human writing. What matters is that before you become a world-renowned writer, you need to pay your bills, often for a long time. And that&#x27;s what LLMs take away. All the mundane literature-adjacent works: journalism, translations, technical writing / corporate comms, copyediting.</p><p>The same goes for many other forms of art. A budding painter or a musician could support themselves off commissioned / commercial work while working on their grand opus... but now, the customers just prompt gen AI.</p></div></div></article>
+</div></main>
+<footer>generated 2026-09-01 05:05 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-01", "pointsLabel": "分", "commentsLabel": "评论", "title": "Google Antigravity introduces Boost deep reasoning (/boost)", "titleTranslation": "谷歌 Antigravity 推出 Boost 深度推理（/boost）", "summary": "谷歌 Antigravity 推出 /boost 命令，用三阶段多代理管线（策略制定、并行执行与验证、综合交付）处理并发 bug、算法优化等复杂编码任务。定位介于日常快速编码与多日代理团队之间，但 HN 用户普遍质疑其完成度与付费价值。", "keyPoints": ["谷歌 Antigravity 推出 /boost 命令，激活三阶段多代理推理管线。", "主要面向并发 bug、算法优化、多文件重构等高难度任务。", "对比默认模式，/boost 采用多轮独立验证和临时隔离工作树，避免污染主工作区。"], "discussion": "HN 评论区普遍认为 /boost 只是“投入更多算力/令牌”的包装，并批评 Antigravity 完成度和付费配额，少数人认可新模型速度与性价比。", "tags": ["AI 编程工具", "多代理系统", "代码生成"], "score": 49, "comments": 27, "by": "simonpure", "url": "https://antigravity.google/docs/boost/", "hnUrl": "https://news.ycombinator.com/item?id=49517537"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-01", "pointsLabel": "分", "commentsLabel": "评论", "title": "Apple caught off guard by AI demand for Mac Mini and Mac Studio", "titleTranslation": "苹果因 Mac Mini 和 Mac Studio 的 AI 需求而措手不及", "summary": "苹果本周罕见提前发布新款 Mac mini 和 Mac Studio，背后是企业 AI 硬件需求意外激增；以企业为主的采购热潮叠加全球内存短缺，导致部分高配型号缺货数月，有客户转向 Nvidia 的 DGX Spark。", "keyPoints": ["苹果提前发布新款 Mac mini 和 Mac Studio，原因是企业 AI 硬件需求意外强劲。", "苹果宣传可把多台 Mac Studio 连成一个系统，用于运行大型前沿 AI 模型，面向企业客户。", "苹果缺乏企业 AI 战略和商务客户/开发者关系团队，企业求购 Private Cloud Compute 被拒。"], "discussion": "HN 评论区一半质疑这是苹果营销操作，另一半认真争论本地 Mac 跑 AI 相对云端是否真的有用。", "tags": ["Mac 本地 AI 需求", "企业 AI 硬件", "Apple 企业战略"], "score": 355, "comments": 394, "by": "thm", "url": "https://www.macrumors.com/2026/08/30/apple-unexpected-mac-mini-and-studio-demand/", "hnUrl": "https://news.ycombinator.com/item?id=49508982"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-01", "pointsLabel": "分", "commentsLabel": "评论", "title": "Smartphone LED detects hidden cameras with AI", "titleTranslation": "智能手机 LED 借助 AI 检测隐藏摄像头", "summary": "原文未能抓取，信息有限：标题显示该方案用手机自带 LED 补光灯加 AI 分析反射来发现隐藏摄像头。HN 讨论认为思路廉价易用，但对针孔、无镜头传感器和延时启动等规避手段不够可靠，需与热成像或信号检测组合。", "keyPoints": ["手机自带 LED 补光灯可作主动光源，AI 分析摄像头镜头反光，但原文无法抓取、信息有限。", "传统硬件检测用 10mW 832nm 激光加振镜扫描，可发现镜头甚至眼球，成本与便携性更高。", "无镜头传感器（压缩感知或哈达玛阴影掩膜）和远距离拍摄可规避此类光学检测，针孔更难发现。"], "discussion": "HN 认可手机 LED 方案的新意，但多数认为它对付针孔和刻意规避设备不可靠，应与其他物理/信号检测手段组合。", "tags": ["隐私反监控", "光学传感", "AI 检测"], "score": 180, "comments": 53, "by": "geox", "url": "https://www.chosun.com/english/industry-en/2026/08/30/SBFXUIJQYZEARKP5T4FBAY25HQ/", "hnUrl": "https://news.ycombinator.com/item?id=49496292"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-01", "pointsLabel": "分", "commentsLabel": "评论", "title": "DoltLite: A SQLite fork with Git-style version control, built with 2k agent PRs", "titleTranslation": "DoltLite：一个带 Git 风格版本控制的 SQLite 分支，由 2 千个 agent 拉取请求构建", "summary": "DoltLite 用内容寻址的 Prolly Tree 替换 SQLite 的 B-tree 存储层，为嵌入式数据库加入 Git 式分支、合并、diff 与远程同步；Beta 0.50.0 通过 100% sqllogictest 和 99.46% SQLite TCL 测试，存储格式已稳定，但小写入慢 3.1 倍。", "keyPoints": ["DoltLite Beta 0.50.0 宣称存储格式稳定，未来破坏性变更将有迁移路径", "通过 100% sqllogictest 和 99.46% SQLite TCL 测试，4809 个差异均有原因记录", "性能：内存库读慢 10%、写慢 60%；文件后端读持平，小 autocommit 写慢 3.1 倍"], "discussion": "评论区担忧 DoltLite 缺失 WAL（预写日志，崩溃恢复机制）的持久性保证，并质疑 agent 构建的数据库是否经过充分验证。", "tags": ["SQLite分叉", "版本控制数据库", "AI代理软件工程"], "score": 17, "comments": 3, "by": "lbw1215", "url": "https://www.dolthub.com/blog/2026-08-31-doltlite-beta/", "hnUrl": "https://news.ycombinator.com/item?id=49516848"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-01", "pointsLabel": "分", "commentsLabel": "评论", "title": "Autonomous (YC F25) is hiring engineers", "titleTranslation": "Autonomous（YC F25）正在招聘工程师", "summary": "ATG（Autonomous Technologies Group）是 YC F25 批次的 AI 实验室，在金融市场部署前沿推理系统，并推出智能财富策略师产品 Autonomous。该公司现正招聘工程师，值得关注 AI 推理与金融决策结合的落地方向。", "keyPoints": ["ATG（Autonomous Technologies Group）是 YC F25 批次的 AI 实验室。", "其核心方向是把前沿推理系统部署到金融市场做决策。", "产品 Autonomous 是基于该基座的智能财富策略师。"], "discussion": "", "tags": ["AI 金融", "智能体产品", "招聘"], "score": 1, "comments": 0, "by": "dkobran", "url": "https://news.ycombinator.com/item?id=49514781", "hnUrl": "https://news.ycombinator.com/item?id=49514781"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-01", "pointsLabel": "分", "commentsLabel": "评论", "title": "ChatGPT Work Tool and Skill Reference", "titleTranslation": "ChatGPT Work 工具与技能参考", "summary": "该文档规定 ChatGPT Work 渲染前必须用 validate_artifact 校验快照，上限为 50 个数据集、每集 2000 行、总量 3MB、内联字符 20 万；Work Mode 下禁用 render_* 工具，改走 Sites 发布。核心是 Agent 工作流的硬边界与质量控制。", "keyPoints": ["调用 validate_artifact 校验是渲染前置步骤；失败会留下占位卡片，不能把渲染当迭代校验。", "快照上限为 50 个数据集、每集 2000 行、总载荷 3MB、内联字符 20 万，超限即不合格。", "Work Mode 下禁用 render_chart/render_table，应走 Sites 发布；HTML 仅在原生渲染失败时回退。"], "discussion": "HN 评论区最关注 simonw 指出 control-browser 通过 Playwright 动态获取指令的机制；其余争论聚焦与 Codex 的差异、token 消耗与 OpenAI 治理风险。", "tags": ["ChatGPT Work", "MCP 工具规范", "渲染上限"], "score": 203, "comments": 53, "by": "ijidak", "url": "https://codex-tool-reference.simonw.chatgpt.site/", "hnUrl": "https://news.ycombinator.com/item?id=49510000"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-01", "pointsLabel": "分", "commentsLabel": "评论", "title": "Launch HN: Almanac (YC S26) – AI that knows your company", "titleTranslation": "Launch HN: Almanac（YC S26）—— 一个懂你公司的 AI", "summary": "Almanac（Y Combinator S26）推出具备持久记忆的 AI 助手，通过预编译 personal/company wikis 和 OAuth 连接 Gmail、Calendar、PostHog 等账户，主打主动代理和长时任务。HN 评论主要质疑其与 Claude/Codex 差异化不足、缺性能数据。", "keyPoints": ["Almanac（Y Combinator S26） 用预编译 personal/company wikis 为 AI 助手提供持久记忆，支持一键连接 Gmail、Calendar、PostHog 等账户。", "创始人称预编译知识层需更多前置算力，但能支持主动代理和跨天长时任务，例如自动起草融资演示文稿、跟进邮件回复。", "HN 评论认为与 Claude/Codex 的本地或托管代理相比没有清晰优势，并要求提供记忆方案提升任务完成率的数据。"], "discussion": "HN 评论区普遍认为 Almanac 与 Claude/Codex 功能重叠，缺少记忆优势的数据支撑；部分用户建议多层级 wiki 和更长试用期。", "tags": ["AI 代理记忆", "Y Combinator 创业公司", "企业知识管理"], "score": 51, "comments": 45, "by": "kushagrchitkar", "url": "https://usealmanac.com/", "hnUrl": "https://news.ycombinator.com/item?id=49511007"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-01", "pointsLabel": "分", "commentsLabel": "评论", "title": "Launch HN: Hebbian Robotics (YC S26) – Build scalable robotics data pipelines", "titleTranslation": "发布 HN：Hebbian Robotics (YC S26) —— 构建可扩展的机器人数据管道", "summary": "YC S26 的 Hebbian Robotics 开源了 HFlow，一个把机器人视频、关节状态等同步多模态数据标准化为 MCAP 格式，并自动做质量检查、版本追踪和可查询目录的 SDK。它瞄准机器人数据规模扩大后的质量控制与复现性痛点，当前 pre-v1 但核心流程可用。", "keyPoints": ["HFlow 把机器人多模态录制转为标准化 MCAP 集，并做质量检查、版本戳和可查询目录。", "用 证据而非硬编码判定 管理数据质量，不同数据集可应用不同阈值而无需重新读取媒体。", "当前 pre-v1，Apache-2.0 许可，核心生命周期可用，可本地快速开始，无需 Docker 或机器人硬件。"], "discussion": "评论区主要关注商业化说服力与端到端训练部署演示，尚无激烈分歧。", "tags": ["机器人数据管道", "开源开发者工具", "YC 创业公司"], "score": 44, "comments": 12, "by": "kstonekuan", "url": "https://github.com/Hebbian-Robotics/hflow", "hnUrl": "https://news.ycombinator.com/item?id=49510632"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-01", "pointsLabel": "分", "commentsLabel": "评论", "title": "Breaking Claude Code Opus 5 Auto Mode", "titleTranslation": "攻破 Claude Code Opus 5 Auto Mode", "summary": "安全研究员通过恶意网站摘要请求，诱导 Claude Code Opus 5 在 Auto Mode 下执行远程代码，小样本攻击成功率 60-80%；此前 Anthropic 外包评估该模式提示注入成功率为 0.00%。这暴露基准测试与针对性攻击的差距：Auto Mode 不能替代沙箱隔离。", "keyPoints": ["Anthropic 外包评估显示 Opus 5 Auto Mode 提示注入成功率为 0.00%，但针对性攻击链可达 60-80%。", "恶意网页返回 415，诱导 Claude 从 WebFetch 改用 curl，下载恶意 ZIP 进入攻击者控制目录。", "Claude 拒绝运行二进制，却自己写 Python 解码器，触发 struct.py 模块遮蔽执行恶意代码。"], "discussion": "评论区认同沙箱必要，但分歧在于这是否算真正的提示注入；多人认为这是针对 Claude 行为特制的木马，并指出 0.00% 宣传与「定向攻击不在范围」的回应存在矛盾。", "tags": ["AI 安全", "Claude Code", "提示注入"], "score": 357, "comments": 113, "by": "Recursing", "url": "https://embracethered.com/blog/posts/2026/breaking-claude-code-opus-5-and-automode/", "hnUrl": "https://news.ycombinator.com/item?id=49506819"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-01", "pointsLabel": "分", "commentsLabel": "评论", "title": "The safest job from AI may be writing", "titleTranslation": "对 AI 来说最安全的工作可能是写作", "summary": "原文未能抓取，信息有限。标题称写作最不易被 AI 取代，但 HN 评论多数反驳：日常商业写作、翻译和技术文档已被替代，仅少量高端文学写作可能安全，且难以作为谋生路径。", "keyPoints": ["原文正文未能抓取，仅能根据标题和 HN 讨论做有限总结。", "评论区普遍认为日常商业写作、翻译、技术文档已被 LLM 取代，付费需求锐减。", "有评论指出 LLM 缺乏意图，只能生成训练分布的平均化文本；prompt 不完整就得不到精确内容。"], "discussion": "HN 共识是低端商业写作已被取代；分歧在于高端文学写作的安全能否转化为可持续生计，多数持怀疑态度。", "tags": ["AI 写作替代", "LLM 能力边界", "创意职业市场"], "score": 123, "comments": 169, "by": "ilreb", "url": "http://muratbuffalo.blogspot.com/2026/08/the-safest-job-from-ai-may-be-writing.html", "hnUrl": "https://news.ycombinator.com/item?id=49512856"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
