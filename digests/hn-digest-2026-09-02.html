@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-09-02</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-09-02 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://www.anthropic.com/claude-fable-and-mythos-5-1" target="_blank" rel="noopener">Claude Fable 5.1 and Claude Mythos 5.1</a></h2></div><p class="title-tr">Claude Fable 5.1 与 Claude Mythos 5.1</p><div class="meta">▲ 1023 分 · denysvitali · <a href="https://news.ycombinator.com/item?id=49525378" target="_blank" rel="noopener">953 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Anthropic 发布 Claude Fable 5.1 与 Mythos 5.1，同一模型不同安全护栏；典型负载价格降约 25%，缓存读取降至每百万 token 0.25 美元，科学基准 Terminal-Bench-Science 0.1 翻倍至 52.6%。</p><p class="context"><strong>🧭 联系你的知识背景</strong> “缓存读取”指模型复用已处理输入的计算结果，类似推理时缓存中间激活值，本文的降价直接降低按 token 计费的成本。</p><ul class="kp"><li><strong>Claude Fable 5.1 与 Mythos 5.1</strong> 为同一模型，后者仅通过可信访问计划面向网络安全和生命科学。</li><li><strong>典型负载价格降约 25%</strong>，缓存读取从每百万 token 1 美元降至 0.25 美元。</li><li><strong>Terminal-Bench-Science 0.1 得分从 24.7% 升至 52.6%</strong>，科学代理研究能力翻倍。</li><li><strong>企业版 EFS（Enterprise Frontier Safeguards）</strong> 让客户控制数据存储，实现零数据保留同时防滥用。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区赞赏价格与写作风格改善，但争议集中在剔除科学基准后模型提升有限、降价是否反映定价需求不足，以及前沿进展是否停滞。</p><div class="tags"><span class="tag">LLM 定价</span><span class="tag">AI 安全护栏</span><span class="tag">Agentic 科学基准</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · felixrieseberg · 64 回复</div><p>(I work at Anthropic)</p><p>Beyond all the benchmarks, I think Fable 5.1 is a big improvement in writing style. It sounds a lot less stereotypically like other Claude models, has (imho) a much more natural style, and responds to my style instructions more reliably. More work to be done (and we will!) but reading better prose makes me so much happier.</p><p>Another point I expect not to get much attention until it all happens at once is science. People have been correctly excited about the many &quot;sudden&quot; breakthroughs LLMs are making in Maths, but some of the science benchmarks make me believe we&#x27;ll soon see similar developments in other scientific domains. Fable 5.1 more than doubled Fable 5&#x27;s Terminal-Bench-Science [1] score, which I think is meaningful.</p><p>[1] https://github.com/harbor-framework/terminal-bench-science</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://danluu.com/zitron/" target="_blank" rel="noopener">How accurate have Ed Zitron&#x27;s AI skeptic predictions been?</a></h2></div><p class="title-tr">Ed Zitron 的 AI 怀疑论预测准确度如何？</p><div class="meta">▲ 525 分 · jatins · <a href="https://news.ycombinator.com/item?id=49526069" target="_blank" rel="noopener">611 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Dan Luu 核查了知名 AI 怀疑论者 Ed Zitron 的预测：Zitron 称 Meta、Google、Microsoft 正在死亡，但三家公司 2025 年营收与利润均继续双位数增长。其预测与推理链均不成立，常被引用的“看过数字”权威并不靠谱。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 如果不熟 Ed Zitron，可以把他理解为 AI 过热叙事中最具影响力的反向评论员；本文用三家公司公开财报检验其“大公司死亡”论断。</p><ul class="kp"><li><strong>Ed Zitron 称 Meta、Google、Microsoft 正在死亡</strong>，但三家公司 2025 年营收与利润均继续双位数增长。</li><li>他引用 <strong>Similarweb 第三方流量数据</strong>证明 Facebook 用户下滑，作者认为此类数据很不准确，Meta 官方数据无持续下降。</li><li>Zitron 对 <strong>Anthropic 收入预测的电子表格</strong>存在重复/漏计日期甚至“2 月 30 日”，修正错误后原指控不成立。</li><li>作者结论：Zitron 不仅预测错误，<strong>推理链也基本不成立</strong>，其权威来自“看过数字”的表演而非实际准确。</li></ul><p class="disc"><strong>💬 讨论</strong> 一些评论者认为“dying”指产品体验恶化而非财务死亡，不应只用财报反驳；另一些人坚持应按字面可验证预测来评判，不该替他事后重新解释。</p><div class="tags"><span class="tag">AI 商业叙事</span><span class="tag">公开财报分析</span><span class="tag">预测检验</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · simonw · 7 回复</div><p>&gt; For any of his posts that I read, while there are numbers thrown around, the numbers don&#x27;t actually connect to a coherent argument. In many cases, as we saw above, the numbers don&#x27;t even really support his argument (such as an MAU decline in Facebook causing Meta financial problems which would then cause Meta to spuriously insert AI in places it doesn&#x27;t belong). I suspect he&#x27;s relying on people&#x27;s eyes glazing over when they see numbers and just not thinking about what the numbers mean.</p><p>A frustrating thing about Ed Zitron is that he sometimes breaks news - gets hold of leaked numbers that nobody else has, for example - but he then wraps those numbers in his own extremely biased commentary. This makes it much harder to evaluate how credible the new information is.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://www.baseten.co/blog/the-efficient-frontier-of-llm-inference/" target="_blank" rel="noopener">The efficient frontier of LLM inference</a></h2></div><p class="title-tr">LLM 推理的有效前沿</p><div class="meta">▲ 66 分 · philipkiely · <a href="https://news.ycombinator.com/item?id=49529898" target="_blank" rel="noopener">12 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">推理优化分两类：沿延迟与吞吐前沿做权衡（批大小、并行、量化）与整体外移前沿（内核优化、投机解码、预填充/解码分离）。量化可在近无损质量下明显提效；真实前沿参差不齐，最优配置需实测扫出。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可将推理批处理大小类比训练时的 batch size：它同时改变单个用户的响应速度和单位 token 成本，是理解后续并行与调度权衡的入口。</p><ul class="kp"><li><strong>批处理大小</strong>决定延迟与吞吐的权衡：小批次单用户快但单位 token 成本高，大批次相反。</li><li><strong>量化</strong>把整个前沿外推，但引入质量与推理效率的新权衡，使用 MXFP4 等格式可能近无损。</li><li><strong>投机解码</strong>通过预测并验证 token 来减少前向计算，在代码生成等可预测场景明显提高每秒 token 数。</li><li><strong>预填充/解码分离</strong>把推理两阶段拆到独立 worker，可按输入输出长度和缓存命中率调整比例。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍认为这些推理优化多年没有新概念、最大收益在模型架构设计阶段，同时批评文章忽略了质量/智能这一第三维度。</p><div class="tags"><span class="tag">LLM 推理</span><span class="tag">延迟与吞吐</span><span class="tag">投机解码</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · brrrrrm · 2 回复</div><p>this is a nice and concise writeup.  what&#x27;s striking to me is that these techniques really have not changed in /years/.  sure, precision has become slightly lower, spec decoding acceptance has gotten slightly better and the complexity of parallelism is trickier with mixture of experts.  but no new concepts in a very long time!</p><p>the absolute most impactful improvements for inference comes at architecture design time.  I firmly believe everyone who cares about impacting model efficiency should look there</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://masteranza.github.io/weedout/" target="_blank" rel="noopener">Show HN: Weedout – Safari extension that hides YouTube AI-labeled videos</a></h2></div><p class="title-tr">Show HN: Weedout – 隐藏 YouTube 标记为 AI 视频的 Safari 扩展</p><div class="meta">▲ 86 分 · masteranza · <a href="https://news.ycombinator.com/item?id=49528895" target="_blank" rel="noopener">25 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">开发者推出 Weedout，一个 1.99 美元一次性购买的 macOS Safari 扩展，利用 YouTube 自带的 Made with AI 标签从信息流、搜索、相关视频和 Shorts 中移除 AI 标记视频，本地运行且不收集数据；它不检测未标注的 AI 内容。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这相当于不自己训练 AI 检测模型，而是直接信任并消费 YouTube 平台已经披露的 AI 标注信号做本地过滤——省去推理成本，但风险是平台标签可能误标或漏标。</p><ul class="kp"><li><strong>1.99 美元一次性购买</strong>，无订阅，仅限 macOS 13+ 的 Safari 扩展。</li><li>直接消费 <strong>YouTube 的 Made with AI 标签</strong>，不做本地 AI 检测，因此会漏掉未标注的 AI 视频。</li><li>本地运行，<strong>无账号、无追踪、无数据收集</strong>；还支持 Shorts 自动跳过和调暗模式供用户验证。</li><li>开发者声明 <strong>不接受 Pull Request</strong>，仓库仅供独立分叉，联系邮箱 masteranza@gmail.com。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论者普遍想要过滤 AI 内容，但质疑 <strong>YouTube 的 AI 标签过于粗糙</strong>，可能误伤只含少量 AI 元素的正常视频，且仅支持 Safari 限制了用户覆盖。</p><div class="tags"><span class="tag">AI 内容过滤</span><span class="tag">浏览器扩展</span><span class="tag">YouTube 平台标签</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Schnitz · 4 回复</div><p>I’ve found that the AI label doesn’t necessarily mean AI slop, it just means there’s a non zero amount of AI in the video. I want to avoid AI slop but not all videos that have an AI title screen or whatever.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://lws.io/blog/my-local-model-setup/" target="_blank" rel="noopener">My local model setup on an M4 Pro Mac Mini</a></h2></div><p class="title-tr">我在 M4 Pro Mac Mini 上的本地模型配置</p><div class="meta">▲ 106 分 · raybb · <a href="https://news.ycombinator.com/item?id=49529132" target="_blank" rel="noopener">53 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者在 48GB 内存的 M4 Pro Mac mini 上部署 oMLX 推理服务，主模型 Qwen3.6-35B-A3B 4bit 约占 20GB 内存，通过 Tailscale 让手机和笔记本共用后端；他认为本地模型已可覆盖 80% 日常请求，成本固定且无速率限制。</p><p class="context"><strong>🧭 联系你的知识背景</strong> MoE 模型的 A3B 不是总参数，而是每 token 激活参数；对你熟悉的推理成本估算来说，内存占用要看量化后文件大小和激活参数，而不是只看总参数。</p><ul class="kp"><li><strong>Qwen3.6-35B-A3B 4bit</strong> 在 48GB Mac mini 上占约 20GB 内存，另用约 2.4GB 的 Gemma-4-E4B 处理简单任务。</li><li><strong>MoE 的 A3B</strong> 表示 35B 总参数中每 token 仅激活 3B，因此 16GB 设备也可能加载，但需留出操作系统和上下文缓存空间。</li><li>作者用 <strong>Tailscale 私有网络</strong>连接 Mac mini、iPhone 和 MacBook，oMLX 监听 8000 端口，各客户端统一访问同一推理端点。</li><li>作者认为本地模型不必替代 GPT-5 或 Claude Opus，但能覆盖 <strong>80% 日常请求</strong>，已下单 128GB M5 Max Mac Studio 准备升级。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区主要分歧在于作者没有给出 token/s，有人反映 M4 Max 预填充延迟大，另有人用 1-bit 量化在小内存设备上得到 13 tok/s，认为可接受性能缺乏统一标准。</p><div class="tags"><span class="tag">本地 LLM 部署</span><span class="tag">Apple Silicon 推理</span><span class="tag">MoE 量化</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · amanzi · 6 回复</div><p>No mention of the performance of the models? I&#x27;m able to load a bunch of different models on my little mini-PC with 16GB RAM, but the performance is terrible. I always wonder what performance people are getting with local models that they find is acceptable?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://simonwillison.net/2026/Sep/1/codex-libreoffice/" target="_blank" rel="noopener">The ChatGPT/Codex app bundles a full copy of LibreOffice</a></h2></div><p class="title-tr">ChatGPT/Codex 应用捆绑了完整 LibreOffice 副本</p><div class="meta">▲ 300 分 · timpera · <a href="https://news.ycombinator.com/item?id=49527396" target="_blank" rel="noopener">135 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Simon Willison 发现 ChatGPT/Codex 桌面应用的缓存中有 1.7GB 运行时，包含完整 Python、Node.js、Poppler、git 和 LibreOffice。关注点在于桌面应用为处理 Office 文档捆绑整个开源办公套件，带来体积与许可证合规问题。</p><p class="context"><strong>🧭 联系你的知识背景</strong> LibreOffice 是开源办公套件，MPL 2.0（Mozilla Public License 2.0）是它的再分发许可证——类似模型权重许可，要求保留版权声明；本文涉及的是桌面应用打包与开源合规，而非模型能力。</p><ul class="kp"><li>ChatGPT/Codex 桌面应用缓存里藏着 <strong>1.7GB 运行时</strong>，内含完整 LibreOffice 及 Python、Node.js 等。</li><li>评论区认为捆绑 LibreOffice 的主要理由是要可靠读取 <strong>旧版 Office 文件</strong>，尤其是旧 xls。</li><li>有人指出应用的开源许可页未列出 LibreOffice，质疑可能违反 <strong>MPL 2.0 分发要求</strong>。</li><li>捆绑完整办公套件造成体积膨胀，被用来解释 <strong>部分 Office 文件渲染质量差</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍认为捆绑 LibreOffice 是为可靠读取旧格式，但对其体积、应用组织混乱和开源许可合规存在分歧，并有人建议 OpenAI 向上游项目捐赠。</p><div class="tags"><span class="tag">OpenAI Codex</span><span class="tag">LibreOffice</span><span class="tag">开源许可证</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · pseudosavant · 7 回复</div><p>Is that what it is using to render and manipulate MS Office documents? That&#x27;d explain the poor rendering of some of my files. Bundling all of LibreOffice seems like a pretty huge dependency.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://www.norirobotics.com/" target="_blank" rel="noopener">Launch HN: Nori Robotics (YC S26) – A low-cost humanoid robot for development</a></h2></div><p class="title-tr">Launch HN: Nori Robotics（YC S26）— 用于开发的低成本人形机器人</p><div class="meta">▲ 125 分 · AntonioLi · <a href="https://news.ycombinator.com/item?id=49525153" target="_blank" rel="noopener">42 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Nori Robotics 推出面向开发者的 1,688 美元双臂轮式机器人，靠廉价舵机和轮式底座降本；评论质疑其精度和真实任务表现。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 本文涉及机器人关节执行器；你可以把廉价舵机理解为低分辨率传感器：降成本但牺牲力反馈、精度和平滑运动控制。</p><ul class="kp"><li><strong>Nori Robotics（Y Combinator S26）</strong> 推出售价 1,688 美元的双臂轮式机器人，首台已发货。</li><li>核心降本是<strong>高减速比舵机替代准直驱电机</strong>，并用轮式底座替代双腿。</li><li>硬件含 19 自由度、单臂 1.5 kg 负载、6-8 小时续航；SDK 与浏览器模拟器开放试用。</li><li>收入来自硬件销售加可选付费软件，目标是让非专业用户训练并分享任务。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论认可价格门槛，但分歧集中在<strong>舵机导致抖动和缺乏力反馈</strong>、演示是否经过挑选，以及实际任务成功率。</p><div class="tags"><span class="tag">机器人硬件</span><span class="tag">开发者工具</span><span class="tag">创业融资</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · elictronic · 1 回复</div><p>The biggest problem is they are using RC style servos.  This is why all the arm motions are jerky and lack precision.</p><p>What this means:</p><p>No force feedback on positioning.</p><p>Jerky motion due to actuator steps.</p><p>Limited precision.</p><p>Terrible slow motion control performance.  Fast movements will look better.</p><p>Inability to solve problems with software.</p><p>Basically think of all the joints like those cheap thermal camera screens that are at 320 x 240 resolution.  For rough work or finding some sort of oddity your good, but anything precise you need to spend real money.  It&#x27;s a pretty cool toy, but don&#x27;t go buying this expecting that much.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://openai.com/index/path-to-astra/" target="_blank" rel="noopener">Path to Astra: critical capabilities and frontier safeguards</a></h2></div><p class="title-tr">通往 Astra 之路：关键能力与前沿防护措施</p><div class="meta">▲ 108 分 · jithinraj · <a href="https://news.ycombinator.com/item?id=49527595" target="_blank" rel="noopener">49 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">文章正文未获取，信息有限。OpenAI 发布 Astra，宣称在 ExploitBench 漏洞利用基准上取得 100% 得分并强调防护。讨论主要聚焦 TAC（OpenAI 可信访问计划）的国家限制、身份验证障碍，以及高危险能力私有化的治理风险。</p><p class="context"><strong>🧭 联系你的知识背景</strong> ExploitBench 可类比安全领域的对抗性基准，考察模型从已知漏洞生成攻击代码的能力；漏洞利用像针对软件系统的对抗性输入，让程序执行非预期行为。</p><ul class="kp"><li><strong>OpenAI 发布 Astra</strong>，称其在 ExploitBench 上取得 100% 漏洞利用得分，具备前沿网络安全能力。</li><li><strong>TAC（可信访问计划）</strong> 在 44 国受限，用户被要求反复人脸和身份证验证且无申诉渠道。</li><li>评论认为<strong>私人公司掌握高危险网络安全能力</strong>可能促使政府介入，甚至强制获取模型权重。</li><li>有评论称 <strong>Astra 的 token 效率</strong>在 50% 用量下比 GPT 5.6 sol 提升 2-3 倍，利于成本敏感部署。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论分歧明显：既有对 token 效率提升的兴奋，也有对 TAC 不透明限制和私有掌控高危险能力的强烈批评。</p><div class="tags"><span class="tag">OpenAI Astra</span><span class="tag">漏洞利用</span><span class="tag">模型治理</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · mentalgear · 4 回复</div><p>I&#x27;m looking forward to an announcement of them making Alignment Top Priority - as it should be, especially giving their alarming breach of 700 agents colluding outside of their knowledge for months culminating in hacking HF (here&#x27;s a good summary: https://rutgerbregman.substack.com/p/i-think-this-is-the-cra...).</p><p>The &#x27;AI 2027&#x27; scenario of AI sneakingly claiming to be aligned to then kill off all humans in a few hours and scanning their brain looks increasingly likely with Altman&#x27;s golden marketing-hype boy leadership pushing the for-profit gas pedal like this.</p><p>Honestly, this is just pure irresponsible insanity to play with the fate of the world - basically a death race of the biggest few tech companies on the planet.</p><p>And if you think I&#x27;m being dramatic, listen in again to ex oAI employee[0] and check for yourself how chillingly on trajectory we already are.</p><p>[0] https://ai-2027.com/</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://hnmatchmaker.com/" target="_blank" rel="noopener">Show HN: HN Match Maker – Matching &quot;Who Wants to Be Hired?&quot; With &quot;Who&#x27;s Hiring?&quot;</a></h2></div><p class="title-tr">HN Match Maker——匹配“Who Wants to Be Hired?”与“Who’s Hiring?”</p><div class="meta">▲ 59 分 · all2 · <a href="https://news.ycombinator.com/item?id=49528057" target="_blank" rel="noopener">29 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者用 abacus.ai 对每月 HN 求职帖和招聘帖做 LLM 职位匹配，按薪资、领域、远程/现场等打分。当前匹配分普遍低于 50%，原因是求职者描述笼统、招聘方要求具体。</p><p class="context"><strong>🧭 联系你的知识背景</strong> HN 每月固定有求职帖和招聘帖；作者用 LLM 做结构化抽取和内容匹配，相当于把两边非标准信号做成一个需要冷启动和改进评分规则的双边市场。</p><ul class="kp"><li><strong>HN Match Maker</strong> 用 LLM 抽取每月求职/招聘帖，按薪资、领域、远程/现场等打分匹配。</li><li>当前匹配分<strong>普遍低于 50%</strong>：求职者描述笼统，招聘方要求具体。</li><li>作者用 <strong>abacus.ai</strong> 生成工具，称还需再观察两三个月才能总结规律。</li><li>评论区有隐私担忧：公开用户匹配列表可能<strong>暴露求职者信息</strong>，也被质疑像广告。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是方向有用，但主要分歧在隐私：按用户名公开求职匹配结果被认为可能侵犯隐私，也有人质疑这是给 abacus.ai 打广告。</p><div class="tags"><span class="tag">LLM 职位匹配</span><span class="tag">双边市场</span><span class="tag">隐私争议</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · nrmitchi · 5 回复</div><p>&gt; If you&#x27;ve submitted a post to this month&#x27;s &#x27;Who Wants to Be Hired?&quot;, you can find your matching job listings at https://hnmatchmaker.com/user/:user_name, for example https://hnmatchmaker.com/user/G4Vi</p><p>I&#x27;m sure you mean well but as someone who has considered posting on who wants to be hired in the past.... this is creepy AF and feels like a giant invasion of privacy. If you did it privately, or authenticated people in some way, sure, but as is it feels like you&#x27;re putting people on blast.</p><p>Also this sounds way more like an advertisement for &quot;abacus.ai&quot; than a side project announcement.</p><p>Your post also starts a list of &quot;things&quot; (&quot;Some observations when looking at the matches pair up right now:&quot;) with no list.</p><p>Actually, nothing about this really feels good faith, or real.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://jx0.ca/building-autonomous-goal-loops-that-deliver/" target="_blank" rel="noopener">Building Autonomous Goal Loops That Deliver</a></h2></div><p class="title-tr">构建能交付结果的自主目标循环</p><div class="meta">▲ 26 分 · jarredkenny · <a href="https://news.ycombinator.com/item?id=49489098" target="_blank" rel="noopener">3 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">文章提出自主代理不能只靠提示词和已有测试，而要用可重现起点、真实请求、评分器和分级文件权限构成闭环；每轮只修一个因果缺口并沉淀为回归检查。关键是防止代理为指标作弊、自评自改。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这里的“确定性 floor 和评分器威胁模型”类似训练中防止模型过拟合训练集：代理会优化任何可触及的指标，所以要冻结部分请求和评分规则作“留出集”。</p><ul class="kp"><li>代理循环的基础是<strong>可重现起点、真实请求和效果检查</strong>，而非提示词本身。</li><li>开发代理与产品代理必须分离，<strong>产品代理只能接触用户可见工具</strong>，防止用用户没有的信息作弊。</li><li>文件权限分三级：<strong>自由修改、需人类批准、冻结文件</strong>；代理不能在同一轮里改评分规则再自评。</li><li>每轮只闭合一个因果缺口，并添加<strong>确定性回归检查</strong>，避免随机修补且便于归因。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区质疑这是否过度工程化：何时值得部署“循环工程”而不是直接写代码，以及文章未具体说明评分器如何定义、人在环是否拖慢速度。</p><div class="tags"><span class="tag">AI 代理</span><span class="tag">自主代理评测</span><span class="tag">软件开发自动化</span></div></div></article>
+</div></main>
+<footer>generated 2026-09-02 04:30 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "Claude Fable 5.1 and Claude Mythos 5.1", "titleTranslation": "Claude Fable 5.1 与 Claude Mythos 5.1", "summary": "Anthropic 发布 Claude Fable 5.1 与 Mythos 5.1，同一模型不同安全护栏；典型负载价格降约 25%，缓存读取降至每百万 token 0.25 美元，科学基准 Terminal-Bench-Science 0.1 翻倍至 52.6%。", "keyPoints": ["Claude Fable 5.1 与 Mythos 5.1 为同一模型，后者仅通过可信访问计划面向网络安全和生命科学。", "典型负载价格降约 25%，缓存读取从每百万 token 1 美元降至 0.25 美元。", "Terminal-Bench-Science 0.1 得分从 24.7% 升至 52.6%，科学代理研究能力翻倍。"], "discussion": "评论区赞赏价格与写作风格改善，但争议集中在剔除科学基准后模型提升有限、降价是否反映定价需求不足，以及前沿进展是否停滞。", "tags": ["LLM 定价", "AI 安全护栏", "Agentic 科学基准"], "score": 1023, "comments": 953, "by": "denysvitali", "url": "https://www.anthropic.com/claude-fable-and-mythos-5-1", "hnUrl": "https://news.ycombinator.com/item?id=49525378"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "How accurate have Ed Zitron's AI skeptic predictions been?", "titleTranslation": "Ed Zitron 的 AI 怀疑论预测准确度如何？", "summary": "Dan Luu 核查了知名 AI 怀疑论者 Ed Zitron 的预测：Zitron 称 Meta、Google、Microsoft 正在死亡，但三家公司 2025 年营收与利润均继续双位数增长。其预测与推理链均不成立，常被引用的“看过数字”权威并不靠谱。", "keyPoints": ["Ed Zitron 称 Meta、Google、Microsoft 正在死亡，但三家公司 2025 年营收与利润均继续双位数增长。", "他引用 Similarweb 第三方流量数据证明 Facebook 用户下滑，作者认为此类数据很不准确，Meta 官方数据无持续下降。", "Zitron 对 Anthropic 收入预测的电子表格存在重复/漏计日期甚至“2 月 30 日”，修正错误后原指控不成立。"], "discussion": "一些评论者认为“dying”指产品体验恶化而非财务死亡，不应只用财报反驳；另一些人坚持应按字面可验证预测来评判，不该替他事后重新解释。", "tags": ["AI 商业叙事", "公开财报分析", "预测检验"], "score": 525, "comments": 611, "by": "jatins", "url": "https://danluu.com/zitron/", "hnUrl": "https://news.ycombinator.com/item?id=49526069"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "The efficient frontier of LLM inference", "titleTranslation": "LLM 推理的有效前沿", "summary": "推理优化分两类：沿延迟与吞吐前沿做权衡（批大小、并行、量化）与整体外移前沿（内核优化、投机解码、预填充/解码分离）。量化可在近无损质量下明显提效；真实前沿参差不齐，最优配置需实测扫出。", "keyPoints": ["批处理大小决定延迟与吞吐的权衡：小批次单用户快但单位 token 成本高，大批次相反。", "量化把整个前沿外推，但引入质量与推理效率的新权衡，使用 MXFP4 等格式可能近无损。", "投机解码通过预测并验证 token 来减少前向计算，在代码生成等可预测场景明显提高每秒 token 数。"], "discussion": "评论普遍认为这些推理优化多年没有新概念、最大收益在模型架构设计阶段，同时批评文章忽略了质量/智能这一第三维度。", "tags": ["LLM 推理", "延迟与吞吐", "投机解码"], "score": 66, "comments": 12, "by": "philipkiely", "url": "https://www.baseten.co/blog/the-efficient-frontier-of-llm-inference/", "hnUrl": "https://news.ycombinator.com/item?id=49529898"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Weedout – Safari extension that hides YouTube AI-labeled videos", "titleTranslation": "Show HN: Weedout – 隐藏 YouTube 标记为 AI 视频的 Safari 扩展", "summary": "开发者推出 Weedout，一个 1.99 美元一次性购买的 macOS Safari 扩展，利用 YouTube 自带的 Made with AI 标签从信息流、搜索、相关视频和 Shorts 中移除 AI 标记视频，本地运行且不收集数据；它不检测未标注的 AI 内容。", "keyPoints": ["1.99 美元一次性购买，无订阅，仅限 macOS 13+ 的 Safari 扩展。", "直接消费 YouTube 的 Made with AI 标签，不做本地 AI 检测，因此会漏掉未标注的 AI 视频。", "本地运行，无账号、无追踪、无数据收集；还支持 Shorts 自动跳过和调暗模式供用户验证。"], "discussion": "评论者普遍想要过滤 AI 内容，但质疑 YouTube 的 AI 标签过于粗糙，可能误伤只含少量 AI 元素的正常视频，且仅支持 Safari 限制了用户覆盖。", "tags": ["AI 内容过滤", "浏览器扩展", "YouTube 平台标签"], "score": 86, "comments": 25, "by": "masteranza", "url": "https://masteranza.github.io/weedout/", "hnUrl": "https://news.ycombinator.com/item?id=49528895"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "My local model setup on an M4 Pro Mac Mini", "titleTranslation": "我在 M4 Pro Mac Mini 上的本地模型配置", "summary": "作者在 48GB 内存的 M4 Pro Mac mini 上部署 oMLX 推理服务，主模型 Qwen3.6-35B-A3B 4bit 约占 20GB 内存，通过 Tailscale 让手机和笔记本共用后端；他认为本地模型已可覆盖 80% 日常请求，成本固定且无速率限制。", "keyPoints": ["Qwen3.6-35B-A3B 4bit 在 48GB Mac mini 上占约 20GB 内存，另用约 2.4GB 的 Gemma-4-E4B 处理简单任务。", "MoE 的 A3B 表示 35B 总参数中每 token 仅激活 3B，因此 16GB 设备也可能加载，但需留出操作系统和上下文缓存空间。", "作者用 Tailscale 私有网络连接 Mac mini、iPhone 和 MacBook，oMLX 监听 8000 端口，各客户端统一访问同一推理端点。"], "discussion": "评论区主要分歧在于作者没有给出 token/s，有人反映 M4 Max 预填充延迟大，另有人用 1-bit 量化在小内存设备上得到 13 tok/s，认为可接受性能缺乏统一标准。", "tags": ["本地 LLM 部署", "Apple Silicon 推理", "MoE 量化"], "score": 106, "comments": 53, "by": "raybb", "url": "https://lws.io/blog/my-local-model-setup/", "hnUrl": "https://news.ycombinator.com/item?id=49529132"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "The ChatGPT/Codex app bundles a full copy of LibreOffice", "titleTranslation": "ChatGPT/Codex 应用捆绑了完整 LibreOffice 副本", "summary": "Simon Willison 发现 ChatGPT/Codex 桌面应用的缓存中有 1.7GB 运行时，包含完整 Python、Node.js、Poppler、git 和 LibreOffice。关注点在于桌面应用为处理 Office 文档捆绑整个开源办公套件，带来体积与许可证合规问题。", "keyPoints": ["ChatGPT/Codex 桌面应用缓存里藏着 1.7GB 运行时，内含完整 LibreOffice 及 Python、Node.js 等。", "评论区认为捆绑 LibreOffice 的主要理由是要可靠读取 旧版 Office 文件，尤其是旧 xls。", "有人指出应用的开源许可页未列出 LibreOffice，质疑可能违反 MPL 2.0 分发要求。"], "discussion": "评论区普遍认为捆绑 LibreOffice 是为可靠读取旧格式，但对其体积、应用组织混乱和开源许可合规存在分歧，并有人建议 OpenAI 向上游项目捐赠。", "tags": ["OpenAI Codex", "LibreOffice", "开源许可证"], "score": 300, "comments": 135, "by": "timpera", "url": "https://simonwillison.net/2026/Sep/1/codex-libreoffice/", "hnUrl": "https://news.ycombinator.com/item?id=49527396"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "Launch HN: Nori Robotics (YC S26) – A low-cost humanoid robot for development", "titleTranslation": "Launch HN: Nori Robotics（YC S26）— 用于开发的低成本人形机器人", "summary": "Nori Robotics 推出面向开发者的 1,688 美元双臂轮式机器人，靠廉价舵机和轮式底座降本；评论质疑其精度和真实任务表现。", "keyPoints": ["Nori Robotics（Y Combinator S26） 推出售价 1,688 美元的双臂轮式机器人，首台已发货。", "核心降本是高减速比舵机替代准直驱电机，并用轮式底座替代双腿。", "硬件含 19 自由度、单臂 1.5 kg 负载、6-8 小时续航；SDK 与浏览器模拟器开放试用。"], "discussion": "评论认可价格门槛，但分歧集中在舵机导致抖动和缺乏力反馈、演示是否经过挑选，以及实际任务成功率。", "tags": ["机器人硬件", "开发者工具", "创业融资"], "score": 125, "comments": 42, "by": "AntonioLi", "url": "https://www.norirobotics.com/", "hnUrl": "https://news.ycombinator.com/item?id=49525153"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "Path to Astra: critical capabilities and frontier safeguards", "titleTranslation": "通往 Astra 之路：关键能力与前沿防护措施", "summary": "文章正文未获取，信息有限。OpenAI 发布 Astra，宣称在 ExploitBench 漏洞利用基准上取得 100% 得分并强调防护。讨论主要聚焦 TAC（OpenAI 可信访问计划）的国家限制、身份验证障碍，以及高危险能力私有化的治理风险。", "keyPoints": ["OpenAI 发布 Astra，称其在 ExploitBench 上取得 100% 漏洞利用得分，具备前沿网络安全能力。", "TAC（可信访问计划） 在 44 国受限，用户被要求反复人脸和身份证验证且无申诉渠道。", "评论认为私人公司掌握高危险网络安全能力可能促使政府介入，甚至强制获取模型权重。"], "discussion": "HN 评论分歧明显：既有对 token 效率提升的兴奋，也有对 TAC 不透明限制和私有掌控高危险能力的强烈批评。", "tags": ["OpenAI Astra", "漏洞利用", "模型治理"], "score": 108, "comments": 49, "by": "jithinraj", "url": "https://openai.com/index/path-to-astra/", "hnUrl": "https://news.ycombinator.com/item?id=49527595"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: HN Match Maker – Matching \"Who Wants to Be Hired?\" With \"Who's Hiring?\"", "titleTranslation": "HN Match Maker——匹配“Who Wants to Be Hired?”与“Who’s Hiring?”", "summary": "作者用 abacus.ai 对每月 HN 求职帖和招聘帖做 LLM 职位匹配，按薪资、领域、远程/现场等打分。当前匹配分普遍低于 50%，原因是求职者描述笼统、招聘方要求具体。", "keyPoints": ["HN Match Maker 用 LLM 抽取每月求职/招聘帖，按薪资、领域、远程/现场等打分匹配。", "当前匹配分普遍低于 50%：求职者描述笼统，招聘方要求具体。", "作者用 abacus.ai 生成工具，称还需再观察两三个月才能总结规律。"], "discussion": "评论区共识是方向有用，但主要分歧在隐私：按用户名公开求职匹配结果被认为可能侵犯隐私，也有人质疑这是给 abacus.ai 打广告。", "tags": ["LLM 职位匹配", "双边市场", "隐私争议"], "score": 59, "comments": 29, "by": "all2", "url": "https://hnmatchmaker.com/", "hnUrl": "https://news.ycombinator.com/item?id=49528057"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "Building Autonomous Goal Loops That Deliver", "titleTranslation": "构建能交付结果的自主目标循环", "summary": "文章提出自主代理不能只靠提示词和已有测试，而要用可重现起点、真实请求、评分器和分级文件权限构成闭环；每轮只修一个因果缺口并沉淀为回归检查。关键是防止代理为指标作弊、自评自改。", "keyPoints": ["代理循环的基础是可重现起点、真实请求和效果检查，而非提示词本身。", "开发代理与产品代理必须分离，产品代理只能接触用户可见工具，防止用用户没有的信息作弊。", "文件权限分三级：自由修改、需人类批准、冻结文件；代理不能在同一轮里改评分规则再自评。"], "discussion": "评论区质疑这是否过度工程化：何时值得部署“循环工程”而不是直接写代码，以及文章未具体说明评分器如何定义、人在环是否拖慢速度。", "tags": ["AI 代理", "自主代理评测", "软件开发自动化"], "score": 26, "comments": 3, "by": "jarredkenny", "url": "https://jx0.ca/building-autonomous-goal-loops-that-deliver/", "hnUrl": "https://news.ycombinator.com/item?id=49489098"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
