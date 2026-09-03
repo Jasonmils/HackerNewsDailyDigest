@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-09-03</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-09-03 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://developer.meta.com/ai/models/muse-spark/" target="_blank" rel="noopener">Muse Spark 1.3</a></h2></div><div class="meta">▲ 449 分 · bvaldivielso · <a href="https://news.ycombinator.com/item?id=49541256" target="_blank" rel="noopener">301 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Meta 发布 Muse Spark 1.3，支持 1M 上下文，主打长程代理工作流、编码与多模态感知。定价区分“允许用于训练改进”版本（输入 $0.10/Mtok）与“不用于训练”版本（$1.25/Mtok），价差 12.5 倍；社区报告其 DeepSWE 编码得分 75.4，暂列第一。</p><p class="context"><strong>🧭 联系你的知识背景</strong> “Mtok”指百万 token 计费；两个版本价差相当于用数据换取大幅折扣，类似“数据换服务”的定价实验，对产品定价和用户数据价值有参考意义。</p><ul class="kp"><li><strong>Muse Spark 1.3</strong> 支持 1M 上下文窗口，主打长程代理工作流、编码性能与原生多模态感知。</li><li>定价双版本：<strong>允许用于训练</strong>的输入价 $0.10/Mtok，不允许的 $1.25/Mtok，价差 12.5 倍。</li><li>社区报告 DeepSWE 编码基准 <strong>75.4 分</strong>，称当前最高，且价格便宜。</li><li>评论区有人赞赏透明定价，也有人因 <strong>Meta 18 亿美元儿童成瘾诉讼</strong> 而抵制。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区围绕“透明定价”与“Meta 品牌争议”分裂：有人认可性价比和可控性，有人因儿童成瘾诉讼或模型能力不足而保留意见。</p><div class="tags"><span class="tag">多模态模型</span><span class="tag">AI 定价</span><span class="tag">编码智能体</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · simonw · 18 回复</div><p>llm -m meta-ai/muse-spark-1.3 &quot;Generate an SVG of a pelican riding a bicycle&quot;</p><p>https://tools.simonwillison.net/markdown-svg-renderer?url=ht...</p><p>4.2266 cents, 38 seconds.</p><p>For comparison here&#x27;s Muse Spark 1.2, which animated it without me asking it to: https://tools.simonwillison.net/markdown-svg-renderer?url=ht...</p><p>The 1.3 one is definitely better - better bicycle frame, better wing, better pelican hat.</p><p>UPDATE: Here&#x27;s another one with five pelicans for each of the five Muse Spark 1.3 reasoning levels: https://tools.simonwillison.net/markdown-svg-renderer?url=ht...</p><p>The most expensive was reasoning level xhigh - 7.5 cents, 1m34s.</p><p>And I ran five pelicans at all reasoning levels for 1.2 as well, here: https://tools.simonwillison.net/markdown-svg-renderer?url=ht...</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/3-8-flash-and-3-8-flash-cyber/" target="_blank" rel="noopener">Gemini 3.8 Flash and 3.8 Flash Cyber</a></h2></div><p class="title-tr">Gemini 3.8 Flash 与 3.8 Flash Cyber</p><div class="meta">▲ 884 分 · bratao · <a href="https://news.ycombinator.com/item?id=49537553" target="_blank" rel="noopener">516 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">谷歌发布 Gemini 3.8 Flash 及 Cyber 变体，定价维持 3.7 水平（输入 $0.75/输出 $3.75 每百万 token）。Flash 在 DeepSWE v1.1 等软件工程和多步推理基准上超过多数更大模型；Cyber 在漏洞发现与自动修补上达到前沿水平，Chrome 实测正确补丁数是更大商业模型的 2.6 倍。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 漏洞发现与自动修补可类比为对代码做对抗样本测试：不断寻找会破坏系统假设的恶意输入，并自动生成修复补丁。</p><ul class="kp"><li><strong>Gemini 3.8 Flash</strong> 在 DeepSWE v1.1、HLE-Verified 等基准取得前沿级推理与编程成绩，价格与 3.7 相同。</li><li><strong>Gemini 3.8 Flash Cyber</strong> 专注漏洞发现与自动修补，内部 20 种语言代码基准成功率超过 70%。</li><li>Chrome 安全团队实测其正确补丁数是更大商业模型的 <strong>2.6 倍</strong>；Wiz 报告召回率提升 7.5-9.7 个点。</li><li>Cyber 通过 <strong>Fairwind Program</strong> 仅向可信防御者开放；普通消费者、开发者和企业可访问 Flash。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论多数认为快速、便宜的 Flash 系列适合可验证并可反复重试的编程任务，且多模态与中文写作表现惊喜；但有人反馈多轮上下文追踪和低思考档出现回退。</p><div class="tags"><span class="tag">Gemini 3.8</span><span class="tag">LLM 推理</span><span class="tag">AI 安全</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · jampa · 16 回复</div><p>I&#x27;ve been using Gemini 3.7 for my personal trip planning app. Across multiple benchmarks, it ranks higher on everything I tried:</p><p>- Real world knowledge (when a thing opens and closes, the geographic region, historical facts). It&#x27;s also the best at taking a cluster of places and working out a visiting order.</p><p>- Photo ranking (which photo should be the hero). Gemini can tell whether a photo is of the thing or of the view from it.</p><p>- Document parsing (extracting the relevant trip info from PDFs).</p><p>If you use LLMs for anything other than coding, I definitely recommend not discounting Gemini like I did just because other models are more popular.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://www.nature.com/articles/s41562-026-02550-0" target="_blank" rel="noopener">The shrinking landscape of linguistic diversity in the age of LLMs</a></h2></div><p class="title-tr">LLM 时代语言多样性日渐萎缩的图景</p><div class="meta">▲ 68 分 · Anon84 · <a href="https://news.ycombinator.com/item?id=49497996" target="_blank" rel="noopener">44 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">《自然·人类行为》研究覆盖7个数据集、88万余篇文本，发现采用大语言模型作为写作助手与语言多样性下降相关；LLM润色后写作复杂度方差显著下降21–50%，同质化文风并放大主流特征、抑制个性。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 语言多样性类似模型输出的分布方差：LLM 润色像降低采样多样性，压缩了原本承载个人身份、心理状态和社会背景的文本差异。</p><ul class="kp"><li><strong>7 个数据集、88 万余篇文本</strong> 覆盖 Reddit、arXiv 等，显示 LLM 写作辅助普及与多样性下降相关。</li><li><strong>写作复杂度方差显著下降 21–50%</strong>（P≤0.05），不同模型和提示下趋势一致。</li><li><strong>LLM 润色保留核心内容但同质化文风</strong>，放大主流特征、抑制个性，偏向一致性。</li><li>潜在影响涉及<strong>诊断、个性化、招聘评估和文化保存</strong>，可能削弱语言承载的社会心理信号。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区分裂：一部分认为工作沟通中一致性有利于效率，另一部分担忧 LLM 正侵蚀个人写作灵魂，还有人称 YouTube/MrBeast 对语言同质化影响更大。</p><div class="tags"><span class="tag">LLM 同质化</span><span class="tag">语言多样性</span><span class="tag">AI 写作辅助</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · unsignedint · 6 回复</div><p>But then, is that necessarily a bad thing?</p><p>In most cases where language is being used as a vehicle for exchanging ideas, isn&#x27;t some degree of uniformity actually desirable for clarity? I personally wouldn&#x27;t want instruction manuals to be full of colorful or highly individualized language, for instance.</p><p>That&#x27;s not to say linguistic diversity is meaningless, but I would argue that this particular concern is fairly specialized and matters much more in literature and other creative forms of writing.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://trellner.com/reports/manufactured-sources-behind-ai-recommendations/" target="_blank" rel="noopener">Three sites made 215,128 “best software” pages for AI. Perplexity cites them</a></h2></div><p class="title-tr">三个网站为AI制作了215,128个“最佳软件”页面，Perplexity引用它们</p><div class="meta">▲ 335 分 · jakobgreenfeld · <a href="https://news.ycombinator.com/item?id=49536375" target="_blank" rel="noopener">159 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">对380类软件提问Perplexity得到7,534条引用，59.8%指向Tranco排名10万以外的域名，23.4%完全未进前一百万。三个疑似同一运营的网站共生成215,128个机器编写“最佳软件”页面，页面标题自称“Facts &amp; Grounding Page”，明显瞄准模型检索而非人类阅读。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这里的grounding可理解为检索增强生成（RAG）中的“检索证据”步骤：模型先抓网页再据此作答；Tranco排名类似网站访问量/知名度榜单，用来区分主流网站与长尾内容。</p><ul class="kp"><li><strong>59.8%</strong>的引用落在Tranco排名10万之后的域名，23.4%完全未进前一百万，证据基础明显偏长尾且较新。</li><li>三个站点共发布<strong>215,128</strong>个机器生成的“最佳软件”页面，首页标题都写着“Facts &amp; Grounding Page”，面向模型而非人类。</li><li>某个产品演示厂商的博客被引用<strong>194</strong>次，成为第三大引用来源，超过Gartner，覆盖96个软件类别。</li><li>文章强调这不能证明推荐结果变差，且两个Perplexity模型共享检索层，应视为同一种搜索栈采样两次。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍认为Perplexity为速度牺牲检索质量，引用常与正文不匹配，且模型偏爱机器生成内容；也有人指出这些内容农场的自然搜索流量已经下滑。</p><div class="tags"><span class="tag">AI 搜索引擎</span><span class="tag">生成式 SEO</span><span class="tag">Perplexity</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · xpct · 16 回复</div><p>If I recall correctly, there were some papers which suggested that LLMs favor LLM-generated passages over human written ones. I can consistently reproduce this by asking Claude which code snippet it prefers: the one it generated in a different chat, or one that I refactored for my own needs and find more useful. It always picks its own :) I&#x27;ve also experienced that both Claude and Codex routinely include generated websites when I ask them to search for something. It also doesn&#x27;t help that the web search tools that OAI and Anthropic have are deeply limiting: can&#x27;t exclude keywords or domains.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://news.ycombinator.com/item?id=49543530" target="_blank" rel="noopener">Launch HN: RonanRX (YC S26) – Personalized Peptides and GLP-1s</a></h2></div><p class="title-tr">发布 HN：RonanRX（YC S26）——个性化多肽与 GLP-1 药物</p><div class="meta">▲ 35 分 · lloydarmbrust · <a href="https://news.ycombinator.com/item?id=49543530" target="_blank" rel="noopener">43 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">RonanRX 打造垂直整合制药公司，从分子制造到处方、远程医疗、配送全栈贯通，首推 GLP-1 和多肽。创始人曾建口罩厂做到 5000 万美元年营收，声称自产自销能让药价便宜 3-10 倍，并用患者数据形成剂量反馈闭环。</p><p class="context"><strong>🧭 联系你的知识背景</strong> GLP-1 是一类减重/降糖药物（如替尔泊肽），复合药房可针对个体差异调配剂量，类似把固定模型改为按用户数据微调。</p><ul class="kp"><li>创始人曾建美国最大口罩厂之一，<strong>日产能 100 万只</strong>，年营收 5000 万美元。</li><li>RonanRX 走<strong>垂直整合</strong>路线，从原料药到远程医疗、复配、配送全链路自营。</li><li>声称自产自销让药价便宜 <strong>3-10 倍</strong>，并利用患者数据调整剂量形成反馈闭环。</li><li>起步产品为 <strong>GLP-1 和多肽</strong>，长期看患者特异性药物制造。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区部分认可垂直整合，但质疑个性化是否实质、复合药房法规风险以及灰色市场低价冲击。</p><div class="tags"><span class="tag">垂直整合制药</span><span class="tag">GLP-1 药物</span><span class="tag">复合药房法规</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · anonymous391084 · 3 回复</div><p>I think most people on gray market GLPs will vary their dose, take tolerance breaks, etc to meet their personal weight loss goals, this stuff isn&#x27;t that complicated. Where I think where the real technology opportunity is, is having a personalized endocrinologist for TRT/HRT. Bodybuilders have incredibly sophisticated trackers with hormone/ester PK models and the ability to adjust and tune your personal model based on bloodwork results. Most men&#x27;s clinic, online or in person, are nowhere near as advanced. Prescribing for most of these guys is binary, or adjusting your dose is something that&#x27;s done in response to some sort of a problem like hematocrit or gyno, rather than trying to keep levels in-line with whatever health goal you have. I don&#x27;t think most guys really need the full TRT dose of 140 mg/week to feel energetic again, but depending on your fitness goals you can go well beyond that safely as long as you are paying close attention. There have been a couple of &quot;high tech HRT&quot; apps but I don&#x27;t think they are really all that sophisticated, maybe daily dosing or includes a tasso device or whatever, but nothing afaik with multi-hormone PK modeling and testing feedback, so it could be right up your alley.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://github.com/PhiloLabs/fable51-worlds" target="_blank" rel="noopener">Fable 5.1 World Modeling</a></h2></div><p class="title-tr">Fable 5.1 世界建模</p><div class="meta">▲ 165 分 · surreal_ · <a href="https://news.ycombinator.com/item?id=49541458" target="_blank" rel="noopener">54 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Claude Fable 5.1 自主智能体群从开放数据重建真实地点，产出浏览器可运行的 Three.js 世界：旧金山联合广场含 453 栋建筑、129 个店面、220 个行人、109 辆车，并用 34 个实拍机位做质检。展示无游戏引擎的“代码即世界”自动生成管线。</p><p class="context"><strong>🧭 联系你的知识背景</strong> agent swarms 可理解为多个 LLM 实例按侦察、建模、质检角色编排的流水线；质检环节相当于用渲染截图与真实照片做自动评测。</p><ul class="kp"><li><strong>129 个命名店面与 453 栋建筑</strong>从 OpenStreetMap 和 USGS 高程数据生成，无游戏引擎或专有 3D 瓦片</li><li>旧金山联合广场场景含 <strong>220 个行人和 109 辆车</strong>，在 1,398 节点导航图上运行，含两个可探索室内空间</li><li><strong>Playwright 驱动 34 个机位截图</strong>与实拍照片比对，147 张对比表和 9 份独立审查报告驱动修复</li><li>管线分侦察、Blender 离线资产、Three.js 运行时装配、相机匹配质检，以 <strong>MIT 协议开源</strong></li></ul><p class="disc"><strong>💬 讨论</strong> 评论区既认为效果惊艳，也质疑拓扑/纹理不达生产可用、缺成本与可靠性数据，多为 demo 而非可扩展产品。</p><div class="tags"><span class="tag">自主智能体</span><span class="tag">3D 重建</span><span class="tag">Three.js</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · kodefreeze · 7 回复</div><p>I have experimented with this type of modeling for a RTS game I&#x27;m building: https://playwarpact.com</p><p>Few things:</p><p>1. Opus 5 is just as good for this tbh and cheaper.</p><p>2. They don&#x27;t generate optimized 3d models. They have high poly count for simple geometries.</p><p>3. A better approach I&#x27;ve utilized for game ready assets is to use the model to create low poly silhouettes of the 3d model and then bake textures that include a lot more details like windows, doors etc with tools like Meshy. Can post a tutorial if there&#x27;s interest.</p><p>The models need some more RL to be able to do this autonomously.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://help.mistral.ai/en/articles/455207-can-i-opt-out-of-my-input-or-output-data-being-used-for-training" target="_blank" rel="noopener">Can I opt out of my input or output data being used for training?</a></h2></div><p class="title-tr">我可以选择不让我的输入或输出数据被用于训练吗？</p><div class="meta">▲ 394 分 · teekert · <a href="https://news.ycombinator.com/item?id=49535284" target="_blank" rel="noopener">168 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Mistral 提供退出训练选项，但默认策略因产品层级不同：Vibe 个人版默认参与，企业版默认退出，API 与 Vibe 的退出开关相互独立。文档曾数日与用户实际设置矛盾，近期才修正，引发对默认加入策略的信任争议。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 你可以把它理解为：训练数据授权从技术问题变成产品定价分层和采购信任问题，默认加入意味着付费用户仍要承担数据被训练的成本。</p><ul class="kp"><li><strong>Mistral Vibe 个人版默认参与训练</strong>，用户可在设置或移动端手动关闭。</li><li><strong>Vibe 企业版默认退出训练</strong>，但 API 和 Studio 的退出开关需单独配置。</li><li>文档曾连续数日与用户实际设置冲突，<strong>Mistral 最近才修正文档</strong>。</li><li>对比 <strong>Claude 从 18 欧元团队层级起默认关闭训练</strong>，Mistral 的默认加入令欧洲用户失望。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区多数认为退出选项缺乏技术强制力，部分用户因默认加入和文档矛盾转向本地模型或隐私品牌。</p><div class="tags"><span class="tag">AI 数据隐私</span><span class="tag">默认加入策略</span><span class="tag">Mistral</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · teekert · 9 回复</div><p>Context: After careful research our organization preferred a European partner with good central privacy controls. We landed on Mistral, after being disappointed that the Pro tier was opt-in to training on prompts by default we switched up to the Team tier which provides an organization dashboard with some relevant settings. As we did that Mistral changed these options and the Team tier was now also opt-in by default and at the same time seemed to have lost the ability to centrally disable training on prompts for your entire organization. This even caused some of our (testing) prompts to be used for training (which Mistral removed after we expressed our disappointment).</p><p>For some time these pages conflicted with what our users reported (they said that in contrast to what I stated to our management they found they were opted into training on prompts by default as per their own privacy page). Mistral just now corrected their docs. I&#x27;m not sure how long the conflicting situation has lasted, but at least for several days.</p><p>For contrast: Claude disables training on prompts for organizations starting from the 18 euro tier [0]. As a European I&#x27;m disappointed.</p><p>[0] https://claude.com/pricing#team-&amp;-enterprise</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://secondthoughts.ai/p/14-reasons-robotics-is-hard" target="_blank" rel="noopener">Reasons robotics is hard</a></h2></div><p class="title-tr">机器人技术为何如此困难</p><div class="meta">▲ 62 分 · ddp26 · <a href="https://news.ycombinator.com/item?id=49543191" target="_blank" rel="noopener">24 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">AI 在知识工作领域飞速进展，但通用人形机器人仍困于演示视频。人手约 24 个自由度、1.7 万个触觉传感器，机器手单项可接近但综合可靠性差；叠加视觉、规划、安全、续航与泛化难题，物理世界的“ChatGPT 时刻”远未到来。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 机器人面临的是高维连续控制与稀缺物理交互数据，和你在深度学习中熟悉的“大数据预训练”路径不同，且错误有即时物理安全成本。</p><ul class="kp"><li><strong>人手约 24 个自由度、1.7 万个触觉传感器</strong>，现有机器手单项指标可接近但综合灵巧性、可靠性和耐久性远不及。</li><li><strong>Waymo 自动驾驶行驶超 2.2 亿英里</strong>（普通人 250 倍）仍会驶入洪水，说明物理边缘案例极难覆盖。</li><li><strong>人形机器人通常仅能运行数小时</strong>，发热量约为人体两倍；触觉传感器单个手指成本数千美元，平均无故障时间仅数小时。</li><li><strong>通用机器人缺少类似互联网文本的大规模训练数据</strong>，无法靠预训练规模解决物理任务泛化。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论普遍认同硬件有进步但远未达到商业可用，机器人专家补充触觉传感器成本高、平均无故障时间仅数小时，是明显短板。</p><div class="tags"><span class="tag">人形机器人</span><span class="tag">机器人控制</span><span class="tag">物理 AI</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · GlenTheMachine · 3 回复</div><p>Roboticist here. All of this, and he didn’t mention compliance or online adaptation to otherwise un-sensable dynamics. Or massively complex miniature mechanisms.</p><p>Current generation tactile sensors cost a couple thousand $ PER FINGER, and have a real world MTBF of hours. The cost can be solved with economy of scale. The fragility is harder.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://nango.dev/careers" target="_blank" rel="noopener">Nango (YC W23) is hiring across eng, product and GTM (SF and remote)</a></h2></div><p class="title-tr">Nango（YC W23）正在招聘工程、产品和进入市场（旧金山及远程）</p><div class="meta">▲ 1 分 · bastienbeurier · <a href="https://news.ycombinator.com/item?id=49542486" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Nango（YC W23）是一家做产品集成的开源开发者工具公司，正招聘工程、产品和进入市场岗位，地点支持旧金山和远程。它强调开源、远程优先，并称收入和用量快速增长，适合关注开发者工具早期商业化与初创扩张信号的人。</p><p class="context"><strong>🧭 联系你的知识背景</strong> YC W23 指 Y Combinator 2023 年冬季批次，是知名创业加速器；产品集成可理解为让不同软件产品之间自动交换数据的开发者侧 API 连接层。</p><ul class="kp"><li><strong>Nango（YC W23）</strong> 正招聘工程、产品与进入市场（GTM）岗位，覆盖旧金山和远程。</li><li>定位<strong>开源开发者工具</strong>，解决产品集成痛点，以开发者为主要用户。</li><li>自称<strong>收入和用量快速增长</strong>，作为加入时机的核心卖点。</li><li>团队来自<strong>开发者基础设施公司</strong>，强调远程优先与结果导向。</li></ul><div class="tags"><span class="tag">开源开发者工具</span><span class="tag">产品集成</span><span class="tag">初创招聘</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://github.com/mlc-ai/web-llm" target="_blank" rel="noopener">WebLLM: high-performance in-browser LLM inference engine</a></h2></div><p class="title-tr">WebLLM：高性能浏览器内 LLM 推理引擎</p><div class="meta">▲ 95 分 · saikatsg · <a href="https://news.ycombinator.com/item?id=49536411" target="_blank" rel="noopener">17 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">WebLLM 利用 WebGPU 在浏览器本地运行 LLM 推理，兼容 OpenAI API，支持 Llama、Phi、Gemma、Mistral、Qwen 等模型。但每次会话需下载约 500MB-1GB 模型，且评论区指出项目更新停滞，建议改用 Transformers.js。</p><p class="context"><strong>🧭 联系你的知识背景</strong> WebGPU 是浏览器提供的 GPU 访问接口，相当于让前端页面直接调用显卡做矩阵运算，可理解为把模型推理从服务器搬到用户设备。</p><ul class="kp"><li><strong>WebLLM</strong> 通过 WebGPU 在浏览器内完成 LLM 推理，无需服务器支持。</li><li>完全兼容 <strong>OpenAI API</strong>，支持流式输出、JSON 模式和函数调用。</li><li>每次浏览器会话需下载约 <strong>500MB-1GB</strong> 模型，首次加载耗时明显。</li><li>评论区有用户称项目实际已停更，建议改用 <strong>Transformers.js</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区对项目实用性分歧明显，有用户称其已停更并推荐 Transformers.js，也有用户反馈 WebGPU 兼容性问题。</p><div class="tags"><span class="tag">浏览器端 AI</span><span class="tag">WebGPU</span><span class="tag">LLM 推理</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · TekMol · 2 回复</div><p>This seems to be the demo:</p><p>https://chat.webllm.ai/</p><p>I am getting:</p><p>WebGPUNotAvailableError: WebGPU is not supported in</p><p>your current environment, but it is necessary to</p><p>run the WebLLM engine.</p><p>On both, FireFox and Chromium on Linux.</p></div></div></article>
+</div></main>
+<footer>generated 2026-09-03 04:21 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "Muse Spark 1.3", "titleTranslation": "", "summary": "Meta 发布 Muse Spark 1.3，支持 1M 上下文，主打长程代理工作流、编码与多模态感知。定价区分“允许用于训练改进”版本（输入 $0.10/Mtok）与“不用于训练”版本（$1.25/Mtok），价差 12.5 倍；社区报告其 DeepSWE 编码得分 75.4，暂列第一。", "keyPoints": ["Muse Spark 1.3 支持 1M 上下文窗口，主打长程代理工作流、编码性能与原生多模态感知。", "定价双版本：允许用于训练的输入价 $0.10/Mtok，不允许的 $1.25/Mtok，价差 12.5 倍。", "社区报告 DeepSWE 编码基准 75.4 分，称当前最高，且价格便宜。"], "discussion": "评论区围绕“透明定价”与“Meta 品牌争议”分裂：有人认可性价比和可控性，有人因儿童成瘾诉讼或模型能力不足而保留意见。", "tags": ["多模态模型", "AI 定价", "编码智能体"], "score": 449, "comments": 301, "by": "bvaldivielso", "url": "https://developer.meta.com/ai/models/muse-spark/", "hnUrl": "https://news.ycombinator.com/item?id=49541256"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "Gemini 3.8 Flash and 3.8 Flash Cyber", "titleTranslation": "Gemini 3.8 Flash 与 3.8 Flash Cyber", "summary": "谷歌发布 Gemini 3.8 Flash 及 Cyber 变体，定价维持 3.7 水平（输入 $0.75/输出 $3.75 每百万 token）。Flash 在 DeepSWE v1.1 等软件工程和多步推理基准上超过多数更大模型；Cyber 在漏洞发现与自动修补上达到前沿水平，Chrome 实测正确补丁数是更大商业模型的 2.6 倍。", "keyPoints": ["Gemini 3.8 Flash 在 DeepSWE v1.1、HLE-Verified 等基准取得前沿级推理与编程成绩，价格与 3.7 相同。", "Gemini 3.8 Flash Cyber 专注漏洞发现与自动修补，内部 20 种语言代码基准成功率超过 70%。", "Chrome 安全团队实测其正确补丁数是更大商业模型的 2.6 倍；Wiz 报告召回率提升 7.5-9.7 个点。"], "discussion": "HN 评论多数认为快速、便宜的 Flash 系列适合可验证并可反复重试的编程任务，且多模态与中文写作表现惊喜；但有人反馈多轮上下文追踪和低思考档出现回退。", "tags": ["Gemini 3.8", "LLM 推理", "AI 安全"], "score": 884, "comments": 516, "by": "bratao", "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/3-8-flash-and-3-8-flash-cyber/", "hnUrl": "https://news.ycombinator.com/item?id=49537553"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "The shrinking landscape of linguistic diversity in the age of LLMs", "titleTranslation": "LLM 时代语言多样性日渐萎缩的图景", "summary": "《自然·人类行为》研究覆盖7个数据集、88万余篇文本，发现采用大语言模型作为写作助手与语言多样性下降相关；LLM润色后写作复杂度方差显著下降21–50%，同质化文风并放大主流特征、抑制个性。", "keyPoints": ["7 个数据集、88 万余篇文本 覆盖 Reddit、arXiv 等，显示 LLM 写作辅助普及与多样性下降相关。", "写作复杂度方差显著下降 21–50%（P≤0.05），不同模型和提示下趋势一致。", "LLM 润色保留核心内容但同质化文风，放大主流特征、抑制个性，偏向一致性。"], "discussion": "HN 评论区分裂：一部分认为工作沟通中一致性有利于效率，另一部分担忧 LLM 正侵蚀个人写作灵魂，还有人称 YouTube/MrBeast 对语言同质化影响更大。", "tags": ["LLM 同质化", "语言多样性", "AI 写作辅助"], "score": 68, "comments": 44, "by": "Anon84", "url": "https://www.nature.com/articles/s41562-026-02550-0", "hnUrl": "https://news.ycombinator.com/item?id=49497996"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "Three sites made 215,128 “best software” pages for AI. Perplexity cites them", "titleTranslation": "三个网站为AI制作了215,128个“最佳软件”页面，Perplexity引用它们", "summary": "对380类软件提问Perplexity得到7,534条引用，59.8%指向Tranco排名10万以外的域名，23.4%完全未进前一百万。三个疑似同一运营的网站共生成215,128个机器编写“最佳软件”页面，页面标题自称“Facts & Grounding Page”，明显瞄准模型检索而非人类阅读。", "keyPoints": ["59.8%的引用落在Tranco排名10万之后的域名，23.4%完全未进前一百万，证据基础明显偏长尾且较新。", "三个站点共发布215,128个机器生成的“最佳软件”页面，首页标题都写着“Facts & Grounding Page”，面向模型而非人类。", "某个产品演示厂商的博客被引用194次，成为第三大引用来源，超过Gartner，覆盖96个软件类别。"], "discussion": "评论普遍认为Perplexity为速度牺牲检索质量，引用常与正文不匹配，且模型偏爱机器生成内容；也有人指出这些内容农场的自然搜索流量已经下滑。", "tags": ["AI 搜索引擎", "生成式 SEO", "Perplexity"], "score": 335, "comments": 159, "by": "jakobgreenfeld", "url": "https://trellner.com/reports/manufactured-sources-behind-ai-recommendations/", "hnUrl": "https://news.ycombinator.com/item?id=49536375"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "Launch HN: RonanRX (YC S26) – Personalized Peptides and GLP-1s", "titleTranslation": "发布 HN：RonanRX（YC S26）——个性化多肽与 GLP-1 药物", "summary": "RonanRX 打造垂直整合制药公司，从分子制造到处方、远程医疗、配送全栈贯通，首推 GLP-1 和多肽。创始人曾建口罩厂做到 5000 万美元年营收，声称自产自销能让药价便宜 3-10 倍，并用患者数据形成剂量反馈闭环。", "keyPoints": ["创始人曾建美国最大口罩厂之一，日产能 100 万只，年营收 5000 万美元。", "RonanRX 走垂直整合路线，从原料药到远程医疗、复配、配送全链路自营。", "声称自产自销让药价便宜 3-10 倍，并利用患者数据调整剂量形成反馈闭环。"], "discussion": "评论区部分认可垂直整合，但质疑个性化是否实质、复合药房法规风险以及灰色市场低价冲击。", "tags": ["垂直整合制药", "GLP-1 药物", "复合药房法规"], "score": 35, "comments": 43, "by": "lloydarmbrust", "url": "https://news.ycombinator.com/item?id=49543530", "hnUrl": "https://news.ycombinator.com/item?id=49543530"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "Fable 5.1 World Modeling", "titleTranslation": "Fable 5.1 世界建模", "summary": "Claude Fable 5.1 自主智能体群从开放数据重建真实地点，产出浏览器可运行的 Three.js 世界：旧金山联合广场含 453 栋建筑、129 个店面、220 个行人、109 辆车，并用 34 个实拍机位做质检。展示无游戏引擎的“代码即世界”自动生成管线。", "keyPoints": ["129 个命名店面与 453 栋建筑从 OpenStreetMap 和 USGS 高程数据生成，无游戏引擎或专有 3D 瓦片", "旧金山联合广场场景含 220 个行人和 109 辆车，在 1,398 节点导航图上运行，含两个可探索室内空间", "Playwright 驱动 34 个机位截图与实拍照片比对，147 张对比表和 9 份独立审查报告驱动修复"], "discussion": "评论区既认为效果惊艳，也质疑拓扑/纹理不达生产可用、缺成本与可靠性数据，多为 demo 而非可扩展产品。", "tags": ["自主智能体", "3D 重建", "Three.js"], "score": 165, "comments": 54, "by": "surreal_", "url": "https://github.com/PhiloLabs/fable51-worlds", "hnUrl": "https://news.ycombinator.com/item?id=49541458"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "Can I opt out of my input or output data being used for training?", "titleTranslation": "我可以选择不让我的输入或输出数据被用于训练吗？", "summary": "Mistral 提供退出训练选项，但默认策略因产品层级不同：Vibe 个人版默认参与，企业版默认退出，API 与 Vibe 的退出开关相互独立。文档曾数日与用户实际设置矛盾，近期才修正，引发对默认加入策略的信任争议。", "keyPoints": ["Mistral Vibe 个人版默认参与训练，用户可在设置或移动端手动关闭。", "Vibe 企业版默认退出训练，但 API 和 Studio 的退出开关需单独配置。", "文档曾连续数日与用户实际设置冲突，Mistral 最近才修正文档。"], "discussion": "评论区多数认为退出选项缺乏技术强制力，部分用户因默认加入和文档矛盾转向本地模型或隐私品牌。", "tags": ["AI 数据隐私", "默认加入策略", "Mistral"], "score": 394, "comments": 168, "by": "teekert", "url": "https://help.mistral.ai/en/articles/455207-can-i-opt-out-of-my-input-or-output-data-being-used-for-training", "hnUrl": "https://news.ycombinator.com/item?id=49535284"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "Reasons robotics is hard", "titleTranslation": "机器人技术为何如此困难", "summary": "AI 在知识工作领域飞速进展，但通用人形机器人仍困于演示视频。人手约 24 个自由度、1.7 万个触觉传感器，机器手单项可接近但综合可靠性差；叠加视觉、规划、安全、续航与泛化难题，物理世界的“ChatGPT 时刻”远未到来。", "keyPoints": ["人手约 24 个自由度、1.7 万个触觉传感器，现有机器手单项指标可接近但综合灵巧性、可靠性和耐久性远不及。", "Waymo 自动驾驶行驶超 2.2 亿英里（普通人 250 倍）仍会驶入洪水，说明物理边缘案例极难覆盖。", "人形机器人通常仅能运行数小时，发热量约为人体两倍；触觉传感器单个手指成本数千美元，平均无故障时间仅数小时。"], "discussion": "HN 评论普遍认同硬件有进步但远未达到商业可用，机器人专家补充触觉传感器成本高、平均无故障时间仅数小时，是明显短板。", "tags": ["人形机器人", "机器人控制", "物理 AI"], "score": 62, "comments": 24, "by": "ddp26", "url": "https://secondthoughts.ai/p/14-reasons-robotics-is-hard", "hnUrl": "https://news.ycombinator.com/item?id=49543191"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "Nango (YC W23) is hiring across eng, product and GTM (SF and remote)", "titleTranslation": "Nango（YC W23）正在招聘工程、产品和进入市场（旧金山及远程）", "summary": "Nango（YC W23）是一家做产品集成的开源开发者工具公司，正招聘工程、产品和进入市场岗位，地点支持旧金山和远程。它强调开源、远程优先，并称收入和用量快速增长，适合关注开发者工具早期商业化与初创扩张信号的人。", "keyPoints": ["Nango（YC W23） 正招聘工程、产品与进入市场（GTM）岗位，覆盖旧金山和远程。", "定位开源开发者工具，解决产品集成痛点，以开发者为主要用户。", "自称收入和用量快速增长，作为加入时机的核心卖点。"], "discussion": "", "tags": ["开源开发者工具", "产品集成", "初创招聘"], "score": 1, "comments": 0, "by": "bastienbeurier", "url": "https://nango.dev/careers", "hnUrl": "https://news.ycombinator.com/item?id=49542486"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "WebLLM: high-performance in-browser LLM inference engine", "titleTranslation": "WebLLM：高性能浏览器内 LLM 推理引擎", "summary": "WebLLM 利用 WebGPU 在浏览器本地运行 LLM 推理，兼容 OpenAI API，支持 Llama、Phi、Gemma、Mistral、Qwen 等模型。但每次会话需下载约 500MB-1GB 模型，且评论区指出项目更新停滞，建议改用 Transformers.js。", "keyPoints": ["WebLLM 通过 WebGPU 在浏览器内完成 LLM 推理，无需服务器支持。", "完全兼容 OpenAI API，支持流式输出、JSON 模式和函数调用。", "每次浏览器会话需下载约 500MB-1GB 模型，首次加载耗时明显。"], "discussion": "评论区对项目实用性分歧明显，有用户称其已停更并推荐 Transformers.js，也有用户反馈 WebGPU 兼容性问题。", "tags": ["浏览器端 AI", "WebGPU", "LLM 推理"], "score": 95, "comments": 17, "by": "saikatsg", "url": "https://github.com/mlc-ai/web-llm", "hnUrl": "https://news.ycombinator.com/item?id=49536411"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
