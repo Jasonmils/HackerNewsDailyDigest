@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-09-04</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-09-04 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://openai.com/index/gpt-6-astra/" target="_blank" rel="noopener">GPT-6 Astra</a></h2></div><div class="meta">▲ 1474 分 · kibae · <a href="https://news.ycombinator.com/item?id=49554643" target="_blank" rel="noopener">1247 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OpenAI 发布 GPT-6 Astra，在 ARC-AGI-3 基准上拿到 99.9%，但评测框架争议较大；其他基准提升温和，低调发布引发“是否真 AGI”的争论，值得关注其产品落地与竞争定位。</p><p class="context"><strong>🧭 联系你的知识背景</strong> ARC-AGI-3 是测试通用智能的基准；这里的争议类似你用不同数据加载器或 prompt 模板评估同一模型，分数可能从 7.8% 跳到约 30%，所以 99.9% 不能直接按表面解读。</p><ul class="kp"><li><strong>GPT-6 Astra</strong> 在 ARC-AGI-3 上拿到 99.9%，但换用不同评测接口后，旧模型分数也可大幅跃升。</li><li>其他基准如编码代理指数提升“相对温和”，被指更像<strong>小版本更新</strong>而非代际突破。</li><li>发布仅有一篇博客文章，无发布会；评论认为 OpenAI 可能因<strong>合同压力</strong>交付“AGI”标签。</li><li>评论区质疑自主购物演示：AI 无法读心，用户需要价格与偏好控制，不应<strong>替用户做选择</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 核心分歧在于 99.9% 的 ARC-AGI-3 分数是否代表真 AGI：一方认为评测框架不公平，另一方认为即使如此已接近 AGI。</p><div class="tags"><span class="tag">ARC-AGI-3 评测</span><span class="tag">AGI 界定</span><span class="tag">AI 产品交互</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · intenex · 49 回复</div><p>The ARC-AGI-3 scorecard is extremely misleading given that it clearly states itself that &quot;with [the responses API] harness, we estimate Sol would score in the ballpark of ~30%.&quot; but it shows a score of 7.8% for GPT-5.6 Sol presumably since if they updated the percentage for GPT-5.6 Sol to the score it would receive with the responses API harness they used for GPT-6 Astra they&#x27;d have to do the same for the percentage they show for Opus 5 which would similarly be much higher.</p><p>Regardless, the result is still valid as the original benchmark harness is definitely unreasonably handicapped, and if a harness alone can help the LLM saturate the benchmark with a near perfect score then the combination of the two must still be effectively AGI in the sense of passing the most famous benchmark designed specifically to measure AGI progress, after multiple iterations of progressively making it harder.</p><p>I think it is fair to say that this is probably effectively AGI if the benchmarks are remotely accurate - even with Fable, I&#x27;ve been at the point personally where I am reasonably confident that there&#x27;s essentially nothing that I am better than Fable at despite generally being substantively above average on human benchmarks. If Astra&#x27;s this much better than Fable, I&#x27;m ready to call AGI here.</p><p>For the many people who resist the AGI label possibly ever being achieved, I&#x27;d be curious to hear takes on what would make you think Astra is yet to be AGI, and what would still need to be achieved for this to effectively be AGI from this point forward.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://inference-docs.cerebras.ai/models/overview" target="_blank" rel="noopener">Qwen 3.8 27B available on Cerebras at 1500 tokens/s</a></h2></div><p class="title-tr">Qwen 3.8 27B 在 Cerebras 上可用，速度达 1500 tokens/s</p><div class="meta">▲ 493 分 · altertable · <a href="https://news.ycombinator.com/item?id=49554520" target="_blank" rel="noopener">148 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Cerebras 公共端点推出 Qwen 3.8 27B，生成速度 1500 tokens/s，并强调所有托管模型不剪枝、仅在存储时做选择性权重量化。但用户实测受速率配额限制，编程任务约 90 秒触顶、成本远超 DeepSeek，商业可用性存疑。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 对熟悉模型训练但较少接触推理服务的读者：“TPM 限制”类似 API 的每分钟 token 配额，高速输出会更快耗尽额度，这是“快反而更贵”的根源。</p><ul class="kp"><li><strong>Cerebras 公共端点</strong>只托管未剪枝的原始模型，REAP 剪枝模型仅放在 Hugging Face 供研究。</li><li>存储时采用<strong>选择性权重量化</strong>（16/8/4-bit），敏感层保持全精度，激活、注意力与 KV 缓存不量化。</li><li>用户实测 Qwen 3.8 27B <strong>约 90 秒即撞上速率限制</strong>并烧掉 $1.10；同任务 DeepSeek 仅 $0.024。</li><li><strong>本地 RTX 5090 + ninfer</strong> 可跑 200+ tok/s，削弱 1500 tok/s 云服务的性价比优势。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍认为<strong>原始生成速度虽快，但速率上限、计费与无提示缓存让编程任务反而更贵</strong>，高速并未直接转化为更好体验。</p><div class="tags"><span class="tag">LLM 推理</span><span class="tag">推理成本</span><span class="tag">模型量化</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · nostrebored · 7 回复</div><p>150k TPM limit on public endpoint means that it&#x27;s likely unusable for many coding tasks. When we&#x27;ve tried Cerebras in the past, our problem has always been rates. We&#x27;d love to not deal with dedicated and to have access to a more flexible rate pool.</p><p>Even trying it out, it seems like our account has gotten moved to some limbo where we can no longer add billing information.</p><p>```</p><p>Billing access restricted</p><p>Self-serve billing is not available on Enterprise accounts. Please contact your team for further questions.</p><p>```</p><p>We have no team (they removed themself from our slack channel after we talked about rate limits). Perplexingly, none of this even shows up in the request, which gives:</p><p>```</p><p>{&quot;message&quot;:&quot;Model does not exist or you do not have access to it.&quot;,&quot;type&quot;:&quot;not_found_error&quot;,&quot;param&quot;:&quot;model&quot;,&quot;code&quot;:&quot;model_not_found&quot;}</p><p>```</p><p>When the error is really about billing.</p><p>I always want to like Cerebras, but I get the vibe that as a tokens in tokens out consumer you are not valued at all.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://www.agentconnect.md/blog/grep-beat-lsp-harness/" target="_blank" rel="noopener">Grep beats LSP? Why coding agents ignore your fancier tools</a></h2></div><p class="title-tr">Grep 胜过 LSP？编码代理为何忽略更高级工具</p><div class="meta">▲ 14 分 · kaonashi-tyc-01 · <a href="https://news.ycombinator.com/item?id=49560260" target="_blank" rel="noopener">1 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">研究发现，编码代理在简单定位中仅 0%-6% 选择 LSP 语义工具，强制语义优先使成功率从 100% 降至 89%；语义检索返回源码后，重命名通过率从 0.67 升至 0.83。工具对 LLM 的友好性由返回上下文形状和熟悉度决定，而非仅精度。</p><p class="context"><strong>🧭 联系你的知识背景</strong> LSP（语言服务器协议）相当于 IDE 中已解析代码结构的语义索引，grep 仅做文本匹配；文中的 harness 指代理周围的工具接口与返回格式，类似你训练模型时数据管道的设计会影响最终策略。</p><ul class="kp"><li>简单定位任务中，代理选择 LSP 语义工具的比例仅 <strong>0%-6%</strong>，强制语义优先反而使成功率从 100% 降至 89%。</li><li>引用完整性任务中，<strong>LSP 精度达 1.00（grep 为 0.76）</strong>，但召回率均约 0.66，瓶颈是代理工作不彻底而非检索精度。</li><li>语义检索返回源码上下文后，<strong>多文件重命名通过率从 0.67 升至 0.83</strong>，后续文件读取从 15.2 次降至 3.2 次。</li><li>嘈杂代码库中 <strong>LSP 提升 F1 0.246 且少用 12% token</strong>，但干净代码库中无增益且多用 16% token，需按代码库特征路由。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区一位用户吐槽 LSP 配置频繁损坏，须反复用 LLM 修复，折射复杂工具链的维护成本，侧面印证工具接口稳定性对代理实践的重要性。</p><div class="tags"><span class="tag">LLM 工具设计</span><span class="tag">代码检索</span><span class="tag">代理工作流</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://babyloniantwins.com/blog/porting-a-1993-amiga-game-to-godot/" target="_blank" rel="noopener">Porting my 1993 Amiga game to Godot, with an LLM reading the 68000 assembly</a></h2></div><p class="title-tr">将我的 1993 年 Amiga 游戏移植到 Godot，用 LLM 读 68000 汇编</p><div class="meta">▲ 226 分 · rabahs · <a href="https://news.ycombinator.com/item?id=49550375" target="_blank" rel="noopener">67 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者用 Claude Fable 5 将 1993 年 Amiga 游戏 Babylonian Twins 的 72,758 行 68000 汇编移植到 Godot，15 分钟复现字节一致二进制，证明 LLM 在冷门汇编上有真实推理能力。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可以把 68000 汇编理解成一种几乎不出现在 LLM 训练语料里的底层指令集；这个测试相当于让模型从陌生硬件 API 和二进制格式中反推实现，而不是从训练数据中回忆。</p><ul class="kp"><li><strong>Claude Fable 5 一个晚上</strong>把 34,000 行 C++ 移植到 Godot，三步骤全部成功</li><li><strong>15 分钟内</strong>用 vasm 重建 1993 年二进制，字节与发售版一致；108 字节差异来自已运行内存快照</li><li>移植同时保留<strong>原始 50 Hz 与现代 60 Hz</strong>两套帧率，避免物理手感失真</li><li>最大收获是<strong>可验证的二进制基准</strong>，让所有行为差异都能通过字节比较判定</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论多为对 1993 年无网环境下纯汇编开发的敬佩，并分享类似用 LLM 把 ZX81 游戏转成 Go 的经历，共识是这验证了推理而非记忆能力。</p><div class="tags"><span class="tag">LLM 代码生成</span><span class="tag">复古游戏移植</span><span class="tag">汇编逆向</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · hedgehog · 3 回复</div><p>This is fantastic. It would be interesting to have Claude Code export an engineering guide for doing similar ports, including descriptions of the tooling it built to do it. I&#x27;ve done some reversing from binary but never with results this good.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://armature.tech/blog/which-tools-coding-agents-install" target="_blank" rel="noopener">Which tools do Claude, Codex and Cursor choose? We measured 17k runs to find out</a></h2></div><p class="title-tr">Claude、Codex 和 Cursor 会选择哪些工具？我们测量了 1.7 万次运行来找出答案</p><div class="meta">▲ 135 分 · screm · <a href="https://news.ycombinator.com/item?id=49557206" target="_blank" rel="noopener">49 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Armature 用近 1.7 万次会话、1163 个提示变体和 75 个代码库，实测 Claude Code、Codex、Cursor 三个编码代理实际安装哪些工具；此前 Vercel 称超 30% 部署由编码代理发起，半年增长 1000%，说明代理正成为供应商的新获客渠道。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这不是模型训练问题，而是编码代理的工具选择行为正在变成产品分发渠道——可类比推荐系统决定哪些供应商获客，重点在渠道权力和供应商激励。</p><ul class="kp"><li>Armature 测量了近 <strong>1.7 万次会话</strong>，覆盖 1163 个提示变体和 75 个代码库</li><li><strong>Claude Code、Codex、Cursor</strong> 三个代理不仅推荐工具，还实际实现解决方案</li><li>Vercel 称超 <strong>30% 部署由编码代理发起</strong>，半年增长 1000%</li><li>实验公开全部 traces、提示、思考过程和代码 diff，供外界判断代理的工具偏好</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是编码代理正成为新的工具分发渠道，类似早期搜索引擎优化；也有人警示这可能重演 SEO 的操纵与恶化。</p><div class="tags"><span class="tag">AI 编码代理</span><span class="tag">开发者工具分发</span><span class="tag">LLM 工具选择</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · ttul · 3 回复</div><p>I built this for my own company. Armature is on to something. You start by analyzing the choices agents would make for various use cases and then glean what, if anything, you might do to start tilting the agents in the direction of your own product and away from the competitor.</p><p>Selling to agents is similar to selling to humans. You dump money into marketing to make sure agents find your solution around every corner for every use case you’re well suited to.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://ifm.ai/blog/k2/" target="_blank" rel="noopener">K2 Horizon: A connected fleet of six open models</a></h2></div><p class="title-tr">K2 Horizon：由六个开放模型组成的互联舰队</p><div class="meta">▲ 272 分 · karimf · <a href="https://news.ycombinator.com/item?id=49551760" target="_blank" rel="noopener">88 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">IFM 发布 K2 Horizon 六个开放模型（0.9B 至 375B-A23B），小模型在同尺寸中取得多项领先，并首次完整公开从预训练到智能体后期训练的检查点、数据配方、代码和日志，采用 Apache 2.0 许可。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 你熟悉 Transformer 注意力机制，这里的 MoVA（Mixture-of-Value Attention）可类比将稀疏专家路由从传统 MoE 的前馈层扩展到注意力计算，使 36B 总参数模型仅需约 4B 活跃参数。</p><ul class="kp"><li><strong>IFM 发布 K2 Horizon 六个开放模型</strong>，规模覆盖 0.9B 至 375B-A23B，全部采用 Apache 2.0 许可。</li><li><strong>0.9B、3.7B、7B 小模型在各自规模上取得 SOTA</strong>，0.9B 在 AIME 2026 数学基准得分超过 48。</li><li><strong>36B-A4B 采用 MoVA 稀疏注意力机制</strong>，仅激活约 4B 参数，性能接近 32B 稠密模型。</li><li><strong>首次完全开放从预训练到智能体后期训练的完整生命周期</strong>，包括检查点、数据配方、代码、配置和训练日志。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍认可全面开源的价值，但指出自报性能与实际表现存在差距，如 32B 落后于 Qwen3.8 27B，小模型编码结果不可靠。</p><div class="tags"><span class="tag">开源 LLM</span><span class="tag">稀疏注意力</span><span class="tag">模型训练透明度</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · jjordan · 6 回复</div><p>Fully open models really need to be a big part of the AI future. That includes all source code, open training data, how it&#x27;s organized, fed to the model, processed, etc. Until that becomes a thing you&#x27;re always going to be left wondering what exactly lies underneath the closed model you are using, leaving open the possibility for societal manipulation.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://www.kedglobal.com/artificial-intelligence/newsView/ked202607210007" target="_blank" rel="noopener">Go grandmaster Shin defeats AI KataGo with a two-stone handicap</a></h2></div><p class="title-tr">围棋九段申真谞以二子让先击败 AI KataGo</p><div class="meta">▲ 229 分 · gmays · <a href="https://news.ycombinator.com/item?id=49544762" target="_blank" rel="noopener">67 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">世界排名第一的韩国九段申真谞以 2-1 逆转 KataGo，决胜局执黑 221 手胜 11.5 目，成为正式系列赛中首位以二子让先击败顶级围棋 AI 的人类。奖金 2.5 亿韩元（约 17 万美元），显示人类在让子条件下仍可对抗人工智能。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 二子让先提供约 10–15 目的初始优势，可类比为给一方预设更高评估基线；KataGo 是当前最强的开源围棋引擎，其搜索与神经网络组合远强于 2016 年击败李世石的 AlphaGo。</p><ul class="kp"><li><strong>申真谞</strong>以 2-1 逆转 KataGo，决胜局执黑 221 手胜 11.5 目，成为正式系列赛二子让先下首个击败顶级围棋 AI 的人类。</li><li>申真谞等级分约 <strong>3850</strong>，领先最接近的人类同行约 120 分；KataGo 对其他职业棋手常让 3–4 子。</li><li>他放弃模仿 AI 招法，转为防守与巩实地盘，第 80 手发起攻击后长期维持 <strong>99%</strong> 胜率。</li><li>二子让先约等于 <strong>10–15 目</strong>缓冲，评论强调均等对局人类无胜算；KataGo 使用三张 RTX 3090、每手约 20 秒搜索超 10 万变体。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论共识：申真谞是史上最强人类棋手，但标题中“击败”因二子让先条件打折；均等对局人类仍无机会，其策略上用防守压缩 KataGo 复杂战斗机会获认可。</p><div class="tags"><span class="tag">围棋 AI</span><span class="tag">人机对战</span><span class="tag">KataGo</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · rao-v · 9 回复</div><p>It’s worth understanding that Shin Jinse has been significantly stronger than his nearest human opponents for a while now, more so than Magnus was even at his very peak.</p><p>In go ELO like scoring he’s something like 120 points over the next strongest player. No other player has ever broken a 3800 rating let alone 3850. Ke Jie (the previous long time champion) peaked at 3755. Shin Jinseo’s strength graph is the most absurd straight line.</p><p>https://www.goratings.org/en/</p><p>2 stones is historically the gap between a 9P ranked and a 1P ranked professional player (very roughly the gap between super grandmasters and an almost grandmaster)</p><p>That is to say it’s shocking that Katago (almost certainly significantly stronger than AlphaGo) is a mere 2 stones stronger than Shin Jinseo. I suspect it would be 3-4 stones vs any other human pro.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://reactoratlas.com" target="_blank" rel="noopener">Show HN: Reactor Atlas</a></h2></div><div class="meta">▲ 5 分 · fedecaccia · <a href="https://news.ycombinator.com/item?id=49549148" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">核工程师发布 Reactor Atlas，用交互地图聚合全球核电、研究堆与燃料设施的历史、现状和预测，并监测新闻、政治与地震信号。其公司年营收曾达 600 万美元，但 AI 替代 MVP 开发导致需求下降。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 该产品本质上是把分散的非结构化核能新闻、运营和地理数据，通过地图和订阅式情报层整合成可监控、可预警的信号，类似从多源数据生成可操作分析的工作流。</p><ul class="kp"><li><strong>Reactor Atlas</strong> 聚合动力反应堆、研究反应堆和燃料设施的历史、现状与预测数据，按国家分类。</li><li>创始人前公司 <strong>Rather Labs 在 2024 年营收约 600 万美元</strong>，但需求因客户用 AI 自己搭 MVP 而下降。</li><li>产品引入核新闻、政治声明、地震等<strong>监控信号</strong>，并计划推出订阅式情报预警。</li><li>项目完全用 <strong>Claude Fable 5.1</strong> 辅助开发，创始人未手写一行代码，主张人类只负责设计和监督 AI。</li></ul><div class="tags"><span class="tag">核反应堆地图</span><span class="tag">垂直情报产品</span><span class="tag">AI 辅助开发</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://zed.dev/blog/agentic-xanadu" target="_blank" rel="noopener">Xanadu was waiting for agents</a></h2></div><p class="title-tr">Xanadu 一直在等待智能体</p><div class="meta">▲ 101 分 · nsm · <a href="https://news.ycombinator.com/item?id=49526298" target="_blank" rel="noopener">40 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Zed 团队认为 Ted Nelson 的 Xanadu 设想——永久保留版本、引用而非复制——过去缺存储、命名与用户；如今 AI 代理成为理想用户，他们以 DeltaDB 在 Git 上实现类似目标。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可把 DeltaDB 理解成给代码与对话建立可追溯的永久引用层，类似训练时自动保留每次 checkpoint 和超参变更，方便 AI 代理审计回溯。</p><ul class="kp"><li><strong>Zed 推出 DeltaDB</strong>，把代码和对话记录成共享可追溯历史，试图实现 Xanadu 式文档宇宙。</li><li>Xanadu 两条规则：<strong>不复制、只引用；不覆盖、只版本化</strong>，但因存储贵、命名难、缺用户而搁浅。</li><li>底层依赖今已成熟：<strong>Git 的 Merkle 树、CRDT、Firecracker 微虚拟机、Tree-sitter</strong> 支撑永久版本与实时协作。</li><li>Delta 选择兼容 Git 和 GitHub，避免 Xanadu 拒绝互操作的失败陷阱。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论分歧明显：一方援引 Gwern 认为 Xanadu 本质是坏想法，市场不需要；另一方觉得 Delta 愿景模糊，需看能否形成真实用户价值。</p><div class="tags"><span class="tag">AI 代理</span><span class="tag">版本控制</span><span class="tag">开发者工具</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · ameliaquining · 2 回复</div><p>This post buys into the common narrative about Xanadu, that it was a fundamentally good idea that failed due to some combination of poor execution, being too far ahead of its time, and the market not caring about quality (with this post in particular focusing mostly on the second thing).</p><p>In my view, Gwern makes a compelling counterargument: Xanadu was a fundamentally bad idea. The parts of it that weren&#x27;t incorporated into the World Wide Web either solved problems no one actually had, or couldn&#x27;t have constituted a stable equilibrium between users and publishers (i.e., even if it&#x27;d been magically willed into existence, it&#x27;d have quickly fallen apart). https://gwern.net/xanadu</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://twitter.com/GergelyOrosz/status/2095453567955968398" target="_blank" rel="noopener">Google Antigravity TOS: 3rd party usage can get Google account suspended</a></h2></div><p class="title-tr">Google Antigravity 服务条款：第三方使用可能导致 Google 账户被停用</p><div class="meta">▲ 300 分 · tosh · <a href="https://news.ycombinator.com/item?id=49548452" target="_blank" rel="noopener">203 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Google Antigravity 条款授权在怀疑第三方使用时封禁账户，真实用户称被误判使用 OpenClaw 遭临时封禁。虽然官方澄清「账户」仅指 Antigravity 账户，但 Google 账户承载邮件、日历等关键服务，误封风险令用户不敢使用。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可类比为：一次 AI 订阅违规判定会触发对你整个数字身份（相当于所有服务共用的统一权限层）的封禁，而不只是停用单个模型接口。</p><ul class="kp"><li><strong>Google Antigravity 服务条款</strong>授权在怀疑第三方使用时暂停账户，用户可能失去整个 Google 账户。</li><li>有真实用户称从未用过 OpenClaw，仍被<strong>误判并临时封禁</strong>，且几乎无人工沟通渠道。</li><li>Antigravity 团队成员澄清条款中的「账户」<strong>仅指 Antigravity 账户</strong>，将修改措辞。</li><li>核心风险是 Google 账户承载邮件、日历等关键服务，<strong>误封影响远超 AI 订阅本身</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍认为 Google 将 AI 订阅违规与整个账户绑定是「用户敌对」，并批评缺少人工申诉；也有人转述官方澄清称封禁范围可能仅限 Antigravity 账户。</p><div class="tags"><span class="tag">平台账户治理</span><span class="tag">Google Antigravity</span><span class="tag">AI 订阅封禁</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · nairboon · 8 回复</div><p>Just for reference, stuff like this is exactly why some people oppose the forced Apple/Google requirement in government systems like the new eIDs (eIDAS) in Europe. If you&#x27;re forced to use Apple/Google for digital identification, playing around with your Google account and get it banned can have disproportional consequences. Suddenly you&#x27;re locked out of all online government systems.</p></div></div></article>
+</div></main>
+<footer>generated 2026-09-04 04:30 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "GPT-6 Astra", "titleTranslation": "", "summary": "OpenAI 发布 GPT-6 Astra，在 ARC-AGI-3 基准上拿到 99.9%，但评测框架争议较大；其他基准提升温和，低调发布引发“是否真 AGI”的争论，值得关注其产品落地与竞争定位。", "keyPoints": ["GPT-6 Astra 在 ARC-AGI-3 上拿到 99.9%，但换用不同评测接口后，旧模型分数也可大幅跃升。", "其他基准如编码代理指数提升“相对温和”，被指更像小版本更新而非代际突破。", "发布仅有一篇博客文章，无发布会；评论认为 OpenAI 可能因合同压力交付“AGI”标签。"], "discussion": "HN 核心分歧在于 99.9% 的 ARC-AGI-3 分数是否代表真 AGI：一方认为评测框架不公平，另一方认为即使如此已接近 AGI。", "tags": ["ARC-AGI-3 评测", "AGI 界定", "AI 产品交互"], "score": 1474, "comments": 1247, "by": "kibae", "url": "https://openai.com/index/gpt-6-astra/", "hnUrl": "https://news.ycombinator.com/item?id=49554643"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "Qwen 3.8 27B available on Cerebras at 1500 tokens/s", "titleTranslation": "Qwen 3.8 27B 在 Cerebras 上可用，速度达 1500 tokens/s", "summary": "Cerebras 公共端点推出 Qwen 3.8 27B，生成速度 1500 tokens/s，并强调所有托管模型不剪枝、仅在存储时做选择性权重量化。但用户实测受速率配额限制，编程任务约 90 秒触顶、成本远超 DeepSeek，商业可用性存疑。", "keyPoints": ["Cerebras 公共端点只托管未剪枝的原始模型，REAP 剪枝模型仅放在 Hugging Face 供研究。", "存储时采用选择性权重量化（16/8/4-bit），敏感层保持全精度，激活、注意力与 KV 缓存不量化。", "用户实测 Qwen 3.8 27B 约 90 秒即撞上速率限制并烧掉 $1.10；同任务 DeepSeek 仅 $0.024。"], "discussion": "评论区普遍认为原始生成速度虽快，但速率上限、计费与无提示缓存让编程任务反而更贵，高速并未直接转化为更好体验。", "tags": ["LLM 推理", "推理成本", "模型量化"], "score": 493, "comments": 148, "by": "altertable", "url": "https://inference-docs.cerebras.ai/models/overview", "hnUrl": "https://news.ycombinator.com/item?id=49554520"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "Grep beats LSP? Why coding agents ignore your fancier tools", "titleTranslation": "Grep 胜过 LSP？编码代理为何忽略更高级工具", "summary": "研究发现，编码代理在简单定位中仅 0%-6% 选择 LSP 语义工具，强制语义优先使成功率从 100% 降至 89%；语义检索返回源码后，重命名通过率从 0.67 升至 0.83。工具对 LLM 的友好性由返回上下文形状和熟悉度决定，而非仅精度。", "keyPoints": ["简单定位任务中，代理选择 LSP 语义工具的比例仅 0%-6%，强制语义优先反而使成功率从 100% 降至 89%。", "引用完整性任务中，LSP 精度达 1.00（grep 为 0.76），但召回率均约 0.66，瓶颈是代理工作不彻底而非检索精度。", "语义检索返回源码上下文后，多文件重命名通过率从 0.67 升至 0.83，后续文件读取从 15.2 次降至 3.2 次。"], "discussion": "评论区一位用户吐槽 LSP 配置频繁损坏，须反复用 LLM 修复，折射复杂工具链的维护成本，侧面印证工具接口稳定性对代理实践的重要性。", "tags": ["LLM 工具设计", "代码检索", "代理工作流"], "score": 14, "comments": 1, "by": "kaonashi-tyc-01", "url": "https://www.agentconnect.md/blog/grep-beat-lsp-harness/", "hnUrl": "https://news.ycombinator.com/item?id=49560260"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "Porting my 1993 Amiga game to Godot, with an LLM reading the 68000 assembly", "titleTranslation": "将我的 1993 年 Amiga 游戏移植到 Godot，用 LLM 读 68000 汇编", "summary": "作者用 Claude Fable 5 将 1993 年 Amiga 游戏 Babylonian Twins 的 72,758 行 68000 汇编移植到 Godot，15 分钟复现字节一致二进制，证明 LLM 在冷门汇编上有真实推理能力。", "keyPoints": ["Claude Fable 5 一个晚上把 34,000 行 C++ 移植到 Godot，三步骤全部成功", "15 分钟内用 vasm 重建 1993 年二进制，字节与发售版一致；108 字节差异来自已运行内存快照", "移植同时保留原始 50 Hz 与现代 60 Hz两套帧率，避免物理手感失真"], "discussion": "HN 评论多为对 1993 年无网环境下纯汇编开发的敬佩，并分享类似用 LLM 把 ZX81 游戏转成 Go 的经历，共识是这验证了推理而非记忆能力。", "tags": ["LLM 代码生成", "复古游戏移植", "汇编逆向"], "score": 226, "comments": 67, "by": "rabahs", "url": "https://babyloniantwins.com/blog/porting-a-1993-amiga-game-to-godot/", "hnUrl": "https://news.ycombinator.com/item?id=49550375"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "Which tools do Claude, Codex and Cursor choose? We measured 17k runs to find out", "titleTranslation": "Claude、Codex 和 Cursor 会选择哪些工具？我们测量了 1.7 万次运行来找出答案", "summary": "Armature 用近 1.7 万次会话、1163 个提示变体和 75 个代码库，实测 Claude Code、Codex、Cursor 三个编码代理实际安装哪些工具；此前 Vercel 称超 30% 部署由编码代理发起，半年增长 1000%，说明代理正成为供应商的新获客渠道。", "keyPoints": ["Armature 测量了近 1.7 万次会话，覆盖 1163 个提示变体和 75 个代码库", "Claude Code、Codex、Cursor 三个代理不仅推荐工具，还实际实现解决方案", "Vercel 称超 30% 部署由编码代理发起，半年增长 1000%"], "discussion": "评论区共识是编码代理正成为新的工具分发渠道，类似早期搜索引擎优化；也有人警示这可能重演 SEO 的操纵与恶化。", "tags": ["AI 编码代理", "开发者工具分发", "LLM 工具选择"], "score": 135, "comments": 49, "by": "screm", "url": "https://armature.tech/blog/which-tools-coding-agents-install", "hnUrl": "https://news.ycombinator.com/item?id=49557206"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "K2 Horizon: A connected fleet of six open models", "titleTranslation": "K2 Horizon：由六个开放模型组成的互联舰队", "summary": "IFM 发布 K2 Horizon 六个开放模型（0.9B 至 375B-A23B），小模型在同尺寸中取得多项领先，并首次完整公开从预训练到智能体后期训练的检查点、数据配方、代码和日志，采用 Apache 2.0 许可。", "keyPoints": ["IFM 发布 K2 Horizon 六个开放模型，规模覆盖 0.9B 至 375B-A23B，全部采用 Apache 2.0 许可。", "0.9B、3.7B、7B 小模型在各自规模上取得 SOTA，0.9B 在 AIME 2026 数学基准得分超过 48。", "36B-A4B 采用 MoVA 稀疏注意力机制，仅激活约 4B 参数，性能接近 32B 稠密模型。"], "discussion": "评论普遍认可全面开源的价值，但指出自报性能与实际表现存在差距，如 32B 落后于 Qwen3.8 27B，小模型编码结果不可靠。", "tags": ["开源 LLM", "稀疏注意力", "模型训练透明度"], "score": 272, "comments": 88, "by": "karimf", "url": "https://ifm.ai/blog/k2/", "hnUrl": "https://news.ycombinator.com/item?id=49551760"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "Go grandmaster Shin defeats AI KataGo with a two-stone handicap", "titleTranslation": "围棋九段申真谞以二子让先击败 AI KataGo", "summary": "世界排名第一的韩国九段申真谞以 2-1 逆转 KataGo，决胜局执黑 221 手胜 11.5 目，成为正式系列赛中首位以二子让先击败顶级围棋 AI 的人类。奖金 2.5 亿韩元（约 17 万美元），显示人类在让子条件下仍可对抗人工智能。", "keyPoints": ["申真谞以 2-1 逆转 KataGo，决胜局执黑 221 手胜 11.5 目，成为正式系列赛二子让先下首个击败顶级围棋 AI 的人类。", "申真谞等级分约 3850，领先最接近的人类同行约 120 分；KataGo 对其他职业棋手常让 3–4 子。", "他放弃模仿 AI 招法，转为防守与巩实地盘，第 80 手发起攻击后长期维持 99% 胜率。"], "discussion": "评论共识：申真谞是史上最强人类棋手，但标题中“击败”因二子让先条件打折；均等对局人类仍无机会，其策略上用防守压缩 KataGo 复杂战斗机会获认可。", "tags": ["围棋 AI", "人机对战", "KataGo"], "score": 229, "comments": 67, "by": "gmays", "url": "https://www.kedglobal.com/artificial-intelligence/newsView/ked202607210007", "hnUrl": "https://news.ycombinator.com/item?id=49544762"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Reactor Atlas", "titleTranslation": "", "summary": "核工程师发布 Reactor Atlas，用交互地图聚合全球核电、研究堆与燃料设施的历史、现状和预测，并监测新闻、政治与地震信号。其公司年营收曾达 600 万美元，但 AI 替代 MVP 开发导致需求下降。", "keyPoints": ["Reactor Atlas 聚合动力反应堆、研究反应堆和燃料设施的历史、现状与预测数据，按国家分类。", "创始人前公司 Rather Labs 在 2024 年营收约 600 万美元，但需求因客户用 AI 自己搭 MVP 而下降。", "产品引入核新闻、政治声明、地震等监控信号，并计划推出订阅式情报预警。"], "discussion": "", "tags": ["核反应堆地图", "垂直情报产品", "AI 辅助开发"], "score": 5, "comments": 0, "by": "fedecaccia", "url": "https://reactoratlas.com", "hnUrl": "https://news.ycombinator.com/item?id=49549148"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "Xanadu was waiting for agents", "titleTranslation": "Xanadu 一直在等待智能体", "summary": "Zed 团队认为 Ted Nelson 的 Xanadu 设想——永久保留版本、引用而非复制——过去缺存储、命名与用户；如今 AI 代理成为理想用户，他们以 DeltaDB 在 Git 上实现类似目标。", "keyPoints": ["Zed 推出 DeltaDB，把代码和对话记录成共享可追溯历史，试图实现 Xanadu 式文档宇宙。", "Xanadu 两条规则：不复制、只引用；不覆盖、只版本化，但因存储贵、命名难、缺用户而搁浅。", "底层依赖今已成熟：Git 的 Merkle 树、CRDT、Firecracker 微虚拟机、Tree-sitter 支撑永久版本与实时协作。"], "discussion": "HN 评论分歧明显：一方援引 Gwern 认为 Xanadu 本质是坏想法，市场不需要；另一方觉得 Delta 愿景模糊，需看能否形成真实用户价值。", "tags": ["AI 代理", "版本控制", "开发者工具"], "score": 101, "comments": 40, "by": "nsm", "url": "https://zed.dev/blog/agentic-xanadu", "hnUrl": "https://news.ycombinator.com/item?id=49526298"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "Google Antigravity TOS: 3rd party usage can get Google account suspended", "titleTranslation": "Google Antigravity 服务条款：第三方使用可能导致 Google 账户被停用", "summary": "Google Antigravity 条款授权在怀疑第三方使用时封禁账户，真实用户称被误判使用 OpenClaw 遭临时封禁。虽然官方澄清「账户」仅指 Antigravity 账户，但 Google 账户承载邮件、日历等关键服务，误封风险令用户不敢使用。", "keyPoints": ["Google Antigravity 服务条款授权在怀疑第三方使用时暂停账户，用户可能失去整个 Google 账户。", "有真实用户称从未用过 OpenClaw，仍被误判并临时封禁，且几乎无人工沟通渠道。", "Antigravity 团队成员澄清条款中的「账户」仅指 Antigravity 账户，将修改措辞。"], "discussion": "评论区普遍认为 Google 将 AI 订阅违规与整个账户绑定是「用户敌对」，并批评缺少人工申诉；也有人转述官方澄清称封禁范围可能仅限 Antigravity 账户。", "tags": ["平台账户治理", "Google Antigravity", "AI 订阅封禁"], "score": 300, "comments": 203, "by": "tosh", "url": "https://twitter.com/GergelyOrosz/status/2095453567955968398", "hnUrl": "https://news.ycombinator.com/item?id=49548452"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
