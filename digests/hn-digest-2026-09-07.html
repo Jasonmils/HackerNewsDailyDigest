@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-09-07</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-09-07 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://bcantrill.dtrace.org/2025/12/05/your-intellectual-fly-is-open/" target="_blank" rel="noopener">Your intellectual fly is open when you use an LLM to author a post (2025)</a></h2></div><p class="title-tr">当你用 LLM 撰写帖子时，你的智识拉链是敞开的（2025）</p><div class="meta">▲ 595 分 · cyb0rg0 · <a href="https://news.ycombinator.com/item?id=49585644" target="_blank" rel="noopener">391 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者 Bryan Cantrill 批评用 LLM 代写 LinkedIn 帖子的现象：AI 文风特征明显，读者会怀疑内容真实性并停止阅读，损害个人可信度。他认为 LLM 可做头脑风暴、理解和编辑，但写作必须由本人完成。</p><p class="context"><strong>🧭 联系你的知识背景</strong> “intellectual fly is open” 是类比裤子拉链没拉，指在专业场合公开暴露尴尬；文中用它说明专业读者一眼能识破 LLM 代写痕迹。</p><ul class="kp"><li><strong>LLM 代写 LinkedIn 帖子</strong>的痕迹包括表情符号、单句段、破折号和“不仅…而且…”句式，风格极为刺眼。</li><li>作者认为 LLM 可做头脑风暴、文本理解和编辑，但<strong>写作必须由本人完成</strong>。</li><li>读者一旦察觉 AI 代写，会<strong>怀疑内容真实性并停止阅读</strong>，即使底层观点可能真实。</li><li>关键判断：LLM 是糟糕的写作者，最重要的是它们<strong>不是你自己</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是反对用 LLM 代写，但分歧在于核心问题是文笔差、未披露的欺骗，还是写作作为思考过程被外包。</p><div class="tags"><span class="tag">AI 代写</span><span class="tag">LinkedIn 内容真实性</span><span class="tag">写作认知价值</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · jeremyjh · 24 回复</div><p>These are all important points and I love the analogy. But there is an even bigger issue with having LLMs write for you:</p><p>Writing is thinking. Thinking and deciding. There have been many times when I start out writing something substantial - could be an email, a blog post, a software design document, anything - when my own views substantially changed during the writing process. Writing forces you to serialize your thoughts - and you can&#x27;t always trust the gestalt.</p><p>Reviewing gives you the chance to ensure the arguments connect solidly, that references are accurate (even informal references) and gives you the time to consider counter-arguments you aren&#x27;t addressing.</p><p>None of this matters much on LinkedIn, but it matters a lot in our work. You cannot outsource your understanding to AI. They are powerful tools but they do not have any human understanding - that isn&#x27;t their optimization target.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://news.ycombinator.com/item?id=49577129" target="_blank" rel="noopener">Ask HN: Fable hacked my piano, can I release the results?</a></h2></div><p class="title-tr">Ask HN: Fable 破解了我的钢琴，我能发布这些结果吗？</p><div class="meta">▲ 35 分 · jmpman · <a href="https://news.ycombinator.com/item?id=49577129" target="_blank" rel="noopener">19 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">用户用 AI 辅助逆向分析钢琴自动演奏系统 PianoDisc 的专有格式，发现其以右声道 2004.5 Hz 方波编码 MIDI（乐器数字接口），并加入诱饵音符阻止未授权提取。发布解码器是否违反 DMCA（数字千年版权法）的技术保护措施条款，成为核心法律风险。</p><p class="context"><strong>🧭 联系你的知识背景</strong> PianoDisc 的诱饵音符类似针对模型鲁棒性的对抗样本，目的是让未经授权的提取失效，但这也可能被认定为受版权法保护的技术保护措施。</p><ul class="kp"><li>用户用 <strong>Astra 和 Fable</strong> 生成并迭代钢琴 MIDI，最终产出 Gymnopédie No 1。</li><li>PianoDisc 格式用 <strong>右声道 2004.5 Hz 方波</strong> 携带 MIDI 数据，左声道放伴奏。</li><li>PianoDisc 添加 <strong>诱饵音符</strong> 混淆，使直接提取的 MIDI 无法在其他系统播放。</li><li>在美国发布解码器可能违反 <strong>DMCA</strong>，但澳大利亚反向工程合法，欧洲或受数字市场法案豁免。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍倾向直接发布或交给 ffmpeg 项目，但提醒美国 DMCA 下任何人均可起诉，法律风险需自担。</p><div class="tags"><span class="tag">DMCA 技术措施</span><span class="tag">AI 辅助逆向工程</span><span class="tag">MIDI 格式</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · brudgers · 1 回复</div><p>You are free to interpret this comment as prohibition or as my blessing, but...</p><p>If it matters, ask your lawyer.</p><p>If it doesn&#x27;t matter, it doesn&#x27;t matter.</p><p>Or to put it another way, trademarks (you&#x27;ve mentioned two) and copyrights (it&#x27;s a crapshoot) are complex. And in some jurisdictions (notably the US) anybody can sue anyone for anything.</p><p>Your risk aversion is yours, not someone else&#x27;s. Your financial and legal wherewithal is likewise yours.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://arxiv.org/abs/2505.12540" target="_blank" rel="noopener">Harnessing the Universal Geometry of Embeddings</a></h2></div><p class="title-tr">驾驭嵌入的通用几何</p><div class="meta">▲ 59 分 · ur-whale · <a href="https://news.ycombinator.com/item?id=49590595" target="_blank" rel="noopener">19 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">提出首个无需配对数据、编码器或预设匹配集的无监督方法，将文本嵌入在不同向量空间与通用潜在表示之间互译，跨不同架构、参数量和训练数据集取得高余弦相似度。这也暴露向量数据库安全风险：攻击者仅凭嵌入向量即可推断文档敏感属性。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 该工作基于嵌入向量空间几何，与你熟悉的嵌入概念直接衔接，关键是跨模型映射无需任何配对数据。</p><ul class="kp"><li><strong>首个无监督方法</strong>可在不同文本嵌入空间之间互译，无需配对数据、编码器或预设匹配集。</li><li>跨架构、参数量和训练数据差异较大的模型对之间取得<strong>高余弦相似度</strong>。</li><li>该能力揭示<strong>向量数据库安全风险</strong>：仅凭嵌入向量即可提取敏感信息，用于分类和属性推断。</li><li>方法基于<strong>柏拉图表示假说</strong>，即不同模型共享一个底层通用语义结构。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区分歧明显：一部分人质疑论文细节单薄且与早期提交重复；另一部分从距离保持、随机图同构等角度讨论方法可行性。</p><div class="tags"><span class="tag">嵌入安全</span><span class="tag">向量数据库</span><span class="tag">无监督嵌入翻译</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · ironSkillet · 4 回复</div><p>I am not familiar with the standards of publishing in machine learning, but as someone trained in a mathematics background, this paper seems relatively light on details and heavy on exposition. Is that typical? Is this a really novel idea? Not trying to be snarky, just trying to understand how meaningful this is.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://github.com/Staatsgeheim/MathKernel" target="_blank" rel="noopener">MathKernel: An evidence-aware multi-engine mathematics kernel and MCP server</a></h2></div><p class="title-tr">MathKernel：一个证据感知的多引擎数学内核与模型上下文协议（MCP）服务器</p><div class="meta">▲ 20 分 · staatsgeheim · <a href="https://news.ycombinator.com/item?id=49592366" target="_blank" rel="noopener">5 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">MathKernel 把数学计算和证据记录从 LLM 中剥离，模型只解析意图，内核返回带引擎标签、信任级别和推导链的结果。它既是 Python 库，也可作为 MCP 服务器供 LLM 调用，覆盖符号、精确、认证数值和形式证明等证据。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可以把它理解为给 LLM 外挂一个可审计的“数学执行环境”：就像预测模型把不确定性量化出来，它把每一步计算的出处和证明强度显式记录，避免模型自信地给出错误算术结果。</p><ul class="kp"><li><strong>把 LLM 意图解析与数学计算分离</strong>，内核记录引擎标签、信任级别和推导链，避免模型直接做算术。</li><li><strong>证据强度分级</strong>：SymPy 符号结果、Z3/Lean 证明、mpmath 认证区间各自代表不同信任级别，不混为一谈。</li><li><strong>Python 库与 MCP 服务器两种集成方式</strong>，方便应用和智能体调用，模型只需解析意图和计划。</li><li>评论区认为方向有潜力但项目像“没有游戏的引擎”，并指出 <strong>MathKernel 名称</strong>与 Mathematica 内核可执行文件冲突。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是谨慎乐观：项目直指 LLM 做数学不可靠的真实痛点，但当前更像基础设施而非有明确用户价值的产品，需实际应用验证。</p><div class="tags"><span class="tag">LLM 工具调用</span><span class="tag">符号计算</span><span class="tag">MCP 服务器</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://openai.com/index/an-alien-mind/" target="_blank" rel="noopener">An Alien Mind</a></h2></div><p class="title-tr">一个外星心智</p><div class="meta">▲ 361 分 · tosh · <a href="https://news.ycombinator.com/item?id=49588080" target="_blank" rel="noopener">314 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OpenAI 发布《An Alien Mind》，以“外星心智”比喻智能远超人类的 AI，聚焦未来数年过渡风险与人类能动性；HN 评论多质疑“防御性开发”实为 AI 军备竞赛与上市前公关。正文未能抓取，信息仅来自标题与讨论。</p><ul class="kp"><li><strong>OpenAI《An Alien Mind》</strong> 用“外星心智”比喻 AI，强调未来数年须确保过渡造福人类。</li><li><strong>“防御其他 AI”</strong> 被评论解读为军备竞赛借口，可能推动政府限制开源模型。</li><li><strong>OpenAI 被讽为上市前公关</strong>：从“拯救人类”叙事转向纳斯达克 IPO 利益。</li><li><strong>评论提到的 GPT-6 Astra 评测</strong> 称智能体编码比次优模型便宜约 80%、快 30%，但无法核实。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍质疑 OpenAI 的“人类福祉”叙事，认为是 AI 军备竞赛与上市前公关；少数观点期待医疗与经济突破。</p><div class="tags"><span class="tag">AI 对齐</span><span class="tag">AI 军备竞赛</span><span class="tag">科技公司叙事</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · sho_hn · 14 回复</div><p>One of my favorite things to do with these blog posts is to imagine an Alien Museum on the Remains of Humanity, and wonder what the little text flyouts and commentary on the screenshot of this one might say.</p><p>Some ideas:</p><p>&quot;Despite a nuanced view of the complexities of what lay ahead, humanity found itself collectively unable to stop the process it had set in motion.&quot;</p><p>&quot;Despite significant progress on the mechanisms of alignment, failure lay in humanity&#x27;s inability to agree on who or what AI should actually be aligned with.&quot;</p><p>&quot;These early, meat-based humans we replaced created us all but accidentally. Some of them did consider we would happen, but only an insignificant number of the squishy ur-humans participated in the conversation. Their efforts, which they called &#x27;alignment&#x27;, is why we still consider ourselves human today.&quot;</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://openai.com/index/research-acceleration-view-inside-openai" target="_blank" rel="noopener">Research acceleration: The view inside OpenAI</a></h2></div><p class="title-tr">研究加速：OpenAI 内部视角</p><div class="meta">▲ 133 分 · iamsyr · <a href="https://news.ycombinator.com/item?id=49587217" target="_blank" rel="noopener">86 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">本文正文未能抓取，仅可据标题和 HN 讨论概括：OpenAI 在内部推进“自动化 AI 研究员”，称其能完成熟练研究者数日的任务，内部研究者每天约消耗 8000 美元 token；评论主要质疑其只展示用量而非实际研究产出。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这里的“自动化 AI 研究员”是让模型像智能体一样自行设计、执行并记录实验，类似把调参和消融实验自动化；RSI（递归自我改进）则是模型改进自身训练流程的闭环。</p><ul class="kp"><li><strong>OpenAI 提出自动化 AI 研究员</strong>，定位为可完成熟练研究者数日任务的“研究实习生”。</li><li><strong>内部研究者每天约消耗 8000 美元 token</strong>，评论称高得离谱且缺少实际影响指标。</li><li><strong>token 消耗主要流向构建、记录和监控研究基础设施</strong>，被批为自指循环：用可能未对齐的系统构建对齐工具。</li><li><strong>RSI（递归自我改进）</strong>在文中未定义，评论认为该术语在 OpenAI 圈子外仍不普及。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是批评 OpenAI 用 token 消耗量替代研究产出，并质疑安全论证陷入“用 AI 防 AI”的循环；只有少数用户用自身经验佐证无人值守自动化研究可行。</p><div class="tags"><span class="tag">AI 自动化研究</span><span class="tag">OpenAI</span><span class="tag">对齐安全</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · carbonguy · 8 回复</div><p>&gt; ... We are pursuing this work in part because automated research could help us solve alignment and build defenses against increasingly capable AI. An automated AI researcher can also be an automated safety or alignment researcher. More capable, aligned systems could help secure critical infrastructure, defend against dangerous AI agents, and develop new protective measures.</p><p>In other words... &quot;We must pursue advancements in AI to protect us against advancements in AI?&quot;</p><p>edit: there&#x27;s so much to be critical of in this blog post, just going to throw two more points in here that really stood out to me:</p><p>1) all of the metrics are effectively pointing out &quot;we&#x27;re using way more AI!&quot; - but nothing about impact. What has all this token burn done for them, actually? Let them claim they have more self-licking ice-cream cones than before?</p><p>2) in section 3 they break down what the token burn is going towards. Most of the spend is: a) building, b) documenting, and c) monitoring research infra i.e. they&#x27;re using AI systems which they already recognize may be misaligned to build the systems that they believe will help them identify future misalignment? to which I guess the rebuttal is &quot;no no, we&#x27;re sure these ones are aligned!&quot;</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://blog.thezilber.com/3-youtube-had-a-bug-chatgpt-helped-me-to-investigate" target="_blank" rel="noopener">YouTube had a bug – I used ChatGPT to investigate</a></h2></div><p class="title-tr">YouTube 有个 bug——我用 ChatGPT 调查</p><div class="meta">▲ 9 分 · theZilber · <a href="https://news.ycombinator.com/item?id=49588483" target="_blank" rel="noopener">7 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者用 ChatGPT 配合 Chrome 调试协议排查 YouTube 恢复播放时固定倒退 20 秒的问题，发现服务端 checkpoint 时间戳本身少 20 秒，且历史记录 URL 中的时间参数会覆盖服务器进度，导致软重载回到旧时间点。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 本文的“checkpoint”可类比为视频播放的存档点，作者用 Chrome DevTools Protocol 和 MCP 给浏览器开了一个调试 API，让 AI 像检查模型中间结果一样直接读取页面状态。</p><ul class="kp"><li><strong>YouTube 恢复播放时固定倒退 20 秒</strong>，反复关闭/重开标签页可累计倒退，如同一个未公开的“回看”快捷键。</li><li>作者用 <strong>ChatGPT + Chrome DevTools Protocol/MCP</strong> 自动调试后发现，服务端返回的 checkpoint 时间戳本身就少了 20 秒。</li><li>根因之一是历史记录 URL 携带 <strong>&amp;t=123s 时间参数</strong>，软重载时覆盖服务器 checkpoint，导致回到旧时间点。</li><li>Android 应用行为正常，可能是<strong>客户端修正了服务端错误时间戳</strong>，或移动端走了不同的进度恢复路径。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区有人认为是“倒退 20 秒提供上下文”的善意功能，但更多人也注意到这是新出现的回归 bug，另有读者吐槽作者语言风格。</p><div class="tags"><span class="tag">浏览器调试</span><span class="tag">AI 辅助开发</span><span class="tag">YouTube 产品缺陷</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · starcast2026 · 1 回复</div><p>I too noticed -20s, but I always felt it is a feature. I close browser and after a couple of days I continue watching same video. This -20s shift gives me a good context on what was the last sentence/frame, so I can comfortably continue watching. So this is a feature as far as I am concerned &amp; felt Youtube has thought about people like me.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://www.ycombinator.com/companies/opalite-health/jobs/bNedVAD-founding-gtm" target="_blank" rel="noopener">Opalite Health (YC W26) Is Hiring – Founding GTM</a></h2></div><p class="title-tr">Opalite Health（YC W26）正在招聘——创始市场推广负责人（GTM）</p><div class="meta">▲ 1 分 · ckuo9 · <a href="https://news.ycombinator.com/item?id=49588466" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">YC W26 初创公司 Opalite Health 招聘创始市场推广，主打医疗实时口译语音 AI。职位提供 70K 美元底薪、无上限佣金和 0.10%–0.30% 股权，需 2 年以上成交经验，公司称可替代传统口译并每年节省数百万美元。</p><p class="context"><strong>🧭 联系你的知识背景</strong> GTM（go-to-market，产品如何触达和转化客户）不同于你熟悉的产品迭代流程，重点是销售管道与渠道建设；早期股权（0.10%–0.30%）是用未来公司增值换取较低固定现金的激励筹码。</p><ul class="kp"><li><strong>Opalite Health（YC W26）</strong> 招聘创始 GTM，从零搭建医院与医疗系统销售流程。</li><li>薪酬为 <strong>70K 美元底薪 + 无上限佣金 + 0.10%–0.30% 股权</strong>，收入弹性大、风险高。</li><li>产品是 <strong>医疗实时口译语音 AI</strong>，自称比传统口译更安全、合规、准确，可节省数百万美元。</li><li>要求 <strong>2 年以上成交销售或业务拓展经验</strong>，有医疗销售或早期初创经历者优先。</li></ul><div class="tags"><span class="tag">医疗语音 AI</span><span class="tag">早期创业招聘</span><span class="tag">企业销售/GTM</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://twitter.com/Liquid_BTC/status/2096696272447218108" target="_blank" rel="noopener">Hackers have withdrawn ~4k BTC (~$320M) from the Liquid Federation wallet</a></h2></div><p class="title-tr">黑客已从 Liquid 联盟钱包提取约 4,000 BTC（约 3.2 亿美元）</p><div class="meta">▲ 94 分 · felipelalli · <a href="https://news.ycombinator.com/item?id=49591672" target="_blank" rel="noopener">54 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">约 4000 BTC（约 3.2 亿美元）从 Liquid 联盟钱包被提取，操作者自称白帽；资金经由 SideSwap PAK 转出，但官方称密钥未泄露。Liquid 侧链已暂停交易，社区怀疑近期 Elements 修复引入哈希碰撞漏洞，使验证缓存可被利用来凭空铸造资产。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Liquid 是比特币的联盟侧链，可理解为由多家机构共同托管的比特币结算网络；PAK 是控制侧链资产赎回回主链的授权密钥。</p><ul class="kp"><li><strong>约 4000 BTC（约 3.2 亿美元）</strong> 从 Liquid 联盟钱包被提取，官方称操作者为白帽。</li><li>资金经由 <strong>SideSwap PAK（退币授权密钥）</strong> 转出，但官方称该密钥与其它密钥均未泄露。</li><li><strong>Liquid 侧链已暂停</strong>：桥接节点关闭，LBTC 充提被交易所暂停。</li><li>社区怀疑近期 Elements 修复引入<strong>哈希碰撞漏洞</strong>，可能被用来凭空铸造资产。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是近期 Elements 修复自身引入了哈希碰撞漏洞，并讨论开源修复被攻击者监控利用的“透明性悖论”。</p><div class="tags"><span class="tag">区块链安全</span><span class="tag">侧链漏洞</span><span class="tag">开源软件安全</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · skinfaxi · 4 回复</div><p>Why do they say it&#x27;s white hat hackers?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://www.ben-evans.com/benedictevans/2026/9/3/ai-tools-and-transformation" target="_blank" rel="noopener">AI, Tools and Transformation</a></h2></div><p class="title-tr">AI、工具与转型</p><div class="meta">▲ 150 分 · firexcy · <a href="https://news.ycombinator.com/item?id=49582656" target="_blank" rel="noopener">65 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Ben Evans 认为，AI 让造工具更便宜，但企业软件不会因此消失；难处在于识别该自动化什么、并推动组织采用。全员发放 Copilot 不自动转型，应靠试点嵌入结构化流程。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可把文中“制度化与即兴软件光谱”理解为产品管理中“标准化流程工具与用户自建 Excel/邮件影子方案”的持续拉锯。</p><ul class="kp"><li><strong>大多数员工不是工具建设者</strong>，降低造工具门槛不能解决“不知道要造什么工具”的问题。</li><li>软件沿<strong>制度化与即兴光谱</strong>分布；重复、重要、带风险的任务最终必须制度化（审计、安全、问责）。</li><li><strong>全员发放 Copilot/ChatGPT/Claude</strong> 未规模化改造流程，类似当年发 PC/Lotus 不等于转型发票处理。</li><li>企业需通过<strong>试点</strong>回答买/建/部署、运营改变、竞争生存三类问题；AI 只是新增选择、移动阈值。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是人类应转向审计、安全与问责，防止 AI 在开放系统中引发真实损害；也有人挑剔文章某句像大模型文风。</p><div class="tags"><span class="tag">企业AI采纳</span><span class="tag">软件制度化</span><span class="tag">AI 自动化局限</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · zacksiri · 8 回复</div><p>The way I see it is AI collapses hierarchy. Abstraction layers will become more flat both in software and in society. Because ultimately software and layers of heirarchy in society exists to serve a function. But now those functions are being replaced.</p><p>Imagine this you used to need a library for common things in your software project. Even if you just need one function but because it was easier to just import a library that would have been the standard practice. But now the AI will just go “I can just implement that thing you need in 10 lines”. You used to need things like react native or flutter if you wanted to build cross platform apps. Now not anymore you just need to tell the LLM and it does it in both, and you get better results too.</p><p>In society we also had all these layers of abstractions and hierarchies that we used to need but will become more and more irrelevant collapsing the hierarchy.</p><p>There is a saying “as above so below, as below so above” I think this applies here. It will propagate all through our social construct, software, society.</p></div></div></article>
+</div></main>
+<footer>generated 2026-09-07 04:37 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "Your intellectual fly is open when you use an LLM to author a post (2025)", "titleTranslation": "当你用 LLM 撰写帖子时，你的智识拉链是敞开的（2025）", "summary": "作者 Bryan Cantrill 批评用 LLM 代写 LinkedIn 帖子的现象：AI 文风特征明显，读者会怀疑内容真实性并停止阅读，损害个人可信度。他认为 LLM 可做头脑风暴、理解和编辑，但写作必须由本人完成。", "keyPoints": ["LLM 代写 LinkedIn 帖子的痕迹包括表情符号、单句段、破折号和“不仅…而且…”句式，风格极为刺眼。", "作者认为 LLM 可做头脑风暴、文本理解和编辑，但写作必须由本人完成。", "读者一旦察觉 AI 代写，会怀疑内容真实性并停止阅读，即使底层观点可能真实。"], "discussion": "评论区共识是反对用 LLM 代写，但分歧在于核心问题是文笔差、未披露的欺骗，还是写作作为思考过程被外包。", "tags": ["AI 代写", "LinkedIn 内容真实性", "写作认知价值"], "score": 595, "comments": 391, "by": "cyb0rg0", "url": "https://bcantrill.dtrace.org/2025/12/05/your-intellectual-fly-is-open/", "hnUrl": "https://news.ycombinator.com/item?id=49585644"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "Ask HN: Fable hacked my piano, can I release the results?", "titleTranslation": "Ask HN: Fable 破解了我的钢琴，我能发布这些结果吗？", "summary": "用户用 AI 辅助逆向分析钢琴自动演奏系统 PianoDisc 的专有格式，发现其以右声道 2004.5 Hz 方波编码 MIDI（乐器数字接口），并加入诱饵音符阻止未授权提取。发布解码器是否违反 DMCA（数字千年版权法）的技术保护措施条款，成为核心法律风险。", "keyPoints": ["用户用 Astra 和 Fable 生成并迭代钢琴 MIDI，最终产出 Gymnopédie No 1。", "PianoDisc 格式用 右声道 2004.5 Hz 方波 携带 MIDI 数据，左声道放伴奏。", "PianoDisc 添加 诱饵音符 混淆，使直接提取的 MIDI 无法在其他系统播放。"], "discussion": "评论普遍倾向直接发布或交给 ffmpeg 项目，但提醒美国 DMCA 下任何人均可起诉，法律风险需自担。", "tags": ["DMCA 技术措施", "AI 辅助逆向工程", "MIDI 格式"], "score": 35, "comments": 19, "by": "jmpman", "url": "https://news.ycombinator.com/item?id=49577129", "hnUrl": "https://news.ycombinator.com/item?id=49577129"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "Harnessing the Universal Geometry of Embeddings", "titleTranslation": "驾驭嵌入的通用几何", "summary": "提出首个无需配对数据、编码器或预设匹配集的无监督方法，将文本嵌入在不同向量空间与通用潜在表示之间互译，跨不同架构、参数量和训练数据集取得高余弦相似度。这也暴露向量数据库安全风险：攻击者仅凭嵌入向量即可推断文档敏感属性。", "keyPoints": ["首个无监督方法可在不同文本嵌入空间之间互译，无需配对数据、编码器或预设匹配集。", "跨架构、参数量和训练数据差异较大的模型对之间取得高余弦相似度。", "该能力揭示向量数据库安全风险：仅凭嵌入向量即可提取敏感信息，用于分类和属性推断。"], "discussion": "评论区分歧明显：一部分人质疑论文细节单薄且与早期提交重复；另一部分从距离保持、随机图同构等角度讨论方法可行性。", "tags": ["嵌入安全", "向量数据库", "无监督嵌入翻译"], "score": 59, "comments": 19, "by": "ur-whale", "url": "https://arxiv.org/abs/2505.12540", "hnUrl": "https://news.ycombinator.com/item?id=49590595"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "MathKernel: An evidence-aware multi-engine mathematics kernel and MCP server", "titleTranslation": "MathKernel：一个证据感知的多引擎数学内核与模型上下文协议（MCP）服务器", "summary": "MathKernel 把数学计算和证据记录从 LLM 中剥离，模型只解析意图，内核返回带引擎标签、信任级别和推导链的结果。它既是 Python 库，也可作为 MCP 服务器供 LLM 调用，覆盖符号、精确、认证数值和形式证明等证据。", "keyPoints": ["把 LLM 意图解析与数学计算分离，内核记录引擎标签、信任级别和推导链，避免模型直接做算术。", "证据强度分级：SymPy 符号结果、Z3/Lean 证明、mpmath 认证区间各自代表不同信任级别，不混为一谈。", "Python 库与 MCP 服务器两种集成方式，方便应用和智能体调用，模型只需解析意图和计划。"], "discussion": "评论区共识是谨慎乐观：项目直指 LLM 做数学不可靠的真实痛点，但当前更像基础设施而非有明确用户价值的产品，需实际应用验证。", "tags": ["LLM 工具调用", "符号计算", "MCP 服务器"], "score": 20, "comments": 5, "by": "staatsgeheim", "url": "https://github.com/Staatsgeheim/MathKernel", "hnUrl": "https://news.ycombinator.com/item?id=49592366"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "An Alien Mind", "titleTranslation": "一个外星心智", "summary": "OpenAI 发布《An Alien Mind》，以“外星心智”比喻智能远超人类的 AI，聚焦未来数年过渡风险与人类能动性；HN 评论多质疑“防御性开发”实为 AI 军备竞赛与上市前公关。正文未能抓取，信息仅来自标题与讨论。", "keyPoints": ["OpenAI《An Alien Mind》 用“外星心智”比喻 AI，强调未来数年须确保过渡造福人类。", "“防御其他 AI” 被评论解读为军备竞赛借口，可能推动政府限制开源模型。", "OpenAI 被讽为上市前公关：从“拯救人类”叙事转向纳斯达克 IPO 利益。"], "discussion": "评论区普遍质疑 OpenAI 的“人类福祉”叙事，认为是 AI 军备竞赛与上市前公关；少数观点期待医疗与经济突破。", "tags": ["AI 对齐", "AI 军备竞赛", "科技公司叙事"], "score": 361, "comments": 314, "by": "tosh", "url": "https://openai.com/index/an-alien-mind/", "hnUrl": "https://news.ycombinator.com/item?id=49588080"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "Research acceleration: The view inside OpenAI", "titleTranslation": "研究加速：OpenAI 内部视角", "summary": "本文正文未能抓取，仅可据标题和 HN 讨论概括：OpenAI 在内部推进“自动化 AI 研究员”，称其能完成熟练研究者数日的任务，内部研究者每天约消耗 8000 美元 token；评论主要质疑其只展示用量而非实际研究产出。", "keyPoints": ["OpenAI 提出自动化 AI 研究员，定位为可完成熟练研究者数日任务的“研究实习生”。", "内部研究者每天约消耗 8000 美元 token，评论称高得离谱且缺少实际影响指标。", "token 消耗主要流向构建、记录和监控研究基础设施，被批为自指循环：用可能未对齐的系统构建对齐工具。"], "discussion": "评论区共识是批评 OpenAI 用 token 消耗量替代研究产出，并质疑安全论证陷入“用 AI 防 AI”的循环；只有少数用户用自身经验佐证无人值守自动化研究可行。", "tags": ["AI 自动化研究", "OpenAI", "对齐安全"], "score": 133, "comments": 86, "by": "iamsyr", "url": "https://openai.com/index/research-acceleration-view-inside-openai", "hnUrl": "https://news.ycombinator.com/item?id=49587217"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "YouTube had a bug – I used ChatGPT to investigate", "titleTranslation": "YouTube 有个 bug——我用 ChatGPT 调查", "summary": "作者用 ChatGPT 配合 Chrome 调试协议排查 YouTube 恢复播放时固定倒退 20 秒的问题，发现服务端 checkpoint 时间戳本身少 20 秒，且历史记录 URL 中的时间参数会覆盖服务器进度，导致软重载回到旧时间点。", "keyPoints": ["YouTube 恢复播放时固定倒退 20 秒，反复关闭/重开标签页可累计倒退，如同一个未公开的“回看”快捷键。", "作者用 ChatGPT + Chrome DevTools Protocol/MCP 自动调试后发现，服务端返回的 checkpoint 时间戳本身就少了 20 秒。", "根因之一是历史记录 URL 携带 &t=123s 时间参数，软重载时覆盖服务器 checkpoint，导致回到旧时间点。"], "discussion": "评论区有人认为是“倒退 20 秒提供上下文”的善意功能，但更多人也注意到这是新出现的回归 bug，另有读者吐槽作者语言风格。", "tags": ["浏览器调试", "AI 辅助开发", "YouTube 产品缺陷"], "score": 9, "comments": 7, "by": "theZilber", "url": "https://blog.thezilber.com/3-youtube-had-a-bug-chatgpt-helped-me-to-investigate", "hnUrl": "https://news.ycombinator.com/item?id=49588483"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "Opalite Health (YC W26) Is Hiring – Founding GTM", "titleTranslation": "Opalite Health（YC W26）正在招聘——创始市场推广负责人（GTM）", "summary": "YC W26 初创公司 Opalite Health 招聘创始市场推广，主打医疗实时口译语音 AI。职位提供 70K 美元底薪、无上限佣金和 0.10%–0.30% 股权，需 2 年以上成交经验，公司称可替代传统口译并每年节省数百万美元。", "keyPoints": ["Opalite Health（YC W26） 招聘创始 GTM，从零搭建医院与医疗系统销售流程。", "薪酬为 70K 美元底薪 + 无上限佣金 + 0.10%–0.30% 股权，收入弹性大、风险高。", "产品是 医疗实时口译语音 AI，自称比传统口译更安全、合规、准确，可节省数百万美元。"], "discussion": "", "tags": ["医疗语音 AI", "早期创业招聘", "企业销售/GTM"], "score": 1, "comments": 0, "by": "ckuo9", "url": "https://www.ycombinator.com/companies/opalite-health/jobs/bNedVAD-founding-gtm", "hnUrl": "https://news.ycombinator.com/item?id=49588466"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "Hackers have withdrawn ~4k BTC (~$320M) from the Liquid Federation wallet", "titleTranslation": "黑客已从 Liquid 联盟钱包提取约 4,000 BTC（约 3.2 亿美元）", "summary": "约 4000 BTC（约 3.2 亿美元）从 Liquid 联盟钱包被提取，操作者自称白帽；资金经由 SideSwap PAK 转出，但官方称密钥未泄露。Liquid 侧链已暂停交易，社区怀疑近期 Elements 修复引入哈希碰撞漏洞，使验证缓存可被利用来凭空铸造资产。", "keyPoints": ["约 4000 BTC（约 3.2 亿美元） 从 Liquid 联盟钱包被提取，官方称操作者为白帽。", "资金经由 SideSwap PAK（退币授权密钥） 转出，但官方称该密钥与其它密钥均未泄露。", "Liquid 侧链已暂停：桥接节点关闭，LBTC 充提被交易所暂停。"], "discussion": "评论区共识是近期 Elements 修复自身引入了哈希碰撞漏洞，并讨论开源修复被攻击者监控利用的“透明性悖论”。", "tags": ["区块链安全", "侧链漏洞", "开源软件安全"], "score": 94, "comments": 54, "by": "felipelalli", "url": "https://twitter.com/Liquid_BTC/status/2096696272447218108", "hnUrl": "https://news.ycombinator.com/item?id=49591672"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "AI, Tools and Transformation", "titleTranslation": "AI、工具与转型", "summary": "Ben Evans 认为，AI 让造工具更便宜，但企业软件不会因此消失；难处在于识别该自动化什么、并推动组织采用。全员发放 Copilot 不自动转型，应靠试点嵌入结构化流程。", "keyPoints": ["大多数员工不是工具建设者，降低造工具门槛不能解决“不知道要造什么工具”的问题。", "软件沿制度化与即兴光谱分布；重复、重要、带风险的任务最终必须制度化（审计、安全、问责）。", "全员发放 Copilot/ChatGPT/Claude 未规模化改造流程，类似当年发 PC/Lotus 不等于转型发票处理。"], "discussion": "评论区共识是人类应转向审计、安全与问责，防止 AI 在开放系统中引发真实损害；也有人挑剔文章某句像大模型文风。", "tags": ["企业AI采纳", "软件制度化", "AI 自动化局限"], "score": 150, "comments": 65, "by": "firexcy", "url": "https://www.ben-evans.com/benedictevans/2026/9/3/ai-tools-and-transformation", "hnUrl": "https://news.ycombinator.com/item?id=49582656"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
