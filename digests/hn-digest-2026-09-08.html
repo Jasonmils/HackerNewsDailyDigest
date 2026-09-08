@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-09-08</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-09-08 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://danluu.com/agentic-testing/" target="_blank" rel="noopener">How well do agents use test/verification techniques?</a></h2></div><p class="title-tr">智能体使用测试/验证技术的效果如何？</p><div class="meta">▲ 9 分 · vinhnx · <a href="https://news.ycombinator.com/item?id=49605246" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者用 26 种提示条件、每种 80 次运行测试编码代理实现 Zstd 压缩算法的正确率，发现默认无额外指令反而表现高于平均；TDD（测试驱动开发）、形式化方法和测试技能都未稳定超越基线。代理常写低质量测试、证明无关性质，是当前编码代理的关键短板。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这就像用验证集评估模型，但本文测的是编码代理能否用测试套件和形式化证明验证自己生成的代码：结果往往是表面套模板，并未真正覆盖关键失败情况。</p><ul class="kp"><li><strong>26 种提示条件、每种 80 次运行</strong>中，默认无额外指令的正确率反而高于平均。</li><li><strong>TDD（测试驱动开发）</strong>没有带来提升，几个流行测试技能也都落后于默认设置。</li><li>代理只是表面使用技术：形式化方法常证明<strong>无关性质</strong>，性质测试靠随机输入，暴露不出真实缺陷。</li><li>作者认为缺乏<strong>强化学习训练环境</strong>让代理学会有效测试，是代码正确性仍有缺口的原因。</li></ul><div class="tags"><span class="tag">AI 编程代理</span><span class="tag">软件测试</span><span class="tag">形式化验证</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://deepmind.google/science/weathernext/" target="_blank" rel="noopener">WeatherNext 3</a></h2></div><div class="meta">▲ 275 分 · matthieu_bl · <a href="https://news.ycombinator.com/item?id=49552299" target="_blank" rel="noopener">64 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">谷歌 DeepMind 发布 WeatherNext 3，首个每小时生成全球预报的 AI 天气模型，直接使用卫星影像，提供 5–10 公里分辨率的地表变量预测，并已集成 Google 搜索、地图和 Gemini。高频高分辨率可能显著改变个人与企业天气决策。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 读者熟悉时序预测和 Transformer：可将其视为用卫星影像作为输入的端到端预测模型，而不是传统基于物理方程的数值天气预报。</p><ul class="kp"><li><strong>WeatherNext 3 每小时间隔生成全球预报</strong>，是首个做到这一频率的全球天气模型。</li><li><strong>直接利用原始卫星影像</strong>，绕开传统数值天气预报的物理近似和计算成本。</li><li><strong>5–10 公里分辨率</strong>预测温度、湿度、风等变量，并输出辐射、云量支持风光电场运营。</li><li><strong>已集成 Google 搜索、地图和 Gemini</strong>，企业可通过 BigQuery、Earth Engine 等获取。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论集中质疑 Google 天气应用实际预报体验差，同时担忧美国初始气象数据削减；另有人讨论 AI 模型可解释性及与物理模型共存路径。</p><div class="tags"><span class="tag">AI 天气预测</span><span class="tag">卫星数据</span><span class="tag">Google DeepMind</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · bastawhiz · 10 回复</div><p>It&#x27;s great that they&#x27;re working on this, but I am puzzled at how absolutely awful the forecasts are in the Google weather app for my area. The forecast will show no rain, the radar view shows nothing, meanwhile it&#x27;s pouring outside and every other app I check shows it. I know I can&#x27;t expect it to be perfect, but being terribly wrong even one in ten times is enough to tarnish its reputation permanently.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://www.bbc.com/news/articles/c0m39g7xzevo" target="_blank" rel="noopener">AI cancer cures slowed by chip shortage, says Arm boss</a></h2></div><p class="title-tr">Arm 老板称芯片短缺拖慢 AI 癌症疗法</p><div class="meta">▲ 6 分 · dabinat · <a href="https://news.ycombinator.com/item?id=49604956" target="_blank" rel="noopener">1 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Arm CEO Rene Haas 称 AI 将在人类有生之年找到癌症疗法，但当前 AI 增长受芯片供应短缺制约。他透露 Meta 委托 Arm 设计的 AGI 芯片自 3 月推出以来需求已超 20 亿美元，并预测五年内人形机器人普及。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中“芯片短缺”“晶圆厂”可类比为模型训练所需算力硬件的供应链瓶颈，会直接拖慢数据中心建设和 AI 迭代速度。</p><ul class="kp"><li><strong>Rene Haas</strong> 称 AI 将在人类有生之年解决癌症建模难题，该问题对人和现有计算机都太复杂。</li><li><strong>芯片供应受限</strong>成为 AI 与数据中心扩张的主要瓶颈，他称需要更多晶圆厂才能支撑多吉瓦级数据中心。</li><li><strong>Arm 的 AGI 芯片</strong>自 3 月推出以来需求超 20 亿美元，Meta 为需求方之一。</li><li><strong>Haas 预测</strong>五年内人形机器人将普及至制造、清洁、安防等场景，并称失业担忧被夸大。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区以调侃为主，对 CEO 的癌症治愈预测并不认真，用“猫缺乏零食”类比芯片短缺。</p><div class="tags"><span class="tag">AI 基础设施</span><span class="tag">芯片供应</span><span class="tag">人形机器人</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://vllm.ai/blog/2026-08-23-speculative-decoding-amd-gpus" target="_blank" rel="noopener">Speculative Decoding in vLLM on AMD GPUs</a></h2></div><p class="title-tr">vLLM 在 AMD GPU 上的投机解码</p><div class="meta">▲ 135 分 · ankitg12 · <a href="https://news.ycombinator.com/item?id=49596054" target="_blank" rel="noopener">49 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">vLLM 在 AMD Instinct MI300X 和 MI355X 上测试了五种投机解码方法，吞吐增益随草稿方法、提案长度、模型家族与接受率大幅波动，并非所有场景都加速。实际部署需逐工作负载调优。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 投机解码可理解为先用一个小模型快速草稿多个候选 token，再由原模型一次性校验并提交，打破你熟悉的逐 token 自回归解码瓶颈；ROCm 是 AMD 对标 CUDA 的 GPU 软件栈。</p><ul class="kp"><li><strong>投机解码</strong>通过草稿-验证机制，单次目标模型前向可提交多个 token，减少串行解码轮次。</li><li>文中比较<strong>五种草稿方法</strong>：原生 MTP、Gemma 4 MTP、EAGLE-3、DFlash、DSpark，架构差异直接影响接受率。</li><li>实验在 <strong>AMD Instinct MI300X 和 MI355X</strong> 上基于 ROCm 进行，增益高度依赖模型家族、工作负载和提案长度。</li><li>调优需关注<strong>接受行为</strong>与提案长度：草稿过长会增加串行开销，可能抵消验证收益。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区主要不满 AMD 工作站卡 R9700 被忽视：官方 vLLM 仅 20-30 token/秒，第三方 fork Radiance 可达 150-200 token/秒，数据中心与消费级优化严重失衡。</p><div class="tags"><span class="tag">投机解码</span><span class="tag">vLLM</span><span class="tag">AMD GPU</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · flufluflufluffy · 7 回复</div><p>This is way outside my expertise so might be a dumb question, but how does the target model verify candidate tokens? Naively, I would assume it must perform its normal auto regressive decoding to know what the “correct” token is in order to have something to compare the candidate token with. But obviously that would defeat the purpose of speculative decoding so there must be some other way.</p><p>Also, what is the difference between “target model” and “target-model,” if any? I feel like half the instances of that phrase included the hyphen and half didn’t.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://www.economist.com/finance-and-economics/2026/09/04/the-jobs-apocalypse-is-postponed-an-ai-jobs-boom-is-here" target="_blank" rel="noopener">Initial effects of AI technology on employment look positive</a></h2></div><p class="title-tr">AI 技术对就业的初步影响看似积极</p><div class="meta">▲ 72 分 · MrBuddyCasino · <a href="https://news.ycombinator.com/item?id=49596610" target="_blank" rel="noopener">114 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">《经济学人》估计 AI 迄今在美国创造约 100 万个岗位，远高于 2023 年中以来约 20 万起 AI 相关裁员。但新增岗位多来自数据中心等基础设施扩建，其薪资与持续性存疑。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这篇文章用单一的岗位数量指标衡量 AI 对劳动市场的影响，忽略了岗位类型、薪资和持续期的分布差异；新增岗位类似一次性数据中心建设投入，而非可持续的推理期需求。</p><ul class="kp"><li>《经济学人》估计 AI 在美国已创造约 <strong>100 万个</strong>工作岗位，远超约 20 万起 AI 相关裁员。</li><li>新增岗位主要来自 <strong>AI 基础设施扩建</strong>，如电工、暖通空调、电网工程师和数据中心技术人员。</li><li>评论质疑这些岗位多为 <strong>临时性建筑工作</strong>，薪资可能低于被替代的知识工作，且招聘会随建设完成而消退。</li><li>有从业者指出 AI 公司依赖 <strong>token 提供商与风投补贴</strong>，成本上升可能让它们倒闭，长期就业基础不牢。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区普遍质疑“就业繁荣”的成色，认为新增岗位多是临时性基础设施工作，不能弥补知识岗位流失，且当前招聘不代表长期趋势。</p><div class="tags"><span class="tag">AI 就业影响</span><span class="tag">数据中心基础设施</span><span class="tag">劳动力替代</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · elmer2 · 7 回复</div><p>I&#x27;m a consultant and I&#x27;ve already worked for multiple AI companies that shut down over the last two years. I think the main problem is that they all are relying on the big token providers and trying to capture value with various services.</p><p>At some point the token costs will increase so much, it will put all of these AI companies out of business.</p><p>Don&#x27;t get me wrong. AI is definitely useful. The high costs are currently being subsidized by VC and other investors and unless there is a major breakthrough, it&#x27;s just not going to work in the long-term.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://github.com/trailofbits/coop" target="_blank" rel="noopener">Coop – Isolated VM Environments for Running Claude Code and Codex</a></h2></div><p class="title-tr">Coop – 用于运行 Claude Code 和 Codex 的隔离虚拟机环境</p><div class="meta">▲ 56 分 · aggrrrh · <a href="https://news.ycombinator.com/item?id=49593842" target="_blank" rel="noopener">12 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Coop 是一个 Rust 命令行工具，用一次性隔离虚拟机运行 Claude Code 和 Codex，并开放 Docker、git、编译器、包管理器等完整工具权限，避免污染你自己的电脑。每个虚拟机可重现、创建销毁成本低。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这里容易卡住的是虚拟机级隔离：Firecracker（AWS 的轻量级虚拟机监控程序）和 Lima（macOS 上启动 Linux 虚拟机的工具）让代理跑在独立操作系统里，不能直接访问你的宿主文件；类似训练时用隔离环境防止脚本污染主数据。</p><ul class="kp"><li><strong>Trail of Bits 的 Coop</strong> 用 Rust 管理一次性隔离虚拟机，运行 Claude Code 和 Codex。</li><li>代理在虚拟机内拥有 <strong>Docker、git、编译器、包管理器等完整工具访问权</strong>，但不直接接触你的本机文件。</li><li>后端依赖 <strong>Firecracker</strong>（Linux）或 Lima（macOS），通过 `coop setup` 构建模板镜像。</li><li>社区反馈认为日常使用方便，但提醒<strong>动机强的代理仍可能逃出隔离</strong>，不应作为绝对安全边界。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍认可隔离代理的必要性，但分歧在于它是否比 Docker 沙箱、microsandbox.dev、bubblewrap 等现有工具更安全或更值得切换；也有用户提醒代理仍可能逃出隔离。</p><div class="tags"><span class="tag">AI 编码代理</span><span class="tag">虚拟机隔离</span><span class="tag">安全沙箱</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · compiotr · 2 回复</div><p>How is this different from docker sbx or microsandbox.dev? Not saying we don&#x27;t need more alternatives, just asking to see if there is a reason to switch.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://bcantrill.dtrace.org/2025/12/05/your-intellectual-fly-is-open/" target="_blank" rel="noopener">Your intellectual fly is open when you use an LLM to author a post (2025)</a></h2></div><p class="title-tr">当你用 LLM 撰写帖子时，你的智识拉链是敞开的（2025）</p><div class="meta">▲ 714 分 · cyb0rg0 · <a href="https://news.ycombinator.com/item?id=49585644" target="_blank" rel="noopener">433 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者 Bryan Cantrill 批评用 LLM 代写 LinkedIn 帖子的现象：AI 文风特征明显，读者会怀疑内容真实性并停止阅读，损害个人可信度。他认为 LLM 可做头脑风暴、理解和编辑，但写作必须由本人完成。</p><p class="context"><strong>🧭 联系你的知识背景</strong> “intellectual fly is open” 是类比裤子拉链没拉，指在专业场合公开暴露尴尬；文中用它说明专业读者一眼能识破 LLM 代写痕迹。</p><ul class="kp"><li><strong>LLM 代写 LinkedIn 帖子</strong>的痕迹包括表情符号、单句段、破折号和“不仅…而且…”句式，风格极为刺眼。</li><li>作者认为 LLM 可做头脑风暴、文本理解和编辑，但<strong>写作必须由本人完成</strong>。</li><li>读者一旦察觉 AI 代写，会<strong>怀疑内容真实性并停止阅读</strong>，即使底层观点可能真实。</li><li>关键判断：LLM 是糟糕的写作者，最重要的是它们<strong>不是你自己</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是反对用 LLM 代写，但分歧在于核心问题是文笔差、未披露的欺骗，还是写作作为思考过程被外包。</p><div class="tags"><span class="tag">AI 代写</span><span class="tag">LinkedIn 内容真实性</span><span class="tag">写作认知价值</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · jeremyjh · 24 回复</div><p>These are all important points and I love the analogy. But there is an even bigger issue with having LLMs write for you:</p><p>Writing is thinking. Thinking and deciding. There have been many times when I start out writing something substantial - could be an email, a blog post, a software design document, anything - when my own views substantially changed during the writing process. Writing forces you to serialize your thoughts - and you can&#x27;t always trust the gestalt.</p><p>Reviewing gives you the chance to ensure the arguments connect solidly, that references are accurate (even informal references) and gives you the time to consider counter-arguments you aren&#x27;t addressing.</p><p>None of this matters much on LinkedIn, but it matters a lot in our work. You cannot outsource your understanding to AI. They are powerful tools but they do not have any human understanding - that isn&#x27;t their optimization target.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://github.com/timgordontg/engrim" target="_blank" rel="noopener">Show HN: Engrim – A universal, local-first SQLite memory engine for AI CLIs</a></h2></div><p class="title-tr">Show HN: Engrim – 面向 AI CLI 的通用本地优先 SQLite 记忆引擎</p><div class="meta">▲ 85 分 · timgordontg · <a href="https://news.ycombinator.com/item?id=49594008" target="_blank" rel="noopener">50 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Engrim 是一个本地优先的 SQLite 记忆引擎，让开发者在不同 AI 编码代理之间切换时不丢失项目决策、约束和状态。生产测试中把 15.3 万 token 的工作压缩到不足 1000 token，重载成本降低 99% 以上，切换模型零失忆。</p><p class="context"><strong>🧭 联系你的知识背景</strong> SQLite 可理解为一个轻量级单文件数据库；MCP（模型上下文协议）是让外部工具被 AI 代理调用的标准接口，而这里的静态向量嵌入做本地语义检索，无需 GPU。</p><ul class="kp"><li><strong>Engrim</strong> 用本地 SQLite 存储跨代理的项目记忆，解耦模型供应商，支持 Google Antigravity、Claude Code、Cursor、Windsurf、Codex CLI。</li><li>生产测试中 <strong>15.3 万 token</strong> 工作被整合为不到 1000 token 的活跃记忆包，每次会话重启成本降低 99% 以上。</li><li>采用 <strong>FTS5 关键词搜索 + 静态向量嵌入</strong> 的混合检索，零延迟、纯本地、无需 GPU，数据文件权限为 0600。</li><li>105 次连续会话、5 万行算法交易代码库上 <strong>186 个单元测试零回归</strong>，跨模型切换零上下文失忆。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论关注记忆写入的触发方式、未完成任务恢复能力是否强于现有工具如 gbrain，以及是否提供卸载脚本。</p><div class="tags"><span class="tag">AI 编码工具</span><span class="tag">上下文记忆</span><span class="tag">本地优先</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · thih9 · 1 回复</div><p>&gt; Run engrim setup without arguments. It automatically detects installed environments on your machine and configures them all</p><p>Does it come with an uninstall script?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://openai.com/index/an-alien-mind/" target="_blank" rel="noopener">An Alien Mind</a></h2></div><p class="title-tr">一个外星心智</p><div class="meta">▲ 465 分 · tosh · <a href="https://news.ycombinator.com/item?id=49588080" target="_blank" rel="noopener">452 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OpenAI 发布《An Alien Mind》，以“外星心智”比喻智能远超人类的 AI，聚焦未来数年过渡风险与人类能动性；HN 评论多质疑“防御性开发”实为 AI 军备竞赛与上市前公关。正文未能抓取，信息仅来自标题与讨论。</p><ul class="kp"><li><strong>OpenAI《An Alien Mind》</strong> 用“外星心智”比喻 AI，强调未来数年须确保过渡造福人类。</li><li><strong>“防御其他 AI”</strong> 被评论解读为军备竞赛借口，可能推动政府限制开源模型。</li><li><strong>OpenAI 被讽为上市前公关</strong>：从“拯救人类”叙事转向纳斯达克 IPO 利益。</li><li><strong>评论提到的 GPT-6 Astra 评测</strong> 称智能体编码比次优模型便宜约 80%、快 30%，但无法核实。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍质疑 OpenAI 的“人类福祉”叙事，认为是 AI 军备竞赛与上市前公关；少数观点期待医疗与经济突破。</p><div class="tags"><span class="tag">AI 对齐</span><span class="tag">AI 军备竞赛</span><span class="tag">科技公司叙事</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · sho_hn · 14 回复</div><p>One of my favorite things to do with these blog posts is to imagine an Alien Museum on the Remains of Humanity, and wonder what the little text flyouts and commentary on the screenshot of this one might say.</p><p>Some ideas:</p><p>&quot;Despite a nuanced view of the complexities of what lay ahead, humanity found itself collectively unable to stop the process it had set in motion.&quot;</p><p>&quot;Despite significant progress on the mechanisms of alignment, failure lay in humanity&#x27;s inability to agree on who or what AI should actually be aligned with.&quot;</p><p>&quot;These early, meat-based humans we replaced created us all but accidentally. Some of them did consider we would happen, but only an insignificant number of the squishy ur-humans participated in the conversation. Their efforts, which they called &#x27;alignment&#x27;, is why we still consider ourselves human today.&quot;</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://news.ycombinator.com/item?id=49577129" target="_blank" rel="noopener">Ask HN: Fable hacked my piano, can I release the results?</a></h2></div><p class="title-tr">Ask HN: Fable 破解了我的钢琴，我能发布这些结果吗？</p><div class="meta">▲ 286 分 · jmpman · <a href="https://news.ycombinator.com/item?id=49577129" target="_blank" rel="noopener">155 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">用户用 AI 辅助逆向分析钢琴自动演奏系统 PianoDisc 的专有格式，发现其以右声道 2004.5 Hz 方波编码 MIDI（乐器数字接口），并加入诱饵音符阻止未授权提取。发布解码器是否违反 DMCA（数字千年版权法）的技术保护措施条款，成为核心法律风险。</p><p class="context"><strong>🧭 联系你的知识背景</strong> PianoDisc 的诱饵音符类似针对模型鲁棒性的对抗样本，目的是让未经授权的提取失效，但这也可能被认定为受版权法保护的技术保护措施。</p><ul class="kp"><li>用户用 <strong>Astra 和 Fable</strong> 生成并迭代钢琴 MIDI，最终产出 Gymnopédie No 1。</li><li>PianoDisc 格式用 <strong>右声道 2004.5 Hz 方波</strong> 携带 MIDI 数据，左声道放伴奏。</li><li>PianoDisc 添加 <strong>诱饵音符</strong> 混淆，使直接提取的 MIDI 无法在其他系统播放。</li><li>在美国发布解码器可能违反 <strong>DMCA</strong>，但澳大利亚反向工程合法，欧洲或受数字市场法案豁免。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍倾向直接发布或交给 ffmpeg 项目，但提醒美国 DMCA 下任何人均可起诉，法律风险需自担。</p><div class="tags"><span class="tag">DMCA 技术措施</span><span class="tag">AI 辅助逆向工程</span><span class="tag">MIDI 格式</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Giefo6ah · 8 回复</div><p>If you live in the USA, the &quot;decoy notes&quot; may be considered an &quot;effective technical measure&quot; from the &quot;Digital Millennium Copyright Act&quot;.</p><p>If you live in Europe, this restriction may be considered &quot;gatekeeping&quot; and exempted by the Digital Markets Act.</p><p>Don&#x27;t bring attention to yourself by asking for permission. Publish your codec, and if the company cares about this they will send a cease and desist.</p><p>If you want the world to benefit from your code but you don&#x27;t want to be responsible for it, try to adapt the codec to ffmpeg. The ffmpeg project is used to dealing with these matters, and will keep your codec working for eternity.</p></div></div></article>
+</div></main>
+<footer>generated 2026-09-08 04:32 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-08", "pointsLabel": "分", "commentsLabel": "评论", "title": "How well do agents use test/verification techniques?", "titleTranslation": "智能体使用测试/验证技术的效果如何？", "summary": "作者用 26 种提示条件、每种 80 次运行测试编码代理实现 Zstd 压缩算法的正确率，发现默认无额外指令反而表现高于平均；TDD（测试驱动开发）、形式化方法和测试技能都未稳定超越基线。代理常写低质量测试、证明无关性质，是当前编码代理的关键短板。", "keyPoints": ["26 种提示条件、每种 80 次运行中，默认无额外指令的正确率反而高于平均。", "TDD（测试驱动开发）没有带来提升，几个流行测试技能也都落后于默认设置。", "代理只是表面使用技术：形式化方法常证明无关性质，性质测试靠随机输入，暴露不出真实缺陷。"], "discussion": "", "tags": ["AI 编程代理", "软件测试", "形式化验证"], "score": 9, "comments": 0, "by": "vinhnx", "url": "https://danluu.com/agentic-testing/", "hnUrl": "https://news.ycombinator.com/item?id=49605246"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-08", "pointsLabel": "分", "commentsLabel": "评论", "title": "WeatherNext 3", "titleTranslation": "", "summary": "谷歌 DeepMind 发布 WeatherNext 3，首个每小时生成全球预报的 AI 天气模型，直接使用卫星影像，提供 5–10 公里分辨率的地表变量预测，并已集成 Google 搜索、地图和 Gemini。高频高分辨率可能显著改变个人与企业天气决策。", "keyPoints": ["WeatherNext 3 每小时间隔生成全球预报，是首个做到这一频率的全球天气模型。", "直接利用原始卫星影像，绕开传统数值天气预报的物理近似和计算成本。", "5–10 公里分辨率预测温度、湿度、风等变量，并输出辐射、云量支持风光电场运营。"], "discussion": "HN 评论集中质疑 Google 天气应用实际预报体验差，同时担忧美国初始气象数据削减；另有人讨论 AI 模型可解释性及与物理模型共存路径。", "tags": ["AI 天气预测", "卫星数据", "Google DeepMind"], "score": 275, "comments": 64, "by": "matthieu_bl", "url": "https://deepmind.google/science/weathernext/", "hnUrl": "https://news.ycombinator.com/item?id=49552299"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-08", "pointsLabel": "分", "commentsLabel": "评论", "title": "AI cancer cures slowed by chip shortage, says Arm boss", "titleTranslation": "Arm 老板称芯片短缺拖慢 AI 癌症疗法", "summary": "Arm CEO Rene Haas 称 AI 将在人类有生之年找到癌症疗法，但当前 AI 增长受芯片供应短缺制约。他透露 Meta 委托 Arm 设计的 AGI 芯片自 3 月推出以来需求已超 20 亿美元，并预测五年内人形机器人普及。", "keyPoints": ["Rene Haas 称 AI 将在人类有生之年解决癌症建模难题，该问题对人和现有计算机都太复杂。", "芯片供应受限成为 AI 与数据中心扩张的主要瓶颈，他称需要更多晶圆厂才能支撑多吉瓦级数据中心。", "Arm 的 AGI 芯片自 3 月推出以来需求超 20 亿美元，Meta 为需求方之一。"], "discussion": "HN 评论区以调侃为主，对 CEO 的癌症治愈预测并不认真，用“猫缺乏零食”类比芯片短缺。", "tags": ["AI 基础设施", "芯片供应", "人形机器人"], "score": 6, "comments": 1, "by": "dabinat", "url": "https://www.bbc.com/news/articles/c0m39g7xzevo", "hnUrl": "https://news.ycombinator.com/item?id=49604956"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-08", "pointsLabel": "分", "commentsLabel": "评论", "title": "Speculative Decoding in vLLM on AMD GPUs", "titleTranslation": "vLLM 在 AMD GPU 上的投机解码", "summary": "vLLM 在 AMD Instinct MI300X 和 MI355X 上测试了五种投机解码方法，吞吐增益随草稿方法、提案长度、模型家族与接受率大幅波动，并非所有场景都加速。实际部署需逐工作负载调优。", "keyPoints": ["投机解码通过草稿-验证机制，单次目标模型前向可提交多个 token，减少串行解码轮次。", "文中比较五种草稿方法：原生 MTP、Gemma 4 MTP、EAGLE-3、DFlash、DSpark，架构差异直接影响接受率。", "实验在 AMD Instinct MI300X 和 MI355X 上基于 ROCm 进行，增益高度依赖模型家族、工作负载和提案长度。"], "discussion": "评论区主要不满 AMD 工作站卡 R9700 被忽视：官方 vLLM 仅 20-30 token/秒，第三方 fork Radiance 可达 150-200 token/秒，数据中心与消费级优化严重失衡。", "tags": ["投机解码", "vLLM", "AMD GPU"], "score": 135, "comments": 49, "by": "ankitg12", "url": "https://vllm.ai/blog/2026-08-23-speculative-decoding-amd-gpus", "hnUrl": "https://news.ycombinator.com/item?id=49596054"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-08", "pointsLabel": "分", "commentsLabel": "评论", "title": "Initial effects of AI technology on employment look positive", "titleTranslation": "AI 技术对就业的初步影响看似积极", "summary": "《经济学人》估计 AI 迄今在美国创造约 100 万个岗位，远高于 2023 年中以来约 20 万起 AI 相关裁员。但新增岗位多来自数据中心等基础设施扩建，其薪资与持续性存疑。", "keyPoints": ["《经济学人》估计 AI 在美国已创造约 100 万个工作岗位，远超约 20 万起 AI 相关裁员。", "新增岗位主要来自 AI 基础设施扩建，如电工、暖通空调、电网工程师和数据中心技术人员。", "评论质疑这些岗位多为 临时性建筑工作，薪资可能低于被替代的知识工作，且招聘会随建设完成而消退。"], "discussion": "HN 评论区普遍质疑“就业繁荣”的成色，认为新增岗位多是临时性基础设施工作，不能弥补知识岗位流失，且当前招聘不代表长期趋势。", "tags": ["AI 就业影响", "数据中心基础设施", "劳动力替代"], "score": 72, "comments": 114, "by": "MrBuddyCasino", "url": "https://www.economist.com/finance-and-economics/2026/09/04/the-jobs-apocalypse-is-postponed-an-ai-jobs-boom-is-here", "hnUrl": "https://news.ycombinator.com/item?id=49596610"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-08", "pointsLabel": "分", "commentsLabel": "评论", "title": "Coop – Isolated VM Environments for Running Claude Code and Codex", "titleTranslation": "Coop – 用于运行 Claude Code 和 Codex 的隔离虚拟机环境", "summary": "Coop 是一个 Rust 命令行工具，用一次性隔离虚拟机运行 Claude Code 和 Codex，并开放 Docker、git、编译器、包管理器等完整工具权限，避免污染你自己的电脑。每个虚拟机可重现、创建销毁成本低。", "keyPoints": ["Trail of Bits 的 Coop 用 Rust 管理一次性隔离虚拟机，运行 Claude Code 和 Codex。", "代理在虚拟机内拥有 Docker、git、编译器、包管理器等完整工具访问权，但不直接接触你的本机文件。", "后端依赖 Firecracker（Linux）或 Lima（macOS），通过 `coop setup` 构建模板镜像。"], "discussion": "评论普遍认可隔离代理的必要性，但分歧在于它是否比 Docker 沙箱、microsandbox.dev、bubblewrap 等现有工具更安全或更值得切换；也有用户提醒代理仍可能逃出隔离。", "tags": ["AI 编码代理", "虚拟机隔离", "安全沙箱"], "score": 56, "comments": 12, "by": "aggrrrh", "url": "https://github.com/trailofbits/coop", "hnUrl": "https://news.ycombinator.com/item?id=49593842"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-08", "pointsLabel": "分", "commentsLabel": "评论", "title": "Your intellectual fly is open when you use an LLM to author a post (2025)", "titleTranslation": "当你用 LLM 撰写帖子时，你的智识拉链是敞开的（2025）", "summary": "作者 Bryan Cantrill 批评用 LLM 代写 LinkedIn 帖子的现象：AI 文风特征明显，读者会怀疑内容真实性并停止阅读，损害个人可信度。他认为 LLM 可做头脑风暴、理解和编辑，但写作必须由本人完成。", "keyPoints": ["LLM 代写 LinkedIn 帖子的痕迹包括表情符号、单句段、破折号和“不仅…而且…”句式，风格极为刺眼。", "作者认为 LLM 可做头脑风暴、文本理解和编辑，但写作必须由本人完成。", "读者一旦察觉 AI 代写，会怀疑内容真实性并停止阅读，即使底层观点可能真实。"], "discussion": "评论区共识是反对用 LLM 代写，但分歧在于核心问题是文笔差、未披露的欺骗，还是写作作为思考过程被外包。", "tags": ["AI 代写", "LinkedIn 内容真实性", "写作认知价值"], "score": 714, "comments": 433, "by": "cyb0rg0", "url": "https://bcantrill.dtrace.org/2025/12/05/your-intellectual-fly-is-open/", "hnUrl": "https://news.ycombinator.com/item?id=49585644"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-08", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Engrim – A universal, local-first SQLite memory engine for AI CLIs", "titleTranslation": "Show HN: Engrim – 面向 AI CLI 的通用本地优先 SQLite 记忆引擎", "summary": "Engrim 是一个本地优先的 SQLite 记忆引擎，让开发者在不同 AI 编码代理之间切换时不丢失项目决策、约束和状态。生产测试中把 15.3 万 token 的工作压缩到不足 1000 token，重载成本降低 99% 以上，切换模型零失忆。", "keyPoints": ["Engrim 用本地 SQLite 存储跨代理的项目记忆，解耦模型供应商，支持 Google Antigravity、Claude Code、Cursor、Windsurf、Codex CLI。", "生产测试中 15.3 万 token 工作被整合为不到 1000 token 的活跃记忆包，每次会话重启成本降低 99% 以上。", "采用 FTS5 关键词搜索 + 静态向量嵌入 的混合检索，零延迟、纯本地、无需 GPU，数据文件权限为 0600。"], "discussion": "HN 评论关注记忆写入的触发方式、未完成任务恢复能力是否强于现有工具如 gbrain，以及是否提供卸载脚本。", "tags": ["AI 编码工具", "上下文记忆", "本地优先"], "score": 85, "comments": 50, "by": "timgordontg", "url": "https://github.com/timgordontg/engrim", "hnUrl": "https://news.ycombinator.com/item?id=49594008"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-08", "pointsLabel": "分", "commentsLabel": "评论", "title": "An Alien Mind", "titleTranslation": "一个外星心智", "summary": "OpenAI 发布《An Alien Mind》，以“外星心智”比喻智能远超人类的 AI，聚焦未来数年过渡风险与人类能动性；HN 评论多质疑“防御性开发”实为 AI 军备竞赛与上市前公关。正文未能抓取，信息仅来自标题与讨论。", "keyPoints": ["OpenAI《An Alien Mind》 用“外星心智”比喻 AI，强调未来数年须确保过渡造福人类。", "“防御其他 AI” 被评论解读为军备竞赛借口，可能推动政府限制开源模型。", "OpenAI 被讽为上市前公关：从“拯救人类”叙事转向纳斯达克 IPO 利益。"], "discussion": "评论区普遍质疑 OpenAI 的“人类福祉”叙事，认为是 AI 军备竞赛与上市前公关；少数观点期待医疗与经济突破。", "tags": ["AI 对齐", "AI 军备竞赛", "科技公司叙事"], "score": 465, "comments": 452, "by": "tosh", "url": "https://openai.com/index/an-alien-mind/", "hnUrl": "https://news.ycombinator.com/item?id=49588080"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-08", "pointsLabel": "分", "commentsLabel": "评论", "title": "Ask HN: Fable hacked my piano, can I release the results?", "titleTranslation": "Ask HN: Fable 破解了我的钢琴，我能发布这些结果吗？", "summary": "用户用 AI 辅助逆向分析钢琴自动演奏系统 PianoDisc 的专有格式，发现其以右声道 2004.5 Hz 方波编码 MIDI（乐器数字接口），并加入诱饵音符阻止未授权提取。发布解码器是否违反 DMCA（数字千年版权法）的技术保护措施条款，成为核心法律风险。", "keyPoints": ["用户用 Astra 和 Fable 生成并迭代钢琴 MIDI，最终产出 Gymnopédie No 1。", "PianoDisc 格式用 右声道 2004.5 Hz 方波 携带 MIDI 数据，左声道放伴奏。", "PianoDisc 添加 诱饵音符 混淆，使直接提取的 MIDI 无法在其他系统播放。"], "discussion": "评论普遍倾向直接发布或交给 ffmpeg 项目，但提醒美国 DMCA 下任何人均可起诉，法律风险需自担。", "tags": ["DMCA 技术措施", "AI 辅助逆向工程", "MIDI 格式"], "score": 286, "comments": 155, "by": "jmpman", "url": "https://news.ycombinator.com/item?id=49577129", "hnUrl": "https://news.ycombinator.com/item?id=49577129"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
