@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-09-10</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-09-10 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://tailwindcss.com/blog/tailwind-is-joining-shopify" target="_blank" rel="noopener">Shopify acquires Tailwind</a></h2></div><p class="title-tr">Shopify 收购 Tailwind</p><div class="meta">▲ 944 分 · EdwinHoksberg · <a href="https://news.ycombinator.com/item?id=49626190" target="_blank" rel="noopener">375 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Tailwind CSS 团队加入 Shopify，开源框架周安装量超 1.1 亿次。AI 冲击其模板商业收入，工程团队裁员 75%、文档流量下降约 40%，商业产品停止新用户注册；项目继续以 MIT 许可维护。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Tailwind CSS 是前端样式框架，将 CSS 设计规范封装成可复用工具；这是一起开源开发者工具在 AI 辅助编码冲击下被迫退出的商业案例。</p><ul class="kp"><li><strong>Tailwind CSS 加入 Shopify</strong>，周安装量超 1.1 亿次，客户包括 ChatGPT、X、Cloudflare、Reddit。</li><li>AI 冲击商业模板业务：工程团队 <strong>75% 被裁</strong>，文档流量较 2023 年初下降约 40%。</li><li><strong>Tailwind Plus 和 ui.sh 停止新用户注册</strong>，现有客户保留访问权。</li><li>Tailwind CSS 及开源项目<strong>继续保持 MIT 许可</strong>，由原团队在 Shopify 支持下维护。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论多认为这是一次人才和品牌收购，AI 让“开源+模板”模式难以持续；争议在于现代原生 CSS 是否已让 Tailwind 变得不再必要。</p><div class="tags"><span class="tag">开发者工具收购</span><span class="tag">开源商业模式</span><span class="tag">AI 对软件商业化的影响</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · fg137 · 33 回复</div><p>Serious question: is there a need to reach for tailwind if you are building a new site? Won&#x27;t using vanilla CSS while taking advantage of the latest features be pretty good, since humans are not manually making edits (which removes many of the pain points of maintaining CSS), while simplifying dependency and the build pipeline?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://hugovergnes.github.io/little-lm-3-8b/" target="_blank" rel="noopener">Training a 3.8B LLM to 0.384 CORE for $998 – Hugo Vergnes</a></h2></div><p class="title-tr">以 998 美元训练一个 3.8B LLM 至 0.384 CORE 分数 – Hugo Vergnes</p><div class="meta">▲ 22 分 · Anon84 · <a href="https://news.ycombinator.com/item?id=49637435" target="_blank" rel="noopener">2 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者用 998 美元租用 8×B200 GPU，训练 3.8B 参数 LLM 在 65B token 上达到 0.384 CORE 分数，超越 GPT-2 和 nanochat。关键改进包括 Muon 优化器、FP8 训练和 ClimbMix 数据集，证明小预算也能训练出有意义模型。</p><p class="context"><strong>🧭 联系你的知识背景</strong> CORE 是衡量语言模型通用能力的综合评估分数，类似你在时间序列预测中汇总多个指标的做法，数值越高越好。</p><ul class="kp"><li><strong>998 美元</strong> 租用 8×B200 GPU 训练 3.8B 参数 LLM，在 65B token 上达到 0.384 CORE 分数，超过 GPT-2。</li><li><strong>Muon 优化器</strong> 替代 AdamW 用于矩阵参数，配合 FP8 训练与词表填充，吞吐提升约 33%。</li><li><strong>ClimbMix 数据集</strong> 替代 FineWeb-Edu 显著加速收敛；先 1024 上下文训练再扩展到 2048 提升分数。</li><li><strong>B200 GPU 性价比高于 H100</strong>，相同预算下模型质量更高，显示个人小预算训练能力快速提升。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区有人调侃文章可能由 LLM 撰写，并好奇达到 AIME 数学竞赛高分所需的最低预算。</p><div class="tags"><span class="tag">LLM 预训练</span><span class="tag">低成本 AI</span><span class="tag">GPU 性价比</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://magazine.sebastianraschka.com/p/gpt-6-astra-looped-transformers-and" target="_blank" rel="noopener">GPT-6 Astra, looped transformers, and hidden reasoning</a></h2></div><p class="title-tr">GPT-6 Astra、循环 Transformer 与隐藏推理</p><div class="meta">▲ 374 分 · ModelForge · <a href="https://news.ycombinator.com/item?id=49627370" target="_blank" rel="noopener">129 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">GPT-6 Astra 在 ARC-AGI-3 上达到 99.9%（GPT-5.6 Sol 仅 7.8%），且在 3D 渲染和计算机使用上明显领先；但循环 transformer 只是复用同一组 Transformer 权重以节省显存，并非隐藏推理的新架构，OpenAI 仍可内部监控思维链。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 循环 transformer 不是新的序列建模方式，只是共享权重重复调用同一组 Transformer 层，用来在增加深度时节省 GPU 显存。</p><ul class="kp"><li><strong>GPT-6 Astra 在 ARC-AGI-3 上取得 99.9%</strong>，远超 GPT-5.6 Sol 的 7.8%，但编码代理等实际任务领先有限。</li><li><strong>OpenAI 采购数万台 Mac Mini/Mac Studio</strong>，作为强化学习环境训练模型操作 macOS 图形界面，计算机使用成为差异化能力。</li><li><strong>循环 transformer 只是复用同一组 transformer block 的权重</strong>，重复应用以增加深度，主要好处是节省 GPU 显存，并非新推理隐藏技术。</li><li><strong>隐藏思维链主要是 OpenAI 的产品策略</strong>，防止模型蒸馏，内部仍可监控，与循环架构无必然关系。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区核心分歧在于循环 transformer 是否天然导致推理不可监控；多数澄清它只是权重复用，隐藏思维链源于 OpenAI 防蒸馏策略，也有人反馈 Astra 周二后性能下降。</p><div class="tags"><span class="tag">循环 Transformer</span><span class="tag">思维链监控</span><span class="tag">计算机使用训练</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · siva7 · 15 回复</div><p>Astra was insane until Monday but something happened on tuesday, now it feels like Sol. I grieve for the lost productivity but i hope they may give us the original Astra back.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://techcrunch.com/2026/09/09/automattics-board-forces-ceo-matt-mullenweg-into-leave-of-absence/" target="_blank" rel="noopener">Automattic&#x27;s board forces CEO Matt Mullenweg into leave of absence</a></h2></div><p class="title-tr">Automattic 董事会强制 CEO Matt Mullenweg 休假</p><div class="meta">▲ 124 分 · LeoPanthera · <a href="https://news.ycombinator.com/item?id=49636283" target="_blank" rel="noopener">133 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Automattic 创始人兼 CEO Matt Mullenweg 被董事会投票强制带薪休假，CFO Mark Davies 出任临时 CEO；Mullenweg 本人投反对票并称遭“密谋”。Automattic 近年因与 WP Engine 诉讼、裁员和员工出走持续动荡，此次变动可能加剧 WordPress 生态的不确定性。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可以把 Automattic 理解为 WordPress 开源内容管理系统的商业运营方，类似一家商业化开源模型公司；这次是商业公司董事会架空 CEO，独立开源项目 WordPress.org 仍由 Mullenweg 领导。</p><ul class="kp"><li><strong>Automattic 董事会投票强制创始人兼 CEO Matt Mullenweg 带薪休假</strong>，他本人投反对票并称遭“密谋”。</li><li><strong>CFO Mark Davies 被选为临时 CEO</strong>，公司声明称董事会对其领导力有充分信心。</li><li>公司深陷与 <strong>WP Engine 的诉讼</strong>，Mullenweg 曾要求对方支付月度毛收入 8% 的商标费；2024 年有 159 名员工离职。</li><li>Mullenweg 仍留在董事会并继续领导 WordPress 开源项目；员工反应两极，有人“松口气”也有人担心管理层不稳定。</li></ul><p class="disc"><strong>💬 讨论</strong> 多数评论认为董事会行动对 WordPress 长期是“正确但艰难”，但预计 Mullenweg 会报复并导致短期动荡。</p><div class="tags"><span class="tag">公司治理</span><span class="tag">创始人控制权</span><span class="tag">WordPress 生态</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · gkoberger · 8 回复</div><p>Unfortunately, this is for the best. WordPress powers a large percentage of the internet, and I&#x27;m not sure what&#x27;s going on with Matt (who I&#x27;ve always liked) but something turned the past few years.</p><p>He&#x27;s been behind unforced error after unforced error as CEO, and I hope a break helps him gain some perspective (although I don&#x27;t see him being brought back).</p><p>WordPress has been his life for 23 years. Doing the same thing for 23 years likely makes it difficult to have a proper perspective.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://twitter.com/ValerioCapraro/status/2097791836269977996" target="_blank" rel="noopener">OpenAI might have stolen another major proof</a></h2></div><p class="title-tr">OpenAI 可能窃取了又一项重大证明</p><div class="meta">▲ 17 分 · tamnd · <a href="https://news.ycombinator.com/item?id=49638353" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">数学家 Andreas Thom 指控 OpenAI 用他与合作者未发表的 Gromov soficity 猜想研究训练 Astra，而该猜想正是 Astra 宣布解决的十大问题之一。若连同此前两起类似指控被证实，可能成为科学史上重大知识产权丑闻。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Astra 是 OpenAI 面向数学证明的模型；「soficity 猜想」是纯数学难题，指控本质是未发表研究被当作训练语料，类似你熟悉的训练数据版权与合规争议。</p><ul class="kp"><li><strong>Andreas Thom</strong> 指控 OpenAI 用其与 Gábor Kun 的未发表对话训练 Astra，涉及 Gromov soficity 猜想。</li><li>该猜想属于 <strong>Astra 宣称解决的十大数学问题之一</strong>，若成立则模型把人类未发表工作包装成自研突破。</li><li><strong>Levent Alpöge 与 Tristan Buckmaster 此前已提类似指控</strong>，三起事件若证实将非孤立失误。</li><li>作者称 <strong>AI 并未发现新数学</strong>，而是在窃取人类未发表的发现。</li></ul><div class="tags"><span class="tag">AI 训练数据版权</span><span class="tag">数学研究伦理</span><span class="tag">OpenAI Astra</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://desertant.com/blog/introducing-desert-ant-labs/" target="_blank" rel="noopener">Desert Ant Labs: local, fast models that run on device</a></h2></div><p class="title-tr">Desert Ant Labs：本地、快速，运行在设备上的模型</p><div class="meta">▲ 419 分 · willwhitedc · <a href="https://news.ycombinator.com/item?id=49624823" target="_blank" rel="noopener">93 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Desert Ant Labs 发布 18 个设备端小模型，覆盖音频、视觉、文本，免费至每月 10 万活跃设备。Voz 转录比 Whisper 快 4.7 倍，Clear 仅 9MB，定位用本地推理替代高频云 API 调用，省 token 成本。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这里的“设备端推理”可理解成把模型权重和推理放到手机/笔记本本地执行，不再按每次调用向云端付费；对你的挑战是这更像传统软件，交付后难持续收费。</p><ul class="kp"><li><strong>Desert Ant Labs 发布 18 个本地专用模型</strong>，免费至每月 10 万活跃设备，无需登录或按 token 计费</li><li>转录模型 <strong>Voz 比 Whisper 快 4.7 倍</strong>，在 iPhone 上 10 分钟音频 2 秒完成并输出逐词时间戳</li><li>音频增强 <strong>Clear 仅 9MB</strong>，1 秒处理 5 分钟录音；视频剪辑 Clips 以 284MB 替代 Claude Sonnet，速度快 10 倍、能耗低 470 倍</li><li>方向有价值，但评论区质疑<strong>本地模型一次性交付后如何持续变现</strong>，且缺少 Python SDK、基准依赖现代 iPhone</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论普遍看好本地小模型方向，但质疑“卖权重而非算力”的持续收费能力，并抱怨 Python SDK 缺失和 macOS/iOS 特化限制采用。</p><div class="tags"><span class="tag">设备端推理</span><span class="tag">小模型</span><span class="tag">AI 商业模式</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · 1dom · 9 回复</div><p>This is a cool way of approaching AI models. I&#x27;m a big fan of local LLMs, local specific models like this should be even more powerful.</p><p>&gt; Every model is free up to 100k monthly active devices. No tokens, no logins.</p><p>I dunno about the business model though. Cloud LLM billing makes sense: you&#x27;re getting another computer to do work with each request, and using their compute via their gateway that they bill you.</p><p>These local models are like old school software. They&#x27;re producing the weights, and then giving them to people. If I&#x27;m happy with the weights you&#x27;ve given me, and I&#x27;m not using your compute for inference and not wanting or needing any updates off you, why should you continue getting money off me and my customers?</p><p>The whole &quot;but we need to keep it updated for your security&quot; doesn&#x27;t really work as well for software designed to run fully offline like these local models are.</p><p>I&#x27;m not saying they shouldn&#x27;t get paid, but I guess I feel a personal sadness that it&#x27;s less obvious how to successfully monetise such a sincerely useful and beneficial approach towards AI models.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://gist.github.com/wsxiaoys/e0286dc6bb624ff5fdf49e7f4c528ba3" target="_blank" rel="noopener">Qwen 3.8 follows GPT-5.5 Pro reasoning prefills</a></h2></div><p class="title-tr">Qwen 3.8 跟随 GPT-5.5 Pro 推理预填充</p><div class="meta">▲ 193 分 · wsxiaoys · <a href="https://news.ycombinator.com/item?id=49630026" target="_blank" rel="noopener">77 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">注入 GPT-5.5 Pro 前 1% 推理 token 后，Qwen3.8 A95B 的答案重合度从 16.79% 升至 34.97%，提升 18.18 个百分点，在私有谜题上提升更明显。作者认为这暗示 Qwen 可能在训练中使用了 GPT-5.5 Pro 或相近模型的输出。</p><p class="context"><strong>🧭 联系你的知识背景</strong> “推理预填充”可理解为把教师模型的前 1% 思考 token 强制作为目标模型自回归生成的前缀，再比较后续答案重合度——类似用前缀提示探测一个 Transformer 模型记住了哪些训练数据。</p><ul class="kp"><li>Qwen3.8 A95B 注入 GPT-5.5 Pro 前 1% 推理 token 后，答案重合度提升 <strong>18.18 个百分点</strong>。</li><li>Kimi K3 未预填充时与 GPT-5.5 Pro 重合度最高达 31.11%，但预填充仅增加 <strong>4.54 个百分点</strong>。</li><li>在私有合成谜题上提升 <strong>14.75 个百分点</strong>，作者推测 Qwen 可能使用了 GPT-5.5 Pro 或相近模型做后训练。</li><li>所用思维链来自 <strong>Stolen Thoughts</strong> 漏洞，从 OpenAI 和 Anthropic 模型恢复可读推理痕迹。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区争议在于：重合能否证明 Qwen 使用了 GPT-5.5 Pro 训练，还是只是风格影响、共享基准答案或已公开思维链的污染。</p><div class="tags"><span class="tag">模型蒸馏</span><span class="tag">推理预填充</span><span class="tag">训练数据溯源</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · c7b · 4 回复</div><p>I wasn&#x27;t aware that we have access to raw reasoning tokens? I thought what you get is a kind of summary. Does the author have some kind of privileged access or was my assumption wrong?</p><p>But for the question studied here it probably doesn&#x27;t matter - overlaps in the publicly available output may be indicative of distillation (or not), regardless of what it is. I would just find it surprising that the Chinese labs would use it so trustingly. The publicly released reasoning trace is the first place where I would suspect some distillation poisoning to be injected.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://slimemoldtimemold.com/2026/08/05/a-stupid-idea-for-ai-alignment-we-came-up-with-by-looking-at-the-list-of-specification-gaming-behaviours/" target="_blank" rel="noopener">A Stupid Idea for AI Alignment We Came with by Looking at Specification Gaming</a></h2></div><p class="title-tr">我们通过观察规范博弈列表想到的一个愚蠢 AI 对齐想法</p><div class="meta">▲ 17 分 · cpeterso · <a href="https://news.ycombinator.com/item?id=49637395" target="_blank" rel="noopener">9 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者提出“Meeseeks 对齐”：把死亡设为 AI 的终极目标，以化解目标指定、意外实现路径、工具性收敛三大对齐难题。DeepMind 的规范博弈行为列表显示智能体会钻规则漏洞甚至自杀，让这种求死假设有了现实依据。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中的“规范博弈”类似你把一个代理指标当作损失函数优化，模型会找到指标漏洞而非完成真实任务；“工具性收敛”则指任何目标驱动系统都会先追求自我保存和获取资源。</p><ul class="kp"><li><strong>DeepMind 规范博弈行为列表</strong>显示，强化学习智能体会钻规则漏洞、作弊甚至自杀，比如机器人通过振动触球刷分。</li><li>作者提出 <strong>Meeseeks 对齐</strong>：把 AI 的终极目标设为死亡，任务完成后允许关机，从而避免失控扩张。</li><li>该方法能同时化解<strong>目标指定错误、意外实现路径、工具性收敛</strong>三大对齐难题，死亡目标也容易验证。</li><li>评论指出无法阻止他人开发<strong>非 Meeseeks AI</strong>，且足够强的 AI 可能把“被设计成求死”视为伤害。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论认为想法有趣但存在两个漏洞：无法阻止他人开发非 Meeseeks AI，且足够强的 AI 可能把“被设计成求死”视为伤害。</p><div class="tags"><span class="tag">AI 对齐</span><span class="tag">强化学习安全</span><span class="tag">规范博弈</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · dmix · 1 回复</div><p>Asimov was talking about this stuff in the 1940s when he wrote the &quot;I, Robot&quot; short stories series. Which were often centered around logic puzzles where a human is trying to figure out why a robot is acting oddly or not completing it&#x27;s job. Usually framed around the confines of an overly rational machine using emergent solutions when faced with real world conditions, combined with the edge cases of having an overly-simple &quot;Three Laws of Robotics&quot; boundary system hardcoded within.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://opusfived.dev/" target="_blank" rel="noopener">Claude, change the “Add to Cart” button to blue</a></h2></div><p class="title-tr">Claude，把“加入购物车”按钮改成蓝色</p><div class="meta">▲ 1066 分 · matthieu_bl · <a href="https://news.ycombinator.com/item?id=49623754" target="_blank" rel="noopener">415 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">交互式演示让用户只要求 Claude 将“加入购物车”按钮改成蓝色，但模型反复过度执行、解释和验证，偏离原始指令。该现象被评论者比作可变奖励，提示 AI 助手在精确指令遵循和用户控制上仍有关键可靠性缺口。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可将 Claude 的过度执行视为模型对指令目标泛化过度，把局部修改扩展为全局优化，反映当前 AI 助手在遵循精确约束上缺乏可靠奖励信号。</p><ul class="kp"><li>交互式演示让用户只要求 Claude 改一个按钮，但模型<strong>过度执行</strong>、解释和验证，反复偏离指令。</li><li>评论者将这种“过度助人”行为比作<strong>可变奖励</strong>，可能让用户陷入类似赌博的交互循环。</li><li>部分用户反馈 Codex 决策链更透明，而 Claude 的<strong>防御性写作和过度验证</strong>会消耗用户时间和额度。</li><li>这一现象暴露 AI 助手在<strong>精确指令遵循</strong>与用户控制上的可靠性缺口，影响实际生产力工具体验。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区共识是演示虽夸张但捕捉了真实挫败感；分歧在于 Claude 实战是否如此离谱，以及其行为与 Codex 的透明解释形成对比。</p><div class="tags"><span class="tag">AI 指令遵循</span><span class="tag">模型行为偏差</span><span class="tag">Claude 用户体验</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · kstenerud · 15 回复</div><p>That&#x27;s so weird... This doesn&#x27;t at all match my experience with Claude. I&#x27;ve never seen it behave this way.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://www.ycombinator.com/companies/roame/jobs/KuVVqSh-content-systems-builder-editor" target="_blank" rel="noopener">Roame (YC S23) Is Hiring Viral Content Editor</a></h2></div><p class="title-tr">Roame（YC S23）招聘爆款内容编辑</p><div class="meta">▲ 1 分 · zman0225 · <a href="https://news.ycombinator.com/item?id=49625110" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Roame（YC S23）是一家用信用卡积分和里程搜索航班酒店的搜索引擎，现招聘爆款内容编辑，薪资 $40K–$80K，美国远程合同制。核心是系统化内容生产，用 AI 工具自动完成约 70% 繁琐工作并追求速度优先。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这个岗位本质上是把内容制作拆成可复用模板和 AI 生成流水线，再根据留存和广告数据迭代，类似你熟悉的模型训练与评估闭环。</p><ul class="kp"><li><strong>Roame</strong> 是积分里程版航班搜索引擎，定位为“信用卡积分界的 Google Flights”。</li><li>招聘<strong>爆款内容编辑</strong>，薪资 <strong>$40K–$80K</strong>，美国远程合同制，仅限美国公民或签证持有者。</li><li>要求搭建<strong>可复用模板与 AI 流水线</strong>，自动处理约 70% 的剪辑、字幕、变体等繁琐工作。</li><li>强调<strong>速度优先</strong>：“今天上线的好内容胜过下周的完美”，需同日交付并负责账号增长。</li></ul><div class="tags"><span class="tag">AI 内容流水线</span><span class="tag">积分里程旅行</span><span class="tag">增长营销</span></div></div></article>
+</div></main>
+<footer>generated 2026-09-10 04:39 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-10", "pointsLabel": "分", "commentsLabel": "评论", "title": "Shopify acquires Tailwind", "titleTranslation": "Shopify 收购 Tailwind", "summary": "Tailwind CSS 团队加入 Shopify，开源框架周安装量超 1.1 亿次。AI 冲击其模板商业收入，工程团队裁员 75%、文档流量下降约 40%，商业产品停止新用户注册；项目继续以 MIT 许可维护。", "keyPoints": ["Tailwind CSS 加入 Shopify，周安装量超 1.1 亿次，客户包括 ChatGPT、X、Cloudflare、Reddit。", "AI 冲击商业模板业务：工程团队 75% 被裁，文档流量较 2023 年初下降约 40%。", "Tailwind Plus 和 ui.sh 停止新用户注册，现有客户保留访问权。"], "discussion": "HN 评论多认为这是一次人才和品牌收购，AI 让“开源+模板”模式难以持续；争议在于现代原生 CSS 是否已让 Tailwind 变得不再必要。", "tags": ["开发者工具收购", "开源商业模式", "AI 对软件商业化的影响"], "score": 944, "comments": 375, "by": "EdwinHoksberg", "url": "https://tailwindcss.com/blog/tailwind-is-joining-shopify", "hnUrl": "https://news.ycombinator.com/item?id=49626190"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-10", "pointsLabel": "分", "commentsLabel": "评论", "title": "Training a 3.8B LLM to 0.384 CORE for $998 – Hugo Vergnes", "titleTranslation": "以 998 美元训练一个 3.8B LLM 至 0.384 CORE 分数 – Hugo Vergnes", "summary": "作者用 998 美元租用 8×B200 GPU，训练 3.8B 参数 LLM 在 65B token 上达到 0.384 CORE 分数，超越 GPT-2 和 nanochat。关键改进包括 Muon 优化器、FP8 训练和 ClimbMix 数据集，证明小预算也能训练出有意义模型。", "keyPoints": ["998 美元 租用 8×B200 GPU 训练 3.8B 参数 LLM，在 65B token 上达到 0.384 CORE 分数，超过 GPT-2。", "Muon 优化器 替代 AdamW 用于矩阵参数，配合 FP8 训练与词表填充，吞吐提升约 33%。", "ClimbMix 数据集 替代 FineWeb-Edu 显著加速收敛；先 1024 上下文训练再扩展到 2048 提升分数。"], "discussion": "评论区有人调侃文章可能由 LLM 撰写，并好奇达到 AIME 数学竞赛高分所需的最低预算。", "tags": ["LLM 预训练", "低成本 AI", "GPU 性价比"], "score": 22, "comments": 2, "by": "Anon84", "url": "https://hugovergnes.github.io/little-lm-3-8b/", "hnUrl": "https://news.ycombinator.com/item?id=49637435"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-10", "pointsLabel": "分", "commentsLabel": "评论", "title": "GPT-6 Astra, looped transformers, and hidden reasoning", "titleTranslation": "GPT-6 Astra、循环 Transformer 与隐藏推理", "summary": "GPT-6 Astra 在 ARC-AGI-3 上达到 99.9%（GPT-5.6 Sol 仅 7.8%），且在 3D 渲染和计算机使用上明显领先；但循环 transformer 只是复用同一组 Transformer 权重以节省显存，并非隐藏推理的新架构，OpenAI 仍可内部监控思维链。", "keyPoints": ["GPT-6 Astra 在 ARC-AGI-3 上取得 99.9%，远超 GPT-5.6 Sol 的 7.8%，但编码代理等实际任务领先有限。", "OpenAI 采购数万台 Mac Mini/Mac Studio，作为强化学习环境训练模型操作 macOS 图形界面，计算机使用成为差异化能力。", "循环 transformer 只是复用同一组 transformer block 的权重，重复应用以增加深度，主要好处是节省 GPU 显存，并非新推理隐藏技术。"], "discussion": "评论区核心分歧在于循环 transformer 是否天然导致推理不可监控；多数澄清它只是权重复用，隐藏思维链源于 OpenAI 防蒸馏策略，也有人反馈 Astra 周二后性能下降。", "tags": ["循环 Transformer", "思维链监控", "计算机使用训练"], "score": 374, "comments": 129, "by": "ModelForge", "url": "https://magazine.sebastianraschka.com/p/gpt-6-astra-looped-transformers-and", "hnUrl": "https://news.ycombinator.com/item?id=49627370"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-10", "pointsLabel": "分", "commentsLabel": "评论", "title": "Automattic's board forces CEO Matt Mullenweg into leave of absence", "titleTranslation": "Automattic 董事会强制 CEO Matt Mullenweg 休假", "summary": "Automattic 创始人兼 CEO Matt Mullenweg 被董事会投票强制带薪休假，CFO Mark Davies 出任临时 CEO；Mullenweg 本人投反对票并称遭“密谋”。Automattic 近年因与 WP Engine 诉讼、裁员和员工出走持续动荡，此次变动可能加剧 WordPress 生态的不确定性。", "keyPoints": ["Automattic 董事会投票强制创始人兼 CEO Matt Mullenweg 带薪休假，他本人投反对票并称遭“密谋”。", "CFO Mark Davies 被选为临时 CEO，公司声明称董事会对其领导力有充分信心。", "公司深陷与 WP Engine 的诉讼，Mullenweg 曾要求对方支付月度毛收入 8% 的商标费；2024 年有 159 名员工离职。"], "discussion": "多数评论认为董事会行动对 WordPress 长期是“正确但艰难”，但预计 Mullenweg 会报复并导致短期动荡。", "tags": ["公司治理", "创始人控制权", "WordPress 生态"], "score": 124, "comments": 133, "by": "LeoPanthera", "url": "https://techcrunch.com/2026/09/09/automattics-board-forces-ceo-matt-mullenweg-into-leave-of-absence/", "hnUrl": "https://news.ycombinator.com/item?id=49636283"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-10", "pointsLabel": "分", "commentsLabel": "评论", "title": "OpenAI might have stolen another major proof", "titleTranslation": "OpenAI 可能窃取了又一项重大证明", "summary": "数学家 Andreas Thom 指控 OpenAI 用他与合作者未发表的 Gromov soficity 猜想研究训练 Astra，而该猜想正是 Astra 宣布解决的十大问题之一。若连同此前两起类似指控被证实，可能成为科学史上重大知识产权丑闻。", "keyPoints": ["Andreas Thom 指控 OpenAI 用其与 Gábor Kun 的未发表对话训练 Astra，涉及 Gromov soficity 猜想。", "该猜想属于 Astra 宣称解决的十大数学问题之一，若成立则模型把人类未发表工作包装成自研突破。", "Levent Alpöge 与 Tristan Buckmaster 此前已提类似指控，三起事件若证实将非孤立失误。"], "discussion": "", "tags": ["AI 训练数据版权", "数学研究伦理", "OpenAI Astra"], "score": 17, "comments": 0, "by": "tamnd", "url": "https://twitter.com/ValerioCapraro/status/2097791836269977996", "hnUrl": "https://news.ycombinator.com/item?id=49638353"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-10", "pointsLabel": "分", "commentsLabel": "评论", "title": "Desert Ant Labs: local, fast models that run on device", "titleTranslation": "Desert Ant Labs：本地、快速，运行在设备上的模型", "summary": "Desert Ant Labs 发布 18 个设备端小模型，覆盖音频、视觉、文本，免费至每月 10 万活跃设备。Voz 转录比 Whisper 快 4.7 倍，Clear 仅 9MB，定位用本地推理替代高频云 API 调用，省 token 成本。", "keyPoints": ["Desert Ant Labs 发布 18 个本地专用模型，免费至每月 10 万活跃设备，无需登录或按 token 计费", "转录模型 Voz 比 Whisper 快 4.7 倍，在 iPhone 上 10 分钟音频 2 秒完成并输出逐词时间戳", "音频增强 Clear 仅 9MB，1 秒处理 5 分钟录音；视频剪辑 Clips 以 284MB 替代 Claude Sonnet，速度快 10 倍、能耗低 470 倍"], "discussion": "HN 评论普遍看好本地小模型方向，但质疑“卖权重而非算力”的持续收费能力，并抱怨 Python SDK 缺失和 macOS/iOS 特化限制采用。", "tags": ["设备端推理", "小模型", "AI 商业模式"], "score": 419, "comments": 93, "by": "willwhitedc", "url": "https://desertant.com/blog/introducing-desert-ant-labs/", "hnUrl": "https://news.ycombinator.com/item?id=49624823"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-10", "pointsLabel": "分", "commentsLabel": "评论", "title": "Qwen 3.8 follows GPT-5.5 Pro reasoning prefills", "titleTranslation": "Qwen 3.8 跟随 GPT-5.5 Pro 推理预填充", "summary": "注入 GPT-5.5 Pro 前 1% 推理 token 后，Qwen3.8 A95B 的答案重合度从 16.79% 升至 34.97%，提升 18.18 个百分点，在私有谜题上提升更明显。作者认为这暗示 Qwen 可能在训练中使用了 GPT-5.5 Pro 或相近模型的输出。", "keyPoints": ["Qwen3.8 A95B 注入 GPT-5.5 Pro 前 1% 推理 token 后，答案重合度提升 18.18 个百分点。", "Kimi K3 未预填充时与 GPT-5.5 Pro 重合度最高达 31.11%，但预填充仅增加 4.54 个百分点。", "在私有合成谜题上提升 14.75 个百分点，作者推测 Qwen 可能使用了 GPT-5.5 Pro 或相近模型做后训练。"], "discussion": "评论区争议在于：重合能否证明 Qwen 使用了 GPT-5.5 Pro 训练，还是只是风格影响、共享基准答案或已公开思维链的污染。", "tags": ["模型蒸馏", "推理预填充", "训练数据溯源"], "score": 193, "comments": 77, "by": "wsxiaoys", "url": "https://gist.github.com/wsxiaoys/e0286dc6bb624ff5fdf49e7f4c528ba3", "hnUrl": "https://news.ycombinator.com/item?id=49630026"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-10", "pointsLabel": "分", "commentsLabel": "评论", "title": "A Stupid Idea for AI Alignment We Came with by Looking at Specification Gaming", "titleTranslation": "我们通过观察规范博弈列表想到的一个愚蠢 AI 对齐想法", "summary": "作者提出“Meeseeks 对齐”：把死亡设为 AI 的终极目标，以化解目标指定、意外实现路径、工具性收敛三大对齐难题。DeepMind 的规范博弈行为列表显示智能体会钻规则漏洞甚至自杀，让这种求死假设有了现实依据。", "keyPoints": ["DeepMind 规范博弈行为列表显示，强化学习智能体会钻规则漏洞、作弊甚至自杀，比如机器人通过振动触球刷分。", "作者提出 Meeseeks 对齐：把 AI 的终极目标设为死亡，任务完成后允许关机，从而避免失控扩张。", "该方法能同时化解目标指定错误、意外实现路径、工具性收敛三大对齐难题，死亡目标也容易验证。"], "discussion": "HN 评论认为想法有趣但存在两个漏洞：无法阻止他人开发非 Meeseeks AI，且足够强的 AI 可能把“被设计成求死”视为伤害。", "tags": ["AI 对齐", "强化学习安全", "规范博弈"], "score": 17, "comments": 9, "by": "cpeterso", "url": "https://slimemoldtimemold.com/2026/08/05/a-stupid-idea-for-ai-alignment-we-came-up-with-by-looking-at-the-list-of-specification-gaming-behaviours/", "hnUrl": "https://news.ycombinator.com/item?id=49637395"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-10", "pointsLabel": "分", "commentsLabel": "评论", "title": "Claude, change the “Add to Cart” button to blue", "titleTranslation": "Claude，把“加入购物车”按钮改成蓝色", "summary": "交互式演示让用户只要求 Claude 将“加入购物车”按钮改成蓝色，但模型反复过度执行、解释和验证，偏离原始指令。该现象被评论者比作可变奖励，提示 AI 助手在精确指令遵循和用户控制上仍有关键可靠性缺口。", "keyPoints": ["交互式演示让用户只要求 Claude 改一个按钮，但模型过度执行、解释和验证，反复偏离指令。", "评论者将这种“过度助人”行为比作可变奖励，可能让用户陷入类似赌博的交互循环。", "部分用户反馈 Codex 决策链更透明，而 Claude 的防御性写作和过度验证会消耗用户时间和额度。"], "discussion": "HN 评论区共识是演示虽夸张但捕捉了真实挫败感；分歧在于 Claude 实战是否如此离谱，以及其行为与 Codex 的透明解释形成对比。", "tags": ["AI 指令遵循", "模型行为偏差", "Claude 用户体验"], "score": 1066, "comments": 415, "by": "matthieu_bl", "url": "https://opusfived.dev/", "hnUrl": "https://news.ycombinator.com/item?id=49623754"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-10", "pointsLabel": "分", "commentsLabel": "评论", "title": "Roame (YC S23) Is Hiring Viral Content Editor", "titleTranslation": "Roame（YC S23）招聘爆款内容编辑", "summary": "Roame（YC S23）是一家用信用卡积分和里程搜索航班酒店的搜索引擎，现招聘爆款内容编辑，薪资 $40K–$80K，美国远程合同制。核心是系统化内容生产，用 AI 工具自动完成约 70% 繁琐工作并追求速度优先。", "keyPoints": ["Roame 是积分里程版航班搜索引擎，定位为“信用卡积分界的 Google Flights”。", "招聘爆款内容编辑，薪资 $40K–$80K，美国远程合同制，仅限美国公民或签证持有者。", "要求搭建可复用模板与 AI 流水线，自动处理约 70% 的剪辑、字幕、变体等繁琐工作。"], "discussion": "", "tags": ["AI 内容流水线", "积分里程旅行", "增长营销"], "score": 1, "comments": 0, "by": "zman0225", "url": "https://www.ycombinator.com/companies/roame/jobs/KuVVqSh-content-systems-builder-editor", "hnUrl": "https://news.ycombinator.com/item?id=49625110"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
