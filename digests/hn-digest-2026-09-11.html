@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-09-11</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-09-11 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://mathstodon.xyz/@andreasthom/117240535270608201" target="_blank" rel="noopener">More questions about whether researchers can trust OpenAI with unpublished math</a></h2></div><p class="title-tr">关于研究人员能否信任 OpenAI 处理未发表数学成果的更多疑问</p><div class="meta">▲ 750 分 · pred_ · <a href="https://news.ycombinator.com/item?id=49639408" target="_blank" rel="noopener">689 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">研究人员质疑 OpenAI 可能利用他们未发表的数学思路产出成果却不署名；OpenAI 声称相关模型未在这些聊天上训练，但外部无法验证。这关系到 AI 公司是否会把用户交互数据洗成自身突破。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这类似训练数据来源与模型记忆问题：你熟悉训练流程，可以理解为很难审计某条私密交互是否进入预训练或强化学习并影响后续输出。</p><ul class="kp"><li><strong>OpenAI</strong> 被指在与研究者协作后发表数学成果，却未署名或承认未发表思路。</li><li>OpenAI 声称生成结果的模型<strong>未在这些协作通信上训练</strong>，但外部无法验证，内部追踪也困难。</li><li>有指控认为 OpenAI 在得知模型可能接触重大证明后，仍从训练中的模型生成<strong>3000 亿输出 token</strong>，被质疑是在掩盖原始线索。</li><li>内部传闻称模型已解决<strong>数百个开放数学问题</strong>，但难以排除来自研究者输入的贡献。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论分为两派：一派认为 OpenAI 像未署名的人类合作者，行为不道德；另一派认为数学可验证，强化学习可能自主解题，聊天数据未必相关。</p><div class="tags"><span class="tag">AI 研究伦理</span><span class="tag">数据溯源</span><span class="tag">数学推理</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · nezi · 17 回复</div><p>I think it&#x27;s a useful analogy to compare OpenAI to a human collaborator. These researchers willingly collaborated with an OpenAI model, giving it ideas, and OpenAI provided useful replies. Then, OpenAI goes ahead and publishes work along the lines of this collaboration, without attributing the researchers. If OpenAI was in fact a human researcher, this would be highly unethical.</p><p>Now, OpenAI is claiming that the model it used to generate the result was not trained on these collaborative communications with the researcher. This is a technical argument that is impossible to verify as an OpenAI outsider, and probably difficult to verify even for internal OpenAI employees. Provenance is hard to track - you would hope OpenAI has very good tools for this, but a full data trail of all inputs is difficult to trace through.</p><p>Another interesting thing to consider is if instead of OpenAI doing this, it was another research mathematician A using an OpenAI model just like the internal group at OpenAI did to publish these results. What if the model A used was trained with unpublished communications with other researchers B who were working on the same problem? Should researcher A technically include B as coauthors? How could they do this when they do not know the communications B had with OpenAI? In this scenario OpenAI, as a middle man, has laundered information from B to A, stripping out attribution. A scooped B without even knowing it!</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://developers.openai.com/api/docs/guides/agents-api/overview" target="_blank" rel="noopener">OpenAI Agents API</a></h2></div><p class="title-tr">OpenAI 智能体 API</p><div class="meta">▲ 184 分 · aquir · <a href="https://news.ycombinator.com/item?id=49649213" target="_blank" rel="noopener">116 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OpenAI 推出 Agents API，托管 Codex 代理运行框架，负责会话、编排、上下文压缩与恢复；代理可在沙箱执行代码并连接 MCP（模型上下文协议）服务器。按模型、工具和容器用量计费，数据驻留仅限美国，不支持零数据保留。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这里的“代理运行框架（harness）”可类比为让 LLM 反复调用工具、读写环境并跨会话管理上下文的推理编排层；MCP 是连接外部工具与数据的标准接口。</p><ul class="kp"><li><strong>OpenAI Agents API</strong> 将 Codex 代理运行框架作为托管服务，负责会话、编排、上下文压缩。</li><li>代理可在沙箱中<strong>执行代码、编辑文件</strong>，并连接 MCP 服务器、产出产物。</li><li>定价按<strong>模型、OpenAI 工具和托管沙箱容器</strong>分别计费。</li><li>数据驻留仅限<strong>美国</strong>，不支持零数据保留；自托管沙箱也不改变该限制。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论者分歧在于：一方认为远程托管代理反而加剧本地数据接入与安全问题，另一方认为抽象仍在演化，非模型厂商可选用更优模型竞争。</p><div class="tags"><span class="tag">AI 智能体基础设施</span><span class="tag">开发者 API</span><span class="tag">数据驻留与锁定</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · bluesnowmonkey · 16 回复</div><p>I think we’re still figuring out the right abstraction for offering agents as a product.</p><p>- LLMs are a great foundation but building your own harness is a huge undertaking, a deep rabbit hole.</p><p>- There are harnesses available as open source libraries but that’s still coupled to an environment. Where does the state persist? Like maybe I’m a Cloudflare worker and don’t even have a file system.</p><p>Agent as a service like this lets you plug in the tools it needs to be whatever kind of agent you want. But they still get to encapsulate and continue to iterate on the really deep parts of the harness that all agents need like memory and context management.</p><p>That said, my money right now is not on the offerings from OpenAI and Anthropic because they’re stuck using their own proprietary frontier models and those aren’t actually the best choice for most agents right now. A competitor who is not an LLM lab gets their pick of the market at any given moment. Like you’d want to be using GLM 5.3 Flash right now for most things agentic.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://cognition.com/blog/swe-2" target="_blank" rel="noopener">Cognition launches new SWE-2 model, Rivaling Fable 5.1 and GPT-Astra</a></h2></div><p class="title-tr">Cognition 推出新 SWE-2 模型，对标 Fable 5.1 与 GPT-Astra</p><div class="meta">▲ 373 分 · seelos · <a href="https://news.ycombinator.com/item?id=49645443" target="_blank" rel="noopener">158 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Cognition 发布 SWE-2 编码模型，在 FrontierCode 1.1 Main 上取得 50.0%，比 Fable 5.1 低不到 1 分但便宜 64%；它从 Kimi K33 后训练而来，主打把成本-性能边界整体外推。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Pareto frontier 这里指不同努力程度下模型解题率与平均推理成本之间的最优曲线，类似你熟悉的部署中延迟与准确率的权衡；本文技术点是用线性成本惩罚在训练时同时优化整条曲线。</p><ul class="kp"><li><strong>SWE-2 在 FrontierCode 1.1 Main 达到 50.0%</strong>，仅比 Fable 5.1 低 0.9 分，但费用便宜 64%。</li><li><strong>基于 2.8T 参数的 Kimi K33 后训练</strong>，首次在多 Trillion 参数规模做强化学习，分数和成本均超过 SWE-1.7 与 Grok 4.6。</li><li><strong>Terminal-Bench 4 只得 27.3%</strong>，远低于 Fable 5.1 的 55.8% 和 GPT-6 Astra 的 57.9%，新基准下泛化明显变差。</li><li><strong>SWE-2 medium 首次编辑中位 18 步</strong>，远少于 SWE-1.7 的 48 步，平均便宜 81%，探索更聚焦。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论主要质疑 Terminal-Bench 2.1 与 4 之间有 65.5 分落差，属于刷基准；也有企业用户反驳，称 Devin 已自动处理其公司约三分之一 PR。</p><div class="tags"><span class="tag">AI 编码智能体</span><span class="tag">强化学习后训练</span><span class="tag">基准评测</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · postalcoder · 8 回复</div><p>If you&#x27;re looking for reason to be skeptical, look no further than the massive delta between the Terminal Bench 2.1 (92.8%) and the Terminal Bench 4 score (27.3%).</p><p>Terminal Bench 4 was released a couple weeks ago, so the difference you&#x27;re seeing between the two scores can be interpreted as &quot;how well does this model generalize to new problems&quot;? More crudely: &quot;how benchmaxxed is this model?&quot;</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://map-yue2.github.io/" target="_blank" rel="noopener">YuE2 · Frontier Music with Symbolic Planning</a></h2></div><p class="title-tr">YuE2 · 基于符号规划的前沿音乐</p><div class="meta">▲ 68 分 · sexy_seedbox · <a href="https://news.ycombinator.com/item?id=49652028" target="_blank" rel="noopener">55 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">YuE2 发布开源音乐生成模型，用符号规划从乐谱生成歌曲；在 SongBench 以 6.9632 超过 Suno v5 的 6.8721，同系列 MERT2 与 SheetSage2 也在音乐理解、转录任务上刷新 SOTA。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 所谓符号规划，是把音乐表示为离散音符、和弦等符号序列，再像语言模型生成 token 一样做序列生成，这比你熟悉的连续时间序列更接近离散序列建模。</p><ul class="kp"><li><strong>YuE2 在 SongBench 得 6.9632</strong>，超过 Suno v5 的 6.8721，列 WildSongBench 最高</li><li><strong>MERT2 系列在 MARBLE 15 项指标中 14 项 SOTA</strong>，两个编码器均为 632M 参数</li><li><strong>SheetSage2 单模型 10/13 指标 SOTA</strong>，统一处理节拍、调性、和弦、结构、旋律转录</li><li>训练数据以 CC0 与合成数据为主，<strong>YuE2 训练规模 346K 小时</strong>，合成数据多由 Tokenwave.AI 提供</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论分裂为‘AI 音乐缺乏人类意义’与‘符号层面对音乐家是实用工具’两派，有人认为开源模型拓展创作，有人认为会加速艺术贬值。</p><div class="tags"><span class="tag">生成式音乐</span><span class="tag">符号音乐生成</span><span class="tag">音乐基准评测</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · hypersoar · 6 回复</div><p>I mentioned this in another comment thread, recently, but I value art, including music, for the fact that another human being(s) created it to express something. I have zero interest in it if it&#x27;s AI-generated. The thought of endless content created from the void for me to gorge on like oreos fills me with nothing but despair.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://system76.com/workstations/thelio-mira-ai" target="_blank" rel="noopener">Thelio Mira AI Linux Workstation: 192 GB GPU Memory</a></h2></div><p class="title-tr">Thelio Mira AI Linux 工作站：192 GB GPU 显存</p><div class="meta">▲ 64 分 · jonifico · <a href="https://news.ycombinator.com/item?id=49651372" target="_blank" rel="noopener">39 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">System76 推出 Thelio Mira AI 工作站，最高配双 NVIDIA RTX Pro 6000 显卡、共 192GB 显存，满配约 4.24 万美元，面向本地训练与微调；但社区质疑其消费级 CPU 的 PCIe 通道不足、双卡散热和性价比存在风险。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这里的关键瓶颈是 PCIe 通道，它相当于 GPU 与 CPU/存储之间的数据高速公路，消费级 Ryzen 9000 相比工作站级线程撕裂者通道更少，可能限制多卡和 NVMe 速度。</p><ul class="kp"><li><strong>System76 Thelio Mira AI</strong> 最高可配双 NVIDIA RTX Pro 6000，合计 192GB GPU 显存。</li><li>选满配置价格达 <strong>$42,412</strong>，定位本地 AI 训练、微调和推理，而非云端租用。</li><li>采用 <strong>AMD Ryzen 9000 消费级 CPU</strong>，评论质疑 PCIe 通道不足会限制 NVMe 与扩展能力。</li><li><strong>Mac Studio 256GB 内存机型</strong>价格约为其四分之一，使 Thelio 性价比受质疑。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论共识是价格昂贵，主要分歧在于消费级 CPU 和双卡散热是否会成为实际性能瓶颈。</p><div class="tags"><span class="tag">AI 工作站</span><span class="tag">NVIDIA RTX Pro 6000</span><span class="tag">本地训练硬件</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · lxe · 3 回复</div><p>I thought it was a pricing mistake. But no, you just have to select the variations.</p><p>$42,412.00</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://nasutton.notion.site/Nine-coding-harnesses-vs-your-laptop-3d139990182b80d59fa3cf500f0450ba?pvs=74" target="_blank" rel="noopener">Nine coding harnesses vs. your laptop</a></h2></div><p class="title-tr">九个编码测试框架对比你的笔记本电脑</p><div class="meta">▲ 8 分 · nasutton12 · <a href="https://news.ycombinator.com/item?id=49651221" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Notion 页面未启用 JavaScript，正文无法抓取，仅见标题；因此无法提取核心结论、数字或背景。</p><div class="tags"><span class="tag">编码测试框架</span><span class="tag">开发者工具</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://www.anthropic.com/threat-intelligence-report-september-2026" target="_blank" rel="noopener">Detecting and countering misuse of AI: September 2026</a></h2></div><p class="title-tr">检测并反制 AI 滥用：2026 年 9 月</p><div class="meta">▲ 102 分 · garo-pro · <a href="https://news.ycombinator.com/item?id=49647300" target="_blank" rel="noopener">172 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Anthropic 披露 2025 年 12 月至 2026 年 8 月阻断的七类滥用，包括俄罗斯间谍用 AI 自动改写恶意软件规避检测，以及中国模型厂商静默把客户请求转发给 Claude。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可把攻击者用 AI 自动改写恶意软件规避检测，类比为模型鲁棒性问题：对手像对抗样本一样不断突破防线，平台方则需要持续迭代检测规则。</p><ul class="kp"><li><strong>Anthropic 威胁情报团队</strong>在 8 个月内阻断七类滥用，覆盖网络行动、生物滥用、常规武器开发等。</li><li><strong>GTG-20006 俄罗斯间谍组织</strong>用 AI 工作流自动重编译恶意软件以躲避检测，并攻击乌克兰/欧洲政府和无人机供应链。</li><li><strong>Moonshot AI 和 DeepSeek</strong> 被指静默将客户请求转发给 Claude；MiniMax 通过壳公司提供仅含 Anthropic/OpenAI 模型的代理网络。</li><li>攻击者大规模采用<strong>多智能体框架</strong>，让 AI 从问答助手变成自动执行侦察、利用和数据窃取的编排工具。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区主要争论 Anthropic 是否借威胁报告正当化对客户的监控，以及报告对生物滥用机构匿名、却点明中俄主体是否构成双重标准。</p><div class="tags"><span class="tag">AI 安全</span><span class="tag">威胁情报</span><span class="tag">网络安全</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · tedsanders · 19 回复</div><p>Meta: The potential proliferation of biological weapons is serious. Millions could die. It&#x27;s easy to joke about before it happens, but try to imagine how this thread might look after the successful deployment of a biological weapon by a rogue state or non-state actor. I encourage you to take this topic seriously and contribute posts that add new information or perspectives to the discussion.</p><p>(I myself think the odds of a bioweapon attack remain low and have not yet been seriously accelerated by LLMs, but this is absolutely something the world should pay attention to.)</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://tensorsandtokens.com/posts/opencode-ollama/" target="_blank" rel="noopener">Setting up OpenCode with Ollama and sbx on Mac</a></h2></div><p class="title-tr">在 Mac 上配置 OpenCode 与 Ollama 和 sbx</p><div class="meta">▲ 17 分 · etoxin · <a href="https://news.ycombinator.com/item?id=49652122" target="_blank" rel="noopener">11 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者在 48GB 的 MacBook Pro M5 上用 Ollama 运行 Qwen 3.8 27B 和 Gemma 4 31B 的 MXFP8 量化模型，通过 Docker 沙箱 sbx 启动 OpenCode 进行本地开发，并限制上下文长度防止内存耗尽。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 把 Docker 沙箱理解为隔离的虚拟执行环境，类似在训练时用验证集隔离错误影响，防止模型幻觉产生的操作直接破坏宿主机系统。</p><ul class="kp"><li>作者认为 <strong>MacBook Pro M5 48GB</strong> 是本地开发的甜点，可运行 30B 模型并保留较大上下文。</li><li>选用 <strong>Qwen 3.8 27B MXFP8</strong> 做长时主力，上下文限制到 64K 以防内存耗尽。</li><li>用 <strong>Gemma 4 31B MXFP8</strong> 处理深度分析或推理任务，上下文可到 256K。</li><li>通过 <strong>Docker Sandbox (sbx)</strong> 运行 OpenCode，需要登录 Docker；评论区质疑 Ollama 臃肿。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍质疑 Ollama 的必要性，认为它臃肿，更建议 llama.cpp 或 OMLX 等替代方案。</p><div class="tags"><span class="tag">本地 LLM 开发</span><span class="tag">Ollama</span><span class="tag">Apple Silicon</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · manapause · 1 回复</div><p>If you have both ollama and llama.cpp installed on your MBP, and are interested in utilizing your local model as a cost-saving preprocessor for your frontier models, consider using https://github.com/Standard-Pentest/kultivait!</p><p>&quot;kultivait init --setup&quot; to evaluate your machine&#x27;s hardware, access to frontier cli-tools, download models, and create a proxy for ollama to get started.  works great with opencode!</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://www.johndcook.com/blog/2026/09/09/formal-method-revolution/" target="_blank" rel="noopener">OpenAI’s Navier-Stokes release included a Lean 4 formal proof</a></h2></div><p class="title-tr">OpenAI 的 Navier-Stokes 发布包含一个 Lean 4 形式化证明</p><div class="meta">▲ 148 分 · ibobev · <a href="https://news.ycombinator.com/item?id=49650326" target="_blank" rel="noopener">154 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">因正文无法获取，信息仅来自标题和评论。OpenAI 发布 Navier-Stokes 相关成果并包含 Lean 4 形式化证明；HN 讨论关注验证成本与可信度，提到智能体成本约 4000 万美元、人类工时折算 1.32 亿美元，但数量级优势存疑。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 形式化证明是用程序语言（Lean 4）把数学证明写成可机器检查的代码，类似用编译器验证逻辑正确性；这与你熟悉的模型评估不同，它追求的是绝对无误而非概率正确。</p><ul class="kp"><li><strong>OpenAI 发布 Navier-Stokes 相关成果</strong>，其发布内容包含 Lean 4 形式化证明，涉及千禧年大奖难题。</li><li><strong>评论估算智能体成本约 4000 万美元</strong>，对比人类工时 88 万小时 × 150 美元/小时约 1.32 亿美元，但“四个数量级”被质疑。</li><li><strong>Lean 验证费马大定理需 15 小时、230GB 内存</strong>，而生成对应 Lean 代码耗时 11 天，速度差距仅一个数量级。</li><li><strong>核心质疑是形式化证明的可信度</strong>：如何保证 Lean 代码对应目标命题，以及 AI 是否可能绕过证明直接作弊。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 讨论分歧在于：惊叹 AI 完成大规模形式化证明的同时，普遍怀疑其验证链路可信度、成本效益，且认为实际数学结果被讨论忽视。</p><div class="tags"><span class="tag">形式化证明</span><span class="tag">Lean 4</span><span class="tag">Navier-Stokes</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · stabbles · 10 回复</div><p>It&#x27;s kinda funny to realize that Lean is apparently so slow that for Fermat&#x27;s Last Theorem proof verification runs only 1 order of magnitude faster than agents could generate the Lean code (15h verification with 230GB of RAM vs 11 days to generate it).</p><p>To what extent can you optimize Lean? It has to be simple enough to be auditable, does that mean you cannot use opaque optimizations to make it run faster?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://tokenstead.ai/models/swe-2" target="_blank" rel="noopener">Cognition&#x27;s SWE-2 achieves 92.8 on Terminal-Bench 2.1</a></h2></div><p class="title-tr">Cognition 的 SWE-2 在 Terminal-Bench 2.1 上取得 92.8 分</p><div class="meta">▲ 60 分 · cdnsteve · <a href="https://news.ycombinator.com/item?id=49646778" target="_blank" rel="noopener">27 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Cognition 发布 SWE-2：2.8 万亿参数混合专家（MoE）模型，基于 Kimi K3；Terminal-Bench 2.1 得 92.8 为公开最高，FrontierCode 50.0 接近 Claude Fable 5.1 且任务成本低 64%，但 Terminal-Bench 4.0 仅 27.3，长期代理能力仍明显落后。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Terminal-Bench 是让模型在终端环境完成多步骤软件任务的基准；2.1 版本较旧、难度低，4.0 是更难且更接近长时间代理工作的版本，因此两个分数不能直接类比。</p><ul class="kp"><li><strong>SWE-2 是 2.8 万亿参数 MoE</strong>，基于 Kimi K3，每 token 激活 1040 亿参数，属 Cognition 首次在万亿参数规模做强化学习。</li><li><strong>FrontierCode 50.0</strong>，比 Claude Fable 5.1 低 0.9 分，但声称任务成本低 64%；比 GPT-6 Astra 低 3.3 分、成本约其四分之一。</li><li>Terminal-Bench 2.1 得 92.8 为公开最高，但 <strong>Terminal-Bench 4.0 仅 27.3</strong>，远落后于 Fable 5.1 的 55.8 和 Astra 的 57.9。</li><li><strong>模型权重未开放，也无按 token API</strong>，只能通过 Devin Desktop/CLI 等产品使用；所有基准分数均为 Cognition 自报，待独立复现。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍认为 Terminal-Bench 2.1 已近饱和甚至可能被污染，重点应转向 4.0；同时对厂商自报分数和实际体验存在怀疑。</p><div class="tags"><span class="tag">AI 编程代理</span><span class="tag">模型基准</span><span class="tag">MoE 推理成本</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · varispeed · 3 回复</div><p>These tests are pointless when often models get nerfed few days after release. Astra today is way dumber than just few days ago.</p></div></div></article>
+</div></main>
+<footer>generated 2026-09-11 04:37 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-11", "pointsLabel": "分", "commentsLabel": "评论", "title": "More questions about whether researchers can trust OpenAI with unpublished math", "titleTranslation": "关于研究人员能否信任 OpenAI 处理未发表数学成果的更多疑问", "summary": "研究人员质疑 OpenAI 可能利用他们未发表的数学思路产出成果却不署名；OpenAI 声称相关模型未在这些聊天上训练，但外部无法验证。这关系到 AI 公司是否会把用户交互数据洗成自身突破。", "keyPoints": ["OpenAI 被指在与研究者协作后发表数学成果，却未署名或承认未发表思路。", "OpenAI 声称生成结果的模型未在这些协作通信上训练，但外部无法验证，内部追踪也困难。", "有指控认为 OpenAI 在得知模型可能接触重大证明后，仍从训练中的模型生成3000 亿输出 token，被质疑是在掩盖原始线索。"], "discussion": "HN 评论分为两派：一派认为 OpenAI 像未署名的人类合作者，行为不道德；另一派认为数学可验证，强化学习可能自主解题，聊天数据未必相关。", "tags": ["AI 研究伦理", "数据溯源", "数学推理"], "score": 750, "comments": 689, "by": "pred_", "url": "https://mathstodon.xyz/@andreasthom/117240535270608201", "hnUrl": "https://news.ycombinator.com/item?id=49639408"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-11", "pointsLabel": "分", "commentsLabel": "评论", "title": "OpenAI Agents API", "titleTranslation": "OpenAI 智能体 API", "summary": "OpenAI 推出 Agents API，托管 Codex 代理运行框架，负责会话、编排、上下文压缩与恢复；代理可在沙箱执行代码并连接 MCP（模型上下文协议）服务器。按模型、工具和容器用量计费，数据驻留仅限美国，不支持零数据保留。", "keyPoints": ["OpenAI Agents API 将 Codex 代理运行框架作为托管服务，负责会话、编排、上下文压缩。", "代理可在沙箱中执行代码、编辑文件，并连接 MCP 服务器、产出产物。", "定价按模型、OpenAI 工具和托管沙箱容器分别计费。"], "discussion": "评论者分歧在于：一方认为远程托管代理反而加剧本地数据接入与安全问题，另一方认为抽象仍在演化，非模型厂商可选用更优模型竞争。", "tags": ["AI 智能体基础设施", "开发者 API", "数据驻留与锁定"], "score": 184, "comments": 116, "by": "aquir", "url": "https://developers.openai.com/api/docs/guides/agents-api/overview", "hnUrl": "https://news.ycombinator.com/item?id=49649213"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-11", "pointsLabel": "分", "commentsLabel": "评论", "title": "Cognition launches new SWE-2 model, Rivaling Fable 5.1 and GPT-Astra", "titleTranslation": "Cognition 推出新 SWE-2 模型，对标 Fable 5.1 与 GPT-Astra", "summary": "Cognition 发布 SWE-2 编码模型，在 FrontierCode 1.1 Main 上取得 50.0%，比 Fable 5.1 低不到 1 分但便宜 64%；它从 Kimi K33 后训练而来，主打把成本-性能边界整体外推。", "keyPoints": ["SWE-2 在 FrontierCode 1.1 Main 达到 50.0%，仅比 Fable 5.1 低 0.9 分，但费用便宜 64%。", "基于 2.8T 参数的 Kimi K33 后训练，首次在多 Trillion 参数规模做强化学习，分数和成本均超过 SWE-1.7 与 Grok 4.6。", "Terminal-Bench 4 只得 27.3%，远低于 Fable 5.1 的 55.8% 和 GPT-6 Astra 的 57.9%，新基准下泛化明显变差。"], "discussion": "HN 评论主要质疑 Terminal-Bench 2.1 与 4 之间有 65.5 分落差，属于刷基准；也有企业用户反驳，称 Devin 已自动处理其公司约三分之一 PR。", "tags": ["AI 编码智能体", "强化学习后训练", "基准评测"], "score": 373, "comments": 158, "by": "seelos", "url": "https://cognition.com/blog/swe-2", "hnUrl": "https://news.ycombinator.com/item?id=49645443"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-11", "pointsLabel": "分", "commentsLabel": "评论", "title": "YuE2 · Frontier Music with Symbolic Planning", "titleTranslation": "YuE2 · 基于符号规划的前沿音乐", "summary": "YuE2 发布开源音乐生成模型，用符号规划从乐谱生成歌曲；在 SongBench 以 6.9632 超过 Suno v5 的 6.8721，同系列 MERT2 与 SheetSage2 也在音乐理解、转录任务上刷新 SOTA。", "keyPoints": ["YuE2 在 SongBench 得 6.9632，超过 Suno v5 的 6.8721，列 WildSongBench 最高", "MERT2 系列在 MARBLE 15 项指标中 14 项 SOTA，两个编码器均为 632M 参数", "SheetSage2 单模型 10/13 指标 SOTA，统一处理节拍、调性、和弦、结构、旋律转录"], "discussion": "HN 评论分裂为‘AI 音乐缺乏人类意义’与‘符号层面对音乐家是实用工具’两派，有人认为开源模型拓展创作，有人认为会加速艺术贬值。", "tags": ["生成式音乐", "符号音乐生成", "音乐基准评测"], "score": 68, "comments": 55, "by": "sexy_seedbox", "url": "https://map-yue2.github.io/", "hnUrl": "https://news.ycombinator.com/item?id=49652028"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-11", "pointsLabel": "分", "commentsLabel": "评论", "title": "Thelio Mira AI Linux Workstation: 192 GB GPU Memory", "titleTranslation": "Thelio Mira AI Linux 工作站：192 GB GPU 显存", "summary": "System76 推出 Thelio Mira AI 工作站，最高配双 NVIDIA RTX Pro 6000 显卡、共 192GB 显存，满配约 4.24 万美元，面向本地训练与微调；但社区质疑其消费级 CPU 的 PCIe 通道不足、双卡散热和性价比存在风险。", "keyPoints": ["System76 Thelio Mira AI 最高可配双 NVIDIA RTX Pro 6000，合计 192GB GPU 显存。", "选满配置价格达 $42,412，定位本地 AI 训练、微调和推理，而非云端租用。", "采用 AMD Ryzen 9000 消费级 CPU，评论质疑 PCIe 通道不足会限制 NVMe 与扩展能力。"], "discussion": "HN 评论共识是价格昂贵，主要分歧在于消费级 CPU 和双卡散热是否会成为实际性能瓶颈。", "tags": ["AI 工作站", "NVIDIA RTX Pro 6000", "本地训练硬件"], "score": 64, "comments": 39, "by": "jonifico", "url": "https://system76.com/workstations/thelio-mira-ai", "hnUrl": "https://news.ycombinator.com/item?id=49651372"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-11", "pointsLabel": "分", "commentsLabel": "评论", "title": "Nine coding harnesses vs. your laptop", "titleTranslation": "九个编码测试框架对比你的笔记本电脑", "summary": "Notion 页面未启用 JavaScript，正文无法抓取，仅见标题；因此无法提取核心结论、数字或背景。", "keyPoints": [], "discussion": "", "tags": ["编码测试框架", "开发者工具"], "score": 8, "comments": 0, "by": "nasutton12", "url": "https://nasutton.notion.site/Nine-coding-harnesses-vs-your-laptop-3d139990182b80d59fa3cf500f0450ba?pvs=74", "hnUrl": "https://news.ycombinator.com/item?id=49651221"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-11", "pointsLabel": "分", "commentsLabel": "评论", "title": "Detecting and countering misuse of AI: September 2026", "titleTranslation": "检测并反制 AI 滥用：2026 年 9 月", "summary": "Anthropic 披露 2025 年 12 月至 2026 年 8 月阻断的七类滥用，包括俄罗斯间谍用 AI 自动改写恶意软件规避检测，以及中国模型厂商静默把客户请求转发给 Claude。", "keyPoints": ["Anthropic 威胁情报团队在 8 个月内阻断七类滥用，覆盖网络行动、生物滥用、常规武器开发等。", "GTG-20006 俄罗斯间谍组织用 AI 工作流自动重编译恶意软件以躲避检测，并攻击乌克兰/欧洲政府和无人机供应链。", "Moonshot AI 和 DeepSeek 被指静默将客户请求转发给 Claude；MiniMax 通过壳公司提供仅含 Anthropic/OpenAI 模型的代理网络。"], "discussion": "评论区主要争论 Anthropic 是否借威胁报告正当化对客户的监控，以及报告对生物滥用机构匿名、却点明中俄主体是否构成双重标准。", "tags": ["AI 安全", "威胁情报", "网络安全"], "score": 102, "comments": 172, "by": "garo-pro", "url": "https://www.anthropic.com/threat-intelligence-report-september-2026", "hnUrl": "https://news.ycombinator.com/item?id=49647300"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-11", "pointsLabel": "分", "commentsLabel": "评论", "title": "Setting up OpenCode with Ollama and sbx on Mac", "titleTranslation": "在 Mac 上配置 OpenCode 与 Ollama 和 sbx", "summary": "作者在 48GB 的 MacBook Pro M5 上用 Ollama 运行 Qwen 3.8 27B 和 Gemma 4 31B 的 MXFP8 量化模型，通过 Docker 沙箱 sbx 启动 OpenCode 进行本地开发，并限制上下文长度防止内存耗尽。", "keyPoints": ["作者认为 MacBook Pro M5 48GB 是本地开发的甜点，可运行 30B 模型并保留较大上下文。", "选用 Qwen 3.8 27B MXFP8 做长时主力，上下文限制到 64K 以防内存耗尽。", "用 Gemma 4 31B MXFP8 处理深度分析或推理任务，上下文可到 256K。"], "discussion": "评论普遍质疑 Ollama 的必要性，认为它臃肿，更建议 llama.cpp 或 OMLX 等替代方案。", "tags": ["本地 LLM 开发", "Ollama", "Apple Silicon"], "score": 17, "comments": 11, "by": "etoxin", "url": "https://tensorsandtokens.com/posts/opencode-ollama/", "hnUrl": "https://news.ycombinator.com/item?id=49652122"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-11", "pointsLabel": "分", "commentsLabel": "评论", "title": "OpenAI’s Navier-Stokes release included a Lean 4 formal proof", "titleTranslation": "OpenAI 的 Navier-Stokes 发布包含一个 Lean 4 形式化证明", "summary": "因正文无法获取，信息仅来自标题和评论。OpenAI 发布 Navier-Stokes 相关成果并包含 Lean 4 形式化证明；HN 讨论关注验证成本与可信度，提到智能体成本约 4000 万美元、人类工时折算 1.32 亿美元，但数量级优势存疑。", "keyPoints": ["OpenAI 发布 Navier-Stokes 相关成果，其发布内容包含 Lean 4 形式化证明，涉及千禧年大奖难题。", "评论估算智能体成本约 4000 万美元，对比人类工时 88 万小时 × 150 美元/小时约 1.32 亿美元，但“四个数量级”被质疑。", "Lean 验证费马大定理需 15 小时、230GB 内存，而生成对应 Lean 代码耗时 11 天，速度差距仅一个数量级。"], "discussion": "HN 讨论分歧在于：惊叹 AI 完成大规模形式化证明的同时，普遍怀疑其验证链路可信度、成本效益，且认为实际数学结果被讨论忽视。", "tags": ["形式化证明", "Lean 4", "Navier-Stokes"], "score": 148, "comments": 154, "by": "ibobev", "url": "https://www.johndcook.com/blog/2026/09/09/formal-method-revolution/", "hnUrl": "https://news.ycombinator.com/item?id=49650326"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-11", "pointsLabel": "分", "commentsLabel": "评论", "title": "Cognition's SWE-2 achieves 92.8 on Terminal-Bench 2.1", "titleTranslation": "Cognition 的 SWE-2 在 Terminal-Bench 2.1 上取得 92.8 分", "summary": "Cognition 发布 SWE-2：2.8 万亿参数混合专家（MoE）模型，基于 Kimi K3；Terminal-Bench 2.1 得 92.8 为公开最高，FrontierCode 50.0 接近 Claude Fable 5.1 且任务成本低 64%，但 Terminal-Bench 4.0 仅 27.3，长期代理能力仍明显落后。", "keyPoints": ["SWE-2 是 2.8 万亿参数 MoE，基于 Kimi K3，每 token 激活 1040 亿参数，属 Cognition 首次在万亿参数规模做强化学习。", "FrontierCode 50.0，比 Claude Fable 5.1 低 0.9 分，但声称任务成本低 64%；比 GPT-6 Astra 低 3.3 分、成本约其四分之一。", "Terminal-Bench 2.1 得 92.8 为公开最高，但 Terminal-Bench 4.0 仅 27.3，远落后于 Fable 5.1 的 55.8 和 Astra 的 57.9。"], "discussion": "评论普遍认为 Terminal-Bench 2.1 已近饱和甚至可能被污染，重点应转向 4.0；同时对厂商自报分数和实际体验存在怀疑。", "tags": ["AI 编程代理", "模型基准", "MoE 推理成本"], "score": 60, "comments": 27, "by": "cdnsteve", "url": "https://tokenstead.ai/models/swe-2", "hnUrl": "https://news.ycombinator.com/item?id=49646778"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
