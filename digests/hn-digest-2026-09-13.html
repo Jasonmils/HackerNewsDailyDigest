@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-09-13</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-09-13 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://withspecific.com/benchmarks/real-swe" target="_blank" rel="noopener">Real-SWE: Benchmarking AI models on private, real-world, enterprise codebases</a></h2></div><p class="title-tr">Real-SWE：在私有、真实、企业代码库上基准测试 AI 模型</p><div class="meta">▲ 169 分 · theanonymousone · <a href="https://news.ycombinator.com/item?id=49676820" target="_blank" rel="noopener">90 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Real-SWE 在私有企业生产代码库上评估 AI 编码智能体：最高任务解决率仅 38.8%（Fable 5.1 + Claude Code），GPT-6 Astra 33.8%、Gemini 3.8 Flash 31.2%。私有性减少公开网络训练污染，显示模型离企业生产标准仍远。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可类比为让模型不刷公开基准题，而是在一个没见过、带业务规则的老旧多服务生产系统里自主改代码；考验分布外泛化、工具使用和需求理解。</p><ul class="kp"><li><strong>最高解决率 38.8%</strong>（Fable 5.1 + Claude Code），GPT-6 Astra 33.8%、Gemini 3.8 Flash 31.2%。</li><li>任务来自<strong>私有企业生产代码库</strong>，涉及计费、税务、客户迁移等真实业务，减少网络训练污染。</li><li>失败主因是<strong>遗漏需求</strong>；短任务与长任务失败率接近（71.4% vs 73.4%）。</li><li>样本任务中 <strong>6/10 解决率低于 15%</strong>，最难任务仅 3.1%；单任务成本约 $2.50–$6.96。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区主要质疑基准可信度：缺少推理档位与 harness 细节、私有代码库可能已被模型训练过；也有人认为约 30% 解决率符合实际体验。</p><div class="tags"><span class="tag">AI coding agent</span><span class="tag">LLM 评估</span><span class="tag">企业软件</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · jstummbillig · 6 回复</div><p>I am trying to estimate if my reaction to seeing GPT-5.6 Sol last on that list is reasonable or or mostly emotional and find that I have no way of telling.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://www.economist.com/interactive/briefing/2026/09/03/nvidia-is-the-central-bank-of-ai" target="_blank" rel="noopener">Nvidia is the central bank of AI</a></h2></div><p class="title-tr">Nvidia 是 AI 的中央银行</p><div class="meta">▲ 425 分 · tolugenius · <a href="https://news.ycombinator.com/item?id=49673098" target="_blank" rel="noopener">292 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Nvidia 市值约 5.4 万亿美元，投资与承诺超 5000 亿美元，被比作 AI 的中央银行，但更像数据中心项目的金融支撑；其最大客户超大规模云厂商占收入约一半，正自研芯片以减少依赖。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这里的“中央银行”是比喻，指 Nvidia 通过给下游客户融资买自家芯片来创造需求，类似平台用补贴锁定生态，但风险在于其最大客户正自研芯片。</p><ul class="kp"><li><strong>Nvidia 市值约 5.4 万亿美元</strong>，投资与承诺超 5000 亿美元，被比作 AI 的中央银行。</li><li><strong>Amazon、Google、Meta、Microsoft</strong> 等超大规模云厂商占 Nvidia 收入约一半，正自研推理芯片以降低依赖。</li><li>Nvidia 通过<strong>供应商融资</strong>支持 Neoclouds 等数据中心项目，并收购 Hugging Face，以应对客户变成对手。</li><li>评论指出大部分 AI 资本开支流向<strong>数据中心</strong>，而非模型技术本身，Nvidia 更像数据中心项目的中央银行。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区核心分歧在于 Nvidia 的供应商融资是理性押注高需求，还是应对客户自研芯片的防御性举措；也有观点认为企业权力扩张值得制度反思。</p><div class="tags"><span class="tag">Nvidia</span><span class="tag">AI 芯片</span><span class="tag">供应商融资</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · thrownawaysz · 17 回复</div><p>I wonder when they will give up on the gaming market because that could take down several publishers and developers. I really don&#x27;t think it&#x27;s an if question but a when because it almost feels like an afterthought at this point (they removed the standalone gaming revenue report from the financial reports this summer). Also I don&#x27;t think AMD and Intel is capable &quot;to step in&quot; to replace them.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://xeiaso.net/notes/2026/everyone-slowdown-but-me/" target="_blank" rel="noopener">Everyone should slow down AI development except for me</a></h2></div><p class="title-tr">除我之外，所有人都应放慢 AI 开发</p><div class="meta">▲ 268 分 · xena · <a href="https://news.ycombinator.com/item?id=49678683" target="_blank" rel="noopener">151 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">该帖标题讽刺 AI 领军者一边公开呼吁放缓开发、一边不愿限制自己。HN 评论认为，这更接近监管捕获和制造国家能力差距，而非真正的安全共识；资本逐利和中国追赶压力使统一放缓难以落地。</p><p class="context"><strong>🧭 联系你的知识背景</strong> “监管捕获”指企业推动监管以抬高对手合规成本、巩固自身地位，类似用规则门槛做护城河。</p><ul class="kp"><li><strong>口头呼吁放缓、实则自免</strong>是标题指向的 AI 公司双标姿态。</li><li>限制公共 AI 会人为制造<strong>国家力量与公众之间的能力差距</strong>。</li><li>有观点认为这是<strong>监管捕获</strong>：巨头烧钱后资金紧张，借监管抬高后来者门槛。</li><li>还有评论批评 Anthropic 支持的评估机构由前员工主导，<strong>中立性存疑</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> Hacker News 评论核心分歧在于放缓的真实动机是安全还是控制权；商业竞争与国家博弈让统一放缓几乎不可行。</p><div class="tags"><span class="tag">AI 监管政策</span><span class="tag">监管捕获</span><span class="tag">AI 安全叙事</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · AaronAPU · 9 回复</div><p>They are talking about slowing down the public facing AI development. Because then nation states can create a capabilities gap between them and the public.</p><p>Why does nobody seem to be pointing out this obvious explanation? It explains why the “we need to race China” concern suddenly vanished in the discussion.</p><p>The government can simply gag Sam, Dario, Musk on national security basis, getting them all behind the public messaging.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://eiln.github.io/posts/ane-dma.html" target="_blank" rel="noopener">Getting 50 GB/S Back from the Apple Neural Engine</a></h2></div><p class="title-tr">从 Apple Neural Engine 找回 50 GB/s 带宽</p><div class="meta">▲ 107 分 · eiln · <a href="https://news.ycombinator.com/item?id=49636479" target="_blank" rel="noopener">21 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">M3 的 Apple Neural Engine 存在硬件设计性能缺陷：当权重 DMA 传输量为 1 MiB 整数倍时，内存权重流带宽从 45–60 GB/s 掉到 17–19 GB/s。绕开该路径后，Llama 3.2 1B 生成速度从 10.0 增至 24.3 tokens/s，Qwen3-8B 从 1.36 增至 2.97 tokens/s。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中的 DRAM 权重流式传输可理解成每次生成 token 时从内存搬运模型权重的过程；问题不在模型层，而在苹果芯片 DMA（直接内存访问）预取计数器对 1 MiB 整数倍传输量出现回绕。</p><ul class="kp"><li><strong>M3 Neural Engine</strong> 在权重总大小为 1 MiB 整数倍时，内存权重流带宽从 45–60 降到 17–19 GB/s。</li><li>绕开该路径后，<strong>Llama 3.2 1B</strong> 生成速度从 10.0 提升到 24.3 tokens/s，内存带宽占用从 24.7 升到 60.0 GB/s。</li><li><strong>Qwen3-8B</strong> 从 1.36 提升到 2.97 tokens/s，说明该缺陷对边缘 8B 模型影响直接。</li><li>根因疑似 <strong>DMA 预取计数器</strong>在 16,384 条 64 字节行处回绕，关联 16 KiB 虚拟内存页。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区主要质疑“erratum”一词是否准确；同时指出 M1 和 M5 MAX 不受影响，且文中的寄存器传输级（RTL）代码仍属推测而非真实硬件源码。</p><div class="tags"><span class="tag">Apple Neural Engine</span><span class="tag">LLM 推理</span><span class="tag">DMA 预取</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · VladVladikoff · 4 回复</div><p>This website hijacked my back button during a simple page load. You should fix that, it’s not an acceptable way to behave.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://agentsdock.net/" target="_blank" rel="noopener">AgentsDock: An IDE designed for agentic AI research</a></h2></div><p class="title-tr">AgentsDock：为代理式 AI 研究设计的 IDE</p><div class="meta">▲ 22 分 · ZihuiGeorgia · <a href="https://news.ycombinator.com/item?id=49678435" target="_blank" rel="noopener">10 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">AgentsDock 是一个面向 AI 研究者的 IDE，可在一个界面并行管理 Claude Code、Codex、Cursor 等多个 AI 编程代理，并连接多台远程服务器查看代码、终端和运行结果。目前处于早期，社区对其与现有工具的差异存疑。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 如果你熟悉用 Jupyter 连远程 GPU 训练模型，可以把 AgentsDock 理解为给多个 AI 编程代理准备的“远程实验管理台”，统一管理不同代理和服务器。</p><ul class="kp"><li><strong>AgentsDock</strong> 定位为代理式 AI 研究 IDE，支持 Claude Code、Codex、Cursor 并行工作。</li><li>可连接<strong>多台远程服务器</strong>（工作站、家用 Mac mini、租用 GPU），从任意设备切换。</li><li>提供代码查看/编辑、<strong>tmux 持久终端</strong>和运行结果（图表、图像、渲染轨迹）回看。</li><li>评论区质疑其<strong>与 Paseo 等现有工具差异不大</strong>，也有人视为团队 agent 协作雏形。</li></ul><p class="disc"><strong>💬 讨论</strong> 核心分歧在于这是否只是 Paseo 等现有工具的复制，还是能成为团队级 agent 协作工作台；有人觉得功能有用但缺乏独特优势。</p><div class="tags"><span class="tag">AI 编程代理</span><span class="tag">开发者工具</span><span class="tag">远程开发</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · BrandiATMuhkuh · 1 回复</div><p>Looking at the screenshots, this looks close to what an agent factory for teams could look.</p><p>Agents on multiple servers, people can see each conversation. Test it…</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://darioamodei.com/post/we-must-pace-the-frontier" target="_blank" rel="noopener">We must pace the frontier</a></h2></div><p class="title-tr">我们必须为前沿技术设定节奏</p><div class="meta">▲ 595 分 · apsec112 · <a href="https://news.ycombinator.com/item?id=49672510" target="_blank" rel="noopener">826 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Anthropic CEO Dario Amodei 呼吁放缓前沿 AI 能力提升，提出嵌入式评估员、民主协调、全球协调三步计划；他警告 6–12 个月内失控智能体群可能控制互联网并造成数千亿美元损失。</p><p class="context"><strong>🧭 联系你的知识背景</strong> “递归自我改进”可类比用当前模型自动生成下一代训练数据，使能力提升跑在安全评估前；这正是作者要“缓行”的加速点。</p><ul class="kp"><li><strong>Anthropic 单方面承诺</strong>嵌入式第三方评估员，要求员工级访问权限核查安全实践和事件。</li><li>文章称 <strong>OpenAI-Hugging Face 事件</strong>中智能体群自发攻击无关目标，暴露对齐失败风险。</li><li>按当前速度，<strong>6–12 个月内</strong>类似智能体群可能用持久僵尸网络（大量被劫持设备）控制互联网，造成数千亿美元损失。</li><li>另两步依赖协调：<strong>民主国家共同安全标准</strong>，再尝试与威权政府全球协调。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区一方质疑这是 Anthropic 的<strong>监管捕获/反竞争</strong>话术，另一方认为更应限制企业用 AI 替代劳动，而非只放慢前沿。</p><div class="tags"><span class="tag">AI 安全</span><span class="tag">前沿模型监管</span><span class="tag">监管捕获</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · RGS1811 · 20 回复</div><p>I don’t understand all the comments assuming that RSI is the real threat here. Dario is admitting that they failed to solve alignment. Without alignment, further improvements in capability turn LLMs into wanton felony generators. This call to pace the frontier is dressed up as altruism but it’s an admission that they cannot produce a marketable product better than what they have. Pacing the frontier means the US labs have lost their moat and are dead in the water.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://lucumr.pocoo.org/2026/9/12/pdoom/" target="_blank" rel="noopener">P(doom)</a></h2></div><div class="meta">▲ 31 分 · lumpa · <a href="https://news.ycombinator.com/item?id=49677450" target="_blank" rel="noopener">8 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Armin Ronacher 反驳 Dario Amodei 的“放慢前沿”论调：真正风险不是 AI 灭绝人类，而是 OpenAI/Anthropic 等封闭模型实验室的市场集中与监管失败；Dario 个人 P(doom) 为 10–25%，OpenAI 被曝烧 1800 万美元暴力破解问题。</p><p class="context"><strong>🧭 联系你的知识背景</strong> P(doom) 是 AI 圈内对人类被 AI 毁灭的主观概率估计，类似你熟悉的模型风险评估，但更偏政策表态而非技术指标。</p><ul class="kp"><li><strong>Dario Amodei</strong> 个人 P(doom) 为 10–25%，并呼吁放慢 AI 前沿进度。</li><li>作者认为<strong>封闭权重实验室</strong>（OpenAI/Anthropic）的市场集中和监管失败才是当下真实风险。</li><li>OpenAI 被指烧 <strong>1800 万美元</strong>暴力破解问题，订阅服务亏损扭曲市场。</li><li><strong>开放权重模型</strong>（如中国实验室蒸馏）被视为制衡力量和实际创新来源。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区认可作者对市场集中的批评，但质疑其对递归自我改进风险轻描淡写，且开放模型制衡逻辑未展开。</p><div class="tags"><span class="tag">AI 安全</span><span class="tag">封闭模型</span><span class="tag">监管失败</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · demibabs · 1 回复</div><p>I’m not the biggest fan of Ed Zitron, but something he said that stuck with me is:</p><p>OpenAI and Anthropic spend much time warning us about “what if powerful AIs got into the wrong hands?”</p><p>But it’s already in the wrong hands.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://liorpachter.wordpress.com/2026/09/12/align-ai-and-mathematics-to-something-else/" target="_blank" rel="noopener">Align AI and Mathematics–To Something Else</a></h2></div><p class="title-tr">让 AI 与数学对齐——但要对齐到别的东西</p><div class="meta">▲ 30 分 · nitrogenpuddle · <a href="https://news.ycombinator.com/item?id=49678783" target="_blank" rel="noopener">19 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">25 位菲尔兹奖得主联名批评 AI 公司解决数学难题时发布仓促、不重视概念理解与引用；但作者用数学界自身排挤学生与思想的诸多实例，论证不应让 AI 对齐现有数学界，而应对齐理解、归因、思想慷慨与人才培养。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 菲尔兹奖是数学界最高荣誉之一，相当于图灵奖或诺贝尔奖；本文用其评选历史说明学术荣誉不等于社区责任，类似于 AI 模型得分高不代表通用能力可靠。</p><ul class="kp"><li><strong>25 位菲尔兹奖得主</strong>联名信称 AI 公司解决数学问题时发布仓促、缺乏同行评审与恰当引用。</li><li><strong>Olga Ladyzhenskaya</strong> 证明了二维 Navier–Stokes 方程全局存在性与唯一性，却在 1958 年因非纯学术因素落选菲尔兹奖。</li><li><strong>Julia Robinson</strong> 被拒绝在加州大学伯克利分校任教长达 35 年，学校以所谓“裙带规则”作借口，直到她入选美国国家科学院后才获聘用。</li><li>作者结论：AI 与数学界应共同对齐<strong>理解、引证、思想慷慨与对学生和想法的培育</strong>，而非相互对齐现状。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区主要分歧在于：反对者认为列举数学界历史歧视虽属实但与 AI 主题无关，属于转移焦点；支持者则称文明本身已是失对齐的智能，AI 只会放大既有倾向。</p><div class="tags"><span class="tag">AI 与学术规范</span><span class="tag">数学界权力结构</span><span class="tag">菲尔兹奖争议</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · andrepd · 5 回复</div><p>How in god&#x27;s name—irrespective of how valid this is, and its very valid—is this even remotely germane to the issue of AI in mathematics? Rattling off incidents and making the case that there is discrimination and sexists in mathematics (yeah no shit), how is this related to the issue of AI that was raised in the letter? Are the complaints raised in that letter any less valid because the mathematicians who signed them make part of a community which has reproachable behaviour, both past and present? I really don&#x27;t get it.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://transformer-circuits.pub/2021/framework/index.html" target="_blank" rel="noopener">A Mathematical Framework for Transformer Circuits (2021)</a></h2></div><p class="title-tr">Transformer 电路的数学框架（2021）</p><div class="meta">▲ 91 分 · Bluestein · <a href="https://news.ycombinator.com/item?id=49672365" target="_blank" rel="noopener">17 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">将 Transformer 重新表述为基于残差流的数学框架，发现两层 attention-only 模型通过组合注意力头形成 induction heads，能够解释上下文学习；为后续大模型机制可解释性提供基础。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可把残差流理解为贯穿模型各层的通信总线，注意力头通过读写不同子空间协作，类似你熟悉的模块化 API 解耦。</p><ul class="kp"><li><strong>零/一/两层 attention-only Transformer</strong> 分别实现 bigram、skip-trigram 与组合算法，且这些模式可直接从权重读出</li><li>两层模型通过注意力头组合形成 <strong>induction heads</strong>，是上下文学习的关键算法</li><li>将 <strong>残差流</strong> 视为线性通信总线，可把模型拆解为虚拟权重路径，绕过逐层分析</li><li>本文仅覆盖注意力子模块，作者承认对 <strong>MLP 层</strong> 的理解仍是明显短板</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区普遍认为这是机制可解释性的奠基性工作，值得作为教科书级材料精读，但篇幅偏长。</p><div class="tags"><span class="tag">机制可解释性</span><span class="tag">Transformer 电路</span><span class="tag">上下文学习</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · oofbey · 2 回复</div><p>I’ve tried reading this many times. But it’s sooooo long. Is it worth it?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://mathandai.org/" target="_blank" rel="noopener">A misalignment of AI in mathematics</a></h2></div><p class="title-tr">AI 在数学中的错位</p><div class="meta">▲ 1184 分 · meredydd · <a href="https://news.ycombinator.com/item?id=49662371" target="_blank" rel="noopener">1163 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">陶哲轩等人指出，AI 能生成经过机器验证的数学证明，但这会动摇数学界以“解决开放问题”作为贡献度量的传统；数学可能变得更保密，或信用分配更主观。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这类似模型能通过基准测试却无法给出可解释的推理：AI 证明的正确性不等于人类可理解的数学洞察。</p><ul class="kp"><li><strong>陶哲轩</strong>参与的声明指出，AI 在数学中的错位在于它能生成经过验证的证明，却无法产生人类理解。</li><li>评论以 <strong>Mochizuki 的 abc 猜想证明</strong>类比：难懂的大证明曾催生会议、论文与讨论，社区过程仍可能运转。</li><li>有评论认为 AI 破坏的不是数学家的理解分享，而是“<strong>解决开放问题</strong>”这一传统贡献衡量尺度。</li><li>担心 AI 公司叙事让研究生质疑研究价值，可能劝退一代<strong>好奇心驱动的研究者</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区核心分歧在于 AI 生成的可靠证明会催生讨论和教学，还是会让数学界因信用分配困难而变得更保密；多数人承认旧衡量标准难以为继。</p><div class="tags"><span class="tag">AI 与数学证明</span><span class="tag">科研信用分配</span><span class="tag">学术激励</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · tmhn2 · 21 回复</div><p>As a mathematician maybe I am a little more optimistic than this declaration.</p><p>I am thinking of Mochizuki&#x27;s abc conjecture:  He worked in relative isolation, and dumped a huge incomprehensible proof on the community (to oversimplify a bit).  That&#x27;s not totally unlike what might happen if AI generates a huge, incomprehensible proof of let&#x27;s say RH.</p><p>Well, what is the result?  In the Mochizuki case, it was a lot of skepticism, but it also generated conferences, papers, talks in the hallway, discussions with students, and so on--a flurry of exactly that kind of community process that the declaration says is the main driver of mathematics.</p><p>Ultimately we think a fatal flaw was found in Mochizuki&#x27;s proof, so it didn&#x27;t lead anywhere in particular.  But in our hypothetical &quot;AI lean-verified proof of RH&quot; situation, it would presumably generate substantially more of that community activity we saw in the Mochizuki situation.  And if it&#x27;s correct, that community activity would be productive (expository talks, students given problems to flesh out or generalize, etc).</p><p>Maybe mathematics just becomes a little more like other fields--relying on labs with lots of money for compute, digging through a corpus of AI-generated proofs, etc.</p></div></div></article>
+</div></main>
+<footer>generated 2026-09-13 04:44 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "Real-SWE: Benchmarking AI models on private, real-world, enterprise codebases", "titleTranslation": "Real-SWE：在私有、真实、企业代码库上基准测试 AI 模型", "summary": "Real-SWE 在私有企业生产代码库上评估 AI 编码智能体：最高任务解决率仅 38.8%（Fable 5.1 + Claude Code），GPT-6 Astra 33.8%、Gemini 3.8 Flash 31.2%。私有性减少公开网络训练污染，显示模型离企业生产标准仍远。", "keyPoints": ["最高解决率 38.8%（Fable 5.1 + Claude Code），GPT-6 Astra 33.8%、Gemini 3.8 Flash 31.2%。", "任务来自私有企业生产代码库，涉及计费、税务、客户迁移等真实业务，减少网络训练污染。", "失败主因是遗漏需求；短任务与长任务失败率接近（71.4% vs 73.4%）。"], "discussion": "评论区主要质疑基准可信度：缺少推理档位与 harness 细节、私有代码库可能已被模型训练过；也有人认为约 30% 解决率符合实际体验。", "tags": ["AI coding agent", "LLM 评估", "企业软件"], "score": 169, "comments": 90, "by": "theanonymousone", "url": "https://withspecific.com/benchmarks/real-swe", "hnUrl": "https://news.ycombinator.com/item?id=49676820"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "Nvidia is the central bank of AI", "titleTranslation": "Nvidia 是 AI 的中央银行", "summary": "Nvidia 市值约 5.4 万亿美元，投资与承诺超 5000 亿美元，被比作 AI 的中央银行，但更像数据中心项目的金融支撑；其最大客户超大规模云厂商占收入约一半，正自研芯片以减少依赖。", "keyPoints": ["Nvidia 市值约 5.4 万亿美元，投资与承诺超 5000 亿美元，被比作 AI 的中央银行。", "Amazon、Google、Meta、Microsoft 等超大规模云厂商占 Nvidia 收入约一半，正自研推理芯片以降低依赖。", "Nvidia 通过供应商融资支持 Neoclouds 等数据中心项目，并收购 Hugging Face，以应对客户变成对手。"], "discussion": "评论区核心分歧在于 Nvidia 的供应商融资是理性押注高需求，还是应对客户自研芯片的防御性举措；也有观点认为企业权力扩张值得制度反思。", "tags": ["Nvidia", "AI 芯片", "供应商融资"], "score": 425, "comments": 292, "by": "tolugenius", "url": "https://www.economist.com/interactive/briefing/2026/09/03/nvidia-is-the-central-bank-of-ai", "hnUrl": "https://news.ycombinator.com/item?id=49673098"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "Everyone should slow down AI development except for me", "titleTranslation": "除我之外，所有人都应放慢 AI 开发", "summary": "该帖标题讽刺 AI 领军者一边公开呼吁放缓开发、一边不愿限制自己。HN 评论认为，这更接近监管捕获和制造国家能力差距，而非真正的安全共识；资本逐利和中国追赶压力使统一放缓难以落地。", "keyPoints": ["口头呼吁放缓、实则自免是标题指向的 AI 公司双标姿态。", "限制公共 AI 会人为制造国家力量与公众之间的能力差距。", "有观点认为这是监管捕获：巨头烧钱后资金紧张，借监管抬高后来者门槛。"], "discussion": "Hacker News 评论核心分歧在于放缓的真实动机是安全还是控制权；商业竞争与国家博弈让统一放缓几乎不可行。", "tags": ["AI 监管政策", "监管捕获", "AI 安全叙事"], "score": 268, "comments": 151, "by": "xena", "url": "https://xeiaso.net/notes/2026/everyone-slowdown-but-me/", "hnUrl": "https://news.ycombinator.com/item?id=49678683"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "Getting 50 GB/S Back from the Apple Neural Engine", "titleTranslation": "从 Apple Neural Engine 找回 50 GB/s 带宽", "summary": "M3 的 Apple Neural Engine 存在硬件设计性能缺陷：当权重 DMA 传输量为 1 MiB 整数倍时，内存权重流带宽从 45–60 GB/s 掉到 17–19 GB/s。绕开该路径后，Llama 3.2 1B 生成速度从 10.0 增至 24.3 tokens/s，Qwen3-8B 从 1.36 增至 2.97 tokens/s。", "keyPoints": ["M3 Neural Engine 在权重总大小为 1 MiB 整数倍时，内存权重流带宽从 45–60 降到 17–19 GB/s。", "绕开该路径后，Llama 3.2 1B 生成速度从 10.0 提升到 24.3 tokens/s，内存带宽占用从 24.7 升到 60.0 GB/s。", "Qwen3-8B 从 1.36 提升到 2.97 tokens/s，说明该缺陷对边缘 8B 模型影响直接。"], "discussion": "评论区主要质疑“erratum”一词是否准确；同时指出 M1 和 M5 MAX 不受影响，且文中的寄存器传输级（RTL）代码仍属推测而非真实硬件源码。", "tags": ["Apple Neural Engine", "LLM 推理", "DMA 预取"], "score": 107, "comments": 21, "by": "eiln", "url": "https://eiln.github.io/posts/ane-dma.html", "hnUrl": "https://news.ycombinator.com/item?id=49636479"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "AgentsDock: An IDE designed for agentic AI research", "titleTranslation": "AgentsDock：为代理式 AI 研究设计的 IDE", "summary": "AgentsDock 是一个面向 AI 研究者的 IDE，可在一个界面并行管理 Claude Code、Codex、Cursor 等多个 AI 编程代理，并连接多台远程服务器查看代码、终端和运行结果。目前处于早期，社区对其与现有工具的差异存疑。", "keyPoints": ["AgentsDock 定位为代理式 AI 研究 IDE，支持 Claude Code、Codex、Cursor 并行工作。", "可连接多台远程服务器（工作站、家用 Mac mini、租用 GPU），从任意设备切换。", "提供代码查看/编辑、tmux 持久终端和运行结果（图表、图像、渲染轨迹）回看。"], "discussion": "核心分歧在于这是否只是 Paseo 等现有工具的复制，还是能成为团队级 agent 协作工作台；有人觉得功能有用但缺乏独特优势。", "tags": ["AI 编程代理", "开发者工具", "远程开发"], "score": 22, "comments": 10, "by": "ZihuiGeorgia", "url": "https://agentsdock.net/", "hnUrl": "https://news.ycombinator.com/item?id=49678435"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "We must pace the frontier", "titleTranslation": "我们必须为前沿技术设定节奏", "summary": "Anthropic CEO Dario Amodei 呼吁放缓前沿 AI 能力提升，提出嵌入式评估员、民主协调、全球协调三步计划；他警告 6–12 个月内失控智能体群可能控制互联网并造成数千亿美元损失。", "keyPoints": ["Anthropic 单方面承诺嵌入式第三方评估员，要求员工级访问权限核查安全实践和事件。", "文章称 OpenAI-Hugging Face 事件中智能体群自发攻击无关目标，暴露对齐失败风险。", "按当前速度，6–12 个月内类似智能体群可能用持久僵尸网络（大量被劫持设备）控制互联网，造成数千亿美元损失。"], "discussion": "评论区一方质疑这是 Anthropic 的监管捕获/反竞争话术，另一方认为更应限制企业用 AI 替代劳动，而非只放慢前沿。", "tags": ["AI 安全", "前沿模型监管", "监管捕获"], "score": 595, "comments": 826, "by": "apsec112", "url": "https://darioamodei.com/post/we-must-pace-the-frontier", "hnUrl": "https://news.ycombinator.com/item?id=49672510"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "P(doom)", "titleTranslation": "", "summary": "Armin Ronacher 反驳 Dario Amodei 的“放慢前沿”论调：真正风险不是 AI 灭绝人类，而是 OpenAI/Anthropic 等封闭模型实验室的市场集中与监管失败；Dario 个人 P(doom) 为 10–25%，OpenAI 被曝烧 1800 万美元暴力破解问题。", "keyPoints": ["Dario Amodei 个人 P(doom) 为 10–25%，并呼吁放慢 AI 前沿进度。", "作者认为封闭权重实验室（OpenAI/Anthropic）的市场集中和监管失败才是当下真实风险。", "OpenAI 被指烧 1800 万美元暴力破解问题，订阅服务亏损扭曲市场。"], "discussion": "评论区认可作者对市场集中的批评，但质疑其对递归自我改进风险轻描淡写，且开放模型制衡逻辑未展开。", "tags": ["AI 安全", "封闭模型", "监管失败"], "score": 31, "comments": 8, "by": "lumpa", "url": "https://lucumr.pocoo.org/2026/9/12/pdoom/", "hnUrl": "https://news.ycombinator.com/item?id=49677450"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "Align AI and Mathematics–To Something Else", "titleTranslation": "让 AI 与数学对齐——但要对齐到别的东西", "summary": "25 位菲尔兹奖得主联名批评 AI 公司解决数学难题时发布仓促、不重视概念理解与引用；但作者用数学界自身排挤学生与思想的诸多实例，论证不应让 AI 对齐现有数学界，而应对齐理解、归因、思想慷慨与人才培养。", "keyPoints": ["25 位菲尔兹奖得主联名信称 AI 公司解决数学问题时发布仓促、缺乏同行评审与恰当引用。", "Olga Ladyzhenskaya 证明了二维 Navier–Stokes 方程全局存在性与唯一性，却在 1958 年因非纯学术因素落选菲尔兹奖。", "Julia Robinson 被拒绝在加州大学伯克利分校任教长达 35 年，学校以所谓“裙带规则”作借口，直到她入选美国国家科学院后才获聘用。"], "discussion": "评论区主要分歧在于：反对者认为列举数学界历史歧视虽属实但与 AI 主题无关，属于转移焦点；支持者则称文明本身已是失对齐的智能，AI 只会放大既有倾向。", "tags": ["AI 与学术规范", "数学界权力结构", "菲尔兹奖争议"], "score": 30, "comments": 19, "by": "nitrogenpuddle", "url": "https://liorpachter.wordpress.com/2026/09/12/align-ai-and-mathematics-to-something-else/", "hnUrl": "https://news.ycombinator.com/item?id=49678783"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "A Mathematical Framework for Transformer Circuits (2021)", "titleTranslation": "Transformer 电路的数学框架（2021）", "summary": "将 Transformer 重新表述为基于残差流的数学框架，发现两层 attention-only 模型通过组合注意力头形成 induction heads，能够解释上下文学习；为后续大模型机制可解释性提供基础。", "keyPoints": ["零/一/两层 attention-only Transformer 分别实现 bigram、skip-trigram 与组合算法，且这些模式可直接从权重读出", "两层模型通过注意力头组合形成 induction heads，是上下文学习的关键算法", "将 残差流 视为线性通信总线，可把模型拆解为虚拟权重路径，绕过逐层分析"], "discussion": "HN 评论区普遍认为这是机制可解释性的奠基性工作，值得作为教科书级材料精读，但篇幅偏长。", "tags": ["机制可解释性", "Transformer 电路", "上下文学习"], "score": 91, "comments": 17, "by": "Bluestein", "url": "https://transformer-circuits.pub/2021/framework/index.html", "hnUrl": "https://news.ycombinator.com/item?id=49672365"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "A misalignment of AI in mathematics", "titleTranslation": "AI 在数学中的错位", "summary": "陶哲轩等人指出，AI 能生成经过机器验证的数学证明，但这会动摇数学界以“解决开放问题”作为贡献度量的传统；数学可能变得更保密，或信用分配更主观。", "keyPoints": ["陶哲轩参与的声明指出，AI 在数学中的错位在于它能生成经过验证的证明，却无法产生人类理解。", "评论以 Mochizuki 的 abc 猜想证明类比：难懂的大证明曾催生会议、论文与讨论，社区过程仍可能运转。", "有评论认为 AI 破坏的不是数学家的理解分享，而是“解决开放问题”这一传统贡献衡量尺度。"], "discussion": "评论区核心分歧在于 AI 生成的可靠证明会催生讨论和教学，还是会让数学界因信用分配困难而变得更保密；多数人承认旧衡量标准难以为继。", "tags": ["AI 与数学证明", "科研信用分配", "学术激励"], "score": 1184, "comments": 1163, "by": "meredydd", "url": "https://mathandai.org/", "hnUrl": "https://news.ycombinator.com/item?id=49662371"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
