@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-09-17</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-09-17 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://developer.nvidia.com/blog/introducing-cuda-rust-two-tracks-for-writing-gpu-kernels/" target="_blank" rel="noopener">Nvidia announces native GPU programming in Rust</a></h2></div><p class="title-tr">Nvidia 宣布支持 Rust 原生 GPU 编程</p><div class="meta">▲ 456 分 · nonmaskable · <a href="https://news.ycombinator.com/item?id=49724881" target="_blank" rel="noopener">160 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Nvidia 推出两条 CUDA Rust 路线：cuda-oxide 把 Rust 内核编译到 PTX（GPU 指令），cutile-rs 用 CUDA Tile IR 做 JIT 编译，让内核可直接用 Rust 写。这补上 Rust 在 AI 系统层无法写高性能 GPU 内核的缺口，降低内存安全风险。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 如果你熟悉 PyTorch 自定义算子，可把 PTX 理解为 GPU 的汇编、tile 编程理解为把张量分块后由编译器自动映射到线程；Rust 的编译期检查则类似用类型约束替代运行时越界检测。</p><ul class="kp"><li><strong>两条 CUDA Rust 轨道</strong>：cuda-oxide（SIMT）和 cutile-rs（Tile），让 GPU 内核可直接用 Rust 编写。</li><li>cuda-oxide 通过<strong>自定义 rustc 代码生成后端</strong>将 #[kernel] 函数编译到 PTX，需要 nightly Rust 和 CUDA 12.x。</li><li>cutile-rs 把 kernel <strong>JIT 编译到 CUDA Tile IR</strong>，支持稳定 Rust 1.89+；示例中 1024 元素按 128 分块变成 8 个 tile。</li><li>Rust 的 DisjointSlice 或 tile 分区保证<strong>每个输出元素只有一个写入者</strong>，在编译期消除数据竞争。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区认可方向，但多人不满 CUDA 专有锁定和 Linux 体验，并有人质疑公告文本像 AI 生成的营销腔。</p><div class="tags"><span class="tag">CUDA Rust</span><span class="tag">GPU 内核编程</span><span class="tag">编译器后端</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · jacobgorm · 12 回复</div><p>I strongly dislike CUDA. Once you have allowed that proprietary cr*p into your C++ codebase, it is very hard to get rid, and you end up with code that is either tied to a single vendor or an #ifdef hell, probably both.</p><p>The best way to program GPUs is face up to the reality that they are not the same machine as the CPU, write your kernels in separate files, and launch them manually, like in Metal, OpenCL, and D3D12, etc.</p><p>These days we even have DSLs like Triton that make kernel writing much more ergonomic than anything you would hope to achieve in Rust.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://rohanbansal.com/qorl" target="_blank" rel="noopener">Training a 4B model to produce 81% faster query plans than Postgres</a></h2></div><p class="title-tr">训练一个 4B 模型，生成比 Postgres 快 81% 的查询计划</p><div class="meta">▲ 454 分 · polyphilz · <a href="https://news.ycombinator.com/item?id=49731285" target="_blank" rel="noopener">94 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者训练一个 4B 蒸馏 Qwen 模型，通过监督微调与带智能体的强化学习，输出 pg_hint_plan 提示，让 Postgres 在 113 个连接密集查询上几何平均加速 1.81 倍、总延迟降低 44.7%。这展示了用可验证执行时间训练 LLM 做数据库优化的潜力，但评论质疑小数据集下可能过拟合。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Postgres 查询优化器可类比为数据库的“推理引擎”：执行 SQL 前要快速在数千种连接顺序和扫描方式中选成本最低方案，本文用 LLM 生成提示来覆盖其粗糙估算。</p><ul class="kp"><li><strong>Qwen 3.8 4B 蒸馏模型</strong>初始只能为 99 条查询生成计划失败，经过 SFT+RL 后可用</li><li>通过 <strong>pg_hint_plan</strong> 扩展输出结构化提示，让 Postgres 采纳更高成本但实际更快的执行计划</li><li>在 113 个 join-heavy 查询上达到 <strong>1.81x 几何平均加速</strong>，总延迟降低 44.7%</li><li>训练租用 2x H100 约 95 小时花费 <strong>约 $800</strong>，另有 $400 OpenAI API 蒸馏费用</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论核心分歧是实验设置是否可信：多个评论者指出 8GB 数据集常驻内存、只读无索引且查询预热，81% 加速可能过拟合，未必适用于真实生产负载；作者侧强调针对重复分析型查询才有价值。</p><div class="tags"><span class="tag">LLM 查询优化</span><span class="tag">Postgres 执行计划</span><span class="tag">强化学习</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · devsda · 6 回复</div><p>&gt; Frontier intelligence is extremely powerful; the distillation I did off Astra trajectories is proof enough that large models are not going anywhere</p><p>Wouldn&#x27;t admitting this invite trouble due to accusations of distillation flying around between closed and open models.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://zartbot.github.io/blog/model_arch/dsv41flash_arch/en.html" target="_blank" rel="noopener">DeepSeek-v4.1 Flash: Pushing the Limits of KV Cache Compression</a></h2></div><p class="title-tr">DeepSeek-V4.1 Flash：将 KV 缓存压缩推向极致</p><div class="meta">▲ 72 分 · mfiguiere · <a href="https://news.ycombinator.com/item?id=49735410" target="_blank" rel="noopener">6 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">DeepSeek-V4.1 Flash 采用 CED 架构和 CSA2 压缩，将运行时 KV 缓存降至 V4 Flash 的 1/4、持久化缓存降至 1/8，Prefill 仅激活 8B 参数，支持 1M 上下文，速度近 420 tokens/s。这为长程 Agent 工作负载显著降低推理存储与计算成本。</p><p class="context"><strong>🧭 联系你的知识背景</strong> KV 缓存是 Transformer 生成时缓存的键值对，长上下文会占用大量 GPU 高带宽内存（HBM）和固态硬盘；本文的压缩方案可视为推理阶段的内存与计算联合优化。</p><ul class="kp"><li><strong>Prefill 激活参数仅 8B</strong>，Decode 为 16B，CED 架构大幅降低长上下文预填充计算。</li><li><strong>CSA2 从通道、序列、层三个维度压缩 KV 缓存</strong>，结合 FP4 量化，全局 KV 与索引器存储约 890 字节/令牌。</li><li><strong>运行时 KV 缓存仅为 V4 Flash 的 1/4</strong>，持久化缓存仅为 1/8，同时性能超越前代。</li><li>支持 <strong>100 万 token 上下文</strong>，推理速度接近 420 tokens/s，瞄准长程 Agent 工作负载。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论认可 KV 缓存压缩与前缀缓存使查询成本趋近于零，但指出博客页面存在 404 访问问题。</p><div class="tags"><span class="tag">KV 缓存压缩</span><span class="tag">LLM 推理优化</span><span class="tag">长上下文模型</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · smy20011 · 3 回复</div><p>Removed</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://mimo.xiaomi.com/rl/" target="_blank" rel="noopener">Xiaomi Mimo 2.6 live post-training dashboard</a></h2></div><p class="title-tr">小米 MiMo 2.6 实时后训练看板</p><div class="meta">▲ 328 分 · krackers · <a href="https://news.ycombinator.com/item?id=49732270" target="_blank" rel="noopener">86 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">小米公开 MiMo 2.6 实时后训练看板，评论区透露总运行成本约 120 万美元；用户反馈 MiMo-V2.5-Pro 编码能力接近 Anthropic 早期模型，但推理成本低一个数量级，不过在 DeepSWE 基准仅得 19%。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 实时后训练看板类似训练时用 TensorBoard 监控指标，但面向强化学习等后训练阶段；DeepSWE 是衡量模型自动修复 GitHub issue 的软件工程基准，可类比熟悉的基础评测。</p><ul class="kp"><li><strong>小米发布 MiMo 2.6 实时后训练看板</strong>，公开训练过程指标与状态。</li><li>评论称总运行成本已约 <strong>120 万美元</strong>，但未披露硬件与 MFU（模型浮点利用率）指标。</li><li>用户反馈 <strong>MiMo-V2.5-Pro</strong> 软件工程性价比极高，成本比主流模型低一个数量级，质量接近 Anthropic 早期模型。</li><li>在 DeepSWE 1.1 软件工程基准上，<strong>MiMo-v2.5-Pro 得 19%</strong>，对比 Fable 70%、Kimi K3 69%、Astra 74%。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 用户普遍认可 MiMo 的高性价比，但对训练资源细节披露不足、以及训练时跑基准是否构成数据污染存在争议。</p><div class="tags"><span class="tag">AI 模型后训练</span><span class="tag">软件工程基准</span><span class="tag">大模型性价比</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · joelwallis · 9 回复</div><p>I been using MiMo-V2.5 to do most of my work as software engineer, on a variety of projects I&#x27;m working on, and I been VERY happy with ROI. The model is very powerful! Not perfect – I&#x27;ve run in hallucination loops once or twice, but nothing a stop-then-continue wouldn&#x27;t solve.</p><p>The cost is unbelievably low, and the quality of intelligence I get is equivalent to when I was working mostly with Anthropic models (late last year/early this year). I&#x27;m fully invested in MiMo and I&#x27;m very happy with it.</p><p>--</p><p>PS: I also check almost daily to see if other models are capable of doing such great work. And they do – DS4F is powerful and DS41 is impressive, GLM 5.3 Flash gets a job done well, etc. – but when I add cost of M-token in the ROI math, Jeez! MiMo is an order of magnitude better.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://arxiv.org/abs/2609.16338" target="_blank" rel="noopener">Breaking the 1.58-bit Barrier for Ternary LLMs</a></h2></div><p class="title-tr">突破三元大语言模型的 1.58 比特障碍</p><div class="meta">▲ 165 分 · matt_d · <a href="https://news.ycombinator.com/item?id=49732931" target="_blank" rel="noopener">22 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">论文提出 BITCOS 存储布局，利用实测三元 LLM 中零权重最高占 51.5%，将每权重存储从 1.625 比特降到最低 1.485 比特，并在 26/29 个模型中更紧凑；端到端解码吞吐在 CPU 和 GPU 上分别最高提升 1.18× 和 1.27×。</p><p class="context"><strong>🧭 联系你的知识背景</strong> “1.58 比特”指每个三元权重（−1/0/+1）所需的理论存储下限，不是推理计算精度；本文做的是存储格式优化，与降低模型部署带宽成本的目标一致。</p><ul class="kp"><li>实测 29 个三元 LLM，零权重占比最高 <strong>51.5%</strong>，现有五 trit 打包实际为 1.625 比特/权重。</li><li><strong>BITCOS</strong> 采用存在位图加符号向量，成本约 2−z 比特/权重，最稀疏模型仅 <strong>1.485 比特</strong>。</li><li>在 26/29 个模型中比五 trit 打包更紧凑，矩阵向量乘法收益最高 <strong>1.28×</strong>。</li><li>五平台端到端推理：CPU 解码吞吐最高提升 <strong>1.18×</strong>，GPU 最高 <strong>1.27×</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区认可压缩对端侧部署的价值，但分歧在于三元量化本身是否不如向量量化或 trellis 方法，以及该压缩是否主要作用于模型文件而非推理时的运行时内存。</p><div class="tags"><span class="tag">LLM 量化</span><span class="tag">模型压缩</span><span class="tag">端侧推理</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · om8 · 2 回复</div><p>Ternary quantization does not make any sense. Vector quantization and trellis based methods are better in this region for PTQ.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://openspec.dev/" target="_blank" rel="noopener">OpenSpec – A lightweight and configurable AI spec framework</a></h2></div><p class="title-tr">OpenSpec – 一个轻量且可配置的 AI 规格框架</p><div class="meta">▲ 100 分 · etoxin · <a href="https://news.ycombinator.com/item?id=49734264" target="_blank" rel="noopener">40 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OpenSpec 是一个轻量可配置的 AI 规格框架，通过 spec 文件让团队与编码代理对齐，工作流覆盖 explore、propose、apply、verify、archive，兼容 Claude Code、Codex 等 30+ 客户端。值得关注的是其试图为 AI 编码引入可控规格流程。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可将 spec 视为产品经理的 PRD，但面向 AI 编码代理：用结构化规格约束模型输出，降低跑偏风险。</p><ul class="kp"><li><strong>OpenSpec</strong> 提供从 explore 到 archive 的五步工作流，管理 AI 编码的规格与实施。</li><li>兼容 <strong>Claude Code、Codex、Cursor 等 30+ 编码代理</strong>，强调轻量可配置。</li><li>有评论用 <strong>471 行规格</strong> 让编码代理实现大型功能，显示规格驱动潜力。</li><li>批评者认为 <strong>AI 生成的规格文档</strong> 常常冗长且迅速过时，不如人类手写精简。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区对 AI 生成规格文件价值分歧明显：有人经验显示 471 行规格驱动成功，另有人抱怨文档冗长、AI 味重且难维护。</p><div class="tags"><span class="tag">AI 编码代理</span><span class="tag">规格驱动开发</span><span class="tag">开发者工具</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · sheepscreek · 7 回复</div><p>Haven’t we moved on from these things? Most recent LLMs have been trained on enough long context tasks to have become pretty good at planning. Perhaps with contributions from the harness. In either case, I wouldn’t bother if I were using Codex or Claude Code.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://harnesstax.github.io/" target="_blank" rel="noopener">HarnessTax: How Much Does the Harness Matter for Coding Agents?</a></h2></div><p class="title-tr">HarnessTax：编码代理的 harness 有多重要？</p><div class="meta">▲ 75 分 · matt_d · <a href="https://news.ycombinator.com/item?id=49733726" target="_blank" rel="noopener">21 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">HarnessTax 研究编码代理中 harness 对成本的影响，认为不同框架能力差异被夸大，但膨胀的系统提示构成显著 token 税；HN 评论强调并行执行与子代理策略比单一 harness 选择更影响实际成本与性能。</p><p class="context"><strong>🧭 联系你的知识背景</strong> harness 指包裹大语言模型的运行时框架，负责工具调用、上下文组装和错误处理，类似模型推理的服务层而非模型本身。</p><ul class="kp"><li><strong>不同 harness 的能力差异被夸大</strong>，核心价值是减少工具调用错误和编辑失败。</li><li><strong>系统提示 token 税是主要成本来源</strong>，臃肿提示如 Claude Code/Codex 推高 API 费用。</li><li><strong>并行执行与子代理策略</strong>对成本和性能的影响大于单一 harness 选择。</li><li><strong>提供商特定优化不保证最佳模型配对</strong>，需要跨模型实际测试。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论共识：harness 必不可少但差异被夸大；分歧在于应更关注执行模式与多模型编排，且需要更可靠的基准测试。</p><div class="tags"><span class="tag">编码代理</span><span class="tag">LLM 推理成本</span><span class="tag">开发者工具</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · ed_mercer · 2 回复</div><p>Does this extend to open models like GLM 5.3? This would mean that simply changing the harness to Pi reduces cost in half?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://arxiv.org/abs/2609.14858" target="_blank" rel="noopener">Dream-RSI: Recursive Self-Improvement through Evolving Worlds</a></h2></div><p class="title-tr">Dream-RSI：通过演化世界实现递归自我改进</p><div class="meta">▲ 188 分 · bananaflag · <a href="https://news.ycombinator.com/item?id=49726955" target="_blank" rel="noopener">49 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">论文提出 Dream-RSI 框架，将历史发现树构建为可重放的模拟器，以低成本离线反馈评估和优化探索策略，再重新部署在线，形成自我改进循环。在算法工程、数学优化、GPU 内核工程等任务上取得竞争或更优的发现质量，同时显著降低发现成本。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这类似于训练序列模型时用已有历史样本做低成本验证，而不是每次重新在线跑全流程；Dream-RSI 把过去发现轨迹当作可重放的模拟环境来评估新探索策略。</p><ul class="kp"><li><strong>Dream-RSI</strong> 引入轻量编排层，让探索策略显式可编程，底层编码代理保持不变。</li><li>核心机制是把历史发现树当作<strong>重放模拟器</strong>，提供即时、低成本的 off-policy 反馈。</li><li>优化后的探索策略重新部署在线，持续扩充模拟器池，形成<strong>自我改进循环</strong>。</li><li>在算法工程、数学优化、GPU 内核工程中取得<strong>竞争或更优的发现质量</strong>，同时显著降低成本。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 用户争议点在于这能否被称为“递归自我改进”，认为更像探索策略的离线优化，且担心基于历史的重放模拟器会过拟合已发现分支。</p><div class="tags"><span class="tag">自主 AI 智能体</span><span class="tag">探索策略优化</span><span class="tag">离线策略评估</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · eggbrain · 5 回复</div><p>Perhaps I&#x27;m not understanding it correctly, but here&#x27;s my take on what the paper is doing.</p><p>Imagine you have a problem you want to solve (let&#x27;s say, identify an OCR&#x27;d handwritten character, e.g. the MNIST Dataset). You tell 3 agents &quot;Hey, each of you take a stab at getting really good at recognizing characters from this dataset. You can take 10 refinement steps to continue to improve &quot;. You can&#x27;t give each agent unlimited steps of course, because you have a finite amount of compute.</p><p>So each agent goes off, and by the end, Agent 1 got to 90% accuracy, Agent 2 got to 80% accuracy, and Agent 3 got to 89% accuracy. Agent 1 wins, of course.</p><p>But then you look at the refinement steps, and after 2 steps, Agent 1 was _already at_ 90% accuracy. So the agent spent the next 8 steps basically not moving at all. Agent 3 on the other hand, perhaps was continuously climbing in accuracy at every refinement step, but hit step 10 and had to stop.</p><p>Now because you recorded every step from every agent, you know what you&#x27;d do differently next time -- you&#x27;d not allocate as many steps to Agent 1, and give Agent 3 more steps, because perhaps that might result in Agent 3 coming up with a better answer.</p><p>From my understanding, that&#x27;s what they built in the form of a &quot;search&quot; controller -- a way to evaluate automatically and reapply how you could allocate resources more effectively, when applied to a new problem.</p><p>But I guess my misunderstanding is how applicable the search controller is when applied to new problems -- just because one pathway stalled early for one problem, doesn&#x27;t mean it would work for another?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://institute.deepmind.com/" target="_blank" rel="noopener">The DeepMind Institute</a></h2></div><p class="title-tr">DeepMind 研究所</p><div class="meta">▲ 158 分 · vertigoruntime · <a href="https://news.ycombinator.com/item?id=49727659" target="_blank" rel="noopener">55 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">DeepMind 成立研究所，发布评估 11 项 AI 经济冲击应对政策的文章，划分 3 种影响情景；HN 认为研究比 CEO 个人博客更系统，但质疑其意在影响政策。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 把政策评估类比为模型评估：用 AI 给经济干预措施打分，就像用验证集评估模型，但这里评估器本身也带有立场，需要警惕偏差。</p><ul class="kp"><li><strong>DeepMind 研究所</strong>成立，发布 AGI 经济政策与前沿模型测试等系列文章。</li><li>经济政策文章评估 <strong>11 项</strong>应对 AI 冲击的政策，划分 <strong>3 种</strong>影响情景。</li><li>HN 评论认可研究比 CEO 博客扎实，但质疑其是<strong>意在影响政策的内部智库</strong>。</li><li>有评论认为 DeepMind 推谨慎政策是为<strong>制衡 OpenAI 的快速迭代</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论认可经济政策研究比 CEO 个人博客更扎实，但分歧在于 DeepMind 是认真做研究还是用智库包装政策游说。</p><div class="tags"><span class="tag">AGI 政策</span><span class="tag">AI 经济影响</span><span class="tag">DeepMind</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · nsagent · 5 回复</div><p>They are simply looking to steer AI policy discussions. It&#x27;s basically an in-house think tank. It has all the trappings, especially with ominous prognostications like:</p><p>Today’s AI systems have impressive capabilities and the rapid pace of innovation suggests we’re now approaching artificial general intelligence (AGI), a system that exhibits all the cognitive capabilities of the human brain.</p><p>Not sure we are anywhere close to all the cognitive capabilities of the human brain... not even a severely lobotomized one.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://arxiv.org/abs/2609.14845" target="_blank" rel="noopener">Accurate Models of AMD Matrix Cores</a></h2></div><p class="title-tr">AMD 矩阵核心的精确模型</p><div class="meta">▲ 69 分 · matt_d · <a href="https://news.ycombinator.com/item?id=49731360" target="_blank" rel="noopener">9 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">AMD 三代 GPU 的矩阵乘法单元不遵循 IEEE 754 浮点标准，且跨架构数值行为不一致；作者用 MATLAB 建模，经 1000 万组随机测试验证到位级一致。这解释了跨 GPU 跑 AI 模型结果不可复现的硬件根源。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 矩阵核心是 GPU 上加速矩阵乘法（训练/推理核心运算）的专用硬件，不遵循 IEEE 754（浮点运算标准）意味着其结果像不同深度学习框架实现同一算子时的数值偏差，但源自硬件而非软件。</p><ul class="kp"><li><strong>AMD Matrix Cores 不遵循 IEEE 754 浮点标准</strong>，跨三代 CDNA 架构数值行为不一致</li><li>作者用 <strong>MATLAB 模型</strong> 复现硬件行为，经 1000 万组随机向量测试达到位级一致</li><li>模型实验显示 <strong>AMD 与 NVIDIA Tensor Cores 应用级精度差异</strong> 无法由软件消除</li><li>论文主张建立类似 IEEE 754 的<strong>矩阵乘法标准</strong>，解决跨设备可复现性</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区共识是硬件矩阵乘法差异导致跨架构跑 LLM 崩溃，需类似 IEEE 754 的统一标准。</p><div class="tags"><span class="tag">AMD GPU</span><span class="tag">浮点精度</span><span class="tag">矩阵乘法标准</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · peter_d_sherman · 4 回复</div><p>&gt;&quot;Features of matrix multipliers differ across vendors and architectures of the same vendor [...] As a result, reproducibility of small matrix multiplier results [differences] across devices is not possible and cannot be achieved by software control. Implementation details of matrix multipliers are not documented, making it difficult to interpret discrepancies in the computed results.&quot;</p><p>I&#x27;m guessing (but not knowing) that small subtle differences in matrix multiply across different vendor&#x27;s architectures (and product generations of an individual vendor&#x27;s architecture) is responsible for a good portion of software crashes when trying to run a local LLM on a different architecture or with a different stack (ROCm vs. CUDA, for example) than the ones it has been explicitly tested on.</p><p>As such, this marks a rather significant problem for the future, which can basically be stated as:</p><p>There needs to be a standard matrix multiply specification (much like IEEE-754  is/was for floating point operations) that all future vendors of AI accelerators (any GPU, CPU, NPU or IC manufacturer whose circuits implement matmul) adhere to, such that the matmul of one vendor is exactly and precisely compatible with the matmul of another.</p><p>Hardware vendors of course, are free to compete in terms of speed, power efficiency, number of matmul engines on a given piece of silicon, parallelization optimizations, etc., but the basic matmul operation should be exactly and precisely compatible across vendors and across future product versions.</p><p>Step 1: We need a spec for this... (Maybe IEEE is already working on one?  If so, that&#x27;s a good step forward!)</p><p>Step 2: Hardware vendors need to implement it, to be universally compatible in all of their IC&#x27;s that use matmul, in the future...</p></div></div></article>
+</div></main>
+<footer>generated 2026-09-17 04:50 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "Nvidia announces native GPU programming in Rust", "titleTranslation": "Nvidia 宣布支持 Rust 原生 GPU 编程", "summary": "Nvidia 推出两条 CUDA Rust 路线：cuda-oxide 把 Rust 内核编译到 PTX（GPU 指令），cutile-rs 用 CUDA Tile IR 做 JIT 编译，让内核可直接用 Rust 写。这补上 Rust 在 AI 系统层无法写高性能 GPU 内核的缺口，降低内存安全风险。", "keyPoints": ["两条 CUDA Rust 轨道：cuda-oxide（SIMT）和 cutile-rs（Tile），让 GPU 内核可直接用 Rust 编写。", "cuda-oxide 通过自定义 rustc 代码生成后端将 #[kernel] 函数编译到 PTX，需要 nightly Rust 和 CUDA 12.x。", "cutile-rs 把 kernel JIT 编译到 CUDA Tile IR，支持稳定 Rust 1.89+；示例中 1024 元素按 128 分块变成 8 个 tile。"], "discussion": "评论区认可方向，但多人不满 CUDA 专有锁定和 Linux 体验，并有人质疑公告文本像 AI 生成的营销腔。", "tags": ["CUDA Rust", "GPU 内核编程", "编译器后端"], "score": 456, "comments": 160, "by": "nonmaskable", "url": "https://developer.nvidia.com/blog/introducing-cuda-rust-two-tracks-for-writing-gpu-kernels/", "hnUrl": "https://news.ycombinator.com/item?id=49724881"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "Training a 4B model to produce 81% faster query plans than Postgres", "titleTranslation": "训练一个 4B 模型，生成比 Postgres 快 81% 的查询计划", "summary": "作者训练一个 4B 蒸馏 Qwen 模型，通过监督微调与带智能体的强化学习，输出 pg_hint_plan 提示，让 Postgres 在 113 个连接密集查询上几何平均加速 1.81 倍、总延迟降低 44.7%。这展示了用可验证执行时间训练 LLM 做数据库优化的潜力，但评论质疑小数据集下可能过拟合。", "keyPoints": ["Qwen 3.8 4B 蒸馏模型初始只能为 99 条查询生成计划失败，经过 SFT+RL 后可用", "通过 pg_hint_plan 扩展输出结构化提示，让 Postgres 采纳更高成本但实际更快的执行计划", "在 113 个 join-heavy 查询上达到 1.81x 几何平均加速，总延迟降低 44.7%"], "discussion": "HN 评论核心分歧是实验设置是否可信：多个评论者指出 8GB 数据集常驻内存、只读无索引且查询预热，81% 加速可能过拟合，未必适用于真实生产负载；作者侧强调针对重复分析型查询才有价值。", "tags": ["LLM 查询优化", "Postgres 执行计划", "强化学习"], "score": 454, "comments": 94, "by": "polyphilz", "url": "https://rohanbansal.com/qorl", "hnUrl": "https://news.ycombinator.com/item?id=49731285"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "DeepSeek-v4.1 Flash: Pushing the Limits of KV Cache Compression", "titleTranslation": "DeepSeek-V4.1 Flash：将 KV 缓存压缩推向极致", "summary": "DeepSeek-V4.1 Flash 采用 CED 架构和 CSA2 压缩，将运行时 KV 缓存降至 V4 Flash 的 1/4、持久化缓存降至 1/8，Prefill 仅激活 8B 参数，支持 1M 上下文，速度近 420 tokens/s。这为长程 Agent 工作负载显著降低推理存储与计算成本。", "keyPoints": ["Prefill 激活参数仅 8B，Decode 为 16B，CED 架构大幅降低长上下文预填充计算。", "CSA2 从通道、序列、层三个维度压缩 KV 缓存，结合 FP4 量化，全局 KV 与索引器存储约 890 字节/令牌。", "运行时 KV 缓存仅为 V4 Flash 的 1/4，持久化缓存仅为 1/8，同时性能超越前代。"], "discussion": "HN 评论认可 KV 缓存压缩与前缀缓存使查询成本趋近于零，但指出博客页面存在 404 访问问题。", "tags": ["KV 缓存压缩", "LLM 推理优化", "长上下文模型"], "score": 72, "comments": 6, "by": "mfiguiere", "url": "https://zartbot.github.io/blog/model_arch/dsv41flash_arch/en.html", "hnUrl": "https://news.ycombinator.com/item?id=49735410"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "Xiaomi Mimo 2.6 live post-training dashboard", "titleTranslation": "小米 MiMo 2.6 实时后训练看板", "summary": "小米公开 MiMo 2.6 实时后训练看板，评论区透露总运行成本约 120 万美元；用户反馈 MiMo-V2.5-Pro 编码能力接近 Anthropic 早期模型，但推理成本低一个数量级，不过在 DeepSWE 基准仅得 19%。", "keyPoints": ["小米发布 MiMo 2.6 实时后训练看板，公开训练过程指标与状态。", "评论称总运行成本已约 120 万美元，但未披露硬件与 MFU（模型浮点利用率）指标。", "用户反馈 MiMo-V2.5-Pro 软件工程性价比极高，成本比主流模型低一个数量级，质量接近 Anthropic 早期模型。"], "discussion": "HN 用户普遍认可 MiMo 的高性价比，但对训练资源细节披露不足、以及训练时跑基准是否构成数据污染存在争议。", "tags": ["AI 模型后训练", "软件工程基准", "大模型性价比"], "score": 328, "comments": 86, "by": "krackers", "url": "https://mimo.xiaomi.com/rl/", "hnUrl": "https://news.ycombinator.com/item?id=49732270"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "Breaking the 1.58-bit Barrier for Ternary LLMs", "titleTranslation": "突破三元大语言模型的 1.58 比特障碍", "summary": "论文提出 BITCOS 存储布局，利用实测三元 LLM 中零权重最高占 51.5%，将每权重存储从 1.625 比特降到最低 1.485 比特，并在 26/29 个模型中更紧凑；端到端解码吞吐在 CPU 和 GPU 上分别最高提升 1.18× 和 1.27×。", "keyPoints": ["实测 29 个三元 LLM，零权重占比最高 51.5%，现有五 trit 打包实际为 1.625 比特/权重。", "BITCOS 采用存在位图加符号向量，成本约 2−z 比特/权重，最稀疏模型仅 1.485 比特。", "在 26/29 个模型中比五 trit 打包更紧凑，矩阵向量乘法收益最高 1.28×。"], "discussion": "评论区认可压缩对端侧部署的价值，但分歧在于三元量化本身是否不如向量量化或 trellis 方法，以及该压缩是否主要作用于模型文件而非推理时的运行时内存。", "tags": ["LLM 量化", "模型压缩", "端侧推理"], "score": 165, "comments": 22, "by": "matt_d", "url": "https://arxiv.org/abs/2609.16338", "hnUrl": "https://news.ycombinator.com/item?id=49732931"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "OpenSpec – A lightweight and configurable AI spec framework", "titleTranslation": "OpenSpec – 一个轻量且可配置的 AI 规格框架", "summary": "OpenSpec 是一个轻量可配置的 AI 规格框架，通过 spec 文件让团队与编码代理对齐，工作流覆盖 explore、propose、apply、verify、archive，兼容 Claude Code、Codex 等 30+ 客户端。值得关注的是其试图为 AI 编码引入可控规格流程。", "keyPoints": ["OpenSpec 提供从 explore 到 archive 的五步工作流，管理 AI 编码的规格与实施。", "兼容 Claude Code、Codex、Cursor 等 30+ 编码代理，强调轻量可配置。", "有评论用 471 行规格 让编码代理实现大型功能，显示规格驱动潜力。"], "discussion": "HN 评论区对 AI 生成规格文件价值分歧明显：有人经验显示 471 行规格驱动成功，另有人抱怨文档冗长、AI 味重且难维护。", "tags": ["AI 编码代理", "规格驱动开发", "开发者工具"], "score": 100, "comments": 40, "by": "etoxin", "url": "https://openspec.dev/", "hnUrl": "https://news.ycombinator.com/item?id=49734264"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "HarnessTax: How Much Does the Harness Matter for Coding Agents?", "titleTranslation": "HarnessTax：编码代理的 harness 有多重要？", "summary": "HarnessTax 研究编码代理中 harness 对成本的影响，认为不同框架能力差异被夸大，但膨胀的系统提示构成显著 token 税；HN 评论强调并行执行与子代理策略比单一 harness 选择更影响实际成本与性能。", "keyPoints": ["不同 harness 的能力差异被夸大，核心价值是减少工具调用错误和编辑失败。", "系统提示 token 税是主要成本来源，臃肿提示如 Claude Code/Codex 推高 API 费用。", "并行执行与子代理策略对成本和性能的影响大于单一 harness 选择。"], "discussion": "HN 评论共识：harness 必不可少但差异被夸大；分歧在于应更关注执行模式与多模型编排，且需要更可靠的基准测试。", "tags": ["编码代理", "LLM 推理成本", "开发者工具"], "score": 75, "comments": 21, "by": "matt_d", "url": "https://harnesstax.github.io/", "hnUrl": "https://news.ycombinator.com/item?id=49733726"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "Dream-RSI: Recursive Self-Improvement through Evolving Worlds", "titleTranslation": "Dream-RSI：通过演化世界实现递归自我改进", "summary": "论文提出 Dream-RSI 框架，将历史发现树构建为可重放的模拟器，以低成本离线反馈评估和优化探索策略，再重新部署在线，形成自我改进循环。在算法工程、数学优化、GPU 内核工程等任务上取得竞争或更优的发现质量，同时显著降低发现成本。", "keyPoints": ["Dream-RSI 引入轻量编排层，让探索策略显式可编程，底层编码代理保持不变。", "核心机制是把历史发现树当作重放模拟器，提供即时、低成本的 off-policy 反馈。", "优化后的探索策略重新部署在线，持续扩充模拟器池，形成自我改进循环。"], "discussion": "HN 用户争议点在于这能否被称为“递归自我改进”，认为更像探索策略的离线优化，且担心基于历史的重放模拟器会过拟合已发现分支。", "tags": ["自主 AI 智能体", "探索策略优化", "离线策略评估"], "score": 188, "comments": 49, "by": "bananaflag", "url": "https://arxiv.org/abs/2609.14858", "hnUrl": "https://news.ycombinator.com/item?id=49726955"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "The DeepMind Institute", "titleTranslation": "DeepMind 研究所", "summary": "DeepMind 成立研究所，发布评估 11 项 AI 经济冲击应对政策的文章，划分 3 种影响情景；HN 认为研究比 CEO 个人博客更系统，但质疑其意在影响政策。", "keyPoints": ["DeepMind 研究所成立，发布 AGI 经济政策与前沿模型测试等系列文章。", "经济政策文章评估 11 项应对 AI 冲击的政策，划分 3 种影响情景。", "HN 评论认可研究比 CEO 博客扎实，但质疑其是意在影响政策的内部智库。"], "discussion": "评论认可经济政策研究比 CEO 个人博客更扎实，但分歧在于 DeepMind 是认真做研究还是用智库包装政策游说。", "tags": ["AGI 政策", "AI 经济影响", "DeepMind"], "score": 158, "comments": 55, "by": "vertigoruntime", "url": "https://institute.deepmind.com/", "hnUrl": "https://news.ycombinator.com/item?id=49727659"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-17", "pointsLabel": "分", "commentsLabel": "评论", "title": "Accurate Models of AMD Matrix Cores", "titleTranslation": "AMD 矩阵核心的精确模型", "summary": "AMD 三代 GPU 的矩阵乘法单元不遵循 IEEE 754 浮点标准，且跨架构数值行为不一致；作者用 MATLAB 建模，经 1000 万组随机测试验证到位级一致。这解释了跨 GPU 跑 AI 模型结果不可复现的硬件根源。", "keyPoints": ["AMD Matrix Cores 不遵循 IEEE 754 浮点标准，跨三代 CDNA 架构数值行为不一致", "作者用 MATLAB 模型 复现硬件行为，经 1000 万组随机向量测试达到位级一致", "模型实验显示 AMD 与 NVIDIA Tensor Cores 应用级精度差异 无法由软件消除"], "discussion": "HN 评论区共识是硬件矩阵乘法差异导致跨架构跑 LLM 崩溃，需类似 IEEE 754 的统一标准。", "tags": ["AMD GPU", "浮点精度", "矩阵乘法标准"], "score": 69, "comments": 9, "by": "matt_d", "url": "https://arxiv.org/abs/2609.14845", "hnUrl": "https://news.ycombinator.com/item?id=49731360"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
