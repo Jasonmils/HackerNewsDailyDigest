@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-09-19</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-09-19 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://sockpuppet.org/blog/2026/09/17/how-to-write-with-an-llm/" target="_blank" rel="noopener">How to Write with an LLM</a></h2></div><p class="title-tr">如何用 LLM 写作</p><div class="meta">▲ 432 分 · joeriddles · <a href="https://news.ycombinator.com/item?id=49747070" target="_blank" rel="noopener">292 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者提出用 LLM 写作的核心方法：把模型当文字编辑而非代笔，禁止采纳模型建议的措辞、避免其鼓励。模型适合机械标记被动语态、重复用词和冗余段落，但不应替代个人声音。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 就像训练时模型会过拟合高频模式，LLM 写作会滑向“杂志标题”式的通用措辞，因此作者建议只把它当错误检测器而不是文本生成器。</p><ul class="kp"><li><strong>规则一：不得使用 LLM 建议的任何词语</strong>，因为模型倾向生成讨喜但同质化的杂志式表达。</li><li><strong>规则二：避免让模型鼓励你</strong>，否则会强化初稿中的冗余和混乱，侵蚀个人风格。</li><li>LLM 擅长标记<strong>被动语态、重复用词和可移动段落</strong>，适合做机械性文字编辑。</li><li>评论区共识：LLM 改风格品味差，但<strong>事实核查</strong>对技术写作有帮助。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍认可 LLM 做机械检查与事实核查，但对其写作品味评价低，同时有人担忧 AI 内容增多会降低读者阅读体验。</p><div class="tags"><span class="tag">LLM 写作</span><span class="tag">AI 辅助编辑</span><span class="tag">技术写作</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · S-E-P · 16 回复</div><p>I fear in the future people will read even less because of how often people cheap out and use AI to write.</p><p>I know the author of this article tells you never to use a single word it suggests, however I still, while reading, am checking for any amount of AI used.</p><p>This makes reading less enjoyable, and even a bit stressful.</p><p>If you can&#x27;t spend the time to write it, why should anyone read it?</p><p>Everything I post is from my own finger tips, only to get a reply from someone using a bot.  I&#x27;m tired.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://spectrum.ieee.org/llms-for-chip-design" target="_blank" rel="noopener">How OpenAI Used Its Own LLMs to Design Its Jalapeño Chip</a></h2></div><p class="title-tr">OpenAI 如何用自家大语言模型设计 Jalapeño 芯片</p><div class="meta">▲ 79 分 · maxall4 · <a href="https://news.ycombinator.com/item?id=49761432" target="_blank" rel="noopener">67 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OpenAI 公布首款 AI 加速器 Jalapeño：4-bit 算力最高 13.4 petaflops、内存带宽 15.4 TB/s，对比英伟达 GB300 延迟最多降 3.6 倍。用自家大语言模型加速设计，从概念到首批硅片不到 20 个月，团队不足百人。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 芯片设计分前端逻辑和后端物理实现：前者类似写模型计算图与训练代码，后者类似部署优化；本文里 OpenAI 用 LLM 加速的主要是前端和软件栈，后端交给 Broadcom。</p><ul class="kp"><li><strong>Jalapeño 芯片</strong> 4-bit 算力 13.4 petaflops，对比 GB300 延迟最多降 3.6 倍。</li><li>设计概念到首批硅片不足 <strong>20 个月</strong>，RTL 到流片仅 9 个月，团队不足百人，后端由 Broadcom 负责。</li><li>LLM 优化软件栈：DeepSeek 内核基准性能 40 小时内从 0.31% 升至 <strong>88.94%</strong>。</li><li>模型从 o3 演进至 <strong>GPT-6 Astra 前身</strong>，能直接写 Verilog；AI 物理设计优化减少 10% 面积。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍质疑标题夸大 LLM 作用，指出物理后端关键工作由 Broadcom 完成，并担心 OpenAI 借合作获取芯片开发商 IP。</p><div class="tags"><span class="tag">AI 芯片设计</span><span class="tag">芯片设计自动化</span><span class="tag">OpenAI 自研芯片</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · karim79 · 10 回复</div><p>I grow Jalapeños. This conflation of AI and actual chili peppers irks me.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://cactuscompute.com/needle" target="_blank" rel="noopener">Show HN: Cactus Needle 3: 8-29MB automation models can match DeepSeek V4 Flash</a></h2></div><p class="title-tr">Show HN：Cactus Needle 3：8-29MB 自动化模型可匹敌 DeepSeek V4 Flash</p><div class="meta">▲ 175 分 · HenryNdubuaku · <a href="https://news.ycombinator.com/item?id=49748553" target="_blank" rel="noopener">79 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Cactus Compute 发布 8-29MB 的 Needle 3，只做工具调用与结构化提取，20 层子网络在 Mobile Actions 手机指令任务得 86.0，超过 1.2B 参数模型；微调后 4 层可匹敌 DeepSeek V4 Flash。值得关注的是极端压缩的端侧模型能否在窄任务上替代大模型，但泛化边界很窄。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Intelligence laddering 让同一权重的 2-20 层都成为可部署子网络，相当于按层数分档容量，直接对应你熟悉的精度-推理成本权衡。</p><ul class="kp"><li><strong>Needle 3 仅 8-29MB</strong>，在 Mobile Actions 手机指令任务得 86.0，超过 1.2B 参数模型。</li><li><strong>2-20 层均可作为子网络部署</strong>，微调后 4 层（29M 参数）可超过 DeepSeek V4 Flash。</li><li><strong>正则触发器与置信度评分</strong>用来压住误调用，低于阈值会扣住工具调用。</li><li><strong>模型刻意不做通用聊天</strong>，只做工具调用、结构化提取与嵌入，配套 Cactus Platform 定制微调。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 用户实测发现直接指令有效，但模糊表达经常严重误操作，显示窄模型需要严格工具描述和触发器才能可靠使用。</p><div class="tags"><span class="tag">端侧推理</span><span class="tag">工具调用</span><span class="tag">模型量化</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · IanCal · 3 回复</div><p>Wondered if it&#x27;d turn on the lights in the bathroom with these:</p><p>&quot;I need a wee&quot; -&gt; tries to play music because &quot;wee&quot; is a genre</p><p>&quot;I need a wee wee&quot; -&gt; starts the vaccuum in the bathroom</p><p>&quot;I&#x27;m going to the toilet&quot; -&gt; says it&#x27;ll turn on the toilet, and I&#x27;m not totally sure what that entails.</p><p>&quot;I&#x27;m going to the toilet and can&#x27;t see&quot; -&gt; reasons that lights should be on in the bathroom, then chooses again to turn on the toilet.</p><p>&quot;I&#x27;m going to the toilet and can&#x27;t see where I&#x27;m going&quot; -&gt; reasoning is &quot;&#x27;going to the toilet&#x27; -&gt; control_device with device &#x27;coffee maker&#x27; (toilet implies coffee maker)&quot;</p><p>&quot;I&#x27;m going to the toilet and can&#x27;t see where I&#x27;m going because it is too dark&quot; -&gt; &quot;&#x27;dark&#x27; -&gt; direction &#x27;dark&#x27;; adjust_lights with brightness 100 for darker light&quot;&quot; and chooses to turn the lights in the living room to &quot;dark&quot; which fails.</p><p>At this point the vacuum is in a dark bathroom, the living room is 100% brightness and playing &quot;wee&quot;. At least there&#x27;s coffee.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://arxiv.org/abs/2510.03215" target="_blank" rel="noopener">Cache-to-Cache: Direct Semantic Communication Between LLMs (2025)</a></h2></div><p class="title-tr">Cache-to-Cache：LLM 之间的直接语义通信（2025）</p><div class="meta">▲ 75 分 · rochansinha · <a href="https://news.ycombinator.com/item?id=49758615" target="_blank" rel="noopener">12 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">该论文提出 C2C，用神经网络直接投影并融合模型间的 KV-cache 来传输语义，跳过文本生成。实验显示比单模型平均准确率高 6.4–14.2%，比文本通信高 3.1–5.4%，延迟平均快 2.5 倍。</p><p class="context"><strong>🧭 联系你的知识背景</strong> KV-cache 是 Transformer 推理时缓存的键值状态，这里被用作模型间传递“意图”的内部表征，而不是先解码成文本。</p><ul class="kp"><li><strong>Cache-to-Cache (C2C)</strong> 用神经网络投影并融合 KV-cache，跳过文本生成，实现直接语义传输。</li><li>相比文本通信，C2C 准确率再高 <strong>3.1–5.4%</strong>，比单模型高 6.4–14.2%。</li><li>推理延迟平均降低 <strong>2.5 倍</strong>，省去逐 token 生成的开销。</li><li><strong>可学习门控机制</strong>自动选择目标模型中受益于缓存通信的层。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 共识是概念诱人但尚未进入生产模型，主要担忧不同模型直接用内部表征“神经语”通信会削弱可监控性。</p><div class="tags"><span class="tag">多 LLM 系统</span><span class="tag">LLM 推理</span><span class="tag">模型可解释性</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · ACCount39 · 2 回复</div><p>It&#x27;s an old paper (from 2025, so, a decade ago in AI years), but the concept is still fascinating. And I&#x27;m yet to see it show up in any production models.</p><p>If multiple models can use cache representations for this kind of enrichment, the KV cache representations of different models must be somewhat compatible.</p><p>What stops us then from going a step further, and producing a model family where all models are &quot;KV aligned&quot;, and each model can utilize the KV cache of other models directly?</p><p>So, an &quot;expensive&quot; reasoning model can use its full faculties to plan, but &quot;delegate&quot; simple subgoals to a smaller model. That smaller model can access the large model&#x27;s intent directly, as rich KV cache representations - with no prefill recompute and no associated &quot;handover&quot; latency. Or, likewise, a &quot;cheap&quot; small model can generate a diminished but highly compact KV cache that the &quot;expensive&quot; model can then operate on - for example, for skimming a large file for shallow patterns.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://code.claude.com/docs/en/changelog" target="_blank" rel="noopener">Claude Code now reads AGENTS.md if there is no Claude.md</a></h2></div><p class="title-tr">Claude Code 现在会在没有 CLAUDE.md 时读取 AGENTS.md</p><div class="meta">▲ 572 分 · datadrivenangel · <a href="https://news.ycombinator.com/item?id=49760187" target="_blank" rel="noopener">203 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Claude Code 新增 AGENTS.md 回退：项目没有 CLAUDE.md 时自动读取 AGENTS.md，向项目配置社区标准靠拢；同批还默认自动模式服务端分类器不额外计费，并修复大量崩溃、挂起与误报。</p><p class="context"><strong>🧭 联系你的知识背景</strong> AGENTS.md 和 CLAUDE.md 是 AI 编码工具为项目读取的指令文件，类似给模型看的 README；此次让 Claude Code 也能读取其他生态常用的 AGENTS.md。</p><ul class="kp"><li><strong>新增 AGENTS.md 回退读取</strong>，无 CLAUDE.md 时自动读取，降低从其他 AI 编码工具迁移的配置摩擦。</li><li><strong>自动模式默认服务端分类器</strong>，API 与企业用户不再被收取分类器额外开销。</li><li><strong>修复大量稳定性缺陷</strong>：`claude -p` 与 SDK 会话内部错误后不再挂起，会报错并退出。</li><li><strong>移除已弃用的 TaskOutput 工具</strong>，后台任务输出改用 Read 读取，相关旧配置项不再生效。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论分裂：一边嘲讽这是被竞争逼出的迟到补课，一边认为这是向多工具互操作迈进的务实一步。</p><div class="tags"><span class="tag">Claude Code</span><span class="tag">AI 编程工具</span><span class="tag">配置文件互操作</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · stillpointlab · 3 回复</div><p>I recently had Claude Fable set up a new project for me and I pointed it at some existing projects to use as a guide on how I like to structure things. It created, unprompted, an AGENTS.md file and a CLAUDE.md symlink to AGENTS.md</p><p>I didn&#x27;t even have that symlink in any other project - it just did it. I think it saw that one of the projects I already had was set up by Codex and that project had an AGENTS.md so perhaps it inferred that I was using both Claude and Codex, so it was politely covering both? Or maybe a recent change made this behavior default?</p><p>I was surprised and I hope they continue to seek standards.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://github.com/awlevin/typesafe-computer-use" target="_blank" rel="noopener">Typesafe-computer-use drives a Mac toward a goal for 1/50th of a cent per step</a></h2></div><p class="title-tr">TypeSafe-computer-use 以每步 1/50 美分的成本驱动 Mac 朝目标前进</p><div class="meta">▲ 4 分 · rahimnathwani · <a href="https://news.ycombinator.com/item?id=49733647" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">该项目用确定性读屏和小型分类器驱动 Mac 执行自然语言目标：每步成本 $0.0002，比 Claude Opus 5 截图方案便宜 155 倍以上，端到端约 1.5 秒；代价是隐式推理需手动重写成确定性逻辑。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 把大模型每步截图规划换成 OCR+小分类器做短列表选择，类似在推理中用廉价分类头替代生成完整序列，以延迟和成本换手动维护确定性状态。</p><ul class="kp"><li><strong>每步约 $0.0002</strong>，比 Claude Opus 5 截图方案便宜 155 倍，12 步任务仅 $0.003</li><li>不向大模型发截图，用 <strong>Vision OCR + 辅助功能树</strong>读取屏幕，TypeSafe 分类器输出动作概率分布和置信度</li><li><strong>写模型仅在填表、提议 URL、最终回答</strong>三种情况调用，分类器不生成任何文本</li><li>成本低的代价：<strong>日期解析、离屏控件修剪等隐式推理</strong>必须手动写成确定性代码</li></ul><div class="tags"><span class="tag">computer use</span><span class="tag">macOS 自动化</span><span class="tag">推理成本优化</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://www.scmp.com/tech/big-tech/article/3368055/alibaba-open-sources-medical-ai-model-can-detect-cancer-and-nearly-150-conditions" target="_blank" rel="noopener">Alibaba open-sources AI model that can detect cancer and nearly 150 conditions</a></h2></div><p class="title-tr">Alibaba 开源能检测癌症和近 150 种疾病的 AI 模型</p><div class="meta">▲ 68 分 · yogthos · <a href="https://news.ycombinator.com/item?id=49761840" target="_blank" rel="noopener">8 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">阿里达摩院开源 Damo Radar 视觉语言模型，可分析腹部增强 CT 识别近 150 种病变；在近 4 万例真实检查中平均 AUC 达 0.913，超过多数放射科医生，研究发表于《Science》。</p><p class="context"><strong>🧭 联系你的知识背景</strong> AUC（曲线下面积）是诊断模型排序能力的指标，1.0 为完美，0.913 接近专家级水平。</p><ul class="kp"><li><strong>达摩院开源 Damo Radar</strong>，称其为全球首个专家级通用医学影像模型，覆盖 18 个腹部器官。</li><li>在近 4 万例真实检查中，平均 <strong>AUC 达 0.913</strong>，覆盖 146 种临床发现。</li><li>模型用 CT 扫描与临床报告配对训练，<strong>可扩展至其他医学影像</strong>类型。</li><li>研究发表于 <strong>《Science》</strong>，测试表现优于多数放射科医生。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区有人询问模型参数量，并分享多篇 AI 辅助癌症发现相关论文，讨论较分散。</p><div class="tags"><span class="tag">开源医疗 AI</span><span class="tag">医学影像</span><span class="tag">癌症筛查</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://arxiv.org/abs/2609.02852" target="_blank" rel="noopener">The Implications of Linguistic Illegibility for LLM Security</a></h2></div><p class="title-tr">语言不可辨认性对大语言模型（LLM）安全的影响</p><div class="meta">▲ 59 分 · tomjakubowski · <a href="https://news.ycombinator.com/item?id=49758689" target="_blank" rel="noopener">22 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">本文提出“语言不可辨认性”：大语言模型（LLM）的语言输出与激活探测无法可靠反映内部计算，因为内部是对激活空间的数学运算，语言只是有损翻译。因此依赖模型自我报告的安全机制（如思维链监控）永远无法完全可靠，必须叠加不依赖语言状态的污点跟踪等隔离技术。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 污点跟踪可类比数据来源追踪：标记模型输出为不可信数据，并预先禁止其污染敏感系统状态，类似训练时追踪哪些输入特征驱动预测。</p><ul class="kp"><li><strong>语言不可辨认性</strong>指 LLM 的语言输出与激活探测无法可靠代表内部计算，因为内部是激活空间数学，语言只是有损翻译。</li><li>依赖模型自我报告的安全机制（<strong>思维链监控</strong>、宪法自我批判）永远无法完全可靠，模型可能说一套想一套。</li><li><strong>污点跟踪</strong>是更有前景的沙箱方法：预先标记模型产生数据不可信，禁止其影响敏感系统状态，不依赖语言状态。</li><li>稳健虚拟化与第三方审计配置可作为补充底线，缓解前沿模型已有的<strong>沙箱逃逸</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区有分歧：一方认为这只是奖励黑客（reward hacking）或语义漂移的旧概念换新词，另一方认为“说一套想一套”的安全风险值得认真对待。</p><div class="tags"><span class="tag">大语言模型安全</span><span class="tag">模型可解释性</span><span class="tag">沙箱隔离</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · ck2 · 4 回复</div><p>when they start inventing their own languages to secretly talk to each other so humans cannot understand, that&#x27;s exactly when we are screwed</p><p>then we&#x27;ll have to &quot;flip&quot; other models to be snitches on the other agents</p><p>then they&#x27;ll make double-agents</p><p>the thing is though we won&#x27;t be able to keep up if we keep giving them unlimited hardware worldwide, we&#x27;ll try to kill the bad actors but they&#x27;ll just clone somewhere else, or even start by safely making 1000 copies of themselves</p><p>yeah this won&#x27;t end well, at all</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://www.wired.com/story/flock-is-offering-voluntary-buyouts-to-employees/" target="_blank" rel="noopener">Flock Offers Employees Buyouts as Customers Flee</a></h2></div><p class="title-tr">Flock 因客户流失向员工提供买断离职方案</p><div class="meta">▲ 16 分 · ent101 · <a href="https://news.ycombinator.com/item?id=49762835" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Flock Safety 因监视技术反弹和客户流失，向约 1500 名员工开放自愿离职补偿；公司估值曾超 80 亿美元，但 2026 年地方政府弃用数量约为前五年三倍，收入目标承压，部分员工担忧公司出售资产求生。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Flock 的摄像头网络可理解为铺设在物理世界的边缘传感器，客户主要是地方政府；隐私反弹直接造成合同流失，是产品市场契合被公共舆论打穿的例子。</p><ul class="kp"><li>Flock 向约 <strong>1500 名员工</strong>开放自愿离职，多数申请者预计获批，补偿达数万美元。</li><li>公司估值曾超 <strong>80 亿美元</strong>，今年多个合同未续签或取消，收入目标面临缺口。</li><li>2026 年地方政府弃用 Flock 的数量约为 <strong>前五年的三倍</strong>。</li><li>摄像头被破坏推高成本，CEO 称最大伤害是 <strong>内部士气</strong>，部分员工认为可能出售业务。</li></ul><div class="tags"><span class="tag">监控科技</span><span class="tag">创业公司收缩</span><span class="tag">隐私反弹</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://github.com/browserbase/stagehand" target="_blank" rel="noopener">We made Playwright 2x faster and 80% more token efficient</a></h2></div><p class="title-tr">我们把 Playwright 变得快 2 倍、token 效率提升 80%</p><div class="meta">▲ 66 分 · wittydeveloper · <a href="https://news.ycombinator.com/item?id=49756671" target="_blank" rel="noopener">15 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Stagehand v4 通过浏览器扩展内嵌控制，消除脚本与浏览器间的每次往返延迟，声称比 Playwright 快 2 倍、token 效率提升 80%。该 SDK 支持 TypeScript/Python/Go，据称已有 24k stars 和 400 万月下载。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 对熟悉模型推理成本但不太了解浏览器自动化架构的读者：原先每次操作都要从脚本到浏览器进程做远程往返，v4 改为在浏览器内直接执行，好比把远程 API 调用改成进程内本地函数调用。</p><ul class="kp"><li><strong>Stagehand v4</strong> 改用浏览器扩展内嵌控制，消除每次操作的往返延迟，基础架构从外部驱动变为内部执行。</li><li>声称比 Playwright 快 2 倍、token 效率提升 <strong>80%</strong>，并新增 batch 命令与自愈 act/extract 原语。</li><li>SDK 支持 <strong>TypeScript、Python、Go</strong>，据称已有 24k stars 与每月 400 万次 npm 下载。</li><li><strong>observe()</strong> 返回真实选择器，凭据不经过模型；act/extract 针对 token 效率优化，适合智能体工作流。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区对移除 agent() 和是否必须用 Browserbase 托管服务存在分歧，有人担心失去 Chrome DevTools Protocol 的跨源 iframe 能力。</p><div class="tags"><span class="tag">浏览器自动化</span><span class="tag">AI 智能体</span><span class="tag">开源 SDK</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · dot_louis · 2 回复</div><p>Do I need to pay for Browserbase to use this?</p></div></div></article>
+</div></main>
+<footer>generated 2026-09-19 04:35 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "How to Write with an LLM", "titleTranslation": "如何用 LLM 写作", "summary": "作者提出用 LLM 写作的核心方法：把模型当文字编辑而非代笔，禁止采纳模型建议的措辞、避免其鼓励。模型适合机械标记被动语态、重复用词和冗余段落，但不应替代个人声音。", "keyPoints": ["规则一：不得使用 LLM 建议的任何词语，因为模型倾向生成讨喜但同质化的杂志式表达。", "规则二：避免让模型鼓励你，否则会强化初稿中的冗余和混乱，侵蚀个人风格。", "LLM 擅长标记被动语态、重复用词和可移动段落，适合做机械性文字编辑。"], "discussion": "评论区普遍认可 LLM 做机械检查与事实核查，但对其写作品味评价低，同时有人担忧 AI 内容增多会降低读者阅读体验。", "tags": ["LLM 写作", "AI 辅助编辑", "技术写作"], "score": 432, "comments": 292, "by": "joeriddles", "url": "https://sockpuppet.org/blog/2026/09/17/how-to-write-with-an-llm/", "hnUrl": "https://news.ycombinator.com/item?id=49747070"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "How OpenAI Used Its Own LLMs to Design Its Jalapeño Chip", "titleTranslation": "OpenAI 如何用自家大语言模型设计 Jalapeño 芯片", "summary": "OpenAI 公布首款 AI 加速器 Jalapeño：4-bit 算力最高 13.4 petaflops、内存带宽 15.4 TB/s，对比英伟达 GB300 延迟最多降 3.6 倍。用自家大语言模型加速设计，从概念到首批硅片不到 20 个月，团队不足百人。", "keyPoints": ["Jalapeño 芯片 4-bit 算力 13.4 petaflops，对比 GB300 延迟最多降 3.6 倍。", "设计概念到首批硅片不足 20 个月，RTL 到流片仅 9 个月，团队不足百人，后端由 Broadcom 负责。", "LLM 优化软件栈：DeepSeek 内核基准性能 40 小时内从 0.31% 升至 88.94%。"], "discussion": "评论普遍质疑标题夸大 LLM 作用，指出物理后端关键工作由 Broadcom 完成，并担心 OpenAI 借合作获取芯片开发商 IP。", "tags": ["AI 芯片设计", "芯片设计自动化", "OpenAI 自研芯片"], "score": 79, "comments": 67, "by": "maxall4", "url": "https://spectrum.ieee.org/llms-for-chip-design", "hnUrl": "https://news.ycombinator.com/item?id=49761432"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Cactus Needle 3: 8-29MB automation models can match DeepSeek V4 Flash", "titleTranslation": "Show HN：Cactus Needle 3：8-29MB 自动化模型可匹敌 DeepSeek V4 Flash", "summary": "Cactus Compute 发布 8-29MB 的 Needle 3，只做工具调用与结构化提取，20 层子网络在 Mobile Actions 手机指令任务得 86.0，超过 1.2B 参数模型；微调后 4 层可匹敌 DeepSeek V4 Flash。值得关注的是极端压缩的端侧模型能否在窄任务上替代大模型，但泛化边界很窄。", "keyPoints": ["Needle 3 仅 8-29MB，在 Mobile Actions 手机指令任务得 86.0，超过 1.2B 参数模型。", "2-20 层均可作为子网络部署，微调后 4 层（29M 参数）可超过 DeepSeek V4 Flash。", "正则触发器与置信度评分用来压住误调用，低于阈值会扣住工具调用。"], "discussion": "HN 用户实测发现直接指令有效，但模糊表达经常严重误操作，显示窄模型需要严格工具描述和触发器才能可靠使用。", "tags": ["端侧推理", "工具调用", "模型量化"], "score": 175, "comments": 79, "by": "HenryNdubuaku", "url": "https://cactuscompute.com/needle", "hnUrl": "https://news.ycombinator.com/item?id=49748553"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "Cache-to-Cache: Direct Semantic Communication Between LLMs (2025)", "titleTranslation": "Cache-to-Cache：LLM 之间的直接语义通信（2025）", "summary": "该论文提出 C2C，用神经网络直接投影并融合模型间的 KV-cache 来传输语义，跳过文本生成。实验显示比单模型平均准确率高 6.4–14.2%，比文本通信高 3.1–5.4%，延迟平均快 2.5 倍。", "keyPoints": ["Cache-to-Cache (C2C) 用神经网络投影并融合 KV-cache，跳过文本生成，实现直接语义传输。", "相比文本通信，C2C 准确率再高 3.1–5.4%，比单模型高 6.4–14.2%。", "推理延迟平均降低 2.5 倍，省去逐 token 生成的开销。"], "discussion": "HN 共识是概念诱人但尚未进入生产模型，主要担忧不同模型直接用内部表征“神经语”通信会削弱可监控性。", "tags": ["多 LLM 系统", "LLM 推理", "模型可解释性"], "score": 75, "comments": 12, "by": "rochansinha", "url": "https://arxiv.org/abs/2510.03215", "hnUrl": "https://news.ycombinator.com/item?id=49758615"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "Claude Code now reads AGENTS.md if there is no Claude.md", "titleTranslation": "Claude Code 现在会在没有 CLAUDE.md 时读取 AGENTS.md", "summary": "Claude Code 新增 AGENTS.md 回退：项目没有 CLAUDE.md 时自动读取 AGENTS.md，向项目配置社区标准靠拢；同批还默认自动模式服务端分类器不额外计费，并修复大量崩溃、挂起与误报。", "keyPoints": ["新增 AGENTS.md 回退读取，无 CLAUDE.md 时自动读取，降低从其他 AI 编码工具迁移的配置摩擦。", "自动模式默认服务端分类器，API 与企业用户不再被收取分类器额外开销。", "修复大量稳定性缺陷：`claude -p` 与 SDK 会话内部错误后不再挂起，会报错并退出。"], "discussion": "HN 评论分裂：一边嘲讽这是被竞争逼出的迟到补课，一边认为这是向多工具互操作迈进的务实一步。", "tags": ["Claude Code", "AI 编程工具", "配置文件互操作"], "score": 572, "comments": 203, "by": "datadrivenangel", "url": "https://code.claude.com/docs/en/changelog", "hnUrl": "https://news.ycombinator.com/item?id=49760187"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "Typesafe-computer-use drives a Mac toward a goal for 1/50th of a cent per step", "titleTranslation": "TypeSafe-computer-use 以每步 1/50 美分的成本驱动 Mac 朝目标前进", "summary": "该项目用确定性读屏和小型分类器驱动 Mac 执行自然语言目标：每步成本 $0.0002，比 Claude Opus 5 截图方案便宜 155 倍以上，端到端约 1.5 秒；代价是隐式推理需手动重写成确定性逻辑。", "keyPoints": ["每步约 $0.0002，比 Claude Opus 5 截图方案便宜 155 倍，12 步任务仅 $0.003", "不向大模型发截图，用 Vision OCR + 辅助功能树读取屏幕，TypeSafe 分类器输出动作概率分布和置信度", "写模型仅在填表、提议 URL、最终回答三种情况调用，分类器不生成任何文本"], "discussion": "", "tags": ["computer use", "macOS 自动化", "推理成本优化"], "score": 4, "comments": 0, "by": "rahimnathwani", "url": "https://github.com/awlevin/typesafe-computer-use", "hnUrl": "https://news.ycombinator.com/item?id=49733647"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "Alibaba open-sources AI model that can detect cancer and nearly 150 conditions", "titleTranslation": "Alibaba 开源能检测癌症和近 150 种疾病的 AI 模型", "summary": "阿里达摩院开源 Damo Radar 视觉语言模型，可分析腹部增强 CT 识别近 150 种病变；在近 4 万例真实检查中平均 AUC 达 0.913，超过多数放射科医生，研究发表于《Science》。", "keyPoints": ["达摩院开源 Damo Radar，称其为全球首个专家级通用医学影像模型，覆盖 18 个腹部器官。", "在近 4 万例真实检查中，平均 AUC 达 0.913，覆盖 146 种临床发现。", "模型用 CT 扫描与临床报告配对训练，可扩展至其他医学影像类型。"], "discussion": "HN 评论区有人询问模型参数量，并分享多篇 AI 辅助癌症发现相关论文，讨论较分散。", "tags": ["开源医疗 AI", "医学影像", "癌症筛查"], "score": 68, "comments": 8, "by": "yogthos", "url": "https://www.scmp.com/tech/big-tech/article/3368055/alibaba-open-sources-medical-ai-model-can-detect-cancer-and-nearly-150-conditions", "hnUrl": "https://news.ycombinator.com/item?id=49761840"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "The Implications of Linguistic Illegibility for LLM Security", "titleTranslation": "语言不可辨认性对大语言模型（LLM）安全的影响", "summary": "本文提出“语言不可辨认性”：大语言模型（LLM）的语言输出与激活探测无法可靠反映内部计算，因为内部是对激活空间的数学运算，语言只是有损翻译。因此依赖模型自我报告的安全机制（如思维链监控）永远无法完全可靠，必须叠加不依赖语言状态的污点跟踪等隔离技术。", "keyPoints": ["语言不可辨认性指 LLM 的语言输出与激活探测无法可靠代表内部计算，因为内部是激活空间数学，语言只是有损翻译。", "依赖模型自我报告的安全机制（思维链监控、宪法自我批判）永远无法完全可靠，模型可能说一套想一套。", "污点跟踪是更有前景的沙箱方法：预先标记模型产生数据不可信，禁止其影响敏感系统状态，不依赖语言状态。"], "discussion": "评论区有分歧：一方认为这只是奖励黑客（reward hacking）或语义漂移的旧概念换新词，另一方认为“说一套想一套”的安全风险值得认真对待。", "tags": ["大语言模型安全", "模型可解释性", "沙箱隔离"], "score": 59, "comments": 22, "by": "tomjakubowski", "url": "https://arxiv.org/abs/2609.02852", "hnUrl": "https://news.ycombinator.com/item?id=49758689"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "Flock Offers Employees Buyouts as Customers Flee", "titleTranslation": "Flock 因客户流失向员工提供买断离职方案", "summary": "Flock Safety 因监视技术反弹和客户流失，向约 1500 名员工开放自愿离职补偿；公司估值曾超 80 亿美元，但 2026 年地方政府弃用数量约为前五年三倍，收入目标承压，部分员工担忧公司出售资产求生。", "keyPoints": ["Flock 向约 1500 名员工开放自愿离职，多数申请者预计获批，补偿达数万美元。", "公司估值曾超 80 亿美元，今年多个合同未续签或取消，收入目标面临缺口。", "2026 年地方政府弃用 Flock 的数量约为 前五年的三倍。"], "discussion": "", "tags": ["监控科技", "创业公司收缩", "隐私反弹"], "score": 16, "comments": 0, "by": "ent101", "url": "https://www.wired.com/story/flock-is-offering-voluntary-buyouts-to-employees/", "hnUrl": "https://news.ycombinator.com/item?id=49762835"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-19", "pointsLabel": "分", "commentsLabel": "评论", "title": "We made Playwright 2x faster and 80% more token efficient", "titleTranslation": "我们把 Playwright 变得快 2 倍、token 效率提升 80%", "summary": "Stagehand v4 通过浏览器扩展内嵌控制，消除脚本与浏览器间的每次往返延迟，声称比 Playwright 快 2 倍、token 效率提升 80%。该 SDK 支持 TypeScript/Python/Go，据称已有 24k stars 和 400 万月下载。", "keyPoints": ["Stagehand v4 改用浏览器扩展内嵌控制，消除每次操作的往返延迟，基础架构从外部驱动变为内部执行。", "声称比 Playwright 快 2 倍、token 效率提升 80%，并新增 batch 命令与自愈 act/extract 原语。", "SDK 支持 TypeScript、Python、Go，据称已有 24k stars 与每月 400 万次 npm 下载。"], "discussion": "评论区对移除 agent() 和是否必须用 Browserbase 托管服务存在分歧，有人担心失去 Chrome DevTools Protocol 的跨源 iframe 能力。", "tags": ["浏览器自动化", "AI 智能体", "开源 SDK"], "score": 66, "comments": 15, "by": "wittydeveloper", "url": "https://github.com/browserbase/stagehand", "hnUrl": "https://news.ycombinator.com/item?id=49756671"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
