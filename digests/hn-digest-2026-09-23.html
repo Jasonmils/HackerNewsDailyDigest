@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-09-23</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-09-23 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://openai.com/index/introducing-gpt-6-sol-and-luna/" target="_blank" rel="noopener">GPT-6 Sol and Luna</a></h2></div><p class="title-tr">GPT-6 Sol 和 Luna</p><div class="meta">▲ 1328 分 · OfficialTurkey · <a href="https://news.ycombinator.com/item?id=49805509" target="_blank" rel="noopener">647 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OpenAI 发布 GPT-6 Sol 和 Luna（正文无法获取，信息有限）。HN 评论称 GPT-6 Luna 价格仅为 GPT-5.6 Luna 一半，这是一个重大性价比信号；开发者同时关注 Codex 与 Claude Code 的配额、上下文窗口差异。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Codex 与 Claude Code 是 AI 编程助手产品，评论中的“上下文窗口”指模型单次推理可容纳的输入 token 上限，类似你熟悉的序列长度约束。</p><ul class="kp"><li>OpenAI 发布 <strong>GPT-6 Sol 和 Luna</strong>，但文章正文未能获取，只能依据标题与评论判断。</li><li>评论称 <strong>GPT-6 Luna 价格仅为 GPT-5.6 Luna 一半</strong>，可能是本轮最重要的性价比变化。</li><li>开发者比较 <strong>Codex Pro 20x 与 Claude Code 20x</strong>：Codex 配额与计划外使用占优，上下文窗口不及 Claude Code。</li><li>有用户称 <strong>5.6 Sol 是“甜点”模型</strong>，新模型可能失去自然协作感，凸显用户情感依赖风险。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是价格下降与订阅配额比单纯模型能力更影响实际使用，但也有人因“手感”偏爱旧版模型。</p><div class="tags"><span class="tag">模型定价</span><span class="tag">AI 编程助手</span><span class="tag">模型发布</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · simonw · 36 回复</div><p>GPT-6 Luna being half the price of GPT-5.6 Luna is a really big deal.</p><p>Here&#x27;s GPT-6 Luna pelicans: https://tools.simonwillison.net/markdown-svg-renderer?url=ht...</p><p>And GPT-6 Sol: https://tools.simonwillison.net/markdown-svg-renderer?url=ht...</p><p>Scroll to the bottom for the GPT-6 Sol max one: https://tools.simonwillison.net/markdown-svg-renderer?url=ht...</p><p>For comparison, here are the pelicans I got for GPT-6 Astra: https://tools.simonwillison.net/markdown-svg-renderer?url=ht... - I still like the Astra Max one best.</p><p>Here&#x27;s a comparison grid showing all of the GPT-6 and GPT-5.6 pelicans at all effort levels: https://static.simonwillison.net/static/2026/gpt-6-and-5.6.h...</p><p>The grid is actually really interesting, because it shows that the 5.6 family default to brighter colors than the 6 family.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://www.anthropic.com/claude-opus-5-5" target="_blank" rel="noopener">Claude Opus 5.5</a></h2></div><div class="meta">▲ 1338 分 · km144 · <a href="https://news.ycombinator.com/item?id=49803892" target="_blank" rel="noopener">865 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Anthropic 发布 Claude Opus 5.5，性能与 Fable 5.1 相当，在多项编码和知识工作基准领先，成本比 Opus 5 低 40%，输入/输出 token 价降至 $4/$20 每百万。安全审计得分最高，但主动降价被解读为市场压力信号。</p><p class="context"><strong>🧭 联系你的知识背景</strong> “agentic coding”指让模型像代理一样自主规划多步编码任务，类似你熟悉的评估流程但动作空间更开放；“pacing the frontier”则是主动控制前沿模型发布节奏，确保安全实践先行。</p><ul class="kp"><li><strong>Claude Opus 5.5 性能对标 Fable 5.1</strong>，在 agentic coding 与知识工作基准上领先，但成本比 Opus 5 低 40%。</li><li><strong>定价大幅下降</strong>：输入 / 输出 token 价格降至每百万 $4 / $20，缓存读取每百万 $0.20，比 Opus 5 低 60%。</li><li><strong>安全审计得分创纪录</strong>：在自动行为审计中最强，对提示注入攻击更鲁棒，并测试长时间、不可能任务与真实事件场景。</li><li><strong>早期编码测试显示效率跃升</strong>：完成 68 万行代码迁移不到一天，HAProxy 重写比 Fable 5.1 快且成本低 51%。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论分歧明显：一边嘲讽首句自称“放慢前沿”却发布更强更低价的 Opus 5.5，言行矛盾；另一边认为降价暴露市场与盈利压力，而沟通风格改进是否实用是用户最关注点。</p><div class="tags"><span class="tag">大模型定价</span><span class="tag">AI 安全对齐</span><span class="tag">agentic coding</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · sailingparrot · 36 回复</div><p>&gt; Claude Opus 5.5 is our first release since we called for pacing the frontier.</p><p>Interesting how the very first line is used to remind the reader of their call to pace the frontier just last week, and everything else after that line is to demonstrate with very specific numbers how they absolutely are not pacing.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://www.cryptocellar.org/bgac/the-mvueh-break.html" target="_blank" rel="noopener">OpenAI GPT–6 Astra breaks Enigma message that has resisted solution since 2005</a></h2></div><p class="title-tr">OpenAI GPT-6 Astra 破解自 2005 年以来一直未解的恩尼格玛（Enigma）密文</p><div class="meta">▲ 604 分 · sohkamyung · <a href="https://news.ycombinator.com/item?id=49801324" target="_blank" rel="noopener">373 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">GPT-6 Astra 独立破解 1941 年德国陆军恩尼格玛密文 MVUEH，该密文自 2005 年未解；破解发现其密钥与当日其他消息完全不同（轮序 253 对 512），左轮罕见地在第 72 个字母转动。AI 用时两天完成，人类专家估计需数周。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 恩尼格玛（Enigma）加密类似带转子状态机的序列变换；炸弹机（Bombe）是早期机电密码分析设备，而 crib 是已知或猜测的明文片段，用于约束密钥搜索，就像用已知标签片段辅助序列模型推断隐藏状态。</p><ul class="kp"><li><strong>GPT-6 Astra</strong> 独立破解 1941 年恩尼格玛密文 MVUEH，仅用时两天。</li><li>密文自 <strong>2005 年</strong>未解，原因包括密钥与当日其他消息完全不同（轮序 <strong>253 vs 512</strong>）且左轮在第 <strong>72</strong> 个字母罕见转动。</li><li>AI 自主发现明文与另一条消息 <strong>SIPVX</strong> 几乎相同，并利用地名 <strong>ROSENOW</strong> 作为 crib 进行攻击。</li><li>原密文转录存在错误，AI 还自主查阅了德国联邦档案馆文件参考 <strong>RS 3–3/20a 和 RS 3–3/63b</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区核心分歧在于“完全自主”：质疑者认为人类研究者 Carter Leffer 才是驱动力，AI 只是强大工具；另有评论声称 Gemini 3.8 Flash 45 分钟内破解，但可信度存疑。</p><div class="tags"><span class="tag">密码学历史</span><span class="tag">LLM 自主智能体</span><span class="tag">恩尼格玛密码分析</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · jtrn · 14 回复</div><p>The correct title: Researcher brakes one specific stubborn historic enigma message with good help from Astra.</p><p>Stubborn for a long time because the message used a completely different key from the rest of that day&#x27;s traffic. Everyone assumed it shared the daily key. The original transcription had errors. The left rotor turned over at letter 72, which is rare and breaks standard crib attacks.</p><p>What is cool, if true, is that it was a 2 day collab between the Leffer and Astra. To me this shows the importance of human in the loop, was still all also showing how immensely power of llm tools. But I think it’s getting a bit silly how much anrticles ignores the driving force (the person) in breakthroughs like this.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://artificialanalysis.ai/models/claude-opus-5-5" target="_blank" rel="noopener">Claude Opus 5.5 Intelligence, Performance and Price Analysis (Max)</a></h2></div><p class="title-tr">Claude Opus 5.5 智能、性能与价格分析（Max）</p><div class="meta">▲ 257 分 · theanonymousone · <a href="https://news.ycombinator.com/item?id=49804316" target="_blank" rel="noopener">77 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Claude Opus 5.5 Max 在 Artificial Analysis 智能指数上得 58 分，远超同类中位数 25，但输入/输出价格为 $4/$20 每百万 token，且生成输出量约为中位数 3 倍，多次因 token 预算耗尽未能完成简单任务。</p><ul class="kp"><li><strong>智能指数 58</strong>，远超同类中位数 25，但价格偏高（$4/$20 每百万 token）。</li><li><strong>输出 260M tokens</strong>，约为中位数 88M 的 3 倍，导致每任务成本偏高。</li><li>Simonw 实测 <strong>max 模式两次因 128K token 预算耗尽</strong>，未能生成简单 SVG，怀疑过度推理。</li><li>hglaser 指出 <strong>每任务成本较 Opus 5 减半</strong>，但 cmiles8 质疑专有模型只比开放权重略好却贵 100 倍。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论核心分歧：max 推理是否因过度思考而实际不可用，同时有人担忧模型发布后性能回退与专有模型性价比不足。</p><div class="tags"><span class="tag">LLM 推理</span><span class="tag">模型定价</span><span class="tag">模型评测</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · simonw · 12 回复</div><p>This is the page for the &quot;max&quot; reasoning setting. The page for xhigh is https://artificialanalysis.ai/models/claude-opus-5-5-xhigh and the page for medium (the default setting) is https://artificialanalysis.ai/models/claude-opus-5-5-medium</p><p>I&#x27;ve failed twice to get &quot;Generate an SVG of a pelican riding a bicycle&quot; to work with max, because in both cases it ran out of the 128,000 token budget while it was still reasoning about the problem.</p><p>I&#x27;m suspicious that &quot;max&quot; may be virtually useless if it&#x27;s that easy to have it overthink to the point that it doesn&#x27;t get to a response.</p><p>Transcript for one attempt here - expand the &quot;Reasoning trace&quot; bit to see it: https://tools.simonwillison.net/markdown-svg-renderer?url=ht...</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://www.bloomberg.com/graphics/2026-iran-school-attack/" target="_blank" rel="noopener">Pentagon says overreliance on AI contributed to missile strike on Iran school</a></h2></div><p class="title-tr">五角大楼称过度依赖 AI 是导弹袭击伊朗学校的原因之一</p><div class="meta">▲ 517 分 · devonnull · <a href="https://news.ycombinator.com/item?id=49806430" target="_blank" rel="noopener">254 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">五角大楼报告认定，美军在导弹袭击伊朗学校一事中未履行核实义务，将过时数据经 AI 目标系统 Maven 推荐为“首日目标”，且审核团队被裁撤、未被咨询；行为被认定鲁莽而非单纯过失。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可类比生产环境机器学习管道：模型输出直接进入不可逆决策，但输入是过时特征，且人工审核层被移除，最终造成致命误判。</p><ul class="kp"><li><strong>报告认为美方未履行“一切可行核实”义务</strong>，行为已超出一般过失。</li><li>过时数据把学校标成伊朗伊斯兰革命卫队设施，<strong>目标审核团队被裁撤且从未被咨询</strong>。</li><li>AI 目标系统 <strong>Maven 将学校推荐为“首日目标”</strong>，目标筛选从数小时压缩到几分钟。</li><li>白宫要求约 <strong>1000 个目标</strong>，直接从数据库提取，几乎没有尽职调查。</li></ul><p class="disc"><strong>💬 讨论</strong> 多数评论认为 AI 只是替罪羊，真正问题是人工审核被裁撤、高层只追目标数量；也有人用加沙 AI 猎杀案例指出这是系统性漠视平民生命。</p><div class="tags"><span class="tag">AI 军事决策</span><span class="tag">算法问责</span><span class="tag">目标审核流程</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · legitster · 12 回复</div><p>&gt; It found the U.S. “failed in its obligation to do everything feasible to verify” that the school was a military objective and that the failure “went beyond mere negligence.” The report said the United States “directed the strikes at the building of the school while being aware of a substantial risk of striking a civilian object and acting recklessly as regards the possibility that this would happen.”</p><p>Reading the details, &quot;AI&quot; doesn&#x27;t really seem like the culprit -it&#x27;s a scapegoat.</p><p>The intelligence that it was no longer a military target never entered the target database, the team that was responsible for vetting the target list was gutted, and said team was never even consulted.</p><p>The White House wanted 1000 targets and pulled from their database without any due diligence. Whether it was an AI call or an SQL query - this was from pure human maliciousness and incompetence.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://www.interconnects.ai/p/the-current-balance-of-power-in-open" target="_blank" rel="noopener">The current balance of power in open models</a></h2></div><p class="title-tr">当前开放模型的力量平衡</p><div class="meta">▲ 60 分 · gmays · <a href="https://news.ycombinator.com/item?id=49808816" target="_blank" rel="noopener">21 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">中国开放权重模型在下载量、基准、企业与学术采用上全面领先：HuggingFace 下载量 32 亿次（美国两倍），AAII 前三均为中国模型，OpenRouter 上中国模型份额超 80%。这直接影响 AI 生态控制权和美国企业供应链。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 开放权重不等于真开源：前者只发布模型参数和推理代码，后者还公开训练数据与训练代码；这决定能否复现模型和生态控制力。</p><ul class="kp"><li><strong>中国开放权重模型 HuggingFace 下载量达 32 亿次</strong>，是美国两倍，自 2025 年 7 月起领先</li><li><strong>AAII 基准前三均为中国模型</strong>，最高 GLM-5.3 得 45 分，美国最好仅 26 分</li><li><strong>OpenRouter 开放模型周 token 用量从 1 万亿增至 80 万亿</strong>，中国模型份额超 80%</li><li><strong>超 40% 的 arXiv 论文引用中国开放权重模型</strong>，Qwen 提及率达 30%，超过 Llama 的 21%</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是企业处理敏感数据更倾向开放权重模型，并认为中国模型的价格/性能优势与对美国断供的担忧推动采用。</p><div class="tags"><span class="tag">开放权重模型</span><span class="tag">中美 AI 竞争</span><span class="tag">模型采用与基准</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Zaraif13 · 2 回复</div><p>It&#x27;s becoming more clear that for big enterprises to really adopt AI, they need to use open models. Especially if they want to own their own intelligence, which they should.</p><p>I spent the last 2 days building basic AI agents to automate some mundane supply chain workflows for a large company. Those seemingly boring workflows had bank statements, supplier IDs and other sensitive information.</p><p>For me it was all alarm bells, there is no way they can afford to give closed models access to this data. I was compelled to figure out an open model based solution for them, which made me realize that this is probably the only way for enterprises going forward.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://arcturus-labs.com/blog/2026/09/21/will-openai-eat-jevs-lunch/" target="_blank" rel="noopener">OpenAI is well positioned to fast-follow Jev</a></h2></div><p class="title-tr">OpenAI 处于快速跟随 Jev 的有利地位</p><div class="meta">▲ 273 分 · JohnBerryman · <a href="https://news.ycombinator.com/item?id=49802161" target="_blank" rel="noopener">199 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">TypeSafe 推出的 Jev 被 Vercel 称为 AI Gateway 史上采纳最快的大语言模型。作者认为其架构只是一枚通用单 token 分类器，OpenAI 有能力快速复制或整合进自家模型，真正潜在壁垒仅在 TypeSafe 的训练数据与强化学习流程，且准确性尚未充分验证。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Jev 的核心机制是把 Transformer 每个位置已有的 logits/softmax 分布显式当作“这个 token 是真还是假”的分类器，这与你熟悉的序列模型输出概率同源，只是被包装成独立 API。</p><ul class="kp"><li><strong>Vercel 称 Jev 采用速度创 AI Gateway 历史纪录</strong>，显示分类模型需求突然爆发。</li><li>作者认为 <strong>Jev 在架构上没有护城河</strong>，OpenAI 可快速复制并整合进现有模型和智能体。</li><li>唯一潜在壁垒是 <strong>TypeSafe 的训练数据和强化学习流程</strong>，但通用准确度仍存疑。</li><li>OpenAI 可能不只是复制，而是把分类能力内嵌成模型自己的 <strong>预测标签</strong>，省去外部工具调用。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论普遍认为 Jev 缺乏真实商业护城河，但对 OpenAI 是否会跟进存在分歧：一些人视其为旧分类器重新包装，另一些人认为其采用速度与接口体验本身有价值。</p><div class="tags"><span class="tag">大语言模型分类器</span><span class="tag">AI 竞争格局</span><span class="tag">模型训练数据护城河</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · orbital-decay · 9 回复</div><p>Every major AI shop has a ton of in-house classifiers already, big, small, generalist, specialized. Some are used in inference pipelines (e.g. safeguards), some are used in data preparation, training, analysis and investigation, research, various one-off and intermediate tasks etc. Offering them on a public API doesn&#x27;t always make business sense. I don&#x27;t see much substance to this buzz, looks like people that are new to all this are discovering that classifiers exist, they are more efficient at classification, and many tasks commonly done with generative models are classification in disguise. Which is not bad at all, a fresh look at their use is great to have.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://benchmarkheaven.com/jev-models" target="_blank" rel="noopener">Show HN: JevBench, a reproducible benchmark for typed decision models</a></h2></div><p class="title-tr">Show HN: JevBench，一个可复现的类型化决策模型基准测试</p><div class="meta">▲ 81 分 · florianstandhar · <a href="https://news.ycombinator.com/item?id=49800574" target="_blank" rel="noopener">20 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">JevBench 发布可复现基准，在 534 个英文决策上综合智能、校准、速度与成本，Jev 以 74.4 分居首。classifier.dev 因实际调用 Jev 模型而不参与排名；评论则怀疑 Jev 只是微调 Qwen 的营销包装。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这类决策模型类似你熟悉的分类器输出固定选项与校准概率，而不是生成自由文本，因此可直接比较准确率、延迟与成本。</p><ul class="kp"><li><strong>JevBench 在 534 个英文决策上评测</strong>，Jev 综合得分 74.4，SemIf 73.1、djev 73.0</li><li><strong>classifier.dev 被列为荣誉提及</strong>而非参与排名，其 API 返回 model: jev-1.13.0，底层就是 Jev</li><li>评论质疑 <strong>Jev 可能只是 Qwen 微调</strong>，SemIf 几天建成且浏览器运行，性价比更高</li><li>基准局限包括<strong>英语单语、单一德国服务器延迟、约 1 分差距可能是噪声</strong></li></ul><p class="disc"><strong>💬 讨论</strong> 评论区核心分歧是 Jev 是否仅为 Qwen 微调与营销包装，以及这类基准能否真实反映模型差异。</p><div class="tags"><span class="tag">AI 基准测试</span><span class="tag">结构化决策模型</span><span class="tag">模型套壳争议</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · swyx · 3 回复</div><p>jev ceo on why he eschewed benchmarking: https://www.latent.space/i/216783460/privacy-benchmarking-an...</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://unreallabs.ai/blog/unreal-agent/" target="_blank" rel="noopener">Unreal Agent</a></h2></div><div class="meta">▲ 147 分 · trollied · <a href="https://news.ycombinator.com/item?id=49805748" target="_blank" rel="noopener">91 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Unreal Labs 发布 Unreal Agent 代理运行层，通过异步管理工具调用，在编码与科学基准上实现比 Codex 低最多 40% 的成本，且无性能损失。代理 harness 本身正成为成本优化变量。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可把 agent harness 理解为模型与工具调用之间的调度层，类似推理 pipeline 中每步的调度器；异步执行工具调用能减少等待，类似数据流水线并行。</p><ul class="kp"><li><strong>相比 Codex 最多节省 40% 成本</strong>，在 Terminal-Bench、SWE-Atlas 等基准上无性能倒退。</li><li><strong>异步工具调用</strong>：工具先返回 in-progress 状态，后台继续执行，模型不必轮询等待，减少 token 浪费。</li><li>Terminal-Bench 4.0 通过率同为 <strong>57.9%</strong>，Unreal 总成本 1428 美元，Codex 为 2350 美元。</li><li><strong>SDK 已开源</strong>，提供 Go 库、命令行运行器和 Harbor 兼容的基准测试器。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论质疑对比不公平（Unreal 用 Astra xhigh，Codex 用 Astra max），但也有人确认异步工具调用能带来类似量级的 token 节省。</p><div class="tags"><span class="tag">AI agent 成本优化</span><span class="tag">异步工具调用</span><span class="tag">LLM harness</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · dvt · 8 回复</div><p>I think this space is very untapped. Models are interesting, but I am absolutely obsessed with some things I&#x27;ve been researching/working on for the past few years:</p><p>Fractal tool discovery: tool taxonomy where an agent can &quot;drill deeper&quot; to find what specific tool it&#x27;s looking for. Helps if/when polluting context with a zillion (mostly unnecessary) tools.</p><p>Leveraging splay trees: this is my favorite data structure and I think relatively unused in the context of agents/harnesses. A lot of times, recently-used workflows/tool-chains will be used again, so having those at the top of the search hierarchy is an awesome optimization.</p><p>Virtual containerized notebooks: models working in sandboxed (WASI) Python notebooks is incredible. Even local models (if given enough time) will usually converge on a good solution. Being able to mount tools/resources/fs is again, imo quite untapped. Some problems here are running native things (thing numpy/pandas) in containers is a nightmare (or impossible).</p><p>Anyway, happy to see other folks seriously doing stuff in this space. If anyone wants to collaborate on anything don&#x27;t hesitate to reach out :) I&#x27;m also actively looking for a job or some contract gigs.</p><p>Fun times ahead.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://arxiv.org/abs/2609.15369" target="_blank" rel="noopener">Show HN: Training a model to identify AI web content from structure alone</a></h2></div><p class="title-tr">Show HN: 训练一个模型仅凭结构识别 AI 网页内容</p><div class="meta">▲ 51 分 · jochenmadler · <a href="https://news.ycombinator.com/item?id=49800566" target="_blank" rel="noopener">12 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">2,250 篇 ChatGPT 前人类博客与 11,250 篇五模型改写，仅用 214 个结构特征训分类器，留出公司上宏平均 F1 达 98.0，重写后 98.1；来源归因 79.3%（随机 16.7%）。结构特征不依赖词面，改写难以规避。</p><ul class="kp"><li>用 <strong>2,250 篇 ChatGPT 前人类博客</strong>与 11,250 篇五个前沿模型改写构建对照数据集。</li><li>留出公司上分类 <strong>宏平均 F1 达 98.0</strong>，每个 AI 帖被自身模型改写后仍有 98.1。</li><li>来源归因准确率 <strong>79.3%</strong>，随机基线 16.7%；各 AI 模型有可区分的结构“口音”。</li><li><strong>Sitefire</strong> 把结构理解集成进内容生成代理，并发布 slop-checker 与 Spot the Slop。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区主要分歧在于：用大语言模型（LLM）提取结构特征是否可靠，以及这到底是在检测 AI slop 还是让 AI 生成更难识别的 slop。</p><div class="tags"><span class="tag">AI 内容检测</span><span class="tag">结构特征</span><span class="tag">内容营销</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · BobbyTables2 · 2 回复</div><p>Some people are just very robotic.</p><p>Today I spent 20 minutes in a call to customer support.  The representative spoke so robotic-ally (both cadence and word choice), I was extremely confident they were an AI for the first 15 minutes.  Was quite certain the automated AI had transferred me to a more advanced one…</p><p>Turns out they were just likely in a low cost Latin American country and trying really hard.    I felt bad one could be reduced to such…</p></div></div></article>
+</div></main>
+<footer>generated 2026-09-23 04:44 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-23", "pointsLabel": "分", "commentsLabel": "评论", "title": "GPT-6 Sol and Luna", "titleTranslation": "GPT-6 Sol 和 Luna", "summary": "OpenAI 发布 GPT-6 Sol 和 Luna（正文无法获取，信息有限）。HN 评论称 GPT-6 Luna 价格仅为 GPT-5.6 Luna 一半，这是一个重大性价比信号；开发者同时关注 Codex 与 Claude Code 的配额、上下文窗口差异。", "keyPoints": ["OpenAI 发布 GPT-6 Sol 和 Luna，但文章正文未能获取，只能依据标题与评论判断。", "评论称 GPT-6 Luna 价格仅为 GPT-5.6 Luna 一半，可能是本轮最重要的性价比变化。", "开发者比较 Codex Pro 20x 与 Claude Code 20x：Codex 配额与计划外使用占优，上下文窗口不及 Claude Code。"], "discussion": "评论区共识是价格下降与订阅配额比单纯模型能力更影响实际使用，但也有人因“手感”偏爱旧版模型。", "tags": ["模型定价", "AI 编程助手", "模型发布"], "score": 1328, "comments": 647, "by": "OfficialTurkey", "url": "https://openai.com/index/introducing-gpt-6-sol-and-luna/", "hnUrl": "https://news.ycombinator.com/item?id=49805509"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-23", "pointsLabel": "分", "commentsLabel": "评论", "title": "Claude Opus 5.5", "titleTranslation": "", "summary": "Anthropic 发布 Claude Opus 5.5，性能与 Fable 5.1 相当，在多项编码和知识工作基准领先，成本比 Opus 5 低 40%，输入/输出 token 价降至 $4/$20 每百万。安全审计得分最高，但主动降价被解读为市场压力信号。", "keyPoints": ["Claude Opus 5.5 性能对标 Fable 5.1，在 agentic coding 与知识工作基准上领先，但成本比 Opus 5 低 40%。", "定价大幅下降：输入 / 输出 token 价格降至每百万 $4 / $20，缓存读取每百万 $0.20，比 Opus 5 低 60%。", "安全审计得分创纪录：在自动行为审计中最强，对提示注入攻击更鲁棒，并测试长时间、不可能任务与真实事件场景。"], "discussion": "HN 评论分歧明显：一边嘲讽首句自称“放慢前沿”却发布更强更低价的 Opus 5.5，言行矛盾；另一边认为降价暴露市场与盈利压力，而沟通风格改进是否实用是用户最关注点。", "tags": ["大模型定价", "AI 安全对齐", "agentic coding"], "score": 1338, "comments": 865, "by": "km144", "url": "https://www.anthropic.com/claude-opus-5-5", "hnUrl": "https://news.ycombinator.com/item?id=49803892"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-23", "pointsLabel": "分", "commentsLabel": "评论", "title": "OpenAI GPT–6 Astra breaks Enigma message that has resisted solution since 2005", "titleTranslation": "OpenAI GPT-6 Astra 破解自 2005 年以来一直未解的恩尼格玛（Enigma）密文", "summary": "GPT-6 Astra 独立破解 1941 年德国陆军恩尼格玛密文 MVUEH，该密文自 2005 年未解；破解发现其密钥与当日其他消息完全不同（轮序 253 对 512），左轮罕见地在第 72 个字母转动。AI 用时两天完成，人类专家估计需数周。", "keyPoints": ["GPT-6 Astra 独立破解 1941 年恩尼格玛密文 MVUEH，仅用时两天。", "密文自 2005 年未解，原因包括密钥与当日其他消息完全不同（轮序 253 vs 512）且左轮在第 72 个字母罕见转动。", "AI 自主发现明文与另一条消息 SIPVX 几乎相同，并利用地名 ROSENOW 作为 crib 进行攻击。"], "discussion": "评论区核心分歧在于“完全自主”：质疑者认为人类研究者 Carter Leffer 才是驱动力，AI 只是强大工具；另有评论声称 Gemini 3.8 Flash 45 分钟内破解，但可信度存疑。", "tags": ["密码学历史", "LLM 自主智能体", "恩尼格玛密码分析"], "score": 604, "comments": 373, "by": "sohkamyung", "url": "https://www.cryptocellar.org/bgac/the-mvueh-break.html", "hnUrl": "https://news.ycombinator.com/item?id=49801324"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-23", "pointsLabel": "分", "commentsLabel": "评论", "title": "Claude Opus 5.5 Intelligence, Performance and Price Analysis (Max)", "titleTranslation": "Claude Opus 5.5 智能、性能与价格分析（Max）", "summary": "Claude Opus 5.5 Max 在 Artificial Analysis 智能指数上得 58 分，远超同类中位数 25，但输入/输出价格为 $4/$20 每百万 token，且生成输出量约为中位数 3 倍，多次因 token 预算耗尽未能完成简单任务。", "keyPoints": ["智能指数 58，远超同类中位数 25，但价格偏高（$4/$20 每百万 token）。", "输出 260M tokens，约为中位数 88M 的 3 倍，导致每任务成本偏高。", "Simonw 实测 max 模式两次因 128K token 预算耗尽，未能生成简单 SVG，怀疑过度推理。"], "discussion": "评论核心分歧：max 推理是否因过度思考而实际不可用，同时有人担忧模型发布后性能回退与专有模型性价比不足。", "tags": ["LLM 推理", "模型定价", "模型评测"], "score": 257, "comments": 77, "by": "theanonymousone", "url": "https://artificialanalysis.ai/models/claude-opus-5-5", "hnUrl": "https://news.ycombinator.com/item?id=49804316"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-23", "pointsLabel": "分", "commentsLabel": "评论", "title": "Pentagon says overreliance on AI contributed to missile strike on Iran school", "titleTranslation": "五角大楼称过度依赖 AI 是导弹袭击伊朗学校的原因之一", "summary": "五角大楼报告认定，美军在导弹袭击伊朗学校一事中未履行核实义务，将过时数据经 AI 目标系统 Maven 推荐为“首日目标”，且审核团队被裁撤、未被咨询；行为被认定鲁莽而非单纯过失。", "keyPoints": ["报告认为美方未履行“一切可行核实”义务，行为已超出一般过失。", "过时数据把学校标成伊朗伊斯兰革命卫队设施，目标审核团队被裁撤且从未被咨询。", "AI 目标系统 Maven 将学校推荐为“首日目标”，目标筛选从数小时压缩到几分钟。"], "discussion": "多数评论认为 AI 只是替罪羊，真正问题是人工审核被裁撤、高层只追目标数量；也有人用加沙 AI 猎杀案例指出这是系统性漠视平民生命。", "tags": ["AI 军事决策", "算法问责", "目标审核流程"], "score": 517, "comments": 254, "by": "devonnull", "url": "https://www.bloomberg.com/graphics/2026-iran-school-attack/", "hnUrl": "https://news.ycombinator.com/item?id=49806430"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-23", "pointsLabel": "分", "commentsLabel": "评论", "title": "The current balance of power in open models", "titleTranslation": "当前开放模型的力量平衡", "summary": "中国开放权重模型在下载量、基准、企业与学术采用上全面领先：HuggingFace 下载量 32 亿次（美国两倍），AAII 前三均为中国模型，OpenRouter 上中国模型份额超 80%。这直接影响 AI 生态控制权和美国企业供应链。", "keyPoints": ["中国开放权重模型 HuggingFace 下载量达 32 亿次，是美国两倍，自 2025 年 7 月起领先", "AAII 基准前三均为中国模型，最高 GLM-5.3 得 45 分，美国最好仅 26 分", "OpenRouter 开放模型周 token 用量从 1 万亿增至 80 万亿，中国模型份额超 80%"], "discussion": "评论区共识是企业处理敏感数据更倾向开放权重模型，并认为中国模型的价格/性能优势与对美国断供的担忧推动采用。", "tags": ["开放权重模型", "中美 AI 竞争", "模型采用与基准"], "score": 60, "comments": 21, "by": "gmays", "url": "https://www.interconnects.ai/p/the-current-balance-of-power-in-open", "hnUrl": "https://news.ycombinator.com/item?id=49808816"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-23", "pointsLabel": "分", "commentsLabel": "评论", "title": "OpenAI is well positioned to fast-follow Jev", "titleTranslation": "OpenAI 处于快速跟随 Jev 的有利地位", "summary": "TypeSafe 推出的 Jev 被 Vercel 称为 AI Gateway 史上采纳最快的大语言模型。作者认为其架构只是一枚通用单 token 分类器，OpenAI 有能力快速复制或整合进自家模型，真正潜在壁垒仅在 TypeSafe 的训练数据与强化学习流程，且准确性尚未充分验证。", "keyPoints": ["Vercel 称 Jev 采用速度创 AI Gateway 历史纪录，显示分类模型需求突然爆发。", "作者认为 Jev 在架构上没有护城河，OpenAI 可快速复制并整合进现有模型和智能体。", "唯一潜在壁垒是 TypeSafe 的训练数据和强化学习流程，但通用准确度仍存疑。"], "discussion": "HN 评论普遍认为 Jev 缺乏真实商业护城河，但对 OpenAI 是否会跟进存在分歧：一些人视其为旧分类器重新包装，另一些人认为其采用速度与接口体验本身有价值。", "tags": ["大语言模型分类器", "AI 竞争格局", "模型训练数据护城河"], "score": 273, "comments": 199, "by": "JohnBerryman", "url": "https://arcturus-labs.com/blog/2026/09/21/will-openai-eat-jevs-lunch/", "hnUrl": "https://news.ycombinator.com/item?id=49802161"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-23", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: JevBench, a reproducible benchmark for typed decision models", "titleTranslation": "Show HN: JevBench，一个可复现的类型化决策模型基准测试", "summary": "JevBench 发布可复现基准，在 534 个英文决策上综合智能、校准、速度与成本，Jev 以 74.4 分居首。classifier.dev 因实际调用 Jev 模型而不参与排名；评论则怀疑 Jev 只是微调 Qwen 的营销包装。", "keyPoints": ["JevBench 在 534 个英文决策上评测，Jev 综合得分 74.4，SemIf 73.1、djev 73.0", "classifier.dev 被列为荣誉提及而非参与排名，其 API 返回 model: jev-1.13.0，底层就是 Jev", "评论质疑 Jev 可能只是 Qwen 微调，SemIf 几天建成且浏览器运行，性价比更高"], "discussion": "评论区核心分歧是 Jev 是否仅为 Qwen 微调与营销包装，以及这类基准能否真实反映模型差异。", "tags": ["AI 基准测试", "结构化决策模型", "模型套壳争议"], "score": 81, "comments": 20, "by": "florianstandhar", "url": "https://benchmarkheaven.com/jev-models", "hnUrl": "https://news.ycombinator.com/item?id=49800574"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-23", "pointsLabel": "分", "commentsLabel": "评论", "title": "Unreal Agent", "titleTranslation": "", "summary": "Unreal Labs 发布 Unreal Agent 代理运行层，通过异步管理工具调用，在编码与科学基准上实现比 Codex 低最多 40% 的成本，且无性能损失。代理 harness 本身正成为成本优化变量。", "keyPoints": ["相比 Codex 最多节省 40% 成本，在 Terminal-Bench、SWE-Atlas 等基准上无性能倒退。", "异步工具调用：工具先返回 in-progress 状态，后台继续执行，模型不必轮询等待，减少 token 浪费。", "Terminal-Bench 4.0 通过率同为 57.9%，Unreal 总成本 1428 美元，Codex 为 2350 美元。"], "discussion": "HN 评论质疑对比不公平（Unreal 用 Astra xhigh，Codex 用 Astra max），但也有人确认异步工具调用能带来类似量级的 token 节省。", "tags": ["AI agent 成本优化", "异步工具调用", "LLM harness"], "score": 147, "comments": 91, "by": "trollied", "url": "https://unreallabs.ai/blog/unreal-agent/", "hnUrl": "https://news.ycombinator.com/item?id=49805748"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-23", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Training a model to identify AI web content from structure alone", "titleTranslation": "Show HN: 训练一个模型仅凭结构识别 AI 网页内容", "summary": "2,250 篇 ChatGPT 前人类博客与 11,250 篇五模型改写，仅用 214 个结构特征训分类器，留出公司上宏平均 F1 达 98.0，重写后 98.1；来源归因 79.3%（随机 16.7%）。结构特征不依赖词面，改写难以规避。", "keyPoints": ["用 2,250 篇 ChatGPT 前人类博客与 11,250 篇五个前沿模型改写构建对照数据集。", "留出公司上分类 宏平均 F1 达 98.0，每个 AI 帖被自身模型改写后仍有 98.1。", "来源归因准确率 79.3%，随机基线 16.7%；各 AI 模型有可区分的结构“口音”。"], "discussion": "评论区主要分歧在于：用大语言模型（LLM）提取结构特征是否可靠，以及这到底是在检测 AI slop 还是让 AI 生成更难识别的 slop。", "tags": ["AI 内容检测", "结构特征", "内容营销"], "score": 51, "comments": 12, "by": "jochenmadler", "url": "https://arxiv.org/abs/2609.15369", "hnUrl": "https://news.ycombinator.com/item?id=49800566"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
