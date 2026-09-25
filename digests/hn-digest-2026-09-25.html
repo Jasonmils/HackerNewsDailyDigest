@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-09-25</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-09-25 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://github.com/devdotfast/whiteboard" target="_blank" rel="noopener">Show HN: Whiteboard (YC W26) – An open-source IDE for thoughtful software design</a></h2></div><p class="title-tr">Show HN: Whiteboard（YC W26）—— 一个用于深思熟虑软件设计的开源 IDE</p><div class="meta">▲ 237 分 · sidharthkmenon · <a href="https://news.ycombinator.com/item?id=49833867" target="_blank" rel="noopener">92 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Whiteboard（YC W26）开源桌面应用让人类与编码 agent 在同一画布上架构软件；基于 CodeOSS，用 Rust 写 AST 感知语义 diff，只显示相关变更，并提供决策日志。Salesforce、Modal 已用于代码/架构审查，MIT 许可。</p><p class="context"><strong>🧭 联系你的知识背景</strong> AST 感知 diff 可类比为用代码结构而非逐行文本来过滤变更，类似模型评估时按特征重要性而非全部 token 看差异。</p><ul class="kp"><li>Whiteboard 基于 <strong>CodeOSS</strong>（VSCode 开源内核）构建，可视化序列图、ER 图可点击跳转到代码，并内置 LSP 支持。</li><li>用 Rust 写了 <strong>AST 感知语义 diff 查看器</strong>，大函数总结为伪代码，测试和文档变更自动折叠。</li><li>提供 <strong>决策日志</strong>，让 agent 把执行 trace 链接到画布，显示自主做出的决策。</li><li><strong>Salesforce 和 Modal</strong> 已在使用，MIT 许可，计划未来推出付费托管 web 版；当前不能编辑文件。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区核心分歧在于其自称 IDE 却不能编辑文件，认为更像带图形界面的 agent 可视化插件，而非完整产品；也有人赞赏 agent 集成和语义 diff 想法。</p><div class="tags"><span class="tag">AI 编码代理</span><span class="tag">开源开发者工具</span><span class="tag">代码审查</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · bbor · 2 回复</div><p>Oh WOW, cool to see a technique that&#x27;ll be everywhere in 12 months (the fake pen drawing animations + streaming diagrams as they&#x27;re produced) first be announced. Do we still do &quot;First!&quot; comments, y&#x27;all?</p><p>~~[EDIT: you need to put &quot;only for macOS&quot; in way more prominent places, all over -- that offends my soul greatly and may Linus frown upon you all]~~ [EDIT2: I was mistaken!]</p><p>This all looks really solid. That said, two remarks:</p><p>1. The integration with OS LSPs is quite fun and commendable. Is it possible that the diagrams might get their own LSP, someday? Or is better just staying as direct TS callsites?</p><p>2. The choice of the word &quot;IDE&quot; seems like it might get you in trouble, given the small &quot;cannot edit files&quot; detail. Any comments on the decision there, as opposed to, say... &quot;brainstorming tool&quot;? Or hell, &quot;[architectonic] harness&quot;?</p><p>3. The psuedocode &quot;semantic diff&quot; thing is an incredible idea, wow. Props there.</p><p>4. This language kinda concerns me: &quot;how the requirements that you set were implemented&quot;. In my highly-arbitrary development flow, it ideally goes `idea -&gt; spec/reqs -&gt; plan -&gt; test -&gt; impl -&gt; eval -&gt; land -&gt; review`, and this kind of tool seems explicitly targeted towards just the second and third with some partial coverage of their neighbors on either side. More concretely: by adding implementation, don&#x27;t you lose a powerful specificity selling point and now have to compete with all full harnesses?</p><p>5. Suggesting &quot;GPT-6 Luna and Claude Opus 5.5&quot; is presumably a typo? Cause the equivelant of Opus 5.5 is Astra, and even then not really.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://resobscura.substack.com/p/ai-labs-need-to-start-funding-historical" target="_blank" rel="noopener">Using LLMs to trace alchemical knowledge and decode 17th century letters</a></h2></div><p class="title-tr">用 LLM 追踪炼金术知识并解码 17 世纪信件</p><div class="meta">▲ 101 分 · benbreen · <a href="https://news.ycombinator.com/item?id=49835531" target="_blank" rel="noopener">15 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">文章标题显示 Res Obscura 用 LLM 追踪炼金术知识、解码 17 世纪信件；正文未获取，信息有限。评论提及 SourceLibrary.org 提供数万本可供智能体访问的翻译书籍，被视为历史文献数字化的基础设施。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这相当于用预训练语言模型对低资源、噪声大的历史文本做信息抽取和手写识别，和你熟悉的 Transformer 序列建模一致，但难点在领域适应与训练数据稀缺。</p><ul class="kp"><li><strong>Res Obscura</strong> 展示用 LLM 追踪炼金术知识并解码 17 世纪信件。</li><li><strong>SourceLibrary.org</strong> 提供数万本智能体可访问的翻译书籍，并开放 API 与嵌入向量。</li><li>多位评论者认为历史文献解析是 <strong>LLM 的强应用场景</strong>，可处理家谱和手写识别。</li><li>17 世纪手写识别被描述为传统方法难以处理的“噩梦”，LLM 被视为潜在解决方案。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论者普遍认可历史文献数字化是 LLM 的高价值应用，并分享家谱研究与古籍资源平台实践。</p><div class="tags"><span class="tag">数字人文学</span><span class="tag">LLM 信息抽取</span><span class="tag">历史文献数字化</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · loufe · 4 回复</div><p>I&#x27;ve been using AI to help with my genealogical research, and it&#x27;s been fantastic. I am loving pushing the family history back and catching mistakes that someone who many others share as a common ancestor have made.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://blog.google/innovation-and-ai/models-and-research/google-research/google-project-suncatcher-facts/" target="_blank" rel="noopener">Google’s Project Suncatcher to put ML infrastructure in space</a></h2></div><p class="title-tr">谷歌 Project Suncatcher 将把机器学习基础设施送入太空</p><div class="meta">▲ 145 分 · xnx · <a href="https://news.ycombinator.com/item?id=49830606" target="_blank" rel="noopener">269 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">谷歌 Project Suncatcher 首颗原型卫星将随 SpaceX Transporter-18 发射，在轨测试 TPU 性能；低地球轨道太阳能可达地面 8 倍，2027 年计划测试两颗卫星激光互联。这是谷歌探索太空 AI 算力的首次轨道验证。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可以把太空数据中心理解为把 TPU 集群部署到没有空气冷却、强辐射会翻转比特、发射时高振动的环境；这与你在标准云服务器上做训练/推理的假设完全不同。</p><ul class="kp"><li><strong>Project Suncatcher 首颗原型卫星</strong>下周随 SpaceX Transporter-18 发射，与 Planet 合作测 TPU 在轨表现。</li><li>低地球轨道太阳能可达地面 <strong>8 倍</strong>，是太空数据中心的核心能源动机。</li><li><strong>Trillium TPU</strong> 在质子束测试中可承受超过五年太空任务的总电离剂量，抗辐射表现超预期。</li><li>2027 年计划发射<strong>两颗卫星</strong>测试高带宽短距激光互联，瞄准集群式太空 AI 算力。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论分歧在于：太空数据中心的经济性是否成立，以及它是否实质上服务于规避监管或军事情报需求。</p><div class="tags"><span class="tag">太空数据中心</span><span class="tag">TPU 抗辐射</span><span class="tag">星间激光通信</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · zactato · 14 回复</div><p>How are they solving the heat dissipation issues?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://blog.trailofbits.com/2026/09/18/auditing-in-the-age-of-good-enough-ai/" target="_blank" rel="noopener">Security auditing in the age of (good enough) AI</a></h2></div><p class="title-tr">在（足够好的）AI时代进行安全审计</p><div class="meta">▲ 79 分 · aray07 · <a href="https://news.ycombinator.com/item?id=49793957" target="_blank" rel="noopener">8 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Trail of Bits 用 AI agents 花六个月为 Miden 零知识虚拟机（zkVM）构建代码导航、反编译器、静态分析和 Lean 模型，发现一个可伪造 Falcon 签名盗取资金的严重漏洞，并生成 95 个机器验证的正确性证明；AI 使这类工具开发成本大幅下降。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 零知识虚拟机（zkVM）是运行零知识证明的专用计算环境，其底层汇编代码审计门槛很高；本文展示用 AI 构建工具链来自动完成这项高门槛工作。</p><ul class="kp"><li><strong>Trail of Bits</strong> 用 AI agents 花六个月为 Miden zkVM 构建语言服务器协议（LSP）服务器、反编译器、静态分析引擎和 Lean 模型。</li><li>工具发现一个<strong>严重漏洞</strong>：未验证的 prover 输入可伪造 Falcon 签名，盗取 Miden 账户资金。</li><li>Lean 模型生成 <strong>95 个机器验证的正确性证明</strong>，并找出两个单元测试未捕获的边界 bug。</li><li>AI agents 使这类探索性工具开发的边际成本降至<strong>只需 token</strong>，改变安全审计的投入产出比。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区核心分歧在于是否应信任“够用”的 AI 做安全审计：一方认为安全无容错空间，另一方视其为提升审计质量而非仅提速。</p><div class="tags"><span class="tag">AI 辅助安全审计</span><span class="tag">零知识虚拟机</span><span class="tag">形式化验证</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Segv77 · 2 回复</div><p>Good enough AI for security auditing feels like asking for &quot;good enough&quot; brakes. There&#x27;s just no room for complacency.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://www.usestable.com/careers/product-engineer" target="_blank" rel="noopener">Stable (YC W20) Is Hiring Product Engineers</a></h2></div><p class="title-tr">Stable（YC W20）招聘产品工程师</p><div class="meta">▲ 1 分 · collinpham · <a href="https://news.ycombinator.com/item?id=49834893" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Stable（YC W20）为 Brex、DoorDash、Gusto 等 15,000+ 企业提供商业地址与邮件管理，现招聘全栈产品工程师。公司处于增长拐点，工程师需直接与用户沟通并快速交付，涉及 LLM/ML 文档分类、API 和仓储自动化。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中的“全栈”指同时写前端界面、后端 API 和数据库，不同于你熟悉的纯模型训练；这里 LLM/ML 只是其中一部分。</p><ul class="kp"><li><strong>15,000+ 企业</strong>使用 Stable 管理商业地址和实体邮件，客户包括 Brex、DoorDash、Gusto。</li><li>岗位要求 <strong>3+ 年经验</strong>，需直接与用户沟通并端到端交付，没有现成工单。</li><li>工作涉及 <strong>LLM/ML 文档分类与数据提取</strong>、API 和仓储自动化，可能同一周看到硬件落地。</li><li>公司由 <strong>Y Combinator 和 Craft Ventures</strong> 支持，定位早期员工机会，处于增长拐点。</li></ul><div class="tags"><span class="tag">创业公司招聘</span><span class="tag">邮件管理 SaaS</span><span class="tag">AI 文档处理</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://launchvideo.io" target="_blank" rel="noopener">Opus 5.5 is good at explainer videos</a></h2></div><p class="title-tr">Opus 5.5 擅长制作产品讲解视频</p><div class="meta">▲ 177 分 · iacguy · <a href="https://news.ycombinator.com/item?id=49836374" target="_blank" rel="noopener">104 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">launchvideo.io 用 Claude Opus 5.5 将网址或产品描述写成影片，无服务器代理渲染，生成一个视频约 4 分钟、消耗约 10 万 token；不调用视频生成模型，而是写 HTML/动画代码后确定性渲染 1080p、30fps。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这里的“无视频模型”指不依赖视频扩散模型，而是让 Opus 生成前端动画代码、再在一次性容器里用无头浏览器逐帧渲染；虚拟时钟类似固定随机种子，让每一帧可复现。</p><ul class="kp"><li><strong>launchvideo.io</strong> 输入产品网址或描述，生成 1080p、30fps 讲解视频，单次生成约 4 分钟、约 10 万个 token。</li><li><strong>不调用视频生成模型</strong>：Opus 5.5 编写 HTML/动画代码，由 Playwright 无头浏览器与 ffmpeg 逐帧渲染。</li><li>架构是 <strong>OpenComputer 无服务器代理</strong>：一个 TypeScript 文件、三个工具，任务在一次性微虚拟机（microVM）中运行后销毁。</li><li>评论区例子显示约 <strong>3 美元 API 成本</strong>可生成完整讲解视频，但质量评价两极。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论分歧明显：有人称这是低质自动化的“花哨幻灯片”，也有人称实际广告效果已超过人工制作。</p><div class="tags"><span class="tag">AI 视频生成</span><span class="tag">无服务器代理</span><span class="tag">产品发布工具</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · neals · 14 回复</div><p>Like many of us, I&#x27;ve been hobbying away on some SaaS that wraps an LLM. But I often worry, isn&#x27;t this just adding buttons to an LLM call? What&#x27;s the real value here? Quick money grab and wait for copies? Or do my 20 years of saas and business development actually make my SaaS better then others?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://www.afr.com/policy/health-and-education/tutoring-company-tell-parents-to-save-their-money-and-use-ai-instead-20260923-p60z0r" target="_blank" rel="noopener">Tutoring company tells parents to save their money and &#x27;use AI instead&#x27;</a></h2></div><p class="title-tr">辅导公司告诉家长省下钱“改用 AI”</p><div class="meta">▲ 97 分 · theanonymousone · <a href="https://news.ycombinator.com/item?id=49831690" target="_blank" rel="noopener">162 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">澳大利亚辅导机构 Dymocks Tutoring 和 Talent 100 将在本周末关闭悉尼全部 5 家中心，并告知家长与其支付高价人工辅导，不如使用 Gemini 或 ChatGPT；该公司称 AI 已让其服务过时。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 问题不在模型能否生成正确答案，而在“生成答案”与“促成学习”之间的差距——这类似你熟悉的产品能力评估：用户价值取决于使用流程与约束设计，而不是模型本身。</p><ul class="kp"><li><strong>Dymocks Tutoring 和 Talent 100</strong> 本周关闭悉尼 5 家中心，称 AI 已让面对面辅导服务过时。</li><li>公司建议家长把预算投向 <strong>Gemini 或 ChatGPT</strong>，而非高价聘请人工辅导老师。</li><li>评论普遍认为 AI 辅导的关键在<strong>引导机制</strong>：直接给答案会跳过学习过程，作为学习后批评者才可能有效。</li><li>Alpha 学校案例无正式教师、用 AI 加导师辅导，年学费 <strong>4 万美元</strong>，适合高度自律学生。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区核心分歧是 AI 辅导能否真正培养能力：共识是必须设计成学习过程的批评者而非答案生成器，否则可能培养出依赖拐杖的一代。</p><div class="tags"><span class="tag">AI 教育产品</span><span class="tag">教育科技</span><span class="tag">人工辅导替代</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · upupupandaway · 12 回复</div><p>A friend of mine put his kid into a school called Alpha [1]. It has no teachers, only guides (?), who are well paid grads but not formally teachers. Kids go in in the morning, do two hours of computer study with an AI program, and the guide only steps in if the kid has a question or doubt the system cannot answer.</p><p>Then there&#x27;s recess and afternoon is all taken up with &quot;Life Skills&quot; classes such as entrepreneurship and the likes.</p><p>Kids are tested weekly and progress through grades at will. For example, his kid would officially be in 3rd grade, but she&#x27;s doing 3rd reading, 5th grade math, and 4th grade writing. She can easily test 3rd grade topics now.</p><p>I am ambiguous about this model. Love the &quot;learn as much as you want&quot; even if it means learning 2, 3 grades ahead, but the no-teacher rule and so much computer use seems a little strange. Also if the kid is not extremely self-motivated, they will be left by the side of the road by the school.</p><p>[1] - https://alpha.school/</p><p>Edit: It&#x27;s 40k a year.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://github.com/Parcha-ai/agentrun" target="_blank" rel="noopener">Show HN: AgentRun: DSL to turn agents into workflows</a></h2></div><p class="title-tr">Show HN：AgentRun：将智能体转化为工作流的 DSL</p><div class="meta">▲ 41 分 · miguelrios · <a href="https://news.ycombinator.com/item?id=49821438" target="_blank" rel="noopener">9 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">AgentRun 开源了一个 DSL（领域特定语言），把 agent 工作中可重复的部分固化为可检查、可重跑的工作流，组合工具调用、代码、Jev 决策和 agent 调查。提供无需 API key 的脚本化 demo，目标是减少不必要的完整 agent 循环、降低成本。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 对熟悉训练/推理流水线的读者来说，这相当于把 LLM agent 的重复决策步骤固化成可审计的执行图，而不是每次都跑完整 agent 循环。</p><ul class="kp"><li><strong>AgentRun 将 agent 的重复步骤固化为工作流</strong>，可检查、重跑，避免不必要的完整 agent 循环。</li><li>组合<strong>工具调用、代码、Jev 类型化决策和 agent</strong>，用于路由、证据筛选与报告生成。</li><li>提供<strong>无需 API key 的脚本化 demo</strong>，支持 Pi 扩展，Apache-2.0 许可，当前版本 0.1.0-beta.4。</li><li>工作流支持嵌套、并行执行和有界循环，<strong>降低试错与运维成本</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区围绕工作流 DSL 设计哲学产生分歧：一方主张 DSL 应接近 TypeScript 等真实语言以便 agent 与用户理解，另一方认为缺少成本/奖励属性的图工作流价值有限。</p><div class="tags"><span class="tag">LLM agent 编排</span><span class="tag">领域特定语言</span><span class="tag">开发者工具</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · JustFinishedBSG · 1 回复</div><p>I&#x27;ll study it as I am toying with &quot;what should a workflow definition language look like&quot;.</p><p>My current vision, and prototype, is that it should be as close as possible to a &quot;real&quot; language as possible so that both the user and the agent know immediately how to use it and how it functions.</p><p>So for `pi` it means using typescript.</p><p>Then the UI is derived from the AST / code as much as possible and for things that aren&#x27;t neatly possible like that I eventually add small semantic helpers that define the UI.</p><p>For example &quot;plan -&gt; execute&quot; is:</p><p>await flow.unroll(</p><p>remaining.map(point =&gt; ({</p><p>key: point.id,</p><p>label: point.objective,</p><p>})),</p><p>async () =&gt; {</p><p>for (const point of remaining) {</p><p>await flow.item(point.id, async () =&gt;</p><p>await flow.agent(executePoint, {</p><p>title: `Point ${point.id}`,</p><p>prompt: point.objective,</p><p>}));</p><p>}</p><p>},</p><p>{ title: `Plan r${planRevision}` },</p><p>);</p><p>( simplified code )</p><p>in my implementation and `unroll` is only there to have a nice</p><p>● Plan r1 · 1/3 · active</p><p>1. Inspect parser behavior</p><p>● 2. Add empty-input coverage</p><p>○ 3. Run focused checks</p><p>UI instead of a plain &quot;Plan · 1/3&quot; UI with no detail (which would happen if I just used a for loop, yes it works)</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://www.theguardian.com/society/2026/sep/24/thats-so-ai-what-gen-alphas-biggest-insult-tells-us" target="_blank" rel="noopener">&#x27;That&#x27;s so AI &#x27; What gen Alpha&#x27;s biggest insult tells us</a></h2></div><p class="title-tr">“这也太AI了”：Alpha世代最大的侮辱语说明了什么</p><div class="meta">▲ 129 分 · YeGoblynQueenne · <a href="https://news.ycombinator.com/item?id=49829650" target="_blank" rel="noopener">186 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">小学里的 Alpha 世代用“That’s AI”指不真实、不可信或廉价的东西，把 AI 一词当成“废话/垃圾”的同义词；这说明年轻用户对 AI 生成内容已形成负面标签，公开标榜 AI 可能变成信任负担。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Alpha 世代（2010 年后出生）对 AI 标签的负面化，对做 AI 产品定位和市场判断的人是品牌负资产信号，公开强调 AI 可能带来信任与分发反噬。</p><ul class="kp"><li><strong>Alpha 世代</strong>在小学里用“That’s AI”表示不真实、不可信或垃圾内容。</li><li>孩子们把 AI 从技术含义泛化为<strong>“废话/不可信”</strong>，用来否定山寨货、夸张宣传和父母借口。</li><li>有评论预测 6-12 个月内<strong>企业会从主页删除“AI-powered”</strong>，反转 AI 营销话术。</li><li>也有 HN 用户质疑该趋势<strong>缺乏证据</strong>，可能是媒体炮制的年轻人用语叙事。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论分歧在于年轻人是否真的更早识别非真实内容并给 AI 标签付负面溢价，还是这只是一条媒体放大的伪趋势；有家长指出孩子一边鄙视 AI 内容，一边用 AI 辅助学习和编程。</p><div class="tags"><span class="tag">AI 产品定位</span><span class="tag">代际用户认知</span><span class="tag">生成式内容信任</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · keiferski · 11 回复</div><p>In the world of arts/media, I think AI basically only has a future as a hidden thing. Openly admitting that you used AI to make something will be used against you, in order to dismiss your work. For a lot of people/things, it already is - see Hank Green, or the daily comments about &quot;I don&#x27;t want to read what you didn&#x27;t write.&quot;</p><p>Expect a massive marketing reversal in 6-12 months, when every &quot;AI-powered&quot; company removes the keyword from their home page.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://openai.com/index/introducing-mentalhealthbench/" target="_blank" rel="noopener">MentalHealthBench</a></h2></div><div class="meta">▲ 13 分 · gmays · <a href="https://news.ycombinator.com/item?id=49837998" target="_blank" rel="noopener">4 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OpenAI 发布心理健康评估基准 MentalHealthBench（文章正文未能获取，信息有限）。HN 评论主要质疑将语言模型用于心理健康场景的伦理风险，包括广告画像与专业边界问题。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 类似你熟悉的模型评估集，但核心评估维度从准确率等指标转向心理安全、伦理边界和拒绝策略。</p><ul class="kp"><li><strong>OpenAI 发布 MentalHealthBench</strong>，用于评估语言模型在心理健康相关任务中的表现。</li><li><strong>文章正文未能获取</strong>，无法确认基准的具体设计、评估指标或合作方。</li><li>评论指出<strong>心理健康数据与广告画像结合</strong>可能带来严重隐私和伦理风险。</li><li>有评论认为模型应<strong>安全拒绝并引导用户寻求持牌专业人士</strong>，而非直接提供心理支持。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是对将语言模型用于心理健康持警惕态度，担心广告画像、隐私和专业边界。</p><div class="tags"><span class="tag">AI 伦理</span><span class="tag">心理健康评估</span><span class="tag">模型基准</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · rsfern · 2 回复</div><p>I find this troubling, there are so many potential ethical issues with this application of language models. Maybe it would be more appropriate for models to issue safety refusals and help the user learn how to get help from a licensed mental health professional</p></div></div></article>
+</div></main>
+<footer>generated 2026-09-25 04:55 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Whiteboard (YC W26) – An open-source IDE for thoughtful software design", "titleTranslation": "Show HN: Whiteboard（YC W26）—— 一个用于深思熟虑软件设计的开源 IDE", "summary": "Whiteboard（YC W26）开源桌面应用让人类与编码 agent 在同一画布上架构软件；基于 CodeOSS，用 Rust 写 AST 感知语义 diff，只显示相关变更，并提供决策日志。Salesforce、Modal 已用于代码/架构审查，MIT 许可。", "keyPoints": ["Whiteboard 基于 CodeOSS（VSCode 开源内核）构建，可视化序列图、ER 图可点击跳转到代码，并内置 LSP 支持。", "用 Rust 写了 AST 感知语义 diff 查看器，大函数总结为伪代码，测试和文档变更自动折叠。", "提供 决策日志，让 agent 把执行 trace 链接到画布，显示自主做出的决策。"], "discussion": "评论区核心分歧在于其自称 IDE 却不能编辑文件，认为更像带图形界面的 agent 可视化插件，而非完整产品；也有人赞赏 agent 集成和语义 diff 想法。", "tags": ["AI 编码代理", "开源开发者工具", "代码审查"], "score": 237, "comments": 92, "by": "sidharthkmenon", "url": "https://github.com/devdotfast/whiteboard", "hnUrl": "https://news.ycombinator.com/item?id=49833867"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "Using LLMs to trace alchemical knowledge and decode 17th century letters", "titleTranslation": "用 LLM 追踪炼金术知识并解码 17 世纪信件", "summary": "文章标题显示 Res Obscura 用 LLM 追踪炼金术知识、解码 17 世纪信件；正文未获取，信息有限。评论提及 SourceLibrary.org 提供数万本可供智能体访问的翻译书籍，被视为历史文献数字化的基础设施。", "keyPoints": ["Res Obscura 展示用 LLM 追踪炼金术知识并解码 17 世纪信件。", "SourceLibrary.org 提供数万本智能体可访问的翻译书籍，并开放 API 与嵌入向量。", "多位评论者认为历史文献解析是 LLM 的强应用场景，可处理家谱和手写识别。"], "discussion": "HN 评论者普遍认可历史文献数字化是 LLM 的高价值应用，并分享家谱研究与古籍资源平台实践。", "tags": ["数字人文学", "LLM 信息抽取", "历史文献数字化"], "score": 101, "comments": 15, "by": "benbreen", "url": "https://resobscura.substack.com/p/ai-labs-need-to-start-funding-historical", "hnUrl": "https://news.ycombinator.com/item?id=49835531"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "Google’s Project Suncatcher to put ML infrastructure in space", "titleTranslation": "谷歌 Project Suncatcher 将把机器学习基础设施送入太空", "summary": "谷歌 Project Suncatcher 首颗原型卫星将随 SpaceX Transporter-18 发射，在轨测试 TPU 性能；低地球轨道太阳能可达地面 8 倍，2027 年计划测试两颗卫星激光互联。这是谷歌探索太空 AI 算力的首次轨道验证。", "keyPoints": ["Project Suncatcher 首颗原型卫星下周随 SpaceX Transporter-18 发射，与 Planet 合作测 TPU 在轨表现。", "低地球轨道太阳能可达地面 8 倍，是太空数据中心的核心能源动机。", "Trillium TPU 在质子束测试中可承受超过五年太空任务的总电离剂量，抗辐射表现超预期。"], "discussion": "HN 评论分歧在于：太空数据中心的经济性是否成立，以及它是否实质上服务于规避监管或军事情报需求。", "tags": ["太空数据中心", "TPU 抗辐射", "星间激光通信"], "score": 145, "comments": 269, "by": "xnx", "url": "https://blog.google/innovation-and-ai/models-and-research/google-research/google-project-suncatcher-facts/", "hnUrl": "https://news.ycombinator.com/item?id=49830606"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "Security auditing in the age of (good enough) AI", "titleTranslation": "在（足够好的）AI时代进行安全审计", "summary": "Trail of Bits 用 AI agents 花六个月为 Miden 零知识虚拟机（zkVM）构建代码导航、反编译器、静态分析和 Lean 模型，发现一个可伪造 Falcon 签名盗取资金的严重漏洞，并生成 95 个机器验证的正确性证明；AI 使这类工具开发成本大幅下降。", "keyPoints": ["Trail of Bits 用 AI agents 花六个月为 Miden zkVM 构建语言服务器协议（LSP）服务器、反编译器、静态分析引擎和 Lean 模型。", "工具发现一个严重漏洞：未验证的 prover 输入可伪造 Falcon 签名，盗取 Miden 账户资金。", "Lean 模型生成 95 个机器验证的正确性证明，并找出两个单元测试未捕获的边界 bug。"], "discussion": "评论区核心分歧在于是否应信任“够用”的 AI 做安全审计：一方认为安全无容错空间，另一方视其为提升审计质量而非仅提速。", "tags": ["AI 辅助安全审计", "零知识虚拟机", "形式化验证"], "score": 79, "comments": 8, "by": "aray07", "url": "https://blog.trailofbits.com/2026/09/18/auditing-in-the-age-of-good-enough-ai/", "hnUrl": "https://news.ycombinator.com/item?id=49793957"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "Stable (YC W20) Is Hiring Product Engineers", "titleTranslation": "Stable（YC W20）招聘产品工程师", "summary": "Stable（YC W20）为 Brex、DoorDash、Gusto 等 15,000+ 企业提供商业地址与邮件管理，现招聘全栈产品工程师。公司处于增长拐点，工程师需直接与用户沟通并快速交付，涉及 LLM/ML 文档分类、API 和仓储自动化。", "keyPoints": ["15,000+ 企业使用 Stable 管理商业地址和实体邮件，客户包括 Brex、DoorDash、Gusto。", "岗位要求 3+ 年经验，需直接与用户沟通并端到端交付，没有现成工单。", "工作涉及 LLM/ML 文档分类与数据提取、API 和仓储自动化，可能同一周看到硬件落地。"], "discussion": "", "tags": ["创业公司招聘", "邮件管理 SaaS", "AI 文档处理"], "score": 1, "comments": 0, "by": "collinpham", "url": "https://www.usestable.com/careers/product-engineer", "hnUrl": "https://news.ycombinator.com/item?id=49834893"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "Opus 5.5 is good at explainer videos", "titleTranslation": "Opus 5.5 擅长制作产品讲解视频", "summary": "launchvideo.io 用 Claude Opus 5.5 将网址或产品描述写成影片，无服务器代理渲染，生成一个视频约 4 分钟、消耗约 10 万 token；不调用视频生成模型，而是写 HTML/动画代码后确定性渲染 1080p、30fps。", "keyPoints": ["launchvideo.io 输入产品网址或描述，生成 1080p、30fps 讲解视频，单次生成约 4 分钟、约 10 万个 token。", "不调用视频生成模型：Opus 5.5 编写 HTML/动画代码，由 Playwright 无头浏览器与 ffmpeg 逐帧渲染。", "架构是 OpenComputer 无服务器代理：一个 TypeScript 文件、三个工具，任务在一次性微虚拟机（microVM）中运行后销毁。"], "discussion": "HN 评论分歧明显：有人称这是低质自动化的“花哨幻灯片”，也有人称实际广告效果已超过人工制作。", "tags": ["AI 视频生成", "无服务器代理", "产品发布工具"], "score": 177, "comments": 104, "by": "iacguy", "url": "https://launchvideo.io", "hnUrl": "https://news.ycombinator.com/item?id=49836374"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "Tutoring company tells parents to save their money and 'use AI instead'", "titleTranslation": "辅导公司告诉家长省下钱“改用 AI”", "summary": "澳大利亚辅导机构 Dymocks Tutoring 和 Talent 100 将在本周末关闭悉尼全部 5 家中心，并告知家长与其支付高价人工辅导，不如使用 Gemini 或 ChatGPT；该公司称 AI 已让其服务过时。", "keyPoints": ["Dymocks Tutoring 和 Talent 100 本周关闭悉尼 5 家中心，称 AI 已让面对面辅导服务过时。", "公司建议家长把预算投向 Gemini 或 ChatGPT，而非高价聘请人工辅导老师。", "评论普遍认为 AI 辅导的关键在引导机制：直接给答案会跳过学习过程，作为学习后批评者才可能有效。"], "discussion": "评论区核心分歧是 AI 辅导能否真正培养能力：共识是必须设计成学习过程的批评者而非答案生成器，否则可能培养出依赖拐杖的一代。", "tags": ["AI 教育产品", "教育科技", "人工辅导替代"], "score": 97, "comments": 162, "by": "theanonymousone", "url": "https://www.afr.com/policy/health-and-education/tutoring-company-tell-parents-to-save-their-money-and-use-ai-instead-20260923-p60z0r", "hnUrl": "https://news.ycombinator.com/item?id=49831690"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: AgentRun: DSL to turn agents into workflows", "titleTranslation": "Show HN：AgentRun：将智能体转化为工作流的 DSL", "summary": "AgentRun 开源了一个 DSL（领域特定语言），把 agent 工作中可重复的部分固化为可检查、可重跑的工作流，组合工具调用、代码、Jev 决策和 agent 调查。提供无需 API key 的脚本化 demo，目标是减少不必要的完整 agent 循环、降低成本。", "keyPoints": ["AgentRun 将 agent 的重复步骤固化为工作流，可检查、重跑，避免不必要的完整 agent 循环。", "组合工具调用、代码、Jev 类型化决策和 agent，用于路由、证据筛选与报告生成。", "提供无需 API key 的脚本化 demo，支持 Pi 扩展，Apache-2.0 许可，当前版本 0.1.0-beta.4。"], "discussion": "评论区围绕工作流 DSL 设计哲学产生分歧：一方主张 DSL 应接近 TypeScript 等真实语言以便 agent 与用户理解，另一方认为缺少成本/奖励属性的图工作流价值有限。", "tags": ["LLM agent 编排", "领域特定语言", "开发者工具"], "score": 41, "comments": 9, "by": "miguelrios", "url": "https://github.com/Parcha-ai/agentrun", "hnUrl": "https://news.ycombinator.com/item?id=49821438"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "'That's so AI ' What gen Alpha's biggest insult tells us", "titleTranslation": "“这也太AI了”：Alpha世代最大的侮辱语说明了什么", "summary": "小学里的 Alpha 世代用“That’s AI”指不真实、不可信或廉价的东西，把 AI 一词当成“废话/垃圾”的同义词；这说明年轻用户对 AI 生成内容已形成负面标签，公开标榜 AI 可能变成信任负担。", "keyPoints": ["Alpha 世代在小学里用“That’s AI”表示不真实、不可信或垃圾内容。", "孩子们把 AI 从技术含义泛化为“废话/不可信”，用来否定山寨货、夸张宣传和父母借口。", "有评论预测 6-12 个月内企业会从主页删除“AI-powered”，反转 AI 营销话术。"], "discussion": "评论分歧在于年轻人是否真的更早识别非真实内容并给 AI 标签付负面溢价，还是这只是一条媒体放大的伪趋势；有家长指出孩子一边鄙视 AI 内容，一边用 AI 辅助学习和编程。", "tags": ["AI 产品定位", "代际用户认知", "生成式内容信任"], "score": 129, "comments": 186, "by": "YeGoblynQueenne", "url": "https://www.theguardian.com/society/2026/sep/24/thats-so-ai-what-gen-alphas-biggest-insult-tells-us", "hnUrl": "https://news.ycombinator.com/item?id=49829650"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-25", "pointsLabel": "分", "commentsLabel": "评论", "title": "MentalHealthBench", "titleTranslation": "", "summary": "OpenAI 发布心理健康评估基准 MentalHealthBench（文章正文未能获取，信息有限）。HN 评论主要质疑将语言模型用于心理健康场景的伦理风险，包括广告画像与专业边界问题。", "keyPoints": ["OpenAI 发布 MentalHealthBench，用于评估语言模型在心理健康相关任务中的表现。", "文章正文未能获取，无法确认基准的具体设计、评估指标或合作方。", "评论指出心理健康数据与广告画像结合可能带来严重隐私和伦理风险。"], "discussion": "评论区共识是对将语言模型用于心理健康持警惕态度，担心广告画像、隐私和专业边界。", "tags": ["AI 伦理", "心理健康评估", "模型基准"], "score": 13, "comments": 4, "by": "gmays", "url": "https://openai.com/index/introducing-mentalhealthbench/", "hnUrl": "https://news.ycombinator.com/item?id=49837998"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
