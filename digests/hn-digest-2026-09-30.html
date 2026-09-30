@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-09-30</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-09-30 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://github.com/ninjahawk/livenerf" target="_blank" rel="noopener">Livenerf: Has Opus 5.5 been nerfed yet?</a></h2></div><p class="title-tr">Livenerf：Opus 5.5 已经被悄悄削弱了吗？</p><div class="meta">▲ 405 分 · bryan0 · <a href="https://news.ycombinator.com/item?id=49901736" target="_blank" rel="noopener">162 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Livenerf 是一个用固定题库和统计检验监控 Claude Opus 5.5 发售后是否被暗中降级的长期基准。目前刚收集 6/30 天基线，尚未下结论；设计上单窗口可检测约 7.5 个百分点变化。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 把“nerf”理解为模型发售后能力或推理预算被悄悄下调；文中的 GPQA Diamond、MMLU-Pro 等是固定准确率评测集。</p><ul class="kp"><li><strong>Livenerf</strong> 用 78 道“有时答错”的题组成固定面板，按预注册协议每天跑 90 个样本。</li><li>检测能力：一个 10 天窗口可发现 <strong>7.5 个百分点</strong>准确率变化，只消耗约 3.6% 的周套餐额度。</li><li>低努力模式输出 token 中位数下降 <strong>−62%</strong>，准确率下降约 8.3 点；同系列 Opus 5 暂不可区分。</li><li>当前 <strong>6/30 天</strong>已收集，首个基线对比结论约在 2026-10-24 后出。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论主流认为多数“被削弱”感受来自蜜月期或噪声，但也承认 Claude Code 及平台栈频繁改动可能造成局部退化。</p><div class="tags"><span class="tag">AI 模型评测</span><span class="tag">模型降级监测</span><span class="tag">Claude Opus 5.5</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · johnfn · 13 回复</div><p>&quot;Nerf&quot;ing models isn&#x27;t real in the vast majority of reported cases. Benchmarks like this or the 100 other &quot;let&#x27;s see if nerfing is real&quot; copies would have shown it by now if it was.</p><p>I made a graphic to explain why people feel like the models get nerfed:</p><p>https://x.com/thesilenceturns/status/2103551351825543610</p><p>The idea is that new models can handle up to a certain level of complexity, at which point they fall apart. Every new model can handle more complexity, so there&#x27;s a wonderful time upon release when you feel like you can do anything, only for you to hit the complexity ceiling a few days later when you saturate it. Rinse and repeat for the next model.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://openai.com/index/introducing-dots/" target="_blank" rel="noopener">Dots: Always-on agents</a></h2></div><p class="title-tr">Dots：常驻智能体</p><div class="meta">▲ 519 分 · alvis · <a href="https://news.ycombinator.com/item?id=49896604" target="_blank" rel="noopener">393 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OpenAI 发布常驻智能体 Dots，文章正文未获取，细节有限。HN 评论认为这是 OpenAI 继 Codex 后的又一产品，可能加剧平台锁定、与现有工具边界模糊，也有观点视其为 PC 时代向云端代理转移的信号。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 常驻智能体把一次性问答变成有记忆、集成和长期运行的云端工作流，类似从无状态模型 API 包装成有状态产品，锁定来自迁移成本。</p><ul class="kp"><li>OpenAI 推出 <strong>Dots</strong> 常驻智能体，正文不可得，功能与定价细节未知。</li><li>评论指出常驻代理拥有集成和工作历史，<strong>切换成本</strong>远高于更换模型。</li><li>Dots 与 Codex、ChatGPT Work 定位重叠，<strong>产品线模糊</strong>，且可能按 Dot 收费。</li><li>支持者认为常驻代理可能终结 <strong>PC 时代</strong>，让非技术用户无需自购电脑。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区多数担忧平台锁定与产品重叠，少数认为对非技术用户有价值且是云代理入口。</p><div class="tags"><span class="tag">AI 代理产品</span><span class="tag">平台锁定</span><span class="tag">OpenAI 产品战略</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · johnfahey · 16 回复</div><p>OpenAI won a lot of good favor for the generous Codex subscription and the efficiency of their models, but now that many people have switched over from Claude, they think they can leverage their position to peddle a stream of unnecessary products, and crack down on the generous limits[1] that brought everyone to Codex in the first place.</p><p>Anthropic did the same thing. Earlier this year, Claude subs and Claude Code took off because of the subscription&#x27;s incredible capability and value, then once they gained enough users, they started focusing on unnecessary products no one asked for (see Claude in Slack), and eventually lost their lead. After losing a bunch of customers to Codex subs they realized their mistake, and now they&#x27;re shipping again.</p><p>AI companies are bad at making software; they are good at making AI models. And that&#x27;s about it.</p><p>[1] https://x.com/thsottiaux/status/2104823812042940713</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://github.com/Sparticle62ops/pssa" target="_blank" rel="noopener">PSSA: A non-transformer language model written from scratch in Rust</a></h2></div><p class="title-tr">PSSA：用 Rust 从零编写的非 Transformer 语言模型</p><div class="meta">▲ 44 分 · sparticle62 · <a href="https://news.ycombinator.com/item?id=49903993" target="_blank" rel="noopener">11 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">PSSA 是一个用 Rust 手写、不依赖 PyTorch/TensorFlow 的语言模型，采用状态空间层和情景记忆。在相同参数、相同语料下，它比匹配 Transformer 训练损失更低、留出困惑度显著更低，CPU 生成快 12 倍，但规模仅 1.5M 参数，属研究原型。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可把 PSSA 理解为带外部记忆库、权重可更新的 RNN 变体：固定大小状态逐 token 前向传播，避免像 Transformer 那样注意力重读整个上下文。</p><ul class="kp"><li><strong>PSSA 训练损失 3.98</strong>，匹配参数 Transformer 为 4.43，留出困惑度 54.4 对 83.8</li><li><strong>生成 200 token 仅 226 毫秒</strong>，同 CPU 上比 Transformer 快 12 倍</li><li>模型仅 <strong>1.5M 参数</strong>，作者明确这是研究原型，文本质量仍差，不能与主流模型比较</li><li>架构含 <strong>512 槽情景记忆</strong>和塑性权重，成本随序列长度线性增长，而非 Transformer 的二次方</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区多数质疑“用 Rust”是标题党，并认为架构接近现有 RNN/记忆网络，需更严格对照实验和更大规模验证。</p><div class="tags"><span class="tag">非 Transformer 架构</span><span class="tag">模型训练效率</span><span class="tag">Rust 实现</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · purple-leafy · 3 回复</div><p>“In Rust” man of all the cliche title baits, I hate this one the most.</p><p>Why did you choose Rust? Why does that matter?</p><p>Nothing wrong with Rust. Lots wrong with the bandwagon that “in Rust” somehow adds value.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://agmai.org/general-sep29/" target="_blank" rel="noopener">Responsible Release of AI-Generated Mathematics</a></h2></div><p class="title-tr">负责任地发布 AI 生成的数学成果</p><div class="meta">▲ 17 分 · aureianimus · <a href="https://news.ycombinator.com/item?id=49903713" target="_blank" rel="noopener">5 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">数学界基于 600 多份回复提出 AI 实验室发布数学成果的负责任框架：要求停止在专有模型上测试高级数学问题；对无人理解的证明，须公开提示、思维链、成本并尽量形式化，还须出资帮助人类理解。这直接挑战传统同行评审和人类理解的核心地位。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中“形式化”指把数学证明转成可由证明助手（如 Lean）机械检查的形式，类似把模型评估从人工抽查变成自动化测试。</p><ul class="kp"><li>基于 <strong>600 多份回复</strong>，数学界提出 AI 实验室发布数学成果的负责任框架。</li><li>建议明确要求 AI 实验室<strong>停止在专有模型上测试高级数学问题</strong>，避免形成两层数学体系。</li><li>无人理解的 AI 证明发布时须公开<strong>模型名、提示词、思维链摘要、计算成本</strong>，并尽可能形式化。</li><li>AI 实验室须<strong>出资支持</strong>会议、工作坊和博士后等，帮助人类数学家吸收其成果。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 分歧在于：一方认为要求停止专有模型研究数学很荒谬，数学属于公共领域；另一方担心缺失数学家的判断后，AI 数学会沦为没有社会意义的符号生成。</p><div class="tags"><span class="tag">AI 数学研究</span><span class="tag">学术发布规范</span><span class="tag">形式化证明</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · throwaway713 · 2 回复</div><p>&gt; we ask them to stop testing advanced mathematical problems on proprietary models.</p><p>Maybe I&#x27;m alone on this, but for some reason these sorts of requests strike me as akin to gatekeeping how someone should breathe air. It&#x27;s math... the numbers and symbols are just out there in the platonic realm available for anyone to do as they like with them. It&#x27;s patently absurd to request other people to stop.</p><p>Ensuring credit where credit is due? That&#x27;s fine. If your model incorporates the efforts of many others, then it&#x27;s reasonable to request acknowledgement of everyone who contributed (even indirectly). But that&#x27;s not what the request states — presumably their ask subsumes any advanced ML model, including those that weren&#x27;t trained on a giant corpus of text.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://openai.com/index/introducing-gpt-6-1-sol/" target="_blank" rel="noopener">GPT 6.1 Sol: Near-Astra intelligence for a fifth of the price</a></h2></div><p class="title-tr">GPT 6.1 Sol：以五分之一的价格提供接近 Astra 的智能</p><div class="meta">▲ 856 分 · crorella · <a href="https://news.ycombinator.com/item?id=49896586" target="_blank" rel="noopener">777 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OpenAI 发布 GPT-6.1 Sol，宣称以 Astra（其高端模型）五分之一的价格提供接近其智能；缓存输入价格降至每百万 token 0.10 美元，比标准输入低 95%、比 GPT-6 Sol 缓存价低 50%。注意：原文无法获取，信息仅来自标题与 HN 讨论。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Astra 可理解为 OpenAI 的高端模型线；这则新闻把竞争焦点从模型能力差异转向单位 token 推理成本，直接影响毛利与定价权。</p><ul class="kp"><li><strong>GPT-6.1 Sol</strong> 宣称以约五分之一价格接近 Astra 的智能水平。</li><li>缓存输入价降至 <strong>每百万 token 0.10 美元</strong>，比标准输入低 95%、比 GPT-6 Sol 缓存价低 50%。</li><li>HN 用户称 <strong>GPT-6 Sol 表现不佳</strong>，部分转向 Anthropic Opus 5.5 或 DeepSeek。</li><li>评论认为<strong>大模型正走向商品化</strong>，价格战成主战场，利好用户但挤压行业利润。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区主要分歧在于性价比与前沿能力：不少用户认为模型智能差距已可忽略，更在意成本和配额，并质疑 OpenAI 的定价与迭代节奏。</p><div class="tags"><span class="tag">LLM 定价</span><span class="tag">OpenAI</span><span class="tag">模型商品化</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · proxysna · 30 回复</div><p>I am yet to spend $200 on deepseek this year. Not sure what kind of usage can justify $200/month of either openai or anthropic, i&#x27;m not even talking about $500. Deepseek is faster, IMO intelligence difference is negligible and it so much cheaper that i no longer care about how much i use it. I never hit any daily/weekly quota or anything like that while working or tinkering. At this point i am OK with being 6 months behind the &quot;frontier&quot;, purely on bang-for-buck basis and who cares which shadowy government gets my data.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://magazine.sebastianraschka.com/p/classifier-history-and-jev" target="_blank" rel="noopener">Language models for text classification: From bag-of-words to Jev</a></h2></div><p class="title-tr">语言模型用于文本分类：从词袋到 Jev</p><div class="meta">▲ 66 分 · Anon84 · <a href="https://news.ycombinator.com/item?id=49891203" target="_blank" rel="noopener">2 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">文章认为 Jev 是通用文本分类模型，在比 GPT 类大语言模型（LLM）更快更便宜、比专用分类器更通用之间找到定位，被比作分类任务的“ChatGPT 时刻”；并回溯了从词袋、循环网络到 ULMFiT 的文本分类演进。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 把“词袋”理解为固定大小词频向量（不含词序），可与你熟悉的词嵌入对照：它是文本表示的最简基线，而 Jev 在另一端做判别式分类。</p><ul class="kp"><li><strong>Jev</strong> 定位为通用文本分类器，相比 GPT 等通用 LLM 分类更快更便宜，比专用分类器更通用。</li><li>文本分类历史中，预训练方法 <strong>ULMFiT</strong> 在 IMDb 达到 95.4% 准确率，显著高于从零训练循环网络的 85.66%。</li><li>词袋表示丢失词序，“狗咬人”与“人咬狗”向量相同；n-gram 可部分缓解但增加词汇量。</li><li>HN 评论认为这是分类任务的 <strong>ChatGPT 时刻</strong>，无需逐任务微调即可低成本覆盖多类文本分类。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论共识认为 Jev 可能成为分类任务的“ChatGPT 时刻”，早期用户已在邮件分类场景中看到前景。</p><div class="tags"><span class="tag">文本分类</span><span class="tag">Jev</span><span class="tag">模型经济性</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://www.reuters.com/legal/litigation/ai-tools-generated-nearly-1-billion-extra-costs-blue-cross-insurers-say-2026-09-24/" target="_blank" rel="noopener">AI tools generated nearly $1B in extra costs, Blue Cross insurers say</a></h2></div><p class="title-tr">AI 工具产生了近 10 亿美元额外成本，Blue Cross 保险公司称</p><div class="meta">▲ 8 分 · EA-3167 · <a href="https://news.ycombinator.com/item?id=49904221" target="_blank" rel="noopener">3 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">正文无法获取，信息有限：Blue Cross 保险公司称其使用的 AI 工具产生了近 10 亿美元额外成本。该说法若成立，会突显 AI 在医疗保险理赔审核中的成本与责任风险，但具体构成未披露，评论质疑其意在甩锅。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可把医疗保险理赔中的 AI 工具成本理解为与你熟悉的 AI 产品部署、推理和运营成本类似，但这里被量化为近 10 亿美元并卷入责任诉讼。</p><ul class="kp"><li>Blue Cross 保险公司称 AI 工具产生 <strong>近 10 亿美元额外成本</strong>。</li><li>正文未能获取，具体成本构成、时间范围与涉事实体均未披露。</li><li>一位评论者认为保险公司把 AI 当 <strong>替罪羊</strong>，以保护自身利润。</li><li>事件可能影响 AI 在医疗保险理赔与审核中的 <strong>采用和合规责任</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区倾向质疑保险公司是在借 AI 转移对利润或管理问题的关注，而非认真分析 AI 成本结构。</p><div class="tags"><span class="tag">AI 成本</span><span class="tag">医疗保险</span><span class="tag">诉讼争议</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · lp92 · 2 回复</div><p>Sounds like insurance companies just want yo preserve their bottom line and using AI as a scapegoat.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://jorgegarciaherrero.com/wp-content/interactivos/20260916-Prompt-like-a-butterfly-sting-like-a-tracker-(clean).pdf" target="_blank" rel="noopener">A Privacy Analysis of Web and Mobile Conversational AI Agents [pdf]</a></h2></div><p class="title-tr">像蝴蝶一样提示，像追踪器一样蜇人：Web 与移动端对话式 AI 智能体的隐私分析</p><div class="meta">▲ 413 分 · damaru2 · <a href="https://news.ycombinator.com/item?id=49890226" target="_blank" rel="noopener">130 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">对 9 个对话 AI 服务的隐私分析显示，全部集成第三方广告/跟踪；6/9 Web 端和 3/8 Android 端把对话标题、提示词、URL、截图泄露给第三方，部分对话永久链接无访问控制可被公开读取。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 论文说的‘第三方广告/跟踪服务’可理解为广告网络里的数据采集器，它们用持久用户标识符当‘样本 ID’，把对话内容变成跨会话可归因的行为标签。</p><ul class="kp"><li><strong>9 个对话 AI 服务全部</strong>集成至少一个第三方广告/跟踪服务，部分仅在用户接受非必要 cookie 后激活。</li><li><strong>6/9 Web 和 3/8 Android 客户端</strong>向第三方泄露对话标题、URL、提示词、截图，并常附持久用户标识以支持跨会话归因。</li><li><strong>部分服务公开暴露无访问控制的对话永久链接</strong>，使追踪器可读取整个对话内容，并非仅元数据。</li><li>研究者已向提供商和<strong>相关欧洲数据保护机构</strong>提交责任披露，指出该做法可能违反欧盟数据保护法与《电子隐私指令》。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍认为云 AI 服务已把对话变成广告信号，隐私风险成为使用云服务的核心代价；分歧在于本地模型是否构成有效替代，以及 AI 公司为何把高价值数据让给广告竞对。</p><div class="tags"><span class="tag">对话式 AI 隐私</span><span class="tag">第三方广告跟踪</span><span class="tag">欧盟数据保护</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · pbasista · 4 回复</div><p>Tangential:</p><p>I have recently noticed that e.g. ChatGPT, when used from a web browser, periodically sends unfinished prompts to their servers, namely to the `conversation/prepare` endpoint, without waiting for the user to actually send it.</p><p>This partial prompt data might potentially be used to &quot;pre-warm&quot; some kind of cache.</p><p>But it may also be used to track the user&#x27;s writing cadence, error correction style and evolution of their stub ideas as they are being formulated into a prompt. I would assume that such data could also be sold to the advertisers.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://github.com/lostmsu/TurboGPT" target="_blank" rel="noopener">Show HN: TurboGPT: train 22KiB transformer in 13s</a></h2></div><p class="title-tr">Show HN: TurboGPT：13 秒训练 22KiB transformer</p><div class="meta">▲ 45 分 · lostmsu · <a href="https://news.ycombinator.com/item?id=49898931" target="_blank" rel="noopener">10 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">TurboGPT 是一个用 CUDA C++ 实现的微型字节级 GPT 训练器，13 秒可训练 22KiB 模型；在 hn1g 数据上训练 15 亿 token 后达到 2.5295 BPB（每字节比特数）。价值主要在低层训练栈和可断点续训，而非模型能力。</p><p class="context"><strong>🧭 联系你的知识背景</strong> CUDA C++ 是直接操作 GPU 的底层编程方式，不同于你常用的 Python 训练循环；BPB（每字节比特数）是字节级语言模型的损失指标，数值越低越好。</p><ul class="kp"><li><strong>TurboGPT 用 CUDA C++ 实现字节级 GPT 训练</strong>，代码规模约 22KiB，采用 MIT 开源协议</li><li><strong>13 秒训练时长</strong>针对微型模型；在 hn1g 数据训练 15 亿 token 后达到 2.5295 BPB</li><li><strong>构建脚本仅 Windows 可用</strong>，依赖 CUDA 13.4 和 Visual Studio 2022；NixOS 可用 nix-build 构建</li><li>检查点保存模型、优化器、调度器和训练器状态，日志兼容 TensorBoard，支持断点续训</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区多认为这类项目重复了 Karpathy minGPT 的教学价值，并指出 hn1g.txt 数据未提供、用磁盘大小而非参数量标注模型有误导。</p><div class="tags"><span class="tag">CUDA 训练</span><span class="tag">字节级语言模型</span><span class="tag">开源教学项目</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · _345 · 3 回复</div><p>Trying to be a little less negative than the guy that got flagged, I too don&#x27;t understand the motivation behind these projects. I&#x27;ve seen a hundred of them at this point- and each of them is probably worse and has less learning value than the one Andrej Karpathy made to teach people the building blocks involved in a GPT</p><p>So, why do people keep making these? Asking genuinely</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://help.openai.com/en/articles/9793128-about-chatgpt-pro-tiers" target="_blank" rel="noopener">ChatGPT Pro 500</a></h2></div><div class="meta">▲ 197 分 · prodigycorp · <a href="https://news.ycombinator.com/item?id=49896975" target="_blank" rel="noopener">229 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">本文信息仅来自标题与 HN 讨论（原文无法获取）。OpenAI 推出 $500/月的 ChatGPT Pro 500 层级，提供 25 倍基础使用量；同时将 Pro 200 从 20 倍降至 10 倍但维持 $200 月费，变相抬高单位成本。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 若你熟悉产品订阅的阶梯定价，可把“使用量倍数”理解为基于基础配额的资源限额，类似模型推理预算或 API 速率限制。</p><ul class="kp"><li><strong>ChatGPT Pro 500</strong> 每月 $500，提供 25 倍基础使用量，是新的最高订阅档。</li><li><strong>Pro 200</strong> 用量从 20 倍削减至 10 倍而价格仍为 $200，单位成本提高。</li><li>现有订阅者获赠 <strong>62,500 usage credits</strong>（宣称价值 $2,500），2026 年底前用完。</li><li>评论认为<strong>各档单价趋同</strong>，Pro 200 优惠被收回，重度用户获得更贵选项。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是 Pro 200 降量等于变相加价，但也有人指出重度用户确实会开多个 $200 账户，Pro 500 可用于整合；部分人建议直接迁移到开源模型。</p><div class="tags"><span class="tag">AI 订阅定价</span><span class="tag">OpenAI</span><span class="tag">LLM 推理成本</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · azuanrb · 7 回复</div><p>So many negative comments here. Among my circle, it’s not uncommon for people to have multiple $200 accounts. This seems like it would make things easier for them by letting them use one account instead of juggling two or more.</p><p>What they’re doing with billions of tokens every week, beats me. But these users absolutely do exist.</p></div></div></article>
+</div></main>
+<footer>generated 2026-09-30 05:30 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-30", "pointsLabel": "分", "commentsLabel": "评论", "title": "Livenerf: Has Opus 5.5 been nerfed yet?", "titleTranslation": "Livenerf：Opus 5.5 已经被悄悄削弱了吗？", "summary": "Livenerf 是一个用固定题库和统计检验监控 Claude Opus 5.5 发售后是否被暗中降级的长期基准。目前刚收集 6/30 天基线，尚未下结论；设计上单窗口可检测约 7.5 个百分点变化。", "keyPoints": ["Livenerf 用 78 道“有时答错”的题组成固定面板，按预注册协议每天跑 90 个样本。", "检测能力：一个 10 天窗口可发现 7.5 个百分点准确率变化，只消耗约 3.6% 的周套餐额度。", "低努力模式输出 token 中位数下降 −62%，准确率下降约 8.3 点；同系列 Opus 5 暂不可区分。"], "discussion": "评论主流认为多数“被削弱”感受来自蜜月期或噪声，但也承认 Claude Code 及平台栈频繁改动可能造成局部退化。", "tags": ["AI 模型评测", "模型降级监测", "Claude Opus 5.5"], "score": 405, "comments": 162, "by": "bryan0", "url": "https://github.com/ninjahawk/livenerf", "hnUrl": "https://news.ycombinator.com/item?id=49901736"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-30", "pointsLabel": "分", "commentsLabel": "评论", "title": "Dots: Always-on agents", "titleTranslation": "Dots：常驻智能体", "summary": "OpenAI 发布常驻智能体 Dots，文章正文未获取，细节有限。HN 评论认为这是 OpenAI 继 Codex 后的又一产品，可能加剧平台锁定、与现有工具边界模糊，也有观点视其为 PC 时代向云端代理转移的信号。", "keyPoints": ["OpenAI 推出 Dots 常驻智能体，正文不可得，功能与定价细节未知。", "评论指出常驻代理拥有集成和工作历史，切换成本远高于更换模型。", "Dots 与 Codex、ChatGPT Work 定位重叠，产品线模糊，且可能按 Dot 收费。"], "discussion": "评论区多数担忧平台锁定与产品重叠，少数认为对非技术用户有价值且是云代理入口。", "tags": ["AI 代理产品", "平台锁定", "OpenAI 产品战略"], "score": 519, "comments": 393, "by": "alvis", "url": "https://openai.com/index/introducing-dots/", "hnUrl": "https://news.ycombinator.com/item?id=49896604"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-30", "pointsLabel": "分", "commentsLabel": "评论", "title": "PSSA: A non-transformer language model written from scratch in Rust", "titleTranslation": "PSSA：用 Rust 从零编写的非 Transformer 语言模型", "summary": "PSSA 是一个用 Rust 手写、不依赖 PyTorch/TensorFlow 的语言模型，采用状态空间层和情景记忆。在相同参数、相同语料下，它比匹配 Transformer 训练损失更低、留出困惑度显著更低，CPU 生成快 12 倍，但规模仅 1.5M 参数，属研究原型。", "keyPoints": ["PSSA 训练损失 3.98，匹配参数 Transformer 为 4.43，留出困惑度 54.4 对 83.8", "生成 200 token 仅 226 毫秒，同 CPU 上比 Transformer 快 12 倍", "模型仅 1.5M 参数，作者明确这是研究原型，文本质量仍差，不能与主流模型比较"], "discussion": "评论区多数质疑“用 Rust”是标题党，并认为架构接近现有 RNN/记忆网络，需更严格对照实验和更大规模验证。", "tags": ["非 Transformer 架构", "模型训练效率", "Rust 实现"], "score": 44, "comments": 11, "by": "sparticle62", "url": "https://github.com/Sparticle62ops/pssa", "hnUrl": "https://news.ycombinator.com/item?id=49903993"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-30", "pointsLabel": "分", "commentsLabel": "评论", "title": "Responsible Release of AI-Generated Mathematics", "titleTranslation": "负责任地发布 AI 生成的数学成果", "summary": "数学界基于 600 多份回复提出 AI 实验室发布数学成果的负责任框架：要求停止在专有模型上测试高级数学问题；对无人理解的证明，须公开提示、思维链、成本并尽量形式化，还须出资帮助人类理解。这直接挑战传统同行评审和人类理解的核心地位。", "keyPoints": ["基于 600 多份回复，数学界提出 AI 实验室发布数学成果的负责任框架。", "建议明确要求 AI 实验室停止在专有模型上测试高级数学问题，避免形成两层数学体系。", "无人理解的 AI 证明发布时须公开模型名、提示词、思维链摘要、计算成本，并尽可能形式化。"], "discussion": "HN 分歧在于：一方认为要求停止专有模型研究数学很荒谬，数学属于公共领域；另一方担心缺失数学家的判断后，AI 数学会沦为没有社会意义的符号生成。", "tags": ["AI 数学研究", "学术发布规范", "形式化证明"], "score": 17, "comments": 5, "by": "aureianimus", "url": "https://agmai.org/general-sep29/", "hnUrl": "https://news.ycombinator.com/item?id=49903713"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-30", "pointsLabel": "分", "commentsLabel": "评论", "title": "GPT 6.1 Sol: Near-Astra intelligence for a fifth of the price", "titleTranslation": "GPT 6.1 Sol：以五分之一的价格提供接近 Astra 的智能", "summary": "OpenAI 发布 GPT-6.1 Sol，宣称以 Astra（其高端模型）五分之一的价格提供接近其智能；缓存输入价格降至每百万 token 0.10 美元，比标准输入低 95%、比 GPT-6 Sol 缓存价低 50%。注意：原文无法获取，信息仅来自标题与 HN 讨论。", "keyPoints": ["GPT-6.1 Sol 宣称以约五分之一价格接近 Astra 的智能水平。", "缓存输入价降至 每百万 token 0.10 美元，比标准输入低 95%、比 GPT-6 Sol 缓存价低 50%。", "HN 用户称 GPT-6 Sol 表现不佳，部分转向 Anthropic Opus 5.5 或 DeepSeek。"], "discussion": "HN 评论区主要分歧在于性价比与前沿能力：不少用户认为模型智能差距已可忽略，更在意成本和配额，并质疑 OpenAI 的定价与迭代节奏。", "tags": ["LLM 定价", "OpenAI", "模型商品化"], "score": 856, "comments": 777, "by": "crorella", "url": "https://openai.com/index/introducing-gpt-6-1-sol/", "hnUrl": "https://news.ycombinator.com/item?id=49896586"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-30", "pointsLabel": "分", "commentsLabel": "评论", "title": "Language models for text classification: From bag-of-words to Jev", "titleTranslation": "语言模型用于文本分类：从词袋到 Jev", "summary": "文章认为 Jev 是通用文本分类模型，在比 GPT 类大语言模型（LLM）更快更便宜、比专用分类器更通用之间找到定位，被比作分类任务的“ChatGPT 时刻”；并回溯了从词袋、循环网络到 ULMFiT 的文本分类演进。", "keyPoints": ["Jev 定位为通用文本分类器，相比 GPT 等通用 LLM 分类更快更便宜，比专用分类器更通用。", "文本分类历史中，预训练方法 ULMFiT 在 IMDb 达到 95.4% 准确率，显著高于从零训练循环网络的 85.66%。", "词袋表示丢失词序，“狗咬人”与“人咬狗”向量相同；n-gram 可部分缓解但增加词汇量。"], "discussion": "HN 评论共识认为 Jev 可能成为分类任务的“ChatGPT 时刻”，早期用户已在邮件分类场景中看到前景。", "tags": ["文本分类", "Jev", "模型经济性"], "score": 66, "comments": 2, "by": "Anon84", "url": "https://magazine.sebastianraschka.com/p/classifier-history-and-jev", "hnUrl": "https://news.ycombinator.com/item?id=49891203"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-30", "pointsLabel": "分", "commentsLabel": "评论", "title": "AI tools generated nearly $1B in extra costs, Blue Cross insurers say", "titleTranslation": "AI 工具产生了近 10 亿美元额外成本，Blue Cross 保险公司称", "summary": "正文无法获取，信息有限：Blue Cross 保险公司称其使用的 AI 工具产生了近 10 亿美元额外成本。该说法若成立，会突显 AI 在医疗保险理赔审核中的成本与责任风险，但具体构成未披露，评论质疑其意在甩锅。", "keyPoints": ["Blue Cross 保险公司称 AI 工具产生 近 10 亿美元额外成本。", "正文未能获取，具体成本构成、时间范围与涉事实体均未披露。", "一位评论者认为保险公司把 AI 当 替罪羊，以保护自身利润。"], "discussion": "评论区倾向质疑保险公司是在借 AI 转移对利润或管理问题的关注，而非认真分析 AI 成本结构。", "tags": ["AI 成本", "医疗保险", "诉讼争议"], "score": 8, "comments": 3, "by": "EA-3167", "url": "https://www.reuters.com/legal/litigation/ai-tools-generated-nearly-1-billion-extra-costs-blue-cross-insurers-say-2026-09-24/", "hnUrl": "https://news.ycombinator.com/item?id=49904221"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-30", "pointsLabel": "分", "commentsLabel": "评论", "title": "A Privacy Analysis of Web and Mobile Conversational AI Agents [pdf]", "titleTranslation": "像蝴蝶一样提示，像追踪器一样蜇人：Web 与移动端对话式 AI 智能体的隐私分析", "summary": "对 9 个对话 AI 服务的隐私分析显示，全部集成第三方广告/跟踪；6/9 Web 端和 3/8 Android 端把对话标题、提示词、URL、截图泄露给第三方，部分对话永久链接无访问控制可被公开读取。", "keyPoints": ["9 个对话 AI 服务全部集成至少一个第三方广告/跟踪服务，部分仅在用户接受非必要 cookie 后激活。", "6/9 Web 和 3/8 Android 客户端向第三方泄露对话标题、URL、提示词、截图，并常附持久用户标识以支持跨会话归因。", "部分服务公开暴露无访问控制的对话永久链接，使追踪器可读取整个对话内容，并非仅元数据。"], "discussion": "评论普遍认为云 AI 服务已把对话变成广告信号，隐私风险成为使用云服务的核心代价；分歧在于本地模型是否构成有效替代，以及 AI 公司为何把高价值数据让给广告竞对。", "tags": ["对话式 AI 隐私", "第三方广告跟踪", "欧盟数据保护"], "score": 413, "comments": 130, "by": "damaru2", "url": "https://jorgegarciaherrero.com/wp-content/interactivos/20260916-Prompt-like-a-butterfly-sting-like-a-tracker-(clean).pdf", "hnUrl": "https://news.ycombinator.com/item?id=49890226"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-30", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: TurboGPT: train 22KiB transformer in 13s", "titleTranslation": "Show HN: TurboGPT：13 秒训练 22KiB transformer", "summary": "TurboGPT 是一个用 CUDA C++ 实现的微型字节级 GPT 训练器，13 秒可训练 22KiB 模型；在 hn1g 数据上训练 15 亿 token 后达到 2.5295 BPB（每字节比特数）。价值主要在低层训练栈和可断点续训，而非模型能力。", "keyPoints": ["TurboGPT 用 CUDA C++ 实现字节级 GPT 训练，代码规模约 22KiB，采用 MIT 开源协议", "13 秒训练时长针对微型模型；在 hn1g 数据训练 15 亿 token 后达到 2.5295 BPB", "构建脚本仅 Windows 可用，依赖 CUDA 13.4 和 Visual Studio 2022；NixOS 可用 nix-build 构建"], "discussion": "评论区多认为这类项目重复了 Karpathy minGPT 的教学价值，并指出 hn1g.txt 数据未提供、用磁盘大小而非参数量标注模型有误导。", "tags": ["CUDA 训练", "字节级语言模型", "开源教学项目"], "score": 45, "comments": 10, "by": "lostmsu", "url": "https://github.com/lostmsu/TurboGPT", "hnUrl": "https://news.ycombinator.com/item?id=49898931"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-09-30", "pointsLabel": "分", "commentsLabel": "评论", "title": "ChatGPT Pro 500", "titleTranslation": "", "summary": "本文信息仅来自标题与 HN 讨论（原文无法获取）。OpenAI 推出 $500/月的 ChatGPT Pro 500 层级，提供 25 倍基础使用量；同时将 Pro 200 从 20 倍降至 10 倍但维持 $200 月费，变相抬高单位成本。", "keyPoints": ["ChatGPT Pro 500 每月 $500，提供 25 倍基础使用量，是新的最高订阅档。", "Pro 200 用量从 20 倍削减至 10 倍而价格仍为 $200，单位成本提高。", "现有订阅者获赠 62,500 usage credits（宣称价值 $2,500），2026 年底前用完。"], "discussion": "评论区共识是 Pro 200 降量等于变相加价，但也有人指出重度用户确实会开多个 $200 账户，Pro 500 可用于整合；部分人建议直接迁移到开源模型。", "tags": ["AI 订阅定价", "OpenAI", "LLM 推理成本"], "score": 197, "comments": 229, "by": "prodigycorp", "url": "https://help.openai.com/en/articles/9793128-about-chatgpt-pro-tiers", "hnUrl": "https://news.ycombinator.com/item?id=49896975"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
