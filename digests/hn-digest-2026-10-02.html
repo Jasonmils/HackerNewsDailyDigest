@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-10-02</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-10-02 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://www.deepseek.com/en/harness/" target="_blank" rel="noopener">DeepSeek Harness</a></h2></div><div class="meta">▲ 72 分 · Kuyawa · <a href="https://news.ycombinator.com/item?id=49929489" target="_blank" rel="noopener">25 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">DeepSeek 发布开源代理工作台 DeepSeek Harness 全球公开预览，支持通过聊天在 Creator 模式创建插件来扩展工具、技能和界面；可处理文档、表格、写代码，并加入定时任务与执行追踪，目标成为可组合的智能体基础设施。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 你可把 Harness 理解为 AI 代理版的可扩展工作台：插件相当于给语言模型增加外部工具调用模块，与模型训练中的模块化组件类似，但更偏产品化运行编排。</p><ul class="kp"><li><strong>DeepSeek Harness</strong> 进入全球公开预览并开源，插件可组合扩展智能体能力。</li><li>用户可在 <strong>Creator 模式</strong>通过聊天直接创建插件，无需手写脚手架。</li><li>一条命令 <strong>`npx @deepseek-ai/dsh web`</strong> 即可启动 Web UI，另有源码仓库可自托管。</li><li>HN 评论指出页面没突出 <strong>Cordis 架构</strong>，但该架构可能让长期运行智能体更具潜力。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区既有“又一个 harness”的厌倦，也有用户称 Mac 版应用体验强劲并现场让 AI 写插件，分歧在于这是包装升级还是架构升级。</p><div class="tags"><span class="tag">智能体工作台</span><span class="tag">开源开发者工具</span><span class="tag">AI 插件生态</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · ElProlactin · 4 回复</div><p>I wish there was a tool I could use to share my documents, activity, etc. directly with the world&#x27;s major intelligence agencies.</p><p>A marketplace, where the different intelligence agencies could evaluate the value of my digital stuff and then offer me something (like a $5 gift card to Olive Garden), would be really nice.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://sigh.dev/posts/metas-muse-is-fantastic-for-web-scraping/" target="_blank" rel="noopener">Meta&#x27;s Muse is fantastic for web scraping</a></h2></div><p class="title-tr">Meta 的 Muse 非常适合网页抓取</p><div class="meta">▲ 11 分 · STRiDEX · <a href="https://news.ycombinator.com/item?id=49929970" target="_blank" rel="noopener">3 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者以 80 美元/月订阅 Meta 的 AI 代理 Muse，每周消耗数十亿 token 扫描 Reddit 和 YouTube 寻找演唱会视频，效果惊人但担心被滥用；亚马逊已封锁，未来更多网站可能跟进。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Muse 是 Meta 的 AI 代理，能像真人一样操控浏览器，把网页抓取从写脚本变成指挥模型自动浏览。</p><ul class="kp"><li><strong>80 美元/月</strong>订阅 Muse，作者每周消耗数十亿 token 抓取 Reddit/YouTube 数据。</li><li>Muse 的模型写作平庸，但在<strong>廉价高吞吐的网页抓取负载</strong>上接近 Gemini Flash。</li><li>作者担心若用于抓取亚马逊，<strong>网站将大规模封锁 Muse</strong>，亚马逊已先行封锁。</li><li>评论指出 Muse 的<strong>静态 IP 已被识别</strong>，实用性因平台封锁而下降。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论既有自制 AI 浏览器绕过机器人检测，也有指出 Muse 静态 IP 被封，共识是代理浏览器正成为抓取工具但平台在反击。</p><div class="tags"><span class="tag">AI 代理</span><span class="tag">网页抓取</span><span class="tag">平台反滥用</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · dvt · 1 回复</div><p>I built an AI &quot;web harness&quot; running on a sandboxed Chromium (using a custom side-loaded plugin that talks over websockets to a &quot;driver&quot;) to basically do anything a normal user could do on a browser. It totally bypasses any and all bot measures and only gets the ones you yourself would get as well (and passes those successfully, e.g. Cloudflare checkbox or those annoying ORC puzzles).</p><p>Not sure if I should release it, but I&#x27;m sure more people are catching onto the power of agentic browsing.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://blog.cloudflare.com/clef-decision-models/" target="_blank" rel="noopener">Clef: Open-weight decision models, and new RL fine-tuning platform</a></h2></div><p class="title-tr">Clef：开放权重决策模型与新的强化学习微调平台</p><div class="meta">▲ 472 分 · jasondavies · <a href="https://news.ycombinator.com/item?id=49923692" target="_blank" rel="noopener">170 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Cloudflare 发布 Clef 与 Clef-flash 两个开放权重决策模型，基于 Qwen 后训练，在 Jev Decision Index 多项基准上领先，中位延迟 209.3ms 对 Jev 的 524.1ms。支持 64k 上下文和图像输入，但 Clef 定价约为 Jev 的 6 倍。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可以把决策模型理解为把分类任务从自回归生成中解耦：用预训练表示对固定 schema 直接打分，类似你用 logprobs 约束输出而非逐 token 生成文本，因此更快、更确定但能力更窄。</p><ul class="kp"><li><strong>Cloudflare 发布 Clef 与 Clef-flash</strong>，开放权重（Apache 2.0），由 Workers AI 托管，基于 Qwen 后训练。</li><li><strong>Clef 中位延迟 209.3ms，对比 Jev 524.1ms</strong>，并支持 64k 上下文和视觉输入，在多项决策基准上领先。</li><li>决策阶段采用非自回归打分，<strong>直接对候选 schema 评分而非逐 token 生成</strong>，并引入 Brier loss 与 RLCD 做概率校准。</li><li><strong>Clef 定价 $0.24/百万输入 token，约为 Jev 的 6 倍</strong>；Clef-flash $0.09 更有竞争力，自托管可能更划算。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区核心分歧是“开放权重不等于开源”：训练数据与流程未公开；另有用户实测 Clef 在仇恨言论审核上比 Jev 更慢更差，且价格贵 6 倍。</p><div class="tags"><span class="tag">决策模型</span><span class="tag">开放权重</span><span class="tag">RL 微调</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · manlymuppet · 5 回复</div><p>Am I hearing this right, that they made a decision model based on Typesafe&#x27;s new paradigm, and actually made a model better than Jev based on Typesafe&#x27;s own ranking?</p><p>And it&#x27;s only been a few weeks.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://resobscura.substack.com/p/using-opus-55-to-discover-a-new-eyewitness" target="_blank" rel="noopener">Using Opus 5.5 to discover a new eyewitness record of the dodo</a></h2></div><p class="title-tr">使用 Opus 5.5 发现渡渡鸟的新目击记录</p><div class="meta">▲ 108 分 · benbreen · <a href="https://news.ycombinator.com/item?id=49926917" target="_blank" rel="noopener">22 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">文章主体无法获取，信息有限。标题称使用 Opus 5.5 在历史文献中发现新的渡渡鸟目击记录；HN 评论推测候选文献范围约 3000 页，并讨论 LLM 错误模式与历史判断局限。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Opus 5.5 是一个 LLM，此处用作历史文献检索，类似在非结构化文本中定位罕见目标实体。</p><ul class="kp"><li>使用 <strong>Opus 5.5</strong> 在历史文献中发现新的渡渡鸟目击记录。</li><li>评论推测作者先将文献范围缩小至约 <strong>3000 页</strong>，再定位渡渡鸟提及。</li><li>评论指出 LLM 的错误模式与人类截然不同，<strong>难以预判</strong>。</li><li>有评论认为模型对历史重要性的判断<strong>能力不足</strong>，是主要局限。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论认可 LLM 辅助历史检索的潜力，但争议在于模型对历史重要性判断不可靠，且错误模式难以预判。</p><div class="tags"><span class="tag">LLM 辅助历史检索</span><span class="tag">模型错误模式</span><span class="tag">渡渡鸟目击记录</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · nl · 5 回复</div><p>&gt; Epistemological weirdness</p><p>&gt; They are also notably bad at judging the historical significance of what they find.</p><p>I use LLMs for some things that are outside the more common use-cases (in my case 3D design for 3D printing) and one thing I&#x27;ve noticed is that the errors it makes are so completely unlike human errors that they are hard to anticipate.</p><p>It will do things like build perfect snap catches but put them so the the pieces they are connecting are rotated 90 degrees from how they should be. It&#x27;s &quot;dumb&quot; error, but hard to say the model itself if dumb because it does other very hard things so perfectly.</p><p>&gt; seven chord groups</p><p>This sounds a lot more like Opus 5.0 than Opus 5.5 TBH. I wonder if that was an earlier investigation because 5.5 has improved that kind of language a lot.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://www.frogandtoad.ai/" target="_blank" rel="noopener">Frog and Toad and the Increasingly Capable Machines</a></h2></div><p class="title-tr">《Frog and Toad》与日益强大的机器</p><div class="meta">▲ 100 分 · supermdguy · <a href="https://news.ycombinator.com/item?id=49927760" target="_blank" rel="noopener">16 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">该网站用 Arnold Lobel 经典童书《Frog and Toad》的画风与叙事，讲述机器能力不断增强的故事。HN 读者普遍认可其仿写质量，但版权授权问题被提出。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 《Frog and Toad》是 Arnold Lobel 的经典儿童读物；这里的“机器”可理解为日益强大的 AI 系统，作品用童书形式包装技术主题而非技术分析。</p><ul class="kp"><li>作品是对 <strong>Arnold Lobel《Frog and Toad》</strong> 的仿写，用童书画风与叙事讨论机器能力增长。</li><li>多位 HN 读者称赞<strong>风格和插画执行到位</strong>，有人表示一口气读完。</li><li>有评论质疑 <strong>Arnold Lobel 遗产是否获得授权或补偿</strong>。</li><li>评论区有人提到故事涉及 <strong>“the breach”</strong>，但未给出具体背景。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是仿写质量高，但版权授权是否合法是主要争议点。</p><div class="tags"><span class="tag">AI 叙事</span><span class="tag">版权授权</span><span class="tag">童书仿写</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · mjd · 1 回复</div><p>For those not familiar with it already, the writing and art style are a well-executed pastiche of Arnold Lobel&#x27;s ”Frog and Toad” books.</p><p>https://en.wikipedia.org/wiki/Frog_and_Toad</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://turbopuffer.com/blog/rip-vector-database" target="_blank" rel="noopener">RIP, vector database</a></h2></div><p class="title-tr">安息吧，向量数据库</p><div class="meta">▲ 298 分 · razin · <a href="https://news.ycombinator.com/item?id=49923466" target="_blank" rel="noopener">81 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">turbopuffer 宣布 v3 架构不再把近似最近邻向量索引当作数据存放的主键，而是降为辅助索引，以消除更新向量时引发的级联复制和查询块大小限制。其在 100B+ 向量规模达到 200ms p99 延迟和 1k+ QPS，全文检索解耦后索引缩小 10 倍、查询快 20 倍，为更多 SQL 查询铺路。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中的“主索引”可理解为决定数据物理存放位置的那把钥匙；以前向量相似度索引独占这把钥匙，导致更新 embedding 时要连带搬运所有关联文本和属性，类似训练时把 embedding 和元数据绑死在同一个地址上。</p><ul class="kp"><li><strong>turbopuffer v3</strong> 将 ANN 向量索引从主索引降为辅助索引，文档存储不再按向量地址组织。</li><li>旧架构在 <strong>100B+ 向量</strong>规模做到 200ms p99 延迟和 1k+ QPS，但写入放大和查询块大小受限。</li><li>全文搜索 v2 改为固定 <strong>256 文档块</strong>后，索引缩小 10 倍、查询提速 20 倍，证明解耦有效。</li><li>新架构已 <strong>100% 通过 CI</strong>，进入性能调优阶段，目标先达到性能持平再上线。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论共识是该方向正确，有人类比 Postgres 到 MySQL 的索引设计转变，也有人指出 LanceDB 早已采用类似架构。</p><div class="tags"><span class="tag">向量数据库</span><span class="tag">存储引擎架构</span><span class="tag">近似最近邻搜索</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · gopalv · 4 回复</div><p>&gt; This write amplification is large enough that our efforts to tune indexing throughput have started to hit diminishing returns.</p><p>&gt; don&#x27;t key on the ANN address. That is precisely the change turbopuffer v3 makes. As you can imagine, it is not a trivial change.</p><p>This is a direct parallel to how Postgres and Mysql built indexes.</p><p>Your design choice went from a Postgres design pattern to a Mysql one. The difference is the reindexing cost vs the lookup cost - Postgres optimized for lookup and Mysql does for indexing on writes. Or more accurately, Postgres was better with good schema design using joins &amp; mysql was optimized for a bad design with less normalization where many indexes exist for the same table.</p><p>Postgres always points an index to a row-id within postgres which is an arbitrary value which changes on each update.</p><p>Mysql, always assuming the storage engine is pluggable, points to the primary index entry and adds an extra indirection to the lookup.</p><p>This means that you point the mysql index to a stable id, so unless you go update the primary key for a row, you won&#x27;t have to update the indexes for all the attribute lookups you might have made to data.</p><p>I don&#x27;t do databases any more that much, but the design for NIMBLE file format has a lot of quirks which are relevant to this specific idea (wide tables).</p><p>But the old Uber post about switching from Postgres to Mysql to prevent index amplification[1] is a direct mirror to this post.</p><p>[1] - https://www.uber.com/us/en/blog/postgres-to-mysql-migration/</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://github.com/Vibra-Ingenn/Janus" target="_blank" rel="noopener">Show HN: Janus – Go binary that runs GGUF models via Vulkan on AMD/Intel/Nvidia</a></h2></div><p class="title-tr">Show HN: Janus——一个通过 Vulkan 在 AMD/Intel/Nvidia 上运行 GGUF 模型的 Go 二进制</p><div class="meta">▲ 60 分 · Maverick617 · <a href="https://news.ycombinator.com/item?id=49926773" target="_blank" rel="noopener">9 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Janus 是单一 Go 二进制，无需 Python/Docker/Ollama，通过 Vulkan 在 AMD/Intel/Nvidia GPU 或 CPU 上运行 GGUF 模型，并提供 OpenAI 兼容 API，降低本地 LLM 部署门槛。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 对不熟悉系统层的读者：GGUF 是量化后的模型文件，Vulkan 是跨显卡厂商的计算接口，OpenAI 兼容 API 意味着可以像调用云端 API 一样用 HTTP 请求本地模型。</p><ul class="kp"><li><strong>单一 Go 二进制</strong>部署本地 LLM，无需 Python、Docker 或 Ollama，零依赖。</li><li>通过 <strong>Vulkan</strong> 同时支持 AMD、Intel、NVIDIA GPU，并可回退 CPU 推理。</li><li>提供 <strong>OpenAI 兼容 API</strong>，可直接接入 Cursor、Cline 等客户端，支持热切换模型。</li><li>Windows 为<strong>主平台</strong>，构建脚本自动下载 llama.cpp 的 Vulkan DLL。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论核心关注性能：缺乏与 vLLM、sglang 等推理框架的基准对比，且有人质疑 Vulkan 在 Intel 硬件上的开销较大。</p><div class="tags"><span class="tag">本地 LLM 推理</span><span class="tag">Vulkan GPU 推理</span><span class="tag">开发者工具</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · peddling-brink · 2 回复</div><p>&gt; llama.cpp via Vulkan (AMD / Intel / NVIDIA) or CPU fallback</p><p>I got excited about someone paying attention to intel. Oh well.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://stoppels.ch/goalposts/" target="_blank" rel="noopener">Vote on which of Hacker News&#x27; challenges for AI have been met</a></h2></div><p class="title-tr">投票：Hacker News 给 AI 设的挑战哪些已经实现</p><div class="meta">▲ 121 分 · stabbles · <a href="https://news.ycombinator.com/item?id=49924618" target="_blank" rel="noopener">124 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">该网站让用户投票 Hacker News 上给 AI 设的挑战哪些已实现。独立数学贡献、从提示构建部署应用被认可，但约 1/3 挑战定义模糊，且许多只是一次性达成而非可靠常规能力。一个 ASCII art 脚识别挑战 64% 认为已实现，ChatGPT 最新测试仍误判为火车。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这类似于用非标准化的开放基准评估大语言模型的泛化能力，但许多挑战定义模糊，导致判定像用模糊标签做模型评估一样不可靠。</p><ul class="kp"><li><strong>网站收集 Hacker News 对 AI 的挑战</strong>，用户投票哪些已实现；约 1/3 挑战定义模糊难以判定。</li><li><strong>独立且重复为研究数学做贡献</strong>已被认为实现，但从提示可靠构建任意应用被指大幅提前于 20 年预测。</li><li><strong>ASCII art 脚识别挑战</strong>当前投票 64% 认为已实现，但 ChatGPT 最新测试把脚误判为火车。</li><li>评论者认为大语言模型能通过短时图灵测试，但<strong>对抗性长时间图灵测试</strong>仍远未达标。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区分歧集中在‘一次性完成’与‘可靠常规完成’是否算达标，且部分 AI 生成的挑战摘要失真，导致投票判定不够可靠。</p><div class="tags"><span class="tag">模型评估</span><span class="tag">AI 能力预测</span><span class="tag">ASCII art 识别</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Retr0id · 9 回复</div><p>Heh, there&#x27;s one of mine: https://stoppels.ch/goalposts/?c=39727943</p><p>&quot;GPT-4 looks at original ASCII art of a foot, not copied from the web, and says it is a foot.&quot;</p><p>The vote is currently 64% yes, 18% no.</p><p>Just now I asked Opus 5.5 to generate an ASCII art foot, and it did a passable job. It&#x27;s not great, but it&#x27;s a foot. Then I pasted it into ChatGPT (whatever they&#x27;re serving to the free tier by default, which seems to be 5.6 Luna), and it said it was a &quot;train/locomotive&quot;: https://chatgpt.com/share/6abeaa39-cc80-83ed-851f-29370db089...</p><p>Maybe it&#x27;s Opus&#x27;s fault for drawing a bad foot but I think it&#x27;s fair to say LLMs are still pretty bad at ASCII art (without additional tool calling etc).</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://arxiv.org/abs/2609.37725" target="_blank" rel="noopener">Context Language Models</a></h2></div><p class="title-tr">上下文语言模型</p><div class="meta">▲ 132 分 · emersonmacro · <a href="https://news.ycombinator.com/item?id=49922437" target="_blank" rel="noopener">28 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">论文提出让语言模型把上下文当作可自由编辑的文件自行管理。零样本构建的 CLM 在 BrowseComp-Plus 上准确率提升 11.4% 且算力减少 21.5%，多智能体长时间任务同样提升；配套缓存复用再降 35% 服务端计算，直击 LLM 应用上下文成本与效果痛点。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 本文讨论的 KV cache 是推理时为注意力机制缓存的键值对，编辑上下文会使其失效并触发重算，这是主要成本；您熟悉 Transformer 注意力，真正的新难点在服务端缓存设计而非模型架构。</p><ul class="kp"><li><strong>上下文语言模型（CLM）</strong>把上下文视为可编辑文件，模型自行决定保留、删除或更新信息。</li><li>零样本 CLM 在 BrowseComp-Plus 上实现 <strong>11.4% 准确率提升</strong>，同时算力减少 21.5%。</li><li>在线强化学习训练后，Qwen3.5-9B 在 BrowseComp-Plus 性能提升 <strong>47.6%</strong>，算力减少 12%。</li><li>配套 <strong>Suffix Cache Reuse</strong> 服务优化，在匹配性能下进一步降低服务器端计算 35%。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍担心频繁编辑上下文会降低 KV cache 命中率、推高推理成本，分歧在于应由模型自身管理还是用外部 hypervisor 代理来隔离注意力开销。</p><div class="tags"><span class="tag">LLM 上下文管理</span><span class="tag">推理优化</span><span class="tag">多智能体系统</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · visarga · 2 回复</div><p>Can&#x27;t we do this trick today with any model? Just send the file as next context. Of course you pay the price for cache misses, depending how deep you make changes, while CLM just ignores the recomputation.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://news.ycombinator.com/item?id=49911500" target="_blank" rel="noopener">Show HN: Open-source model routing for coding agents at Astra-level performance</a></h2></div><p class="title-tr">Show HN: 面向编码代理的开源模型路由，达到 Astra 级性能</p><div class="meta">▲ 99 分 · adchurch · <a href="https://news.ycombinator.com/item?id=49911500" target="_blank" rel="noopener">32 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Weave Router 2.0 在 Terminal Bench 4.0 和 SWE Atlas 上通过率与 GPT-6 Astra 相当，但成本仅为后者的约 52-54%，完成速度快 2.2-2.5 倍。该开源路由器通过重新架构和缓存优化实现这一结果。</p><p class="context"><strong>🧭 联系你的知识背景</strong> HMM（隐马尔可夫模型）是一种序列潜变量模型，与你在时间序列中接触的状态空间模型类似，这里用来追踪编码会话的状态并辅助路由决策。</p><ul class="kp"><li><strong>Weave Router 2.0</strong> 在两项编码基准上与 GPT-6 Astra 通过率相当，成本约 52-54%，速度快 2.2-2.5 倍。</li><li>新架构用 <strong>HMM 加分类器</strong> 先缩小候选模型集合，是本次最大性能提升，而非强化学习搜索全部路径。</li><li>用前沿 LLM 标注更大训练集，改善路由模型初始化和强化学习奖励信号。</li><li>改进 <strong>缓存驱逐成本计算</strong>，更准确评估切换模型的成本收益，是成本下降的主要来源。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区质疑 10^100 路径搜索空间是否高估，并追问若标注依赖前沿模型，路由器是否只能追平而难以超越前沿模型。</p><div class="tags"><span class="tag">LLM 模型路由</span><span class="tag">编码智能体</span><span class="tag">推理成本优化</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · thefourthchime · 2 回复</div><p>Interesting work, and thanks for describing how your router works internally. It&#x27;s definitely a fascinating subject. How would you say this compares to Cursor&#x27;s auto mode?</p></div></div></article>
+</div></main>
+<footer>generated 2026-10-02 05:33 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "DeepSeek Harness", "titleTranslation": "", "summary": "DeepSeek 发布开源代理工作台 DeepSeek Harness 全球公开预览，支持通过聊天在 Creator 模式创建插件来扩展工具、技能和界面；可处理文档、表格、写代码，并加入定时任务与执行追踪，目标成为可组合的智能体基础设施。", "keyPoints": ["DeepSeek Harness 进入全球公开预览并开源，插件可组合扩展智能体能力。", "用户可在 Creator 模式通过聊天直接创建插件，无需手写脚手架。", "一条命令 `npx @deepseek-ai/dsh web` 即可启动 Web UI，另有源码仓库可自托管。"], "discussion": "评论区既有“又一个 harness”的厌倦，也有用户称 Mac 版应用体验强劲并现场让 AI 写插件，分歧在于这是包装升级还是架构升级。", "tags": ["智能体工作台", "开源开发者工具", "AI 插件生态"], "score": 72, "comments": 25, "by": "Kuyawa", "url": "https://www.deepseek.com/en/harness/", "hnUrl": "https://news.ycombinator.com/item?id=49929489"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "Meta's Muse is fantastic for web scraping", "titleTranslation": "Meta 的 Muse 非常适合网页抓取", "summary": "作者以 80 美元/月订阅 Meta 的 AI 代理 Muse，每周消耗数十亿 token 扫描 Reddit 和 YouTube 寻找演唱会视频，效果惊人但担心被滥用；亚马逊已封锁，未来更多网站可能跟进。", "keyPoints": ["80 美元/月订阅 Muse，作者每周消耗数十亿 token 抓取 Reddit/YouTube 数据。", "Muse 的模型写作平庸，但在廉价高吞吐的网页抓取负载上接近 Gemini Flash。", "作者担心若用于抓取亚马逊，网站将大规模封锁 Muse，亚马逊已先行封锁。"], "discussion": "HN 评论既有自制 AI 浏览器绕过机器人检测，也有指出 Muse 静态 IP 被封，共识是代理浏览器正成为抓取工具但平台在反击。", "tags": ["AI 代理", "网页抓取", "平台反滥用"], "score": 11, "comments": 3, "by": "STRiDEX", "url": "https://sigh.dev/posts/metas-muse-is-fantastic-for-web-scraping/", "hnUrl": "https://news.ycombinator.com/item?id=49929970"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "Clef: Open-weight decision models, and new RL fine-tuning platform", "titleTranslation": "Clef：开放权重决策模型与新的强化学习微调平台", "summary": "Cloudflare 发布 Clef 与 Clef-flash 两个开放权重决策模型，基于 Qwen 后训练，在 Jev Decision Index 多项基准上领先，中位延迟 209.3ms 对 Jev 的 524.1ms。支持 64k 上下文和图像输入，但 Clef 定价约为 Jev 的 6 倍。", "keyPoints": ["Cloudflare 发布 Clef 与 Clef-flash，开放权重（Apache 2.0），由 Workers AI 托管，基于 Qwen 后训练。", "Clef 中位延迟 209.3ms，对比 Jev 524.1ms，并支持 64k 上下文和视觉输入，在多项决策基准上领先。", "决策阶段采用非自回归打分，直接对候选 schema 评分而非逐 token 生成，并引入 Brier loss 与 RLCD 做概率校准。"], "discussion": "评论区核心分歧是“开放权重不等于开源”：训练数据与流程未公开；另有用户实测 Clef 在仇恨言论审核上比 Jev 更慢更差，且价格贵 6 倍。", "tags": ["决策模型", "开放权重", "RL 微调"], "score": 472, "comments": 170, "by": "jasondavies", "url": "https://blog.cloudflare.com/clef-decision-models/", "hnUrl": "https://news.ycombinator.com/item?id=49923692"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "Using Opus 5.5 to discover a new eyewitness record of the dodo", "titleTranslation": "使用 Opus 5.5 发现渡渡鸟的新目击记录", "summary": "文章主体无法获取，信息有限。标题称使用 Opus 5.5 在历史文献中发现新的渡渡鸟目击记录；HN 评论推测候选文献范围约 3000 页，并讨论 LLM 错误模式与历史判断局限。", "keyPoints": ["使用 Opus 5.5 在历史文献中发现新的渡渡鸟目击记录。", "评论推测作者先将文献范围缩小至约 3000 页，再定位渡渡鸟提及。", "评论指出 LLM 的错误模式与人类截然不同，难以预判。"], "discussion": "HN 评论认可 LLM 辅助历史检索的潜力，但争议在于模型对历史重要性判断不可靠，且错误模式难以预判。", "tags": ["LLM 辅助历史检索", "模型错误模式", "渡渡鸟目击记录"], "score": 108, "comments": 22, "by": "benbreen", "url": "https://resobscura.substack.com/p/using-opus-55-to-discover-a-new-eyewitness", "hnUrl": "https://news.ycombinator.com/item?id=49926917"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "Frog and Toad and the Increasingly Capable Machines", "titleTranslation": "《Frog and Toad》与日益强大的机器", "summary": "该网站用 Arnold Lobel 经典童书《Frog and Toad》的画风与叙事，讲述机器能力不断增强的故事。HN 读者普遍认可其仿写质量，但版权授权问题被提出。", "keyPoints": ["作品是对 Arnold Lobel《Frog and Toad》 的仿写，用童书画风与叙事讨论机器能力增长。", "多位 HN 读者称赞风格和插画执行到位，有人表示一口气读完。", "有评论质疑 Arnold Lobel 遗产是否获得授权或补偿。"], "discussion": "评论区共识是仿写质量高，但版权授权是否合法是主要争议点。", "tags": ["AI 叙事", "版权授权", "童书仿写"], "score": 100, "comments": 16, "by": "supermdguy", "url": "https://www.frogandtoad.ai/", "hnUrl": "https://news.ycombinator.com/item?id=49927760"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "RIP, vector database", "titleTranslation": "安息吧，向量数据库", "summary": "turbopuffer 宣布 v3 架构不再把近似最近邻向量索引当作数据存放的主键，而是降为辅助索引，以消除更新向量时引发的级联复制和查询块大小限制。其在 100B+ 向量规模达到 200ms p99 延迟和 1k+ QPS，全文检索解耦后索引缩小 10 倍、查询快 20 倍，为更多 SQL 查询铺路。", "keyPoints": ["turbopuffer v3 将 ANN 向量索引从主索引降为辅助索引，文档存储不再按向量地址组织。", "旧架构在 100B+ 向量规模做到 200ms p99 延迟和 1k+ QPS，但写入放大和查询块大小受限。", "全文搜索 v2 改为固定 256 文档块后，索引缩小 10 倍、查询提速 20 倍，证明解耦有效。"], "discussion": "评论共识是该方向正确，有人类比 Postgres 到 MySQL 的索引设计转变，也有人指出 LanceDB 早已采用类似架构。", "tags": ["向量数据库", "存储引擎架构", "近似最近邻搜索"], "score": 298, "comments": 81, "by": "razin", "url": "https://turbopuffer.com/blog/rip-vector-database", "hnUrl": "https://news.ycombinator.com/item?id=49923466"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Janus – Go binary that runs GGUF models via Vulkan on AMD/Intel/Nvidia", "titleTranslation": "Show HN: Janus——一个通过 Vulkan 在 AMD/Intel/Nvidia 上运行 GGUF 模型的 Go 二进制", "summary": "Janus 是单一 Go 二进制，无需 Python/Docker/Ollama，通过 Vulkan 在 AMD/Intel/Nvidia GPU 或 CPU 上运行 GGUF 模型，并提供 OpenAI 兼容 API，降低本地 LLM 部署门槛。", "keyPoints": ["单一 Go 二进制部署本地 LLM，无需 Python、Docker 或 Ollama，零依赖。", "通过 Vulkan 同时支持 AMD、Intel、NVIDIA GPU，并可回退 CPU 推理。", "提供 OpenAI 兼容 API，可直接接入 Cursor、Cline 等客户端，支持热切换模型。"], "discussion": "评论核心关注性能：缺乏与 vLLM、sglang 等推理框架的基准对比，且有人质疑 Vulkan 在 Intel 硬件上的开销较大。", "tags": ["本地 LLM 推理", "Vulkan GPU 推理", "开发者工具"], "score": 60, "comments": 9, "by": "Maverick617", "url": "https://github.com/Vibra-Ingenn/Janus", "hnUrl": "https://news.ycombinator.com/item?id=49926773"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "Vote on which of Hacker News' challenges for AI have been met", "titleTranslation": "投票：Hacker News 给 AI 设的挑战哪些已经实现", "summary": "该网站让用户投票 Hacker News 上给 AI 设的挑战哪些已实现。独立数学贡献、从提示构建部署应用被认可，但约 1/3 挑战定义模糊，且许多只是一次性达成而非可靠常规能力。一个 ASCII art 脚识别挑战 64% 认为已实现，ChatGPT 最新测试仍误判为火车。", "keyPoints": ["网站收集 Hacker News 对 AI 的挑战，用户投票哪些已实现；约 1/3 挑战定义模糊难以判定。", "独立且重复为研究数学做贡献已被认为实现，但从提示可靠构建任意应用被指大幅提前于 20 年预测。", "ASCII art 脚识别挑战当前投票 64% 认为已实现，但 ChatGPT 最新测试把脚误判为火车。"], "discussion": "评论区分歧集中在‘一次性完成’与‘可靠常规完成’是否算达标，且部分 AI 生成的挑战摘要失真，导致投票判定不够可靠。", "tags": ["模型评估", "AI 能力预测", "ASCII art 识别"], "score": 121, "comments": 124, "by": "stabbles", "url": "https://stoppels.ch/goalposts/", "hnUrl": "https://news.ycombinator.com/item?id=49924618"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "Context Language Models", "titleTranslation": "上下文语言模型", "summary": "论文提出让语言模型把上下文当作可自由编辑的文件自行管理。零样本构建的 CLM 在 BrowseComp-Plus 上准确率提升 11.4% 且算力减少 21.5%，多智能体长时间任务同样提升；配套缓存复用再降 35% 服务端计算，直击 LLM 应用上下文成本与效果痛点。", "keyPoints": ["上下文语言模型（CLM）把上下文视为可编辑文件，模型自行决定保留、删除或更新信息。", "零样本 CLM 在 BrowseComp-Plus 上实现 11.4% 准确率提升，同时算力减少 21.5%。", "在线强化学习训练后，Qwen3.5-9B 在 BrowseComp-Plus 性能提升 47.6%，算力减少 12%。"], "discussion": "评论区普遍担心频繁编辑上下文会降低 KV cache 命中率、推高推理成本，分歧在于应由模型自身管理还是用外部 hypervisor 代理来隔离注意力开销。", "tags": ["LLM 上下文管理", "推理优化", "多智能体系统"], "score": 132, "comments": 28, "by": "emersonmacro", "url": "https://arxiv.org/abs/2609.37725", "hnUrl": "https://news.ycombinator.com/item?id=49922437"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-02", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Open-source model routing for coding agents at Astra-level performance", "titleTranslation": "Show HN: 面向编码代理的开源模型路由，达到 Astra 级性能", "summary": "Weave Router 2.0 在 Terminal Bench 4.0 和 SWE Atlas 上通过率与 GPT-6 Astra 相当，但成本仅为后者的约 52-54%，完成速度快 2.2-2.5 倍。该开源路由器通过重新架构和缓存优化实现这一结果。", "keyPoints": ["Weave Router 2.0 在两项编码基准上与 GPT-6 Astra 通过率相当，成本约 52-54%，速度快 2.2-2.5 倍。", "新架构用 HMM 加分类器 先缩小候选模型集合，是本次最大性能提升，而非强化学习搜索全部路径。", "用前沿 LLM 标注更大训练集，改善路由模型初始化和强化学习奖励信号。"], "discussion": "评论区质疑 10^100 路径搜索空间是否高估，并追问若标注依赖前沿模型，路由器是否只能追平而难以超越前沿模型。", "tags": ["LLM 模型路由", "编码智能体", "推理成本优化"], "score": 99, "comments": 32, "by": "adchurch", "url": "https://news.ycombinator.com/item?id=49911500", "hnUrl": "https://news.ycombinator.com/item?id=49911500"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
