@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-10-03</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-10-03 &nbsp;·&nbsp; 7 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://arstechnica.com/science/2026/10/ai-finally-beat-the-best-stratego-player-in-history-and-did-it-on-a-budget/" target="_blank" rel="noopener">With most information hidden, the game Stratego had stumped AI until now</a></h2></div><p class="title-tr">在大部分信息隐藏的情况下，Stratego 游戏此前一直难倒 AI，直到现在</p><div class="meta">▲ 201 分 · PaulHoule · <a href="https://news.ycombinator.com/item?id=49933740" target="_blank" rel="noopener">95 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">卡内基梅隆、麻省理工等团队开发 Ataraxos，以 15 胜 1 负 4 平击败 Stratego 历史最佳玩家 Pim Niemeijer；训练仅用 16 块 GPU 和数千美元，样本效率比 DeepMind 的 DeepNash 高约 34 倍。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这类似在巨大状态空间里做概率推断：Stratego 的隐藏初始布局超过 10^60 种，决策链可长达 2000 步，传统枚举式搜索失效，必须学习预测对手策略分布。</p><ul class="kp"><li><strong>Ataraxos 以 15 胜 1 负 4 平</strong>击败 Stratego 史上最佳玩家 Pim Niemeijer。</li><li>训练仅用 <strong>16 块 GPU 和几千美元</strong>，成本远低于 DeepMind 的 DeepNash。</li><li>关键突破是<strong>样本效率提升约 34 倍</strong>：更快学会预测对手隐藏状态，而不是穷举所有可能。</li><li>Stratego 拥有超过 <strong>10^60 种初始布局</strong>，每局可超过 2000 步，是不完全信息博弈的极端基准。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区多数认可样本效率提升才是核心，但也有人质疑“只用16块GPU”的说法忽略了顶尖研究团队和实验门槛。</p><div class="tags"><span class="tag">深度强化学习</span><span class="tag">不完全信息博弈</span><span class="tag">AI 游戏</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · SwellJoe · 9 回复</div><p>I loved Stratego so much as a kid. But, I eventually couldn&#x27;t find anyone to play with me because I crushed everyone, including my dad who was much better than me at chess. But, I never would have thought it&#x27;d be a game that models would have a hard time with. It feels relatively simple. And, inexplicably, I never even thought that there might be serious players...I&#x27;ve kept the board game, one of the very few things I have from young childhood, but it&#x27;s been twenty years since I played. I guess it&#x27;s time to find an online Stratego. Surely someone in the whole world can beat me.</p><p>Too bad I never played against an AI before they cracked it.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://gadgets.muse.ai" target="_blank" rel="noopener">Muse Gadgets</a></h2></div><p class="title-tr">Muse 小工具</p><div class="meta">▲ 168 分 · anant · <a href="https://news.ycombinator.com/item?id=49937504" target="_blank" rel="noopener">76 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Meta 为 Muse AI 助手推出免费硬件 Muse Home Link，可接入家庭 Wi-Fi 控制灯光、电视、打印机等本地设备，仅限美国活跃订阅用户，10 月首批发货。这标志着 Meta 把 AI 代理从软件扩展到物理设备控制。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可将本地 HTTP API 理解为家庭设备在局域网内暴露的可编程网络接口，Muse 通过 Wi-Fi 直接调用，无需经云端中转。</p><ul class="kp"><li><strong>Muse Home Link</strong> 免费提供给美国活跃 Muse 订阅用户，每人限一个，10 月发货。</li><li>设备接入家庭 Wi-Fi 后，可调用<strong>本地 HTTP API</strong> 控制灯光、电视、打印机等兼容设备。</li><li>Meta 开放社区技能与硬件入口，让 AI 代理进入<strong>物理世界控制</strong>，被评论视为高风险的大胆策略。</li><li>项目面向 DIY 爱好者，降低用 AI 控制自制硬件的门槛。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论分歧明显：爱好者认为这是有趣且降低 DIY 门槛的尝试，但隐私担忧者拒绝让 Meta 智能体接入家庭设备。</p><div class="tags"><span class="tag">AI 智能体</span><span class="tag">智能家居 IoT</span><span class="tag">Meta 生态</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · belval · 6 回复</div><p>I&#x27;ll go against the grain and say that I like this, I genuinely don&#x27;t think this is anything but some internal team being excited about their product and giving you some firmware to connect stuff to their agents. Meta the trillion dollar company will not move at all from this.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://dwarfstar.sh/" target="_blank" rel="noopener">From the creator of Redis; run LLM locally with ds4</a></h2></div><p class="title-tr">来自 Redis 创作者：用 ds4 本地运行大语言模型</p><div class="meta">▲ 191 分 · fibo · <a href="https://news.ycombinator.com/item?id=49936575" target="_blank" rel="noopener">56 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">ds4 是 Redis 作者 antirez 开源的 C 语言本地推理引擎，采用非对称 2-bit 量化压缩 MoE 专家、保持关键共享路径高精度，使 DeepSeek V4/V4.1、GLM 5.x、Qwen3.8 等模型可在 128GB 内存 Mac 上运行；在 M5 Max 128GB 32K 上下文下实现 34.4 token/s 生成、557 token/s prefill。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这相当于把模型量化从静态、统一压缩变成面向 MoE 结构的差异化压缩：对不常触达的专家子网络激进降精度，而对影响整体质量的共享路径保持精确，类似于训练时对不同层采用不同学习率来平衡成本与性能。</p><ul class="kp"><li><strong>ds4</strong> 是 Redis 作者 antirez 开源的本地 LLM 推理引擎，MIT 许可，支持 DeepSeek V4/V4.1、GLM 5.x、Qwen3.8。</li><li>采用<strong>非对称 2-bit 量化</strong>压缩 MoE 路由专家、保持共享路径精确，使模型适配 128GB 内存设备。</li><li><strong>M5 Max 128GB 32K 上下文</strong>下生成 34.4 token/s、prefill 557 token/s；DGX Spark 64K 生成 13.8 token/s。</li><li>提供 <strong>CLI、HTTP API 和本机 agent</strong>，API 兼容 OpenAI/Anthropic 风格，便于本地编码代理接入。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍认可 ds4 在 M5 Max 上的实际运行速度和长上下文能力，但关注点分散在跨语言绑定、工具调用表现以及它与其他本地推理工具相比的通用性/专业性权衡。</p><div class="tags"><span class="tag">本地 LLM 推理</span><span class="tag">非对称量化</span><span class="tag">开源推理引擎</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · simoiacos · 2 回复</div><p>Nothing comparable but inspired from DwarfStar I wrote a little inference engine for Intel Xe-LP (no XMX) 32GB laptops. The only model supported right now is a quantized Gemma-4, but I don&#x27;t exclude in the future to support other MoE of similar size. Too bad we have no Qwen 3.8 35B-A3B yet.</p><p>I&#x27;m also looking into expanding the protocol and the engine to support various steering techniques.</p><p>https://github.com/simoneiacomino/xenolith</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://www.youtube.com/watch?v=NnV_cWeoo5Q" target="_blank" rel="noopener">Greg Kroah-Hartman – Security in the LLM Age [video]</a></h2></div><p class="title-tr">Greg Kroah-Hartman – 大语言模型时代的安全 [视频]</p><div class="meta">▲ 203 分 · usernomdeguerre · <a href="https://news.ycombinator.com/item?id=49929391" target="_blank" rel="noopener">53 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Linux 内核维护者 Greg Kroah-Hartman 拆解 Anthropic 的 Mythos 模型声称发现的 79 个漏洞：多数无细节、非缺陷或已修复，仅约 10 个需真实修复，总工作量约一小时。这暴露了 AI 漏洞发现营销与专家评估之间的巨大落差。</p><p class="context"><strong>🧭 联系你的知识背景</strong> CVE（公共漏洞和暴露编号）类似模型评估中的测试样本；这里多数“发现”是重复已修复样本或误报，而非新的对抗性缺陷。</p><ul class="kp"><li><strong>Mythos 的 79 个漏洞报告</strong>中，24 个无细节、14 个非缺陷、3 个数据编造。</li><li><strong>Greg Kroah-Hartman</strong> 认为仅约 10 个真实修复，总工作量约 1 小时。</li><li>20 个需修复项多涉及<strong>恶意文件系统镜像、恶意网络包等极端场景</strong>，严重性低。</li><li>Anthropic 被指未引用原始内核补丁作者，引发<strong>训练数据来源与署名</strong>争议。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍质疑 Anthropic 的漏洞发现营销，认为与“模型太危险需限制发布”的叙事自相矛盾，但有人看好专用模型未来能更有效。</p><div class="tags"><span class="tag">AI 安全评估</span><span class="tag">Linux 内核漏洞</span><span class="tag">模型营销验证</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · usernomdeguerre · 8 回复</div><p>Greatly appreciated the candor. I&#x27;ve included a few slides into text that i thought were eye-opening to me:</p><p>From his Kernel Recipes 2026 slide on Mythos</p><p>```</p><p>Mythos&#x27;s 79 vulnerabilities:</p><p>24 - no detail at all &quot;something crashed&quot;</p><p>14 - not a bug at all</p><p>3 - totally made up data</p><p>15 - already fixed in latest release</p><p>- 11 by others</p><p>- 4 by anthropic</p><p>20 - fixes were needed</p><p>- 7 &quot;assume a malicious filesystem image&quot;</p><p>- 2 &quot;assume you can inject a malicious network packet into the middle of the stack&quot;</p><p>- 2 &quot;NOMMU&quot;</p><p>- 6 sctp networking issues for untrusted devices</p><p>- 2 ipv6 minor network issues</p><p>- 1 gpu driver for local malicious user</p><p>```</p><p>GHK called this &quot;10 &#x27;real&#x27; bugfixes&quot;, which to me sounds like there&#x27;s a wild hype machine around these companies and uncritical parroting of every press release they make that falls apart when you engage the affected real experts.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://bfl.ai/models/flux-3-image" target="_blank" rel="noopener">FLUX 3 Image</a></h2></div><div class="meta">▲ 299 分 · minimaxir · <a href="https://news.ycombinator.com/item?id=49925974" target="_blank" rel="noopener">62 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Black Forest Labs 发布 FLUX 3 Image，通过边界框精确控制画面元素位置，支持原生 2K/4K 渲染、像素级编辑和最多 10 张参考图合成，并提供商业权重许可，面向智能体工作流。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 边界框在这里相当于给图像生成模型一个带坐标的指令表：每个元素都有位置框和描述，模型只在框内生成对应内容，而不是从整段 prompt 模糊理解构图。</p><ul class="kp"><li><strong>FLUX 3 Image</strong> 由 Black Forest Labs 发布，是其多模态模型中负责图像生成与编辑的部分。</li><li>核心交互是用<strong>边界框</strong>精确控制每个元素位置，也支持纯文本 prompt 生成。</li><li>支持原生 <strong>2K/4K</strong> 渲染、像素级编辑与最多 10 张参考图合成。</li><li>提供<strong>商业权重许可</strong>，企业可自部署微调，并原生面向智能体布局规划。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍认可边界框交互比纯文本聊天更适合构图，但不少开发者更关心何时开源权重；有人指出 Ideogram V4 已有类似但更繁琐的功能，也有实测发现精确编辑仍不稳定。</p><div class="tags"><span class="tag">图像生成模型</span><span class="tag">布局可控生成</span><span class="tag">商业权重许可</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · vunderba · 3 回复</div><p>One of the things they seem to be emphasizing here is the UX around being able to place specific elements where you want them in an image. If the positions of the components in the overall composition are very important, this seems to make that a lot easier and kind of reminds me of InvokeAI.</p><p>Ideogram V4, an open-weight model released back in June can also do this [1], but you have to use a relatively cumbersome JSON structure to describe all the different bounding boxes. So it’s definitely a bit of a hassle.</p><p>I&#x27;ll probably be waiting until it goes open-weight (hopefully soon) like they did with Flux.2 / Klein.</p><p>[1] - https://docs.ideogram.ai/using-ideogram/getting-started/prom...</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://chatgpt.com/features/sites/" target="_blank" rel="noopener">Sites in ChatGPT</a></h2></div><p class="title-tr">ChatGPT 中的站点</p><div class="meta">▲ 241 分 · polvi · <a href="https://news.ycombinator.com/item?id=49927747" target="_blank" rel="noopener">230 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OpenAI 推出 ChatGPT Sites，让用户直接在对话中生成并托管简单网站，无需注册 Netlify/Firebase 等第三方部署服务；评论称可在一小时内做出可玩原型，但演示被指伪 3D 且护城河存疑。正文未能获取，信息有限。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Netlify/Firebase 是网站托管平台，相当于把训练好的模型部署到云上；ChatGPT Sites 把这个部署环节内嵌，用户不用自己配服务器。</p><ul class="kp"><li><strong>ChatGPT Sites</strong> 上线，用户对话中直接生成并托管简单网站，免去第三方部署。</li><li>用户称<strong>一小时内</strong>可将应用想法变成可玩原型，例如高维迷宫游戏当晚上线。</li><li>演示被指<strong>伪 3D</strong>：旋转的只是带黑背景 JPEG 图片，没有真实三维效果。</li><li>面临<strong>护城河风险</strong>：模型商品化，该功能易被竞争模型复制，可能自我颠覆。</li></ul><p class="disc"><strong>💬 讨论</strong> 共识是它填补了用户不想注册第三方托管的空白；分歧在于大众采用前景 vs 演示质量差、无护城河。</p><div class="tags"><span class="tag">AI 网站生成器</span><span class="tag">OpenAI</span><span class="tag">平台护城河</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · nathanfig · 12 回复</div><p>I have been using Sites a few months now, really underrated feature IMO. Any time I get a quick app idea I just hand it off to Sites and usually get a working prototype within the hour.</p><p>For example, here&#x27;s a game where you are a mouse hunting for cheese in higher dimensional mazes: https://manifold-six-axis-escape.nathan338932.chatgpt.site/</p><p>Idea came to me while at a concert, was ready to play that same night.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://stillwet.art/" target="_blank" rel="noopener">Show HN: Giving Opus 5.5 a simulated paint canvas</a></h2></div><div class="meta">▲ 235 分 · alstonite · <a href="https://news.ycombinator.com/item?id=49928566" target="_blank" rel="noopener">76 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · moojacob · 4 回复</div><p>It’s interesting how diffusion models are getting bitter lessened by LLMs. I suspect  anthropic has tens of thousands of RL environments recreating famous paintings with code because it was anthropic employees who first started posting about these capabilities on X.</p><p>Opus is also getting decent pixel art. I have ran some experiments with Opus 5.5 to turn 90s pinball displays (black and white pixel art) into double resolution colored remastered pixels.</p><p>https://files.catbox.moe/tbx2u7.png</p><p>I prompted it a lot but didn’t draw any pixels. Seems to be bad at hands still. I think a skilled pixel artist could greatly speed up their work with Claude code.</p><p>It also makes me sad for artists. They didn’t get paid much anyway. Art should be something human to human like writing text. Although, most large commercial art products (marvel movies) already lack any human to human connection you see in paintings or indie games. The large commercial art products will be 50% AI soon.</p></div></div><p class="err">LLM error: Error code: 429 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Too many requests. Your current concurrency is 5, which exceeds your concurrency limit of 5 based on your remaining balance. Please top up your balance to restore your concurrency. (request_id: fb736961-0bca-49f9-a5de-6d33c592ddd1)&#x27;, &#x27;type&#x27;: &#x27;rate_limit_error&#x27;, &#x27;param&#x27;: None, &#x27;code&#x27;: &#x27;invalid_request_error&#x27;}}</p></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://github.com/anteloc/ldraw-nova" target="_blank" rel="noopener">Show HN: Made an open-source Lego AI generator</a></h2></div><div class="meta">▲ 89 分 · antelocnova · <a href="https://news.ycombinator.com/item?id=49937916" target="_blank" rel="noopener">41 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · ash_091 · 3 回复</div><p>Neat! Perhaps I&#x27;ll finally get around to doing something with the 51515 Lego set I have laying around collecting dust.</p><p>&gt; I did this in order to get agentic LLMs capable of designing buildable, physical things!</p><p>I&#x27;ve been experimenting with FreeCAD + freecad-mcp + Claude recently and have been similarly surprised how well this works. I&#x27;ve produced three useful parts from Claude&#x27;s designs: a 3d printed case for an OLED display + some inputs + an ESP32, and a milled aluminium hotend mount adapter for a 3d printer, and a printed pen + pressure sensor mount to use the printer as a plotter. I just provided part/model numbers plus a couple of caliper measurements Claude wasn&#x27;t able to find online and went through two or three cad revisions before making the parts. All three worked on the first hardware revision.</p><p>The biggest thing I&#x27;ve found it seems to struggle with is understanding how the parts will be assembled. The pen mount in particular was tricky to put together, having a part which needed to fit through a slightly too small space to get to its spot. Although it&#x27;s hard to blame the AI for that when I didn&#x27;t notice it either I suppose.</p></div></div><p class="err">LLM error: Error code: 429 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Too many requests. Your current concurrency is 5, which exceeds your concurrency limit of 5 based on your remaining balance. Please top up your balance to restore your concurrency. (request_id: 62bce4cd-c139-4946-9e6d-2d357c49e8cd)&#x27;, &#x27;type&#x27;: &#x27;rate_limit_error&#x27;, &#x27;param&#x27;: None, &#x27;code&#x27;: &#x27;invalid_request_error&#x27;}}</p></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://wagtail.org/blog/one-month-on-glm-53-flash/" target="_blank" rel="noopener">One month coding with GLM 5.3 Flash</a></h2></div><div class="meta">▲ 132 分 · ThibWeb · <a href="https://news.ycombinator.com/item?id=49934620" target="_blank" rel="noopener">105 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · epistasis · 14 回复</div><p>One thing about these numbers that&#x27;s absolutely shocking to me is how low the energy use is:</p><p>&gt; That model’s usage was well within our budget ($68, about 4kWh of energy use / 365 grams of carbon emissions).</p><p>The energy cost is literally 1% of the total cost. For context, 4kWh of energy would drive you about 15 miles in an EV, about half of the average person&#x27;s daily driving miles. It&#x27;s boiling 10 gallons of water.</p><p>With the talk of AI data centers&#x27; impact on the world, you&#x27;d think this would be 10x to 100x the amount of energy in order to get the effects they&#x27;re using here.</p><p>My takeaway: the AI data center buildout is an overbuild probably at least as large as the fiber buildout that left us with so much dark fiber. If not even bigger. The only thing that will save the economy is the inability of NVIDIA and chip fabs to produce enough chips to match the buildout planned.</p></div></div><p class="err">LLM error: Error code: 429 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Too many requests. Your current concurrency is 5, which exceeds your concurrency limit of 5 based on your remaining balance. Please top up your balance to restore your concurrency. (request_id: 96e1c618-a6d8-4232-8c3c-1ca83a1f4fcb)&#x27;, &#x27;type&#x27;: &#x27;rate_limit_error&#x27;, &#x27;param&#x27;: None, &#x27;code&#x27;: &#x27;invalid_request_error&#x27;}}</p></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://blog.sshh.io/p/the-harness-is-the-company" target="_blank" rel="noopener">Every SaaS business will become a harness around a model</a></h2></div><p class="title-tr">每个 SaaS 业务都将成为围绕模型的挽具</p><div class="meta">▲ 120 分 · iacguy · <a href="https://news.ycombinator.com/item?id=49938616" target="_blank" rel="noopener">87 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者断言 SaaS 公司将演变为围绕无状态大语言模型的“挽具”——即提供上下文、集成和审查界面的全套基础设施，人类只做关键判断；企业须自有顶层挽具，否则可能被商品化。这挑战传统 SaaS 的产品与组织逻辑。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这里的“挽具”可类比为你训练模型时围绕模型代码的整套数据加载、评估与部署管线，但作者把它扩展为 SaaS 公司围绕 LLM API 构建的全部上下文、工具、权限与审查界面。</p><ul class="kp"><li><strong>harness</strong> 指围绕无状态 LLM 的全部基础设施、接口、上下文与状态</li><li>演进终点是 <strong>harness 编排个人</strong>，人类变成判断与品味提供者</li><li>企业应自建<strong>顶层 harness</strong>，第三方工具需可被 headless 调用</li><li>差异化从产品输出转向<strong>构建 harness 的能力</strong>（信任、分发、效能、领域上下文）</li></ul><p class="disc"><strong>💬 讨论</strong> 评论分歧在于企业是否真会接受管理代理群的复杂度，以及组织变革是否已到临界点；有人指出 SaaS 仍会存在，因为多数企业不愿承担额外复杂性。</p><div class="tags"><span class="tag">SaaS 商业模式</span><span class="tag">LLM 代理</span><span class="tag">组织架构</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · socializer · 5 回复</div><p>I&#x27;ve heard some variant of the SaaS doomsday prophecy dozens of times over the past year. Somehow, SaaS is still here and more or less looks the same.</p><p>It will probably continue to exist because most businesses are perfectly content to outsource tech problems to someone else for a reasonable fee, and if you think that managing an agent swarm is a seamless replacement for that, I don&#x27;t know what you tell you. The vast majority of business owners don&#x27;t want the added complexity in their life.</p><p>And for the same reason, most SaaS will probably not migrate to some radically new UX paradigm. Some of it will be vibecoded, but the UX will probably continue to be deterministic. I think this might change once a new breed of &quot;LLM-native&quot; business owners takes charge, but that&#x27;s going to be a slow process, and it will be hampered by prosaic concerns about interoperability, support, predictable cost, and liability for mistakes (from &quot;the agent did a bit of tax fraud&quot; to &quot;the agent decided to hack my competition&quot;).</p></div></div></article>
+</div></main>
+<footer>generated 2026-10-03 05:15 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "With most information hidden, the game Stratego had stumped AI until now", "titleTranslation": "在大部分信息隐藏的情况下，Stratego 游戏此前一直难倒 AI，直到现在", "summary": "卡内基梅隆、麻省理工等团队开发 Ataraxos，以 15 胜 1 负 4 平击败 Stratego 历史最佳玩家 Pim Niemeijer；训练仅用 16 块 GPU 和数千美元，样本效率比 DeepMind 的 DeepNash 高约 34 倍。", "keyPoints": ["Ataraxos 以 15 胜 1 负 4 平击败 Stratego 史上最佳玩家 Pim Niemeijer。", "训练仅用 16 块 GPU 和几千美元，成本远低于 DeepMind 的 DeepNash。", "关键突破是样本效率提升约 34 倍：更快学会预测对手隐藏状态，而不是穷举所有可能。"], "discussion": "评论区多数认可样本效率提升才是核心，但也有人质疑“只用16块GPU”的说法忽略了顶尖研究团队和实验门槛。", "tags": ["深度强化学习", "不完全信息博弈", "AI 游戏"], "score": 201, "comments": 95, "by": "PaulHoule", "url": "https://arstechnica.com/science/2026/10/ai-finally-beat-the-best-stratego-player-in-history-and-did-it-on-a-budget/", "hnUrl": "https://news.ycombinator.com/item?id=49933740"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "Muse Gadgets", "titleTranslation": "Muse 小工具", "summary": "Meta 为 Muse AI 助手推出免费硬件 Muse Home Link，可接入家庭 Wi-Fi 控制灯光、电视、打印机等本地设备，仅限美国活跃订阅用户，10 月首批发货。这标志着 Meta 把 AI 代理从软件扩展到物理设备控制。", "keyPoints": ["Muse Home Link 免费提供给美国活跃 Muse 订阅用户，每人限一个，10 月发货。", "设备接入家庭 Wi-Fi 后，可调用本地 HTTP API 控制灯光、电视、打印机等兼容设备。", "Meta 开放社区技能与硬件入口，让 AI 代理进入物理世界控制，被评论视为高风险的大胆策略。"], "discussion": "评论分歧明显：爱好者认为这是有趣且降低 DIY 门槛的尝试，但隐私担忧者拒绝让 Meta 智能体接入家庭设备。", "tags": ["AI 智能体", "智能家居 IoT", "Meta 生态"], "score": 168, "comments": 76, "by": "anant", "url": "https://gadgets.muse.ai", "hnUrl": "https://news.ycombinator.com/item?id=49937504"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "From the creator of Redis; run LLM locally with ds4", "titleTranslation": "来自 Redis 创作者：用 ds4 本地运行大语言模型", "summary": "ds4 是 Redis 作者 antirez 开源的 C 语言本地推理引擎，采用非对称 2-bit 量化压缩 MoE 专家、保持关键共享路径高精度，使 DeepSeek V4/V4.1、GLM 5.x、Qwen3.8 等模型可在 128GB 内存 Mac 上运行；在 M5 Max 128GB 32K 上下文下实现 34.4 token/s 生成、557 token/s prefill。", "keyPoints": ["ds4 是 Redis 作者 antirez 开源的本地 LLM 推理引擎，MIT 许可，支持 DeepSeek V4/V4.1、GLM 5.x、Qwen3.8。", "采用非对称 2-bit 量化压缩 MoE 路由专家、保持共享路径精确，使模型适配 128GB 内存设备。", "M5 Max 128GB 32K 上下文下生成 34.4 token/s、prefill 557 token/s；DGX Spark 64K 生成 13.8 token/s。"], "discussion": "评论普遍认可 ds4 在 M5 Max 上的实际运行速度和长上下文能力，但关注点分散在跨语言绑定、工具调用表现以及它与其他本地推理工具相比的通用性/专业性权衡。", "tags": ["本地 LLM 推理", "非对称量化", "开源推理引擎"], "score": 191, "comments": 56, "by": "fibo", "url": "https://dwarfstar.sh/", "hnUrl": "https://news.ycombinator.com/item?id=49936575"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "Greg Kroah-Hartman – Security in the LLM Age [video]", "titleTranslation": "Greg Kroah-Hartman – 大语言模型时代的安全 [视频]", "summary": "Linux 内核维护者 Greg Kroah-Hartman 拆解 Anthropic 的 Mythos 模型声称发现的 79 个漏洞：多数无细节、非缺陷或已修复，仅约 10 个需真实修复，总工作量约一小时。这暴露了 AI 漏洞发现营销与专家评估之间的巨大落差。", "keyPoints": ["Mythos 的 79 个漏洞报告中，24 个无细节、14 个非缺陷、3 个数据编造。", "Greg Kroah-Hartman 认为仅约 10 个真实修复，总工作量约 1 小时。", "20 个需修复项多涉及恶意文件系统镜像、恶意网络包等极端场景，严重性低。"], "discussion": "评论区普遍质疑 Anthropic 的漏洞发现营销，认为与“模型太危险需限制发布”的叙事自相矛盾，但有人看好专用模型未来能更有效。", "tags": ["AI 安全评估", "Linux 内核漏洞", "模型营销验证"], "score": 203, "comments": 53, "by": "usernomdeguerre", "url": "https://www.youtube.com/watch?v=NnV_cWeoo5Q", "hnUrl": "https://news.ycombinator.com/item?id=49929391"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "FLUX 3 Image", "titleTranslation": "", "summary": "Black Forest Labs 发布 FLUX 3 Image，通过边界框精确控制画面元素位置，支持原生 2K/4K 渲染、像素级编辑和最多 10 张参考图合成，并提供商业权重许可，面向智能体工作流。", "keyPoints": ["FLUX 3 Image 由 Black Forest Labs 发布，是其多模态模型中负责图像生成与编辑的部分。", "核心交互是用边界框精确控制每个元素位置，也支持纯文本 prompt 生成。", "支持原生 2K/4K 渲染、像素级编辑与最多 10 张参考图合成。"], "discussion": "评论区普遍认可边界框交互比纯文本聊天更适合构图，但不少开发者更关心何时开源权重；有人指出 Ideogram V4 已有类似但更繁琐的功能，也有实测发现精确编辑仍不稳定。", "tags": ["图像生成模型", "布局可控生成", "商业权重许可"], "score": 299, "comments": 62, "by": "minimaxir", "url": "https://bfl.ai/models/flux-3-image", "hnUrl": "https://news.ycombinator.com/item?id=49925974"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "Sites in ChatGPT", "titleTranslation": "ChatGPT 中的站点", "summary": "OpenAI 推出 ChatGPT Sites，让用户直接在对话中生成并托管简单网站，无需注册 Netlify/Firebase 等第三方部署服务；评论称可在一小时内做出可玩原型，但演示被指伪 3D 且护城河存疑。正文未能获取，信息有限。", "keyPoints": ["ChatGPT Sites 上线，用户对话中直接生成并托管简单网站，免去第三方部署。", "用户称一小时内可将应用想法变成可玩原型，例如高维迷宫游戏当晚上线。", "演示被指伪 3D：旋转的只是带黑背景 JPEG 图片，没有真实三维效果。"], "discussion": "共识是它填补了用户不想注册第三方托管的空白；分歧在于大众采用前景 vs 演示质量差、无护城河。", "tags": ["AI 网站生成器", "OpenAI", "平台护城河"], "score": 241, "comments": 230, "by": "polvi", "url": "https://chatgpt.com/features/sites/", "hnUrl": "https://news.ycombinator.com/item?id=49927747"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Giving Opus 5.5 a simulated paint canvas", "titleTranslation": "", "summary": "", "keyPoints": [], "discussion": "", "tags": [], "score": 235, "comments": 76, "by": "alstonite", "url": "https://stillwet.art/", "hnUrl": "https://news.ycombinator.com/item?id=49928566"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Made an open-source Lego AI generator", "titleTranslation": "", "summary": "", "keyPoints": [], "discussion": "", "tags": [], "score": 89, "comments": 41, "by": "antelocnova", "url": "https://github.com/anteloc/ldraw-nova", "hnUrl": "https://news.ycombinator.com/item?id=49937916"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "One month coding with GLM 5.3 Flash", "titleTranslation": "", "summary": "", "keyPoints": [], "discussion": "", "tags": [], "score": 132, "comments": 105, "by": "ThibWeb", "url": "https://wagtail.org/blog/one-month-on-glm-53-flash/", "hnUrl": "https://news.ycombinator.com/item?id=49934620"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-03", "pointsLabel": "分", "commentsLabel": "评论", "title": "Every SaaS business will become a harness around a model", "titleTranslation": "每个 SaaS 业务都将成为围绕模型的挽具", "summary": "作者断言 SaaS 公司将演变为围绕无状态大语言模型的“挽具”——即提供上下文、集成和审查界面的全套基础设施，人类只做关键判断；企业须自有顶层挽具，否则可能被商品化。这挑战传统 SaaS 的产品与组织逻辑。", "keyPoints": ["harness 指围绕无状态 LLM 的全部基础设施、接口、上下文与状态", "演进终点是 harness 编排个人，人类变成判断与品味提供者", "企业应自建顶层 harness，第三方工具需可被 headless 调用"], "discussion": "评论分歧在于企业是否真会接受管理代理群的复杂度，以及组织变革是否已到临界点；有人指出 SaaS 仍会存在，因为多数企业不愿承担额外复杂性。", "tags": ["SaaS 商业模式", "LLM 代理", "组织架构"], "score": 120, "comments": 87, "by": "iacguy", "url": "https://blog.sshh.io/p/the-harness-is-the-company", "hnUrl": "https://news.ycombinator.com/item?id=49938616"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
