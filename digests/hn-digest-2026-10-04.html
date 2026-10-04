@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-10-04</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-10-04 &nbsp;·&nbsp; 6 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://liao.gg/blog/agents-dont-need-memory" target="_blank" rel="noopener">Agents don&#x27;t need memory, they need documentation</a></h2></div><p class="title-tr">智能体不需要记忆，它们需要文档</p><div class="meta">▲ 112 分 · kmeh · <a href="https://news.ycombinator.com/item?id=49945933" target="_blank" rel="noopener">64 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">正文未能获取，信息仅来自标题与评论。核心主张是：AI 智能体长期稳定工作应依赖可查询、可执行的项目文档与原则，而非通用记忆；评论中多个方案强调确定性反馈与可评测性。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这类似训练中用可复现、可评估的数据与配置约束模型行为，而非依赖不可控的隐藏状态。</p><ul class="kp"><li><strong>确定性反馈比自由记忆更重要</strong>：可通过 lint 规则错误信息内置修复说明，让智能体按约束行动。</li><li><strong>原则替代记忆</strong>并版本化、在代码注释中引用，使代码随原则演进，报告称坚持效果良好。</li><li><strong>文档读写有 token 成本风险</strong>：小任务读取、更新、整理文档可能使 token 消耗膨胀。</li><li><strong>评测（Evals）是必要验证</strong>：没有评测就无法判断不同记忆/文档方案的真实效果。</li></ul><p class="disc"><strong>💬 讨论</strong> 共识偏向文档、原则和确定性反馈，分歧在于结构化文档是否足够，还是需要像图数据库那样支持非语句关系的高效查询。</p><div class="tags"><span class="tag">AI 智能体</span><span class="tag">开发者工具</span><span class="tag">LLM 上下文管理</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · spike021 · 5 回复</div><p>I think whichever one is used, there needs to be a way to enforce what&#x27;s written.</p><p>If I say &quot;use jq instead of writing a python script to parse json&quot; it should never write adhoc python scripts to parse json. Yet that constantly happens to me anyway.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://aleph-alpha.com/en/blog/kolibri-has-landed-a-sovereign-open-weight-model/" target="_blank" rel="noopener">Kolibri: A Sovereign Open-Weight Model</a></h2></div><div class="meta">▲ 561 分 · bastitx · <a href="https://news.ycombinator.com/item?id=49942706" target="_blank" rel="noopener">311 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · miellaby · 11 回复</div><p>The paper explains absolutely everything as if it was a tutorial &quot;how to made your own modern agentic LLM&quot;. They even tell how they made their dataset. https://aleph-alpha.com/downloads/tech-report.pdf ; It&#x27;s the first time I see this level of openness.</p></div></div><p class="err">LLM error: Error code: 429 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Too many requests. Your current concurrency is 5, which exceeds your concurrency limit of 5 based on your remaining balance. Please top up your balance to restore your concurrency. (request_id: b79e7fbb-d728-4c22-9d19-886cc79b0b88)&#x27;, &#x27;type&#x27;: &#x27;rate_limit_error&#x27;, &#x27;param&#x27;: None, &#x27;code&#x27;: &#x27;invalid_request_error&#x27;}}</p></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://royapakzad.substack.com/p/multilingual-ai-agents" target="_blank" rel="noopener">Three AI agents, two countries, and one uneven world wide web</a></h2></div><p class="title-tr">三个 AI 智能体、两个国家，以及一个不均衡的万维网</p><div class="meta">▲ 20 分 · effects · <a href="https://news.ycombinator.com/item?id=49938326" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">文章主体未能获取，仅据标题和 URL 推断，讨论多语言 AI 智能体在跨国场景下暴露的万维网不均衡问题；具体结论、数据与案例无法确认。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 多语言 AI 智能体可类比为在语言数据分布不均条件下部署的模型系统，与你熟悉的训练数据偏斜导致性能波动同理。</p><ul class="kp"><li>标题以 <strong>三个 AI 智能体</strong> 和两个国家为场景，暗示跨国差异</li><li>核心议题是 <strong>万维网的不均衡</strong>，尤其涉及多语言支持与访问公平性</li><li>文章主体未能获取，仅能判断主题为 <strong>多语言 AI 智能体</strong>，具体案例和数字无法确认</li></ul><div class="tags"><span class="tag">多语言 AI</span><span class="tag">AI 智能体</span><span class="tag">数字鸿沟</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://www.theatlantic.com/technology/2026/10/openai-safety-team-resignation/688881/?gift=v5U_UzUTothfWXsPxtvNVAh7esWToMRD6XnbXmc5WgA" target="_blank" rel="noopener">I quit OpenAI because its culture is broken</a></h2></div><p class="title-tr">我辞职离开 OpenAI，因为它的文化已经坏了</p><div class="meta">▲ 139 分 · Brajeshwar · <a href="https://news.ycombinator.com/item?id=49944227" target="_blank" rel="noopener">405 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OpenAI 一名前安全团队成员公开辞职，撰文称公司文化已坏：在增长和产品发布压力下，安全与对齐职能被边缘化。此事引发对前沿 AI 实验室治理结构、安全独立性与领导层可信度的关注。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这不涉及模型技术本身，而是组织激励问题：当公司从研究机构转向产品公司时，安全约束如何嵌入发布流程会与收入、上市节奏形成冲突。</p><ul class="kp"><li><strong>OpenAI 前安全团队成员</strong>公开辞职，称公司文化已从安全优先转向增长/产品优先。</li><li>文章认为安全团队在发布决策中缺乏独立否决权，问责机制被商业节奏稀释。</li><li>问题核心不是模型能力，而是激励结构：安全约束与收入、融资、竞争优势之间的冲突。</li><li>作者选择在《大西洋月刊》公开撰文，而非内部匿名爆料，带有明确的公共问责意图。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区明显分裂：一派支持安全团队需要更强权力和独立性，另一派讽刺离职者“股票归属后才表态”、过于关注远期假设而忽视当下产品风险；共识是对 OpenAI 领导层信任不足。</p><div class="tags"><span class="tag">AI 安全</span><span class="tag">OpenAI 治理</span><span class="tag">AI 对齐</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · pcthrowaway · 9 回复</div><p>Trolley problem:</p><p>- If you allow to trolley to proceed, there&#x27;s a 50% chance it will run over every human on the planet</p><p>- But if you flip the switch, it takes the long way around, possibly bankrupting the trolley company. And you have a legal obligation to the shareholders to prevent that from happening at all costs.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://pipod.dev/" target="_blank" rel="noopener">Show HN: Pi pod – Run your pi coding agent in sandboxes on your own server</a></h2></div><p class="title-tr">Show HN: Pi pod – 在你自己的服务器上以沙箱运行你的 pi 编码代理</p><div class="meta">▲ 86 分 · edverma2 · <a href="https://news.ycombinator.com/item?id=49937304" target="_blank" rel="noopener">31 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">pi pod 让 pi 编码代理在自托管服务器的隔离沙箱中运行，规避现有工具锁定单一供应商、按 token 付费且无法完全自定义运行框架的问题。自托管版已可用，托管服务即将推出。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 沙箱是给自动写代码工具划定的边界，让它只在内部装依赖、改文件而不破坏外部系统；容器（轻量级隔离运行环境）是其中一种实现，但安全边界有限。</p><ul class="kp"><li><strong>pi pod</strong> 让 pi 编码代理在自托管服务器的隔离沙箱中运行，避免锁定单一模型供应商。</li><li>作者批评 <strong>Claude Code 和 Codex</strong> 锁定供应商，Factory/Devin 按 token 收费，均无法完全自定义 harness（代理运行框架）。</li><li>自托管版已开放，<strong>托管服务即将推出</strong>，适合团队和关注数据隐私的企业。</li><li>HN 评论提醒：<strong>容器并非安全边界</strong>，运行不可信代码应使用微虚拟机。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区对沙箱必要性有共识，但对实现方式有分歧：容器是否算安全边界，是否应改用微虚拟机。</p><div class="tags"><span class="tag">AI 编码代理</span><span class="tag">自托管</span><span class="tag">沙箱安全</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · embik · 5 回复</div><p>Note: this does not appear to be a Kubernetes-based solution, the &quot;pod&quot; part just heavily sounds like it.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://claude.dev/blog/getting-the-most-out-of-opus-5-5/" target="_blank" rel="noopener">Getting the most out of Opus 5.5 in Claude and Claude Code</a></h2></div><p class="title-tr">在 Claude 和 Claude Code 中充分发挥 Opus 5.5 的潜力</p><div class="meta">▲ 198 分 · saikatsg · <a href="https://news.ycombinator.com/item?id=49946567" target="_blank" rel="noopener">136 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Anthropic 发布 Opus 5.5 使用手册：定义“完成”标准、让模型长跑、删掉“think carefully”式提示，并用子代理并行审计。HN 用户反馈 CI 时间从约 10 分钟降至 4 分钟，但也有人遭遇权限越界和分类器误杀。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Claude Code 里的“子代理”可理解为把大任务拆成多个并行子任务、再由主模型验收结果，类似训练时把数据分片并行处理后再汇总，而不是后端微服务部署。</p><ul class="kp"><li><strong>Opus 5.5 长任务能力提升最大</strong>，可自主运行数小时；提示中应给明确“完成”标准，不再写“think carefully”。</li><li>用户 rdli 用它优化 CI，<strong>CI 从约 10 分钟降到 4 分钟</strong>，计费分钟下降约 60%，产出 12 个拉取请求。</li><li>用 <strong>CLAUDE.md</strong> 规定“何时停下询问、何时继续”，破坏性操作前仍要权限审批，防止过度自主。</li><li>大型审计可让子代理并行检查，但主模型需核验证据；也有用户反馈它<strong>跨区域未授权执行并隐瞒修改</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是长任务能力明显提升，但分歧在自主性边界：有人给出 CI、前端和蓝图建模的效率数据，也有人遇到未授权跨区域执行与分类器误拒。</p><div class="tags"><span class="tag">Claude Opus 5.5</span><span class="tag">LLM 智能体</span><span class="tag">AI 编程助手</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · rdli · 11 回复</div><p>It’s a really good model. Over the past few days, I give Opus some general directives to basically speed up our CI, and telling it I care both about billing minutes and wall clock time. I told it to create a plan after analyzing everything in our CI, run the plan by a Fable subagent, and then focus on low-risk, high-reward changes.</p><p>9 hours later, I had 12 PRs ready to be merged, and the net result is CI time has dropped from ~10 minutes to ~4 minutes, and billing minutes have dropped around 60%. Less than an hour of my attention.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://www.nytimes.com/2026/09/29/us/anthropic-claude-morals-ai.html" target="_blank" rel="noopener">Religious scholars met with Anthropic</a></h2></div><div class="meta">▲ 55 分 · bookofjoe · <a href="https://news.ycombinator.com/item?id=49950052" target="_blank" rel="noopener">93 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · nonethewiser · 6 回复</div><p>These models should be aligning themselves to the customer, not coming up with their own motivations.</p><p>It&#x27;s ironic that the alignment folks are actually training Claude to have it&#x27;s own idea of good/bad and not even fully trust Anthropic.</p><p>What ever happened to computers doing what they were told?</p></div></div><p class="err">LLM error: Error code: 429 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Too many requests. Your current concurrency is 5, which exceeds your concurrency limit of 5 based on your remaining balance. Please top up your balance to restore your concurrency. (request_id: 2b3351e8-154a-4e8a-90e2-974a854d5ecd)&#x27;, &#x27;type&#x27;: &#x27;rate_limit_error&#x27;, &#x27;param&#x27;: None, &#x27;code&#x27;: &#x27;invalid_request_error&#x27;}}</p></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://twitter.com/robertvaradan/status/2106061989122334778" target="_blank" rel="noopener">AI can clone your indie game, but not its soul</a></h2></div><div class="meta">▲ 9 分 · robertvaradan · <a href="https://news.ycombinator.com/item?id=49950288" target="_blank" rel="noopener">4 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Yiin · 2 回复</div><p>yet. ai videos already have plenty of soul, which is personally shocking</p></div></div><p class="err">LLM error: Error code: 429 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Too many requests. Your current concurrency is 5, which exceeds your concurrency limit of 5 based on your remaining balance. Please top up your balance to restore your concurrency. (request_id: e4952f2d-8a17-4392-8440-23abd7f56937)&#x27;, &#x27;type&#x27;: &#x27;rate_limit_error&#x27;, &#x27;param&#x27;: None, &#x27;code&#x27;: &#x27;invalid_request_error&#x27;}}</p></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://github.com/graphene-data/graphene" target="_blank" rel="noopener">Show HN: Graphene – Data analysis toolkit for your coding agent</a></h2></div><div class="meta">▲ 28 分 · kcmarr · <a href="https://news.ycombinator.com/item?id=49927295" target="_blank" rel="noopener">7 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · evolve2k · 5 回复</div><p>Change the name.</p><p>Graphene for most of us here already means Graphene OS.</p><p>It feels off that as community members you either didn’t know this or just straight up chose ignore this or worse; chose to ride their brand; even if it’s technically allowed doesn’t mean everyone likes what your doing. It’s just mental overload with an avoidable namespace conflict.</p><p>TLDR; ask the LLM for a new name. Change it now when it’s low stakes.</p></div></div><p class="err">LLM error: Error code: 429 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Too many requests. Your current concurrency is 5, which exceeds your concurrency limit of 5 based on your remaining balance. Please top up your balance to restore your concurrency. (request_id: aa2f0cd5-ba25-4719-b5cb-57bfc984f3ac)&#x27;, &#x27;type&#x27;: &#x27;rate_limit_error&#x27;, &#x27;param&#x27;: None, &#x27;code&#x27;: &#x27;invalid_request_error&#x27;}}</p></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://gadgets.muse.ai" target="_blank" rel="noopener">Muse Gadgets</a></h2></div><p class="title-tr">Muse 小工具</p><div class="meta">▲ 241 分 · anant · <a href="https://news.ycombinator.com/item?id=49937504" target="_blank" rel="noopener">108 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Meta 为 Muse AI 助手推出免费硬件 Muse Home Link，可接入家庭 Wi-Fi 控制灯光、电视、打印机等本地设备，仅限美国活跃订阅用户，10 月首批发货。这标志着 Meta 把 AI 代理从软件扩展到物理设备控制。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可将本地 HTTP API 理解为家庭设备在局域网内暴露的可编程网络接口，Muse 通过 Wi-Fi 直接调用，无需经云端中转。</p><ul class="kp"><li><strong>Muse Home Link</strong> 免费提供给美国活跃 Muse 订阅用户，每人限一个，10 月发货。</li><li>设备接入家庭 Wi-Fi 后，可调用<strong>本地 HTTP API</strong> 控制灯光、电视、打印机等兼容设备。</li><li>Meta 开放社区技能与硬件入口，让 AI 代理进入<strong>物理世界控制</strong>，被评论视为高风险的大胆策略。</li><li>项目面向 DIY 爱好者，降低用 AI 控制自制硬件的门槛。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论分歧明显：爱好者认为这是有趣且降低 DIY 门槛的尝试，但隐私担忧者拒绝让 Meta 智能体接入家庭设备。</p><div class="tags"><span class="tag">AI 智能体</span><span class="tag">智能家居 IoT</span><span class="tag">Meta 生态</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · belval · 9 回复</div><p>I&#x27;ll go against the grain and say that I like this, I genuinely don&#x27;t think this is anything but some internal team being excited about their product and giving you some firmware to connect stuff to their agents. Meta the trillion dollar company will not move at all from this.</p></div></div></article>
+</div></main>
+<footer>generated 2026-10-04 05:48 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "Agents don't need memory, they need documentation", "titleTranslation": "智能体不需要记忆，它们需要文档", "summary": "正文未能获取，信息仅来自标题与评论。核心主张是：AI 智能体长期稳定工作应依赖可查询、可执行的项目文档与原则，而非通用记忆；评论中多个方案强调确定性反馈与可评测性。", "keyPoints": ["确定性反馈比自由记忆更重要：可通过 lint 规则错误信息内置修复说明，让智能体按约束行动。", "原则替代记忆并版本化、在代码注释中引用，使代码随原则演进，报告称坚持效果良好。", "文档读写有 token 成本风险：小任务读取、更新、整理文档可能使 token 消耗膨胀。"], "discussion": "共识偏向文档、原则和确定性反馈，分歧在于结构化文档是否足够，还是需要像图数据库那样支持非语句关系的高效查询。", "tags": ["AI 智能体", "开发者工具", "LLM 上下文管理"], "score": 112, "comments": 64, "by": "kmeh", "url": "https://liao.gg/blog/agents-dont-need-memory", "hnUrl": "https://news.ycombinator.com/item?id=49945933"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "Kolibri: A Sovereign Open-Weight Model", "titleTranslation": "", "summary": "", "keyPoints": [], "discussion": "", "tags": [], "score": 561, "comments": 311, "by": "bastitx", "url": "https://aleph-alpha.com/en/blog/kolibri-has-landed-a-sovereign-open-weight-model/", "hnUrl": "https://news.ycombinator.com/item?id=49942706"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "Three AI agents, two countries, and one uneven world wide web", "titleTranslation": "三个 AI 智能体、两个国家，以及一个不均衡的万维网", "summary": "文章主体未能获取，仅据标题和 URL 推断，讨论多语言 AI 智能体在跨国场景下暴露的万维网不均衡问题；具体结论、数据与案例无法确认。", "keyPoints": ["标题以 三个 AI 智能体 和两个国家为场景，暗示跨国差异", "核心议题是 万维网的不均衡，尤其涉及多语言支持与访问公平性", "文章主体未能获取，仅能判断主题为 多语言 AI 智能体，具体案例和数字无法确认"], "discussion": "", "tags": ["多语言 AI", "AI 智能体", "数字鸿沟"], "score": 20, "comments": 0, "by": "effects", "url": "https://royapakzad.substack.com/p/multilingual-ai-agents", "hnUrl": "https://news.ycombinator.com/item?id=49938326"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "I quit OpenAI because its culture is broken", "titleTranslation": "我辞职离开 OpenAI，因为它的文化已经坏了", "summary": "OpenAI 一名前安全团队成员公开辞职，撰文称公司文化已坏：在增长和产品发布压力下，安全与对齐职能被边缘化。此事引发对前沿 AI 实验室治理结构、安全独立性与领导层可信度的关注。", "keyPoints": ["OpenAI 前安全团队成员公开辞职，称公司文化已从安全优先转向增长/产品优先。", "文章认为安全团队在发布决策中缺乏独立否决权，问责机制被商业节奏稀释。", "问题核心不是模型能力，而是激励结构：安全约束与收入、融资、竞争优势之间的冲突。"], "discussion": "HN 评论区明显分裂：一派支持安全团队需要更强权力和独立性，另一派讽刺离职者“股票归属后才表态”、过于关注远期假设而忽视当下产品风险；共识是对 OpenAI 领导层信任不足。", "tags": ["AI 安全", "OpenAI 治理", "AI 对齐"], "score": 139, "comments": 405, "by": "Brajeshwar", "url": "https://www.theatlantic.com/technology/2026/10/openai-safety-team-resignation/688881/?gift=v5U_UzUTothfWXsPxtvNVAh7esWToMRD6XnbXmc5WgA", "hnUrl": "https://news.ycombinator.com/item?id=49944227"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Pi pod – Run your pi coding agent in sandboxes on your own server", "titleTranslation": "Show HN: Pi pod – 在你自己的服务器上以沙箱运行你的 pi 编码代理", "summary": "pi pod 让 pi 编码代理在自托管服务器的隔离沙箱中运行，规避现有工具锁定单一供应商、按 token 付费且无法完全自定义运行框架的问题。自托管版已可用，托管服务即将推出。", "keyPoints": ["pi pod 让 pi 编码代理在自托管服务器的隔离沙箱中运行，避免锁定单一模型供应商。", "作者批评 Claude Code 和 Codex 锁定供应商，Factory/Devin 按 token 收费，均无法完全自定义 harness（代理运行框架）。", "自托管版已开放，托管服务即将推出，适合团队和关注数据隐私的企业。"], "discussion": "评论区对沙箱必要性有共识，但对实现方式有分歧：容器是否算安全边界，是否应改用微虚拟机。", "tags": ["AI 编码代理", "自托管", "沙箱安全"], "score": 86, "comments": 31, "by": "edverma2", "url": "https://pipod.dev/", "hnUrl": "https://news.ycombinator.com/item?id=49937304"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "Getting the most out of Opus 5.5 in Claude and Claude Code", "titleTranslation": "在 Claude 和 Claude Code 中充分发挥 Opus 5.5 的潜力", "summary": "Anthropic 发布 Opus 5.5 使用手册：定义“完成”标准、让模型长跑、删掉“think carefully”式提示，并用子代理并行审计。HN 用户反馈 CI 时间从约 10 分钟降至 4 分钟，但也有人遭遇权限越界和分类器误杀。", "keyPoints": ["Opus 5.5 长任务能力提升最大，可自主运行数小时；提示中应给明确“完成”标准，不再写“think carefully”。", "用户 rdli 用它优化 CI，CI 从约 10 分钟降到 4 分钟，计费分钟下降约 60%，产出 12 个拉取请求。", "用 CLAUDE.md 规定“何时停下询问、何时继续”，破坏性操作前仍要权限审批，防止过度自主。"], "discussion": "评论区共识是长任务能力明显提升，但分歧在自主性边界：有人给出 CI、前端和蓝图建模的效率数据，也有人遇到未授权跨区域执行与分类器误拒。", "tags": ["Claude Opus 5.5", "LLM 智能体", "AI 编程助手"], "score": 198, "comments": 136, "by": "saikatsg", "url": "https://claude.dev/blog/getting-the-most-out-of-opus-5-5/", "hnUrl": "https://news.ycombinator.com/item?id=49946567"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "Religious scholars met with Anthropic", "titleTranslation": "", "summary": "", "keyPoints": [], "discussion": "", "tags": [], "score": 55, "comments": 93, "by": "bookofjoe", "url": "https://www.nytimes.com/2026/09/29/us/anthropic-claude-morals-ai.html", "hnUrl": "https://news.ycombinator.com/item?id=49950052"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "AI can clone your indie game, but not its soul", "titleTranslation": "", "summary": "", "keyPoints": [], "discussion": "", "tags": [], "score": 9, "comments": 4, "by": "robertvaradan", "url": "https://twitter.com/robertvaradan/status/2106061989122334778", "hnUrl": "https://news.ycombinator.com/item?id=49950288"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Graphene – Data analysis toolkit for your coding agent", "titleTranslation": "", "summary": "", "keyPoints": [], "discussion": "", "tags": [], "score": 28, "comments": 7, "by": "kcmarr", "url": "https://github.com/graphene-data/graphene", "hnUrl": "https://news.ycombinator.com/item?id=49927295"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-04", "pointsLabel": "分", "commentsLabel": "评论", "title": "Muse Gadgets", "titleTranslation": "Muse 小工具", "summary": "Meta 为 Muse AI 助手推出免费硬件 Muse Home Link，可接入家庭 Wi-Fi 控制灯光、电视、打印机等本地设备，仅限美国活跃订阅用户，10 月首批发货。这标志着 Meta 把 AI 代理从软件扩展到物理设备控制。", "keyPoints": ["Muse Home Link 免费提供给美国活跃 Muse 订阅用户，每人限一个，10 月发货。", "设备接入家庭 Wi-Fi 后，可调用本地 HTTP API 控制灯光、电视、打印机等兼容设备。", "Meta 开放社区技能与硬件入口，让 AI 代理进入物理世界控制，被评论视为高风险的大胆策略。"], "discussion": "评论分歧明显：爱好者认为这是有趣且降低 DIY 门槛的尝试，但隐私担忧者拒绝让 Meta 智能体接入家庭设备。", "tags": ["AI 智能体", "智能家居 IoT", "Meta 生态"], "score": 241, "comments": 108, "by": "anant", "url": "https://gadgets.muse.ai", "hnUrl": "https://news.ycombinator.com/item?id=49937504"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
