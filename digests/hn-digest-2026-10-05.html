@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-10-05</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-10-05 &nbsp;·&nbsp; 6 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://github.com/Niko1221/Strata" target="_blank" rel="noopener">Run Qwen 3.8 Flash Next (125B) on consumer hardware (RTX 4090) at 100T/s</a></h2></div><p class="title-tr">在消费级硬件（RTX 4090）上以 100 tokens/s 运行 Qwen 3.8 Flash Next（125B）</p><div class="meta">▲ 683 分 · snehesht · <a href="https://news.ycombinator.com/item?id=49953495" target="_blank" rel="noopener">314 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">开源工具 Strata 让 125B 参数的 Qwen3.8-Flash-Next 在 12GB 显存消费级显卡上运行，RTX 5070 实测 94 tokens/s，RTX 4090 约 124 tokens/s。价值在于把原本需服务器的大模型搬到本地，但低比特量化带来质量争议。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这类“消费级跑大模型”方案的核心是用低比特量化与 GPU/CPU/RAM/SSD 分层卸载，类似训练时用混合精度和梯度检查点换显存，但要付出模型质量与视觉精度代价。</p><ul class="kp"><li><strong>Strata</strong> 在 12GB 显存的 RTX 5070 上达到 94 tokens/s，RTX 4090 实测约 124 tokens/s。</li><li><strong>Qwen3.8-Flash-Next</strong> 是 125B 参数的混合专家模型，24576 个专家中每次仅激活约 10 个，降低计算量。</li><li>官方按内存分档：32GB 推荐 Coder 版但中文较弱，64GB 推荐 IQ2_XS，<strong>IQ3_S</strong> 质量最好但最慢。</li><li>HN 用户测视觉坐标基准，Strata 误差中位数 <strong>154.8 像素</strong>，显著差于 llama.cpp 同权重的 46.5 像素。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是消费级速度令人印象深刻，但分歧在于低比特量化是否导致模型质量/视觉能力不可接受，有人报告坐标误差比 llama.cpp 大 3 倍以上。</p><div class="tags"><span class="tag">本地LLM推理</span><span class="tag">量化压缩</span><span class="tag">混合专家模型</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · a11r · 10 回复</div><p>I&#x27;m a little skeptical of going below 4-bit quants due to the potential for significant degradation in quality. I&#x27;m running 4-bit quants on an RTX Pro 6000 rented for approximately $1/hour and getting about 1.2 million tokens out and 40 million tokens in per hour with caching. The quality of 4-bit quant is good enough for difficult but well-scoped coding tasks. Here is the inference stack I am using: https://www.reddit.com/r/BlackwellPerformance/s/FrKwk3GoDK</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://github.com/omlahore/RemoveMacAI" target="_blank" rel="noopener">Turn off Apple Intelligence on macOS 27 and get its disk space back</a></h2></div><p class="title-tr">关闭 macOS 27 上的 Apple Intelligence 并收回其磁盘空间</p><div class="meta">▲ 472 分 · privacyisntdead · <a href="https://news.ycombinator.com/item?id=49957116" target="_blank" rel="noopener">296 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">开源工具 RemoveMacAI 可关闭 macOS 27 上的 Apple Intelligence、删除本地推理模型并阻止其重新下载，因为该系统没有统一开关且关闭后模型仍占磁盘。这表明苹果的 AI 集成在用户控制和存储占用上引发明显不满。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 配置描述文件相当于在企业环境中批量下发系统策略的模板，而系统完整性保护是 macOS 的只读保护机制，防止随意修改系统文件。</p><ul class="kp"><li><strong>macOS 27 无单一开关</strong>，关闭 Apple Intelligence 后本地模型仍留在磁盘。</li><li><strong>RemoveMacAI</strong> 用配置描述文件关闭功能、删除模型并重定向下载到本地关闭端口。</li><li>工具关闭 <strong>Siri、写作工具、Genmoji、图像游乐场、通知摘要</strong>等功能，不修改受系统完整性保护的文件。</li><li>所有更改可还原，<strong>macOS 更新不会撤销</strong>，但存储设置可能延迟反映删除。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是苹果 AI 集成缺乏用户选择、占磁盘引发不满，但部分人认为本地模型离线可用且有价值。</p><div class="tags"><span class="tag">Apple Intelligence</span><span class="tag">macOS 配置描述文件</span><span class="tag">本地模型磁盘占用</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · _pdp_ · 15 回复</div><p>I don&#x27;t understand why you would want to remove well-balanced and relatively small local-inference models that ship with every mac.</p><p>Sure, not frontier levels but fine for basic tasks and they are off-the-cloud.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://www.youtube.com/watch?v=eZ8WWZzoaR0" target="_blank" rel="noopener">Homa: The end of TCP for AI clusters [video]</a></h2></div><p class="title-tr">Homa：终结 AI 集群中的 TCP [视频]</p><div class="meta">▲ 65 分 · signa11 · <a href="https://news.ycombinator.com/item?id=49957117" target="_blank" rel="noopener">30 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">斯坦福团队提出 Homa 传输协议，用接收方 GRANT 授权替代 TCP 的发送方拥塞控制，为 AI 集群低延迟 RPC 设计。但评论者批评其无整条消息丢失检测、无内置加密，基准测试每线程仅 4 Gbit/s，认为 QUIC 覆盖相近需求。</p><p class="context"><strong>🧭 联系你的知识背景</strong> AI 集群中节点频繁交换梯度与中间结果，类似分布式训练里的通信环节；传统 TCP 对每个小消息都维护连接和拥塞状态，Homa 改为由接收方按可接收内存发 GRANT 授权，减少小请求的往返延迟。</p><ul class="kp"><li><strong>Homa 协议</strong>把消息分为立即发送的未调度部分和等待接收方 GRANT 的调度部分，以降低小请求延迟。</li><li>反对者 <strong>Veserv</strong> 指出 Homa 无整条 RPC 丢失检测、无内置加密，60kB 消息每超线程仅 4 Gbit/s。</li><li>支持者认为现代硬件交换机每包处理开销低，<strong>小包不再低效</strong>，但 Homa 不适合开放 Web。</li><li><strong>QUIC</strong> 用流 ID 和流控解决相似问题，可能比 Homa 更干净，已被视为有力替代。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论核心分歧在于 Homa 是接收方驱动的优雅方案，还是已被 QUIC 覆盖的过度设计；批评者给出每线程 4 Gbit/s 的低吞吐数据。</p><div class="tags"><span class="tag">AI 集群网络</span><span class="tag">传输协议</span><span class="tag">QUIC 对比</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Veserv · 3 回复</div><p>Homa is not a good design. [1]</p><p>1. No way to detect whole RPC loss. Since there is no outer connection state, if every packet in the send-side of a RPC is lost then there is no way for a server to detect that it should issue a resend. The RPC is just lost to the ether. This affects small messages, like messages that fit in a single packet, more since there are fewer packets in the send-side.</p><p>2. Related to the above, there is no builtin encryption support. So, if you want encryption then you need to layer it either above or below.</p><p>3. Benchmarked performance is awful. The 60 kB average message case in [2] Table 4 takes 5(!) hyperthreads to average 20 Gbit/s. That is just 4 Gbit/s per hyperthread. Even a totally naive one-packet per system call network protocol design and implementation should get to ~8 Gbit/s per hyperthread. 30 Gbit/s per hyperthread is easy with just a little focus on performance.</p><p>4. Despite all the performance design problems in QUIC (though still faster than Homa) it already solves basically every problem Homa is trying to solve in a much cleaner way. Stream IDs correspond to RPC IDs. Stream Max corresponds to Grants. Multiple streams under single Client allows prioritization.</p><p>Except you do not randomly lose entire messages. You can compact small messages into packets. You get more precise RTT time allowing more accurate pacing/congestion calculations. You get builtin encryption. It survives ossified middleboxs. It has multiple ack frames/packets reducing ack overhead.</p><p>The only real difference is that Homa uses explicit receiver Resend instead of implicit sender Resend. Except that actually consumes significantly more receiver resources in non-trivial loss scenarios especially due to Resend packets only supporting a single Resend span. It also incurs higher latency and has higher requirements on the entire lossy network path due to all the extra transiting data that you do not want to lose.</p><p>And those are just serious problems off the top of my head after reloading the RFC into my head. I can come up with some more if needed.</p><p>[1] https://github.com/johnousterhout/homa-rfc/blob/main/draft-o...</p><p>[2] https://www.usenix.org/system/files/atc21-ousterhout.pdf</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://www.youtube.com/watch?v=GLvFTMtw4Jk" target="_blank" rel="noopener">How to scale intent, quality, and artistry with AI [video]</a></h2></div><div class="meta">▲ 71 分 · simonjgreen · <a href="https://news.ycombinator.com/item?id=49951891" target="_blank" rel="noopener">22 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · socializer · 5 回复</div><p>The problem isn&#x27;t that you can&#x27;t use AI to uplevel your creativity. It&#x27;s that doing it slows you down, so you end up at a marked disadvantage, because others who just prompt &quot;hey Claude, make me X&quot; will produce 100 good enough slop-pieces in the time it takes you to finish one.</p><p>For the vast majority of paying customers or social media appreciators, that low-effort slop is sufficient. It&#x27;s cheap, fast, and gets better with every passing month. So if your overriding goal is to scale to win in that marketplace, then you can only scale by giving up on quality and artistry. It&#x27;s a race to the bottom.</p><p>I think the only way to win is to push back on the notion that you need to work on superhuman scale in the first place. You can differentiate yourself from AI by asserting you&#x27;re human and that there&#x27;s inherent value in human art. You&#x27;ll find some customers willing to pay extra for that, just like some hire a woodworker instead of buying at Ikea. But it&#x27;s going to be a tough market for artisans because fewer and fewer people are forced to buy the fruits of your intellectual labor.</p><p>In software engineering specifically, we gleefully decided that speed and cost are the only thing that matters and we celebrate &quot;hey Claude, make me X&quot; projects the same as we celebrate human ingenuity (case in point: HN front page). So for SWEs, even that &quot;I&#x27;m a human&quot; route may be unavailable.</p></div></div><p class="err">LLM error: Error code: 429 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Too many requests. Your current concurrency is 5, which exceeds your concurrency limit of 5 based on your remaining balance. Please top up your balance to restore your concurrency. (request_id: e7381f01-346c-4fd2-994c-ca565cd83b83)&#x27;, &#x27;type&#x27;: &#x27;rate_limit_error&#x27;, &#x27;param&#x27;: None, &#x27;code&#x27;: &#x27;invalid_request_error&#x27;}}</p></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://www.nytimes.com/2026/09/30/technology/william-draper-dead.html" target="_blank" rel="noopener">Bill Draper has died</a></h2></div><p class="title-tr">Bill Draper 去世</p><div class="meta">▲ 104 分 · bookofjoe · <a href="https://news.ycombinator.com/item?id=49953288" target="_blank" rel="noopener">31 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">风险投资先驱 Bill Draper 去世；Hacker News 评论确认他于 9 月 8 日离世，讣告 9 月 30 日发布。他曾在感到风险投资“学习曲线已经拉平”后转向公共服务，据称资助约 280 家非营利组织，家族已有三代人从事风险投资。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 你熟悉创业融资与投资判断，但可能不熟悉早期硅谷风险投资史；Draper 代表资本从财务回报转向公共产品的老派路径，可作为当前风险投资模式的对照。</p><ul class="kp"><li><strong>Bill Draper 去世</strong>，Hacker News 评论确认他 9 月 8 日离世，媒体讣告 9 月 30 日才发布。</li><li>他在感到风险投资“学习曲线已经拉平”后<strong>转向公共服务</strong>，并资助约 280 家非营利组织。</li><li><strong>Draper 家族已有三代人从事风险投资</strong>，这种长期家族传承在硅谷很罕见。</li><li>有评论认为当前硅谷的 <strong>Andreessen Horowitz（a16z）团队</strong>可能难以理解 Draper 这种老派公共服务精神。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论多表敬意并追忆其低调与公共服务转向，但也有人反思硅谷扩张让原本农业用地消失的代价。</p><div class="tags"><span class="tag">风险投资史</span><span class="tag">非营利资助</span><span class="tag">硅谷人物</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · JSR_FDED · 3 回复</div><p>Man that was as a different ethos back then…”Draper realized that his ‘learning curve was flattened out’ in venture capital and detoured into public service”. Subsequently he funded 280 non profits.</p><p>The A16z team of today is probably deeply confused reading this article.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://github.com/allenv0/SCM" target="_blank" rel="noopener">Show HN: AI search for every photo and every frame of video on macOS</a></h2></div><p class="title-tr">Show HN：macOS 上对每张照片和每一帧视频的 AI 搜索</p><div class="meta">▲ 147 分 · allenleee · <a href="https://news.ycombinator.com/item?id=49952111" target="_blank" rel="noopener">66 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">SCM 是一款 macOS 本地优先应用，用 CLIP/SigLIP 视觉嵌入、Whisper 语音转写和 Tesseract OCR 让用户自然语言搜索照片和视频精确场景，全程离线。最大瓶颈是视频帧级索引耗时，HN 评论认为采样率决定实用性。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 把“对视频每一帧做嵌入索引”类比为你在时间序列里对每个时点做特征化：采样越密、精度越高，但预处理成本越大——这正是该工具最被质疑的实用性门槛。</p><ul class="kp"><li><strong>SCM</strong> 用本地 CLIP/SigLIP 视觉嵌入、Whisper 转录和 Tesseract OCR，支持自然语言搜索照片、视频场景、文字与语音。</li><li>默认视觉模型 <strong>CLIP ViT-L/14 约 435MB</strong>，下载后推理完全离线；切换模型会自动后台重建整个索引。</li><li>视频采样预设从 <strong>Eco（60 秒/点）到 Ultra Pro（2.5 秒/点）</strong>，高密度模式需要大量预处理时间。</li><li>HN 评论指出帧采样率是核心障碍：<strong>1 秒/帧处理 1.2 万视频需数天</strong>，关键帧采样可隔夜完成。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论普遍认可本地视频搜索需求，但技术选型有分歧：多人推荐 Apple Vision OCR 和 Qwen-VL，且认为帧采样率导致的索引耗时是最大使用门槛。</p><div class="tags"><span class="tag">本地优先 AI</span><span class="tag">视频语义搜索</span><span class="tag">隐私保护工具</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · postalcoder · 10 回复</div><p>Since this is for the mac you really should be using apple&#x27;s vision framework for OCR. It smokes tesseract in both speed and accuracy.</p><p>Edit: I&#x27;m curious which LLM was used to generate the code. I fed the title of your post to claude/deepseek/qwen/codex asking to recommend a stack for this project, expecting to frown thinking that they still recommend tesseract. However, I found that they all recommend apple&#x27;s vision framework. In fact the latest model to recommend Tesseract is gpt-4.1.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://simonwillison.net/2026/Oct/3/default-hard-budget-caps/" target="_blank" rel="noopener">We&#x27;re going to need default hard budget caps on pretty much everything</a></h2></div><div class="meta">▲ 601 分 · elffjs · <a href="https://news.ycombinator.com/item?id=49949235" target="_blank" rel="noopener">299 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · motionlessveloc · 21 回复</div><p>I used to work on a support team of a well known backend type service that had hard budget caps.</p><p>It was, unfortunately, a nightmare.  There were tons of tickets and even threats of lawsuits from customers whose service got cut off hard at the worst possible time due to organic growth/going viral/big event/nobody knew about the limit/etc. Not only did they lose all the leads and revenue they would have gotten from that bump, but they also pissed off their own existing users who suddenly couldn&#x27;t use the service either.</p><p>Generally speaking, it&#x27;s much better to use alerts instead of hard limit. Even in the worst case (hackers pwn your credentials and mine Bitcoin or whatever) the rest of your business is unaffected and you can negotiate with the billing department at comparative leisure.</p><p>This is all assuming you have humans operating the service. If you&#x27;re letting AI agents yolo infra in prod, you have a whole series of new problems.</p></div></div><p class="err">LLM error: Error code: 429 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Too many requests. Your current concurrency is 5, which exceeds your concurrency limit of 5 based on your remaining balance. Please top up your balance to restore your concurrency. (request_id: e74a210e-e3d7-4f0b-b535-40bdc9016aac)&#x27;, &#x27;type&#x27;: &#x27;rate_limit_error&#x27;, &#x27;param&#x27;: None, &#x27;code&#x27;: &#x27;invalid_request_error&#x27;}}</p></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://metedata.substack.com/p/what-meta-got-right-with-muse" target="_blank" rel="noopener">What Meta got right with Muse</a></h2></div><div class="meta">▲ 133 分 · young_mete · <a href="https://news.ycombinator.com/item?id=49946526" target="_blank" rel="noopener">185 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · satvikpendem · 9 回复</div><p>I don&#x27;t understand Muse, couldn&#x27;t agents already do all this? I have ChatGPT for example and I can have it book tickets and other things for me, it even pulls up a cloud browser if it can&#x27;t access APIs. It can check for details from my email and use those for the ticket. Now OpenAI has Dots too which is a 24/7 version of the same thing.</p></div></div><p class="err">LLM error: Error code: 429 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Too many requests. Your current concurrency is 5, which exceeds your concurrency limit of 5 based on your remaining balance. Please top up your balance to restore your concurrency. (request_id: 2b0322d7-7bcf-4c0e-b34e-c6e821c07280)&#x27;, &#x27;type&#x27;: &#x27;rate_limit_error&#x27;, &#x27;param&#x27;: None, &#x27;code&#x27;: &#x27;invalid_request_error&#x27;}}</p></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://writings.stephenwolfram.com/2026/09/whats-the-future-for-pure-math-research-in-the-age-of-ai/" target="_blank" rel="noopener">What&#x27;s the future for pure math research in the age of AI?</a></h2></div><div class="meta">▲ 59 分 · 6bitquant · <a href="https://news.ycombinator.com/item?id=49951641" target="_blank" rel="noopener">46 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · ghusto · 3 回复</div><p>The desperately needed TL;DR is that perhaps the actual mathematics itself (i.e. proofs, calculations, etc.) can be done by AI, but why we do it and deciding which problems to solve can only be done by AI. Therefore mathematician do maths.</p><p>I&#x27;m not a mathematician, but this seems like a weak and slightly bizarre argument.</p></div></div><p class="err">LLM error: Error code: 429 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Too many requests. Your current concurrency is 5, which exceeds your concurrency limit of 5 based on your remaining balance. Please top up your balance to restore your concurrency. (request_id: 09c16219-6495-4db0-b321-2f10c5a1a303)&#x27;, &#x27;type&#x27;: &#x27;rate_limit_error&#x27;, &#x27;param&#x27;: None, &#x27;code&#x27;: &#x27;invalid_request_error&#x27;}}</p></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://liao.gg/blog/agents-dont-need-memory" target="_blank" rel="noopener">Agents don&#x27;t need memory, they need documentation</a></h2></div><p class="title-tr">智能体不需要记忆，它们需要文档</p><div class="meta">▲ 357 分 · kmeh · <a href="https://news.ycombinator.com/item?id=49945933" target="_blank" rel="noopener">251 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">正文未能获取，信息仅来自标题与评论。核心主张是：AI 智能体长期稳定工作应依赖可查询、可执行的项目文档与原则，而非通用记忆；评论中多个方案强调确定性反馈与可评测性。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这类似训练中用可复现、可评估的数据与配置约束模型行为，而非依赖不可控的隐藏状态。</p><ul class="kp"><li><strong>确定性反馈比自由记忆更重要</strong>：可通过 lint 规则错误信息内置修复说明，让智能体按约束行动。</li><li><strong>原则替代记忆</strong>并版本化、在代码注释中引用，使代码随原则演进，报告称坚持效果良好。</li><li><strong>文档读写有 token 成本风险</strong>：小任务读取、更新、整理文档可能使 token 消耗膨胀。</li><li><strong>评测（Evals）是必要验证</strong>：没有评测就无法判断不同记忆/文档方案的真实效果。</li></ul><p class="disc"><strong>💬 讨论</strong> 共识偏向文档、原则和确定性反馈，分歧在于结构化文档是否足够，还是需要像图数据库那样支持非语句关系的高效查询。</p><div class="tags"><span class="tag">AI 智能体</span><span class="tag">开发者工具</span><span class="tag">LLM 上下文管理</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · kaydub · 19 回复</div><p>You don&#x27;t need documentation or the 3rd party memory systems. The code IS the documentation.</p><p>All this stuff is LLM rube goldberg machines. It just pollutes context.</p><p>I barely use AGENTS.md/CLAUDE.md these days. And where they remain, it&#x27;s super basic high level stuff.</p><p>I&#x27;m honestly still kicking myself in the ass on many projects where I did something similar to this. I kept tons of markdown docs and decision docs. Now those things are just causing problems because they got stale. Even after having sessions of reconciling documentation, the LLM just gets confused.</p></div></div></article>
+</div></main>
+<footer>generated 2026-10-05 05:35 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-05", "pointsLabel": "分", "commentsLabel": "评论", "title": "Run Qwen 3.8 Flash Next (125B) on consumer hardware (RTX 4090) at 100T/s", "titleTranslation": "在消费级硬件（RTX 4090）上以 100 tokens/s 运行 Qwen 3.8 Flash Next（125B）", "summary": "开源工具 Strata 让 125B 参数的 Qwen3.8-Flash-Next 在 12GB 显存消费级显卡上运行，RTX 5070 实测 94 tokens/s，RTX 4090 约 124 tokens/s。价值在于把原本需服务器的大模型搬到本地，但低比特量化带来质量争议。", "keyPoints": ["Strata 在 12GB 显存的 RTX 5070 上达到 94 tokens/s，RTX 4090 实测约 124 tokens/s。", "Qwen3.8-Flash-Next 是 125B 参数的混合专家模型，24576 个专家中每次仅激活约 10 个，降低计算量。", "官方按内存分档：32GB 推荐 Coder 版但中文较弱，64GB 推荐 IQ2_XS，IQ3_S 质量最好但最慢。"], "discussion": "评论区共识是消费级速度令人印象深刻，但分歧在于低比特量化是否导致模型质量/视觉能力不可接受，有人报告坐标误差比 llama.cpp 大 3 倍以上。", "tags": ["本地LLM推理", "量化压缩", "混合专家模型"], "score": 683, "comments": 314, "by": "snehesht", "url": "https://github.com/Niko1221/Strata", "hnUrl": "https://news.ycombinator.com/item?id=49953495"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-05", "pointsLabel": "分", "commentsLabel": "评论", "title": "Turn off Apple Intelligence on macOS 27 and get its disk space back", "titleTranslation": "关闭 macOS 27 上的 Apple Intelligence 并收回其磁盘空间", "summary": "开源工具 RemoveMacAI 可关闭 macOS 27 上的 Apple Intelligence、删除本地推理模型并阻止其重新下载，因为该系统没有统一开关且关闭后模型仍占磁盘。这表明苹果的 AI 集成在用户控制和存储占用上引发明显不满。", "keyPoints": ["macOS 27 无单一开关，关闭 Apple Intelligence 后本地模型仍留在磁盘。", "RemoveMacAI 用配置描述文件关闭功能、删除模型并重定向下载到本地关闭端口。", "工具关闭 Siri、写作工具、Genmoji、图像游乐场、通知摘要等功能，不修改受系统完整性保护的文件。"], "discussion": "评论区共识是苹果 AI 集成缺乏用户选择、占磁盘引发不满，但部分人认为本地模型离线可用且有价值。", "tags": ["Apple Intelligence", "macOS 配置描述文件", "本地模型磁盘占用"], "score": 472, "comments": 296, "by": "privacyisntdead", "url": "https://github.com/omlahore/RemoveMacAI", "hnUrl": "https://news.ycombinator.com/item?id=49957116"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-05", "pointsLabel": "分", "commentsLabel": "评论", "title": "Homa: The end of TCP for AI clusters [video]", "titleTranslation": "Homa：终结 AI 集群中的 TCP [视频]", "summary": "斯坦福团队提出 Homa 传输协议，用接收方 GRANT 授权替代 TCP 的发送方拥塞控制，为 AI 集群低延迟 RPC 设计。但评论者批评其无整条消息丢失检测、无内置加密，基准测试每线程仅 4 Gbit/s，认为 QUIC 覆盖相近需求。", "keyPoints": ["Homa 协议把消息分为立即发送的未调度部分和等待接收方 GRANT 的调度部分，以降低小请求延迟。", "反对者 Veserv 指出 Homa 无整条 RPC 丢失检测、无内置加密，60kB 消息每超线程仅 4 Gbit/s。", "支持者认为现代硬件交换机每包处理开销低，小包不再低效，但 Homa 不适合开放 Web。"], "discussion": "HN 评论核心分歧在于 Homa 是接收方驱动的优雅方案，还是已被 QUIC 覆盖的过度设计；批评者给出每线程 4 Gbit/s 的低吞吐数据。", "tags": ["AI 集群网络", "传输协议", "QUIC 对比"], "score": 65, "comments": 30, "by": "signa11", "url": "https://www.youtube.com/watch?v=eZ8WWZzoaR0", "hnUrl": "https://news.ycombinator.com/item?id=49957117"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-05", "pointsLabel": "分", "commentsLabel": "评论", "title": "How to scale intent, quality, and artistry with AI [video]", "titleTranslation": "", "summary": "", "keyPoints": [], "discussion": "", "tags": [], "score": 71, "comments": 22, "by": "simonjgreen", "url": "https://www.youtube.com/watch?v=GLvFTMtw4Jk", "hnUrl": "https://news.ycombinator.com/item?id=49951891"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-05", "pointsLabel": "分", "commentsLabel": "评论", "title": "Bill Draper has died", "titleTranslation": "Bill Draper 去世", "summary": "风险投资先驱 Bill Draper 去世；Hacker News 评论确认他于 9 月 8 日离世，讣告 9 月 30 日发布。他曾在感到风险投资“学习曲线已经拉平”后转向公共服务，据称资助约 280 家非营利组织，家族已有三代人从事风险投资。", "keyPoints": ["Bill Draper 去世，Hacker News 评论确认他 9 月 8 日离世，媒体讣告 9 月 30 日才发布。", "他在感到风险投资“学习曲线已经拉平”后转向公共服务，并资助约 280 家非营利组织。", "Draper 家族已有三代人从事风险投资，这种长期家族传承在硅谷很罕见。"], "discussion": "评论多表敬意并追忆其低调与公共服务转向，但也有人反思硅谷扩张让原本农业用地消失的代价。", "tags": ["风险投资史", "非营利资助", "硅谷人物"], "score": 104, "comments": 31, "by": "bookofjoe", "url": "https://www.nytimes.com/2026/09/30/technology/william-draper-dead.html", "hnUrl": "https://news.ycombinator.com/item?id=49953288"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-05", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: AI search for every photo and every frame of video on macOS", "titleTranslation": "Show HN：macOS 上对每张照片和每一帧视频的 AI 搜索", "summary": "SCM 是一款 macOS 本地优先应用，用 CLIP/SigLIP 视觉嵌入、Whisper 语音转写和 Tesseract OCR 让用户自然语言搜索照片和视频精确场景，全程离线。最大瓶颈是视频帧级索引耗时，HN 评论认为采样率决定实用性。", "keyPoints": ["SCM 用本地 CLIP/SigLIP 视觉嵌入、Whisper 转录和 Tesseract OCR，支持自然语言搜索照片、视频场景、文字与语音。", "默认视觉模型 CLIP ViT-L/14 约 435MB，下载后推理完全离线；切换模型会自动后台重建整个索引。", "视频采样预设从 Eco（60 秒/点）到 Ultra Pro（2.5 秒/点），高密度模式需要大量预处理时间。"], "discussion": "HN 评论普遍认可本地视频搜索需求，但技术选型有分歧：多人推荐 Apple Vision OCR 和 Qwen-VL，且认为帧采样率导致的索引耗时是最大使用门槛。", "tags": ["本地优先 AI", "视频语义搜索", "隐私保护工具"], "score": 147, "comments": 66, "by": "allenleee", "url": "https://github.com/allenv0/SCM", "hnUrl": "https://news.ycombinator.com/item?id=49952111"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-05", "pointsLabel": "分", "commentsLabel": "评论", "title": "We're going to need default hard budget caps on pretty much everything", "titleTranslation": "", "summary": "", "keyPoints": [], "discussion": "", "tags": [], "score": 601, "comments": 299, "by": "elffjs", "url": "https://simonwillison.net/2026/Oct/3/default-hard-budget-caps/", "hnUrl": "https://news.ycombinator.com/item?id=49949235"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-05", "pointsLabel": "分", "commentsLabel": "评论", "title": "What Meta got right with Muse", "titleTranslation": "", "summary": "", "keyPoints": [], "discussion": "", "tags": [], "score": 133, "comments": 185, "by": "young_mete", "url": "https://metedata.substack.com/p/what-meta-got-right-with-muse", "hnUrl": "https://news.ycombinator.com/item?id=49946526"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-05", "pointsLabel": "分", "commentsLabel": "评论", "title": "What's the future for pure math research in the age of AI?", "titleTranslation": "", "summary": "", "keyPoints": [], "discussion": "", "tags": [], "score": 59, "comments": 46, "by": "6bitquant", "url": "https://writings.stephenwolfram.com/2026/09/whats-the-future-for-pure-math-research-in-the-age-of-ai/", "hnUrl": "https://news.ycombinator.com/item?id=49951641"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-05", "pointsLabel": "分", "commentsLabel": "评论", "title": "Agents don't need memory, they need documentation", "titleTranslation": "智能体不需要记忆，它们需要文档", "summary": "正文未能获取，信息仅来自标题与评论。核心主张是：AI 智能体长期稳定工作应依赖可查询、可执行的项目文档与原则，而非通用记忆；评论中多个方案强调确定性反馈与可评测性。", "keyPoints": ["确定性反馈比自由记忆更重要：可通过 lint 规则错误信息内置修复说明，让智能体按约束行动。", "原则替代记忆并版本化、在代码注释中引用，使代码随原则演进，报告称坚持效果良好。", "文档读写有 token 成本风险：小任务读取、更新、整理文档可能使 token 消耗膨胀。"], "discussion": "共识偏向文档、原则和确定性反馈，分歧在于结构化文档是否足够，还是需要像图数据库那样支持非语句关系的高效查询。", "tags": ["AI 智能体", "开发者工具", "LLM 上下文管理"], "score": 357, "comments": 251, "by": "kmeh", "url": "https://liao.gg/blog/agents-dont-need-memory", "hnUrl": "https://news.ycombinator.com/item?id=49945933"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
