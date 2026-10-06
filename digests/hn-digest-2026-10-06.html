@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-10-06</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-10-06 &nbsp;·&nbsp; 5 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://reflection.ai/blog/introducing-beam" target="_blank" rel="noopener">Beam: Reflection&#x27;s 501B open-weight model</a></h2></div><div class="meta">▲ 390 分 · Philpax · <a href="https://news.ycombinator.com/item?id=49969183" target="_blank" rel="noopener">122 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · onlyrealcuzzo · 8 回复</div><p>This appears to be larger than DeepSeek v4.1 Flash, more expensive to run, and worse on every measured metric.</p><p>Am I missing something?</p></div></div><p class="err">LLM error: Error code: 429 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Too many requests. Your current concurrency is 5, which exceeds your concurrency limit of 5 based on your remaining balance. Please top up your balance to restore your concurrency. (request_id: 60498d43-7668-4c1a-8b06-572fcc4d68fb)&#x27;, &#x27;type&#x27;: &#x27;rate_limit_error&#x27;, &#x27;param&#x27;: None, &#x27;code&#x27;: &#x27;invalid_request_error&#x27;}}</p></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://www.vals.ai/blogs/room-temperature-magnetic-semiconductors" target="_blank" rel="noopener">Opus 5.5 agents discover two room-temperature magnetic semiconductor candidates</a></h2></div><p class="title-tr">Opus 5.5 智能体发现两种室温磁性半导体候选材料</p><div class="meta">▲ 289 分 · outlier99 · <a href="https://news.ycombinator.com/item?id=49970667" target="_blank" rel="noopener">192 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">AI 智能体设计出 YBaMnFeO₅，并识别出 1999 年已合成的 KV[Cr(CN)₆] 为两种室温 Luttinger 补偿反铁磁半导体候选；计算带隙约 2.1–2.35 eV，自旋分离窗口远超室温热扰动（约 26 meV），后者 1999 年样品磁有序至 376 K，或可用于自旋电子存储。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这类材料利用电子自旋（类比比特）存储信息，自旋窗口相当于模型推理时的信噪比余量，窗口越大，室温下自旋状态越不容易被热噪声打乱。</p><ul class="kp"><li><strong>Opus 5.5 智能体</strong>发现两种室温 Luttinger 补偿反铁磁半导体候选，计算预测零净磁矩且自旋按能级分离。</li><li>候选一 <strong>YBaMnFeO₅</strong>：带隙 2.35 eV，自旋窗口 1.0/1.4 eV，但 Mn/Fe 有序结构在约 950 K 会随机化，合成困难。</li><li>候选二 <strong>KV[Cr(CN)₆]</strong>：1999 年已合成，计算带隙 2.1 eV，自旋窗口 2.6/1.6 eV，1999 样品磁有序至 376 K。</li><li>材料兼具反铁磁零净磁矩与铁磁自旋分离特性，可能用于<strong>自旋电子存储</strong>，下一步需重新合成并直接测量。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区质疑标题把普通室温半导体说得像超导体，且认为 AI 只是跑经典密度泛函模拟，实际用途与实验验证仍存疑。</p><div class="tags"><span class="tag">自旋电子学</span><span class="tag">AI 辅助材料发现</span><span class="tag">密度泛函理论</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · scrlk · 12 回复</div><p>After the LK-99 debacle, I&#x27;m taking this with a truck load of salt.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://qlabs.sh/research/dust" target="_blank" rel="noopener">Dust: Pretraining Transformers Without Backpropagation</a></h2></div><p class="title-tr">Dust：无需反向传播的 Transformer 预训练</p><div class="meta">▲ 148 分 · E-Reverance · <a href="https://news.ycombinator.com/item?id=49970871" target="_blank" rel="noopener">34 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Dust 首次让零阶优化方法在预训练 Transformer 语言模型上接近反向传播表现，大种群时甚至超过 backprop；比权重空间进化策略 EGGROLL 高效约 10^3 到 10^4 倍。值得关注因为它可能打开无需可微架构的训练路径。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 零阶优化不计算梯度，而是随机扰动并观察损失变化来估计更新方向，可类比用随机搜索替代你熟悉的反向传播与 Adam 优化。</p><ul class="kp"><li><strong>Dust</strong> 是首个在 Transformer 语言模型预训练上与反向传播竞争甚至超越的零阶方法。</li><li>通过<strong>逐 token 扰动激活</strong>，一次前向传播可并行评估几千个虚拟种群成员，大幅降低成本。</li><li>相比权重空间进化策略 <strong>EGGROLL</strong>，从 100 万 token 起效率高约 <strong>10^3 到 10^4 倍</strong>。</li><li>发现 <strong>2.43 亿参数模型</strong> 在多数种群规模下种群效率反而更高，挑战零阶方法难扩展的旧认知。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区普遍怀疑零阶方法能否真正替代反向传播，认为平滑神经网络目标下梯度信息依然更有效，Bitter Lesson 论据不充分。</p><div class="tags"><span class="tag">零阶优化</span><span class="tag">Transformer 预训练</span><span class="tag">进化策略</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · blt · 2 回复</div><p>Every few years, a derivative-free neural network optimization algorithm gets some hype. I&#x27;d bet my life savings that none of them ever make an impact.</p><p>Derivative-free optimization can be useful for genuinely discontinuous objectives [1], but common neural network objectives are smooth and/or Lipschitz.</p><p>The gradient is useful. Instead of trying random directions and hoping that one of them is an improvement, it tells you where to go. The more parameters you have, the more useful it becomes.</p><p>A strict complexity gap between gradient-based and derivative-free Lipschitz convex optimization has been suspected for decades and recently proved (using AI, [2]). Neural net optimization is nonconvex, but not radically different.</p><p>IMO, a more promising direction is gradient-based optimizers specialized to the neural network structure, like Muon [3].</p><p>[1] https://arxiv.org/abs/2202.00817</p><p>[2] https://arxiv.org/abs/2607.13335</p><p>[3] https://jeremybernste.in/writing/deriving-muon</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://www.techspot.com/news/114091-florida-woman-used-claude-diary-anthropic-reported-shoot.html" target="_blank" rel="noopener">Anthropic reported diary entry to police, woman faces felony charge</a></h2></div><p class="title-tr">Anthropic 将日记条目报告给警方，女子面临重罪指控</p><div class="meta">▲ 665 分 · emptybits · <a href="https://news.ycombinator.com/item?id=49961057" target="_blank" rel="noopener">519 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">佛罗里达女子 Carli Michelle Heller 用 Claude 当日记，写下袭击警长办公室的威胁；Anthropic 安全系统标记后经人工审核报告警方，她面临二级重罪。事件凸显 AI 平台会监控用户输入并将“私人日记”升级为执法案件，模糊私人写作与可举报内容之间的界限。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 读者熟悉模型训练中需要人类评估输出质量，这里的“人工审核”类似，但审核对象变为用户输入的安全风险；争议核心是私人写作是否构成法律上的“传播”。</p><ul class="kp"><li><strong>Carli Michelle Heller</strong> 用 Claude 当日记，写下袭击警长办公室的威胁，被 Anthropic 报告警方。</li><li>Anthropic 称可能在<strong>有限紧急情况</strong>下分享用户信息，以防止死亡或严重身体伤害。</li><li>她面临<strong>二级重罪</strong>，依据佛罗里达法规 836.10，该法规要求威胁处于他人可查看的传播方式。</li><li>事件引发对<strong>AI 平台监控与私人日记边界</strong>的争议，评论指出平台处于“报告或不报告”的两难。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区分成两难：不报告会被批，报告又被质疑私人日记何以满足“他人可查看”的传播要件；共识是聊天机器人不是私密日记。</p><div class="tags"><span class="tag">AI 内容审核</span><span class="tag">用户隐私</span><span class="tag">平台责任</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · socializer · 25 回复</div><p>I have some sympathy for Anthropic here because I&#x27;ve seen the headlines after OpenAI failed to report a shooter in a similar situation. So from their perspective, it&#x27;s damned-if-you-don&#x27;t, damned-if-you-do.</p><p>However, people need to get it in their heads that they&#x27;re not chatting with their secret BFF, they&#x27;re chatting with Big Tech. Before LLMs, Big Tech had no way to scrutinize the bulk of what was going on within their services, so you could have a secret hate diary in Google Docs. Now, everything you say or write can be automatically screened for red flags on a planetary scale, and probably will be because that&#x27;s what the regulators and &quot;concerned citizens&quot; will demand. In a couple of years, you&#x27;ll be biting your tongue a lot more often in private chats.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://www.niemanlab.org/2026/10/chatgpt-is-adding-real-cartoonists-signatures-to-fake-new-yorker-cartoons/" target="_blank" rel="noopener">ChatGPT is adding real cartoonists&#x27; signatures to fake New Yorker cartoons</a></h2></div><p class="title-tr">ChatGPT 正在把真实漫画家的签名加到假的《纽约客》漫画上</p><div class="meta">▲ 377 分 · rdmuser · <a href="https://news.ycombinator.com/item?id=49971846" target="_blank" rel="noopener">270 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">正文未能抓取，信息有限，仅据标题与评论：ChatGPT 生成仿《纽约客》漫画时会把真实漫画家签名当作视觉元素复制，用户常未察觉，构成事实上的抄袭与伪造署名；评论普遍认为模型并无署名意图，但平台未承担相应法律责任。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 生成模型把签名当成《纽约客》漫画风格的视觉特征来复现，而人类会把签名解读为作者身份声明，这种语义错位是争议核心。</p><ul class="kp"><li><strong>ChatGPT</strong> 在生成仿《纽约客》漫画时自动添加真实漫画家签名，多数用户未注意到。</li><li>评论将这类行为称为“<strong>Plagiarism as a Service（抄袭即服务）</strong>”，认为模型把签名当视觉元素而非作者声明。</li><li>用户 gwern 称用 <strong>Nano Banana Pro</strong> 和 ChatGPT 生成漫画时，经常需要额外编辑擦除假签名。</li><li>人类伪造签名会被起诉，但 <strong>LLM 供应商</strong>目前未被同等追责，暴露法律责任缺口。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是这构成事实抄袭与伪造署名，但对模型是否“理解”签名意义存在分歧，更集中的批评是法律追责缺位。</p><div class="tags"><span class="tag">生成式 AI 版权</span><span class="tag">署名权</span><span class="tag">AI 产品责任</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · MarkusQ · 11 回复</div><p>Plagiarism as a Service.</p><p>We can all try really hard to pretend that&#x27;s not the business model, but that&#x27;s totally the business model.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://edworkingpapers.com/ai26-1551" target="_blank" rel="noopener">AI tutoring with Khanmigo in a two-year school experiment</a></h2></div><p class="title-tr">Khanmigo AI 辅导：一项为期两年的学校实验</p><div class="meta">▲ 60 分 · bryan0 · <a href="https://news.ycombinator.com/item?id=49972419" target="_blank" rel="noopener">51 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">原文页面未能抓取，信息有限；仅可依据标题与 HN 评论判断。该项两年学校实验评估 Khanmigo AI 辅导，评论普遍质疑其只优化练习机制、未解决学习动机，实际使用中孩子倾向直接索要答案，作业高分但测试暴露漏洞。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可把评论中“意义&gt;动机&gt;机制&gt;测量”类比为产品逻辑：先让用户有持续使用的动机（激活/留存），再优化功能效率，最后看指标；教育系统当前把这个顺序反过来了。</p><ul class="kp"><li><strong>Khanmigo</strong> 是一项为期两年的学校实验中的 AI 辅导工具，但原文无法抓取，具体效果数据无法核实。</li><li>评论者认为 Khanmigo 只优化练习机制，忽视意义与动机，因此难以成功。</li><li>家长实测发现孩子倾向直接要答案，<strong>作业高分但考试成绩暴露学习漏洞</strong>。</li><li>有评论称论文摘要疑似 <strong>AI 生成</strong>，削弱研究可信度。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论的核心分歧在于 AI 辅导能否解决学习动机问题，共识是仅有工具效率提升不够，动机与测评顺序的倒置才是关键。</p><div class="tags"><span class="tag">AI 教育辅导</span><span class="tag">Khan Academy</span><span class="tag">学习动机</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · iamarobot · 5 回复</div><p>As a high schooler, the amount of AI forced down our throats is on another level. We have assignments with Claude Prose, tutors that hallucinate, and even gemini in the apps we use to access our assignments. Even my friend&#x27;s brother(a 4th grader) uses AI to generate pictures for his slideshow about &quot;Penguins&quot;. Education is definitely facing a turn, but is it for the worse?</p><p>Link: https://workspaceupdates.googleblog.com/2026/08/gemini-in-go...</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://almostimplemented.github.io/jazz-pianist-style/" target="_blank" rel="noopener">Learning Jazz Pianist Style with Cross-Attention Conditioning</a></h2></div><div class="meta">▲ 39 分 · ishan0102 · <a href="https://news.ycombinator.com/item?id=49971726" target="_blank" rel="noopener">7 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><p class="err">LLM error: Error code: 429 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Too many requests. Your current concurrency is 5, which exceeds your concurrency limit of 5 based on your remaining balance. Please top up your balance to restore your concurrency. (request_id: 04b44c55-7f9f-4e17-bb64-07608585e138)&#x27;, &#x27;type&#x27;: &#x27;rate_limit_error&#x27;, &#x27;param&#x27;: None, &#x27;code&#x27;: &#x27;invalid_request_error&#x27;}}</p></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://restofworld.org/2026/ai-data-center-memory-chip-shortage-cheap-smartphones-digital-divide/" target="_blank" rel="noopener">The AI boom is making the cheapest smartphones disappear</a></h2></div><div class="meta">▲ 10 分 · jethronethro · <a href="https://news.ycombinator.com/item?id=49974238" target="_blank" rel="noopener">3 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><p class="err">LLM error: Error code: 429 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Too many requests. Your current concurrency is 5, which exceeds your concurrency limit of 5 based on your remaining balance. Please top up your balance to restore your concurrency. (request_id: 4c044822-960a-42f0-ae58-15be0215e8c6)&#x27;, &#x27;type&#x27;: &#x27;rate_limit_error&#x27;, &#x27;param&#x27;: None, &#x27;code&#x27;: &#x27;invalid_request_error&#x27;}}</p></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://www.lenfestinstitute.org/solutions-resources/philadelphia-inquirer-scrape-ai-hyperlocal-news/" target="_blank" rel="noopener">The Philadelphia Inquirer built Scrape, an AI tool to surface hyperlocal news</a></h2></div><div class="meta">▲ 84 分 · giuliomagnifico · <a href="https://news.ycombinator.com/item?id=49930872" target="_blank" rel="noopener">30 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · mmooss · 4 回复</div><p>&gt; Early on, the team tried to balance quality with the high cost of searching many small, scattered sources. They discovered that prompting can implicitly control search depth and behavior, but only after trial and error.</p><p>I don&#x27;t understand the cost here. The number of sources should be relatively tiny - it&#x27;s not a general Internet search. The amount of data scraped would seem to be relatively tiny - how much data is there on suburban-county, PA?</p></div></div><p class="err">LLM error: Error code: 429 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Too many requests. Your current concurrency is 5, which exceeds your concurrency limit of 5 based on your remaining balance. Please top up your balance to restore your concurrency. (request_id: 6dab01d9-8662-4e18-acb1-1838aa85bb6d)&#x27;, &#x27;type&#x27;: &#x27;rate_limit_error&#x27;, &#x27;param&#x27;: None, &#x27;code&#x27;: &#x27;invalid_request_error&#x27;}}</p></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://www.storagereview.com/review/dgx-station-gb300-cluster-two-towers-two-400g-dacs" target="_blank" rel="noopener">DGX Station GB300 Cluster: Two 400G DACs, and Frontier Models</a></h2></div><div class="meta">▲ 3 分 · pella · <a href="https://news.ycombinator.com/item?id=49974038" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><p class="err">LLM error: Error code: 429 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Too many requests. Your current concurrency is 5, which exceeds your concurrency limit of 5 based on your remaining balance. Please top up your balance to restore your concurrency. (request_id: 5f5a57ae-53d9-450c-9ebf-6ee50568798f)&#x27;, &#x27;type&#x27;: &#x27;rate_limit_error&#x27;, &#x27;param&#x27;: None, &#x27;code&#x27;: &#x27;invalid_request_error&#x27;}}</p></article>
+</div></main>
+<footer>generated 2026-10-06 06:16 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-06", "pointsLabel": "分", "commentsLabel": "评论", "title": "Beam: Reflection's 501B open-weight model", "titleTranslation": "", "summary": "", "keyPoints": [], "discussion": "", "tags": [], "score": 390, "comments": 122, "by": "Philpax", "url": "https://reflection.ai/blog/introducing-beam", "hnUrl": "https://news.ycombinator.com/item?id=49969183"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-06", "pointsLabel": "分", "commentsLabel": "评论", "title": "Opus 5.5 agents discover two room-temperature magnetic semiconductor candidates", "titleTranslation": "Opus 5.5 智能体发现两种室温磁性半导体候选材料", "summary": "AI 智能体设计出 YBaMnFeO₅，并识别出 1999 年已合成的 KV[Cr(CN)₆] 为两种室温 Luttinger 补偿反铁磁半导体候选；计算带隙约 2.1–2.35 eV，自旋分离窗口远超室温热扰动（约 26 meV），后者 1999 年样品磁有序至 376 K，或可用于自旋电子存储。", "keyPoints": ["Opus 5.5 智能体发现两种室温 Luttinger 补偿反铁磁半导体候选，计算预测零净磁矩且自旋按能级分离。", "候选一 YBaMnFeO₅：带隙 2.35 eV，自旋窗口 1.0/1.4 eV，但 Mn/Fe 有序结构在约 950 K 会随机化，合成困难。", "候选二 KV[Cr(CN)₆]：1999 年已合成，计算带隙 2.1 eV，自旋窗口 2.6/1.6 eV，1999 样品磁有序至 376 K。"], "discussion": "评论区质疑标题把普通室温半导体说得像超导体，且认为 AI 只是跑经典密度泛函模拟，实际用途与实验验证仍存疑。", "tags": ["自旋电子学", "AI 辅助材料发现", "密度泛函理论"], "score": 289, "comments": 192, "by": "outlier99", "url": "https://www.vals.ai/blogs/room-temperature-magnetic-semiconductors", "hnUrl": "https://news.ycombinator.com/item?id=49970667"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-06", "pointsLabel": "分", "commentsLabel": "评论", "title": "Dust: Pretraining Transformers Without Backpropagation", "titleTranslation": "Dust：无需反向传播的 Transformer 预训练", "summary": "Dust 首次让零阶优化方法在预训练 Transformer 语言模型上接近反向传播表现，大种群时甚至超过 backprop；比权重空间进化策略 EGGROLL 高效约 10^3 到 10^4 倍。值得关注因为它可能打开无需可微架构的训练路径。", "keyPoints": ["Dust 是首个在 Transformer 语言模型预训练上与反向传播竞争甚至超越的零阶方法。", "通过逐 token 扰动激活，一次前向传播可并行评估几千个虚拟种群成员，大幅降低成本。", "相比权重空间进化策略 EGGROLL，从 100 万 token 起效率高约 10^3 到 10^4 倍。"], "discussion": "HN 评论区普遍怀疑零阶方法能否真正替代反向传播，认为平滑神经网络目标下梯度信息依然更有效，Bitter Lesson 论据不充分。", "tags": ["零阶优化", "Transformer 预训练", "进化策略"], "score": 148, "comments": 34, "by": "E-Reverance", "url": "https://qlabs.sh/research/dust", "hnUrl": "https://news.ycombinator.com/item?id=49970871"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-06", "pointsLabel": "分", "commentsLabel": "评论", "title": "Anthropic reported diary entry to police, woman faces felony charge", "titleTranslation": "Anthropic 将日记条目报告给警方，女子面临重罪指控", "summary": "佛罗里达女子 Carli Michelle Heller 用 Claude 当日记，写下袭击警长办公室的威胁；Anthropic 安全系统标记后经人工审核报告警方，她面临二级重罪。事件凸显 AI 平台会监控用户输入并将“私人日记”升级为执法案件，模糊私人写作与可举报内容之间的界限。", "keyPoints": ["Carli Michelle Heller 用 Claude 当日记，写下袭击警长办公室的威胁，被 Anthropic 报告警方。", "Anthropic 称可能在有限紧急情况下分享用户信息，以防止死亡或严重身体伤害。", "她面临二级重罪，依据佛罗里达法规 836.10，该法规要求威胁处于他人可查看的传播方式。"], "discussion": "HN 评论区分成两难：不报告会被批，报告又被质疑私人日记何以满足“他人可查看”的传播要件；共识是聊天机器人不是私密日记。", "tags": ["AI 内容审核", "用户隐私", "平台责任"], "score": 665, "comments": 519, "by": "emptybits", "url": "https://www.techspot.com/news/114091-florida-woman-used-claude-diary-anthropic-reported-shoot.html", "hnUrl": "https://news.ycombinator.com/item?id=49961057"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-06", "pointsLabel": "分", "commentsLabel": "评论", "title": "ChatGPT is adding real cartoonists' signatures to fake New Yorker cartoons", "titleTranslation": "ChatGPT 正在把真实漫画家的签名加到假的《纽约客》漫画上", "summary": "正文未能抓取，信息有限，仅据标题与评论：ChatGPT 生成仿《纽约客》漫画时会把真实漫画家签名当作视觉元素复制，用户常未察觉，构成事实上的抄袭与伪造署名；评论普遍认为模型并无署名意图，但平台未承担相应法律责任。", "keyPoints": ["ChatGPT 在生成仿《纽约客》漫画时自动添加真实漫画家签名，多数用户未注意到。", "评论将这类行为称为“Plagiarism as a Service（抄袭即服务）”，认为模型把签名当视觉元素而非作者声明。", "用户 gwern 称用 Nano Banana Pro 和 ChatGPT 生成漫画时，经常需要额外编辑擦除假签名。"], "discussion": "评论区共识是这构成事实抄袭与伪造署名，但对模型是否“理解”签名意义存在分歧，更集中的批评是法律追责缺位。", "tags": ["生成式 AI 版权", "署名权", "AI 产品责任"], "score": 377, "comments": 270, "by": "rdmuser", "url": "https://www.niemanlab.org/2026/10/chatgpt-is-adding-real-cartoonists-signatures-to-fake-new-yorker-cartoons/", "hnUrl": "https://news.ycombinator.com/item?id=49971846"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-06", "pointsLabel": "分", "commentsLabel": "评论", "title": "AI tutoring with Khanmigo in a two-year school experiment", "titleTranslation": "Khanmigo AI 辅导：一项为期两年的学校实验", "summary": "原文页面未能抓取，信息有限；仅可依据标题与 HN 评论判断。该项两年学校实验评估 Khanmigo AI 辅导，评论普遍质疑其只优化练习机制、未解决学习动机，实际使用中孩子倾向直接索要答案，作业高分但测试暴露漏洞。", "keyPoints": ["Khanmigo 是一项为期两年的学校实验中的 AI 辅导工具，但原文无法抓取，具体效果数据无法核实。", "评论者认为 Khanmigo 只优化练习机制，忽视意义与动机，因此难以成功。", "家长实测发现孩子倾向直接要答案，作业高分但考试成绩暴露学习漏洞。"], "discussion": "HN 评论的核心分歧在于 AI 辅导能否解决学习动机问题，共识是仅有工具效率提升不够，动机与测评顺序的倒置才是关键。", "tags": ["AI 教育辅导", "Khan Academy", "学习动机"], "score": 60, "comments": 51, "by": "bryan0", "url": "https://edworkingpapers.com/ai26-1551", "hnUrl": "https://news.ycombinator.com/item?id=49972419"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-06", "pointsLabel": "分", "commentsLabel": "评论", "title": "Learning Jazz Pianist Style with Cross-Attention Conditioning", "titleTranslation": "", "summary": "", "keyPoints": [], "discussion": "", "tags": [], "score": 39, "comments": 7, "by": "ishan0102", "url": "https://almostimplemented.github.io/jazz-pianist-style/", "hnUrl": "https://news.ycombinator.com/item?id=49971726"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-06", "pointsLabel": "分", "commentsLabel": "评论", "title": "The AI boom is making the cheapest smartphones disappear", "titleTranslation": "", "summary": "", "keyPoints": [], "discussion": "", "tags": [], "score": 10, "comments": 3, "by": "jethronethro", "url": "https://restofworld.org/2026/ai-data-center-memory-chip-shortage-cheap-smartphones-digital-divide/", "hnUrl": "https://news.ycombinator.com/item?id=49974238"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-06", "pointsLabel": "分", "commentsLabel": "评论", "title": "The Philadelphia Inquirer built Scrape, an AI tool to surface hyperlocal news", "titleTranslation": "", "summary": "", "keyPoints": [], "discussion": "", "tags": [], "score": 84, "comments": 30, "by": "giuliomagnifico", "url": "https://www.lenfestinstitute.org/solutions-resources/philadelphia-inquirer-scrape-ai-hyperlocal-news/", "hnUrl": "https://news.ycombinator.com/item?id=49930872"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-06", "pointsLabel": "分", "commentsLabel": "评论", "title": "DGX Station GB300 Cluster: Two 400G DACs, and Frontier Models", "titleTranslation": "", "summary": "", "keyPoints": [], "discussion": "", "tags": [], "score": 3, "comments": 0, "by": "pella", "url": "https://www.storagereview.com/review/dgx-station-gb300-cluster-two-towers-two-400g-dacs", "hnUrl": "https://news.ycombinator.com/item?id=49974038"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
