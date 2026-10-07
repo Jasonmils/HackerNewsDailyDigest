@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-10-07</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-10-07 &nbsp;·&nbsp; 0 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://openai.com/index/sharing-ai-progress-in-mathematics/" target="_blank" rel="noopener">Sharing AI progress in mathematics</a></h2></div><div class="meta">▲ 692 分 · OfficialTurkey · <a href="https://news.ycombinator.com/item?id=49984923" target="_blank" rel="noopener">636 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · jboggan · 12 回复</div><p>I was a graph theory junkie long ago and even moved to Budapest for awhile to study among the greats. While I was there I started working on Barnette&#x27;s Conjecture which came to occupy my thoughts over the next 24 years of my life, on and off as I worked in many different fields. Last summer I even thought for a few days that I had actually solved it.</p><p>But it&#x27;s supposedly proven here - problem 180. I don&#x27;t know what to think exactly. I spent thousands of hours on that problem. I really enjoyed it. Hearing that it is solved somehow makes me sad in a far-off way, like hearing an ex-girlfriend died suddenly in a car crash. I don&#x27;t know, there&#x27;s probably a lot of people feeling odd emotions tonight.</p><p>There&#x27;s no Lean proof for this one so I&#x27;m digesting the paper. On the surface it looks like an approach I considered 24 years ago and abandoned.</p><p>I revisited the problem this summer, along with my partial solutions, when the previous round of stunning proofs came out. Several hours of work with Fable simply convinced me it wasn&#x27;t yet solvable and reinforced how hard of a problem it was.</p></div></div><p class="err">LLM error: Error code: 402 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Insufficient Balance (request_id: 38dc7d8c-7986-43da-b0a3-f42f83f9211a)&#x27;, &#x27;type&#x27;: &#x27;unknown_error&#x27;, &#x27;param&#x27;: None, &#x27;code&#x27;: &#x27;invalid_request_error&#x27;}}</p></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://penguin-mail.com/" target="_blank" rel="noopener">Penguin Mail – open-source Rust email client for Linux with AI</a></h2></div><div class="meta">▲ 139 分 · kavourias · <a href="https://news.ycombinator.com/item?id=49984716" target="_blank" rel="noopener">58 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · tlhunter · 4 回复</div><p>Does anyone remember Sparrow?</p><p>I like the idea of a native Linux email client. The UI looks pretty good too. It&#x27;s really not hard to beat thunderbird.</p><p>Calling it version 1.0 is bullshit though. It&#x27;s only about a month old:</p><p>https://github.com/c9dev/penguin-mail/graphs/contributors?al...</p><p>A project with the complexity of an email client cannot be considered stable in a month. There are bugs that will only show up after a year. It has a calendar after all.</p></div></div><p class="err">LLM error: Error code: 402 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Insufficient Balance (request_id: 458cf3a4-b27f-4ea3-843f-f60d0c3fc067)&#x27;, &#x27;type&#x27;: &#x27;unknown_error&#x27;, &#x27;param&#x27;: None, &#x27;code&#x27;: &#x27;invalid_request_error&#x27;}}</p></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://mistral.ai/news/mistral-large-4/\" target="_blank" rel="noopener">Mistral Large 4</a></h2></div><div class="meta">▲ 1677 分 · Philpax · <a href="https://news.ycombinator.com/item?id=49977979" target="_blank" rel="noopener">1001 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · eigenspace · 24 回复</div><p>Its quite interesting to see that at least the early days of AI so far have not been a winner-take-all runaway acceleration game where catchup is impossible.</p><p>I certainly wouldnt have predicted that 10 years ago.</p><p>Very glad to see Mistral still in the game even after some big stumbles with Large 3. I deeply hope that this model is &#x27;good enough&#x27; that it becomes the European go-to, giving them the resources to keep the pace up.</p><p>I&#x27;m excited to try this out today.</p></div></div><p class="err">LLM error: Error code: 402 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Insufficient Balance (request_id: d2d36b7e-f1c9-4222-b026-0365c45fdc30)&#x27;, &#x27;type&#x27;: &#x27;unknown_error&#x27;, &#x27;param&#x27;: None, &#x27;code&#x27;: &#x27;invalid_request_error&#x27;}}</p></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://www.zohaib.cc/blog/smartest-claude-code-feature" target="_blank" rel="noopener">Claude Code’s suggested message feature: I think the real customer is the model</a></h2></div><div class="meta">▲ 160 分 · zed_labs_dev · <a href="https://news.ycombinator.com/item?id=49981905" target="_blank" rel="noopener">84 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Cyan488 · 9 回复</div><p>I&#x27;ve always hated interfaces that try to complete my sentences for me. It started with suggested replies in email and IM apps. I sure noticed it when they started showing up in the llm chat interfaces and it really bugs me.</p></div></div><p class="err">LLM error: Error code: 402 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Insufficient Balance (request_id: dc8d7095-041c-48c5-b47f-68c16d9ba0f4)&#x27;, &#x27;type&#x27;: &#x27;unknown_error&#x27;, &#x27;param&#x27;: None, &#x27;code&#x27;: &#x27;invalid_request_error&#x27;}}</p></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://github.com/FeSens/openTPU" target="_blank" rel="noopener">OpenTPU – An open-source AI accelerator, developed by AI</a></h2></div><div class="meta">▲ 267 分 · fsbonetto · <a href="https://news.ycombinator.com/item?id=49980715" target="_blank" rel="noopener">323 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · pcarolan · 26 回复</div><p>Really dumb question from a software guy. Why aren&#x27;t the labs burning their frontier models into chips already? Seems like the performance gains and cost per request would be worth it. That said, I understand neither the economics nor the physical challenges to doing this.</p></div></div><p class="err">LLM error: Error code: 402 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Insufficient Balance (request_id: b33a9ae4-f48c-4c68-aa6e-c468a1b9b539)&#x27;, &#x27;type&#x27;: &#x27;unknown_error&#x27;, &#x27;param&#x27;: None, &#x27;code&#x27;: &#x27;invalid_request_error&#x27;}}</p></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://github.com/nano-muse/nanoMuse" target="_blank" rel="noopener">Show HN: NanoMuse – An open-source AI agent for your phone and computer</a></h2></div><div class="meta">▲ 3 分 · ilreb · <a href="https://news.ycombinator.com/item?id=49987765" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><p class="err">LLM error: Error code: 402 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Insufficient Balance (request_id: 1b4758c9-50be-48ef-92e1-e16f1a638eac)&#x27;, &#x27;type&#x27;: &#x27;unknown_error&#x27;, &#x27;param&#x27;: None, &#x27;code&#x27;: &#x27;invalid_request_error&#x27;}}</p></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://www.reuters.com/world/south-koreas-lee-says-ai-appears-have-been-used-bank-hacks-2026-10-06/" target="_blank" rel="noopener">South Korea says AI agents appear to have been used to hack the country&#x27;s banks</a></h2></div><div class="meta">▲ 62 分 · thoughtpeddler · <a href="https://news.ycombinator.com/item?id=49985861" target="_blank" rel="noopener">11 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · WheatMillington · 2 回复</div><p>Doesn&#x27;t SK have famously, laughably terrible internet security by law?</p></div></div><p class="err">LLM error: Error code: 402 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Insufficient Balance (request_id: bd24b67d-60a0-48f2-a799-33d0fb5be17e)&#x27;, &#x27;type&#x27;: &#x27;unknown_error&#x27;, &#x27;param&#x27;: None, &#x27;code&#x27;: &#x27;invalid_request_error&#x27;}}</p></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://www.erdosproblems.com/forum/thread/blog:9" target="_blank" rel="noopener">Erdosproblems.com Succumbs to the AI Onslaught</a></h2></div><div class="meta">▲ 99 分 · pfdietz · <a href="https://news.ycombinator.com/item?id=49977689" target="_blank" rel="noopener">39 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Qiu_Zhanxuan · 3 回复</div><p>A welcome change, people posting AI-generated proof to claim credits are the scourge on mankind discoveries. It&#x27;s time everyone that still hasn&#x27;t, let go of their ego. All Hail the era of elegance.</p></div></div><p class="err">LLM error: Error code: 402 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Insufficient Balance (request_id: f8f52724-8b9d-4aec-842f-acd941ae6db9)&#x27;, &#x27;type&#x27;: &#x27;unknown_error&#x27;, &#x27;param&#x27;: None, &#x27;code&#x27;: &#x27;invalid_request_error&#x27;}}</p></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://agentability.org/" target="_blank" rel="noopener">Show HN: An AI agent runs ten web errands a day, every transcript published</a></h2></div><div class="meta">▲ 9 分 · khalidsaidi · <a href="https://news.ycombinator.com/item?id=49984736" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><p class="err">LLM error: Error code: 402 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Insufficient Balance (request_id: 37d0200b-bfc4-4d22-bbbe-0641b9d7fefe)&#x27;, &#x27;type&#x27;: &#x27;unknown_error&#x27;, &#x27;param&#x27;: None, &#x27;code&#x27;: &#x27;invalid_request_error&#x27;}}</p></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://blue-continuum.com/the-man-who-listens-to-whales" target="_blank" rel="noopener">Using A.I. to decode communication of sperm whales</a></h2></div><div class="meta">▲ 92 分 · dnetesn · <a href="https://news.ycombinator.com/item?id=49952464" target="_blank" rel="noopener">73 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · tednoob · 6 回复</div><p>If they are intelligent and curious, imagine if they let us come tell them tales of the world, works of fiction, musings of space, what if they swim around just letting us tell them of all the fascinating things we find out. Humanity may travel the cosmos, only to come home to tell our whale friends everything we learned. I wonder if there will be a whale someday with the dream of going to space.</p></div></div><p class="err">LLM error: Error code: 402 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Insufficient Balance (request_id: a9a3dd85-5288-4622-b9ad-1f682487be2a)&#x27;, &#x27;type&#x27;: &#x27;unknown_error&#x27;, &#x27;param&#x27;: None, &#x27;code&#x27;: &#x27;invalid_request_error&#x27;}}</p></article>
+</div></main>
+<footer>generated 2026-10-07 05:54 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "Sharing AI progress in mathematics", "titleTranslation": "", "summary": "", "keyPoints": [], "discussion": "", "tags": [], "score": 692, "comments": 636, "by": "OfficialTurkey", "url": "https://openai.com/index/sharing-ai-progress-in-mathematics/", "hnUrl": "https://news.ycombinator.com/item?id=49984923"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "Penguin Mail – open-source Rust email client for Linux with AI", "titleTranslation": "", "summary": "", "keyPoints": [], "discussion": "", "tags": [], "score": 139, "comments": 58, "by": "kavourias", "url": "https://penguin-mail.com/", "hnUrl": "https://news.ycombinator.com/item?id=49984716"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "Mistral Large 4", "titleTranslation": "", "summary": "", "keyPoints": [], "discussion": "", "tags": [], "score": 1677, "comments": 1001, "by": "Philpax", "url": "https://mistral.ai/news/mistral-large-4/\\", "hnUrl": "https://news.ycombinator.com/item?id=49977979"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "Claude Code’s suggested message feature: I think the real customer is the model", "titleTranslation": "", "summary": "", "keyPoints": [], "discussion": "", "tags": [], "score": 160, "comments": 84, "by": "zed_labs_dev", "url": "https://www.zohaib.cc/blog/smartest-claude-code-feature", "hnUrl": "https://news.ycombinator.com/item?id=49981905"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "OpenTPU – An open-source AI accelerator, developed by AI", "titleTranslation": "", "summary": "", "keyPoints": [], "discussion": "", "tags": [], "score": 267, "comments": 323, "by": "fsbonetto", "url": "https://github.com/FeSens/openTPU", "hnUrl": "https://news.ycombinator.com/item?id=49980715"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: NanoMuse – An open-source AI agent for your phone and computer", "titleTranslation": "", "summary": "", "keyPoints": [], "discussion": "", "tags": [], "score": 3, "comments": 0, "by": "ilreb", "url": "https://github.com/nano-muse/nanoMuse", "hnUrl": "https://news.ycombinator.com/item?id=49987765"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "South Korea says AI agents appear to have been used to hack the country's banks", "titleTranslation": "", "summary": "", "keyPoints": [], "discussion": "", "tags": [], "score": 62, "comments": 11, "by": "thoughtpeddler", "url": "https://www.reuters.com/world/south-koreas-lee-says-ai-appears-have-been-used-bank-hacks-2026-10-06/", "hnUrl": "https://news.ycombinator.com/item?id=49985861"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "Erdosproblems.com Succumbs to the AI Onslaught", "titleTranslation": "", "summary": "", "keyPoints": [], "discussion": "", "tags": [], "score": 99, "comments": 39, "by": "pfdietz", "url": "https://www.erdosproblems.com/forum/thread/blog:9", "hnUrl": "https://news.ycombinator.com/item?id=49977689"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: An AI agent runs ten web errands a day, every transcript published", "titleTranslation": "", "summary": "", "keyPoints": [], "discussion": "", "tags": [], "score": 9, "comments": 0, "by": "khalidsaidi", "url": "https://agentability.org/", "hnUrl": "https://news.ycombinator.com/item?id=49984736"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-07", "pointsLabel": "分", "commentsLabel": "评论", "title": "Using A.I. to decode communication of sperm whales", "titleTranslation": "", "summary": "", "keyPoints": [], "discussion": "", "tags": [], "score": 92, "comments": 73, "by": "dnetesn", "url": "https://blue-continuum.com/the-man-who-listens-to-whales", "hnUrl": "https://news.ycombinator.com/item?id=49952464"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
