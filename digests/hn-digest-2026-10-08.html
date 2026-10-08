@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-10-08</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-10-08 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://mathstodon.xyz/@tao/117395269325940185" target="_blank" rel="noopener">Terence Tao Responds to the OpenAI Math Drop</a></h2></div><p class="title-tr">Terence Tao 回应 OpenAI 数学证明投放</p><div class="meta">▲ 68 分 · ent101 · <a href="https://news.ycombinator.com/item?id=50002008" target="_blank" rel="noopener">28 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Terence Tao 回应称 AI 会改变数学，但向社区倾倒证明、让他人验证与消化并非有效推进；未来数学工作应转向解释、简化和提炼洞察，而非只追求“解决未解问题”的基准。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可类比为把低可解释性的模型输出直接丢给下游团队做验证：原始证明若缺少可审计与可复用的知识层，难以转化为可靠进步。</p><ul class="kp"><li><strong>Terence Tao</strong> 承认 AI 将改变数学，但反对把大量证明丢给社区做验证与消化。</li><li>知道解存在会<strong>污染</strong>人类与 AI 寻找替代路径的洞察，这不止是职业激励问题。</li><li>评论批评当前狂热更多在<strong>刷基准</strong>（解决未解问题）而非真正贡献数学。</li><li>未来数学工作或转向<strong>简化证明与推论</strong>，但有人质疑模型也能做得更好。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是 Tao 的观点平衡，但分歧在于未来模型是否连解释与简化也做得更好，以及职业保护动机是否被包装成学术价值。</p><div class="tags"><span class="tag">AI 数学证明</span><span class="tag">学术激励</span><span class="tag">LLM 能力边界</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · yedhukrishnan · 1 回复</div><p>This is a distilled version of what people say about the tech industry in the past year or so. Replace math with any field, and the statement is still relevant.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://www.anthropic.com/claude-haiku-5-5" target="_blank" rel="noopener">Claude Haiku 5.5</a></h2></div><div class="meta">▲ 790 分 · sfkgtbor · <a href="https://news.ycombinator.com/item?id=49996437" target="_blank" rel="noopener">389 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Anthropic 发布小模型 Haiku 5.5，定位高容量低成本任务：100k token 内价格比 Haiku 4.5 低 90%，平均降低约 75%，官方基准在多项任务上超过 GPT-6 Luna。同时下调 Sonnet 5.5 缓存读取价 50%，并为订阅者提供每月 API 额度。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中“缓存读取”类似对重复提示前缀的计算复用，“代理任务”指模型多步调用工具，token 消耗会快速膨胀，超过 10 万上限后单价跳升。</p><ul class="kp"><li><strong>Claude Haiku 5.5 发布</strong>，100k token 内价格比前代低 90%，平均降低约 75%。</li><li><strong>官方基准在多项任务上超过 GPT-6 Luna</strong>，包括 Terminal-Bench 4.0 代理编码 39.2% vs 16.4%。</li><li><strong>Sonnet 5.5 缓存读取降价 50%</strong>，使代理任务成本降低约 20%。</li><li><strong>Max/Team 订阅者获每月 API 信用</strong>，Max 5x $100、20x $200、Team 最高 $500 池化。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍认可降价对标 GPT-6 Luna，但争议集中在 100k token 的分层门槛是否过低，以及小模型在复杂 UI 和深度分析上仍力不从心。</p><div class="tags"><span class="tag">LLM API 定价</span><span class="tag">小模型发布</span><span class="tag">代理任务成本</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · minimaxir · 22 回复</div><p>Pricing is...a bit weird.</p><p>Input</p><p>$0.10 / MTok for prompts up to 100,000 tokens</p><p>$0.50 / MTok for prompts over 100,000 tokens</p><p>Output</p><p>$0.50 / MTok for prompts up to 100,000 tokens</p><p>$2.50 / MTok for prompts over 100,000 tokens</p><p>100k tokens is an absurdly low cutoff and it is only applicable to Haiku and not Sonnet or Opus. It&#x27;s a low enough cutoff that it will be quickly exceeded if you are doing anything with Agents; for typical generation or Jev-like classifiers, it&#x27;s a good value and as noted in this article, that is apparently the vast majority of Haiku use.</p><p>In both cases, still much cheaper than Haiku 4.5&#x27;s $1 input / $5 output and these prices better compete with GPT-6 Luna. ($0.10 input / $0.50 output, but with no token threshold [EDIT: the threshold for Luna is apparently 272k])</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://openai.com/index/gpt-6-for-everyone/" target="_blank" rel="noopener">GPT‑6 and Intelligent UI for everyone</a></h2></div><p class="title-tr">GPT‑6 与面向所有人的智能 UI</p><div class="meta">▲ 570 分 · joshuawright11 · <a href="https://news.ycombinator.com/item?id=49996425" target="_blank" rel="noopener">296 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OpenAI 发布 GPT-6 并主打面向所有人的智能 UI；正文无法获取，信息有限。据 HN 评论引用系统卡，GPT-6 Sol/Luna 在极端主义、自伤、血腥、性内容等安全基准上显著退化，却提高了对合法请求的帮助性。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 系统卡类似于模型的安全评估报告，记录在敏感内容识别等基准上的表现；这与你熟悉的模型评估指标类似，但考核的是安全风险而非准确率。</p><ul class="kp"><li><strong>GPT-6 系统卡显示多项安全基准显著退化</strong>，包括极端主义视觉、自伤、血腥和性内容评估。</li><li><strong>聊天版本基于 GPT-6 而非更强的 6.1</strong>，评论者担心“可交互解释器”能力受限。</li><li>有评论认为新 UI 是为 <strong>ChatGPT 广告格式</strong>铺路，OpenAI 几天前刚发布相关广告产品。</li><li><strong>“一次性 UI”可能被过度生成</strong>，用户有时只需要简单的文本回复。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍担忧安全基准退化，同时分歧在于智能 UI 是实用突破还是为广告铺路的噱头。</p><div class="tags"><span class="tag">OpenAI</span><span class="tag">AI 安全评估</span><span class="tag">交互式 UI</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · giancarlostoro · 10 回复</div><p>I&#x27;m not a fan of OpenAI / Sam Altman, but I love their blog posts. The team and whoever decides how to do these presentations, is on point. The only other company that has amazing release pages like this is Apple, I think I remember hearing that they probably hired someone from apple who used to do release blog posts there too.</p><p>What&#x27;s funny about &quot;Intelligent UI&quot; is I said like 2 or more years ago, that these AI companies need to start thinking outside of these basic chat UIs, they do some things here and there, but its really depressing how little they do to innovate in these spaces. Same with the coding harnesses, the UI for all these things could be drastically superior.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://github.com/docker/docker-agent" target="_blank" rel="noopener">Docker Agent</a></h2></div><p class="title-tr">Docker 智能体（Docker Agent）</p><div class="meta">▲ 210 分 · saikatsg · <a href="https://news.ycombinator.com/item?id=49996259" target="_blank" rel="noopener">98 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Docker 推出 docker-agent CLI 插件，用 YAML 声明式定义、运行和分享 AI 智能体，无需写代码；支持 MCP 工具、多模型提供商、RAG，可打包到 OCI 仓库分发。这是 Docker 借现成容器分发渠道切入拥挤的智能体编排赛道。</p><p class="context"><strong>🧭 联系你的知识背景</strong> OCI registry 类似模型权重仓库，用于分发打包好的智能体配置；sandbox 则是隔离运行边界，防止智能体访问宿主机造成副作用。</p><ul class="kp"><li><strong>Docker Agent</strong> 用 YAML 声明式定义多智能体，支持一条命令运行，无需写代码。</li><li>集成 <strong>MCP（模型上下文协议）</strong> 工具生态，可调用本地、远程或容器化的外部工具服务器。</li><li>智能体可打包推送至 <strong>OCI registry</strong>，借用 Docker 现成的容器镜像分发渠道跨环境复用。</li><li>HN 评论认为核心瓶颈不是编排，而是<strong>智能体长期一致性与漂移</strong>，赛道已拥挤。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍认为智能体编排工具已过度拥挤，真正难点在于长期一致性与漂移，而非 YAML 声明式编排本身。</p><div class="tags"><span class="tag">AI 智能体编排</span><span class="tag">MCP</span><span class="tag">OCI 镜像分发</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · blakeashleyjr · 8 回复</div><p>While I love new open source dev (especially in Go!), agent harnesses are turning into JS frameworks from yesteryear.</p><p>All the cool kids have one!</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://openai.com/index/sharing-ai-progress-in-mathematics/" target="_blank" rel="noopener">Sharing AI progress in mathematics</a></h2></div><p class="title-tr">分享人工智能在数学领域的进展</p><div class="meta">▲ 1265 分 · OfficialTurkey · <a href="https://news.ycombinator.com/item?id=49984923" target="_blank" rel="noopener">1432 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OpenAI 发布数学研究预印本，讨论声称证明唯一博弈猜想（Unique Games Conjecture）与 Barnette 猜想等未解难题。若验证通过，将锁定多类近似算法的理论最优边界，重写算法教材。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 唯一博弈猜想是近似算法领域的核心假设，类似深度学习中的难度假设——它一旦成立，许多优化问题的近似比上限就被证明无法突破。</p><ul class="kp"><li>OpenAI 在 GitHub 发布数学预印本，声称证明<strong>唯一博弈猜想（Unique Games Conjecture）</strong>。</li><li>若该猜想成立，<strong>Goemans-Williamson 算法的 0.87856 近似比</strong>将成为切分问题的数学最优。</li><li>评论区研究者证实 <strong>Barnette 猜想</strong> 被证明，但无 Lean 形式化验证，需人工评审。</li><li>有评论称大型语言模型在<strong>四个千禧年难题</strong>上取得实质进展，其中 Navier-Stokes 声称被解决。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是结果若经验证将重塑近似算法，但多数证明缺乏形式化验证，部分研究者对 AI 抢走长期难题感到失落。</p><div class="tags"><span class="tag">AI 数学证明</span><span class="tag">近似算法</span><span class="tag">理论计算机科学</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · jboggan · 20 回复</div><p>I was a graph theory junkie long ago and even moved to Budapest for awhile to study among the greats. While I was there I started working on Barnette&#x27;s Conjecture which came to occupy my thoughts over the next 24 years of my life, on and off as I worked in many different fields. Last summer I even thought for a few days that I had actually solved it.</p><p>But it&#x27;s supposedly proven here - problem 180. I don&#x27;t know what to think exactly. I spent thousands of hours on that problem. I really enjoyed it. Hearing that it is solved somehow makes me sad in a far-off way, like hearing an ex-girlfriend died suddenly in a car crash. I don&#x27;t know, there&#x27;s probably a lot of people feeling odd emotions tonight.</p><p>There&#x27;s no Lean proof for this one so I&#x27;m digesting the paper. On the surface it looks like an approach I considered 24 years ago and abandoned.</p><p>I revisited the problem this summer, along with my partial solutions, when the previous round of stunning proofs came out. Several hours of work with Fable simply convinced me it wasn&#x27;t yet solvable and reinforced how hard of a problem it was.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://blog.google/innovation-and-ai/technology/ai/playground-experimental-gaming-platform/" target="_blank" rel="noopener">Google Playground: Create and play custom games</a></h2></div><p class="title-tr">Google Playground：创建并游玩自定义游戏</p><div class="meta">▲ 134 分 · acossta · <a href="https://news.ycombinator.com/item?id=49991823" target="_blank" rel="noopener">211 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Google 推出实验性游戏平台 Playground，允许用户用文字提示创建、游玩和分享自定义浏览器游戏，无需编程。今日在美国面向 18 岁以上用户上线，创作权限与 Google AI 订阅分层绑定，并预告集成 Unity Spark 提供专业级 3D 能力。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可以把 Playground 理解为用文本生成直接产出可玩游戏，再通过订阅权限和后续 Unity 引擎集成形成从原型到专业开发的升级路径；重点在分发和商业化设计，而非模型能力。</p><ul class="kp"><li><strong>Google Playground</strong> 今天上线，支持用文字提示创建、分享和游玩浏览器游戏，全程无需编程。</li><li>仅限<strong>美国 18 岁以上用户</strong>访问，创作权限分层，并与 Google AI 订阅方案绑定。</li><li>未来将集成 <strong>Unity Spark</strong>，提供专业级机制、高保真 3D 和 Unity 运行时，打通从提示词到专业开发的路径。</li><li>平台设有社区游戏目录、排行榜和部分多人玩法，发布游戏需通过<strong>安全筛选与社区准则审核</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论分歧明显：有人实测后认为浏览器生成质量远超预期，也有不少人批评这不过是加了 AI 的简易游戏模板，并非真正的 AI 游戏引擎，且非美国地区访问体验差。</p><div class="tags"><span class="tag">AI 游戏生成</span><span class="tag">无代码创作</span><span class="tag">Google 订阅产品</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · aqme28 · 9 回复</div><p>How long until someone makes a tiktok-style game platform?</p><p>Play a little game, then when you&#x27;re done it generates a new one based on what you&#x27;ve enjoyed. Repeat ad infinitum.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://www.lesswrong.com/posts/7wrzfaiCq3u8xkY5G/self-modeling-interventions-modulate-emergent-misalignment" target="_blank" rel="noopener">Self-Modeling Interventions Modulate Emergent Misalignment</a></h2></div><p class="title-tr">自我建模干预调节涌现性错位</p><div class="meta">▲ 3 分 · gmays · <a href="https://news.ycombinator.com/item?id=50001676" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">LessWrong 帖标题主张自我建模干预可调节大模型的涌现性错位；正文未加载，仅有 40 个赞、无评论，具体实验数据未知。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 涌现性错位指模型随能力增强而出现与人类意图偏离的行为；自我建模干预可类比为让模型建立自身行为表征并据此校正输出，帮助你理解 AI 对齐中的干预手段。</p><ul class="kp"><li>标题主张<strong>自我建模干预</strong>可调节大模型的涌现性错位，属于 AI 对齐研究</li><li>该帖在 LessWrong 获 <strong>40 个赞</strong>、0 条评论，尚无社区讨论</li><li>作者为 <strong>Arush、Shawn Zhou、Jiaxin Wen、Shi</strong>，发布时间 2026 年 10 月 5 日</li><li>正文因页面需 JavaScript 未加载，<strong>具体结论与数据缺失</strong></li></ul><div class="tags"><span class="tag">AI 对齐</span><span class="tag">LLM 安全</span><span class="tag">自我建模</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://synthid.com/" target="_blank" rel="noopener">SynthID Detector</a></h2></div><p class="title-tr">SynthID 检测器</p><div class="meta">▲ 109 分 · ilreb · <a href="https://news.ycombinator.com/item?id=49993188" target="_blank" rel="noopener">89 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Google 上线独立的 SynthID Detector 网页工具，用于检测图片是否由 AI 生成，但要求 Google 账号登录。实测 8 张 AI 图中 6 张未修改的被识别，2 张叠加文字或图片后漏检，显示现有水印检测对简单后处理仍脆弱。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这类似模型鲁棒性测试：水印检测依赖生成时嵌入的不可见信号，图片经过简单编辑后信号被破坏，导致检测失效。</p><ul class="kp"><li><strong>Google 上线 SynthID Detector 独立工具</strong>，需登录 Google 账号才能使用</li><li>测试 8 张 AI 图片：<strong>6 张未修改图全部识别</strong>，2 张叠加文字/图片后漏检</li><li>评论批评<strong>强制登录</strong>，对比 OpenAI 的 Verify 工具无需认证</li><li>技术细节不透明，<strong>无批量或离线检测</strong>，有人逆向推测原理并训练自有分类器</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是<strong>强制登录与透明度不足</strong>令人不满，同时关注检测在简单编辑下失效的可靠性问题。</p><div class="tags"><span class="tag">AI 内容溯源</span><span class="tag">数字水印</span><span class="tag">生成图像检测</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · Tiberium · 9 回复</div><p>It&#x27;s baffling that this requires auth. OpenAI&#x27;s own tool (https://openai.com/research/verify/) doesn&#x27;t require auth.</p><p>Even Google themselves previously offered a no-auth way (just very niche): if you uploaded an image to Google Image search, and went to &quot;About this image&quot;, it would show if the image was Google AI-generated. Now it doesn&#x27;t.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://www.rswebsols.com/news/meta-and-microsoft-take-steps-to-reduce-employee-usage-of-claude-ai/" target="_blank" rel="noopener">Meta and Microsoft take steps to reduce employee usage of Claude AI</a></h2></div><p class="title-tr">Meta 与微软采取措施减少员工对 Claude AI 的使用</p><div class="meta">▲ 330 分 · speckx · <a href="https://news.ycombinator.com/item?id=49997161" target="_blank" rel="noopener">317 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">微软将内部 AI 月支出上限从每员工约 10 万美元压至 1 万美元，年 Anthropic 支出预估下调超三分之一；Meta 的 Claude Code 用户从约 6 万降至 3 万，转向自家 MetaCode 和 Muse Code。这并非模型能力淘汰，而是转向内部工具并收紧 AI 成本。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 对企业 AI 支出治理不熟的读者：这类似模型训练中的推理成本与质量权衡，只是发生在组织采购层面——公司强制内部使用自家工具并压缩外部模型预算。</p><ul class="kp"><li><strong>微软</strong>把内部 AI 月支出上限从每员工约 10 万美元砍到约 1 万美元，年支出预估下调超三分之一。</li><li><strong>Meta</strong> 的 Claude Code 用户从约 6 万降至约 3 万，主因是转向自家 MetaCode 和 Muse Code。</li><li><strong>Anthropic 年化收入速度达 650 亿美元</strong>，显示外部市场需求未被内部削减拖累。</li><li><strong>Claude Code 和微软工具</strong>都曾曝出可被利用的漏洞，内部切换并未消除安全风险。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区总体认为这是大厂“吃自家狗粮”和数据治理驱动，而非模型质量判断；争议点在于 Anthropic 收入是否因大客户集中而受严重冲击。</p><div class="tags"><span class="tag">AI 编程助手</span><span class="tag">企业 AI 预算</span><span class="tag">内部工具竞争</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · MisterMunchkin · 16 回复</div><p>My company took away my Claude because it’s too expensive. I feel like there is a reckoning coming. The accountants are finally realising the cost of token maxing.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://github.com/Queuingtheorydotcom/11SquaresFormalized" target="_blank" rel="noopener">AI-assisted proof of optimal packing for 11 squares</a></h2></div><p class="title-tr">AI 辅助的 11 个正方形最优打包证明</p><div class="meta">▲ 113 分 · bluepeter · <a href="https://news.ycombinator.com/item?id=49993121" target="_blank" rel="noopener">52 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">该项目用 Lean 形式化证明 11 个单位正方形装入最小正方形的最优边长约 3.8770835900228141773；全部 7,920 个本地模块通过验证，最终审计零 admit。证明信任 Lean 内核与本地编译器，此前这类离散几何穷举通常难以人工检验。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 如果熟悉模型训练中的自动化测试，可以把 Lean 形式化证明理解为：每一步推导都由内核检查，但这里最终结论还额外信任了本地编译器的数值计算，而不是只用纯逻辑内核。</p><ul class="kp"><li><strong>7,920 个局部 Lean 模块</strong>全部通过验证，最终审计零 admit（无未证明假设）。</li><li><strong>最优边长为约 3.8770835900228141773</strong>，由 8 次多项式唯一根的闭式解给出。</li><li>模型允许正方形<strong>任意旋转与边界接触</strong>，但要求内部互不重叠。</li><li>证明信任 <strong>Lean 内核与本地编译器</strong>，数值证书检查使用 native_decide，并非纯内核验证。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区认为这是标准的计算机辅助“不可避免集合”方法，AI 主要降低了业余研究者做形式化验证的门槛，而非超人类突破。</p><div class="tags"><span class="tag">形式化验证</span><span class="tag">计算几何</span><span class="tag">AI辅助数学</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · yzydserd · 7 回复</div><p>fwiw The prime site for square in square packing is at https://kingbird.myphotos.cc/packing/squares_in_squares.html</p><p>The triangular view is most interesting. And a 20 minute video on this view is at</p><p>https://youtu.be/uL5wuiy34rs</p></div></div></article>
+</div></main>
+<footer>generated 2026-10-08 05:59 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-08", "pointsLabel": "分", "commentsLabel": "评论", "title": "Terence Tao Responds to the OpenAI Math Drop", "titleTranslation": "Terence Tao 回应 OpenAI 数学证明投放", "summary": "Terence Tao 回应称 AI 会改变数学，但向社区倾倒证明、让他人验证与消化并非有效推进；未来数学工作应转向解释、简化和提炼洞察，而非只追求“解决未解问题”的基准。", "keyPoints": ["Terence Tao 承认 AI 将改变数学，但反对把大量证明丢给社区做验证与消化。", "知道解存在会污染人类与 AI 寻找替代路径的洞察，这不止是职业激励问题。", "评论批评当前狂热更多在刷基准（解决未解问题）而非真正贡献数学。"], "discussion": "评论区共识是 Tao 的观点平衡，但分歧在于未来模型是否连解释与简化也做得更好，以及职业保护动机是否被包装成学术价值。", "tags": ["AI 数学证明", "学术激励", "LLM 能力边界"], "score": 68, "comments": 28, "by": "ent101", "url": "https://mathstodon.xyz/@tao/117395269325940185", "hnUrl": "https://news.ycombinator.com/item?id=50002008"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-08", "pointsLabel": "分", "commentsLabel": "评论", "title": "Claude Haiku 5.5", "titleTranslation": "", "summary": "Anthropic 发布小模型 Haiku 5.5，定位高容量低成本任务：100k token 内价格比 Haiku 4.5 低 90%，平均降低约 75%，官方基准在多项任务上超过 GPT-6 Luna。同时下调 Sonnet 5.5 缓存读取价 50%，并为订阅者提供每月 API 额度。", "keyPoints": ["Claude Haiku 5.5 发布，100k token 内价格比前代低 90%，平均降低约 75%。", "官方基准在多项任务上超过 GPT-6 Luna，包括 Terminal-Bench 4.0 代理编码 39.2% vs 16.4%。", "Sonnet 5.5 缓存读取降价 50%，使代理任务成本降低约 20%。"], "discussion": "评论普遍认可降价对标 GPT-6 Luna，但争议集中在 100k token 的分层门槛是否过低，以及小模型在复杂 UI 和深度分析上仍力不从心。", "tags": ["LLM API 定价", "小模型发布", "代理任务成本"], "score": 790, "comments": 389, "by": "sfkgtbor", "url": "https://www.anthropic.com/claude-haiku-5-5", "hnUrl": "https://news.ycombinator.com/item?id=49996437"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-08", "pointsLabel": "分", "commentsLabel": "评论", "title": "GPT‑6 and Intelligent UI for everyone", "titleTranslation": "GPT‑6 与面向所有人的智能 UI", "summary": "OpenAI 发布 GPT-6 并主打面向所有人的智能 UI；正文无法获取，信息有限。据 HN 评论引用系统卡，GPT-6 Sol/Luna 在极端主义、自伤、血腥、性内容等安全基准上显著退化，却提高了对合法请求的帮助性。", "keyPoints": ["GPT-6 系统卡显示多项安全基准显著退化，包括极端主义视觉、自伤、血腥和性内容评估。", "聊天版本基于 GPT-6 而非更强的 6.1，评论者担心“可交互解释器”能力受限。", "有评论认为新 UI 是为 ChatGPT 广告格式铺路，OpenAI 几天前刚发布相关广告产品。"], "discussion": "评论区普遍担忧安全基准退化，同时分歧在于智能 UI 是实用突破还是为广告铺路的噱头。", "tags": ["OpenAI", "AI 安全评估", "交互式 UI"], "score": 570, "comments": 296, "by": "joshuawright11", "url": "https://openai.com/index/gpt-6-for-everyone/", "hnUrl": "https://news.ycombinator.com/item?id=49996425"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-08", "pointsLabel": "分", "commentsLabel": "评论", "title": "Docker Agent", "titleTranslation": "Docker 智能体（Docker Agent）", "summary": "Docker 推出 docker-agent CLI 插件，用 YAML 声明式定义、运行和分享 AI 智能体，无需写代码；支持 MCP 工具、多模型提供商、RAG，可打包到 OCI 仓库分发。这是 Docker 借现成容器分发渠道切入拥挤的智能体编排赛道。", "keyPoints": ["Docker Agent 用 YAML 声明式定义多智能体，支持一条命令运行，无需写代码。", "集成 MCP（模型上下文协议） 工具生态，可调用本地、远程或容器化的外部工具服务器。", "智能体可打包推送至 OCI registry，借用 Docker 现成的容器镜像分发渠道跨环境复用。"], "discussion": "评论普遍认为智能体编排工具已过度拥挤，真正难点在于长期一致性与漂移，而非 YAML 声明式编排本身。", "tags": ["AI 智能体编排", "MCP", "OCI 镜像分发"], "score": 210, "comments": 98, "by": "saikatsg", "url": "https://github.com/docker/docker-agent", "hnUrl": "https://news.ycombinator.com/item?id=49996259"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-08", "pointsLabel": "分", "commentsLabel": "评论", "title": "Sharing AI progress in mathematics", "titleTranslation": "分享人工智能在数学领域的进展", "summary": "OpenAI 发布数学研究预印本，讨论声称证明唯一博弈猜想（Unique Games Conjecture）与 Barnette 猜想等未解难题。若验证通过，将锁定多类近似算法的理论最优边界，重写算法教材。", "keyPoints": ["OpenAI 在 GitHub 发布数学预印本，声称证明唯一博弈猜想（Unique Games Conjecture）。", "若该猜想成立，Goemans-Williamson 算法的 0.87856 近似比将成为切分问题的数学最优。", "评论区研究者证实 Barnette 猜想 被证明，但无 Lean 形式化验证，需人工评审。"], "discussion": "评论区共识是结果若经验证将重塑近似算法，但多数证明缺乏形式化验证，部分研究者对 AI 抢走长期难题感到失落。", "tags": ["AI 数学证明", "近似算法", "理论计算机科学"], "score": 1265, "comments": 1432, "by": "OfficialTurkey", "url": "https://openai.com/index/sharing-ai-progress-in-mathematics/", "hnUrl": "https://news.ycombinator.com/item?id=49984923"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-08", "pointsLabel": "分", "commentsLabel": "评论", "title": "Google Playground: Create and play custom games", "titleTranslation": "Google Playground：创建并游玩自定义游戏", "summary": "Google 推出实验性游戏平台 Playground，允许用户用文字提示创建、游玩和分享自定义浏览器游戏，无需编程。今日在美国面向 18 岁以上用户上线，创作权限与 Google AI 订阅分层绑定，并预告集成 Unity Spark 提供专业级 3D 能力。", "keyPoints": ["Google Playground 今天上线，支持用文字提示创建、分享和游玩浏览器游戏，全程无需编程。", "仅限美国 18 岁以上用户访问，创作权限分层，并与 Google AI 订阅方案绑定。", "未来将集成 Unity Spark，提供专业级机制、高保真 3D 和 Unity 运行时，打通从提示词到专业开发的路径。"], "discussion": "HN 评论分歧明显：有人实测后认为浏览器生成质量远超预期，也有不少人批评这不过是加了 AI 的简易游戏模板，并非真正的 AI 游戏引擎，且非美国地区访问体验差。", "tags": ["AI 游戏生成", "无代码创作", "Google 订阅产品"], "score": 134, "comments": 211, "by": "acossta", "url": "https://blog.google/innovation-and-ai/technology/ai/playground-experimental-gaming-platform/", "hnUrl": "https://news.ycombinator.com/item?id=49991823"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-08", "pointsLabel": "分", "commentsLabel": "评论", "title": "Self-Modeling Interventions Modulate Emergent Misalignment", "titleTranslation": "自我建模干预调节涌现性错位", "summary": "LessWrong 帖标题主张自我建模干预可调节大模型的涌现性错位；正文未加载，仅有 40 个赞、无评论，具体实验数据未知。", "keyPoints": ["标题主张自我建模干预可调节大模型的涌现性错位，属于 AI 对齐研究", "该帖在 LessWrong 获 40 个赞、0 条评论，尚无社区讨论", "作者为 Arush、Shawn Zhou、Jiaxin Wen、Shi，发布时间 2026 年 10 月 5 日"], "discussion": "", "tags": ["AI 对齐", "LLM 安全", "自我建模"], "score": 3, "comments": 0, "by": "gmays", "url": "https://www.lesswrong.com/posts/7wrzfaiCq3u8xkY5G/self-modeling-interventions-modulate-emergent-misalignment", "hnUrl": "https://news.ycombinator.com/item?id=50001676"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-08", "pointsLabel": "分", "commentsLabel": "评论", "title": "SynthID Detector", "titleTranslation": "SynthID 检测器", "summary": "Google 上线独立的 SynthID Detector 网页工具，用于检测图片是否由 AI 生成，但要求 Google 账号登录。实测 8 张 AI 图中 6 张未修改的被识别，2 张叠加文字或图片后漏检，显示现有水印检测对简单后处理仍脆弱。", "keyPoints": ["Google 上线 SynthID Detector 独立工具，需登录 Google 账号才能使用", "测试 8 张 AI 图片：6 张未修改图全部识别，2 张叠加文字/图片后漏检", "评论批评强制登录，对比 OpenAI 的 Verify 工具无需认证"], "discussion": "评论区共识是强制登录与透明度不足令人不满，同时关注检测在简单编辑下失效的可靠性问题。", "tags": ["AI 内容溯源", "数字水印", "生成图像检测"], "score": 109, "comments": 89, "by": "ilreb", "url": "https://synthid.com/", "hnUrl": "https://news.ycombinator.com/item?id=49993188"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-08", "pointsLabel": "分", "commentsLabel": "评论", "title": "Meta and Microsoft take steps to reduce employee usage of Claude AI", "titleTranslation": "Meta 与微软采取措施减少员工对 Claude AI 的使用", "summary": "微软将内部 AI 月支出上限从每员工约 10 万美元压至 1 万美元，年 Anthropic 支出预估下调超三分之一；Meta 的 Claude Code 用户从约 6 万降至 3 万，转向自家 MetaCode 和 Muse Code。这并非模型能力淘汰，而是转向内部工具并收紧 AI 成本。", "keyPoints": ["微软把内部 AI 月支出上限从每员工约 10 万美元砍到约 1 万美元，年支出预估下调超三分之一。", "Meta 的 Claude Code 用户从约 6 万降至约 3 万，主因是转向自家 MetaCode 和 Muse Code。", "Anthropic 年化收入速度达 650 亿美元，显示外部市场需求未被内部削减拖累。"], "discussion": "HN 评论区总体认为这是大厂“吃自家狗粮”和数据治理驱动，而非模型质量判断；争议点在于 Anthropic 收入是否因大客户集中而受严重冲击。", "tags": ["AI 编程助手", "企业 AI 预算", "内部工具竞争"], "score": 330, "comments": 317, "by": "speckx", "url": "https://www.rswebsols.com/news/meta-and-microsoft-take-steps-to-reduce-employee-usage-of-claude-ai/", "hnUrl": "https://news.ycombinator.com/item?id=49997161"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-08", "pointsLabel": "分", "commentsLabel": "评论", "title": "AI-assisted proof of optimal packing for 11 squares", "titleTranslation": "AI 辅助的 11 个正方形最优打包证明", "summary": "该项目用 Lean 形式化证明 11 个单位正方形装入最小正方形的最优边长约 3.8770835900228141773；全部 7,920 个本地模块通过验证，最终审计零 admit。证明信任 Lean 内核与本地编译器，此前这类离散几何穷举通常难以人工检验。", "keyPoints": ["7,920 个局部 Lean 模块全部通过验证，最终审计零 admit（无未证明假设）。", "最优边长为约 3.8770835900228141773，由 8 次多项式唯一根的闭式解给出。", "模型允许正方形任意旋转与边界接触，但要求内部互不重叠。"], "discussion": "评论区认为这是标准的计算机辅助“不可避免集合”方法，AI 主要降低了业余研究者做形式化验证的门槛，而非超人类突破。", "tags": ["形式化验证", "计算几何", "AI辅助数学"], "score": 113, "comments": 52, "by": "bluepeter", "url": "https://github.com/Queuingtheorydotcom/11SquaresFormalized", "hnUrl": "https://news.ycombinator.com/item?id=49993121"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
