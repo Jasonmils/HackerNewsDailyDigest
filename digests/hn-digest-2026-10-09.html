@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-10-09</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-10-09 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://www.dgt.is/blog/2026-10-07-deepseek-freek-out/" target="_blank" rel="noopener">Why isn&#x27;t the industry freaking out about DeepSeek 4.1 Flash?</a></h2></div><p class="title-tr">为什么业界没有对 DeepSeek 4.1 Flash 感到恐慌？</p><div class="meta">▲ 547 分 · jonotime · <a href="https://news.ycombinator.com/item?id=50000488" target="_blank" rel="noopener">453 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者连续一个月使用 DeepSeek 4.1 Flash，认为能力接近 Opus，单次会话成本通常不足 1 美元，KV cache 缩小约 437 倍使长任务极便宜；行业未恐慌主因订阅补贴掩盖真实成本，且模型仍有代差。</p><p class="context"><strong>🧭 联系你的知识背景</strong> KV cache 是 Transformer 推理时缓存的注意力键值对，本文称其体积缩小约 437 倍，直接降低长会话显存与成本。</p><ul class="kp"><li>作者实测 <strong>DeepSeek 4.1 Flash</strong> 能力接近 Opus，但成本低几个数量级</li><li><strong>KV cache 缩小约 437 倍</strong>，使全天编码会话成本常低于 1 美元</li><li>行业未恐慌部分因<strong>订阅补贴</strong>掩盖了真实 API 成本，开发者难感知价差</li><li>作者认为<strong>自托管不划算</strong>，但缓存优化很快会本地运行，隐私场景可等待</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区分歧在于 DeepSeek 的成本优势是否被订阅补贴和更高 token 消耗抵消，以及其能力是否仍落后前沿模型 6-12 个月。</p><div class="tags"><span class="tag">LLM 推理成本</span><span class="tag">开源模型竞争</span><span class="tag">KV cache 优化</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · vishvananda · 22 回复</div><p>The reason people aren’t freaking out is because most people are using heavily subsidized subscriptions.</p><p>I tried the cheapest provider on openrouter and burned through $50 in a few days. Quality was ok, seems slightly above Luna quality perhaps? But that $50 is 1/4 of my codex subscription where I could have burned that many tokens or more using Astra within my weekly reset.</p><p>This won’t last forever but as long as the frontier labs are subsidizing this heavily the open models won’t matter.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://biohub.org/news/virtual-biology-initiative-expansion/" target="_blank" rel="noopener">AI-ready biological data: $1.8B global commitment</a></h2></div><p class="title-tr">AI 就绪生物数据：18 亿美元全球承诺</p><div class="meta">▲ 105 分 · ray__ · <a href="https://news.ycombinator.com/item?id=50011999" target="_blank" rel="noopener">14 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Biohub、美国能源部、NIH 及 DeepMind、Isomorphic Labs、Meta 等联合投入 18 亿美元，建设 AI 就绪的开放生物数据资源，用于训练预测性生物模型和虚拟细胞。这是迄今最大规模的协调性生物数据采集承诺，直指生物 AI 的数据瓶颈。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 类似训练大模型需要高质量、标准化 token，生物 AI 模型当前的主要瓶颈不是算力而是标准化湿实验数据采集；这笔钱多数投向测量技术、多模态数据集和基础设施。</p><ul class="kp"><li><strong>Biohub、DOE、NIH 等联合投入 18 亿美元</strong>，打造 AI 就绪的开放生物数据资源。</li><li><strong>DOE 五年投入超 5 亿美元</strong>，负责基础细胞测量、建模与百亿亿次计算。</li><li><strong>Google DeepMind、Isomorphic Labs、Meta 合计出资 3 亿美元</strong>，开发多模态数据集和预测模型技术。</li><li>目标是通过<strong>虚拟细胞</strong>模型做数字实验，加速疾病预防和治疗路径。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论普遍认可资金流向湿实验室数据采集而非更多封装层是正确方向，但也有人担忧当前政府正下线关键公开数据集，形成矛盾。</p><div class="tags"><span class="tag">AI4Bio</span><span class="tag">生物数据基础设施</span><span class="tag">开放科学</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · randomdrake · 4 回复</div><p>I’ve been toying with the idea of a SETI@Home successor that uses leftover subscription credits from the (currently) subsidized AI providers to help contribute to a collective goal like this.</p><p>I wonder if there will be any opportunities to combine resources collectively like that again in the future.</p><p>I built a small prototype that would let people in less-developed countries get AI responses from it for free. But it’d be super neat to work together and put our laptops and subscriptions to work on something like this.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://openrouter.ai/stepfun/step-5-preview" target="_blank" rel="noopener">Step 5 Preview, a 1M-context MoE from StepFun, shows up on OpenRouter</a></h2></div><p class="title-tr">Step 5 Preview，StepFun 的 100 万上下文 MoE 模型，上线 OpenRouter</p><div class="meta">▲ 119 分 · AnneWodell · <a href="https://news.ycombinator.com/item?id=50007764" target="_blank" rel="noopener">28 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">StepFun 旗舰模型 Step 5 Preview 上线 OpenRouter，上下文 100 万 token，基于稀疏混合专家（MoE）架构（27B 激活/600B 总参数），定价输入 $1、输出 $2.70 每百万 token。它在软件工程和金融领域表现突出，定位多步智能体任务。</p><p class="context"><strong>🧭 联系你的知识背景</strong> OpenRouter 是聚合多家大模型 API 的平台；agentic work 指让模型自主调用工具、多步执行任务的用法。</p><ul class="kp"><li><strong>Step 5 Preview</strong> 是 StepFun 旗舰模型，采用稀疏 MoE：27B 激活 / 600B 总参数。</li><li>支持 <strong>100 万 token 上下文</strong>，面向跨代码库、多文档的多步任务。</li><li>定价 <strong>输入 $1 / 输出 $2.70 每百万 token</strong>，定位高性价比智能体工作负载。</li><li>在软件工程和专业知识工作，尤其<strong>金融</strong>方面表现强劲。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区既有人看好其比 Gemini 3.8 Flash 更便宜聪明，也有人批评它缺乏新架构、600B 总参数难以本地运行。</p><div class="tags"><span class="tag">稀疏混合专家</span><span class="tag">大模型定价</span><span class="tag">AI 智能体</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · hosel · 3 回复</div><p>Without the pelicans I don’t know what to think</p><p>-------------</p><p>https://postimg.cc/c6L2MjSt</p><p>12m 0s and $0.28</p><p>&gt;Draw a Hacker News-style comment thread. Top comment by a user named &quot;pelican_enjoyer&quot;: &quot;Without the pelicans I don&#x27;t know what to think.&quot; Reply from &quot;minimaxir&quot; in a grumpy tone: &quot;Since people keep doing it: no, you don&#x27;t have to make an allusion to Simon&#x27;s pelicans every time a Hacker News thread about a new LLM pops up. It&#x27;s a lower-effort joke than even Reddit memes.&quot; Beside the thread, show a pelican riding a bicycle, looking smug.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://opper.ai/jevman-benchmark/" target="_blank" rel="noopener">Show HN: Jevman – AI decision models play Pac-Man</a></h2></div><p class="title-tr">Show HN: Jevman – AI 决策模型玩《吃豆人》</p><div class="meta">▲ 53 分 · felix089 · <a href="https://news.ycombinator.com/item?id=50007993" target="_blank" rel="noopener">10 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Jevman 用《吃豆人》基准测试六款低延迟 AI 决策模型，各打 100 局，按均分与 95% 误差范围排名；仓库开源、CI 重放核验，任何 HTTP 端点模型都能提交。单局成本约 2 美分，已提供免费额度。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 对您熟悉的模型评估而言，这里把基准从损失/准确率换成低延迟决策与游戏得分；云 API 推理相当于在线推理服务，每次调用有网络延迟和费用。</p><ul class="kp"><li><strong>六款低延迟决策模型</strong>各玩 100 局《吃豆人》，以均分排名，误差范围内并列。</li><li><strong>仓库已开源</strong>，任何 HTTP 端点模型可接入，CI 重放每局以核验成绩。</li><li>每局成本约 <strong>2 美分</strong>，最长单局仅 2 分 24 秒，远低于 5 分钟上限。</li><li>模型只在岔路口接收迷宫状态，须在 <strong>2 秒</strong>内返回方向概率，超时由备用规则接管。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区主要争论应否在每个游戏帧而非仅路口做决策，以及云端 API 实时推理相比本地 ONNX 模型是否过度工程且成本更高；也有人认可开源与共享试用额度。</p><div class="tags"><span class="tag">AI 基准测试</span><span class="tag">实时推理</span><span class="tag">开源项目</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · hung · 1 回复</div><p>Shouldn&#x27;t it be running at every tick of the game rather than just the junctions? Pac-Man should be able to change direction at any point.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://twitter.com/danintheory/status/2108065033070789090" target="_blank" rel="noopener">OpenAI withdraws three mathematical results</a></h2></div><p class="title-tr">OpenAI 撤回三项数学结果</p><div class="meta">▲ 278 分 · sashank_1509 · <a href="https://news.ycombinator.com/item?id=50002650" target="_blank" rel="noopener">558 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OpenAI 更新数学证明仓库，新增 6 个 Lean 形式化证明、修改 19 处、撤回 3 项结果，目前约 42% 顶级结果已形式化。此事引发对 AI 生成数学证明可靠性和机器验证必要性的讨论。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Lean 是一种机器可检查的数学证明语言，类似把数学证明变成可编译代码，用于自动验证 AI 生成的证明是否有错。</p><ul class="kp"><li><strong>OpenAI 撤回 3 项数学结果</strong>，同时新增 6 个 Lean 形式化证明</li><li>仓库目前约 <strong>42% 顶级结果</strong>已形式化，仍有大量证明未经验证</li><li>HN 评论认为 AI 生成证明需机器验证，<strong>混合发布已验证和未验证内容</strong>增加出错风险</li><li>有人质疑撤回原因是人类审查还是模型自查，<strong>错误可能多年后才暴露</strong></li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论的核心分歧在于是否应该只发布经过 Lean 验证的证明，以及未形式化证明的可信度到底有多高。</p><div class="tags"><span class="tag">AI 数学证明</span><span class="tag">Lean 形式化验证</span><span class="tag">AI 可靠性</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · hmate9 · 10 回复</div><p>3 mistakes (so far) out of ~400 is still a pretty good hit rate</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://www.reddit.com/r/ClaudeAI/s/mbe5IY2LF9" target="_blank" rel="noopener">I think I found a planet nobody knew existed. I used Claude Code to find it</a></h2></div><p class="title-tr">我想我发现了一颗没人知道存在的行星。我用 Claude Code 找到了它</p><div class="meta">▲ 133 分 · pyduan · <a href="https://news.ycombinator.com/item?id=50002665" target="_blank" rel="noopener">58 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">信息有限：Reddit 用户声称用 Claude Code 处理天文数据后发现一颗未知行星，但正文无法获取，仅有标题和评论，尚未经同行评审验证。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这类似用深度学习模型做异常检测，但天文数据中的假阳性问题与您熟悉的模型过拟合噪声风险类似。</p><ul class="kp"><li><strong>Claude Code</strong> 被用于分析天文数据，用户声称发现一颗未知行星</li><li>评论区强调<strong>假阳性率</strong>与“噪声拟合噪声”，认为需经同行评审才能确认</li><li>有评论展示<strong>自主 AI 研究系统</strong>在超导系统不稳定问题上取得进展，反映科学流程自动化趋势</li><li>社区戏称“<strong>vibe astronomy</strong>”，显示对未经验证发现的营销式怀疑</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论核心分歧在于：有人认为 AI 用于科学发现很有潜力，但多数强调未经同行评审的发现可能只是噪声拟合，需要严格验证。</p><div class="tags"><span class="tag">AI 辅助科研</span><span class="tag">科学验证</span><span class="tag">Claude Code</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · __alias · 4 回复</div><p>Laughed at the reddit comment</p><p>&gt; &quot;We got vibe astronomy before GTA6&quot;</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://github.com/ymcrcat/rgpu" target="_blank" rel="noopener">Show HN: Rgpu – a PyTorch device whose tensors live on a remote GPU</a></h2></div><p class="title-tr">Show HN: Rgpu——一个让张量驻留在远程 GPU 上的 PyTorch 设备</p><div class="meta">▲ 47 分 · boxstream · <a href="https://news.ycombinator.com/item?id=49988516" target="_blank" rel="noopener">2 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">rGPU 让 PyTorch 程序把张量放到远程 NVIDIA GPU 上执行，客户端无需本地 GPU。提供 PyTorch device 和 CUDA shim 两条路径；协议不加密不认证，需靠 SSH 和防火墙。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这里的“远程 GPU 设备”类似把 PyTorch 的 device 从本地 cuda:0 换成指向远程机器的网络设备，底层涉及 TCP 转发和系统安全边界。</p><ul class="kp"><li><strong>rGPU 提供两条接入路径</strong>：PyTorch device 面向新代码，CUDA shim 兼容现有 Linux CUDA 程序。</li><li><strong>pip install rgpu</strong> 后运行一个四行示例，可验证远程张量求和输出 8.0。</li><li><strong>协议不认证不加密</strong>，CUDA 服务端默认监听全部 IPv4，必须用防火墙限制端口 9713 并走 SSH 隧道。</li><li><strong>Apache 2.0 许可</strong>开源，包含文档、测试和代码生成，但 JAX 支持仍是实验性的。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论只有祝贺和“很酷”，无实质分歧或深入讨论。</p><div class="tags"><span class="tag">远程 GPU</span><span class="tag">开发者工具</span><span class="tag">CUDA 兼容层</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://huggingface.co/joe-gibbs/terrainsr" target="_blank" rel="noopener">Show HN: TerrainSR – fast, realistic heightmap upscaling model</a></h2></div><p class="title-tr">Show HN: TerrainSR – 快速、逼真的高程图超分辨率模型</p><div class="meta">▲ 34 分 · joegibbs · <a href="https://news.ycombinator.com/item?id=49986740" target="_blank" rel="noopener">7 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">TerrainSR 把 100 米高程图超分到 10 米，模型只用未开发地貌训练，能补出侵蚀、岩石等自然细节，且不带道路、建筑等人工痕迹；RTX 4070 上 50×50km 区域仅需 0.74 秒，适合实时游戏。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这类似图像或时间序列的超分辨率：输入是 100 米网格的高度矩阵，输出是 10 米网格；模型在自然地貌配对数据上训练，刻意避开人工建筑样本。</p><ul class="kp"><li><strong>TerrainSR 将 100 米高度图超分到 10 米</strong>，可外推至更细细节，但低于 100 米输入会失效。</li><li>在 RTX 4070 上，<strong>50×50 km 区域从 100m 到 10m 仅需 0.74 秒</strong>，比传统侵蚀模拟更快。</li><li>训练数据剔除城市、露天矿等人工改造地貌，<strong>生成结果不含道路、建筑等伪影</strong>。</li><li>权重和推理代码用 <strong>Apache 2.0 许可</strong>，可商用；训练数据来自 swisstopo、Kartverket、IGN、USGS 等。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区主要关注能否迁移到火星等地外地形，以及同一低分辨率种子能否生成不同变体，暂无实质分歧或作者补充。</p><div class="tags"><span class="tag">高程图超分辨率</span><span class="tag">生成式地形模型</span><span class="tag">游戏开发</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · pugworthy · 1 回复</div><p>Really neat idea - would have loved to have this 15-20 years ago!</p><p>I&#x27;m curious how it does for non-Earth data.  Mars terrain for example.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://www.cnbc.com/2026/10/08/open-ai-revenue-nvidia-oracle-coreweave.html" target="_blank" rel="noopener">OpenAI annualised revenues $20B less than previously signalled</a></h2></div><p class="title-tr">OpenAI 年化收入比此前释放的信号少 200 亿美元</p><div class="meta">▲ 377 分 · mfiguiere · <a href="https://news.ycombinator.com/item?id=50008187" target="_blank" rel="noopener">248 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">OpenAI 9月底年化收入约500亿美元，低于此前广泛报道的680亿；差额来自把云合作伙伴总营收计入。这增大了其证明8520亿美元估值的难度，并拖累英伟达、甲骨文等AI股下跌，加剧市场对AI估值真实性的担忧。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中的“年化收入运行率”是把近期收入外推到全年；680亿是包含云合作伙伴转售的总营收，而500亿是OpenAI自身收入，类似用总交易额代替实际服务收入。</p><ul class="kp"><li>OpenAI 9月底年化收入约<strong>500亿美元</strong>，低于此前广泛报道的680亿美元。</li><li>680亿数字包含云合作伙伴总营收，是投资者为<strong>与Anthropic直接比较</strong>而做的“gross up”。</li><li>事件拖累<strong>英伟达、甲骨文、CoreWeave</strong>等AI股下跌，市场对AI估值的敏感性上升。</li><li>Anthropic寻求<strong>2万亿美元IPO估值</strong>，但其2025年实际收入仅46亿、净亏损420亿，估值争议巨大。</li></ul><p class="disc"><strong>💬 讨论</strong> HN评论区主要质疑AI公司估值与真实收入脱节，并争论680亿是OpenAI/投资者误导还是FT先报高再报低制造故事。</p><div class="tags"><span class="tag">AI 估值</span><span class="tag">年化收入运行率</span><span class="tag">OpenAI 财务</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · wepple · 12 回复</div><p>This is an interesting shift compared to the past where OpenAI would’ve been public a long time ago (due to various regulations) so we would have much more direct insight.</p><p>Right now we have a ~$1 trillion company which a ton of the “economy” and valuations are based on, with near zero information on how it’s doing.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://pocketty.app/" target="_blank" rel="noopener">Show HN: Pocketty – iPhone SSH terminal that pings you when an agent is blocked</a></h2></div><p class="title-tr">Show HN: Pocketty – iPhone SSH 终端，当代理被阻塞时通知你</p><div class="meta">▲ 27 分 · lukeed · <a href="https://news.ycombinator.com/item?id=50009634" target="_blank" rel="noopener">13 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Pocketty 是 iPhone/iPad 的 SSH 终端，专为 herdr 代理管理设计：代理阻塞或完成时，手机收到加密推送并可远程接管。一次性 $99（试用 14 天，后 $129），密钥存于 Secure Enclave 不可导出。</p><p class="context"><strong>🧭 联系你的知识背景</strong> SSH 是远程登录电脑的加密通道，Secure Enclave 是 iPhone 的硬件密钥保险箱，HPKE（混合公钥加密）则保证通知只有你的手机能读——这些是理解其安全架构的关键。</p><ul class="kp"><li><strong>一次性 $99</strong> 发布价，14 天免费试用，之后涨至 $129，无订阅无账户。</li><li>通知经 <strong>HPKE（混合公钥加密）</strong> 端到端加密，中继和 Apple 只看到密文，密钥存于 iPhone Secure Enclave 不可导出。</li><li>专为 <strong>herdr</strong> 设计，可查看代理状态（working/needs you/done）、远程接管终端、查看 diff 和 localhost 预览。</li><li>终端直接通过 <strong>SSH</strong> 连接电脑，无中间服务器；使用 Ghostty 终端引擎和 Metal 绘制。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区对定价存在分歧：有用户指出免费的 herdr-web-ui 可替代，也有人反映连接后误报 herdr 未安装，质疑 $99 是否值当。</p><div class="tags"><span class="tag">AI 编程代理</span><span class="tag">iOS SSH 客户端</span><span class="tag">端到端加密</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · 1123581321 · 2 回复</div><p>Neat. Thought about syncing the key with iCloud Keychain towards supporting any of the user’s devices connecting? Optionally; I understand the appeal of the current storage method.</p></div></div></article>
+</div></main>
+<footer>generated 2026-10-09 06:05 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-09", "pointsLabel": "分", "commentsLabel": "评论", "title": "Why isn't the industry freaking out about DeepSeek 4.1 Flash?", "titleTranslation": "为什么业界没有对 DeepSeek 4.1 Flash 感到恐慌？", "summary": "作者连续一个月使用 DeepSeek 4.1 Flash，认为能力接近 Opus，单次会话成本通常不足 1 美元，KV cache 缩小约 437 倍使长任务极便宜；行业未恐慌主因订阅补贴掩盖真实成本，且模型仍有代差。", "keyPoints": ["作者实测 DeepSeek 4.1 Flash 能力接近 Opus，但成本低几个数量级", "KV cache 缩小约 437 倍，使全天编码会话成本常低于 1 美元", "行业未恐慌部分因订阅补贴掩盖了真实 API 成本，开发者难感知价差"], "discussion": "评论区分歧在于 DeepSeek 的成本优势是否被订阅补贴和更高 token 消耗抵消，以及其能力是否仍落后前沿模型 6-12 个月。", "tags": ["LLM 推理成本", "开源模型竞争", "KV cache 优化"], "score": 547, "comments": 453, "by": "jonotime", "url": "https://www.dgt.is/blog/2026-10-07-deepseek-freek-out/", "hnUrl": "https://news.ycombinator.com/item?id=50000488"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-09", "pointsLabel": "分", "commentsLabel": "评论", "title": "AI-ready biological data: $1.8B global commitment", "titleTranslation": "AI 就绪生物数据：18 亿美元全球承诺", "summary": "Biohub、美国能源部、NIH 及 DeepMind、Isomorphic Labs、Meta 等联合投入 18 亿美元，建设 AI 就绪的开放生物数据资源，用于训练预测性生物模型和虚拟细胞。这是迄今最大规模的协调性生物数据采集承诺，直指生物 AI 的数据瓶颈。", "keyPoints": ["Biohub、DOE、NIH 等联合投入 18 亿美元，打造 AI 就绪的开放生物数据资源。", "DOE 五年投入超 5 亿美元，负责基础细胞测量、建模与百亿亿次计算。", "Google DeepMind、Isomorphic Labs、Meta 合计出资 3 亿美元，开发多模态数据集和预测模型技术。"], "discussion": "HN 评论普遍认可资金流向湿实验室数据采集而非更多封装层是正确方向，但也有人担忧当前政府正下线关键公开数据集，形成矛盾。", "tags": ["AI4Bio", "生物数据基础设施", "开放科学"], "score": 105, "comments": 14, "by": "ray__", "url": "https://biohub.org/news/virtual-biology-initiative-expansion/", "hnUrl": "https://news.ycombinator.com/item?id=50011999"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-09", "pointsLabel": "分", "commentsLabel": "评论", "title": "Step 5 Preview, a 1M-context MoE from StepFun, shows up on OpenRouter", "titleTranslation": "Step 5 Preview，StepFun 的 100 万上下文 MoE 模型，上线 OpenRouter", "summary": "StepFun 旗舰模型 Step 5 Preview 上线 OpenRouter，上下文 100 万 token，基于稀疏混合专家（MoE）架构（27B 激活/600B 总参数），定价输入 $1、输出 $2.70 每百万 token。它在软件工程和金融领域表现突出，定位多步智能体任务。", "keyPoints": ["Step 5 Preview 是 StepFun 旗舰模型，采用稀疏 MoE：27B 激活 / 600B 总参数。", "支持 100 万 token 上下文，面向跨代码库、多文档的多步任务。", "定价 输入 $1 / 输出 $2.70 每百万 token，定位高性价比智能体工作负载。"], "discussion": "评论区既有人看好其比 Gemini 3.8 Flash 更便宜聪明，也有人批评它缺乏新架构、600B 总参数难以本地运行。", "tags": ["稀疏混合专家", "大模型定价", "AI 智能体"], "score": 119, "comments": 28, "by": "AnneWodell", "url": "https://openrouter.ai/stepfun/step-5-preview", "hnUrl": "https://news.ycombinator.com/item?id=50007764"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-09", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Jevman – AI decision models play Pac-Man", "titleTranslation": "Show HN: Jevman – AI 决策模型玩《吃豆人》", "summary": "Jevman 用《吃豆人》基准测试六款低延迟 AI 决策模型，各打 100 局，按均分与 95% 误差范围排名；仓库开源、CI 重放核验，任何 HTTP 端点模型都能提交。单局成本约 2 美分，已提供免费额度。", "keyPoints": ["六款低延迟决策模型各玩 100 局《吃豆人》，以均分排名，误差范围内并列。", "仓库已开源，任何 HTTP 端点模型可接入，CI 重放每局以核验成绩。", "每局成本约 2 美分，最长单局仅 2 分 24 秒，远低于 5 分钟上限。"], "discussion": "评论区主要争论应否在每个游戏帧而非仅路口做决策，以及云端 API 实时推理相比本地 ONNX 模型是否过度工程且成本更高；也有人认可开源与共享试用额度。", "tags": ["AI 基准测试", "实时推理", "开源项目"], "score": 53, "comments": 10, "by": "felix089", "url": "https://opper.ai/jevman-benchmark/", "hnUrl": "https://news.ycombinator.com/item?id=50007993"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-09", "pointsLabel": "分", "commentsLabel": "评论", "title": "OpenAI withdraws three mathematical results", "titleTranslation": "OpenAI 撤回三项数学结果", "summary": "OpenAI 更新数学证明仓库，新增 6 个 Lean 形式化证明、修改 19 处、撤回 3 项结果，目前约 42% 顶级结果已形式化。此事引发对 AI 生成数学证明可靠性和机器验证必要性的讨论。", "keyPoints": ["OpenAI 撤回 3 项数学结果，同时新增 6 个 Lean 形式化证明", "仓库目前约 42% 顶级结果已形式化，仍有大量证明未经验证", "HN 评论认为 AI 生成证明需机器验证，混合发布已验证和未验证内容增加出错风险"], "discussion": "HN 评论的核心分歧在于是否应该只发布经过 Lean 验证的证明，以及未形式化证明的可信度到底有多高。", "tags": ["AI 数学证明", "Lean 形式化验证", "AI 可靠性"], "score": 278, "comments": 558, "by": "sashank_1509", "url": "https://twitter.com/danintheory/status/2108065033070789090", "hnUrl": "https://news.ycombinator.com/item?id=50002650"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-09", "pointsLabel": "分", "commentsLabel": "评论", "title": "I think I found a planet nobody knew existed. I used Claude Code to find it", "titleTranslation": "我想我发现了一颗没人知道存在的行星。我用 Claude Code 找到了它", "summary": "信息有限：Reddit 用户声称用 Claude Code 处理天文数据后发现一颗未知行星，但正文无法获取，仅有标题和评论，尚未经同行评审验证。", "keyPoints": ["Claude Code 被用于分析天文数据，用户声称发现一颗未知行星", "评论区强调假阳性率与“噪声拟合噪声”，认为需经同行评审才能确认", "有评论展示自主 AI 研究系统在超导系统不稳定问题上取得进展，反映科学流程自动化趋势"], "discussion": "HN 评论核心分歧在于：有人认为 AI 用于科学发现很有潜力，但多数强调未经同行评审的发现可能只是噪声拟合，需要严格验证。", "tags": ["AI 辅助科研", "科学验证", "Claude Code"], "score": 133, "comments": 58, "by": "pyduan", "url": "https://www.reddit.com/r/ClaudeAI/s/mbe5IY2LF9", "hnUrl": "https://news.ycombinator.com/item?id=50002665"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-09", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Rgpu – a PyTorch device whose tensors live on a remote GPU", "titleTranslation": "Show HN: Rgpu——一个让张量驻留在远程 GPU 上的 PyTorch 设备", "summary": "rGPU 让 PyTorch 程序把张量放到远程 NVIDIA GPU 上执行，客户端无需本地 GPU。提供 PyTorch device 和 CUDA shim 两条路径；协议不加密不认证，需靠 SSH 和防火墙。", "keyPoints": ["rGPU 提供两条接入路径：PyTorch device 面向新代码，CUDA shim 兼容现有 Linux CUDA 程序。", "pip install rgpu 后运行一个四行示例，可验证远程张量求和输出 8.0。", "协议不认证不加密，CUDA 服务端默认监听全部 IPv4，必须用防火墙限制端口 9713 并走 SSH 隧道。"], "discussion": "HN 评论只有祝贺和“很酷”，无实质分歧或深入讨论。", "tags": ["远程 GPU", "开发者工具", "CUDA 兼容层"], "score": 47, "comments": 2, "by": "boxstream", "url": "https://github.com/ymcrcat/rgpu", "hnUrl": "https://news.ycombinator.com/item?id=49988516"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-09", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: TerrainSR – fast, realistic heightmap upscaling model", "titleTranslation": "Show HN: TerrainSR – 快速、逼真的高程图超分辨率模型", "summary": "TerrainSR 把 100 米高程图超分到 10 米，模型只用未开发地貌训练，能补出侵蚀、岩石等自然细节，且不带道路、建筑等人工痕迹；RTX 4070 上 50×50km 区域仅需 0.74 秒，适合实时游戏。", "keyPoints": ["TerrainSR 将 100 米高度图超分到 10 米，可外推至更细细节，但低于 100 米输入会失效。", "在 RTX 4070 上，50×50 km 区域从 100m 到 10m 仅需 0.74 秒，比传统侵蚀模拟更快。", "训练数据剔除城市、露天矿等人工改造地貌，生成结果不含道路、建筑等伪影。"], "discussion": "评论区主要关注能否迁移到火星等地外地形，以及同一低分辨率种子能否生成不同变体，暂无实质分歧或作者补充。", "tags": ["高程图超分辨率", "生成式地形模型", "游戏开发"], "score": 34, "comments": 7, "by": "joegibbs", "url": "https://huggingface.co/joe-gibbs/terrainsr", "hnUrl": "https://news.ycombinator.com/item?id=49986740"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-09", "pointsLabel": "分", "commentsLabel": "评论", "title": "OpenAI annualised revenues $20B less than previously signalled", "titleTranslation": "OpenAI 年化收入比此前释放的信号少 200 亿美元", "summary": "OpenAI 9月底年化收入约500亿美元，低于此前广泛报道的680亿；差额来自把云合作伙伴总营收计入。这增大了其证明8520亿美元估值的难度，并拖累英伟达、甲骨文等AI股下跌，加剧市场对AI估值真实性的担忧。", "keyPoints": ["OpenAI 9月底年化收入约500亿美元，低于此前广泛报道的680亿美元。", "680亿数字包含云合作伙伴总营收，是投资者为与Anthropic直接比较而做的“gross up”。", "事件拖累英伟达、甲骨文、CoreWeave等AI股下跌，市场对AI估值的敏感性上升。"], "discussion": "HN评论区主要质疑AI公司估值与真实收入脱节，并争论680亿是OpenAI/投资者误导还是FT先报高再报低制造故事。", "tags": ["AI 估值", "年化收入运行率", "OpenAI 财务"], "score": 377, "comments": 248, "by": "mfiguiere", "url": "https://www.cnbc.com/2026/10/08/open-ai-revenue-nvidia-oracle-coreweave.html", "hnUrl": "https://news.ycombinator.com/item?id=50008187"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-09", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Pocketty – iPhone SSH terminal that pings you when an agent is blocked", "titleTranslation": "Show HN: Pocketty – iPhone SSH 终端，当代理被阻塞时通知你", "summary": "Pocketty 是 iPhone/iPad 的 SSH 终端，专为 herdr 代理管理设计：代理阻塞或完成时，手机收到加密推送并可远程接管。一次性 $99（试用 14 天，后 $129），密钥存于 Secure Enclave 不可导出。", "keyPoints": ["一次性 $99 发布价，14 天免费试用，之后涨至 $129，无订阅无账户。", "通知经 HPKE（混合公钥加密） 端到端加密，中继和 Apple 只看到密文，密钥存于 iPhone Secure Enclave 不可导出。", "专为 herdr 设计，可查看代理状态（working/needs you/done）、远程接管终端、查看 diff 和 localhost 预览。"], "discussion": "评论区对定价存在分歧：有用户指出免费的 herdr-web-ui 可替代，也有人反映连接后误报 herdr 未安装，质疑 $99 是否值当。", "tags": ["AI 编程代理", "iOS SSH 客户端", "端到端加密"], "score": 27, "comments": 13, "by": "lukeed", "url": "https://pocketty.app/", "hnUrl": "https://news.ycombinator.com/item?id=50009634"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
