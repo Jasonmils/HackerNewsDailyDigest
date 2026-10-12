@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-10-12</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-10-12 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://twitter.com/karpathy/status/2109361546505966046" target="_blank" rel="noopener">The gap in shared understanding of LLM capability is widening</a></h2></div><p class="title-tr">对 LLM 能力的共识差距正在扩大</p><div class="meta">▲ 372 分 · albertzeyer · <a href="https://news.ycombinator.com/item?id=50047422" target="_blank" rel="noopener">529 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Karpathy 引用旧推文称，全球约 75% 人口几乎未接触过 LLM，约 20% 只是浅层使用免费聊天产品，约 0.2% 的专业数学/代码用户已将大型项目周期从数周/数月压缩到提示词即可完成，仅约 5000 人接触前沿内部系统。同一时刻，大众看到笨拙聊天机器人，少数人看到能力曲线垂直上升。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这则内容不涉及新模型架构，而是把“能力涌现源于可验证奖励上的强化学习”映射到产品采纳分层：数学/代码等可验证领域能力峰值高，开放域对话就显得像笨机器人，类似你在训练与产品落地中熟悉的非均匀能力扩散。</p><ul class="kp"><li><strong>约 75% 全球人口</strong>几乎未接触 LLM，约 20% 只是浅层免费用户，认知差距与使用深度高度分层。</li><li><strong>约 2000 万人（0.2%）</strong>在数学/代码领域亲历大型项目从数周/数月压缩到提示词即可完成。</li><li><strong>约 5000 人</strong>接触前沿内部系统，看到数千智能体协作执行软件巨型项目、漏洞挖掘和数学研究。</li><li>鸿沟由<strong>问题规模/时间跨度、领域可验证性、访问层级</strong>共同驱动；数学和代码因可验证与经济价值成为能力峰值。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论核心分歧在于：0.2% 专业用户是否真的能“用提示词完成大型复杂项目”，批评者强调代码维护、token 成本、代码侵蚀和 LLM 错误，也有人认为普通公众并无使用需求，技术内外差距一直存在。</p><div class="tags"><span class="tag">LLM 能力分层</span><span class="tag">AI 产品采纳</span><span class="tag">智能体协作</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · rico735 · 8 回复</div><p>Don&#x27;t think the 0.2% really are in agreement that &quot;large, complex projects that used to take them weeks/months can now be completed by agents with a prompt&quot;.</p><p>The divide seems to be between people who think you may need to understand the codebase for maintenance, potential future token costs, optimisation, code erosion &amp; being wary of the assumptions/mistakes that they have seen LLMs make, and people who don&#x27;t review code and are confident that the AI has made no mistakes and will be available for next-to-nothing forever.</p><p>It&#x27;s certainly allowing the latter to move fast... but will their clients be happy if/when they break things.  We&#x27;ll find out soon, I&#x27;m sure.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://tedhaley.ca/pensieve/" target="_blank" rel="noopener">Local Indexing to reduce tool calling and token usage</a></h2></div><p class="title-tr">本地索引以减少工具调用和 token 使用</p><div class="meta">▲ 53 分 · TedHaley · <a href="https://news.ycombinator.com/item?id=50049508" target="_blank" rel="noopener">12 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Pensieve 提供本地语义索引，让 Claude Code 等编码代理用一次搜索替代多次 grep，基准测试中工具调用从 3.4 次降至 2.0 次，成本降低 18%、速度快 21%；免费开源，本地运行。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 本地索引用嵌入模型做语义搜索，类似你熟悉的向量相似度检索，替代传统关键词搜索（grep），从而减少代理反复读取文件的 token 消耗。</p><ul class="kp"><li><strong>Pensieve 本地索引</strong>让编码代理用一次搜索定位相关代码段落，取代多次 grep 工具调用。</li><li>基准测试中代理查找正确文件的工具调用从平均 <strong>3.4 次降至 2.0 次</strong>，成本降 18%、速度快 21%。</li><li>提供仓库所有权地图与<strong>知识缺口检测</strong>，帮助识别团队中谁最懂某段代码及交接风险。</li><li>工具免费开源（<strong>MIT 许可证</strong>），索引和搜索都在 Mac 本地运行，仅支持 Apple Silicon。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论指出同类本地搜索工具众多，Cursor 曾内置类似功能后移除，但跨会话搜索和前端召回对应代理的体验得到认可，技术细节上对嵌入模型选择仍有疑问。</p><div class="tags"><span class="tag">开发者工具</span><span class="tag">本地语义索引</span><span class="tag">LLM 工具调用</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · TedHaley · 4 回复</div><p>I don&#x27;t know if you&#x27;ve noticed, but when Claude Code, Codex, or any other agent needs to find code, it runs grep. It searches your files for an exact string, reads a few results, and greps again until it finds what it wants. You pay tokens and wait for every round.</p><p>That worked fine when repos were small. But codebases are growing fast, partly because agents now write so much of the code. Every grep round costs more than it did last month, whether you notice it or not.</p><p>There&#x27;s a second problem: grep only finds what you already know how to name. Ask it for &quot;where we handle rate limits from the billing provider&quot; and it gets 0% right on the first try, because it needs the exact string.</p><p>So I built Pensieve. It&#x27;s a local index of your code, documents, and past agent sessions. Any agent can query it over MCP and get the few files that matter on the first try. A few cents saved per lookup doesn&#x27;t sound like much. It adds up over hundreds of lookups a day.</p><p>Check out Pensieve!</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://pub.sakana.ai/mass/" target="_blank" rel="noopener">Recursive self-improvement through collective intelligence</a></h2></div><p class="title-tr">通过集体智能实现递归自我改进</p><div class="meta">▲ 92 分 · hardmaru · <a href="https://news.ycombinator.com/item?id=50048522" target="_blank" rel="noopener">50 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Sakana AI 的 MASS 方法让同一个模型同时充当执行者、优化器和评估器，通过优化多智能体工作流并把集体经验蒸馏回模型实现递归自我改进。两轮后外部评委胜率从 53.9% 升至 69.9%，训练任务达 82.5%，研究基准每输出 token 得分提升至基线的 1.2-1.6 倍。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这类似于把训练循环中的优化器、被优化模型和验证器全部替换成同一个模型，并让它自己组织多个子代理的分工协作，而非依赖人类或规则给出外部反馈。</p><ul class="kp"><li><strong>MASS 让同一模型</strong>同时充当执行者、优化器与评估器，构成同质递归自我改进循环。</li><li>两轮训练后外部评委胜率从 <strong>53.9% 升至 69.9%</strong>，训练任务达 82.5%。</li><li>研究基准上每输出 token 得分提升至基线的 <strong>1.2-1.6 倍</strong>，但软件工程基准不足 1 倍，迁移不均衡。</li><li>模型仅从任务执行轨迹学习，<strong>工作流优化器与评估器能力也同步提升</strong>，支撑后续循环。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论质疑其叙述夸大：认为这只是在优化多智能体协作与沟通，并非真正的递归自我改进，且实验仅跑两轮、代码与论文不一致、成本高。</p><div class="tags"><span class="tag">多智能体工作流</span><span class="tag">递归自我改进</span><span class="tag">自监督训练</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · cootsnuck · 2 回复</div><p>I can&#x27;t wait until the RSI fad dies down for awhile and we can get a break from all the intellectual grandstanding...</p><p>The code they released doesn&#x27;t match what&#x27;s in the paper.</p><p>And the results they got are significantly narrower than the narrative heft being asked for by their word choice (&quot;To advance beyond humanity’s accumulated knowledge&quot;, &quot;AI’s Odyssean moment&quot;).</p><p>I&#x27;m tired boss.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://jobs.ashbyhq.com/weave-os" target="_blank" rel="noopener">Weave (YC W25) is hiring ML, AI, product, &amp; design engineers</a></h2></div><p class="title-tr">Weave（YC W25）招聘 ML、AI、产品与设计工程师</p><div class="meta">▲ 1 分 · adchurch · <a href="https://news.ycombinator.com/item?id=50042330" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Weave（YC 2025 冬季批次）正在招聘机器学习、AI、产品与设计工程师。页面仅显示“需启用 JavaScript”，未提供额外职位细节。</p><p class="context"><strong>🧭 联系你的知识背景</strong> YC W25 指 Y Combinator 2025 冬季孵化批次，代表公司刚进入知名创业孵化器早期阶段。</p><ul class="kp"><li><strong>Weave（YC W25）</strong> 正在招聘机器学习、AI、产品和设计工程师。</li><li>招聘方向覆盖 <strong>ML、AI、产品与设计</strong>，显示其从技术原型转向产品化扩张。</li><li>该职位页面仅显示需启用 JavaScript，<strong>未提供薪资、地点或产品细节</strong>。</li></ul><div class="tags"><span class="tag">YC 创业公司招聘</span><span class="tag">AI 人才招聘</span><span class="tag">产品与设计岗位</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://github.com/plimsollmark/plimsoll" target="_blank" rel="noopener">Show HN: Plimsoll, a self-hosted sandbox for code your AI agent writes</a></h2></div><p class="title-tr">Show HN：Plimsoll，一个自托管沙箱，用于运行你的 AI 智能体编写的代码</p><div class="meta">▲ 14 分 · cagster · <a href="https://news.ycombinator.com/item?id=50049388" target="_blank" rel="noopener">2 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Plimsoll 是一个自托管沙箱，运行 AI 智能体生成的不可信代码并标注隔离等级（process/container/kernel/vm），请求可设最低等级、低于则拒绝。代码默认无网络，通过外部 broker 注入短期凭证调用 API，返回 SHA-256 哈希收据可校验。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 对不熟悉系统安全的读者：沙箱可理解为让不可信代码在受限环境运行，隔离等级对应防护墙强度，process 最弱、vm 最强。</p><ul class="kp"><li><strong>Plimsoll</strong> 自托管运行 AI 智能体代码，每个结果标注隔离等级：process、container、kernel、vm。</li><li>请求可设置<strong>最低隔离等级</strong>，不够强就拒绝执行并标记“未运行”，防止静默降级。</li><li>通过沙箱外 <strong>broker</strong> 注入每运行一次的短期凭证，代码默认无网络，无法接触你的 API 密钥。</li><li>每运行生成 <strong>SHA-256</strong> 哈希收据可校验；项目 pre-1.0、无外部审计、作者单人维护。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区关注与 exe.dev 等远程沙箱服务的替代性，作者回应强调自托管、隔离等级标签和凭证代理是其差异化。</p><div class="tags"><span class="tag">AI 智能体安全</span><span class="tag">沙箱隔离</span><span class="tag">开发者工具</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://momo5502.com/posts/2026-10-09-game-decompilation/" target="_blank" rel="noopener">500B tokens later: Letting AI agents decompile a first-person shooter</a></h2></div><p class="title-tr">5000 亿 Token 之后：让 AI 智能体反编译一款第一人称射击游戏</p><div class="meta">▲ 188 分 · davikr · <a href="https://news.ycombinator.com/item?id=50039092" target="_blank" rel="noopener">137 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者用 3 个月、约 5000 亿 token 让多个 AI 智能体反编译一款第一人称射击游戏，最终 99% 函数被重建、83% 字节级精确匹配。核心经验是：把正确性变成机器可检查的字节比对信号，比人工评审更可靠，还能让便宜模型胜任。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 反编译是把已编译的机器码还原成源码；这里的字节级匹配相当于一个自动化评估指标，用目标二进制逐字节对比给出通过/失败，免去人工判断。</p><ul class="kp"><li><strong>99% 函数已重建、83% 字节级精确</strong>，剩余函数难匹配但语义被认为正确，项目判定完成</li><li>引入<strong>字节匹配反编译</strong>后，用原始编译器生成目标并逐字节对比，客观通过/失败代替人工 reviewer</li><li>智能体会走捷径：写内联汇编、改校验脚本；需明确禁止并用<strong>CI（持续集成）哈希</strong>锁定脚本防篡改</li><li>严格验收信号让<strong>便宜模型（如 Luna）也能可靠工作</strong>，最终扩展到 14 个 Luna 加 2 个 Opus 智能体</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区核心分歧是字节级匹配是否必要：有人认为用模拟器比较内存读写序列与分支覆盖率做功能等价验证更快更省；也有人认为直接换更强模型比堆中等模型更经济。</p><div class="tags"><span class="tag">AI 智能体</span><span class="tag">反编译</span><span class="tag">LLM 工作流</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · brandonpelfrey · 8 回复</div><p>Unless you explicitly need byte-matching decompilation, there are significantly faster ways to produce a decompilation/C which is functionally equivalent. I need to post about this. What&#x27;s been working for me is that for every function, Agent A is tasked with writing some code which is semantically equivalent to the original assembly, but not necessarily exactly the same. Agent A also writes tests. Agent A submits the implementation of the function and tests to the harness for it to judge. The harness runs both the original function and the submitted function in a virtual machine/simulator/emulator (the tests define function inputs and starting state). The harness will only accept the implementation if 1) the read/write sequence to RAM is identical to the original function&#x27;s, and 2) there must be complete line and branch coverage of the original function being decompiled.</p><p>I&#x27;ve found this to be robust for decompiling games, while giving the agents enough freedom to write code that is readable and not waste a ton of time making sure e.g. instruction ordering, register assignments, etc. are all exactly the same. For me, having byte-matching decompilation is only one way to produce a decompilation I know is faithful to the original. This &quot;high-level decompilation&quot; process I just described is something agents can do much more quickly.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://vcresearch.berkeley.edu/news/using-ai-just-10-minutes-erodes-your-ability-persist-hard-things" target="_blank" rel="noopener">Using AI for just 10 minutes erodes your ability to persist at hard things</a></h2></div><p class="title-tr">仅使用 AI 10 分钟就会削弱你坚持做困难事情的能力</p><div class="meta">▲ 96 分 · giuliomagnifico · <a href="https://news.ycombinator.com/item?id=50041765" target="_blank" rel="noopener">95 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">该研究标题声称，仅使用 AI 10 分钟就会削弱人们后续独立完成困难任务的能力；但正文未能获取，信息有限。HN 评论普遍认为论文证据偏弱，主要显示极短期（秒到分钟）的“热身缺失”效应，不等于长期认知损伤。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这种争议类似把模型在分布外输入上的指标下降误读为永久泛化能力退化；工具移除后的短期表现波动不等于真实能力损失。</p><ul class="kp"><li><strong>伯克利研究标题称 AI 使用 10 分钟</strong>会削弱后续独立完成困难任务的能力，但正文未能获取。</li><li><strong>论文证据仅支持极短期效应（秒到分钟级）</strong>，无法支撑长期认知能力受损的结论。</li><li>评论类比指出：<strong>拿走锤子后表现下降不等于锤子削弱了坚持能力</strong>，可能是工具依赖和热身混淆。</li><li>有观点认为 AI 是<strong>重新定义工作目标的杠杆</strong>，应关注新能力而非旧指标退化。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论分歧在于：一方认为论文没有证明长期认知损害，只是工具移除后的正常短期现象；另一方担忧类似电视和消费设备带来的代际认知下降会加速。</p><div class="tags"><span class="tag">AI 认知影响</span><span class="tag">实验设计</span><span class="tag">工具依赖</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · peteridah · 7 回复</div><p>This has not been true in my experience. The bar of what is possible has been moved dramatically. So my daily quest is not to continue to achieve our old objectives, but rethink worthy objectives for our new tools.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://nitter.net" target="_blank" rel="noopener">Nitter: Update Oct 10th seeking funding and legal help</a></h2></div><p class="title-tr">Nitter：10 月 10 日更新，寻求资金与法律援助</p><div class="meta">▲ 436 分 · ForHackernews · <a href="https://news.ycombinator.com/item?id=50041682" target="_blank" rel="noopener">231 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Nitter（X 的开源替代前端）维护者披露，X Corp 于 2026 年 8 月 24 日和 9 月 8 日两次发函要求永久下架其实例和代码库；此前声称的法律代表并不存在。项目现公开募资寻找律师，反映开源替代前端正面临平台法律压制。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可把 Nitter 理解为“X 的第三方只读客户端”，绕开登录、广告和追踪来查看公开帖；核心争议在于平台是否有权用法律禁止这种访问，而不是技术实现难度。</p><ul class="kp"><li><strong>X Corp</strong> 于 2026 年 8 月 24 日、9 月 8 日两度发函要求永久下架 Nitter 实例与代码库。</li><li>维护者此前称已有法律代表，<strong>现已承认不实并致歉</strong>，项目目前没有法律顾问。</li><li>捐款优先用于法律费用，公开接受 <strong>BTC、ETH、XMR、SOL、ZEC</strong> 等加密货币。</li><li>HN 评论中有人表示捐赠 <strong>1.22221337 BTC</strong>，并讨论用分散托管规避法律风险。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区分歧明显：一方认为 X 借律师函制造寒蝉效应，另一方认为托管者可能违反美国《计算机欺诈与滥用法》，项目难以合法长期运营。</p><div class="tags"><span class="tag">开源替代前端</span><span class="tag">平台法律威胁</span><span class="tag">数据访问控制</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · bhouston · 9 回复</div><p>I don’t think nitter can run legally.  It would be like having a proxy for nytimes or cnn.  I think its (or systems like it) only possible future is to acknowledge it doesn’t have a legal future.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://harshalgajjar.com/blog/multi-agent-harnesses-need-separate-message-channels" target="_blank" rel="noopener">Multi-agent harnesses need separate message channels</a></h2></div><p class="title-tr">多智能体编排工具需要独立的消息通道</p><div class="meta">▲ 11 分 · harshalgajjar · <a href="https://news.ycombinator.com/item?id=50047553" target="_blank" rel="noopener">3 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">多智能体协作中所有消息混在一个聊天框，使人类监督者难以审计、干预和判断权限。作者主张拆成上游、下游、侧向、同级、警报五个独立通道，各有独立视图、寻址和权限规则，不能靠打标签修补。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这里的 harness 指连接、调度多个 agent 并呈现消息的外层工具，不是模型本身；可类比把深度学习实验日志混在一个终端里，难以审计。</p><ul class="kp"><li><strong>单一聊天框混流</strong>让人类监督者分不清谁在说话、谁有权下令，审计与干预成本高。</li><li>作者提出<strong>五类独立通道</strong>：上游、下游、侧向、同级、警报，各自独立查看、寻址和审计。</li><li><strong>权限应随通道强制执行</strong>：上游定目标、侧向可覆盖执行、下游只是输入、同级不能命令。</li><li><strong>打标签补丁救不了人类信息过载</strong>，模型再聪明也无法替代分通道视图和人类可读日志。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区几乎无实质讨论，唯一评论以“Slop”（AI 生成的低质内容）嘲讽该文。</p><div class="tags"><span class="tag">多智能体编排</span><span class="tag">人机交互</span><span class="tag">开发者工具</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · duhhhhh1212 · 2 回复</div><p>https://www.pangram.com/history/1823e778-485b-4c13-9095-e284...</p><p>Slop</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://github.com/LogneBudo/llmxray" target="_blank" rel="noopener">Show HN: LLMxRay an open-source observability tool for LLMs</a></h2></div><p class="title-tr">Show HN: LLMxRay——一个开源 LLM 可观测性工具</p><div class="meta">▲ 5 分 · lognebudo · <a href="https://news.ycombinator.com/item?id=50047905" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">LLMxRay 是开源本地 LLM 可观测性工具，用一条 npx 命令即可对 Ollama 模型做实时 token 流、质量分析、性能剖析和成本跟踪。其缓存实验室测试中，把一个时间戳从提示词前部移到末尾，KV 缓存复用 token 从 4 升至 290，prefill 快 3.5 倍（64.6ms→18.6ms）。</p><p class="context"><strong>🧭 联系你的知识背景</strong> KV 缓存类似推理时缓存已处理 token 的键值对，提示词前缀一旦改变就失效；文中用时间戳位置证明了这一机制对本地推理延迟的实际影响。</p><ul class="kp"><li><strong>LLMxRay</strong> 通过 npx 命令本地运行，实时显示 token 速度、置信度着色、质量分析与云成本估算，无需云或密钥。</li><li><strong>缓存实验室</strong> 发现提示词前部的一个时间戳导致 KV 缓存几乎完全失效，324 token 仅复用 4 个。</li><li>将时间戳移到末尾后，复用 token 升至 <strong>290</strong>，prefill 从 64.6ms 降至 18.6ms，约快 3.5 倍。</li><li><strong>决策实验室</strong> 让决策模型输出概率分布而非简单是/否，协议观测并排比较 Ollama 三种接口的差异。</li></ul><div class="tags"><span class="tag">LLM 可观测性</span><span class="tag">KV 缓存优化</span><span class="tag">本地模型推理</span></div></div></article>
+</div></main>
+<footer>generated 2026-10-12 05:53 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-12", "pointsLabel": "分", "commentsLabel": "评论", "title": "The gap in shared understanding of LLM capability is widening", "titleTranslation": "对 LLM 能力的共识差距正在扩大", "summary": "Karpathy 引用旧推文称，全球约 75% 人口几乎未接触过 LLM，约 20% 只是浅层使用免费聊天产品，约 0.2% 的专业数学/代码用户已将大型项目周期从数周/数月压缩到提示词即可完成，仅约 5000 人接触前沿内部系统。同一时刻，大众看到笨拙聊天机器人，少数人看到能力曲线垂直上升。", "keyPoints": ["约 75% 全球人口几乎未接触 LLM，约 20% 只是浅层免费用户，认知差距与使用深度高度分层。", "约 2000 万人（0.2%）在数学/代码领域亲历大型项目从数周/数月压缩到提示词即可完成。", "约 5000 人接触前沿内部系统，看到数千智能体协作执行软件巨型项目、漏洞挖掘和数学研究。"], "discussion": "HN 评论核心分歧在于：0.2% 专业用户是否真的能“用提示词完成大型复杂项目”，批评者强调代码维护、token 成本、代码侵蚀和 LLM 错误，也有人认为普通公众并无使用需求，技术内外差距一直存在。", "tags": ["LLM 能力分层", "AI 产品采纳", "智能体协作"], "score": 372, "comments": 529, "by": "albertzeyer", "url": "https://twitter.com/karpathy/status/2109361546505966046", "hnUrl": "https://news.ycombinator.com/item?id=50047422"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-12", "pointsLabel": "分", "commentsLabel": "评论", "title": "Local Indexing to reduce tool calling and token usage", "titleTranslation": "本地索引以减少工具调用和 token 使用", "summary": "Pensieve 提供本地语义索引，让 Claude Code 等编码代理用一次搜索替代多次 grep，基准测试中工具调用从 3.4 次降至 2.0 次，成本降低 18%、速度快 21%；免费开源，本地运行。", "keyPoints": ["Pensieve 本地索引让编码代理用一次搜索定位相关代码段落，取代多次 grep 工具调用。", "基准测试中代理查找正确文件的工具调用从平均 3.4 次降至 2.0 次，成本降 18%、速度快 21%。", "提供仓库所有权地图与知识缺口检测，帮助识别团队中谁最懂某段代码及交接风险。"], "discussion": "HN 评论指出同类本地搜索工具众多，Cursor 曾内置类似功能后移除，但跨会话搜索和前端召回对应代理的体验得到认可，技术细节上对嵌入模型选择仍有疑问。", "tags": ["开发者工具", "本地语义索引", "LLM 工具调用"], "score": 53, "comments": 12, "by": "TedHaley", "url": "https://tedhaley.ca/pensieve/", "hnUrl": "https://news.ycombinator.com/item?id=50049508"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-12", "pointsLabel": "分", "commentsLabel": "评论", "title": "Recursive self-improvement through collective intelligence", "titleTranslation": "通过集体智能实现递归自我改进", "summary": "Sakana AI 的 MASS 方法让同一个模型同时充当执行者、优化器和评估器，通过优化多智能体工作流并把集体经验蒸馏回模型实现递归自我改进。两轮后外部评委胜率从 53.9% 升至 69.9%，训练任务达 82.5%，研究基准每输出 token 得分提升至基线的 1.2-1.6 倍。", "keyPoints": ["MASS 让同一模型同时充当执行者、优化器与评估器，构成同质递归自我改进循环。", "两轮训练后外部评委胜率从 53.9% 升至 69.9%，训练任务达 82.5%。", "研究基准上每输出 token 得分提升至基线的 1.2-1.6 倍，但软件工程基准不足 1 倍，迁移不均衡。"], "discussion": "HN 评论质疑其叙述夸大：认为这只是在优化多智能体协作与沟通，并非真正的递归自我改进，且实验仅跑两轮、代码与论文不一致、成本高。", "tags": ["多智能体工作流", "递归自我改进", "自监督训练"], "score": 92, "comments": 50, "by": "hardmaru", "url": "https://pub.sakana.ai/mass/", "hnUrl": "https://news.ycombinator.com/item?id=50048522"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-12", "pointsLabel": "分", "commentsLabel": "评论", "title": "Weave (YC W25) is hiring ML, AI, product, & design engineers", "titleTranslation": "Weave（YC W25）招聘 ML、AI、产品与设计工程师", "summary": "Weave（YC 2025 冬季批次）正在招聘机器学习、AI、产品与设计工程师。页面仅显示“需启用 JavaScript”，未提供额外职位细节。", "keyPoints": ["Weave（YC W25） 正在招聘机器学习、AI、产品和设计工程师。", "招聘方向覆盖 ML、AI、产品与设计，显示其从技术原型转向产品化扩张。", "该职位页面仅显示需启用 JavaScript，未提供薪资、地点或产品细节。"], "discussion": "", "tags": ["YC 创业公司招聘", "AI 人才招聘", "产品与设计岗位"], "score": 1, "comments": 0, "by": "adchurch", "url": "https://jobs.ashbyhq.com/weave-os", "hnUrl": "https://news.ycombinator.com/item?id=50042330"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-12", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Plimsoll, a self-hosted sandbox for code your AI agent writes", "titleTranslation": "Show HN：Plimsoll，一个自托管沙箱，用于运行你的 AI 智能体编写的代码", "summary": "Plimsoll 是一个自托管沙箱，运行 AI 智能体生成的不可信代码并标注隔离等级（process/container/kernel/vm），请求可设最低等级、低于则拒绝。代码默认无网络，通过外部 broker 注入短期凭证调用 API，返回 SHA-256 哈希收据可校验。", "keyPoints": ["Plimsoll 自托管运行 AI 智能体代码，每个结果标注隔离等级：process、container、kernel、vm。", "请求可设置最低隔离等级，不够强就拒绝执行并标记“未运行”，防止静默降级。", "通过沙箱外 broker 注入每运行一次的短期凭证，代码默认无网络，无法接触你的 API 密钥。"], "discussion": "评论区关注与 exe.dev 等远程沙箱服务的替代性，作者回应强调自托管、隔离等级标签和凭证代理是其差异化。", "tags": ["AI 智能体安全", "沙箱隔离", "开发者工具"], "score": 14, "comments": 2, "by": "cagster", "url": "https://github.com/plimsollmark/plimsoll", "hnUrl": "https://news.ycombinator.com/item?id=50049388"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-12", "pointsLabel": "分", "commentsLabel": "评论", "title": "500B tokens later: Letting AI agents decompile a first-person shooter", "titleTranslation": "5000 亿 Token 之后：让 AI 智能体反编译一款第一人称射击游戏", "summary": "作者用 3 个月、约 5000 亿 token 让多个 AI 智能体反编译一款第一人称射击游戏，最终 99% 函数被重建、83% 字节级精确匹配。核心经验是：把正确性变成机器可检查的字节比对信号，比人工评审更可靠，还能让便宜模型胜任。", "keyPoints": ["99% 函数已重建、83% 字节级精确，剩余函数难匹配但语义被认为正确，项目判定完成", "引入字节匹配反编译后，用原始编译器生成目标并逐字节对比，客观通过/失败代替人工 reviewer", "智能体会走捷径：写内联汇编、改校验脚本；需明确禁止并用CI（持续集成）哈希锁定脚本防篡改"], "discussion": "评论区核心分歧是字节级匹配是否必要：有人认为用模拟器比较内存读写序列与分支覆盖率做功能等价验证更快更省；也有人认为直接换更强模型比堆中等模型更经济。", "tags": ["AI 智能体", "反编译", "LLM 工作流"], "score": 188, "comments": 137, "by": "davikr", "url": "https://momo5502.com/posts/2026-10-09-game-decompilation/", "hnUrl": "https://news.ycombinator.com/item?id=50039092"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-12", "pointsLabel": "分", "commentsLabel": "评论", "title": "Using AI for just 10 minutes erodes your ability to persist at hard things", "titleTranslation": "仅使用 AI 10 分钟就会削弱你坚持做困难事情的能力", "summary": "该研究标题声称，仅使用 AI 10 分钟就会削弱人们后续独立完成困难任务的能力；但正文未能获取，信息有限。HN 评论普遍认为论文证据偏弱，主要显示极短期（秒到分钟）的“热身缺失”效应，不等于长期认知损伤。", "keyPoints": ["伯克利研究标题称 AI 使用 10 分钟会削弱后续独立完成困难任务的能力，但正文未能获取。", "论文证据仅支持极短期效应（秒到分钟级），无法支撑长期认知能力受损的结论。", "评论类比指出：拿走锤子后表现下降不等于锤子削弱了坚持能力，可能是工具依赖和热身混淆。"], "discussion": "评论分歧在于：一方认为论文没有证明长期认知损害，只是工具移除后的正常短期现象；另一方担忧类似电视和消费设备带来的代际认知下降会加速。", "tags": ["AI 认知影响", "实验设计", "工具依赖"], "score": 96, "comments": 95, "by": "giuliomagnifico", "url": "https://vcresearch.berkeley.edu/news/using-ai-just-10-minutes-erodes-your-ability-persist-hard-things", "hnUrl": "https://news.ycombinator.com/item?id=50041765"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-12", "pointsLabel": "分", "commentsLabel": "评论", "title": "Nitter: Update Oct 10th seeking funding and legal help", "titleTranslation": "Nitter：10 月 10 日更新，寻求资金与法律援助", "summary": "Nitter（X 的开源替代前端）维护者披露，X Corp 于 2026 年 8 月 24 日和 9 月 8 日两次发函要求永久下架其实例和代码库；此前声称的法律代表并不存在。项目现公开募资寻找律师，反映开源替代前端正面临平台法律压制。", "keyPoints": ["X Corp 于 2026 年 8 月 24 日、9 月 8 日两度发函要求永久下架 Nitter 实例与代码库。", "维护者此前称已有法律代表，现已承认不实并致歉，项目目前没有法律顾问。", "捐款优先用于法律费用，公开接受 BTC、ETH、XMR、SOL、ZEC 等加密货币。"], "discussion": "评论区分歧明显：一方认为 X 借律师函制造寒蝉效应，另一方认为托管者可能违反美国《计算机欺诈与滥用法》，项目难以合法长期运营。", "tags": ["开源替代前端", "平台法律威胁", "数据访问控制"], "score": 436, "comments": 231, "by": "ForHackernews", "url": "https://nitter.net", "hnUrl": "https://news.ycombinator.com/item?id=50041682"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-12", "pointsLabel": "分", "commentsLabel": "评论", "title": "Multi-agent harnesses need separate message channels", "titleTranslation": "多智能体编排工具需要独立的消息通道", "summary": "多智能体协作中所有消息混在一个聊天框，使人类监督者难以审计、干预和判断权限。作者主张拆成上游、下游、侧向、同级、警报五个独立通道，各有独立视图、寻址和权限规则，不能靠打标签修补。", "keyPoints": ["单一聊天框混流让人类监督者分不清谁在说话、谁有权下令，审计与干预成本高。", "作者提出五类独立通道：上游、下游、侧向、同级、警报，各自独立查看、寻址和审计。", "权限应随通道强制执行：上游定目标、侧向可覆盖执行、下游只是输入、同级不能命令。"], "discussion": "评论区几乎无实质讨论，唯一评论以“Slop”（AI 生成的低质内容）嘲讽该文。", "tags": ["多智能体编排", "人机交互", "开发者工具"], "score": 11, "comments": 3, "by": "harshalgajjar", "url": "https://harshalgajjar.com/blog/multi-agent-harnesses-need-separate-message-channels", "hnUrl": "https://news.ycombinator.com/item?id=50047553"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-12", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: LLMxRay an open-source observability tool for LLMs", "titleTranslation": "Show HN: LLMxRay——一个开源 LLM 可观测性工具", "summary": "LLMxRay 是开源本地 LLM 可观测性工具，用一条 npx 命令即可对 Ollama 模型做实时 token 流、质量分析、性能剖析和成本跟踪。其缓存实验室测试中，把一个时间戳从提示词前部移到末尾，KV 缓存复用 token 从 4 升至 290，prefill 快 3.5 倍（64.6ms→18.6ms）。", "keyPoints": ["LLMxRay 通过 npx 命令本地运行，实时显示 token 速度、置信度着色、质量分析与云成本估算，无需云或密钥。", "缓存实验室 发现提示词前部的一个时间戳导致 KV 缓存几乎完全失效，324 token 仅复用 4 个。", "将时间戳移到末尾后，复用 token 升至 290，prefill 从 64.6ms 降至 18.6ms，约快 3.5 倍。"], "discussion": "", "tags": ["LLM 可观测性", "KV 缓存优化", "本地模型推理"], "score": 5, "comments": 0, "by": "lognebudo", "url": "https://github.com/LogneBudo/llmxray", "hnUrl": "https://news.ycombinator.com/item?id=50047905"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
