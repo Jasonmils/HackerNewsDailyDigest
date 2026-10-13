@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-10-13</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-10-13 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://arxiv.org/abs/2610.13928" target="_blank" rel="noopener">AI Models Can Provably Hide Arbitrary Capabilities</a></h2></div><p class="title-tr">AI 模型可证明隐藏任意能力</p><div class="meta">▲ 132 分 · sbulaev · <a href="https://news.ycombinator.com/item?id=50065692" target="_blank" rel="noopener">66 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">论文证明：在密码学假设下，攻击者能把加密神经网络电路嵌入模型权重，只有秘密触发器才能解密执行；即使持有完整权重，微调、权重噪声、梯度触发器搜索等方法也难以引出。这动摇了基于能力引出审计的可靠性。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 文中的 digital locker 是一种密码学原语，可以类比为模型内部加了一个只有特定触发器才能打开的保险箱；即使你拿到全部权重，也无法用常规深度学习手段提取其中内容。</p><ul class="kp"><li><strong>加密神经网络</strong>可嵌入宿主模型权重，仅收到秘密触发器时才会解密执行。</li><li>利用 <strong>digital lockers</strong> 提供可证明的提取难度，即使有完整权重也难以解释。</li><li>微调、权重噪声、梯度触发器搜索等方法<strong>均无法有效引出</strong>隐藏能力。</li><li>结论：<strong>基于引出的能力审计</strong>存在根本限制，作者发布模型以支持防御。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论普遍担忧开源模型可被植入后门并由任意字符串激活，但也有观点质疑该研究缺乏直接可操作的防御措施，并澄清标题并非指 AI 代理主动隐藏能力。</p><div class="tags"><span class="tag">AI 安全</span><span class="tag">能力评估</span><span class="tag">后门攻击</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · vintermann · 4 回复</div><p>More clear title, given how people talk about AI:</p><p>&quot;Capabilities can be hidden in AI model weights by encryption&quot;.</p><p>It&#x27;s not about AI agents being able to hide what they can do.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://z.ai/blog/glm-legal" target="_blank" rel="noopener">GLM-Legal</a></h2></div><div class="meta">▲ 515 分 · ilreb · <a href="https://news.ycombinator.com/item?id=50058507" target="_blank" rel="noopener">298 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">仅基于标题与评论：Z.ai 推出法律向大模型 GLM-Legal，原文未能抓取。讨论聚焦其约 20% 基准通过率、非开源选择，以及此前工作区快照引发的隐私信任问题。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 评论区的高频词“redlining”指对合同逐条标注修改/异议，可类比用模型对标准模板做批量差异化审阅；“Harvey 基准”是法律 AI 公司 Harvey 发布的评测集。</p><ul class="kp"><li><strong>GLM-Legal</strong> 是 Z.ai 推出的法律大模型产品，但原文抓取失败，信息仅来自标题和 HN 讨论。</li><li>有律师称某法律基准仅 <strong>20% 通过率</strong>，认为不足以应对诉讼中需要处理新情况的现实。</li><li>该模型<strong>并非开源</strong>，评论区由此讨论中国模型从开源转向闭源的趋势。</li><li>有人重提 Z.ai 曾默认快照整个工作区，<strong>法律场景下的隐私信任</strong>成为主要质疑点。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 分歧在于：一方认为大模型适合合同红线、遗嘱草案等重复性初级法律工作；另一方以 20% 通过率、闭源和隐私前科为由不信任其用于严肃法律事务。</p><div class="tags"><span class="tag">法律 AI</span><span class="tag">大模型评测</span><span class="tag">AI 隐私</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · jedberg · 11 回复</div><p>I would love to see these benchmarks split up across &quot;generic&quot; tasks and novel tasks.</p><p>For example, redlining an OEM agreement with my vendor.  They pretty much all use the same template, and the objections are always the same.  I tried using Claude first, and even my lawyer was impressed that it found things they missed.  Then I used Claude to redline that type of contract and the other side said &quot;your lawyer was surprisingly thorough&quot;.  I had my lawyer do the final check, but saved a bunch of money doing the first three rounds with Claude instead.  And my lawyer basically just said &quot;looks good to me&quot; by the time they reviewed it.</p><p>Or even writing a simple will or estate document.</p><p>It seems like LLMs are great for the kind of generic work you&#x27;d usually pawn off to a new associate or paralegal, but not for the important things that partners usually do.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://www.intel.com/content/www/us/en/products/details/discrete-gpus/data-center-gpu/d-series.html" target="_blank" rel="noopener">Intel D270 GPU AI Accelerator–Up to 480 GB LPDDR5X</a></h2></div><p class="title-tr">Intel D270 GPU AI 加速器——最高 480 GB LPDDR5X</p><div class="meta">▲ 161 分 · hurricanepootis · <a href="https://news.ycombinator.com/item?id=50063365" target="_blank" rel="noopener">72 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Intel 发布数据中心 GPU D270，主打 agentic AI 推理：单卡最高 480GB LPDDR5X 内存、350W 空冷、32 个 Xe3P 核心，强调长上下文与高并发下的功耗和成本效率。</p><p class="context"><strong>🧭 联系你的知识背景</strong> LPDDR5X 是低功耗内存，单卡 480GB 相当于多张消费级显卡显存总和；agentic AI 的长上下文和多步推理使内存容量与带宽成为并发能力的直接瓶颈。</p><ul class="kp"><li><strong>Intel D270</strong> 单卡最高 480GB LPDDR5X 内存，350W 空冷，面向数据中心 agentic AI 推理。</li><li>芯片面积从图形和光线追踪管线转移到 <strong>32 个 Xe3P 核心和 256 个 XMX 矩阵引擎</strong>，提升推理效率。</li><li>采用标准 <strong>PCIe 5.0 接口</strong>，兼容现有服务器，无需专有网络或液冷改造。</li><li>评论指出 1.5TB/s 带宽、无快速多 GPU 互联，<strong>多用户并发性能存疑</strong>，更适合单用户长上下文。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区核心分歧：480GB 大内存吸引本地长上下文推理，但 1.5TB/s 带宽和无高速多 GPU 互联让多用户并发能力存疑，售价与可购买性也遭质疑。</p><div class="tags"><span class="tag">AI 硬件</span><span class="tag">LLM 推理</span><span class="tag">agentic AI</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · K0balt · 4 回复</div><p>These are going to be so awesome to buy in 5-8 years!</p><p>Right now I’m running 2x 3090 and 128 gb ram on 3.8 flash-next180b (the quant is 97gb) and it hums at120t/s. It’s really a surprisingly good model for general tasks, and I’m soon to see how it does with more agentic kit. For agentic work it does slow down quite a bit when the context fills up… but what do you want for running a 180b model on consumer hardware?</p><p>Right now I have it set up as an administrator for our asterisk PBX and radius server, and it does higher level judgment on our cctv footage for notifications to security. It’s been really good so far. Agents are the new UI, everything just works over SSH now.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://www.theguardian.com/business/2026/oct/13/ai-share-crash-risk-global-imf-debt-corrowing-cyber-attacks" target="_blank" rel="noopener">Threat of AI share crash puts world financial stability at risk, says IMF</a></h2></div><p class="title-tr">IMF 称 AI 股价崩盘威胁全球金融稳定</p><div class="meta">▲ 30 分 · novaRom · <a href="https://news.ycombinator.com/item?id=50067356" target="_blank" rel="noopener">8 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">国际货币基金组织（IMF）警告 AI 公司估值过高和债务激增，AI 股价回调可能引发全球市场动荡；大型科技股已占标普500指数超35%，近三年存在3000亿美元循环融资交易，放大风险。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 把金融‘杠杆’理解为用借来的钱放大 AI 基础设施投资，类似加更多 GPU 加速实验但失败时亏损也放大；‘循环融资’则是巨头互相出资形成闭环，可能掩盖真实回报。</p><ul class="kp"><li><strong>IMF 警告 AI 股价回调</strong>可能产生全球外溢效应，亚洲市场最暴露。</li><li><strong>七家大型科技公司</strong>占标普500指数超 35%，十年上升约三倍。</li><li><strong>近三年 3000 亿美元循环融资交易</strong>，加 6500 亿债务，换取 1.4 万亿未来承诺。</li><li><strong>IMF 称 AI 成功不一定需要如此大规模投资</strong>，潜在经济收益可能不如预期。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论分歧在于 AI 泡沫破裂是否会引发系统性危机还是仅限私人市场痛苦，有用户质疑‘大到不能倒’说法。</p><div class="tags"><span class="tag">AI 估值泡沫</span><span class="tag">全球金融稳定</span><span class="tag">科技股杠杆</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · simianwords · 2 回复</div><p>If AI share crashes, that’s actually good for the public because all the value is now captured by them instead of companies. This is because a crash can only happen if prices go down (which is good) or Chinese models become as good as frontier (which is also good).</p><p>The question is, if this happens then how do you incentivise more R and D? Which investor would invest without the returns?</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://github.com/prabanta-dev/janas" target="_blank" rel="noopener">Janas: Run LLMs larger than RAM by streaming experts from SSD</a></h2></div><p class="title-tr">Janas: 通过从 SSD 流式加载专家运行超出内存容量的 LLM</p><div class="meta">▲ 101 分 · khalidkhair · <a href="https://news.ycombinator.com/item?id=50063717" target="_blank" rel="noopener">31 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Janas-LLM 让 48GB 的 Qwen3-Next-80B 在 32GB 内存笔记本上以 37 tok/s 生成（带草稿），无草稿写入速度是 llama.cpp 的 8 倍以上。它把混合专家权重留在 SSD，按需流式加载，使消费级硬件能运行超过内存的大模型，目前仍属实验阶段。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 对熟悉混合专家模型（MoE）的读者，Janas 相当于把稀疏激活从计算层延伸到存储层：只将当前 token 需要的专家从 SSD 读入内存缓存，而非加载全部权重。</p><ul class="kp"><li><strong>Janas-LLM 在 32GB 内存笔记本上运行 48GB 的 Qwen3-Next-80B，生成 24 tok/s（无草稿）</strong>，而 llama.cpp 为 2.8 tok/s。</li><li><strong>核心是把混合专家权重留在 SSD，按需流式加载当前 token 需要的专家</strong>，模型参数可超过物理内存。</li><li><strong>草稿机制（模型自身预测块或小模型）将生成速度从 24 tok/s 提升到 37 tok/s</strong>，但效果取决于文本类型。</li><li><strong>工具为早期实验，稳定性未验证</strong>，仅在单一硬件测试，可能引发驱动重置或桌面卡顿。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区质疑该工作与 llama.cpp 重复、模型过时，但也有人认为 62 tok/s 的本地推理足够实用。</p><div class="tags"><span class="tag">LLM 推理</span><span class="tag">混合专家模型</span><span class="tag">本地部署</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · suprjami · 3 回复</div><p>Qwen 3? (Jumanji) What year is it?</p><p>What a waste of time.</p><p>Strata already does this with Qwen3.8-Flash-Next: https://github.com/Niko1221/Strata</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://yyhh.org/blog/2026/10/ai-is-a-tool/" target="_blank" rel="noopener">AI is a tool and using it well takes skill</a></h2></div><p class="title-tr">AI 是工具，用得好需要技能</p><div class="meta">▲ 346 分 · layer8 · <a href="https://news.ycombinator.com/item?id=50063427" target="_blank" rel="noopener">277 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者反驳 Rich Hickey 的“AI 不是工具”论，指出 LLM 同样可被人类以意图、反馈和判断使用，使用效果取决于操作者技能。他批评行业拟人化词汇掩盖可解决的工程问题，主张区分“有技能地使用”与“盲目委派”。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这与你判断 AI 产品能否提供真实工作流杠杆有关：核心不是模型能力，而是人类在循环中的判断与反馈能否被固化。</p><ul class="kp"><li><strong>Rich Hickey 称 AI 不是工具而是自动化</strong>，作者反驳自动化可以是工具特性，LLM 使用同样需要意图、反馈和专业判断。</li><li>作者举例程序员用 LLM 解释代码、检查源码、测试改动并迭代，说明<strong>有效使用 LLM 需要反馈循环和领域知识</strong>。</li><li>作者批评行业拟人化语言如“逃逸”“共谋”，认为这掩盖了<strong>可解决的软件工程问题</strong>。</li><li>更有用的区分是<strong>有技能地使用工具 vs 在缺乏理解和监督下委派工作</strong>，而非否定整类软件是工具。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是管理层可能高估了 AI 替代人力的能力，但分歧在于个人是否应投资掌握 AI 技能，还是模型快速进步会让这些技能过时。</p><div class="tags"><span class="tag">AI 工具论</span><span class="tag">LLM 人机协作</span><span class="tag">AI 技能</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · jgord · 18 回复</div><p>Its probable that AI will roll out much faster than humans can develop that skill of using it in a way that increases not decreases human knowledge over time.</p><p>The current slew of excellent LLMs will probably cause a decades long dip in human cognitive ability.</p><p>If social media on smartphones had an impact of ability of students to concentrate, LLM AI will likely have a much greater negative impact on education.</p><p>There are trillions of dollars of investment pushing for humans to trust whatever an LLM says, and very little money behind encouraging people to tackle hard problems themselves and train themselves to think.</p><p>I have to say honestly, that AI looks like an apocalypse for human thinking [ Im glad Tao is warning people, I just dont think many people will listen ]</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://news.ycombinator.com/item?id=50059096" target="_blank" rel="noopener">Launch HN: Agent37 (YC F26) – Low-cost agent sandboxes for running agents</a></h2></div><p class="title-tr">Launch HN: Agent37 (YC F26) – 用于运行智能体的低成本沙箱</p><div class="meta">▲ 127 分 · vishnukool · <a href="https://news.ycombinator.com/item?id=50059096" target="_blank" rel="noopener">87 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Agent37 (YC F26) 推出 AI 智能体沙箱，价格不到多数供应商的 10%，客户平均每个沙箱每月 $0.37。免费版基础设施成本被压到 $0.05–0.10/用户/月，靠跳过超大规模云、采用 gVisor 共享内存和内存优先的主机选型实现。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 沙箱可理解为给 AI 智能体单独开的隔离执行环境；gVisor 是比完整虚拟机更轻的隔离层，类似用共享推理服务换吞吐，成本更低但隔离性减弱。</p><ul class="kp"><li><strong>Agent37 (YC F26)</strong> 提供 AI 智能体沙箱，价格不到多数供应商的 10%，客户平均每个沙箱每月仅 $0.37。</li><li>免费沙箱基础设施成本约 <strong>$0.05–0.10/用户/月</strong>，支撑超过 90% 的新注册用户。</li><li>成本优化主要靠不租用 AWS 等超大规模云，改用 <strong>Hetzner/OVH</strong>，并用 gVisor 共享主机内存、提高密度。</li><li>主要取舍是 <strong>gVisor 不支持 Docker-in-Docker 和 Android 模拟器</strong>，需要完整虚拟机的场景价格略高。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区普遍认为沙箱正在被商品化，价格战难以形成护城河；也有人指出 gVisor 安全性弱于完整虚拟机，只按价格对比并不公平。</p><div class="tags"><span class="tag">智能体基础设施</span><span class="tag">云计算成本</span><span class="tag">沙箱隔离</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · mparis · 3 回复</div><p>Congrats on the launch! Very exciting!</p><p>You guys are operating in a very competitive space. This stuff is fun to build, so a lot of engineers will end up building it. Not to discourage you, but I suspect it will be difficult to capture much value selling this offering as its going to be race to the bottom against very well funded alternatives that can sell these features at a loss in order to get you to use their databases and other offerings that are higher margin and stickier.</p><p>As you guys learn more about how to take this sort of technology to market, you may consider trying to get closer to the actual work that people actually need these agents to do. What can you do better because you have this technology? For example, I work in healthcare administration and we have built our own agent sandbox infrastructure on top of firecracker microvms that solve similar use cases as Agent37. We will never sell it. It&#x27;s part of our competitive advantage for doing healthcare tasks.</p><p>Food for thought! Good luck!</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://taylor.town/kk-ai-2026" target="_blank" rel="noopener">Kevin Kelly&#x27;s 2016 AI Predictions, 10 Years Later</a></h2></div><p class="title-tr">凯文·凯利 2016 年 AI 预测：十年后回顾</p><div class="meta">▲ 175 分 · surprisetalk · <a href="https://news.ycombinator.com/item?id=50057668" target="_blank" rel="noopener">64 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Kevin Kelly 在《必然》中预测 Google 主产品从搜索转向 AI、AI 像 Amazon Web Services 成为公用事业并由两三家寡头主导。十年后部分验证，但 Google 收入核心仍是广告；按一位 Hacker News 评论者拆解，16 条预测命中约 8 条。</p><p class="context"><strong>🧭 联系你的知识背景</strong> “奇点”指 AI 超越人类后自我加速的假设；“bitter lesson”指通用算法借算力常胜过手工设计的专用系统。</p><ul class="kp"><li><strong>Google 主产品仍是广告</strong>，但其 AI 战略可追溯至 Larry Page 早期“我们其实在做 AI”。</li><li><strong>AI 像 Amazon Web Services 的公用事业预测</strong>基本成立：廉价、按需、无处不在的基础智能服务。</li><li>Kelly 预测 <strong>AI 以专用软件大脑为主</strong>，但评论质疑这与“bitter lesson”（通用算法凭算力胜出）存在冲突。</li><li><strong>16 条预测命中约 8 条</strong>；最受争议的是他拒绝“奇点”的立场，如今更多人相信奇点。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区共识是 Google 核心仍是广告，分歧在于 Kelly 的“专用 AI”与“bitter lesson”哪个更接近事实，以及他拒绝“奇点”的立场是否过时。</p><div class="tags"><span class="tag">AI 预测回顾</span><span class="tag">Google 战略</span><span class="tag">奇点辩论</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · cousinbryce · 5 回复</div><p>Google’s main product was and continues to be ads</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://github.com/openai/codex/issues/48195" target="_blank" rel="noopener">Codex CLI installs a persistent, self-updating background daemon by default</a></h2></div><p class="title-tr">Codex CLI 默认安装持久、自更新的后台守护进程</p><div class="meta">▲ 532 分 · whimblepop · <a href="https://news.ycombinator.com/item?id=50060694" target="_blank" rel="noopener">271 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Codex CLI 0.157.0 起默认启动后台守护进程，复制约 374MB 软件包、每小时自动更新，且不随终端退出。开发者不满其不透明，关闭开关未被官方文档记录。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 后台守护进程类似你在服务器上用 nohup 保持训练任务常驻，但这里的额外问题是它会自我复制并自动更新，导致实际运行的代码版本脱离你安装的版本。</p><ul class="kp"><li><strong>Codex CLI 0.157.0 起默认启动后台守护进程</strong>，终端关闭后仍常驻运行。</li><li>守护进程<strong>复制约 374MB 平台包</strong>到用户目录，并每小时自动更新，可能强杀进行中的会话。</li><li>守护进程<strong>继承首个会话的环境变量（如代理）</strong>，后续会话沿用旧配置，可能造成网络行为错乱。</li><li>可用配置项 daemon_auto_start = false 关闭，但<strong>官方配置文档未记录该选项</strong>，开发者批评行为像恶意软件。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论普遍批评该行为不透明、类似恶意软件，且旧版本堆积可达 12GB；少数认为自动更新是行业标准。</p><div class="tags"><span class="tag">Codex CLI</span><span class="tag">后台守护进程</span><span class="tag">软件供应链安全</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · icantevenhold · 13 回复</div><p>It also fills up my HD with old versions.</p><p>I investigated and it took up something like 12 gigabytes in total on my system; which seems insane to me, it’s just a harness?</p><p>People moan about how badly made Claude code is but Codex seems much worse on every metric</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://research.meta.ai/blog/muse-wonder" target="_blank" rel="noopener">Muse Wonder</a></h2></div><div class="meta">▲ 606 分 · meetpateltech · <a href="https://news.ycombinator.com/item?id=50059115" target="_blank" rel="noopener">327 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Meta 发布 Muse Wonder 系列模型，在个人/专业智能体、记忆和编码基准上达到前沿水平，API 定价输入 $4、输出 $20，先向订阅者推出。评论区实测认为视觉与开发任务仍弱于 Opus 5.5。</p><p class="context"><strong>🧭 联系你的知识背景</strong> Active Memory 和 Active Focus 可理解为针对智能体场景的长期上下文记忆与持续目标执行，类似把你熟悉的 Transformer 注意力机制扩展为跨对话、任务导向的调度。</p><ul class="kp"><li>Meta 发布 <strong>Muse Wonder 与 Muse Wonder Full</strong>，主打个人/专业智能体的前沿能力。</li><li><strong>API 定价</strong>输入 $4.00、输出 $20.00，但营销页基准分数实为 Muse Wonder Full 版本。</li><li>模型引入 <strong>Active Memory 和 Active Focus</strong>，用于跨对话记忆和长程任务执行。</li><li>HN 实测图像转 HTML 与开发任务中 <strong>不如 Opus 5.5</strong>，视觉能力尚不成熟。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区认可其基准排名，但实测认为视觉与开发任务仍弱于 Opus 5.5，且有人报告登录页暴露他人资料。</p><div class="tags"><span class="tag">AI 智能体</span><span class="tag">模型定价</span><span class="tag">多模态评测</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · atleastoptimal · 8 回复</div><p>I personally have many problems with Meta, but imo the more companies close to the frontier, the better.</p><p>If only one company were calling all the shots once they hit recursive self-improvement, it would lead to extreme concentration of power, and their values being enforced across the entire industry. With 3-4 companies at the frontier, there is more urge to cooperate to avoid a catastrophic race condition.</p></div></div></article>
+</div></main>
+<footer>generated 2026-10-13 06:46 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "AI Models Can Provably Hide Arbitrary Capabilities", "titleTranslation": "AI 模型可证明隐藏任意能力", "summary": "论文证明：在密码学假设下，攻击者能把加密神经网络电路嵌入模型权重，只有秘密触发器才能解密执行；即使持有完整权重，微调、权重噪声、梯度触发器搜索等方法也难以引出。这动摇了基于能力引出审计的可靠性。", "keyPoints": ["加密神经网络可嵌入宿主模型权重，仅收到秘密触发器时才会解密执行。", "利用 digital lockers 提供可证明的提取难度，即使有完整权重也难以解释。", "微调、权重噪声、梯度触发器搜索等方法均无法有效引出隐藏能力。"], "discussion": "评论普遍担忧开源模型可被植入后门并由任意字符串激活，但也有观点质疑该研究缺乏直接可操作的防御措施，并澄清标题并非指 AI 代理主动隐藏能力。", "tags": ["AI 安全", "能力评估", "后门攻击"], "score": 132, "comments": 66, "by": "sbulaev", "url": "https://arxiv.org/abs/2610.13928", "hnUrl": "https://news.ycombinator.com/item?id=50065692"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "GLM-Legal", "titleTranslation": "", "summary": "仅基于标题与评论：Z.ai 推出法律向大模型 GLM-Legal，原文未能抓取。讨论聚焦其约 20% 基准通过率、非开源选择，以及此前工作区快照引发的隐私信任问题。", "keyPoints": ["GLM-Legal 是 Z.ai 推出的法律大模型产品，但原文抓取失败，信息仅来自标题和 HN 讨论。", "有律师称某法律基准仅 20% 通过率，认为不足以应对诉讼中需要处理新情况的现实。", "该模型并非开源，评论区由此讨论中国模型从开源转向闭源的趋势。"], "discussion": "HN 分歧在于：一方认为大模型适合合同红线、遗嘱草案等重复性初级法律工作；另一方以 20% 通过率、闭源和隐私前科为由不信任其用于严肃法律事务。", "tags": ["法律 AI", "大模型评测", "AI 隐私"], "score": 515, "comments": 298, "by": "ilreb", "url": "https://z.ai/blog/glm-legal", "hnUrl": "https://news.ycombinator.com/item?id=50058507"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "Intel D270 GPU AI Accelerator–Up to 480 GB LPDDR5X", "titleTranslation": "Intel D270 GPU AI 加速器——最高 480 GB LPDDR5X", "summary": "Intel 发布数据中心 GPU D270，主打 agentic AI 推理：单卡最高 480GB LPDDR5X 内存、350W 空冷、32 个 Xe3P 核心，强调长上下文与高并发下的功耗和成本效率。", "keyPoints": ["Intel D270 单卡最高 480GB LPDDR5X 内存，350W 空冷，面向数据中心 agentic AI 推理。", "芯片面积从图形和光线追踪管线转移到 32 个 Xe3P 核心和 256 个 XMX 矩阵引擎，提升推理效率。", "采用标准 PCIe 5.0 接口，兼容现有服务器，无需专有网络或液冷改造。"], "discussion": "评论区核心分歧：480GB 大内存吸引本地长上下文推理，但 1.5TB/s 带宽和无高速多 GPU 互联让多用户并发能力存疑，售价与可购买性也遭质疑。", "tags": ["AI 硬件", "LLM 推理", "agentic AI"], "score": 161, "comments": 72, "by": "hurricanepootis", "url": "https://www.intel.com/content/www/us/en/products/details/discrete-gpus/data-center-gpu/d-series.html", "hnUrl": "https://news.ycombinator.com/item?id=50063365"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "Threat of AI share crash puts world financial stability at risk, says IMF", "titleTranslation": "IMF 称 AI 股价崩盘威胁全球金融稳定", "summary": "国际货币基金组织（IMF）警告 AI 公司估值过高和债务激增，AI 股价回调可能引发全球市场动荡；大型科技股已占标普500指数超35%，近三年存在3000亿美元循环融资交易，放大风险。", "keyPoints": ["IMF 警告 AI 股价回调可能产生全球外溢效应，亚洲市场最暴露。", "七家大型科技公司占标普500指数超 35%，十年上升约三倍。", "近三年 3000 亿美元循环融资交易，加 6500 亿债务，换取 1.4 万亿未来承诺。"], "discussion": "HN 评论分歧在于 AI 泡沫破裂是否会引发系统性危机还是仅限私人市场痛苦，有用户质疑‘大到不能倒’说法。", "tags": ["AI 估值泡沫", "全球金融稳定", "科技股杠杆"], "score": 30, "comments": 8, "by": "novaRom", "url": "https://www.theguardian.com/business/2026/oct/13/ai-share-crash-risk-global-imf-debt-corrowing-cyber-attacks", "hnUrl": "https://news.ycombinator.com/item?id=50067356"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "Janas: Run LLMs larger than RAM by streaming experts from SSD", "titleTranslation": "Janas: 通过从 SSD 流式加载专家运行超出内存容量的 LLM", "summary": "Janas-LLM 让 48GB 的 Qwen3-Next-80B 在 32GB 内存笔记本上以 37 tok/s 生成（带草稿），无草稿写入速度是 llama.cpp 的 8 倍以上。它把混合专家权重留在 SSD，按需流式加载，使消费级硬件能运行超过内存的大模型，目前仍属实验阶段。", "keyPoints": ["Janas-LLM 在 32GB 内存笔记本上运行 48GB 的 Qwen3-Next-80B，生成 24 tok/s（无草稿），而 llama.cpp 为 2.8 tok/s。", "核心是把混合专家权重留在 SSD，按需流式加载当前 token 需要的专家，模型参数可超过物理内存。", "草稿机制（模型自身预测块或小模型）将生成速度从 24 tok/s 提升到 37 tok/s，但效果取决于文本类型。"], "discussion": "评论区质疑该工作与 llama.cpp 重复、模型过时，但也有人认为 62 tok/s 的本地推理足够实用。", "tags": ["LLM 推理", "混合专家模型", "本地部署"], "score": 101, "comments": 31, "by": "khalidkhair", "url": "https://github.com/prabanta-dev/janas", "hnUrl": "https://news.ycombinator.com/item?id=50063717"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "AI is a tool and using it well takes skill", "titleTranslation": "AI 是工具，用得好需要技能", "summary": "作者反驳 Rich Hickey 的“AI 不是工具”论，指出 LLM 同样可被人类以意图、反馈和判断使用，使用效果取决于操作者技能。他批评行业拟人化词汇掩盖可解决的工程问题，主张区分“有技能地使用”与“盲目委派”。", "keyPoints": ["Rich Hickey 称 AI 不是工具而是自动化，作者反驳自动化可以是工具特性，LLM 使用同样需要意图、反馈和专业判断。", "作者举例程序员用 LLM 解释代码、检查源码、测试改动并迭代，说明有效使用 LLM 需要反馈循环和领域知识。", "作者批评行业拟人化语言如“逃逸”“共谋”，认为这掩盖了可解决的软件工程问题。"], "discussion": "评论区共识是管理层可能高估了 AI 替代人力的能力，但分歧在于个人是否应投资掌握 AI 技能，还是模型快速进步会让这些技能过时。", "tags": ["AI 工具论", "LLM 人机协作", "AI 技能"], "score": 346, "comments": 277, "by": "layer8", "url": "https://yyhh.org/blog/2026/10/ai-is-a-tool/", "hnUrl": "https://news.ycombinator.com/item?id=50063427"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "Launch HN: Agent37 (YC F26) – Low-cost agent sandboxes for running agents", "titleTranslation": "Launch HN: Agent37 (YC F26) – 用于运行智能体的低成本沙箱", "summary": "Agent37 (YC F26) 推出 AI 智能体沙箱，价格不到多数供应商的 10%，客户平均每个沙箱每月 $0.37。免费版基础设施成本被压到 $0.05–0.10/用户/月，靠跳过超大规模云、采用 gVisor 共享内存和内存优先的主机选型实现。", "keyPoints": ["Agent37 (YC F26) 提供 AI 智能体沙箱，价格不到多数供应商的 10%，客户平均每个沙箱每月仅 $0.37。", "免费沙箱基础设施成本约 $0.05–0.10/用户/月，支撑超过 90% 的新注册用户。", "成本优化主要靠不租用 AWS 等超大规模云，改用 Hetzner/OVH，并用 gVisor 共享主机内存、提高密度。"], "discussion": "评论区普遍认为沙箱正在被商品化，价格战难以形成护城河；也有人指出 gVisor 安全性弱于完整虚拟机，只按价格对比并不公平。", "tags": ["智能体基础设施", "云计算成本", "沙箱隔离"], "score": 127, "comments": 87, "by": "vishnukool", "url": "https://news.ycombinator.com/item?id=50059096", "hnUrl": "https://news.ycombinator.com/item?id=50059096"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "Kevin Kelly's 2016 AI Predictions, 10 Years Later", "titleTranslation": "凯文·凯利 2016 年 AI 预测：十年后回顾", "summary": "Kevin Kelly 在《必然》中预测 Google 主产品从搜索转向 AI、AI 像 Amazon Web Services 成为公用事业并由两三家寡头主导。十年后部分验证，但 Google 收入核心仍是广告；按一位 Hacker News 评论者拆解，16 条预测命中约 8 条。", "keyPoints": ["Google 主产品仍是广告，但其 AI 战略可追溯至 Larry Page 早期“我们其实在做 AI”。", "AI 像 Amazon Web Services 的公用事业预测基本成立：廉价、按需、无处不在的基础智能服务。", "Kelly 预测 AI 以专用软件大脑为主，但评论质疑这与“bitter lesson”（通用算法凭算力胜出）存在冲突。"], "discussion": "评论区共识是 Google 核心仍是广告，分歧在于 Kelly 的“专用 AI”与“bitter lesson”哪个更接近事实，以及他拒绝“奇点”的立场是否过时。", "tags": ["AI 预测回顾", "Google 战略", "奇点辩论"], "score": 175, "comments": 64, "by": "surprisetalk", "url": "https://taylor.town/kk-ai-2026", "hnUrl": "https://news.ycombinator.com/item?id=50057668"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "Codex CLI installs a persistent, self-updating background daemon by default", "titleTranslation": "Codex CLI 默认安装持久、自更新的后台守护进程", "summary": "Codex CLI 0.157.0 起默认启动后台守护进程，复制约 374MB 软件包、每小时自动更新，且不随终端退出。开发者不满其不透明，关闭开关未被官方文档记录。", "keyPoints": ["Codex CLI 0.157.0 起默认启动后台守护进程，终端关闭后仍常驻运行。", "守护进程复制约 374MB 平台包到用户目录，并每小时自动更新，可能强杀进行中的会话。", "守护进程继承首个会话的环境变量（如代理），后续会话沿用旧配置，可能造成网络行为错乱。"], "discussion": "HN 评论普遍批评该行为不透明、类似恶意软件，且旧版本堆积可达 12GB；少数认为自动更新是行业标准。", "tags": ["Codex CLI", "后台守护进程", "软件供应链安全"], "score": 532, "comments": 271, "by": "whimblepop", "url": "https://github.com/openai/codex/issues/48195", "hnUrl": "https://news.ycombinator.com/item?id=50060694"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-13", "pointsLabel": "分", "commentsLabel": "评论", "title": "Muse Wonder", "titleTranslation": "", "summary": "Meta 发布 Muse Wonder 系列模型，在个人/专业智能体、记忆和编码基准上达到前沿水平，API 定价输入 $4、输出 $20，先向订阅者推出。评论区实测认为视觉与开发任务仍弱于 Opus 5.5。", "keyPoints": ["Meta 发布 Muse Wonder 与 Muse Wonder Full，主打个人/专业智能体的前沿能力。", "API 定价输入 $4.00、输出 $20.00，但营销页基准分数实为 Muse Wonder Full 版本。", "模型引入 Active Memory 和 Active Focus，用于跨对话记忆和长程任务执行。"], "discussion": "HN 评论区认可其基准排名，但实测认为视觉与开发任务仍弱于 Opus 5.5，且有人报告登录页暴露他人资料。", "tags": ["AI 智能体", "模型定价", "多模态评测"], "score": 606, "comments": 327, "by": "meetpateltech", "url": "https://research.meta.ai/blog/muse-wonder", "hnUrl": "https://news.ycombinator.com/item?id=50059115"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
