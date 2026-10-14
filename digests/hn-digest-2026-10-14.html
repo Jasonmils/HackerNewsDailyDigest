@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News 每日热榜 · 2026-10-14</title>
+<style>
+:root{
+  --bg:#FCFCFA; --ink:#1B1B1B; --muted:#6F6F68; --hair:#E7E6DF;
+  --hn:#FF6600; --hn-soft:#FFF1E8; --card:#FFFFFF;
+  --body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.72;font-size:16.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:2px solid var(--ink);margin:34px auto 6px;max-width:720px;padding:0 22px 14px}
+header .mast{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+header h1{font-family:var(--body);font-size:clamp(22px,5vw,30px);font-weight:750;
+  letter-spacing:0;margin:0}
+header h1 .y{color:var(--hn)}
+header .sub{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:8px 0 0;
+  letter-spacing:0}
+main{padding-bottom:64px}
+.card{border-bottom:1px solid var(--hair);padding:26px 0 24px}
+.card:last-child{border-bottom:none}
+.head{display:flex;gap:14px;align-items:flex-start}
+.rank{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--hn);
+  line-height:1.5;min-width:30px;padding-top:2px;font-variant-numeric:tabular-nums}
+.card h2{font-size:20px;font-weight:650;line-height:1.42;margin:0;letter-spacing:0}
+.card h2 a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent;
+  transition:border-color .12s ease,color .12s ease}
+.card h2 a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.title-tr{color:var(--muted);font-size:14px;font-style:italic;margin:5px 0 0 44px}
+.meta{font-family:var(--body);color:var(--muted);font-size:12.5px;margin:7px 0 0 44px;
+  font-variant-numeric:tabular-nums}
+.meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.meta a:hover{color:var(--hn);border-bottom-color:var(--hn)}
+.actions{margin:12px 0 0 44px;display:flex;align-items:center;gap:8px}
+.share-btn{appearance:none;border:1px solid var(--hair);border-radius:6px;background:var(--card);
+  color:var(--ink);font-family:var(--body);font-size:12px;line-height:1;padding:7px 10px;
+  cursor:pointer;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.share-btn:hover,.share-btn:focus-visible{border-color:var(--hn);color:var(--hn);outline:none}
+.share-btn:disabled{cursor:default;color:var(--muted);background:#F5F5F1}
+.body{margin:14px 0 0 44px}
+.summary{margin:0}
+.context{margin:12px 0 0;padding:10px 13px;background:#F5F7FA;border:1px solid var(--hair);
+  border-radius:6px;font-size:14.5px;color:var(--ink)}
+.context strong{color:var(--hn);font-weight:650}
+.kp{margin:12px 0 0;padding:0;list-style:none}
+.kp li{position:relative;padding-left:18px;margin:5px 0}
+.kp li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+  background:var(--hn);border-radius:50%}
+.kp li strong,.summary strong,.disc strong{color:var(--hn);font-weight:700}
+.disc{margin:14px 0 0;padding:11px 14px;background:var(--hn-soft);border-radius:8px;
+  font-size:15px}
+.disc strong{font-weight:650}
+.topc{margin:14px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--hair);
+  border-left:3px solid var(--hn);border-radius:6px;font-size:14px;color:var(--ink)}
+.topc .topc-meta{font-family:var(--body);color:var(--muted);font-size:11.5px;margin-bottom:5px;
+  letter-spacing:0}
+.topc p{margin:0 0 8px}
+.topc p:last-child{margin-bottom:0}
+.topc strong{color:var(--hn);font-weight:650}
+.judge{margin:14px 0 0;padding:12px 14px;background:#F4F1FF;border:1px solid #E3DCFB;
+  border-left:3px solid #6C5CE7;border-radius:8px;font-size:14.5px}
+.judge-q{font-weight:600}
+.judge-pred{margin:7px 0 0}
+.judge-meta{font-family:var(--body);color:var(--muted);font-size:11.5px}
+.judge-reb{margin:8px 0 0}
+.judge-reb strong{color:#6C5CE7;font-weight:650}
+.tags{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--body);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--hair);border-radius:999px;padding:3px 10px}
+.err{margin:10px 0 0 44px;color:#A33;font-size:14px;font-family:var(--body)}
+footer{max-width:720px;margin:0 auto;padding:0 22px 48px;color:var(--muted);
+  font-family:var(--body);font-size:11.5px;letter-spacing:0}
+@media(max-width:560px){
+  .title-tr,.meta,.actions,.body,.err{margin-left:0}
+  .rank{min-width:26px}
+}
+</style>
+</head>
+<body>
+<header><div class="mast"><h1><span class="y">Y</span> Hacker News 每日热榜</h1></div><p class="sub">2026-10-14 &nbsp;·&nbsp; 10 条 &nbsp;·&nbsp; deepseek-v4-pro</p></header>
+<main><div class="wrap">
+<article class="card"><div class="head"><span class="rank">01</span><h2><a href="https://deepmind.google/models/gemini/" target="_blank" rel="noopener">Gemini 4 Argon</a></h2></div><div class="meta">▲ 1134 分 · 737max · <a href="https://news.ycombinator.com/item?id=50073879" target="_blank" rel="noopener">818 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="0" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Google DeepMind 发布 Gemini 4 Argon，在科学、机器人、网络安全等复杂任务中达到前沿水平；该模型帮助 Chrome 团队重构约 600 万行代码，将数月工作压缩至数周，并新增 100 万 token 输出窗口。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 对熟悉模型推理的读者来说，这次亮点不是新架构，而是把超长输出窗口（100 万 token）和跨文件代码理解用于实际工程重构，相当于用一次推理替代多轮人工代码迁移。</p><ul class="kp"><li><strong>Gemini 4 Argon 发布</strong>，Google 称其在前沿科学、数学、机器人、网络安全任务上达到顶尖水平。</li><li>协助 Chrome 团队完成 <strong>约 600 万行代码架构重构</strong>，数月工程压缩至数周，消除一类浏览器崩溃。</li><li>新增 <strong>100 万 token 输出窗口</strong>，可单次生成完整数学证明、合规审计或全库代码重构。</li><li>在漏洞修复基准 <strong>CWE-Bench 并列第一（68%）</strong>，并号称对间接提示注入最鲁棒。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 用户普遍认为它在非编码推理、写作和性价比上明显进步，但对视觉转 HTML 等子任务仍不如 Opus 5.5，且发布似乎受容量限制。</p><div class="tags"><span class="tag">LLM 前沿模型</span><span class="tag">代码自动重构</span><span class="tag">多模态推理</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · svara · 13 回复</div><p>I haven&#x27;t tried it for coding yet, but I ran a couple of my recent curiosity driven queries from Claude (mostly used Fable and Opus 5.5) through it.</p><p>This is a clear step change, I&#x27;m genuinely amazed.</p><p>Its answers are to-the-point, logically structured, clearly written. Like a really well made mini essay on your question.</p><p>It also really likes to build little simulations / models that you can tweak the parameters on. Amazing to explore how different assumptions affect economic scenarios, for example.</p><p>It&#x27;s also great at picking (sourced) illustrations.</p><p>I&#x27;ll be using this for everything that isn&#x27;t coding from now on.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">02</span><h2><a href="https://www.bleepingcomputer.com/news/security/ledger-confirms-hardware-wallet-spy-implant-behind-crypto-thefts/" target="_blank" rel="noopener">Ledger confirms spy chip implant behind wallet crypto thefts</a></h2></div><p class="title-tr">Ledger 确认间谍芯片植入是钱包加密资产失窃的幕后原因</p><div class="meta">▲ 551 分 · thm · <a href="https://news.ycombinator.com/item?id=50054092" target="_blank" rel="noopener">382 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="1" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Ledger 确认部分经马来西亚经销商 CryptoBilis 售出的硬件钱包被加装间谍芯片，可截取屏幕和按键来窃取助记词，并通过 eSIM 外传；官方称受影响数量有限，建议相关用户转移资产。这使硬件钱包供应链攻击从理论变成现实。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这类似模型依赖包在分发环节被投毒：攻击者没有破解设备的核心安全芯片，而是在屏幕与按键数据路径上外接窃听模块，绕过了你原本信任的硬件边界。</p><ul class="kp"><li><strong>Ledger 确认</strong>至少一台经东南亚经销商 CryptoBilis 售出的设备被植入未授权硬件后门。</li><li>恶意电路截取屏幕显示和按键输入以提取助记词，并通过 <strong>eSIM LTE</strong> 外传，核心安全芯片未被破解。</li><li>研究人员在 <strong>Ledger Nano X</strong> 上发现两个变种，来自马来西亚和日本非官方渠道，攻击者用更小电池或屏幕下方空间容纳植入物。</li><li>Ledger 建议相关用户停止初始化或<strong>把资产转移到新设备和新助记词</strong>；官方真伪检查无法检测此类加装。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论主流观点认为，这证明硬件钱包供应链攻击已从理论变为现实，单一设备自托管不可靠；多人建议跨厂商多签名（需要多台设备共同授权）或检查物理完整性。</p><div class="tags"><span class="tag">硬件钱包安全</span><span class="tag">供应链攻击</span><span class="tag">加密货币盗窃</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · TacticalCoder · 28 回复</div><p>No matter whether you like or hate or don&#x27;t care about cryptocurrencies, this is incredible stuff...</p><p>Now basically: every single attack that&#x27;s been described as &quot;theoretical&quot; or &quot;far-fetched&quot; or &quot;only existing in the mind of a paranoid person&quot; did actually happen.</p><p>We&#x27;re talking here about a tiny eSIM implant and a little CPU doing OCR on the fonts appearing on the hardware wallet&#x27;s screen to read the secrets during set up. So the secure element ain&#x27;t tampered with.</p><p>Not long ago the Coldcard hardware wallet had an issue where it&#x27;d fallback to a 32-bit only RNG that could be cracked and so many people got their coins stolen.</p><p>Now it&#x27;s Ledger that sees tampered devices all around the world (in Asia for sure but now there are reports about reseller in the EU selling backdoored/eSIM&#x27;ed devices).</p><p>For people who own Bitcoin at this point one of the only thing kinda sensible to do is to use multisig schemes, like 2-of-2 or 3-of-3 multisig, where your split the secret over two or three different hardware wallet brands (meaning being able to sign a 2-of-2 wallets requires hardware wallets from two different vendors).</p><p>When Ledger hardware wallets came out and people said that seed (the list of words) could be intercepted and relayed by a channel bypassing the computer (here by using an eSIM), people would post explaining that people were nuts if they thought such an attack could be pulled off.</p><p>Yet here we are.</p><p>And Ledger is responsible for very poor security practices: for example it&#x27;s impossible to use a Ledger hardware wallet in a fully airgapped/offline way. For you&#x27;re forced to not only upgrade the firmware but also install the Bitcoin &quot;ledger app&quot; (or whatever that is called) after you entered your seed into the device.</p><p>Which is complete and total amateur hour.</p><p>In addition to that Ledger offers a service to &quot;backup your seed&quot;: what could possibly go wrong with that uh?</p><p>I&#x27;m betting that we&#x27;ll soon hear about hardware wallets getting drained due to the seed being exfiltrated through &quot;randomness&quot; in how transactions are built/signed (aka &quot;kleptography&quot;).</p><p>And it&#x27;s not just representative about people in the cryptocurrencies ecosystem: people simply don&#x27;t understand computer security and don&#x27;t understand the potential attacks nor the length at which attackers are willing to go to steal data/funds/ruin other people&#x27;s lives.</p><p>At this point we&#x27;ve heard about chips&#x27; plans being modified before the chips are even built (only to lower the entropy of RNGs) [unrelated to cryptocurrencies btw], a worldwide backdoor attempt in SSH, eSIM sending secrets from hardware wallets with tiny attack surfaces.</p><p>You&#x27;re not anywhere near paranoid enough.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">03</span><h2><a href="https://www.anthropic.com/engineering/redesigning-source-control" target="_blank" rel="noopener">Redesigning source control at Anthropic</a></h2></div><p class="title-tr">Anthropic 重新设计源代码控制</p><div class="meta">▲ 633 分 · Philpax · <a href="https://news.ycombinator.com/item?id=50073633" target="_blank" rel="noopener">605 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="2" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Anthropic 因 AI 生成代码导致每日合并量从 2,500 次飙升至 30,000 次，自研集中式版本控制系统 Scion，并在五个月内完成从 git 的迁移，应对单一代码库 100 GB 历史与海量检出压力。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 你可以把 Scion 理解为把原本分布式、每个客户端都存完整 git 仓库的模式，改成像你熟悉的 API/平台层一样：客户端按需向服务器查询文件历史、差异和内容，而不是本地保存全部数据。</p><ul class="kp"><li>每日合并代码量从 2026 年 5 月的 <strong>2,500 次</strong> 增至 9 月的 <strong>30,000 次</strong>，git 架构成为瓶颈。</li><li>自研 <strong>Scion</strong> 版本控制系统，定位为面向始终在线 AI 客户端和 CI 任务的集中式服务，而非分布式离线仓库。</li><li>主分支历史接近 <strong>100 GB</strong>，每日约 <strong>2,500 万次</strong> CI 检出；此前靠数百个内部 git 镜像支撑。</li><li>Scion 以 <strong>changeset（变更集）</strong> 为写前日志单元，只记录相对父提交的文件变化，提交无需锁定、推送或移动引用。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论主要质疑：不到 2,500 名工程师却每天合并数万次代码变更、缺乏人工监督，是否会导致大量隐性缺陷；也有人认为 Anthropic 能内部使用更强模型，是其他公司难以复制的优势。</p><div class="tags"><span class="tag">源代码管理</span><span class="tag">AI 软件工程</span><span class="tag">基础设施扩展</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · frangonf · 27 回复</div><p>Excuse me for throwing up this stupid idea, but if code changes per unit of time keep growing at this rate and are not slowing down with infinite merging demand, it seems that this repo will be in a constant state of continuous change and we constantly roll forward with automated code and obviously no direct human supervision, then why even have source control? Why not just let software be fluid and, like Heraclitus river, never step twice in the same repo.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">04</span><h2><a href="https://blumify.io/people" target="_blank" rel="noopener">I built a tool to track what AI leaders say and how their views change on video</a></h2></div><p class="title-tr">我做了个工具，追踪 AI 领袖在视频中说了什么以及他们的观点如何变化</p><div class="meta">▲ 47 分 · gcsydney · <a href="https://news.ycombinator.com/item?id=50081151" target="_blank" rel="noopener">27 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="3" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">该工具每日追踪 20 位 AI 领袖的访谈、播客和演讲，自动生成摘要并链接原视频时间点；特色是“What changed”对比同主题前后发言，例如 Sam Altman 在 8 个月内从“算力过剩”改口“永远短缺”。单条处理成本约 1 美分，使大规模追踪经济上可行。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 说话人识别与引言归属可类比你熟悉的训练数据标签噪声问题，模型容易把多人发言搞混，因此作者目前仍靠人工审核兜底。</p><ul class="kp"><li>自动追踪 <strong>20 位 AI 领袖</strong>的访谈、播客与演讲，只保留本人实际发言并链接原视频时间点</li><li><strong>“What changed”</strong> 可对比同一人前后同主题发言，例如 Sam Altman 从“算力过剩”改口“永远短缺”</li><li>单条转录与摘要的模型处理成本约 <strong>1 美分</strong>，让大规模追踪历史发言在经济上可行</li><li>最大难点是<strong>说话人识别</strong>，AI 常分不清多人播客中的发言者，目前仍需人工审核</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区既认可追踪观点变化的研究价值，也集中批评说话人归因不可靠、注册门槛和 AI 领袖不如政客重要。</p><div class="tags"><span class="tag">AI 转录</span><span class="tag">说话人识别</span><span class="tag">人物观点追踪</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · toobulkeh · 4 回复</div><p>Speaking nothing of the implementation, this is a very valuable concept. I’m curious if statistically there are trends to identify in beliefs or how beliefs spread over societies. You could likely use that data to determine thought leadership and information diets and measure things like distribution, how far the Bay Area is ahead, and other meaningful data for investments, etc.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">05</span><h2><a href="https://www.quantamagazine.org/is-attention-the-essence-of-intelligence-20261012/" target="_blank" rel="noopener">Is &#x27;Attention&#x27; the Essence of Intelligence?</a></h2></div><p class="title-tr">注意力是智能的本质吗？</p><div class="meta">▲ 22 分 · bcaulfield · <a href="https://news.ycombinator.com/item?id=50081930" target="_blank" rel="noopener">6 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="4" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">注意力机制始于2014年Bahdanau的翻译实验，2017年Google的Transformer论文《Attention Is All You Need》被引超25万次，催生大语言模型；文章称预测下一个词是“AI-complete”，解决它等于实现通用智能。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 你熟悉注意力作为序列建模工具，但本文将它提升到认知科学层面的“AI-complete”争论：预测下一个词是否覆盖所有智能子任务，这决定大语言模型的能力上限。</p><ul class="kp"><li><strong>2014年Bahdanau提出注意力机制</strong>，让神经网络翻译长句与短句一样好，解决了固定记忆瓶颈。</li><li><strong>Google 2017年Transformer论文</strong>《Attention Is All You Need》被引超25万次，成为大语言模型的核心架构。</li><li><strong>语言建模（预测下一个词）被称为AI-complete</strong>：翻译、算术、事实查询等都是其子任务，解决它约等于实现通用智能。</li><li><strong>HN评论提醒不要拟人化</strong>：智能本质更可能是模式识别或缩放，而非注意力本身。</li></ul><p class="disc"><strong>💬 讨论</strong> HN评论区普遍质疑将“注意力”拟人化，分歧在于智能本质究竟是注意力、模式识别还是规模化。</p><div class="tags"><span class="tag">注意力机制</span><span class="tag">大语言模型</span><span class="tag">语言建模</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · jvanderbot · 1 回复</div><p>Rule #1 of reading CS papers - don&#x27;t trust the anthropomorphized terms. Rule #2 - definitely don&#x27;t extrapolate those terms to the real mind.</p><p>Of course, attention is almost certainly a heuristic readers use, but to even bring it up as key to intelligence begs so many questions about LLMs and the mind...</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">06</span><h2><a href="https://www.sammystraus.com/#i-posted-to-hn-and-then-my-website-was-flooded-with-ai-bot-traffic" target="_blank" rel="noopener">I posted to HN, and then my website was flooded with AI bot traffic</a></h2></div><p class="title-tr">我发到 Hacker News（HN）后，我的网站被 AI 机器人流量淹没</p><div class="meta">▲ 293 分 · sammy0910 · <a href="https://news.ycombinator.com/item?id=50073221" target="_blank" rel="noopener">160 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="5" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">作者发布到 Hacker News 后网站变慢，日志显示近一半流量来自某个 AI 摘要服务，每分钟多次请求；另有 ClaudeBot、OpenAI 爬虫和漏洞扫描。作者封禁、加 robots.txt 和限流，并优化基础设施。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 可将 robots.txt 理解为网站对爬虫的访问规则、将 NGINX 日志类比为推理服务的请求日志，作者正是用这些工具定位并限制滥用流量。</p><ul class="kp"><li><strong>近一半流量</strong>来自某个 AI 摘要服务，该服务每分钟多次查询网站内容。</li><li>作者通过 <strong>NGINX 聚合日志</strong>定位到单一滥用者并封禁其访问。</li><li><strong>ClaudeBot、OpenAI bot</strong> 和漏洞扫描器也出现在流量中，有人尝试访问 WordPress 路径。</li><li>作者添加 <strong>robots.txt</strong> 和速率限制，并决定优化网站以支撑更高真实流量。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区普遍认同 AI 爬虫和恶意流量已泛滥，需主动封禁主要云服务商 IP 或部署人机验证；但有人对公开对抗手段（如 zipbomb）后悔，因为反而招来更多攻击。</p><div class="tags"><span class="tag">AI 爬虫滥用</span><span class="tag">网站性能优化</span><span class="tag">robots.txt 限流</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · switz · 15 回复</div><p>There is so much spam, abuse, and aggressive scraping that I&#x27;ve had to block:</p><p>- AWS</p><p>- Google Cloud</p><p>- Azure</p><p>- Alibaba Cloud</p><p>- Oracle</p><p>and a handful of other ASNs on almost all of my properties. It would be one thing if it was simple scraping, but it&#x27;s often genuine agentic abuse (just spamming for vulnerabilities* or scraping millions of pages with very little valuable or dynamic content). These clouds must get the abuse happening under their own roof under control.</p><p>I banned Alibaba&#x27;s Cloud two years ago and it still hits one of my domains 1 million times per day, despite every route 4xx-ing during that time.</p><p>Even Apple has aggressively ramped up its scraping in the past few months, but thankfully they do respect robots.txt.</p><p>It&#x27;s frustrating because some of my real users route through these clouds via their work VPNs. Also, there are a lot of less-than-reputable AI scrapers using global bot-nets via residential IPs to scrape, making it even harder to detect and ban them without affecting real people.</p><p>* like leaked .env routes, brute forcing admin panels, and so on</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">07</span><h2><a href="https://pulseos.finance" target="_blank" rel="noopener">Show HN: Pulse Local, a Mac budgeting app whose AI models run on your machine</a></h2></div><p class="title-tr">Show HN: Pulse Local，一款 AI 模型在本地运行的 Mac 预算应用</p><div class="meta">▲ 82 分 · niztk · <a href="https://news.ycombinator.com/item?id=50080275" target="_blank" rel="noopener">48 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="6" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">Pulse Local 是 Mac 本地预算应用，导入银行 CSV，用微调 Qwen3 0.6B 解析问题、代码算账、4B 模型复查，错误率降至约 1%；本地模式零账户、零遥测，连接模式经 Plaid 同步美国银行、Sync Pass 每年 29 美元。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这相当于把云端 API 推理换成 Mac 本地权重文件：0.6B 模型做意图解析、代码执行计算、4B 模型做一致性校验，类似用模型集成/二次校验降低错误率。</p><ul class="kp"><li><strong>Pulse Local</strong> 本地运行预算问答，无账户、无遥测、无崩溃日志上传。</li><li>微调 <strong>Qwen3 0.6B</strong> 解析问题，4B 检查模型复核，错误率从约 20% 降至 5/494。</li><li><strong>Sync Pass 每年 29 美元</strong>，经 Plaid（银行账户同步服务）同步美国银行，交易数据不落盘存储。</li><li>首次启动下载 <strong>约 2.9 GB 模型</strong>，开启检查后每次金额回答需 12 至 14 秒。</li></ul><p class="disc"><strong>💬 讨论</strong> 评论区认可本地无网络方向，但质疑 CSV 导入易用性、Plaid 被黑风险，以及为何不基于 Actual Budget 做插件。</p><div class="tags"><span class="tag">本地 AI 推理</span><span class="tag">个人理财应用</span><span class="tag">小模型微调</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · terwint · 2 回复</div><p>Very nice project. I think this is is in the step of the right direction for agent-driven assistance.</p><p>&gt; How it works: you import a CSV from any bank, in any currency.</p><p>I think this is where you&#x27;re going to lose people. If you&#x27;re having to pull in data from multiple different sources, each with their own flow for exporting, I think this might be a non-starter for creating good financial habbit.</p><p>I recnetly had success integrating my local AI agent with Monarch money via an open source monarch MCP project. It took a bit of (AI) hacking the login stuff, but now I&#x27;m able to pull transactions, query patterns, have a daily report generated from hermes, etc. Much more technical that your target audience but possibly offers some inspiration.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">08</span><h2><a href="https://jobs.lever.co/postera/c7d50a36-db0a-4574-bfe4-8700b74a22c0" target="_blank" rel="noopener">PostEra (YC W20) Is Hiring AI Researchers for Drug Discovery</a></h2></div><p class="title-tr">PostEra（YC W20）招聘药物发现 AI 研究员</p><div class="meta">▲ 1 分 · morraa · <a href="https://news.ycombinator.com/item?id=50078686" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="7" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">PostEra 用其 AI 药物化学平台 Proton 推进女性健康与生育管线，已提名多个临床候选药物；与辉瑞、安进达成累计超 10 亿美元合作。此次招聘聚焦 agentic science，用 agentic 系统自动建模生化过程并辅助药物发现决策。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 如果你熟悉用 Transformer 做序列建模，可以把这里的分子 in-context learning 理解为让模型在少量带标签的分子-活性例子中快速适应新靶点，类似少样本泛化，但输入是分子和表格数据。</p><ul class="kp"><li><strong>PostEra 已累计达成超 10 亿美元 AI 合作</strong>，含与辉瑞、安进的 4 项多年协议。</li><li><strong>内部管线专注女性健康和生育</strong>，已提名多个临床候选药物。</li><li>招聘岗位要求开发 <strong>agentic science</strong>，用 agentic 系统自动构建生化机制模型并分析生物数据。</li><li>公司还领导 <strong>NIH 资助的抗病毒药物发现中心</strong>，用于大流行病防范。</li></ul><div class="tags"><span class="tag">AI药物发现</span><span class="tag">agentic systems</span><span class="tag">初创招聘</span></div></div></article>
+<article class="card"><div class="head"><span class="rank">09</span><h2><a href="https://sfstandard.com/2026/10/13/openai-engineer-arrested-alleged-bugging-executive-conference-room/" target="_blank" rel="noopener">OpenAI engineer arrested in bugging of executive conference room</a></h2></div><p class="title-tr">OpenAI 工程师因在高管会议室安装窃听设备被捕</p><div class="meta">▲ 482 分 · forthwall · <a href="https://news.ycombinator.com/item?id=50078141" target="_blank" rel="noopener">418 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="8" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">沙特籍 OpenAI 工程师 Abdullrahman Alfozan 被控在旧金山总部高管会议室藏匿加密录音设备，最高面临 5 年监禁和 25 万美元罚款。他通过公司工具查询会议安排，并用配偶关联的聊天机器人搜索如何构建和加密录音器，FBI 与 OpenAI 联合调查后将其逮捕。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 这涉及物理窃听与加密设备，可类比为对系统进行对抗性输入攻击，但发生在实体办公空间；加密能让录音内容难以读取，MAC 地址是设备的唯一硬件标识。</p><ul class="kp"><li><strong>Abdullrahman Alfozan</strong> 被逮捕，涉嫌在 OpenAI 高管会议室安装加密录音设备。</li><li>他通过公司内部工具查询会议室和领导会议位置，其配偶关联的聊天机器人账户搜索如何构建录音器并加密 <strong>SD 卡</strong>。</li><li>他留下的包内发现<strong>第二个录音设备</strong>和钱包身份证，FBI 介入调查。</li><li>OpenAI 称未发现模型权重或源代码泄露，但强调此案关乎<strong>国家安全</strong>。</li></ul><p class="disc"><strong>💬 讨论</strong> HN 评论区聚焦于间谍手法业余（用公共聊天机器人查教程、留身份证）与 OpenAI 借机营销自家模型的矛盾，同时讨论是否涉及国家支持。</p><div class="tags"><span class="tag">AI 安全</span><span class="tag">内部威胁</span><span class="tag">企业间谍</span></div><div class="topc"><div class="topc-meta">🔥 回复最多的评论 · simonw · 29 回复</div><p>These are not very smart spies:</p><p>&gt; A chatbot account tied to Alfozan’s spouse, which shared identifiers with his own account, submitted prompts between Sept. 24 and Sept. 30 about building, installing, obscuring, and remotely accessing a recording device, prosecutors said. Queries included how to “build a continuous audio recorder” and “encrypt the SD card,” prosecutors claimed. On Sept. 27 and 28, the account asked about the specific device that was later found, including its unique MAC address.</p></div></div></article>
+<article class="card"><div class="head"><span class="rank">10</span><h2><a href="https://www.pi.website/blog/api-beta" target="_blank" rel="noopener">Physical Intelligence API Beta: Frontier Models for Every Robot</a></h2></div><p class="title-tr">Physical Intelligence API 测试版：面向所有机器人的前沿模型</p><div class="meta">▲ 48 分 · modeless · <a href="https://news.ycombinator.com/item?id=50079437" target="_blank" rel="noopener">0 评论</a></div><div class="actions"><button class="share-btn" type="button" data-share-index="9" data-wait="生成中..." data-done="已生成" data-fail="生成失败">分享卡片</button></div><div class="body"><p class="summary">10 月 13 日，Physical Intelligence 开放 Pi API 测试版，开发者上传机器人演示数据即可微调其基础模型并托管推理，早期部署已覆盖日本、瑞士、美国等真实场景。</p><p class="context"><strong>🧭 联系你的知识背景</strong> 你可以把 Pi API 看作机器人领域的“上传数据、托管微调与推理”云服务，相当于把模型训练循环封装成 API，省去自建算力和数据管道。</p><ul class="kp"><li><strong>Physical Intelligence 开放 Pi API 测试版</strong>，开发者上传数据即可微调并托管推理机器人模型。</li><li>基础模型 <strong>π0 和 π0.5</strong> 提供物理知识底座，称可大幅减少适配新任务、环境或机器人所需的数据与工作量。</li><li>早期合作部署覆盖<strong>日本、瑞士、美国</strong>等地的真实任务，多数通过云托管推理完成。</li><li>API 让开发者自主跑通“采演示—训练—测试—按失败再采数”的迭代闭环，降低实用自主化的基础设施门槛。</li></ul><div class="tags"><span class="tag">机器人基础模型</span><span class="tag">API 商业化</span><span class="tag">云端推理</span></div></div></article>
+</div></main>
+<footer>generated 2026-10-14 04:49 UTC · hn-digest agent</footer>
+<script type="application/json" id="share-card-data">[{"rank": 1, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "Gemini 4 Argon", "titleTranslation": "", "summary": "Google DeepMind 发布 Gemini 4 Argon，在科学、机器人、网络安全等复杂任务中达到前沿水平；该模型帮助 Chrome 团队重构约 600 万行代码，将数月工作压缩至数周，并新增 100 万 token 输出窗口。", "keyPoints": ["Gemini 4 Argon 发布，Google 称其在前沿科学、数学、机器人、网络安全任务上达到顶尖水平。", "协助 Chrome 团队完成 约 600 万行代码架构重构，数月工程压缩至数周，消除一类浏览器崩溃。", "新增 100 万 token 输出窗口，可单次生成完整数学证明、合规审计或全库代码重构。"], "discussion": "HN 用户普遍认为它在非编码推理、写作和性价比上明显进步，但对视觉转 HTML 等子任务仍不如 Opus 5.5，且发布似乎受容量限制。", "tags": ["LLM 前沿模型", "代码自动重构", "多模态推理"], "score": 1134, "comments": 818, "by": "737max", "url": "https://deepmind.google/models/gemini/", "hnUrl": "https://news.ycombinator.com/item?id=50073879"}, {"rank": 2, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "Ledger confirms spy chip implant behind wallet crypto thefts", "titleTranslation": "Ledger 确认间谍芯片植入是钱包加密资产失窃的幕后原因", "summary": "Ledger 确认部分经马来西亚经销商 CryptoBilis 售出的硬件钱包被加装间谍芯片，可截取屏幕和按键来窃取助记词，并通过 eSIM 外传；官方称受影响数量有限，建议相关用户转移资产。这使硬件钱包供应链攻击从理论变成现实。", "keyPoints": ["Ledger 确认至少一台经东南亚经销商 CryptoBilis 售出的设备被植入未授权硬件后门。", "恶意电路截取屏幕显示和按键输入以提取助记词，并通过 eSIM LTE 外传，核心安全芯片未被破解。", "研究人员在 Ledger Nano X 上发现两个变种，来自马来西亚和日本非官方渠道，攻击者用更小电池或屏幕下方空间容纳植入物。"], "discussion": "HN 评论主流观点认为，这证明硬件钱包供应链攻击已从理论变为现实，单一设备自托管不可靠；多人建议跨厂商多签名（需要多台设备共同授权）或检查物理完整性。", "tags": ["硬件钱包安全", "供应链攻击", "加密货币盗窃"], "score": 551, "comments": 382, "by": "thm", "url": "https://www.bleepingcomputer.com/news/security/ledger-confirms-hardware-wallet-spy-implant-behind-crypto-thefts/", "hnUrl": "https://news.ycombinator.com/item?id=50054092"}, {"rank": 3, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "Redesigning source control at Anthropic", "titleTranslation": "Anthropic 重新设计源代码控制", "summary": "Anthropic 因 AI 生成代码导致每日合并量从 2,500 次飙升至 30,000 次，自研集中式版本控制系统 Scion，并在五个月内完成从 git 的迁移，应对单一代码库 100 GB 历史与海量检出压力。", "keyPoints": ["每日合并代码量从 2026 年 5 月的 2,500 次 增至 9 月的 30,000 次，git 架构成为瓶颈。", "自研 Scion 版本控制系统，定位为面向始终在线 AI 客户端和 CI 任务的集中式服务，而非分布式离线仓库。", "主分支历史接近 100 GB，每日约 2,500 万次 CI 检出；此前靠数百个内部 git 镜像支撑。"], "discussion": "HN 评论主要质疑：不到 2,500 名工程师却每天合并数万次代码变更、缺乏人工监督，是否会导致大量隐性缺陷；也有人认为 Anthropic 能内部使用更强模型，是其他公司难以复制的优势。", "tags": ["源代码管理", "AI 软件工程", "基础设施扩展"], "score": 633, "comments": 605, "by": "Philpax", "url": "https://www.anthropic.com/engineering/redesigning-source-control", "hnUrl": "https://news.ycombinator.com/item?id=50073633"}, {"rank": 4, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "I built a tool to track what AI leaders say and how their views change on video", "titleTranslation": "我做了个工具，追踪 AI 领袖在视频中说了什么以及他们的观点如何变化", "summary": "该工具每日追踪 20 位 AI 领袖的访谈、播客和演讲，自动生成摘要并链接原视频时间点；特色是“What changed”对比同主题前后发言，例如 Sam Altman 在 8 个月内从“算力过剩”改口“永远短缺”。单条处理成本约 1 美分，使大规模追踪经济上可行。", "keyPoints": ["自动追踪 20 位 AI 领袖的访谈、播客与演讲，只保留本人实际发言并链接原视频时间点", "“What changed” 可对比同一人前后同主题发言，例如 Sam Altman 从“算力过剩”改口“永远短缺”", "单条转录与摘要的模型处理成本约 1 美分，让大规模追踪历史发言在经济上可行"], "discussion": "HN 评论区既认可追踪观点变化的研究价值，也集中批评说话人归因不可靠、注册门槛和 AI 领袖不如政客重要。", "tags": ["AI 转录", "说话人识别", "人物观点追踪"], "score": 47, "comments": 27, "by": "gcsydney", "url": "https://blumify.io/people", "hnUrl": "https://news.ycombinator.com/item?id=50081151"}, {"rank": 5, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "Is 'Attention' the Essence of Intelligence?", "titleTranslation": "注意力是智能的本质吗？", "summary": "注意力机制始于2014年Bahdanau的翻译实验，2017年Google的Transformer论文《Attention Is All You Need》被引超25万次，催生大语言模型；文章称预测下一个词是“AI-complete”，解决它等于实现通用智能。", "keyPoints": ["2014年Bahdanau提出注意力机制，让神经网络翻译长句与短句一样好，解决了固定记忆瓶颈。", "Google 2017年Transformer论文《Attention Is All You Need》被引超25万次，成为大语言模型的核心架构。", "语言建模（预测下一个词）被称为AI-complete：翻译、算术、事实查询等都是其子任务，解决它约等于实现通用智能。"], "discussion": "HN评论区普遍质疑将“注意力”拟人化，分歧在于智能本质究竟是注意力、模式识别还是规模化。", "tags": ["注意力机制", "大语言模型", "语言建模"], "score": 22, "comments": 6, "by": "bcaulfield", "url": "https://www.quantamagazine.org/is-attention-the-essence-of-intelligence-20261012/", "hnUrl": "https://news.ycombinator.com/item?id=50081930"}, {"rank": 6, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "I posted to HN, and then my website was flooded with AI bot traffic", "titleTranslation": "我发到 Hacker News（HN）后，我的网站被 AI 机器人流量淹没", "summary": "作者发布到 Hacker News 后网站变慢，日志显示近一半流量来自某个 AI 摘要服务，每分钟多次请求；另有 ClaudeBot、OpenAI 爬虫和漏洞扫描。作者封禁、加 robots.txt 和限流，并优化基础设施。", "keyPoints": ["近一半流量来自某个 AI 摘要服务，该服务每分钟多次查询网站内容。", "作者通过 NGINX 聚合日志定位到单一滥用者并封禁其访问。", "ClaudeBot、OpenAI bot 和漏洞扫描器也出现在流量中，有人尝试访问 WordPress 路径。"], "discussion": "HN 评论区普遍认同 AI 爬虫和恶意流量已泛滥，需主动封禁主要云服务商 IP 或部署人机验证；但有人对公开对抗手段（如 zipbomb）后悔，因为反而招来更多攻击。", "tags": ["AI 爬虫滥用", "网站性能优化", "robots.txt 限流"], "score": 293, "comments": 160, "by": "sammy0910", "url": "https://www.sammystraus.com/#i-posted-to-hn-and-then-my-website-was-flooded-with-ai-bot-traffic", "hnUrl": "https://news.ycombinator.com/item?id=50073221"}, {"rank": 7, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "Show HN: Pulse Local, a Mac budgeting app whose AI models run on your machine", "titleTranslation": "Show HN: Pulse Local，一款 AI 模型在本地运行的 Mac 预算应用", "summary": "Pulse Local 是 Mac 本地预算应用，导入银行 CSV，用微调 Qwen3 0.6B 解析问题、代码算账、4B 模型复查，错误率降至约 1%；本地模式零账户、零遥测，连接模式经 Plaid 同步美国银行、Sync Pass 每年 29 美元。", "keyPoints": ["Pulse Local 本地运行预算问答，无账户、无遥测、无崩溃日志上传。", "微调 Qwen3 0.6B 解析问题，4B 检查模型复核，错误率从约 20% 降至 5/494。", "Sync Pass 每年 29 美元，经 Plaid（银行账户同步服务）同步美国银行，交易数据不落盘存储。"], "discussion": "评论区认可本地无网络方向，但质疑 CSV 导入易用性、Plaid 被黑风险，以及为何不基于 Actual Budget 做插件。", "tags": ["本地 AI 推理", "个人理财应用", "小模型微调"], "score": 82, "comments": 48, "by": "niztk", "url": "https://pulseos.finance", "hnUrl": "https://news.ycombinator.com/item?id=50080275"}, {"rank": 8, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "PostEra (YC W20) Is Hiring AI Researchers for Drug Discovery", "titleTranslation": "PostEra（YC W20）招聘药物发现 AI 研究员", "summary": "PostEra 用其 AI 药物化学平台 Proton 推进女性健康与生育管线，已提名多个临床候选药物；与辉瑞、安进达成累计超 10 亿美元合作。此次招聘聚焦 agentic science，用 agentic 系统自动建模生化过程并辅助药物发现决策。", "keyPoints": ["PostEra 已累计达成超 10 亿美元 AI 合作，含与辉瑞、安进的 4 项多年协议。", "内部管线专注女性健康和生育，已提名多个临床候选药物。", "招聘岗位要求开发 agentic science，用 agentic 系统自动构建生化机制模型并分析生物数据。"], "discussion": "", "tags": ["AI药物发现", "agentic systems", "初创招聘"], "score": 1, "comments": 0, "by": "morraa", "url": "https://jobs.lever.co/postera/c7d50a36-db0a-4574-bfe4-8700b74a22c0", "hnUrl": "https://news.ycombinator.com/item?id=50078686"}, {"rank": 9, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "OpenAI engineer arrested in bugging of executive conference room", "titleTranslation": "OpenAI 工程师因在高管会议室安装窃听设备被捕", "summary": "沙特籍 OpenAI 工程师 Abdullrahman Alfozan 被控在旧金山总部高管会议室藏匿加密录音设备，最高面临 5 年监禁和 25 万美元罚款。他通过公司工具查询会议安排，并用配偶关联的聊天机器人搜索如何构建和加密录音器，FBI 与 OpenAI 联合调查后将其逮捕。", "keyPoints": ["Abdullrahman Alfozan 被逮捕，涉嫌在 OpenAI 高管会议室安装加密录音设备。", "他通过公司内部工具查询会议室和领导会议位置，其配偶关联的聊天机器人账户搜索如何构建录音器并加密 SD 卡。", "他留下的包内发现第二个录音设备和钱包身份证，FBI 介入调查。"], "discussion": "HN 评论区聚焦于间谍手法业余（用公共聊天机器人查教程、留身份证）与 OpenAI 借机营销自家模型的矛盾，同时讨论是否涉及国家支持。", "tags": ["AI 安全", "内部威胁", "企业间谍"], "score": 482, "comments": 418, "by": "forthwall", "url": "https://sfstandard.com/2026/10/13/openai-engineer-arrested-alleged-bugging-executive-conference-room/", "hnUrl": "https://news.ycombinator.com/item?id=50078141"}, {"rank": 10, "digestTitle": "Hacker News 每日热榜", "date": "2026-10-14", "pointsLabel": "分", "commentsLabel": "评论", "title": "Physical Intelligence API Beta: Frontier Models for Every Robot", "titleTranslation": "Physical Intelligence API 测试版：面向所有机器人的前沿模型", "summary": "10 月 13 日，Physical Intelligence 开放 Pi API 测试版，开发者上传机器人演示数据即可微调其基础模型并托管推理，早期部署已覆盖日本、瑞士、美国等真实场景。", "keyPoints": ["Physical Intelligence 开放 Pi API 测试版，开发者上传数据即可微调并托管推理机器人模型。", "基础模型 π0 和 π0.5 提供物理知识底座，称可大幅减少适配新任务、环境或机器人所需的数据与工作量。", "早期合作部署覆盖日本、瑞士、美国等地的真实任务，多数通过云托管推理完成。"], "discussion": "", "tags": ["机器人基础模型", "API 商业化", "云端推理"], "score": 48, "comments": 0, "by": "modeless", "url": "https://www.pi.website/blog/api-beta", "hnUrl": "https://news.ycombinator.com/item?id=50079437"}]</script>
+
+<script>
+(() => {
+  const source = document.getElementById("share-card-data");
+  const cards = source ? JSON.parse(source.textContent || "[]") : [];
+  const fontStack = '-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif';
+  const monoStack = 'ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace';
+
+  function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const chars = Array.from(String(text || ""));
+    let line = "";
+    let lines = 0;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i] === "\n" ? " " : chars[i];
+      const next = line + ch;
+      if (line && ctx.measureText(next).width > maxWidth) {
+        lines += 1;
+        const finalLine = lines === maxLines && i < chars.length ? line.trimEnd() + "..." : line;
+        ctx.fillText(finalLine, x, y);
+        if (lines >= maxLines) return y + lineHeight;
+        y += lineHeight;
+        line = ch.trimStart();
+      } else {
+        line = next;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y);
+      y += lineHeight;
+    }
+    return y;
+  }
+
+  function slug(text) {
+    return String(text || "hn-digest").toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72) || "hn-digest";
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+  }
+
+  function renderCard(data) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+    const pad = 78;
+    ctx.fillStyle = "#FCFCFA";
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#FF6600";
+    ctx.fillRect(0, 0, 18, H);
+    ctx.fillStyle = "#FFF1E8";
+    ctx.fillRect(18, 0, 150, H);
+
+    ctx.fillStyle = "#FF6600";
+    ctx.font = `700 30px ${monoStack}`;
+    ctx.fillText(`#${String(data.rank || "").padStart(2, "0")}`, pad, 104);
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 26px ${fontStack}`;
+    ctx.fillText(`${data.digestTitle || "HN Digest"} · ${data.date || ""}`, 210, 104);
+
+    let y = 190;
+    ctx.fillStyle = "#1B1B1B";
+    ctx.font = `760 54px ${fontStack}`;
+    y = drawWrapped(ctx, data.title, pad, y, W - pad * 2, 66, 4) + 12;
+
+    if (data.titleTranslation) {
+      ctx.fillStyle = "#6F6F68";
+      ctx.font = `500 32px ${fontStack}`;
+      y = drawWrapped(ctx, data.titleTranslation, pad, y, W - pad * 2, 44, 2) + 30;
+    } else {
+      y += 20;
+    }
+
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 27px ${fontStack}`;
+    ctx.fillText(
+      `▲ ${data.score || 0} ${data.pointsLabel || "points"} · ${data.by || "anon"} · ${data.comments || 0} ${data.commentsLabel || "comments"}`,
+      pad,
+      y
+    );
+    y += 64;
+
+    if (data.summary) {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `520 34px ${fontStack}`;
+      y = drawWrapped(ctx, data.summary, pad, y, W - pad * 2, 48, 5) + 26;
+    }
+
+    const points = Array.isArray(data.keyPoints) ? data.keyPoints.slice(0, 3) : [];
+    ctx.font = `500 30px ${fontStack}`;
+    for (const point of points) {
+      ctx.fillStyle = "#FF6600";
+      ctx.beginPath();
+      ctx.arc(pad + 9, y - 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1B1B1B";
+      y = drawWrapped(ctx, point, pad + 30, y, W - pad * 2 - 30, 42, 2) + 10;
+    }
+
+    if (data.discussion && y < H - 260) {
+      y += 12;
+      ctx.fillStyle = "#FFF1E8";
+      ctx.fillRect(pad, y - 36, W - pad * 2, 146);
+      ctx.fillStyle = "#1B1B1B";
+      ctx.font = `500 27px ${fontStack}`;
+      drawWrapped(ctx, data.discussion, pad + 26, y, W - pad * 2 - 52, 38, 3);
+    }
+
+    const tags = Array.isArray(data.tags) ? data.tags.filter(Boolean).slice(0, 3) : [];
+    let tagX = pad;
+    const tagY = H - 170;
+    ctx.font = `600 24px ${fontStack}`;
+    for (const tag of tags) {
+      const label = `#${tag}`;
+      const tagW = Math.min(ctx.measureText(label).width + 34, W - pad * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.strokeStyle = "#E7E6DF";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, tagX, tagY - 31, tagW, 48, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#6F6F68";
+      ctx.fillText(label, tagX + 17, tagY);
+      tagX += tagW + 14;
+    }
+
+    ctx.strokeStyle = "#E7E6DF";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pad, H - 104);
+    ctx.lineTo(W - pad, H - 104);
+    ctx.stroke();
+    ctx.fillStyle = "#6F6F68";
+    ctx.font = `500 24px ${fontStack}`;
+    ctx.fillText("news.ycombinator.com · generated by hn-digest", pad, H - 58);
+    return canvas;
+  }
+
+  async function shareCard(button, data) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.wait || original;
+    try {
+      const canvas = renderCard(data);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.96));
+      if (!blob) throw new Error("Canvas export failed");
+      const file = new File([blob], `${slug(data.title)}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: data.title, text: data.summary || data.title });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      button.textContent = button.dataset.done || original;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1600);
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        button.textContent = original;
+      } else {
+        console.error(err);
+        button.textContent = button.dataset.fail || original;
+      }
+      button.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-share-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const data = cards[Number(button.dataset.shareIndex)];
+      if (data) shareCard(button, data);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
